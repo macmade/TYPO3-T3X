@@ -1,0 +1,32 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sDEF>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:tagcloud_macmade/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<searchpage>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:tagcloud_macmade/locallang_db.php:tt_content.flexform_pi1.s_def.searchpage</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>1</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</searchpage>
+				</el>
+			</ROOT>
+		</sDEF>
+	</sheets>
+</T3DataStructure>

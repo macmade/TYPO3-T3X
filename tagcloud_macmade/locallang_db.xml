@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'tagcloud_macmade'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">TagCloud / macmade.net</label>
+			<label index="tt_content.flexform_pi1.s_def">Main</label>
+			<label index="tt_content.flexform_pi1.s_def.searchpage">Search page</label>
+			<label index="tt_content.flexform_pi1.LGL.default">Default (set from TypoScript)</label>
+			<label index="tt_content.flexform_pi1.LGL.no">No</label>
+			<label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">TagCloud / macmade.net</label>
+			<label index="tt_content.flexform_pi1.s_def">Général</label>
+			<label index="tt_content.flexform_pi1.s_def.searchpage">Page de recherche</label>
+			<label index="tt_content.flexform_pi1.LGL.default">Par défaut (défini par TypoScript)</label>
+			<label index="tt_content.flexform_pi1.LGL.no">Non</label>
+			<label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
+		</languageKey>
+	</data>
+</T3locallang>
