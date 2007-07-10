@@ -26,76 +26,63 @@
  * A class to import swiss districts data from a web service.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.0
+ * @version     1.1
  */
  
  /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *      110:    public function __construct( $host = '', $port = '', $file = '' )
- *      123:    public function rewind
- *      133:    public function current
- *      143:    public function key
- *      153:    public function next
- *      163:    public function valid
- *      173:    private function _checkInfos
- *      184:    private function _fixHtmlEntities( $string )
- *      218:    public function getData
- *      336:    public function parseXml
- *      365:    public function setHost( $host )
- *      376:    public function setPort( $port )
- *      387:    public function setFile( $file )
- *      399:    public function getSockErrno
- *      409:    public function getSockErrstr
- *      419:    public function getResponseStatus
- *      429:    public function getResponseMsg
- *      439:    public function getResponseStatus
- *      449:    public function getResponseMsg
+ *       57:        fincal class tx_vdmunicipalities_import
+ *       97:        public function __construct( $wsdl = '', $soapOperation = '', $soapParameters = '', $xmlNodes = '' )
+ *      111:        public function rewind
+ *      121:        public function current
+ *      136:        public function key
+ *      151:        public function next
+ *      161:        public function valid
+ *      176:        private function _checkInfos
+ *      190:        public function getData
+ *      304:        public function parseXml
+ *      364:        public function setWsdl( $file )
+ *      375:        public function setSoapOperation( $name )
+ *      386:        public function setSoapParameters( $parameters )
+ *      397:        public function setXmlNodes( $nodes )
+ *      408:        public function getSimpleXmlExceptionCode
+ *      418:        public function getSimpleXmlExceptionMsg
+ *      428:        public function getSoapExceptionCode
+ *      438:        public function getSoapExceptionMsg
  * 
- *              TOTAL FUNCTIONS: 19
+ *              TOTAL FUNCTIONS: 17
  */
 
 final class tx_vdmunicipalities_import implements Iterator
 {
-    // The new line character for Unix sockets
-    const SOCK_NL                = "\r\n";
-    
-    // The socket object used to retrieve data from the web service
-    private $_socket             = NULL;
-    
-    // The error number from the socket
-    private $_socketErrno        = 0;
-    
-    // The error message from the socket
-    private $_socketErrstr       = '';
-    
-    // The HTTP status code from the response
-    private $_responseStatus     = 0;
-    
-    // The HTTP status message from the response
-    private $_responseStatusMsg  = 0;
-    
-    // The HTTP response headers
-    private $_responseHeaders    = array();
-    
-    // The host used for the connection
-    private $_host               = '';
-    
-    // The port used for the connection
-    private $_port               = 0;
-    
-    // The XML file to get
-    private $_file               = '';
-    
-    // The XML data
-    private $_data               = '';
-    
-    // The SimpleXML object
+    // SimpleXML object
     private $_xml                = NULL;
     
     // SimpleXML exception object
     private $_simpleXmlException = NULL;
     
+    // SOAP client object
+    private $_soapClient         = NULL;
+    
+    // SOAP exception object
+    private $_soapException      = NULL;
+    
+    // Location of the WSDL file
+    private $_wsdl               = '';
+    
+    // SOAP operation to use
+    private $_soapOperation      = '';
+    
+    // SOAP result
+    private $_soapResult         = array();
+    
+    // SOAP parameters to pass to the operation
+    private $_soapParameters     = array();
+    
+    // XML nodes to find the municipalities nodes
+    private $_xmlNodes           = array();
+        
     // Current position for the iterator methods
     private $_iteratorIndex      = 0;
     
@@ -107,12 +94,13 @@ final class tx_vdmunicipalities_import implements Iterator
      * @param   $file   string  The file to fetch
      * @return  NULL
      */
-    public function __construct( $host = '', $port = 0, $file = '' )
+    public function __construct( $wsdl = '', $soapOperation = '', $soapParameters = '', $xmlNodes = '' )
     {
-        $this->_host = ( string )$host;
-        $this->_port = ( int )$port;
-        $file        = ( string )$file;
-        $this->_file = ( substr( $file, 0, 1 ) != '/' ) ? '/' . $file : $file;
+        // Set properties
+        $this->_wsdl           = ( string )$wsdl;
+        $this->_soapOperation  = ( string )$soapOperation;
+        $this->_soapParameters = explode( ',', ( string )$soapParameters );
+        $this->_xmlNodes       = explode( ',', ( string )$xmlNodes );
     }
     
     /**
@@ -120,8 +108,8 @@ final class tx_vdmunicipalities_import implements Iterator
      * 
      * @return  NULL
      */
-    public function rewind() {
-        
+    public function rewind()
+    {
         $this->_iteratorIndex = 0;
     }
     
@@ -130,9 +118,14 @@ final class tx_vdmunicipalities_import implements Iterator
      * 
      * @return  SimpleXML   The municipality object
      */
-    public function current() {
+    public function current()
+    {
+        // Only process if XML response from SOAP has been processed
+        if( !is_object( $this->_xml ) ) {
+            return false;
+        }
         
-        return $this->_xml->xmlsql->canton->commune[ $this->_iteratorIndex ];
+        return $this->_xml->commune[ $this->_iteratorIndex ];
     }
     
     /**
@@ -140,9 +133,14 @@ final class tx_vdmunicipalities_import implements Iterator
      * 
      * @return  int     The municipality ID
      */
-    public function key() {
+    public function key()
+    {
+        // Only process if XML response from SOAP has been processed
+        if( !is_object( $this->_xml ) ) {
+            return false;
+        }
         
-        return ( int )$this->_xml->xmlsql->canton->commune[ $this->_iteratorIndex ][ 'no_com_can' ];
+        return ( int )$this->_xml->commune[ $this->_iteratorIndex ][ 'no_com_can' ];
     }
     
     /**
@@ -150,8 +148,8 @@ final class tx_vdmunicipalities_import implements Iterator
      * 
      * @return  NULL
      */
-    public function next() {
-        
+    public function next()
+    {
         $this->_iteratorIndex++;
     }
     
@@ -160,9 +158,14 @@ final class tx_vdmunicipalities_import implements Iterator
      * 
      * @return  boolean
      */
-    public function valid() {
+    public function valid()
+    {
+        // Only process if XML response from SOAP has been processed
+        if( !is_object( $this->_xml ) ) {
+            return false;
+        }
         
-        return isset( $this->_xml->xmlsql->canton->commune[ $this->_iteratorIndex ] );
+        return isset( $this->_xml->commune[ $this->_iteratorIndex ] );
     }
     
     /**
@@ -172,41 +175,10 @@ final class tx_vdmunicipalities_import implements Iterator
      */
     private function _checkInfos()
     {
-        return $this->_host && $this->_port && $this->_file;
-    }
-    
-    /**
-     * Converts HTML entities to their numerical equivalent
-     * 
-     * @param   $string string  The string to convert
-     * @return  string  The string with numeric HTML entities
-     */
-    private function _fixHtmlEntities( $string )
-    {
-        // Static function variables
-        static $translationTable;
-        static $search;
-        static $replace;
-        
-        // Checks if the translation table is already filled
-        if( !is_array( $translationTable ) ) {
-            
-            // Gets the HTML translation table for HTML entities
-            $translationTable = get_html_translation_table( HTML_ENTITIES );
-            
-            // Process each character
-            foreach( $translationTable as $char => $entity ) {
-                
-                // HTML entity to search for
-                $search[]  = $entity;
-                
-                // Replacement for the HTML entity
-                $replace[] = '&#' . ord( $char ) . ';';
-            }
-        }
-        
-        // Replace HTML entities
-        return str_replace( $search, $replace, $string );
+        return $this->_wsdl &&
+               $this->_soapOperation &&
+               count( $this->_soapParameters ) &&
+               count( $this->_xmlNodes );
     }
     
     /**
@@ -218,11 +190,6 @@ final class tx_vdmunicipalities_import implements Iterator
     public function getData()
     {
         // Reset some properties
-        $this->_socketErrno        = 0;
-        $this->_socketErrstr       = '';
-        $this->_responseStatus     = 0;
-        $this->_responseStatusMsg  = 0;
-        $this->_responseHeaders    = array();
         $this->_data               = '';
         $this->_xml                = NULL;
         $this->_simpleXmlException = NULL;
@@ -230,99 +197,100 @@ final class tx_vdmunicipalities_import implements Iterator
         // Checks the required properties
         if( $this->_checkInfos() ) {
             
-            // Opens a socket
-            $this->_socket = fsockopen(
-                $this->_host,
-                $this->_port,
-                $this->_socketErrno,
-                $this->_socketErrstr
-            );
-            
-            // Checks if the socket connection is valid
-            if( $this->_socket ) {
+            // SOAP client can produce excpetions
+            try {
                 
-                // Request for the file to get
-                $request = 'GET ' . $this->_file . ' HTTP/1.1' . self::SOCK_NL
-                         . 'Host:' . $this->_host . self::SOCK_NL
-                         . 'Connection: Close' . self::SOCK_NL . self::SOCK_NL;
+                // Creates a new SOAP client
+                $this->_soapClient = new SoapClient( $this->_wsdl );
                 
-                // Puts the request in the socket
-                fwrite( $this->_socket, $request );
-                
-                // Flags
-                $headersSent    = false;
-                $xmlDeclaration = false;
-                
-                // Gets the HTTP status from the response
-                $status = explode( ' ', fgets( $this->_socket ) );
-                
-                // First part is not needed (it should only say HTTP/x.x)
-                array_shift( $status );
-                
-                // HTTP status code
-                $this->_responseStatus    = array_shift( $status );
-                
-                // HTTP status message
-                $this->_responseStatusMsg = implode( ' ', $status );
-                
-                // Checks for a sucessfull response
-                if( $this->_responseStatus == '200' ) {
+                // Checks the number of parameters to pass to the operation
+                switch( count( $this->_soapParameters ) ) {
                     
-                    // Reads the response
-                    while( !feof( $this->_socket ) ) {
+                    case 1:
                         
-                        // Gets the current line
-                        $line = fgets( $this->_socket );
-                        
-                        // Checks for the end of the HTTP headers
-                        if( $line == self::SOCK_NL ) {
-                            
-                            // Sets the flag for headers and process next line
-                            $headersSent = true;
-                            continue;
-                        }
-                        
-                        // Checks if we are reading HTTP headers or HTTP body
-                        if( !$headersSent ) {
-                            
-                            // Gets and stores HTTP header parts
-                            $headerParts                                 = explode( ': ', $line );
-                            $this->_responseHeaders[ $headerParts[ 0 ] ] = $headerParts[ 1 ];
-                            
-                        } else {
-                            
-                            // Checks for the XML decaration
-                            if( strstr( $line, '<?xml' ) ) {
-                                
-                                // Checks if the XML declaration has already been declared
-                                // 
-                                if( $xmlDeclaration == false ) {
-                                    
-                                    // Sets the XML declaration flag
-                                    $xmlDeclaration = true;
-                                    
-                                } else {
-                                    
-                                    // Do not store additionnal XML declaration
-                                    // This would make the parser crash!
-                                    continue;
-                                }
-                            }
-                            
-                            // Decodes the HTML entities and stores the current line
-                            $this->_data .= html_entity_decode( $line, false, 'UTF-8' );
-                        }
-                    }
+                        $data = $this->_soapClient->{$this->_soapOperation}(
+                            $this->_soapParameters[ 0 ]
+                        );
+                        break;
                     
-                    // Closes the socket
-                    fclose( $this->_socket );
-                    return true;
+                    case 2:
+                        
+                        $data = $this->_soapClient->{$this->_soapOperation}(
+                            $this->_soapParameters[ 0 ],
+                            $this->_soapParameters[ 1 ]
+                        );
+                        break;
+                    
+                    case 3:
+                        
+                        $data = $this->_soapClient->{$this->_soapOperation}(
+                            $this->_soapParameters[ 0 ],
+                            $this->_soapParameters[ 1 ],
+                            $this->_soapParameters[ 2 ]
+                        );
+                        break;
+                    
+                    case 4:
+                        
+                        $data = $this->_soapClient->{$this->_soapOperation}(
+                            $this->_soapParameters[ 0 ],
+                            $this->_soapParameters[ 1 ],
+                            $this->_soapParameters[ 2 ],
+                            $this->_soapParameters[ 3 ]
+                        );
+                        break;
+                    
+                    case 5:
+                        
+                        $data = $this->_soapClient->{$this->_soapOperation}(
+                            $this->_soapParameters[ 0 ],
+                            $this->_soapParameters[ 1 ],
+                            $this->_soapParameters[ 2 ],
+                            $this->_soapParameters[ 3 ],
+                            $this->_soapParameters[ 4 ]
+                        );
+                        break;
                 }
                 
+                // Gets each line of the result string
+                $this->_soapResult = explode( chr( 10 ), $data );
+                
+            } catch( Exception $exception ) {
+                
+                // Stores the exception object
+                $this->_soapException = $exception;
                 return false;
             }
             
-            return false;
+            // XML declaration flag
+            $xmlDeclaration = false;
+            
+            // Process each line of the SOAP result to correct errors
+            foreach( $this->_soapResult as $index => $line ) {
+                
+                // Checks for the XML decaration
+                if( strstr( $line, '<?xml' ) ) {
+                    
+                    // Checks if the XML declaration has already been declared
+                    if( $xmlDeclaration == false ) {
+                        
+                        // Sets the XML declaration flag
+                        $xmlDeclaration = true;
+                        
+                    } else {
+                        
+                        // Do not store additionnal XML declaration
+                        // This would make the parser crash!
+                        unset( $this->_soapResult[ $index ] );
+                        continue;
+                    }
+                }
+                
+                // Decodes the HTML entities and stores the current line
+                $this->_soapResult[ $index ] = html_entity_decode( $line, false, 'UTF-8' );
+            }
+            
+            return true;
         }
         
         return false;
@@ -335,14 +303,45 @@ final class tx_vdmunicipalities_import implements Iterator
      */
     public function parseXml()
     {
-        // Checks for data from the socket
-        if( $this->_data ) {
+        // Checks for data from SOAP
+        if( count( $this->_soapResult ) ) {
             
             // SimpleXML can produce exceptions
             try {
                 
-                // Creates a new SimpleXMLElement with the data from the socket
-                $this->_xml = new SimpleXMLElement( $this->_data );
+                // Creates a new SimpleXMLElement with the data from SOAP
+                $xml = new SimpleXMLElement( implode( chr( 10 ), $this->_soapResult ) );
+                
+                // Checks the number of nodes
+                switch( count( $this->_xmlNodes ) ) {
+                    
+                    case 1:
+                        
+                        $this->_xml = $xml;
+                        break;
+                    
+                    case 2:
+                        
+                        $this->_xml = $xml->{$this->_xmlNodes[ 1 ]};
+                        break;
+                    
+                    case 3:
+                        
+                        $this->_xml = $xml->{$this->_xmlNodes[ 1 ]}->{$this->_xmlNodes[ 2 ]};
+                        break;
+                    
+                    case 4:
+                        
+                        $this->_xml = $xml->{$this->_xmlNodes[ 1 ]}->{$this->_xmlNodes[ 2 ]}->{$this->_xmlNodes[ 3 ]};
+                        break;
+                    
+                    case 5:
+                        
+                        $this->_xml = $xml->{$this->_xmlNodes[ 1 ]}->{$this->_xmlNodes[ 2 ]}->{$this->_xmlNodes[ 3 ]}->{$this->_xmlNodes[ 4 ]};
+                        break;
+                }
+                
+                return true;
                 
             } catch( Exception $exception ) {
                 
@@ -358,77 +357,47 @@ final class tx_vdmunicipalities_import implements Iterator
     }
     
     /**
-     * Sets the hostname used for the connection
+     * Sets the WSDL file to use
      * 
      * @return  boolean
      */
-    public function setHost( $host )
+    public function setWsdl( $file )
     {
-        $this->_host = ( string )$host;
+        $this->_wsdl = ( string )$file;
         return true;
     }
     
     /**
-     * Sets the port number used for the connection
+     * Sets the SOAP operation to call
      * 
      * @return  boolean
      */
-    public function setPort( $port )
+    public function setSoapOperation( $name )
     {
-        $this->_port = ( string )$port;
+        $this->_soapOperation = ( string )$name;
         return true;
     }
     
     /**
-     * Sets the file to get
+     * Sets the SOAP parameters that will be passed to the operation
      * 
      * @return  boolean
      */
-    public function setFile( $file )
+    public function setSoapParameters( $parameters )
     {
-        $file        = ( string )$file;
-        $this->_file = ( substr( $file, 0, 1 ) != '/' ) ? '/' . $file : $file;
+        $this->_soapParameters = explode( ',', ( string )$parameters );
         return true;
     }
     
     /**
-     * Gets the socket error number
+     * Sets the XML structure required to find the municipalities nodes
      * 
-     * @return  int The socket error number
+     * @return  boolean
      */
-    public function getSockErrno()
+    public function setXmlNodes( $nodes )
     {
-        return $this->_sockErrno;
-    }
-    
-    /**
-     * Gets the socket error message
-     * 
-     * @return  string  The socket error message
-     */
-    public function getSockErrstr()
-    {
-        return $this->_sockErrstr;
-    }
-    
-    /**
-     * Gets the HTTP status code
-     * 
-     * @return  int The HTTP status code
-     */
-    public function getResponseStatus()
-    {
-        return $this->_responseStatus;
-    }
-    
-    /**
-     * Gets the HTTP status message
-     * 
-     * @return  string  The HTTP status message
-     */
-    public function getResponseMsg()
-    {
-        return $this->_responseStatusMsg;
+        $this->_xmlNodes = explode( ',', ( string )$nodes );
+        return true;
     }
     
     /**
@@ -449,5 +418,25 @@ final class tx_vdmunicipalities_import implements Iterator
     public function getSimpleXmlExceptionMsg()
     {
         return $this->_simpleXmlException->getMessage();
+    }
+    
+    /**
+     * Gets the SOAP exception number
+     * 
+     * @return  int The SOAP exception number
+     */
+    public function getSoapExceptionCode()
+    {
+        return $this->_soapException->getCode();
+    }
+    
+    /**
+     * Gets the SOAP exception message
+     * 
+     * @return  string  The SOAP exception message
+     */
+    public function getSoapExceptionMsg()
+    {
+        return $this->_soapException->getMessage();
     }
 }

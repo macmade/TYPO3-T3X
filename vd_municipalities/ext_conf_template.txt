@@ -1,8 +1,11 @@
-# cat=basic//0; type=string+; label=Host: The hostname for the web service connection.
-host =
+# cat=basic//0; type=string+; label=WSDL: The URL of the WSDL file.
+wsdl = http://ex2000.etat-de-vaud.ch/ex2000/service1.asmx?WSDL
 
-# cat=basic//1; type=string+; label=Port: The port for the web service connection.
-port = 80
+# cat=basic//1; type=string+; label=SOAP operation: The name of the SOAP operation to use.
+soapOperation = communes
 
-# cat=basic//2; type=string+; label=File: The XML file to get.
-file =
+# cat=basic//2; type=string+; label=SOAP parameters: The parameters to pass to the SOAP operations (comma list - maximum 5 items).
+soapParams = 22
+
+# cat=basic//3; type=string+; label=XML nodes: The XML node hierarchy required to find the municipalities nodes (comma list - maximum 5 items).
+xmlNodes = string,xmlsql,canton

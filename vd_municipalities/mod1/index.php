@@ -265,9 +265,10 @@ class  tx_vdmunicipalities_module1 extends t3lib_SCbase
         $htmlCode[] = $this->doc->spacer( 10 );
         
         // Checks extension configuration
-        if( isset( $this->extConf[ 'host' ] ) && $this->extConf[ 'host' ] &&
-            isset( $this->extConf[ 'port' ] ) && $this->extConf[ 'port' ] &&
-            isset( $this->extConf[ 'file' ] ) && $this->extConf[ 'file' ] ) {
+        if( isset( $this->extConf[ 'wsdl' ] ) && $this->extConf[ 'wsdl' ] &&
+            isset( $this->extConf[ 'soapOperation' ] ) && $this->extConf[ 'soapOperation' ] &&
+            isset( $this->extConf[ 'soapParams' ] ) && $this->extConf[ 'soapParams' ] &&
+            isset( $this->extConf[ 'xmlNodes' ] ) && $this->extConf[ 'xmlNodes' ] ) {
             
             // Adds the title
             $sectionTitle = $LANG->getLL( 'import.title' );
@@ -307,9 +308,10 @@ class  tx_vdmunicipalities_module1 extends t3lib_SCbase
         global $LANG;
         
         // Set connection informations
-        $this->import->setHost( $this->extConf[ 'host' ] );
-        $this->import->setPort( $this->extConf[ 'port' ] );
-        $this->import->setFile( $this->extConf[ 'file' ] );
+        $this->import->setWsdl( $this->extConf[ 'wsdl' ] );
+        $this->import->setSoapOperation( $this->extConf[ 'soapOperation' ] );
+        $this->import->setSoapParameters( $this->extConf[ 'soapParams' ] );
+        $this->import->setXmlNodes( $this->extConf[ 'xmlNodes' ] );
         
         // Try to get data from web service
         if( $this->import->getData() ) {
