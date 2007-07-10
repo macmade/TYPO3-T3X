@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'vd_municipalities_search'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">VD / Municipalities search</label>
+			<label index="pi1_plus_wiz_description">Adds the VD / Municipalities search plugin to the page.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">VD / Recherche par commune</label>
+			<label index="pi1_plus_wiz_description">Ajoute le plugin VD / Recherche par commune à la page.</label>
+		</languageKey>
+	</data>
+</T3locallang>

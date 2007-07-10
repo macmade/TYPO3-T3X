@@ -1,0 +1,138 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'VD / Municipalities Search'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - VD / Municipalities Search
+ */
+plugin.tx_vdmunicipalitiessearch_pi1 {
+    
+    // TypoLink configuration for pages links
+    pagesTypoLink {
+    }
+    
+    // Institution link text
+    // (possible values are 'page' or 'institution')
+    institutionLinkText = page
+    
+    // Exceptions
+    exceptions {
+        
+        10.string         = lausanne
+        10.municipalityId = 132
+        
+        20.string         = morges
+        20.municipalityId = 175
+        
+        30.string         = nyon
+        30.municipalityId = 246
+        
+        40.string         = vevey
+        40.municipalityId = 348
+        
+        50.string         = yverdon
+        50.municipalityId = 387
+    }
+    
+    // Fatal exceptions
+    fatalExceptions {
+        
+        10.string  = vaud
+        10.message (
+            In order to use this search engine, you'll have to specify the name of a <strong>municipality</strong>, and not the name of a state.<br />NB: There's a municipality called "Le Vaud".
+        )
+    }
+    
+    // Default CSS styles
+    _CSS_DEFAULT_STYLE (
+        
+        .tx-vdmunicipalitiessearch-pi1 H2 {
+            color: #336CA6;
+            background-color: inherit;
+        }
+        .tx-vdmunicipalitiessearch-pi1 A, .tx-vdmunicipalitiessearch-pi1 A:link {
+            color: #336CA6;
+            background-color: inherit;
+        }
+        .tx-vdmunicipalitiessearch-pi1 A:visited {
+            color: #A2C3EB;
+            background-color: inherit;
+        }
+        .tx-vdmunicipalitiessearch-pi1 A:hover, .tx-vdmunicipalitiessearch-pi1 A:active {
+            color: #FF9F33;
+            background-color: inherit;
+        }
+        .tx-vdmunicipalitiessearch-pi1-searchbox {
+            margin-bottom: 10px;
+            border: solid 1px #A2C3EB;
+            padding: 5px;
+            background-color: #F6F9FD;
+            color: inherit;
+        }
+        #tx_vdmunicipalitiessearch_pi1-sword {
+            border: solid 1px #A2C3EB;
+            padding: 5px;
+            background-color: #FFFFFF;
+            color: #336CA6;
+        }
+        #tx_vdmunicipalitiessearch_pi1-submit {
+            border: solid 1px #336CA6;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            background-color: #336CA6;
+            color: #FFFFFF;
+            background-image: url( "/typo3conf/ext/vd_municipalities_search/res/magnifier.gif" );
+            background-repeat: no-repeat;
+            background-position: 5px 5px;
+        }
+        .tx-vdmunicipalitiessearch-pi1-noResult, .tx-vdmunicipalitiessearch-pi1-error {
+            margin-bottom: 10px;
+            border: solid 1px #EBA2BD;
+            padding: 5px;
+            background-color: #FDF6F8;
+            color: #FF0000;
+            font-weight: bold;
+        }
+        .tx-vdmunicipalitiessearch-pi1-municipalitiesList, .tx-vdmunicipalitiessearch-pi1-pageList {
+            margin-bottom: 10px;
+            border: solid 1px #A2C3EB;
+            background-color: #F6F9FD;
+            color: inherit;
+            list-style-image: url( "/typo3conf/ext/vd_municipalities_search/res/bullet.gif" );
+        }
+        .tx-vdmunicipalitiessearch-pi1-municipalitiesList LI, .tx-vdmunicipalitiessearch-pi1-pageList LI {
+            margin: 5px;
+        }
+        .tx-vdmunicipalitiessearch-pi1-municipalitiesList LI A, .tx-vdmunicipalitiessearch-pi1-pageList LI A {
+            font-weight: bold;
+        }
+    )
+}

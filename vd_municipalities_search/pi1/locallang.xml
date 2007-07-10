@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_vdgeomap_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="searchBox-submit">search</label>
+			<label index="searchBox-sword-default">municipality</label>
+			<label index="noResult">No page was found</label>
+			<label index="results-header">Search results</label>
+			<label index="sword-title">please enter the name of a municipality</label>
+			<label index="submit-title">click here to search</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="searchBox-submit">valider</label>
+			<label index="searchBox-sword-default">commune</label>
+			<label index="noResult">Aucune page n'a été trouvée</label>
+			<label index="results-header">Résultats de la recherche</label>
+			<label index="sword-title">veuillez entrer le nom d'une commune</label>
+			<label index="submit-title">cliquez ici pour effectuer une recherche</label>
+		</languageKey>
+	</data>
+</T3locallang>

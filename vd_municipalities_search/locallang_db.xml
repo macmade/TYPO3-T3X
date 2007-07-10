@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'vd_municipalities_search'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">VD / Municipalities Search</label>
+			<label index="pages.tx_vdmunicipalitiessearch_institution">Institution type</label>
+			<label index="pages.tx_vdmunicipalitiessearch_municipalities">Select municipalities</label>
+			<label index="tx_vdmunicipalitiessearch_institutions">VD / Institution</label>
+			<label index="tx_vdmunicipalitiessearch_institutions.name">Name</label>
+			<label index="tt_content.flexform_pi1.s_def">Main</label>
+			<label index="tt_content.flexform_pi1.s_def.municipality">Municipality</label>
+			<label index="tt_content.flexform_pi1.s_def.institutions">Select institutions</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">VD / Recherche par commune</label>
+			<label index="pages.tx_vdmunicipalitiessearch_institution">Type d'institution</label>
+			<label index="pages.tx_vdmunicipalitiessearch_municipalities">Sélection des communes</label>
+			<label index="tx_vdmunicipalitiessearch_institutions">VD / Institution</label>
+			<label index="tx_vdmunicipalitiessearch_institutions.name">Nom</label>
+			<label index="tt_content.flexform_pi1.s_def.municipality">Commune</label>
+			<label index="tt_content.flexform_pi1.s_def.institutions">Sélection des institutions</label>
+		</languageKey>
+	</data>
+</T3locallang>
