@@ -1,0 +1,59 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Typo3 Code Snippets / macmade.net'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Code Snippets
+ */
+
+plugin.tx_snippetsmacmade_pi1 {
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-snippetsmacmade-pi1 {
+			color: inherit;
+			background-color: #EEEEEE;
+			border: dashed 1px #666666;
+			padding: 5px;
+			margin: 5px;
+			overflow: scroll;
+		}
+		.tx-snippetsmacmade-pi1 LI {
+			color: inherit;
+			margin-top: 1em;
+			color: #1DA648;
+			background-color: #FFFFFF;
+			font-family: monospace;
+			white-space: pre;
+			margin: 0px;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	)
+}
