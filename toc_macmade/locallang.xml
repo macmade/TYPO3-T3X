@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'toc_macmade'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Table of contents</label>
+			<label index="pi1_plus_wiz_description">Adds a table of contents to the page.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">Table des matières</label>
+			<label index="pi1_plus_wiz_description">Ajoute une table des matières à la page.</label>
+		</languageKey>
+	</data>
+</T3locallang>

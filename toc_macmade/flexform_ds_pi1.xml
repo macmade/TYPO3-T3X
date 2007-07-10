@@ -1,0 +1,51 @@
+<T3DataStructure>
+	<meta type="array">
+		<langChildren type="integer">0</langChildren>
+		<langDisable type="integer">1</langDisable>
+	</meta>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<exclude_content>
+				<TCEforms>
+					<label>LLL:EXT:toc_macmade/locallang_db.php:tt_content.flexform_pi1.exclude_content</label>
+					<config>
+						<type>select</type>
+						<items>
+							<numIndex index="0">
+								<numIndex index="0">BLANK</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+						</items>
+						<size>10</size>
+						<renderMode>singlebox</renderMode>
+						<minitems>0</minitems>
+						<maxitems>100</maxitems>
+						<iconsInOptionTags>1</iconsInOptionTags>
+						<itemsProcFunc>tx_tocmacmade_tca->contentElements</itemsProcFunc>
+					</config>
+				</TCEforms>
+			</exclude_content>
+			<exclude_type>
+				<TCEforms>
+					<label>LLL:EXT:toc_macmade/locallang_db.php:tt_content.flexform_pi1.exclude_type</label>
+					<config>
+						<type>select</type>
+						<items>
+							<numIndex index="0">
+								<numIndex index="0">BLANK</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+						</items>
+						<size>10</size>
+						<renderMode>singlebox</renderMode>
+						<minitems>0</minitems>
+						<maxitems>100</maxitems>
+						<iconsInOptionTags>1</iconsInOptionTags>
+						<itemsProcFunc>tx_tocmacmade_tca->contentTypes</itemsProcFunc>
+					</config>
+				</TCEforms>
+			</exclude_type>
+		</el>
+	</ROOT>
+</T3DataStructure>

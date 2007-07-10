@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'toc_macmade'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Table of contents</label>
+			<label index="tt_content.flexform_pi1.exclude_content">Exclude content elements</label>
+			<label index="tt_content.flexform_pi1.exclude_type">Exclude content types</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.flexform_pi1.exclude_content">Exclure les éléments de contenu</label>
+			<label index="tt_content.flexform_pi1.exclude_type">Exclure les types de contenu</label>
+		</languageKey>
+	</data>
+</T3locallang>
