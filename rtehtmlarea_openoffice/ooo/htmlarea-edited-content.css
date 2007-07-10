@@ -1,0 +1,36 @@
+/* Content area */
+.htmlarea-content-body {
+	background-color: #FFFFFF;
+	color: #333333;
+	margin: 0px;
+	padding: 5px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 11px;
+	line-height: normal;
+	text-decoration: none;
+	font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif;
+}
+
+/* Table borders */
+.htmlarea-showtableborders {
+	border: solid 1px #FF5500 ! important;
+	padding: 5px;
+}
+.htmlarea-showtableborders td, .htmlarea-showtableborders th {
+	border: dashed 1px #FF5500 ! important;
+	padding: 5px;
+}
+
+/* Acronyms */
+abbr, acronym, span.abbr {
+	width: 18px;
+	height: 18px;
+	background-image: url("images/Acronym/ed_acronym.gif");
+	background-repeat: no-repeat;
+	background-position: left top;
+	white-space: nowrap;
+	cursor: help;
+	border-bottom: dashed 1px #000000;
+	padding-left: 19px;
+}

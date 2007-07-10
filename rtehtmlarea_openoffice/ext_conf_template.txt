@@ -1,0 +1,2 @@
+# cat=basic/enable; type=boolean; label=Use as default skin: If set, this skin will be the default backend skin used by HTMLArea RTE.
+useAsDefaultSkin = 0
