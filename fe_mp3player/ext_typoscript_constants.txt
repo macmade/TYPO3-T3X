@@ -1,0 +1,84 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'FrontEnd MP3 Player'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		2.0
+ */
+
+/**
+ * PI1 object - MP3 Player
+ */
+
+plugin.tx_femp3player_pi1 {
+	
+	# cat=fe_mp3player/enable/1; type=options[Enable=true,Disable=false]; label=Loop: Loop the Flash animation (Flash object parameter).
+	swfParams.loop = false
+	
+	# cat=fe_mp3player/enable/2; type=options[Enable=true,Disable=false]; label=Menu: Allow the Flash menu to be displayed in the animation (Flash object parameter).
+	swfParams.menu = false
+	
+	# cat=fe_mp3player/enable/3; type=options[Enable=true,Disable=false]; label=SWLiveConnect: Enable the use of LiveConnect (Flash object parameter).
+	swfParams.swliveconnect = false
+	
+	# cat=fe_mp3player/enable/4; type=boolean; label=Auto start: Automatically start playing songs when the player is loaded.
+	playerParams.autoStart = 1
+	
+	# cat=fe_mp3player/enable/5; type=boolean; label=Show display: Show display drawer at start.
+	playerParams.showDisplay = 1
+	
+	# cat=fe_mp3player/enable/6; type=boolean; label=Show playlist: Show playlist drawer at start.
+	playerParams.showPlaylist = 1
+	
+	# cat=fe_mp3player/dims/0; type=int+; label=Width: Control the width of the player (used for both the swf file and the replacement picture).
+	width = 400
+	
+	# cat=fe_mp3player/dims/1; type=int+; label=Height: Control the height of the player (used for both the swf file and the replacement picture).
+	height = 400
+	
+	# cat=fe_mp3player/dims/2; type=options[Show all=showall,No border=noborder,Exact fit=exactfit]; label=Scale: The scale of the Flash animation (Flash object parameter).
+	swfParams.scale = showall
+	
+	# cat=fe_mp3player/file/0; type=options[Default=default,GSkin=gskin]; label=Skin: The skin to use for the MP3 Player.
+	useSkin = default
+	
+	# cat=fe_mp3player/color/0; type=color; label=BGColor: The background color of the Flash animation.
+	swfParams.bgcolor = #FFFFFF
+	
+	# cat=fe_mp3player/color/1; type=options[Green=1,Purple=2,Blue=3,Red=4]; label=GSkin Color: The player color (only for GSkin).
+	gskinColor = 1
+	
+	# cat=fe_mp3player//0; type=int+; label=Flash version: The version of the Flash plugin required to view the player.
+	version = 6
+	
+	# cat=fe_mp3player//1; type=options[Low=low,High=high,Auto low=autolow,Auto high=autohigh,Best=best]; label=Quality: The quality of the Flash animation (Flash object parameter).
+	swfParams.quality = best
+	
+	# cat=fe_mp3player//2; type=options[Window=window,Opaque=opaque,Transparent=transparent]; label=Window mode: The window mode for the Flash animation (Flash object parameter).
+	swfParams.wmode = window
+	
+	# cat=fe_mp3player//3; type=options[Left=l,Top=t,Right=r,Bottom=b,Top left=tl,Top right=tr,Bottom left=bl,Bottom right=br]; label=SAlign: The alignement of the Flash animation (Flash object parameter).
+	swfParams.salign = l
+}

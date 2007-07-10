@@ -1,0 +1,142 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'FrontEnd MP3 Player'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		2.0
+ */
+
+/**
+ * PI1 object - MP3 Player
+ */
+
+plugin.tx_femp3player_pi1 {
+	
+	// Player width
+	width = {$plugin.tx_femp3player_pi1.width}
+	
+	// Player height
+	height = {$plugin.tx_femp3player_pi1.height}
+	
+	// Flash version
+	version = {$plugin.tx_femp3player_pi1.version}
+	
+	// Page ID for XML output
+	xmlPageId = {$extension.fe_mp3player.typeNum}
+	
+	// Flash object parameters
+	swfParams {
+		
+		// Loop animation
+		loop = {$plugin.tx_femp3player_pi1.swfParams.loop}
+		
+		// Display menu
+		menu = {$plugin.tx_femp3player_pi1.swfParams.menu}
+		
+		// Animation quality
+		quality = {$plugin.tx_femp3player_pi1.swfParams.quality}
+		
+		// Scale animation
+		scale = {$plugin.tx_femp3player_pi1.swfParams.scale}
+		
+		// Anmimation background color
+		bgcolor = {$plugin.tx_femp3player_pi1.swfParams.bgcolor}
+		
+		// Live connect
+		swliveconnect = {$plugin.tx_femp3player_pi1.swfParams.swliveconnect}
+		
+		// SAlign
+		salign = {$plugin.tx_femp3player_pi1.swfParams.salign}
+		
+		// Window mode
+		wmode = {$plugin.tx_femp3player_pi1.swfParams.wmode}
+	}
+	
+	// Player skins
+	skins {
+		
+		// Default skin
+		default = EXT:fe_mp3player/pi1/mp3player.swf
+		
+		// GSkin
+		gskin = EXT:fe_mp3player/pi1/mp3player_gskin.swf
+	}
+	
+	// Player parameters
+	playerParams {
+		
+		// Use skin
+		useSkin = {$plugin.tx_femp3player_pi1.useSkin}
+		
+		// GSkin color
+		gskinColor = {$plugin.tx_femp3player_pi1.gskinColor}
+		
+		// Show display at start
+		showDisplay = {$plugin.tx_femp3player_pi1.playerParams.showDisplay}
+		
+		// Auto playlist at start
+		showPlaylist = {$plugin.tx_femp3player_pi1.playerParams.showPlaylist}
+		
+		// Auto start
+		autoStart = {$plugin.tx_femp3player_pi1.playerParams.autoStart}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-femp3player-pi1 {
+			text-align: center;
+		}
+		.tx-femp3player-pi1 TABLE {
+			border: solid 1px #BCBCBC;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			border-collapse: collapse;
+		}
+		.tx-femp3player-pi1 TD {
+			border: solid 1px #BCBCBC;
+			padding: 5px;
+		}
+	)
+}
+
+/**
+ * Page object - XML output
+ */
+
+fe_mp3player = PAGE
+fe_mp3player {
+	
+	// Page type ID
+	typeNum = {$extension.fe_mp3player.typeNum}
+	
+	// No cache
+	config.no_cache = 1
+	
+	// Page alternate generation script
+	config.pageGenScript = EXT:fe_mp3player/xml_output.php
+	
+	// Hide admin panel
+	config.admPanel = 0
+}
