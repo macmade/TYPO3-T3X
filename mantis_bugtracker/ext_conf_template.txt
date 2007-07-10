@@ -1,0 +1,92 @@
+# cat=basic/file/01; type=boolean; label=Uploads: Allow file uploads.
+file_upload = 1
+
+# cat=basic/file/02; type=int+; label=Max size: The maximum size (in bytes) for the uploads.
+file_max = 5000000
+
+# cat=basic/file/03; type=string; label=Allowed: Allowed file extensions (comma list).
+file_allowed =
+
+# cat=basic/file/04; type=string; label=Disallowed: Disallowed file extensions (comma list).
+file_disallowed =
+
+# cat=basic/file/05; type=string; label=Prefix: The prefix to be used for the file system names of files uploaded to projects.
+file_docprefix = doc
+
+# cat=basic/enable/01; type=boolean; label=Notifications: Allow email notifications.
+email_notifications = 1
+
+# cat=basic/enable/02; type=boolean; label=User notifications: Whether user's should receive emails for their own actions.
+color_own = 0
+
+# cat=basic/enable/03; type=boolean; label=Documentation: Specifies whether to enable support for project documents or not.
+enable_doc = 1
+
+# cat=basic/enable/04; type=boolean; label=Footer menu: Display another instance of the menu at the bottom.  The top menu will still remain.
+show_footermenu = 0
+
+# cat=basic/enable/05; type=boolean; label=Project menu: Show extra menu bar with all available projects.
+show_projectmenubar = 0
+
+# cat=basic/enable/06; type=boolean; label=Assigned names: Show assigned to names.
+show_assignednames = 1
+
+# cat=basic/enable/07; type=boolean; label=Priority: Show priority as text instead of an icon.
+show_prioritytext = 0
+
+# cat=basic/enable/08; type=boolean; label=Projects: Show projects when in 'All Projects' mode.
+show_bugproject = 1
+
+# cat=basic/enable/09; type=boolean; label=Real names: Show users with their real name or not.
+show_realname = 0
+
+# cat=basic/enable/10; type=boolean; label=Links: Set this flag to automatically convert www URLs and email adresses into clickable links.
+html_makelinks = 1
+
+# cat=basic/color/01; type=color; label=New: The color to use for new bugs.
+color_new = #FFA0A0
+
+# cat=basic/color/02; type=color; label=Feedback: The color to use for feedback bugs.
+color_feedback = #FF50A8
+
+# cat=basic/color/03; type=color; label=Acknowledged: The color to use for acknowledged bugs.
+color_acknowledged = #FFD850
+
+# cat=basic/color/04; type=color; label=Confirmed: The color to use for confirmed bugs.
+color_confirmed = #FFFFB0
+
+# cat=basic/color/05; type=color; label=Assigned: The color to use for assigned bugs.
+color_assigned = #C8C8FF
+
+# cat=basic/color/06; type=color; label=Resolved: The color to use for resolved bugs.
+color_resolved = #CCEEDD
+
+# cat=basic/color/07; type=color; label=Closed: The color to use for closed bugs.
+color_closed = #E8E8E8
+
+# cat=basic//01; type=string; label=Admin email: The email of the administrator.
+email_admin = administrator@example.com
+
+# cat=basic//02; type=string; label=Webmaster email: The email of the webmaster.
+email_webmaster = webmaster@example.com
+
+# cat=basic//03; type=string; label=From: The 'From: ' field in emails.
+email_noreply = noreply@example.com
+
+# cat=basic//04; type=string; label=Return: The return address for bounced mails.
+email_return = admin@example.com
+
+# cat=basic//05; type=string; label=Short date: The short date format.
+date_short = m-d-y
+
+# cat=basic//06; type=string; label=Normal date: The normal date format.
+date_normal = m-d-y H:i
+
+# cat=basic//07; type=string; label=Full date: The complete date format.
+date_full = m-d-Y H:i T
+
+# cat=basic//08; type=string; label=Tags: The allowed HTML tags (comma list).
+html_tags = p,li,ul,ol,br,pre,i,b,u
+
+# cat=basic//09; type=string; label=Title: The page title.
+title_page = Typo3 - Mantis
