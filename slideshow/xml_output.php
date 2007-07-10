@@ -25,7 +25,7 @@
 	/** 
 	 * XML page generation script for the 'slideshow' extension.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		2.0
 	 */
 	
@@ -91,7 +91,7 @@
 			$xml[] = '<photos>';
 			
 			// Get document root
-			$docRoot = t3lib_div::getIndpEnv('TYPO3_DOCUMENT_ROOT');
+			$docRoot = PATH_site;
 			
 			// Check type
 			if ($slideshow['type'] == 1) {

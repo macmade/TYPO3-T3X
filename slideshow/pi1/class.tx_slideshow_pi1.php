@@ -25,7 +25,7 @@
 	/** 
 	 * Plugin 'Flash SlideShow' for the 'slideshow' extension.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		2.2
 	 */
 	
