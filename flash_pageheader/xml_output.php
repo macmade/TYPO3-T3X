@@ -75,8 +75,8 @@
 							foreach($GLOBALS['TSFE']->config['rootLine'] as $topPage) {
 								
 								// Recursive picture found
-								if (!empty($topPage[$tx_flashpageheader_picture])) {
-									$relPath = $this->uploadDir . $topPage[$field];
+								if (!empty($topPage['tx_flashpageheader_picture'])) {
+									$relPath = 'uploads/tx_flashpageheader/' . $topPage['tx_flashpageheader_picture'];
 								}
 							}
 						}
