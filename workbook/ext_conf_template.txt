@@ -1,0 +1,2 @@
+# cat=basic//0; type=boolean; label=Thumbnails: Show thumbnails in listings.
+showThumbs = 1

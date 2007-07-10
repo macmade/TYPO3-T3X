@@ -1,0 +1,16 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<object>
+				<TCEforms>
+					<label>LLL:EXT:tscobj/locallang_db.php:tt_content.flexform_pi1.object</label>
+					<config>
+						<type>text</type>
+						<size>30</size>
+					</config>
+				</TCEforms>
+			</object>
+		</el>
+	</ROOT>
+</T3DataStructure>
