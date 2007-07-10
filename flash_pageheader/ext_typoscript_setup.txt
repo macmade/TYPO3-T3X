@@ -1,0 +1,102 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Flash Page Header'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Flash header
+ */
+
+plugin.tx_flashpageheader_pi1 {
+	
+	// Recursive option
+	recursive = {$plugin.tx_flashpageheader_pi1.recursive}
+	
+	// Header width
+	width = {$plugin.tx_flashpageheader_pi1.width}
+	
+	// Default swf file
+	height = {$plugin.tx_flashpageheader_pi1.height}
+	
+	// Header height
+	defaultSwf = {$plugin.tx_flashpageheader_pi1.defaultSwf}
+	
+	// Default replacement picture
+	defaultPicture = {$plugin.tx_flashpageheader_pi1.defaultPicture}
+	
+	// Flash version
+	version = {$plugin.tx_flashpageheader_pi1.version}
+	
+	// Page ID for XML output
+	xmlPageId = {$extension.flash_pageheader.typeNum}
+	
+	// Flash object parameters
+	swfParams {
+		
+		// Loop animation
+		loop = {$plugin.tx_flashpageheader_pi1.swfParams.loop}
+		
+		// Display menu
+		menu = {$plugin.tx_flashpageheader_pi1.swfParams.menu}
+		
+		// Animation quality
+		quality = {$plugin.tx_flashpageheader_pi1.swfParams.quality}
+		
+		// Scale animation
+		scale = {$plugin.tx_flashpageheader_pi1.swfParams.scale}
+		
+		// Anmimation background color
+		bgcolor = {$plugin.tx_flashpageheader_pi1.swfParams.bgcolor}
+		
+		// Live connect
+		swliveconnect = {$plugin.tx_flashpageheader_pi1.swfParams.swliveconnect}
+	}
+	
+	noFlash = IMAGE
+	noFlash.file = GIFBUILDER
+}
+
+/**
+ * Page object - XML output
+ */
+
+flash_pageheader = PAGE
+flash_pageheader {
+	
+	// Page type ID
+	typeNum = {$extension.flash_pageheader.typeNum}
+	
+	// No cache
+	config.no_cache = 1
+	
+	// Page alternate generation script
+	config.pageGenScript = EXT:flash_pageheader/xml_output.php
+	
+	// Hide admin panel
+	config.admPanel = 0
+}

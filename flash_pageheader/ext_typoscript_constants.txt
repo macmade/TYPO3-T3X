@@ -1,0 +1,72 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'Flash Page Header'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Flash header
+ */
+
+plugin.tx_flashpageheader_pi1 {
+	
+	# cat=flash_pageheader/enable/0; type=boolean; label=Recursive: First check for a specific header on the pages above before taking the default one.
+	recursive = 1
+	
+	# cat=flash_pageheader/enable/1; type=string; label=Loop: Loop the Flash animation (Flash object parameter).
+	swfParams.loop = false
+	
+	# cat=flash_pageheader/enable/2; type=string; label=Menu: Allow the Flash menu to be displayed in the animation (Flash object parameter).
+	swfParams.menu = false
+	
+	# cat=flash_pageheader/enable/3; type=string; label=SWLiveConnect: Enable the use of LiveConnect (Flash object parameter).
+	swfParams.swliveconnect = false
+	
+	# cat=flash_pageheader/dims/0; type=int+; label=Width: Control the width of the header (used for both the swf file and the replacement picture).
+	width = 500
+	
+	# cat=flash_pageheader/dims/1; type=int+; label=Height: Control the height of the header (used for both the swf file and the replacement picture).
+	height = 150
+	
+	# cat=flash_pageheader/dims/2; type=string; label=Scale: The scale of the Flash animation (Flash object parameter).
+	swfParams.scale = noscale
+	
+	# cat=flash_pageheader/file/0; type=string; label=Default SWF file: The default flash file to use, if none is specified.
+	defaultSwf = EXT:flash_pageheader/pi1/default.swf
+	
+	# cat=flash_pageheader/file/1; type=string; label=Default replacement picture: The default replacement picture to use, if none is specified.
+	defaultPicture = EXT:flash_pageheader/pi1/default.png
+	
+	# cat=flash_pageheader/color/0; type=color; label=BGColor: The background color of the Flash animation.
+	swfParams.bgcolor = #FFFFFF
+	
+	# cat=flash_pageheader//0; type=int+; label=Flash version: The version of the Flash plugin required to view the headers.
+	version = 6
+	
+	# cat=flash_pageheader//1; type=string; label=Quality: The quality of the Flash animation (Flash object parameter).
+	swfParams.quality = best
+}
