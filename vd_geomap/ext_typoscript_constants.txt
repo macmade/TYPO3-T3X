@@ -1,0 +1,74 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'VD / GeoMap'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - GeoMap
+ */
+plugin.tx_vdgeomap_pi1 {
+	
+	# cat=vd_geomap/dims/0; type=int+; label=Map width: The width of the map.
+	imgWidth = 400
+	
+	# cat=vd_geomap/dims/1; type=int+; label=Map height: The height of the map.
+	imgHeight = 400
+	
+	# cat=vd_geomap/dims/2; type=int+; label=Icon width: The width of the icons.
+	iconWidth = 20
+	
+	# cat=vd_geomap/dims/3; type=int+; label=Icon height: The height of the icons.
+	iconHeight = 20
+	
+	# cat=vd_geomap/dims/4; type=options[1:850'000=850000,1:500'000=500000,1:200'000=200000,1:100'000=100000,1:50'000=50000,1:25'000=25000,1:10'000=10000,1:5'000=5000,1:3'000=3000]; label=Scale: The default scale of the map.
+	scale = 10000
+	
+	# cat=vd_geomap/enable/0; type=boolean; label=Xajax: Enable Xajax for the plugin.
+	xajax = 1
+	
+	# cat=vd_geomap//0; type=string; label=URL: The URL of the image generation page.
+	url =
+	
+	# cat=vd_geomap//1; type=string; label=URL parameter: X position variable.
+	params.xpos = x
+	
+	# cat=vd_geomap//2; type=string; label=URL parameter: Y position variable.
+	params.ypos = y
+	
+	# cat=vd_geomap//3; type=string; label=URL parameter: Scale variable.
+	params.scale = scale
+	
+	# cat=vd_geomap//4; type=string; label=URL parameter: Layers variable.
+	params.layers = layers
+	
+	# cat=vd_geomap//5; type=string; label=URL parameter: Width variable.
+	params.width = width
+	
+	# cat=vd_geomap//6; type=string; label=URL parameter: Height variable.
+	params.height = height
+}
