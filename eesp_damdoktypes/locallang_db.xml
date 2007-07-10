@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'eesp_damdoktypes'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_dam.tx_eespdamdoktypes_doktype">Document types</label>
+			<label index="tx_dam.div_eesp">EESP</label>
+			<label index="tx_eespdamdoktypes_types">DAM / Document type</label>
+			<label index="tx_eespdamdoktypes_types.type">Type</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tx_dam.tx_eespdamdoktypes_doktype">Types de document</label>
+			<label index="tx_dam.div_eesp">EESP</label>
+			<label index="tx_eespdamdoktypes_types">DAM / Type de document</label>
+			<label index="tx_eespdamdoktypes_types.type">Type</label>
+		</languageKey>
+	</data>
+</T3locallang>
