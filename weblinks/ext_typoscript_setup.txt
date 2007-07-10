@@ -1,0 +1,144 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Web Link Database'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * Web links plugin
+ */
+plugin.tx_weblinks_pi1 {
+	
+	// Comma list of pages from where to fetch the records (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	pidList =
+	
+	// Recursive level (1 - 2 - 3 - 4 - 250) (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	recursive =
+	
+	/**
+	 * Category menu
+	 */
+	catMenu {
+		
+		// Number of levels to expand at start
+		expandLevels = {$plugin.tx_weblinks_pi1.catMenuExpand}
+		
+		// Wrap the whole item (without subcategories)
+		itemWrap = <nobr>|</nobr>
+	}
+	
+	/**
+	 * List parameters
+	 */
+	list {
+		
+		// MySQL SORTBY command
+		sortBy = {$plugin.tx_weblinks_pi1.sortBy}
+		
+		// Maximum number of records to display at a time
+		maxRecords = {$plugin.tx_weblinks_pi1.maxRecords}
+		
+		// Maximum number of pages to display at a time
+		maxPages = {$plugin.tx_weblinks_pi1.maxPages}
+	}
+	
+	/**
+	 * Images configuration
+	 */
+	imgConf {
+		
+		// Maximum dimensions
+		file.maxW = 200
+		file.maxH = 100
+		
+		// IMG tag parameters
+		params = align="center"
+	}
+	
+	// Template file
+	templateFile = {$plugin.tx_weblinks_pi1.templateFile}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-weblinks-pi1 {
+			border: solid 1px #BCBCBC;
+			background-color: #FFFFFF;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-searchbox {
+			border: solid 1px #BCBCBC;
+			background-color: #F7F7F7;
+			padding: 5px;
+			margin-top: 2px;
+			margin-bottom: 2px;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-catMenu {
+			border: solid 1px #BCBCBC;
+			background-color: #F7F7F7;
+			padding: 5px;
+			margin-top: 2px;
+			margin-bottom: 2px;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-catMenu UL LI.open UL {
+			display: block;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-catMenu UL LI.closed UL {
+			display: none;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-list TABLE {
+			border: solid 1px #BCBCBC;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			border-collapse: collapse;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-list TD {
+			border: solid 1px #BCBCBC;
+			padding: 5px;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-list TH {
+			border: solid 1px #BCBCBC;
+			padding: 5px;
+			background-color: #F7F7F7;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-browsebox .tx-weblinks-pi1-browsebox-strong {
+			font-weight: bold;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-browsebox TABLE {
+			border: solid 1px #BCBCBC;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-browsebox TD {
+			border: solid 1px #BCBCBC;
+			background-color: #FFFFFF;
+			padding: 2px;
+			text-align: center;
+		}
+		.tx-weblinks-pi1 .tx-weblinks-pi1-browsebox TD.tx-weblinks-pi1-browsebox-SCell {
+			background-color: #F7F7F7;
+		}
+	)
+}

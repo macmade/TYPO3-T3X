@@ -1,0 +1,50 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'Web Link Database'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * Web links plugin
+ */
+plugin.tx_weblinks_pi1 {
+	
+	# cat=weblinks_pi1/file/0; type=string; label=Template file: The template file to use.
+	templateFile = EXT:weblinks/pi1/template.html
+	
+	# cat=weblinks_pi1//0; type=int+; label=Sort by: The MySQL sort by instruction in the list view.
+	sortBy = title
+	
+	# cat=weblinks_pi1//1; type=int+; label=Max records: The maximum number of records to display at a time in the list view.
+	maxRecords = 5
+	
+	# cat=weblinks_pi1//2; type=int+; label=Max pages: The maximum number of pages to display at a time in the list view.
+	maxPages = 5
+	
+	# cat=weblinks_pi1//3 type=int+; label=Expand levels: The number of levels to expand at start in the category menu.
+	catMenuExpand = 0
+}
