@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'restaurant_menu'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Restaurant - Menu display</label>
+			<label index="tx_restaurantmenu_categories">Restaurant - Categorie</label>
+			<label index="tx_restaurantmenu_categories.name">Name</label>
+			<label index="tx_restaurantmenu_categories.description">Description</label>
+			<label index="tx_restaurantmenu_vinetypes">Restaurant - Vine type</label>
+			<label index="tx_restaurantmenu_vinetypes.name">Name</label>
+			<label index="tx_restaurantmenu_vines">Restaurant - Vine</label>
+			<label index="tx_restaurantmenu_vines.name">Name</label>
+			<label index="tx_restaurantmenu_vines.description">Description</label>
+			<label index="tx_restaurantmenu_vines.picture">Picture</label>
+			<label index="tx_restaurantmenu_vines.year">Year</label>
+			<label index="tx_restaurantmenu_vines.region">Region</label>
+			<label index="tx_restaurantmenu_vines.country">Country</label>
+			<label index="tx_restaurantmenu_vines.price">Price</label>
+			<label index="tx_restaurantmenu_vines.vinetype">Vine type</label>
+			<label index="tx_restaurantmenu_ingredients">Restaurant - Ingredient</label>
+			<label index="tx_restaurantmenu_ingredients.name">Name</label>
+			<label index="tx_restaurantmenu_menus">Restaurant - Menu</label>
+			<label index="tx_restaurantmenu_menus.name">Name</label>
+			<label index="tx_restaurantmenu_courses">Restaurant - Courses</label>
+			<label index="tx_restaurantmenu_courses.name">Name</label>
+			<label index="tx_restaurantmenu_courses.picture">Picture</label>
+			<label index="tx_restaurantmenu_courses.ingredients">Ingredients</label>
+			<label index="tx_restaurantmenu_courses.price_big">Price (big dish)</label>
+			<label index="tx_restaurantmenu_courses.price_small">Price (small dish)</label>
+			<label index="tx_restaurantmenu_courses.categories">Categories</label>
+			<label index="tx_restaurantmenu_courses.vines">Vines</label>
+			<label index="tx_restaurantmenu_courses.takeaway">Take away</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">Restaurant - Affichage de la carte</label>
+			<label index="tx_restaurantmenu_categories">Restaurant - Catégorie</label>
+			<label index="tx_restaurantmenu_categories.name">Nom</label>
+			<label index="tx_restaurantmenu_categories.description">Description</label>
+			<label index="tx_restaurantmenu_vinetypes">Restaurant - Type de vin</label>
+			<label index="tx_restaurantmenu_vinetypes.name">Nom</label>
+			<label index="tx_restaurantmenu_vines">Restaurant - Vin</label>
+			<label index="tx_restaurantmenu_vines.name">Nom</label>
+			<label index="tx_restaurantmenu_vines.description">Description</label>
+			<label index="tx_restaurantmenu_vines.picture">Image</label>
+			<label index="tx_restaurantmenu_vines.year">Année</label>
+			<label index="tx_restaurantmenu_vines.region">Région</label>
+			<label index="tx_restaurantmenu_vines.country">Pays</label>
+			<label index="tx_restaurantmenu_vines.price">Prix</label>
+			<label index="tx_restaurantmenu_vines.vinetype">Type de vin</label>
+			<label index="tx_restaurantmenu_ingredients">Restaurant - Ingrédient</label>
+			<label index="tx_restaurantmenu_ingredients.name">Nom</label>
+			<label index="tx_restaurantmenu_menus">Restaurant - Menu</label>
+			<label index="tx_restaurantmenu_menus.name">Nom</label>
+			<label index="tx_restaurantmenu_courses">Restaurant - Plats</label>
+			<label index="tx_restaurantmenu_courses.name">Nom</label>
+			<label index="tx_restaurantmenu_courses.picture">Image</label>
+			<label index="tx_restaurantmenu_courses.ingredients">Ingredients</label>
+			<label index="tx_restaurantmenu_courses.price_big">Prix (grande assiette)</label>
+			<label index="tx_restaurantmenu_courses.price_small">Prix (petite assiette)</label>
+			<label index="tx_restaurantmenu_courses.categories">Catégories</label>
+			<label index="tx_restaurantmenu_courses.vines">Vins</label>
+			<label index="tx_restaurantmenu_courses.takeaway">A l'emporter</label>
+		</languageKey>
+	</data>
+</T3locallang>
