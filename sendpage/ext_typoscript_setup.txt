@@ -1,0 +1,89 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Send Page'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Send Page
+ */
+plugin.tx_sendpage_pi1 {
+	
+	// Template file
+	templateFile = {$plugin.tx_sendpage_pi1.templateFile}
+	
+	// Number of rows for the textareas
+	textAreaRows = {$plugin.tx_sendpage_pi1.textAreaRows}
+	
+	// Number of cols for the textareas
+	textAreaCols = {$plugin.tx_sendpage_pi1.textAreaCols}
+	
+	// Size of the text inputs
+	textInputSize = {$plugin.tx_sendpage_pi1.textInputSize}
+	
+	// Crop URL
+	cropUrl = {$plugin.tx_sendpage_pi1.cropUrl}
+	
+	// PID of the plugin
+	pid = {$plugin.tx_sendpage_pi1.pid}
+	
+	// Link function (send)
+	mailLink = USER
+	mailLink {
+		userFunc = tx_sendpage_pi1->makeLink
+		function = send
+		pid = {$plugin.tx_sendpage_pi1.pid}
+	}
+	
+	// Link function (bug)
+	bugLink = USER
+	bugLink {
+		userFunc = tx_sendpage_pi1->makeLink
+		function = bug
+		pid = {$plugin.tx_sendpage_pi1.pid}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-sendpage-pi1 TD {
+			padding: 10px;
+			border-top: dotted 1px #666666;
+		}
+		.tx-sendpage-pi1 TABLE {
+			width: 100%;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		.tx-sendpage-pi1 STRONG {
+			color: #FF0000;
+			font-weight: bold;
+		}
+	)
+}
+
+// Include library to create links
+page.includeLibs.tx_sendpage_pi1 = EXT:sendpage/pi1/class.tx_sendpage_pi1.php

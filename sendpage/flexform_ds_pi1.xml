@@ -1,0 +1,126 @@
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<sheets>
+		<sMAILER>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<webmaster_name>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.webmaster_name</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>required</eval>
+							</config>
+						</TCEforms>
+					</webmaster_name>
+					<webmaster_email>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.webmaster_email</label>
+							<config>
+								<type>input</type>
+								<size>20</size>
+								<eval>required,nospace</eval>
+							</config>
+						</TCEforms>
+					</webmaster_email>
+					<bug_reports>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.bug_reports</label>
+							<config>
+								<type>select</type>
+								<items>
+									<numIndex index="0">
+										<numIndex index="0">LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.bug_reports.I.0</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.bug_reports.I.1</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_mailer.bug_reports.I.2</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</bug_reports>
+				</el>
+			</ROOT>
+		</sMAILER>
+		<sTMPL>
+			<ROOT>
+				<TCEforms>
+					<sheetTitle>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl</sheetTitle>
+				</TCEforms>
+				<type>array</type>
+				<el>
+					<template_file>
+						<TCEforms>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl.template_file</label>
+							<config>
+								<type>group</type>
+								<internal_type>file</internal_type>
+								<allowed>html</allowed>
+								<max_size>100</max_size>
+								<uploadfolder>uploads/tx_sendpage</uploadfolder>
+								<maxitems>1</maxitems>
+								<size>1</size>
+							</config>
+						</TCEforms>
+					</template_file>
+					<crop_url>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl.crop_url</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+							</config>
+						</TCEforms>
+					</crop_url>
+					<input_size>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl.input_size</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+							</config>
+						</TCEforms>
+					</input_size>
+					<text_cols>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl.text_cols</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+							</config>
+						</TCEforms>
+					</text_cols>
+					<text_rows>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:sendpage/locallang_db.php:tt_content.flexform_pi1.s_tmpl.text_rows</label>
+							<config>
+								<type>input</type>
+								<size>5</size>
+							</config>
+						</TCEforms>
+					</text_rows>
+				</el>
+			</ROOT>
+		</sTMPL>
+	</sheets>
+</T3DataStructure>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+		<title>Template File</title>
+	</head>
+	
+	<body>
+		<h1>TX_SENDPAGE_PI1</h1>
+		<h2>Default template file</h2>
+		<hr>
+		<h3>- Main section</h3>
+		<!-- ###MAIN### -->
+		<table border="0" width="100%" cellspacing="5" cellpadding="0" align="center">
+			<tr>
+				<td colspan="2" align="left" valign="top">
+					
+					<!-- ###HEADER### -->
+					HEADER
+					<!-- ###HEADER### -->
+					
+					<!-- ###URL### -->
+					URL
+					<!-- ###URL### -->
+					
+					<!-- ###SUBMIT_CONFIRM### -->
+					SUBMIT_CONFIRM
+					<!-- ###SUBMIT_CONFIRM### -->
+					
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" align="left" valign="top">
+					
+					<!-- ###FROM_NAME### -->
+					FROM_NAME
+					<!-- ###FROM_NAME### -->
+					
+				</td>
+				<td width="50%" align="left" valign="top">
+					
+					<!-- ###TO_NAME### -->
+					TO_NAME
+					<!-- ###TO_NAME### -->
+					
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" align="left" valign="top">
+					
+					<!-- ###FROM_EMAIL### -->
+					FROM_EMAIL
+					<!-- ###FROM_EMAIL### -->
+					
+				</td>
+				<td width="50%" align="left" valign="top">
+					
+					<!-- ###TO_EMAIL### -->
+					TO_EMAIL
+					<!-- ###TO_EMAIL### -->
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left" valign="top">
+					
+					<!-- ###MESSAGE### -->
+					MESSAGE
+					<!-- ###MESSAGE### -->
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="left" valign="top">
+					
+					<!-- ###SUBMIT### -->
+					SUBMIT
+					<!-- ###SUBMIT### -->
+					
+				</td>
+			</tr>
+		</table>
+		<!-- ###MAIN### -->
+		<hr>
+		<h3>- Send mail section</h3>
+		<p>First line is subject</p>
+		<pre>
+		<!-- ###MAIL_SEND### -->
+Interesting link from Typo3
+Hello ###TO###,
+
+Your friend ###FROM### would like you to know about an interesting link: ###URL###
+
+###MESSAGE###
+		<!-- ###MAIL_SEND### -->
+		</pre>
+		<hr>
+		<h3>- Bug mail section</h3>
+		<p>First line is subject</p>
+		<pre>
+		<!-- ###MAIL_BUG### -->
+Bug report from Typo3
+Hello ###TO###,
+
+###FROM### has just reported a bug on the following page: ###URL###
+
+###MESSAGE###
+		<!-- ###MAIL_BUG### -->
+		</pre>
+	</body>
+	
+</html>
