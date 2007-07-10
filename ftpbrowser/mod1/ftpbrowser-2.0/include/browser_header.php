@@ -1,3 +1,12 @@
+<?php
+// Security check to prevent use outside of TYPO3
+// @author      Macmade - 27.05.2007
+if( !isset( $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] ) || $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] != 1
+    || !isset( $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] )
+    || $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] != $GLOBALS[ 'BE_USER' ]->user[ 'ses_id' ] ) {
+    die( 'Access denied' );
+}
+?>
 <table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
 	<tr>
 		<td width="75" height="40" align="left" valign="middle" bgcolor="#4D4D4D"><img src="gfx/title_browse.gif" alt="" width="75" height="20" hspace="0" vspace="0" border="0" align="middle"></td>

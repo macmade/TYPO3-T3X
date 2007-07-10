@@ -25,7 +25,7 @@
 	 * Core functions
 	 * 
 	 * @author		Jean-David Gadina / macmade.net (info@macmade.net)
-	 * @version		2.0
+	 * @version		2.1
 	 */
 	
 	/**
@@ -38,6 +38,14 @@
 	 * 
 	 * 				TOTAL FUNCTIONS: 3
 	 */
+	
+	// Security check to prevent use outside of TYPO3
+	// @author      Macmade - 27.05.2007
+	if( !isset( $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] ) || $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] != 1
+	    || !isset( $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] )
+	    || $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] != $GLOBALS[ 'BE_USER' ]->user[ 'ses_id' ] ) {
+	    die( 'Access denied' );
+	}
 	
 	
 	
@@ -128,7 +136,7 @@
 		
 		// Checking authentification and path
 		if ($CONFIG['AUTH'] == 0 || isset($_SESSION['LOGIN'])) {
-			if ($_SERVER['PATH_TRANSLATED'] == $CONFIG['FTP_PATH'] . 'index.php') {
+			if ($_SERVER['SCRIPT_FILENAME'] == $CONFIG['FTP_PATH'] . 'index.php') {
 				header("Location: http://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . "/browser.php");
 			}
 		} else {

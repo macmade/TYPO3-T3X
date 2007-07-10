@@ -1,4 +1,13 @@
 <?php
+// Security check to prevent use outside of TYPO3
+// @author      Macmade - 27.05.2007
+if( !isset( $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] ) || $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] != 1
+    || !isset( $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] )
+    || $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] != $GLOBALS[ 'BE_USER' ]->user[ 'ses_id' ] ) {
+    die( 'Access denied' );
+}
+?>
+<?php
 	if (isset($result)) {
 ?>
 <p align="center" class="result"><?php echo($result); ?></p>

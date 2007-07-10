@@ -1,0 +1,9 @@
+2007-06-01  Jean-David Gadina  <info@macmade.net>
+
+	* Added a change log.
+	* Added a 'READ ME' file.
+	* Increased version number in PHP files.
+
+2007-05-27  Jean-David Gadina  <info@macmade.net>
+
+	* Fixed a security hole very file containing PHP code (Thanx to Henning Pingel)

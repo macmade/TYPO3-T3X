@@ -25,7 +25,7 @@
 	 * File 'lang/EN.php' / English language page.
 	 * 
 	 * @author		Jean-David Gadina / macmade.net (info@macmade.net)
-	 * @version		2.0
+	 * @version		2.1
 	 */
 	$LANG = array();
 	$LANG['EN'] = array(

@@ -1,3 +1,12 @@
+<?php
+// Security check to prevent use outside of TYPO3
+// @author      Macmade - 27.05.2007
+if( !isset( $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] ) || $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] != 1
+    || !isset( $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] )
+    || $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] != $GLOBALS[ 'BE_USER' ]->user[ 'ses_id' ] ) {
+    die( 'Access denied' );
+}
+?>
 			<?php
 				$owner_infos = posix_getpwuid($DATA['OWNER'][$_GET['id']]);
 				$group_infos = posix_getgrgid($DATA['GROUP'][$_GET['id']]);

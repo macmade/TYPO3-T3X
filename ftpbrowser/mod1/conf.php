@@ -7,6 +7,6 @@
 	$MLANG["default"]["tabs_images"]["tab"] = "moduleicon.gif";
 	$MLANG["default"]["ll_ref"]="LLL:EXT:ftpbrowser/mod1/locallang_mod.php";
 
-	define('TYPO3_MOD_PATH', '../typo3conf/ext/ftpbrowser/mod1/' . ($MCONF['extModInclude'] ? $MCONF['ftpBrowserSubDir'] : ''));
-	$BACK_PATH = ($MCONF['extModInclude'] ? '../' : '') . '../../../../typo3/';
+	define('TYPO3_MOD_PATH', '../typo3conf/ext/ftpbrowser/mod1/' . (isset($MCONF['extModInclude']) ? $MCONF['ftpBrowserSubDir'] : ''));
+	$BACK_PATH = (isset($MCONF['extModInclude']) ? '../' : '') . '../../../../typo3/';
 ?>

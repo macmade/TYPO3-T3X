@@ -25,7 +25,7 @@
 	 * File 'index.php' / Login page.
 	 * 
 	 * @author		Jean-David Gadina / macmade.net (info@macmade.net)
-	 * @version		2.0
+	 * @version		2.1
 	 */
 	
 	/**
@@ -37,6 +37,14 @@
 	 * Typo3 specific variables.
 	 */
 	require('../extModInclude.php');
+	
+	// Security check to prevent use outside of TYPO3
+	// @author      Macmade - 27.05.2007
+	if( !isset( $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] ) || $GLOBALS[ 'BE_USER' ]->user[ 'admin' ] != 1
+	    || !isset( $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] )
+	    || $_COOKIE[ $GLOBALS[ 'BE_USER' ]->user[ 'ses_name' ] ] != $GLOBALS[ 'BE_USER' ]->user[ 'ses_id' ] ) {
+	    die( 'Access denied' );
+	}
 	
 	/**
 	 * Default language file.

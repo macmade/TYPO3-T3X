@@ -1,3 +1,6 @@
+# cat=basic//00; type=boolean; label=IMPORTANT NOTE: A security problem has been fixed in version 0.1.3 of this extension. All versions below version 0.1.3 have to be considered insecure, and should not be used in any way. If you're reading this, it means you are running a secure version.
+SECURITY = 1
+
 # cat=basic//01; type=boolean; label=Header: Display header and logo...
 HEADER = 1
 

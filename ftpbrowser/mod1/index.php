@@ -26,7 +26,7 @@
 	 * Module 'FTP Browser' for the 'ftpbrowser' extension
 	 *
 	 * @author		Jean-David Gadina / macmade.net (info@macmade.net)
-	 * @version		1.0
+	 * @version		1.1
 	 */
 	
 	// Default initialization
