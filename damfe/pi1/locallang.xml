@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_damfe_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="cat">Categories</label>
+			<label index="mediatypes">Media types</label>
+			<label index="mediatypes.0">Undefined</label>
+			<label index="mediatypes.1">Text</label>
+			<label index="mediatypes.2">Image</label>
+			<label index="mediatypes.3">Audio</label>
+			<label index="mediatypes.4">Video</label>
+			<label index="mediatypes.5">Interactive</label>
+			<label index="mediatypes.6">Service</label>
+			<label index="mediatypes.7">Font</label>
+			<label index="mediatypes.8">Model</label>
+			<label index="mediatypes.9">Dataset</label>
+			<label index="mediatypes.10">Collection</label>
+			<label index="mediatypes.11">Software</label>
+			<label index="mediatypes.12">Application</label>
+			<label index="selection">Selection</label>
+			<label index="searchbox">Search</label>
+			<label index="searchbox.submit">Submit</label>
+			<label index="browsebox.results">Displaying results %s to %s out of %s</label>
+			<label index="browsebox.page">Page %s</label>
+			<label index="browsebox.next">Next</label>
+			<label index="browsebox.previous">Previous</label>
+			<label index="megabyte">Mb</label>
+			<label index="kilobyte">Kb</label>
+			<label index="title">Title</label>
+			<label index="date">Date</label>
+			<label index="size">Size</label>
+			<label index="type">Type</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="cat">Catégories</label>
+			<label index="mediatypes.0">Indéfini</label>
+			<label index="mediatypes.1">Texte</label>
+			<label index="mediatypes.2">Image</label>
+			<label index="mediatypes.3">Audio</label>
+			<label index="mediatypes.4">Vidéo</label>
+			<label index="mediatypes.5">Intéractif</label>
+			<label index="mediatypes.6">Service</label>
+			<label index="mediatypes.7">Fonte</label>
+			<label index="mediatypes.8">Modèle</label>
+			<label index="mediatypes.9">Dataset</label>
+			<label index="mediatypes.10">Collection</label>
+			<label index="mediatypes.11">Programme</label>
+			<label index="mediatypes.12">Application</label>
+			<label index="selection">Sélection</label>
+			<label index="searchbox.header">Recherche</label>
+			<label index="searchbox.submit">Envoyer</label>
+			<label index="browsebox.results">Affichage des résultats %s à %s sur %s</label>
+			<label index="browsebox.page">Page %s</label>
+			<label index="browsebox.next">Suivante</label>
+			<label index="browsebox.previous">Précédente</label>
+			<label index="megabyte">Mb</label>
+			<label index="kilobyte">Kb</label>
+			<label index="title">Titre</label>
+			<label index="date">Date</label>
+			<label index="size">Taille</label>
+			<label index="type">Type</label>
+		</languageKey>
+	</data>
+</T3locallang>
