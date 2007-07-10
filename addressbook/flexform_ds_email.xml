@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_email>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:addressbook/locallang_db.php:flexform.email</title>
+				</tx_templavoila>
+				<el>
+					<email>
+						<type>array</type>
+						<tx_templavoila>
+							<title>Email</title>
+						</tx_templavoila>
+						<el>
+							<mail>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.email.mail</label>
+									<config>
+										<type>input</type>
+										<size>15</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</mail>
+							<type>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.LGL.type</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.work</numIndex>
+												<numIndex index="1">WORK</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.home</numIndex>
+												<numIndex index="1">HOME</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.other</numIndex>
+												<numIndex index="1">Other</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</type>
+						</el>
+					</email>
+				</el>
+			</fields_email>
+		</el>
+	</ROOT>
+</T3DataStructure>

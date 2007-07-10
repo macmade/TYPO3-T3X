@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_messenger>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:addressbook/locallang_db.php:flexform.messenger</title>
+				</tx_templavoila>
+				<el>
+					<messenger>
+						<type>array</type>
+						<tx_templavoila>
+							<title>Messenger</title>
+						</tx_templavoila>
+						<el>
+							<name>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.messenger.name</label>
+									<config>
+										<type>input</type>
+										<size>15</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</name>
+							<service>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.messenger.service</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.messenger.aim</numIndex>
+												<numIndex index="1">AIM</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.messenger.jabber</numIndex>
+												<numIndex index="1">JABBER</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.messenger.msn</numIndex>
+												<numIndex index="1">MSN</numIndex>
+											</numIndex>
+											<numIndex index="3">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.messenger.icq</numIndex>
+												<numIndex index="1">ICQ</numIndex>
+											</numIndex>
+											<numIndex index="4">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.messenger.yahoo</numIndex>
+												<numIndex index="1">YAHOO</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</service>
+							<type>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.LGL.type</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.work</numIndex>
+												<numIndex index="1">WORK</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.home</numIndex>
+												<numIndex index="1">HOME</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.other</numIndex>
+												<numIndex index="1">Other</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</type>
+						</el>
+					</messenger>
+				</el>
+			</fields_messenger>
+		</el>
+	</ROOT>
+</T3DataStructure>

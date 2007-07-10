@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_address>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:addressbook/locallang_db.php:flexform.address</title>
+				</tx_templavoila>
+				<el>
+					<address>
+						<type>array</type>
+						<tx_templavoila>
+							<title>Address</title>
+						</tx_templavoila>
+						<el>
+							<street>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.address.street</label>
+									<config>
+										<type>text</type>
+										<cols>15</cols>
+										<rows>2</rows>
+									</config>
+								</TCEforms>
+							</street>
+							<city>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.address.city</label>
+									<config>
+										<type>input</type>
+										<size>15</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</city>
+							<state>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.address.state</label>
+									<config>
+										<type>input</type>
+										<size>5</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</state>
+							<zip>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.address.zip</label>
+									<config>
+										<type>input</type>
+										<size>5</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</zip>
+							<country>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.address.country</label>
+									<config>
+										<type>input</type>
+										<size>15</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</country>
+							<type>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.LGL.type</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.work</numIndex>
+												<numIndex index="1">WORK</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.home</numIndex>
+												<numIndex index="1">HOME</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.other</numIndex>
+												<numIndex index="1">Other</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</type>
+						</el>
+					</address>
+				</el>
+			</fields_address>
+		</el>
+	</ROOT>
+</T3DataStructure>

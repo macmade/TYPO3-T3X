@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_phone>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:addressbook/locallang_db.php:flexform.phone</title>
+				</tx_templavoila>
+				<el>
+					<phone>
+						<type>array</type>
+						<tx_templavoila>
+							<title>Phone</title>
+						</tx_templavoila>
+						<el>
+							<number>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.phone.number</label>
+									<config>
+										<type>input</type>
+										<size>15</size>
+										<max>255</max>
+									</config>
+								</TCEforms>
+							</number>
+							<type>
+								<TCEforms>
+									<label>LLL:EXT:addressbook/locallang_db.php:flexform.LGL.type</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.work</numIndex>
+												<numIndex index="1">WORK</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.home</numIndex>
+												<numIndex index="1">HOME</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.phone.mobile</numIndex>
+												<numIndex index="1">CELL</numIndex>
+											</numIndex>
+											<numIndex index="3">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.phone.main</numIndex>
+												<numIndex index="1">MAIN</numIndex>
+											</numIndex>
+											<numIndex index="4">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.phone.homefax</numIndex>
+												<numIndex index="1">HOMEFAX</numIndex>
+											</numIndex>
+											<numIndex index="5">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.phone.workfax</numIndex>
+												<numIndex index="1">WORKFAX</numIndex>
+											</numIndex>
+											<numIndex index="6">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.phone.pager</numIndex>
+												<numIndex index="1">PAGER</numIndex>
+											</numIndex>
+											<numIndex index="7">
+												<numIndex index="0">LLL:EXT:addressbook/locallang_db.php:flexform.LGL.other</numIndex>
+												<numIndex index="1">Other</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</type>
+						</el>
+					</phone>
+				</el>
+			</fields_phone>
+		</el>
+	</ROOT>
+</T3DataStructure>
