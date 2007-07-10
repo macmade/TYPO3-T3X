@@ -1,6 +1,15 @@
+2007-07-04  Jean-David Gadina  <info@macmade.net>
+
+	* Increased API internal version number to 3.0.
+	* Fixed a bug in function fe_makeStyledContent.
+	* New function: fe_includePrototypeJs. This function is used to include the Prototype JavaScript framework in a frontend context.
+	* New function: fe_includeScriptaculousJs. This function is used to include the Scriptaculous JavaScript framework in a frontend context.
+	* Changed coding style. Class tx_apimacmade now follows the Zend FrameWork coding rules.
+	* Miscellaneous enhancements.
+
 2006-10-19  Jean-David Gadina  <info@macmade.net>
 
-	* Increased API internal version number to 2.7.
+	* Increased API internal version number to 2.8.
 	* Modified the fe_buildLoginBox function. Added CSS classes to input fields.
 	* Updated the API documentation (doc/manual.sxw).
 	* Release of version 2.8 of the API.

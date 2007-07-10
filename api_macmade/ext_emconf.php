@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "api_macmade"
 #
-# Auto generated 10-07-2007 14:57
+# Auto generated 09-07-2007 14:11
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -42,7 +42,9 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:5:{s:9:"ChangeLog";s:4:"9ebb";s:7:"GPL.txt";s:4:"a073";s:23:"class.tx_apimacmade.php";s:4:"c83b";s:12:"ext_icon.gif";s:4:"c839";s:14:"doc/manual.sxw";s:4:"68ac";}',
+	'_md5_values_when_last_written' => 'a:16:{s:9:"ChangeLog";s:4:"1703";s:7:"GPL.txt";s:4:"a073";s:23:"class.tx_apimacmade.php";s:4:"570a";s:12:"ext_icon.gif";s:4:"c839";s:29:"res/js/prototype/prototype.js";s:4:"3766";s:30:"res/js/scriptaculous/CHANGELOG";s:4:"3406";s:32:"res/js/scriptaculous/MIT-LICENSE";s:4:"9f3d";s:27:"res/js/scriptaculous/README";s:4:"5c5d";s:35:"res/js/scriptaculous/src/builder.js";s:4:"f2ab";s:36:"res/js/scriptaculous/src/controls.js";s:4:"6e5f";s:36:"res/js/scriptaculous/src/dragdrop.js";s:4:"7f11";s:35:"res/js/scriptaculous/src/effects.js";s:4:"ab48";s:41:"res/js/scriptaculous/src/scriptaculous.js";s:4:"783b";s:34:"res/js/scriptaculous/src/slider.js";s:4:"8baa";s:33:"res/js/scriptaculous/src/sound.js";s:4:"5a58";s:36:"res/js/scriptaculous/src/unittest.js";s:4:"da7d";}',
+	'suggests' => array(
+	),
 );
 
 ?>
