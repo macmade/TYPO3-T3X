@@ -1,0 +1,5 @@
+# cat=basic//01; type=boolean; label=Backend authentication: Enable the authentication of backend users through OpenLDAP servers. Note that the login security level will be decreased to "normal". Please consider using SSL.
+be_auth = 0
+
+# cat=basic//02; type=boolean; label=Frontend authentication: Enable the authentication of frontend users through OpenLDAP servers.
+fe_auth = 0

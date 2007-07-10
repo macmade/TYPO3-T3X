@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_external>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping_external_fields.section</title>
+				</tx_templavoila>
+				<el>
+					<field>
+						<type>array</type>
+						<tx_templavoila>
+							<title>LDAP</title>
+						</tx_templavoila>
+						<el>
+							<ldap>
+								<TCEforms>
+									<label>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping_external_fields.ldap</label>
+									<config>
+										<type>input</type>
+										<size>30</size>
+									</config>
+								</TCEforms>
+							</ldap>
+							<field>
+								<TCEforms>
+									<label>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping_external_fields.field</label>
+									<config>
+										<type>select</type>
+										<itemsProcFunc>tx_ldapmacmade_tca->showTableFields</itemsProcFunc>
+									</config>
+								</TCEforms>
+							</field>
+						</el>
+					</field>
+				</el>
+			</fields_external>
+		</el>
+	</ROOT>
+</T3DataStructure>

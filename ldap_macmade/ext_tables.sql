@@ -1,0 +1,42 @@
+#
+# Table structure for table 'tx_ldapmacmade_server'
+#
+CREATE TABLE tx_ldapmacmade_server (
+	uid int(11) DEFAULT '0' NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	title tinytext NOT NULL,
+	address tinytext NOT NULL,
+	port int(11) DEFAULT '0' NOT NULL,
+	version int(11) unsigned DEFAULT '0' NOT NULL,
+	user tinytext NOT NULL,
+	password tinytext NOT NULL,
+	basedn tinytext NOT NULL,
+	filter tinytext NOT NULL,
+	be_enable tinyint(3) DEFAULT '0' NOT NULL,
+	be_auth tinyint(3) DEFAULT '0' NOT NULL,
+	be_pwdrule tinytext NOT NULL,
+	be_groups_import tinyint(3) DEFAULT '0' NOT NULL,
+	be_groups_fixed blob NOT NULL,
+	be_lang char(2) DEFAULT '' NOT NULL,
+	be_tsconf blob NOT NULL,
+	fe_enable tinyint(3) DEFAULT '0' NOT NULL,
+	fe_auth tinyint(3) DEFAULT '0' NOT NULL,
+	fe_pwdrule tinytext NOT NULL,
+	fe_groups_import tinyint(3) DEFAULT '0' NOT NULL,
+	fe_groups_fixed blob NOT NULL,
+	fe_lock varchar(50) DEFAULT '' NOT NULL,
+	fe_tsconf blob NOT NULL,
+	mapping_username tinytext NOT NULL,
+	mapping blob NOT NULL,
+	mapping_external varchar(40) DEFAULT '' NOT NULL,
+	mapping_external_fields blob NOT NULL,
+	mapping_external_pid blob NOT NULL,
+	
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);

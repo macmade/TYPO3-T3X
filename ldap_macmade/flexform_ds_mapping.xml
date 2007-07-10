@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.section</title>
+				</tx_templavoila>
+				<el>
+					<field>
+						<type>array</type>
+						<tx_templavoila>
+							<title>LDAP</title>
+						</tx_templavoila>
+						<el>
+							<ldap>
+								<TCEforms>
+									<label>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.ldap</label>
+									<config>
+										<type>input</type>
+										<size>30</size>
+									</config>
+								</TCEforms>
+							</ldap>
+							<type>
+								<TCEforms>
+									<label>LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type</label>
+									<config>
+										<type>select</type>
+										<items>
+											<numIndex index="0">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.0</numIndex>
+												<numIndex index="1">name</numIndex>
+											</numIndex>
+											<numIndex index="1">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.1</numIndex>
+												<numIndex index="1">email</numIndex>
+											</numIndex>
+											<numIndex index="2">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.2</numIndex>
+												<numIndex index="1">title</numIndex>
+											</numIndex>
+											<numIndex index="3">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.3</numIndex>
+												<numIndex index="1">company</numIndex>
+											</numIndex>
+											<numIndex index="4">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.4</numIndex>
+												<numIndex index="1">address</numIndex>
+											</numIndex>
+											<numIndex index="5">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.5</numIndex>
+												<numIndex index="1">zip</numIndex>
+											</numIndex>
+											<numIndex index="6">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.6</numIndex>
+												<numIndex index="1">city</numIndex>
+											</numIndex>
+											<numIndex index="7">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.7</numIndex>
+												<numIndex index="1">country</numIndex>
+											</numIndex>
+											<numIndex index="8">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.8</numIndex>
+												<numIndex index="1">phone</numIndex>
+											</numIndex>
+											<numIndex index="9">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.9</numIndex>
+												<numIndex index="1">fax</numIndex>
+											</numIndex>
+											<numIndex index="10">
+												<numIndex index="0">LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.mapping.type.I.10</numIndex>
+												<numIndex index="1">www</numIndex>
+											</numIndex>
+										</items>
+									</config>
+								</TCEforms>
+							</type>
+						</el>
+					</field>
+				</el>
+			</fields>
+		</el>
+	</ROOT>
+</T3DataStructure>
