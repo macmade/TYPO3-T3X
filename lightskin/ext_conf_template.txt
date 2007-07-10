@@ -1,0 +1,38 @@
+# cat=basic/dims/00; type=int+; label=Left menu frame: The width of the left menu frame.
+dims_leftmenuframe = 130
+
+# cat=basic/dims/01; type=int+; label=Top frame: The height of the top frame.
+dims_topframe = 32
+
+# cat=basic/dims/02; type=int+; label=Shortcut frame: The height of the shortcut frame.
+dims_shortcutframe = 30
+
+# cat=basic/dims/03; type=int+; label=Selector menu frame: The width of the selector box menu frame.
+dims_selmenuframe = 130
+
+# cat=basic/dims/04; type=int+; label=Nav frame: The width of the navigation frame.
+dims_navframe = 245
+
+# cat=basic/file/00; type=string; label=Rotation directory: The path to the directory where the login box pictures are located.
+file_rotationdir =
+
+# cat=basic/file/01; type=string; label=Stylesheet post: The path to an additionnal stylesheet for the Typo3 Backend.
+file_stylesheetpost =
+
+# cat=basic/color/00; type= color; label=Default color: The default scheme color for the TCE forms headers.
+color_header0 = #998A8A
+
+# cat=basic/color/01; type= color; label=Primary color: The primary scheme color for the TCE forms headers.
+color_header1 = #8A998A
+
+# cat=basic/color/02; type= color; label=Headers color: The headers scheme color for the TCE forms headers.
+color_header2 = #8A8A99
+
+# cat=basic/color/03; type= color; label=Main color: The main scheme color for the TCE forms headers.
+color_header3 = #99998A
+
+# cat=basic/color/04; type= color; label=Extra color: The extra scheme color for the TCE forms headers.
+color_header4 = #8A9999
+
+# cat=basic/color/05; type=color; label=Special color: The special scheme color for the TCE forms headers.
+color_header5 = #998A99

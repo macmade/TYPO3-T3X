@@ -1,0 +1,580 @@
+<!--
+	/**
+	 * Base elements
+	 */
+	
+	/* BODY - Generic */
+	BODY {
+		background-color: #E9E8DB;
+		background-image: url("backgrounds/pattern_light.gif");
+		margin: 5px;
+		color: #120F10;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: normal;
+		text-decoration: none;
+		font-family: Verdana, Helvetica, Arial, Geneva, Swiss, SunSans-Regular;
+	}
+	
+	/* TD, LI - Generic */
+	TD, LI, P {
+		color: #120F10;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 10px;
+		line-height: normal;
+		text-decoration: none;
+		font-family: Verdana, Helvetica, Arial, Geneva, Swiss, SunSans-Regular;
+	}
+	
+	/* H1 - Generic */
+	H1 {
+		color: #FF5500;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 20px;
+		line-height: normal;
+		margin-top: 2px;
+		margin-bottom: 2px;
+		text-align: center;
+		background-image: url("backgrounds/pattern.gif");
+		border: dotted 1px #333333;
+		background-color: #120F10;
+		padding: 10px;
+		margin: 10px;
+	}
+	
+	/* H2 - Generic */
+	H2 {
+		color: #550000;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 15px;
+		line-height: normal;
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
+	
+	/* H3 - Generic */
+	H3 {
+		color: #403D20;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 15px;
+		line-height: normal;
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
+	
+	/* H# - Generic */
+	H4, H5, H6 {
+		color: #403D20;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 12px;
+		line-height: normal;
+		margin-top: 2px;
+		margin-bottom: 2px;
+	}
+	
+	/* HR - Generic */
+	HR {
+		border: none;
+		width: 100%;
+		color: #0A0808;
+		background-color: #0A0808;
+		height: 1px;
+	}
+	
+	/* A - Generic */
+	A {
+		text-decoration: none;
+	}
+	
+	/* A - Link */
+	A:link {
+		color: #550000;
+		text-decoration: none;
+	}
+	
+	/* A - Visited link */
+	A:visited {
+		color: #550000;
+	}
+	
+	/* A - Hover link */
+	A:hover {
+		color: #007A98;
+		text-decoration: underline;
+	}
+	
+	/* A - Active link */
+	A:active {
+		color: #6B6B54;
+		text-decoration: underline;
+	}
+	
+	/* STRONG - Generic */
+	STRONG {
+		color: #550000;
+		font-weight: bold;
+	}
+	
+	/* FORM - Generic */
+	FORM {
+		margin: 0px;
+	}
+	
+	/* INPUT - Generic */
+	INPUT {
+		margin: 2px;
+		color: #333333;
+		font-size: 12px;
+		background-color: #D9D9CE;
+		border: solid 1px #0A0808;
+		font-family: Helvetica, Arial, Geneva, Swiss, SunSans-Regular;
+		padding: 2px;
+	}
+	
+	/* INPUT - Button */
+	INPUT.c-inputButton {
+		margin: 0px;
+		padding: 0px;
+		border: none;
+		background-color: transparent;
+	}
+	
+	/* TEXTAREA - Generic */
+	TEXTAREA {
+		margin: 2px;
+		color: #333333;
+		font-size: 12px;
+		background-color: #D9D9CE;
+		border: solid 1px #0A0808;
+		font-family: Helvetica, Arial, Geneva, Swiss, SunSans-Regular;
+		padding: 2px;
+	}
+	
+	/* SELECT - Generic */
+	SELECT {
+		margin: 2px;
+		color: #333333;
+		font-size: 12px;
+		background-color: #D9D9CE;
+		border: solid 1px #0A0808;
+		font-family: Helvetica, Arial, Geneva, Swiss, SunSans-Regular;
+		padding: 0px;
+	}
+	
+	/* IMG - Generic */
+	IMG {
+		border: none;
+	}
+	
+	/**
+	 * Backgrounds
+	 */
+	.bgColor {
+		background-color: #E9E8DB;
+	}
+	.bgColor2 {
+		background-color: #806A66;
+	}
+	.bgColor3 {
+		background-color: #BBCCB3;
+	}
+	.bgColor4 {
+		background-color: #BFBEB4;
+	}
+	.bgColor5 {
+		background-color: #B38A62;
+	}
+	.bgColor6 {
+		background-color: #B3CCCA;
+	}
+	.bgColor-10 {
+		background-color: #D9D8CC;
+	}
+	.bgColor-20 {
+		background-color: #00FF00;
+	}
+	.bgColor3-20 {
+		background-color: #0000FF;
+	}
+	.bgColor4-20 {
+		background-color: #807F78;
+	}
+	
+	/**
+	 * Typo3 specific classes
+	 */
+	.typo3-red {
+		color: #FF0000;
+	}
+	.uppercase {
+		font-style: uppercase;
+	}
+	
+	/**
+	 * Login
+	 */
+	BODY#typo3-index-php {
+		margin: 0px;
+		background-color: #120F10;
+		background-image: none;
+	}
+	BODY#typo3-index-php H2 {
+		color: #FF5500;
+	}
+	BODY#typo3-index-php TD, BODY#typo3-index-php LI, BODY#typo3-index-php P {
+		color: #E6E1B2;
+	}
+	BODY#typo3-index-php A:link {
+		color: #FF5500;
+	}
+	BODY#typo3-index-php A:visited {
+		color: #FF5500;
+	}
+	BODY#typo3-index-php A:hover {
+		color: #00CCFF;
+	}
+	BODY#typo3-index-php TABLE#wrapper {
+		border-top: dotted 1px #333333;
+		border-bottom: dotted 1px #333333;
+		margin-top: 25px;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell {
+		background-color: #120F10;
+		padding: 10px;
+		background-image: url("backgrounds/pattern.gif");
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell DIV#loginimage {
+		text-align: center;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell DIV#loginimage IMG {
+		border: dotted 1px #333333;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell TABLE#loginwrapper {
+		background-color: #0A0808;
+		width: 50%;
+		border: dotted 1px #333333;
+		margin-top: 25px;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell TABLE#loginwrapper IMG {
+		margin: 5px;
+		border: dotted 1px #333333;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell TABLE#loginwrapper TABLE#logintable {
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell TABLE#loginwrapper TABLE#logintable P.c-info {
+		font-size: 9px;
+		color: #666666;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell TABLE#loginwrapper TABLE#logintable P.c-wrong {
+		font-weight: bold;
+		border: dotted 1px #333333;
+		padding: 5px;
+		background-color: #120F10;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell DIV#copyrightnotice {
+		font-size: 9px;
+		border: dotted 1px #333333;
+		padding: 5px;
+		background-color: #0A0808;
+		margin-top: 25px;
+		color: #666666;
+	}
+	BODY#typo3-index-php TABLE#wrapper TD.c-wrappercell DIV#copyrightnotice IMG {
+		display: none;
+	}
+	
+	/**
+	 * Shortcut frame
+	 */
+	BODY#typo3-alt-shortcut-php {
+		border-top: dotted 1px #333333;
+		background-color: #120F10;
+		background-image: url("backgrounds/pattern.gif");
+		margin: 0px;
+	}
+	BODY#typo3-alt-shortcut-php TD, BODY#typo3-alt-shortcut-php LI, BODY#typo3-alt-shortcut-php P {
+		color: #E6E1B2;
+	}
+	BODY#typo3-alt-shortcut-php A:link {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-shortcut-php A:visited {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-shortcut-php A:hover {
+		color: #00CCFF;
+	}
+	
+	/**
+	 * Alt menu
+	 */
+	BODY#typo3-alt-menu-php {
+		background-color: #120F10;
+		background-image: none;
+	}
+	BODY#typo3-alt-menu-php TD, BODY#typo3-alt-menu-php LI, BODY#typo3-alt-menu-php P {
+		color: #E6E1B2;
+	}
+	BODY#typo3-alt-menu-php TD {
+		padding-top: 2px;
+		padding-bottom: 2px;
+	}
+	BODY#typo3-alt-menu-php DIV.vertical-menu TABLE#typo3-vmenu {		width: 100%;
+	}
+	BODY#typo3-alt-menu-php DIV.vertical-menu TABLE#typo3-vmenu TR.c-mainitem TD {
+		border: dotted 1px #333333;
+		background: #120F10;
+		background-image: url("backgrounds/pattern.gif");
+		color: #E6E1B2;
+		padding: 5px;
+	}
+	BODY#typo3-alt-menu-php DIV.vertical-menu TABLE#typo3-vmenu TR.c-mainitem TD IMG {
+		vertical-align: middle;
+	}
+	TABLE#typo3-vmenu TR.c-subitem-row-HL TD {
+		background-color: #333333;
+	}
+	BODY#typo3-alt-menu-php DIV.vertical-menu TABLE#typo3-vmenu TR.c-subitem-row TD.c-subitem-label {
+		padding-left: 5px;
+	}
+	BODY#typo3-alt-menu-php DIV#typo3-alt-menu-php-adminFunc H2.bgColor5 {
+		border: dotted 1px #333333;
+		background-color: #120F10;
+		background-image: url("backgrounds/pattern.gif");
+		color: #E6E1B2;
+		padding: 5px;
+		text-align: center;
+	}
+	BODY#typo3-alt-menu-php DIV#typo3-alt-menu-php-logininfo {
+		text-align: center;
+		border: dotted 1px #333333;
+		background: #120F10;
+		padding: 5px;
+	}
+	BODY#typo3-alt-menu-php A:link {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-menu-php A:visited {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-menu-php A:hover {
+		color: #00CCFF;
+	}
+	
+	/**
+	 * Alt top logo
+	 */
+	BODY#typo3-alt-toplogo-php {
+		background-color: #120F10;
+		margin: 0px;
+		background-image: none;
+	}
+	BODY#typo3-alt-toplogo-php TD, BODY#typo3-alt-toplogo-php LI, BODY#typo3-alt-toplogo-php P {
+		color: #E6E1B2;
+	}
+	BODY#typo3-alt-toplogo-php A:link {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-toplogo-php A:visited {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-toplogo-php A:hover {
+		color: #00CCFF;
+	}
+	
+	/**
+	 * Alt top menu dummy /  Alt top menu dummy icon menu
+	 */
+	BODY#typo3-alt-topmenu-dummy-php, BODY#typo3-alt-topmenu-dummy-php-iconmenu {
+		background-color: #120F10;
+		margin: 0px;
+		background-image: none;
+	}
+	BODY#typo3-alt-topmenu-dummy-php TD, BODY#typo3-alt-topmenu-dummy-php LI, BODY#typo3-alt-topmenu-dummy-php P {
+		color: #BFAFA3;
+	}
+	BODY#typo3-alt-topmenu-dummy-php A:link, BODY#typo3-alt-topmenu-dummy-php-iconmenu A:link {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-topmenu-dummy-php A:visited, BODY#typo3-alt-topmenu-dummy-php-iconmenu A:visited {
+		color: #FF5500;
+	}
+	BODY#typo3-alt-topmenu-dummy-php A:hover, BODY#typo3-alt-topmenu-dummy-php-iconmenu A:hover {
+		color: #00CCFF;
+	}
+	BODY#typo3-alt-topmenu-dummy-php STRONG, BODY#typo3-alt-topmenu-dummy-php-iconmenu STRONG {
+		color: #E6E1B2;
+	}
+	
+	/* Nav frame */
+	BODY#typo3-alt-db-navframe-php IMG, BODY#typo3-alt-file-navframe-php IMG, BODY#ext-dam-mod-main-tx-dam-navframe-php IMG {
+		vertical-align: middle;
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+	BODY#typo3-alt-db-navframe-php P.c-refresh IMG, BODY#typo3-alt-file-navframe-php P.c-refresh IMG, BODY#ext-dam-mod-main-tx-dam-navframe-php P.c-refresh IMG {
+		margin: 5px;
+	}
+	
+	/* New record */
+	BODY#typo3-db-new-php IMG {
+		vertical-align: middle;
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+	BODY#typo3-db-new-php P.c-refresh IMG {
+		margin: 5px;
+	}
+	
+	/* DB list */
+	BODY#typo3-db-list-php TABLE#typo3-dblist-top {
+		background-image: url("backgrounds/pattern.gif");
+		border: dotted 1px #333333;
+		background-color: #120F10;
+	}
+	BODY#typo3-db-list-php TABLE#typo3-dblist-top TD {
+		color: #FF5500;
+		font-weight: bold;
+		padding: 5px;
+		vertical-align: middle;
+	}
+	BODY#typo3-db-list-php TABLE#typo3-dblist-top TABLE {
+		background-color: #E9E8DB;
+		background-image: url("backgrounds/pattern_light.gif");
+	}
+	BODY#typo3-db-list-php TABLE#typo3-dblist-top TABLE TD {
+		padding: 2px;
+	}
+	BODY#typo3-db-list-php TABLE#typo3-dblist-top TABLE.bgColor4 {
+		background-color: transparent;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist TD {
+		padding: 2px;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist TD.c-headLineTable {
+		background-color: #806A66;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist TD.c-headLine {
+		background-color: #BFBEB4;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist DIV.typo3-DBctrl {
+		background-color: #BFBEB4;
+		padding: 2px;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist DIV.typo3-clipCtrl {
+		background-color: #BFBEB4;
+		padding: 2px;
+	}
+	BODY#typo3-db-list-php TABLE.typo3-dblist DIV IMG {
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+	
+	/* List options */
+	DIV#typo3-listOptions {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	/* Clipboard */
+	TABLE#typo3-clipboard {
+		border: solid 1px #333333;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	/* New record */
+	DIV#typo3-newRecordLink {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	DIV#typo3-newRecordLink IMG {
+		vertical-align: middle;
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+	
+	/* Search box */
+	TABLE#typo3-dblist-search {
+		border: solid 1px #333333;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		padding: 2px;
+	}
+	
+	/**
+	 * Dynamic tab menu
+	 */
+	DIV.typo3-dyntabmenu-tabs {
+		margin-top: 5px;
+		padding-right: 20px;
+	}
+	DIV.typo3-dyntabmenu-tabs A:link {
+		color: #FF5500;
+	}
+	DIV.typo3-dyntabmenu-tabs A:visited {
+		color: #FF5500;
+	}
+	DIV.typo3-dyntabmenu-tabs A:hover {
+		color: #00CCFF;
+	}
+	TABLE.typo3-dyntabmenu TD.tab {
+		color: #E6E1B2;
+		border: solid 1px 0A0808;
+		background-color: #120F10;
+		background-image: url("backgrounds/pattern.gif");
+	}
+	TABLE.typo3-dyntabmenu TD.tabact {
+		color: #E6E1B2;
+		border: solid 1px 0A0808;
+		background-color: #403E27;
+		background-image: url("backgrounds/pattern_dark.gif");
+	}
+	TABLE.typo3-dyntabmenu TD A {
+		display: block;
+		width: 100%;
+	}
+	TABLE.typo3-dyntabmenu TD {
+		color: #E6E1B2;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		background-image: url("backgrounds/pattern_dark.gif");
+		background-color: #333333;
+	}
+	
+	/* Context sensitive menu / Layer */
+	TABLE.typo3-CSM {
+		border: solid 1px #0A0808;
+	}
+	TABLE.typo3-CSM TR.typo3-CSM-itemRow {
+		height: 15px;
+	}
+	TABLE.typo3-CSM TR.typo3-CSM-itemRow TD {
+		padding: 5px;
+	}
+	TABLE.typo3-CSM TD.typo3-CSM-item {
+		white-space: nowrap;
+		cursor: pointer;
+	}
+	TABLE.typo3-CSM P {
+		color: E6E1B2;
+	}
+	
+	/* Specific wrappers */
+	DIV.typo3-mediumDoc {
+		width: 470px;
+	}
+	DIV.typo3-smallDoc {
+		width: 350px;
+	}
+-->
