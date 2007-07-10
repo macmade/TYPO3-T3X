@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txtvl10nbugfixM1&quot; - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">TV L10N BugFix</label>
+			<label index="mlang_labels_tabdescr">An extension that repairs what should never happend with TV free paradigm...</label>
+			<label index="mlang_labels_tablabel">TemplaVoila Localization Bug Fixer</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txtvl10nbugfixM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">TV L10N BugFix</label>
+			<label index="menu.func.1">Rebuild localized content elements structure</label>
+			<label index="error">Error</label>
+			<label index="error.noFlex">The current page does not have a flexform data structure for content elements.</label>
+			<label index="error.noFlexData">No content areas are defined in the current flexform data structure.</label>
+			<label index="error.noContent">No content element.</label>
+			<label index="error.noLangOverlay">No language overlay are defined for the current page.</label>
+			<label index="list.elements">Content elements</label>
+			<label index="list.field">Field:</label>
+			<label index="list.uid">UID:</label>
+			<label index="list.type">Type:</label>
+			<label index="list.title">Title:</label>
+			<label index="list.content">Content:</label>
+			<label index="rebuild">Rebuild:</label>
+			<label index="rebuild.link">Click here to completely rebuild the inheritance of localized content elements.</label>
+			<label index="rebuild.warning">Warning: this operation is not undoable. Only the localized content elements (bound to an content element in the default language) will be replaced in their corresponding language sheets.</label>
+			<label index="rebuild.confirm">Please note that this operation is not reversible, and is only applicable to localized content elements. Are you sure you want to rebuild the flexform structure?</label>
+			<label index="rebuild.confirmation">Structure of localized records was sucessfully updated!</label>
+			<label index="rebuild.recursive">Do this recursively on:</label>
+			<label index="rebuild.recursive.I.current">current page only</label>
+			<label index="rebuild.recursive.I.single">1 level</label>
+			<label index="rebuild.recursive.I.multiple">%d levels</label>
+		</languageKey>
+	</data>
+</T3locallang>
