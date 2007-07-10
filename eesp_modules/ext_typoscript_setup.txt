@@ -1,0 +1,48 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'EESP Modules'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Modules calendar
+ */
+
+plugin.tx_eespmodules_pi1 {
+	
+	// Router IP address
+	router = 212.147.123.34
+	
+	// Internal URL
+	internal = http://192.168.140.247/4DACTION/S_WEB_Rech
+	
+	// External URL
+	external = http://212.147.123.39/4DACTION/S_WEB_Rech
+	
+	// Info picture
+	infoPic = EXT:eesp_modules/res/info.gif
+}

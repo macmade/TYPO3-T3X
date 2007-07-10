@@ -1,0 +1,2 @@
+# cat=basic/file/01; type=string; label=Modules directory: The path to the directory where the modules XML files are located.
+modulesDir =
