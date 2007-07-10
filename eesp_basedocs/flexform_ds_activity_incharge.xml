@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields_incharge>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:eesp_basedocs/locallang_db.php:tx_eespbasedocs_activity.incharge.section</title>
+				</tx_templavoila>
+				<el>
+					<incharge>
+						<type>array</type>
+						<tx_templavoila>
+							<title>RESP</title>
+						</tx_templavoila>
+						<el>
+							<name>
+								<TCEforms>
+									<label>LLL:EXT:eesp_basedocs/locallang_db.php:tx_eespbasedocs_activity.incharge.name</label>
+									<config>
+										<type>input</type>
+										<size>30</size>
+									</config>
+								</TCEforms>
+							</name>
+							<function>
+								<TCEforms>
+									<label>LLL:EXT:eesp_basedocs/locallang_db.php:tx_eespbasedocs_activity.incharge.function</label>
+									<config>
+										<type>input</type>
+										<size>30</size>
+									</config>
+								</TCEforms>
+							</function>
+						</el>
+					</incharge>
+				</el>
+			</fields_incharge>
+		</el>
+	</ROOT>
+</T3DataStructure>
