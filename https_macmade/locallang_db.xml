@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'https_macmade'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pages.tx_httpsmacmade_enforcemode.I.0">None</label>
+			<label index="pages.tx_httpsmacmade_enforcemode.I.1">Enforce HTTPS</label>
+			<label index="pages.tx_httpsmacmade_enforcemode.I.2">Enforce HTTP</label>
+			<label index="pages.tx_httpsmacmade_enforcemode">SSL enforce mode</label>
+		</languageKey>
+	</data>
+</T3locallang>
