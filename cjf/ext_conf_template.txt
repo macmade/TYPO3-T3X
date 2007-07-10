@@ -1,0 +1,2 @@
+# cat=basic//0; type=string; label=PDF label class: The class uses to generate PDF labels.
+pdfLabelClass = fileadmin/scripts/PDF_Label.php

@@ -1,0 +1,166 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Cully Jazz Festival'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - CJF - Events
+ */
+plugin.tx_cjf_pi1 {
+	
+	// Payement URL
+	payUrl {
+		
+		// Real URL
+		real = https://yellowpay.postfinance.ch/checkout/Yellowpay.aspx?userctrl=Invisible
+		
+		// Test URL
+		test = https://yellowpaytest.postfinance.ch/checkout/Yellowpay.aspx?userctrl=Invisible
+	}
+	
+	// Payement logo
+	payLogo {
+		file = EXT:cjf/res/postfinance.jpg
+		file.maxW = 100
+		file.maxH = 100
+	}
+	
+	// Hour correction
+	hourCorrection = -1
+	
+	// PDF options
+	pdf {
+		
+		// Orientation
+		orientation = P
+		
+		// Unit
+		unit = mm
+		
+		// Format
+		format = A4
+	}
+	
+	// Date format
+	dateFormat = %A, %d %B %Y
+	
+	// Date format
+	hourFormat = %H:%M
+	
+	// Target for external links
+	extLinkTarget = _blank
+	
+	// Client form fields
+	clientFields {
+			name_first {
+				required = 1
+				size = 50
+				type = input
+			}
+			name_last {
+				required = 1
+				size = 50
+				type = input
+			}
+			address {
+				required = 1
+				cols = 48
+				rows = 2
+				type = textarea
+			}
+			zip {
+				required = 1
+				size = 10
+				type = input
+			}
+			city {
+				required = 1
+				size = 50
+				type = input
+			}
+			country {
+				required = 1
+				size = 50
+				type = input
+			}
+			email {
+				required = 1
+				size = 50
+				type = input
+				eval = email
+			}
+			phone_professionnal {
+				size = 50
+				type = input
+			}
+			phone_personnal {
+				size = 50
+				type = input
+			}
+			fax {
+				size = 50
+				type = input
+			}
+	}
+	
+	// Pictures
+	pictures {
+		
+		// Groups
+		groups {
+			file.maxW = 100
+			file.maxH = 100
+			params = 
+			imageLinkWrap = 1
+			imageLinkWrap {
+				bodyTag = <body style="background-color: #000000; color: #FFFFFF;">
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+		
+		// Artists
+		artists {
+			file.maxW = 100
+			file.maxH = 100
+			params = 
+			imageLinkWrap = 1
+			imageLinkWrap {
+				bodyTag = <body style="background-color: #000000; color: #FFFFFF;">
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+	}
+}

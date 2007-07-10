@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:cjf/locallang_db.php:tx_cjf_groups.artists.section</title>
+				</tx_templavoila>
+				<el>
+					<artists>
+						<type>array</type>
+						<tx_templavoila>
+							<title>Artist</title>
+						</tx_templavoila>
+						<el>
+							<artist>
+								<TCEforms>
+									<label>LLL:EXT:cjf/locallang_db.php:tx_cjf_groups.artists.artist</label>
+									<config>
+										<type>select</type>
+										<foreign_table>tx_cjf_artists</foreign_table>
+										<foreign_table_where>AND tx_cjf_artists.pid=###CURRENT_PID### ORDER BY tx_cjf_artists.name_last</foreign_table_where>
+										<size>1</size>
+										<minitems>0</minitems>
+										<maxitems>1</maxitems>
+									</config>
+								</TCEforms>
+							</artist>
+							<role>
+								<TCEforms>
+									<label>LLL:EXT:cjf/locallang_db.php:tx_cjf_groups.artists.role</label>
+									<config>
+										<type>input</type>
+										<size>30</size>
+									</config>
+								</TCEforms>
+							</role>
+						</el>
+					</artists>
+				</el>
+			</fields>
+		</el>
+	</ROOT>
+</T3DataStructure>

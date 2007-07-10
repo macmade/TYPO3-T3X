@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for module "web_txcjfM1" - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">CJF - Tickets</label>
+			<label index="mlang_labels_tabdescr">This module allows you to manage the tickets of the Cully Jazz Festival</label>
+			<label index="mlang_labels_tablabel">Tickets administration module</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="mlang_tabs_tab">CJF - Billeterie</label>
+			<label index="mlang_labels_tabdescr">Ce module vous permet de gérer la billeterie du Cully Jazz Festival</label>
+			<label index="mlang_labels_tablabel">Module d'administration de la billeterie</label>
+		</languageKey>
+	</data>.
+</T3locallang>
