@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for module 'web_txeespbooksM1'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Cahiers EESP</label>
+			<label index="menu.func.1">Aperçu</label>
+			<label index="monthes.1">Janvier</label>
+			<label index="monthes.2">Février</label>
+			<label index="monthes.3">Mars</label>
+			<label index="monthes.4">Avril</label>
+			<label index="monthes.5">Mai</label>
+			<label index="monthes.6">Juin</label>
+			<label index="monthes.7">Juillet</label>
+			<label index="monthes.8">Août</label>
+			<label index="monthes.9">Septembre</label>
+			<label index="monthes.10">Octobre</label>
+			<label index="monthes.11">Novembre</label>
+			<label index="monthes.12">Décembre</label>
+			<label index="month.new">Le mois en cours n'a pas encore été créé</label>
+			<label index="submit.month">Créer</label>
+			<label index="submit.stock">Mettre à jour le stock</label>
+			<label index="overview">Mois disponibles pour la gestion du stock</label>
+			<label index="book.id">ID</label>
+			<label index="book.title">Titre</label>
+			<label index="stock.sales_reception">Ventes réception</label>
+			<label index="stock.sales_bill">Ventes par facture</label>
+			<label index="stock.sales_free">Distribution gratuite</label>
+			<label index="stock.students_distribution">Distribution étudiants</label>
+			<label index="stock.students_exchange">Echange étudiants</label>
+			<label index="stock.events_out">Sorties manifestations</label>
+			<label index="stock.events_back">Retours manifestations</label>
+			<label index="stock.send_albert">Envois Albert le Grand</label>
+			<label index="stock.send_cid">Envois CID</label>
+			<label index="stock.back_students">Retours étudiants</label>
+			<label index="stock.back_cid">Retours CID</label>
+		</languageKey>
+	</data>
+</T3locallang>

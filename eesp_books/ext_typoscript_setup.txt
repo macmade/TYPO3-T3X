@@ -1,0 +1,99 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'EESP Books'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Book list
+ */
+plugin.tx_eespbooks_pi1 {
+
+	// Template file
+	templateFile = {$plugin.tx_eespbooks_pi1.templateFile}
+	
+	/**
+	 * Listview parameters
+	 */
+	listView {
+		
+		// Default display mode
+		defaultMode = {$plugin.tx_eespbooks_pi1.defaultMode}
+		
+		// MySQL SORTBY command
+		sortBy = {$plugin.tx_eespbooks_pi1.sortBy}
+		
+		// Maximum number of records to display at a time
+		maxRecords = {$plugin.tx_eespbooks_pi1.maxRecords}
+		
+		// Maximum number of pages to display at a time
+		maxPages = {$plugin.tx_eespbooks_pi1.maxPages}
+		
+		// Thumbnails CObject
+		thumbCObject = IMAGE
+		thumbCObject {
+			file.width = {$plugin.tx_eespbooks_pi1.thumbWidthList}
+			params = {$plugin.tx_eespbooks_pi1.thumbParamsList}
+		}
+	}
+	
+	/**
+	 * Singleview parameters
+	 */
+	singleView {
+		
+		// Field used as info
+		infoFields = {$plugin.tx_eespbooks_pi1.infoFields}
+		
+		// Thumbnails CObject
+		thumbCObject = IMAGE
+		thumbCObject {
+			file.width = {$plugin.tx_eespbooks_pi1.thumbWidthSingle}
+			params = {$plugin.tx_eespbooks_pi1.thumbParamsSingle}
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-eespbooks-pi1 TD {
+			background-color: #CCCCCC;
+			background-position: center left;
+			padding: 5px;
+			border: solid 1px #666666;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	)
+}

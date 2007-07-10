@@ -1,0 +1,65 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'EESP Books'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Book list
+ */
+plugin.tx_eespbooks_pi1 {
+
+	# cat= eespbooks_pi1/dims/0; type=string; label=Thumnails width: The maximum width of the thumbnails (in the list view).
+	thumbWidthList = 50m
+	
+	# cat= eespbooks_pi1/dims/1; type=string; label=Thumnails width: The maximum width of the thumbnails (in the single view).
+	thumbWidthSingle = 100m
+	
+	# cat= eespbooks_pi1/file/0; type=file[html]; label=Template file: The template file to use.
+	templateFile = EXT:eesp_books/pi1/template/template.html
+	
+	# cat= eespbooks_pi1//0; type=int+; label=Default mode: The default display mode in the list view.
+	defaultMode = 0
+	
+	# cat= eespbooks_pi1//1; type=string; label=Sort by: The field used to sort the records in the list view.
+	sortBy = bookid
+	
+	# cat= eespbooks_pi1//2; type=int+; label=Max records: The maximum number of records to display at a time in the list view.
+	maxRecords = 10
+	
+	# cat= eespbooks_pi1//3; type=int+; label=Max pages: The maximum number of pages to display at a time in the list view.
+	maxPages = 5
+	
+	# cat= eespbooks_pi1//4; type=string; label=Thumbnails params: The parameters of the thumbnails image tag (in the list view).
+	thumbParamsList = align="middle" style="border: solid 1px #666666;"
+	
+	# cat= eespbooks_pi1//5; type=string; label=Thumbnails params: The parameters of the thumbnails image tag (in the single view).
+	thumbParamsSingle = align="middle" style="border: solid 1px #666666;"
+	
+	# cat= eespbooks_pi1//6; type=string; label=Info fields: The fields to display as informations (comma list).
+	infoFields = reedition,pubyear,isbn,pages,format,physicaldetails,price_chf,price_eur
+}
