@@ -1,0 +1,115 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2005 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Hyper Navigation System'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Hyper Navigation System
+ */
+plugin.tx_hypernav_pi1 {
+	
+	// Number of levels to show
+	showLevels = 5
+	
+	/**
+	 * First level configuration
+	 */
+	firstLevel {
+		
+		// Layer style
+		layerStyle = position: absolute; visibility: hidden;
+		
+		// Lock position
+		lockPosition = x
+		
+		// Relative options
+		relativeToParentLayer = 1
+		relativeToTriggerItem = 1
+		
+		// Offset
+		topOffset = 15
+		
+		// Hide options
+		hideMenuWhenNotOver = 50
+		hideMenuTimer = 70
+		
+		// Normal state
+		NO.allWrap = <td align="left" valign="top">You are here: /</td><td align="left" valign="top">|</td><td align="left" valign="top">/</td>|*|<td align="left" valign="top">|</td><td align="left" valign="top">/</td>|*|<td align="left" valign="top">|</td>
+		
+		// Wrap
+		wrap = <table border="0" cellspacing="0" cellpadding="2" align="left" class="tx-hypernav-pi1-firstLevel"><tr>|</tr></table>
+	}
+	
+	/**
+	 * Sublevels configuration
+	 */
+	subLevels {
+		
+		// Layer style
+		layerStyle = position: absolute; visibility: hidden;
+		
+		// Lock position
+		lockPosition = x
+		
+		// Relative options
+		relativeToParentLayer = 1
+		relativeToTriggerItem = 1
+		
+		// Offset
+		leftOffset = 50
+		
+		// Hide options
+		hideMenuWhenNotOver = 50
+		hideMenuTimer = 70
+		
+		// Wrap
+		wrap = <table border="0" cellspacing="0" cellpadding="2" align="left" class="tx-hypernav-pi1-subLevels"><tr>|</tr></table>
+		
+		// Normal state
+		NO.allWrap = |*|<tr><td align="left" valign="top" colspan="2" class="tx-hypernav-pi1-subLevels-row">|</td></tr>||<tr><td align="left" valign="top" colspan="2" class="tx-hypernav-pi1-subLevels-rowAlt">|</td></tr>|*|
+		
+		// Configuration if item has sub elements
+		IFSUB = 1
+		IFSUB.allWrap = |*|<tr><td align="left" valign="top" class="tx-hypernav-pi1-subLevels-row">|</td><td align="left" valign="top" class="tx-hypernav-pi1-subLevels-row">&gt;</td></tr>||<tr><td align="left" valign="top" class="tx-hypernav-pi1-subLevels-rowAlt">|</td><td align="left" valign="top" class="tx-hypernav-pi1-subLevels-rowAlt">&gt;</td></tr>|*|
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-hypernav-pi1-subLevels {
+			border: solid 1px #DFE2E3;
+			border-collapse: collapse;
+		}
+		.tx-hypernav-pi1-subLevels TD {
+			padding: 5px;
+			background-color: #FFFFFF;
+		}
+		.tx-hypernav-pi1-subLevels TD.tx-hypernav-pi1-subLevels-rowAlt {
+			background-color: #E6EEF2;
+		}
+	)
+}
