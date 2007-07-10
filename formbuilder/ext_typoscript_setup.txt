@@ -1,0 +1,83 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Form Builder'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		1.0
+ */
+
+/**
+ * Form displayer plugin
+ */
+plugin.tx_formbuilder_pi1 {
+	
+	/**
+	 * Index settings
+	 */
+	index {
+		
+		// Show description
+		showDescr = 0
+		
+		// Crop description
+		cropDescr = 100
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-index-form {
+			border: solid 1px #989795;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			padding: 5px;
+			background-color: #FFFFFF;
+		}
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-index-form .tx-formbuilder-pi1-index-form-link {
+			background-color: #F0E9D2;
+			border: solid 1px #E5D9B1;
+			padding: 5px;
+		}
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-single-form {
+			border: solid 1px #989795;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			padding: 5px;
+			background-color: #FFFFFF;
+		}
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-single-form TABLE.tx-formbuilder-pi1-fields {
+			border: solid 1px #989795;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			border-collapse: collapse;
+		}
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-single-form TABLE.tx-formbuilder-pi1-fields TD {
+			border: dotted 1px #989795;
+		}
+		.tx-formbuilder-pi1 .tx-formbuilder-pi1-single-form TABLE.tx-formbuilder-pi1-fields TD.tx-formbuilder-pi1-label {
+			background-color: #F0E9D2;
+			font-weight: bold;
+		}
+	)
+}
