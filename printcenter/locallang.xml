@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension 'printcenter'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Print center</label>
+			<label index="pi1_plus_wiz_description">Adss a print center to the page.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">Centre d'impression</label>
+			<label index="pi1_plus_wiz_description">Ajoute un centre d'impression à la page.</label>
+		</languageKey>
+	</data>
+</T3locallang>

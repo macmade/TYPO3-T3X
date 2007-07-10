@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'printcenter'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Print center</label>
+			<label index="tx_printcenter_service">Print Center - Service</label>
+			<label index="tx_printcenter_service.title">Service title</label>
+			<label index="tx_printcenter_service.damcat">Related DAM category</label>
+			<label index="tx_printcenter_color">Print Center - Color</label>
+			<label index="tx_printcenter_color.name">Color name</label>
+			<label index="tx_printcenter_color.preview">Color preview</label>
+			<label index="tx_printcenter_weight">Print Center - Paper weight</label>
+			<label index="tx_printcenter_weight.weight">Weight</label>
+			<label index="tx_printcenter_paper">Print Center - Paper</label>
+			<label index="tx_printcenter_paper.name">Paper name</label>
+			<label index="tx_printcenter_paper.color">Allowed colors</label>
+			<label index="tx_printcenter_paper.weight">Available weights</label>
+			<label index="tx_printcenter_paper.size">Available sizes</label>
+			<label index="tx_printcenter_size">Print Center - Paper size</label>
+			<label index="tx_printcenter_size.size">Size</label>
+			<label index="tx_printcenter_job">Print Center - Job</label>
+			<label index="tx_printcenter_job.service">Service</label>
+			<label index="tx_printcenter_job.module">Module number</label>
+			<label index="tx_printcenter_job.name_last">Name</label>
+			<label index="tx_printcenter_job.name_first">First name</label>
+			<label index="tx_printcenter_job.office">Office</label>
+			<label index="tx_printcenter_job.phone">Phone</label>
+			<label index="tx_printcenter_job.original_pages">Number of pages</label>
+			<label index="tx_printcenter_job.original_type.I.0">Paper</label>
+			<label index="tx_printcenter_job.original_type.I.1">File</label>
+			<label index="tx_printcenter_job.original_type">Type</label>
+			<label index="tx_printcenter_job.original_orientation.I.0">Portrait</label>
+			<label index="tx_printcenter_job.original_orientation.I.1">Landscape</label>
+			<label index="tx_printcenter_job.original_orientation">Orientation</label>
+			<label index="tx_printcenter_job.original_size">Size</label>
+			<label index="tx_printcenter_job.print_copies">Copies</label>
+			<label index="tx_printcenter_job.print_colors.I.0">Black &amp; White</label>
+			<label index="tx_printcenter_job.print_colors.I.1">Color</label>
+			<label index="tx_printcenter_job.print_colors">Colors</label>
+			<label index="tx_printcenter_job.print_twosided">Two sided printing</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">Centre d'impression</label>
+			<label index="tx_printcenter_service">Print Center - Service</label>
+			<label index="tx_printcenter_service.title">Titre du service</label>
+			<label index="tx_printcenter_service.damcat">Catégorie DAM associée</label>
+			<label index="tx_printcenter_color">Print Center - Couleur</label>
+			<label index="tx_printcenter_color.name">Nom de la couleur</label>
+			<label index="tx_printcenter_color.preview">Prévisualisation de la couleur</label>
+			<label index="tx_printcenter_weight">Print Center - Grammage papier</label>
+			<label index="tx_printcenter_weight.weight">Grammage</label>
+			<label index="tx_printcenter_paper">Print Center - Papier</label>
+			<label index="tx_printcenter_paper.name">Nom du papier</label>
+			<label index="tx_printcenter_paper.color">Couleurs disponibles</label>
+			<label index="tx_printcenter_paper.weight">Grammages disponibles</label>
+			<label index="tx_printcenter_paper.size">Formats disponibles</label>
+			<label index="tx_printcenter_size">Print Center - Format de papier</label>
+			<label index="tx_printcenter_size.size">Format</label>
+			<label index="tx_printcenter_job">Print Center - Job</label>
+			<label index="tx_printcenter_job.service">Service</label>
+			<label index="tx_printcenter_job.module">Numéro de module</label>
+			<label index="tx_printcenter_job.name_last">Nom</label>
+			<label index="tx_printcenter_job.name_first">Prénom</label>
+			<label index="tx_printcenter_job.office">Bureau</label>
+			<label index="tx_printcenter_job.phone">Téléphone</label>
+			<label index="tx_printcenter_job.original_pages">Nombre de pages</label>
+			<label index="tx_printcenter_job.original_type.I.0">Papier</label>
+			<label index="tx_printcenter_job.original_type.I.1">Fichier</label>
+			<label index="tx_printcenter_job.original_type">Type</label>
+			<label index="tx_printcenter_job.original_orientation.I.0">Portrait</label>
+			<label index="tx_printcenter_job.original_orientation.I.1">Paysage</label>
+			<label index="tx_printcenter_job.original_orientation">Orientation</label>
+			<label index="tx_printcenter_job.original_size">Format</label>
+			<label index="tx_printcenter_job.print_copies">Copies</label>
+			<label index="tx_printcenter_job.print_colors.I.0">Noir &amp; Blanc</label>
+			<label index="tx_printcenter_job.print_colors.I.1">Couleur</label>
+			<label index="tx_printcenter_job.print_colors">Couleurs</label>
+			<label index="tx_printcenter_job.print_twosided">Recto-Verso</label>
+		</languageKey>
+	</data>
+</T3locallang>
