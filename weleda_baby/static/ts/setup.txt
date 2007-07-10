@@ -1,0 +1,419 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'Weleda Baby'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Member list
+ */
+plugin.tx_weledababy_pi1 {
+	
+	// Comma list of pages from where to fetch the records (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	pidList =
+	
+	// Recursive level (1 - 2 - 3 - 4 - 250) (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	recursive =
+	
+	// Template file
+	templateFile = EXT:weleda_baby/res/template_pi1.html
+	
+	// Date format (strftime)
+	dateFormat = %d %B %Y
+	
+	/**
+	 * List parameters
+	 */
+	list {
+		
+		// MySQL SORTBY command
+		sortBy = username
+		
+		// Maximum number of records to display at a time
+		maxRecords = 10
+		
+		// Maximum number of pages to display at a time
+		maxPages = 20
+		
+		// Fields to show
+		showFields = image,username,name,city,country
+		
+		// Thumbnails CObject
+		picture {
+			file.maxW = 50
+			file.maxH = 50
+			params = 
+		}
+	}
+	
+	/**
+	 * Single parameters
+	 */
+	single {
+		
+		// Crop articles
+		cropArticles = 50
+		
+		// Number of articles to show
+		showArticles = 5
+		
+		// Fields to show
+		showFields = image,username,name,city,country
+		
+		// Thumbnails CObject
+		picture {
+			file.maxW = 50
+			file.maxH = 50
+			params = 
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+		
+		// Thumbnails CObject
+		friendsPicture {
+			file.maxW = 10
+			file.maxH = 10
+			params = 
+		}
+		
+		// Thumbnails CObject
+		babiesPicture {
+			file.maxW = 50
+			file.maxH = 50
+			params = 
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+	}
+	
+	/**
+	 * Gallery parameters
+	 */
+	gallery {
+		
+		// List parameters
+		list {
+			
+			// MySQL SORTBY command
+			sortBy = crdate
+			
+			// Maximum number of records to display at a time
+			maxRecords = 10
+			
+			// Maximum number of pages to display at a time
+			maxPages = 20
+			
+			// Thumbnails CObject
+			picture {
+				file.maxW = 100
+				file.maxH = 100
+				params = 
+			}
+		}
+		
+		// Single parameters
+		single {
+			
+			// Thumbnails CObject
+			picture {
+				file.maxW = 200
+				file.maxH = 200
+				params = 
+				imageLinkWrap = 1
+				imageLinkWrap {
+					enable = 1
+					wrap = <a href="javascript:self.close();">|</a>
+					width = 800m
+					JSwindow = 1
+					JSwindow.expand = 20,20
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Articles parameters
+	 */
+	articles {
+		
+		// List parameters
+		list {
+			
+			// MySQL SORTBY command
+			sortBy = crdate
+			
+			// Maximum number of records to display at a time
+			maxRecords = 10
+			
+			// Maximum number of pages to display at a time
+			maxPages = 20
+			
+			// Crop text
+			crop = 100
+		}
+	}
+}
+
+/**
+ * PI2 object - Registration
+ */
+plugin.tx_weledababy_pi2 {
+	
+	// Storage PID (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	storagePid =
+	
+	// FE user group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	usergroup =
+	
+	// Fields available (markers must be present in the template)
+	fieldList = username,password,name,image,address,zip,city,country,email,title
+
+	// Required fields
+	requiredFields =
+	
+	// Template file
+	templateFile = EXT:weleda_baby/res/template_pi2.html
+	
+	// Redirect at login (PID)
+	redirect =
+	
+	// Size for inputs
+	inputSize = 20
+	
+	// Cols and rows for textareas
+	textareaCols = 20
+	textareaRows = 3
+}
+
+/**
+ * PI3 object - Home
+ */
+plugin.tx_weledababy_pi3 {
+	
+	// FE user group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	usergroup =
+	
+	// Template file
+	templateFile = EXT:weleda_baby/res/template_pi3.html
+	
+	// Date format (strftime)
+	dateFormat = %d %B %Y
+	
+	// Date format with hours (strftime)
+	dateHourFormat = %A, %d %B %Y / %R
+	
+	// Number of last members to show
+	lastMembers = 5
+	
+	// Links
+	links {
+		
+		// Member list
+		members =
+		
+		// Edit profile
+		profile =
+	}
+	
+	// Thumbnails CObject
+	usersPicture {
+		file.maxW = 10
+		file.maxH = 10
+		params = 
+	}
+	
+	// Thumbnails CObject
+	picture {
+		file.maxW = 50
+		file.maxH = 50
+		params = 
+	}
+	
+	// CHC forum support
+	chcForums {
+		
+		// Storage PID
+		storagePid =
+		
+		// Display page
+		displayPage =
+		
+		// Number of last messages
+		lastMessages = 5
+		
+		// Crop posts
+		crop = 100
+	}
+	
+	// Thumbnails CObject
+	babiesPicture {
+		file.maxW = 50
+		file.maxH = 50
+		params = 
+		imageLinkWrap = 1
+		imageLinkWrap {
+			enable = 1
+			wrap = <a href="javascript:self.close();">|</a>
+			width = 800m
+			JSwindow = 1
+			JSwindow.expand = 20,20
+		}
+	}
+	
+	// Number of days to get birtdays
+	birthdayDays = 30
+	
+	// Timeout in seconds to select online users
+	timeout = 1800
+}
+
+/**
+ * PI4 object - Profile
+ */
+plugin.tx_weledababy_pi4 {
+	
+	// Storage PID (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	storagePid =
+	
+	// FE user group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	usergroup =
+	
+	// Template file
+	templateFile = EXT:weleda_baby/res/template_pi4.html
+	
+	// Date format (strftime)
+	dateFormat = %d %B %Y
+	
+	// Links
+	links {
+		
+		// Member list
+		members =
+	}
+	
+	// Description settings
+	description {
+		
+		// Required fields
+		requiredFields =
+		
+		// Cols and rows for textareas
+		textareaCols = 40
+		textareaRows = 20
+	}
+	
+	// Profile settings
+	profile {
+		
+		// Size for inputs
+		inputSize = 30
+		
+		// Cols and rows for textareas
+		textareaCols = 30
+		textareaRows = 3
+		
+		// Fields available (markers must be present in the template)
+		fieldList = username,password,name,image,address,zip,city,country,email,title
+		
+		// Required fields
+		requiredFields =
+		
+		// Thumbnails CObject
+		imgConf {
+			file.maxW = 50
+			file.maxH = 50
+			params =
+		}
+	}
+	
+	// Articles settings
+	articles {
+		
+		// Size for inputs
+		inputSize = 20
+		
+		// Cols and rows for textareas
+		textareaCols = 40
+		textareaRows = 10
+		
+		// Required fields
+		requiredFields =
+		
+		// Crop
+		crop = 100
+	}
+	
+	// Babies settings
+	babies {
+		
+		// Size for inputs
+		inputSize = 20
+		
+		// Required fields
+		requiredFields =
+		
+		// Thumbnails CObject
+		imgConf {
+			file.maxW = 50
+			file.maxH = 50
+			params =
+		}
+	}
+	
+	// Gallery settings
+	gallery {
+		
+		// Size for inputs
+		inputSize = 20
+		
+		// Cols and rows for textareas
+		textareaCols = 40
+		textareaRows = 10
+		
+		// Required fields
+		requiredFields =
+		
+		// Thumbnails CObject
+		imgConf {
+			file.maxW = 50
+			file.maxH = 50
+			params =
+		}
+	}
+}
