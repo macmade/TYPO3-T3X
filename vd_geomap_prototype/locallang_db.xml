@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'vd_geomap_prototype'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tt_content.list_type_pi1">VD / Geomap (Prototype JS version)</label>
+            <label index="tt_content.flexform_pi1.s_def">Main</label>
+            <label index="tt_content.flexform_pi1.s_def.xpos">X position</label>
+            <label index="tt_content.flexform_pi1.s_def.ypos">Y position</label>
+            <label index="tt_content.flexform_pi1.s_def.uscale">Scale</label>
+            <label index="tt_content.flexform_pi1.s_def.uscale.default">Defaults</label>
+            <label index="tt_content.flexform_pi1.s_def.showmap">Show map</label>
+            <label index="tt_content.flexform_pi1.s_help">Help</label>
+            <label index="tt_content.flexform_pi1.s_help.help">How to find coordinates</label>
+            <label index="tt_content.flexform_pi1.s_help.help.title.I.0">Geographic coordinates search</label>
+            <label index="tt_content.flexform_pi1.s_help.help.content.I.0"><![CDATA[X and Y coordinates can be found with the following page: <a href="http://www.vd.ch/index.php?id=11714" target="_blank">http://www.vd.ch/index.php?id=11714</a>]]></label>
+            <label index="tt_content.flexform_pi1.s_help.help.title.I.1">Help about this extension</label>
+            <label index="tt_content.flexform_pi1.s_help.help.content.I.1"><![CDATA[Explanation and use for this extension are described in the following page: <a href="http://www.vd.ch/index.php?id=11657" target="_blank">http://www.vd.ch/index.php?id=11657</a>]]></label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="tt_content.list_type_pi1">VD / Geomap (version prototype JS)</label>
+            <label index="tt_content.flexform_pi1.s_def">Général</label>
+            <label index="tt_content.flexform_pi1.s_def.xpos">Coordonnée X</label>
+            <label index="tt_content.flexform_pi1.s_def.ypos">Coordonnée Y</label>
+            <label index="tt_content.flexform_pi1.s_def.uscale">Echelle</label>
+            <label index="tt_content.flexform_pi1.s_def.uscale.default">Par défaut</label>
+            <label index="tt_content.flexform_pi1.s_def.showmap">Afficher la carte</label>
+            <label index="tt_content.flexform_pi1.s_help">Aide</label>
+            <label index="tt_content.flexform_pi1.s_help.help">Comment trouver les coordonnées</label>
+            <label index="tt_content.flexform_pi1.s_help.help.title.I.0">Recherche de coordonnées géographiques</label>
+            <label index="tt_content.flexform_pi1.s_help.help.content.I.0"><![CDATA[Les coordonnées géographiques X et Y d'une adresse postale peuvent être déterminées sur la page : <a href="http://www.vd.ch/index.php?id=11714" target="_blank">http://www.vd.ch/index.php?id=11714</a>]]></label>
+            <label index="tt_content.flexform_pi1.s_help.help.title.I.1">Aide sur cette extension</label>
+            <label index="tt_content.flexform_pi1.s_help.help.content.I.1"><![CDATA[La description de cette extension et son utilisation sont décrites à la page : <a href="http://www.vd.ch/index.php?id=11657" target="_blank">http://www.vd.ch/index.php?id=11657</a>]]></label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,223 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'VD / GeoMap - Prototype'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - GeoMap - Prototype
+ */
+plugin.tx_vdgeomapprototype_pi1 {
+	
+	// Use Xajax
+	ajax = {$plugin.tx_vdgeomapprototype_pi1.ajax}
+	
+	// Geomap url
+	url = {$plugin.tx_vdgeomapprototype_pi1.url}
+	
+	// Start scale
+	scale = {$plugin.tx_vdgeomapprototype_pi1.scale}
+	
+	// Image width
+	imgWidth = {$plugin.tx_vdgeomapprototype_pi1.imgWidth}
+	
+	// Image height
+	imgHeight = {$plugin.tx_vdgeomapprototype_pi1.imgHeight}
+	
+	// URL parameters
+	urlParameters {
+		xpos = {$plugin.tx_vdgeomapprototype_pi1.params.xpos}
+		ypos = {$plugin.tx_vdgeomapprototype_pi1.params.ypos}
+		scale = {$plugin.tx_vdgeomapprototype_pi1.params.scale}
+		layers = {$plugin.tx_vdgeomapprototype_pi1.params.layers}
+		width = {$plugin.tx_vdgeomapprototype_pi1.params.width}
+		height = {$plugin.tx_vdgeomapprototype_pi1.params.height}
+	}
+	
+	// Ressources
+	res {
+		
+		// Minus icon
+		minus {
+			file = EXT:vd_geomap_prototype/res/minus.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Minus off icon
+		minus-off {
+			file = EXT:vd_geomap_prototype/res/minus-off.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Plus icon
+		plus {
+			file = EXT:vd_geomap_prototype/res/plus.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Plus off icon
+		plus-off {
+			file = EXT:vd_geomap_prototype/res/plus-off.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Left icon
+		left {
+			file = EXT:vd_geomap_prototype/res/left.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Right icon
+		right {
+			file = EXT:vd_geomap_prototype/res/right.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Up icon
+		up {
+			file = EXT:vd_geomap_prototype/res/up.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Down icon
+		down {
+			file = EXT:vd_geomap_prototype/res/down.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Left up icon
+		left-up {
+			file = EXT:vd_geomap_prototype/res/left-up.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Left down icon
+		left-down {
+			file = EXT:vd_geomap_prototype/res/left-down.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Right up icon
+		right-up {
+			file = EXT:vd_geomap_prototype/res/right-up.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Right down icon
+		right-down {
+			file = EXT:vd_geomap_prototype/res/right-down.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Zoom increase icon
+		zoom-increase {
+			file = EXT:vd_geomap_prototype/res/zoom-increase.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Zoom increase icon
+		zoom-decrease {
+			file = EXT:vd_geomap_prototype/res/zoom-decrease.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+		
+		// Zoom current icon
+		zoom-current {
+			file = EXT:vd_geomap_prototype/res/zoom-current.gif
+			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
+		}
+	}
+	
+	// Default CSS styles
+	_CSS_DEFAULT_STYLE (
+		.tx-vdgeomapprototype-pi1-map {
+			border: dotted 1px #515151;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			width: 456px;
+		}
+		.tx-vdgeomapprototype-pi1 > .tx-vdgeomapprototype-pi1-map {
+			width: 454px;
+		}
+		.tx-vdgeomapprototype-pi1-left, .tx-vdgeomapprototype-pi1-right, .tx-vdgeomapprototype-pi1-up, .tx-vdgeomapprototype-pi1-down, .tx-vdgeomapprototype-pi1-picture {
+			float: left;
+		}
+		.tx-vdgeomapprototype-pi1 IMG {
+			vertical-align: middle;
+			margin: 2px;
+		}
+		.tx-vdgeomapprototype-pi1-picture IMG {
+			border: solid 1px #515151;
+		}
+		.tx-vdgeomapprototype-pi1-up, .tx-vdgeomapprototype-pi1-down {
+			width: 406px;
+			text-align: center;
+		}
+		.tx-vdgeomapprototype-pi1-back {
+			text-align: center;
+		}
+		.tx-vdgeomapprototype-pi1-mapTop, .tx-vdgeomapprototype-pi1-mapBottom, .tx-vdgeomapprototype-pi1-mapMiddle, .tx-vdgeomapprototype-pi1-scaleBar {
+			overflow: hidden;
+			height: 100%;
+			clear: both;
+		}
+		.tx-vdgeomapprototype-pi1-mapMiddle .tx-vdgeomapprototype-pi1-left IMG, .tx-vdgeomapprototype-pi1-mapMiddle .tx-vdgeomapprototype-pi1-right IMG {
+			margin-top: 192px;
+		}
+		.tx-vdgeomapprototype-pi1-scaleBar {
+			margin-top: 10px;
+			width: 220px;
+			margin-left: 116px;
+		}
+		.tx-vdgeomapprototype-pi1-scaleBar DIV {
+			float: left;
+		}
+		.tx-vdgeomapprototype-pi1-scaleBar DIV IMG {
+			margin: 0px;
+		}
+		.tx-vdgeomapprototype-pi1-error {
+			font-weight: bold;
+			color: #FF0000;
+			background-color: inherit;
+		}
+	)
+}

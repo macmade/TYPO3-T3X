@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_vdgeomapprototype_pi1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="show">Show map</label>
+            <label index="hide">Hide map</label>
+            <label index="show-title">Click here to display the map</label>
+            <label index="hide-title">Click here to hide the map</label>
+            <label index="imgAltText">Map (scale: %s, x: %s, y: %s)</label>
+            <label index="backLink">Back to the original map</label>
+            <label index="backLink-title">Click here to return to the original map</label>
+            <label index="imgAlt_minus">Dezoom</label>
+            <label index="imgAlt_minus-off">Dezoom (deactivated on this scale)</label>
+            <label index="imgAlt_plus">Zoom</label>
+            <label index="imgAlt_plus-off">Zoom (deactivated on this scale)</label>
+            <label index="imgAlt_zoom-increase">Dezoom (%s)</label>
+            <label index="imgAlt_zoom-decrease">Zoom (%s)</label>
+            <label index="imgAlt_zoom-current">Current scale (%s)</label>
+            <label index="imgAlt_left-up">Move north-west</label>
+            <label index="imgAlt_left-down">Move south-west</label>
+            <label index="imgAlt_left">Move west</label>
+            <label index="imgAlt_right-up">Move north-east</label>
+            <label index="imgAlt_right-down">Move south-east</label>
+            <label index="imgAlt_right">Move east</label>
+            <label index="imgAlt_up">Move north</label>
+            <label index="imgAlt_down">Move south</label>
+            <label index="urlError">Sorry, you have to set the URL of the image generation page through the TypoScript constants</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="show">Afficher la carte</label>
+            <label index="hide">Masquer la carte</label>
+            <label index="show-title">Cliquez ici pour afficher la carte</label>
+            <label index="hide-title">Cliquez ici pour masquer la carte</label>
+            <label index="imgAltText">Carte (échelle: %s, x: %s, y: %s)</label>
+            <label index="backLink">Retour à la carte originale</label>
+            <label index="backLink-title">Cliquez ici pour retourner à la carte originale</label>
+            <label index="imgAlt_minus">Dézoomer</label>
+            <label index="imgAlt_minus-off">Dézoomer (désactivé à cette échelle)</label>
+            <label index="imgAlt_plus">Zoomer</label>
+            <label index="imgAlt_plus-off">Zoomer (désactivé à cette échelle)</label>
+            <label index="imgAlt_zoom-increase">Dézoomer (%s)</label>
+            <label index="imgAlt_zoom-decrease">Zoomer (%s)</label>
+            <label index="imgAlt_zoom-current">Echelle actuelle (%s)</label>
+            <label index="imgAlt_left-up">Déplacement nord-ouest</label>
+            <label index="imgAlt_left-down">Déplacement sud-ouest</label>
+            <label index="imgAlt_left">Déplacement ouest</label>
+            <label index="imgAlt_right-up">Déplacement nord-est</label>
+            <label index="imgAlt_right-down">Déplacement sud-est</label>
+            <label index="imgAlt_right">Déplacement est</label>
+            <label index="imgAlt_up">Déplacement nord</label>
+            <label index="imgAlt_down">Déplacement sud</label>
+            <label index="urlError">Désolé, vous devez définir l'URL de la page de génération d'image dans les constantes TypoScript</label>
+        </languageKey>
+    </data>
+</T3locallang>
