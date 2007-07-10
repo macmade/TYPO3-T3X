@@ -25,7 +25,7 @@
 	/** 
 	 * Class that adds the wizard icon.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		1.0
 	 */
 	

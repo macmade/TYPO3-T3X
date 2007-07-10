@@ -18,7 +18,7 @@
 								<type>group</type>
 								<internal_type>file</internal_type>
 								<allowed>flv</allowed>
-								<max_size>2000</max_size>
+								<max_size>10000</max_size>
 								<uploadfolder>uploads/tx_flvplayer</uploadfolder>
 								<size>1</size>
 								<maxitems>1</maxitems>
@@ -114,7 +114,7 @@
 							<config>
 								<type>input</type>
 								<size>5</size>
-								<max>2</max>
+								<max>5</max>
 								<checkbox></checkbox>
 								<eval>num</eval>
 							</config>
@@ -127,7 +127,7 @@
 							<config>
 								<type>input</type>
 								<size>5</size>
-								<max>2</max>
+								<max>5</max>
 								<checkbox></checkbox>
 								<eval>num</eval>
 							</config>

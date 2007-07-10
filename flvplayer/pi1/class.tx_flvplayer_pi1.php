@@ -25,7 +25,7 @@
 	/** 
 	 * Plugin 'FLV Player' for the 'flvplayer' extension.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		1.0
 	 */
 	
