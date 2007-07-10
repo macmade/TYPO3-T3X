@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'loginbox_macmade'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">LoginBox / macmade.net</label>
+			<label index="tt_content.flexform_pi1.LGL.header">Header</label>
+			<label index="tt_content.flexform_pi1.LGL.message">Message</label>
+			<label index="tt_content.flexform_pi1.s_main">Main</label>
+			<label index="tt_content.flexform_pi1.s_main.forgotpassword">Show forgot password link</label>
+			<label index="tt_content.flexform_pi1.s_main.permalogin">Show permalogin option</label>
+			<label index="tt_content.flexform_pi1.s_main.redirect">Redirect after login</label>
+			<label index="tt_content.flexform_pi1.s_welcome">Welcome</label>
+			<label index="tt_content.flexform_pi1.s_success">Login</label>
+			<label index="tt_content.flexform_pi1.s_error">Error</label>
+			<label index="tt_content.flexform_pi1.s_status">Status</label>
+			<label index="tt_content.flexform_pi1.s_logout">Logout</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">LoginBox / macmade.net</label>
+			<label index="tt_content.flexform_pi1.LGL.header">Titre</label>
+			<label index="tt_content.flexform_pi1.LGL.message">Message</label>
+			<label index="tt_content.flexform_pi1.s_main">Général</label>
+			<label index="tt_content.flexform_pi1.s_main.forgotpassword">Activer le lien oubli de mot de passe</label>
+			<label index="tt_content.flexform_pi1.s_main.permalogin">Activer l'option permalogin</label>
+			<label index="tt_content.flexform_pi1.s_main.redirect">Redirection après connexion</label>
+			<label index="tt_content.flexform_pi1.s_welcome">Bienvenue</label>
+			<label index="tt_content.flexform_pi1.s_success">Connexion</label>
+			<label index="tt_content.flexform_pi1.s_error">Erreur</label>
+			<label index="tt_content.flexform_pi1.s_status">Status</label>
+			<label index="tt_content.flexform_pi1.s_logout">Déconnexion</label>
+		</languageKey>
+	</data>
+</T3locallang>

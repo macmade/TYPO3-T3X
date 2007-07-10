@@ -1,0 +1,80 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'LoginBox / macmade.net'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.1
+ */
+
+/**
+ * PI1 object - LoginBox / macmade.net
+ */
+plugin.tx_loginboxmacmade_pi1 {
+	
+	# cat=loginbox_macmade_pi1/dims/0; type=int+; label=Inputs: The size of the text inputs.
+	inputSize = 30
+	
+	# cat=loginbox_macmade_pi1/links/0; type=string; label=Target: The target of the form.
+	target = _self
+	
+	# cat=loginbox_macmade_pi1//0; type=string; label=Method: The method of the form.
+	method = POST
+	
+	# cat=loginbox_macmade_pi1//1; type=string; label=Wrap: Wrap the whole login box.
+	wrap =
+	
+	# cat=loginbox_macmade_pi1//2; type=string; label=Layout: Login box layout.
+	layout =
+	
+	# cat=loginbox_macmade_pi1//3; type=string; label=From: The from email address (mailer parameter).
+	from = webmaster@site.com
+	
+	# cat=loginbox_macmade_pi1//4; type=string; label=From name: The name of the from email address (mailer parameter).
+	fromName = Webmaster
+	
+	# cat=loginbox_macmade_pi1//5; type=string; label=Reply to: The reply to email address (mailer parameter).
+	replyTo = noreply@site.com
+}
+
+/**
+ * PI2 object - LoginBox / macmade.net
+ */
+plugin.tx_loginboxmacmade_pi2 {
+	
+	# cat=loginbox_macmade_pi2/file/0; type=string; label=Template file: The template file to use for the small login box.
+	template = EXT:loginbox_macmade/res/template.html
+	
+	# cat=loginbox_macmade_pi2//0; type=int+; label=FE users PID: The storage page for the FE users to use for the small login box.
+	feUsersPID =
+	
+	# cat=loginbox_macmade_pi2//1; type=int+; label=Login page: The PID of the login page.
+	loginPage =
+	
+	# cat=loginbox_macmade_pi2//2; type=int+; label=Login redirect: Redirect after login (if void, the user will be redirected to same page)
+	redirectLogin =
+	
+	# cat=loginbox_macmade_pi2//3; type=int+; label=Logout redirect: Redirect after logout (if void, the user will be redirected to same page)
+	redirectLogout =
+}
