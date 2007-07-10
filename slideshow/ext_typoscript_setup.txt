@@ -1,0 +1,116 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Flash SlideShow'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		2.0
+ */
+
+/**
+ * PI1 object - Flash SlideShow
+ */
+
+plugin.tx_slideshow_pi1 {
+	
+	// Player width
+	width = {$plugin.tx_slideshow_pi1.width}
+	
+	// Player height
+	height = {$plugin.tx_slideshow_pi1.height}
+	
+	// The slideshow player
+	jpgrotator = {$plugin.tx_slideshow_pi1.jpgrotator}
+
+	// Flash version
+	version = {$plugin.tx_slideshow_pi1.version}
+	
+	// Page ID for XML output
+	xmlPageId = {$extension.slideshow.typeNum}
+	
+	// Flash object parameters
+	swfParams {
+		
+		// Loop animation
+		loop = {$plugin.tx_slideshow_pi1.swfParams.loop}
+		
+		// Display menu
+		menu = {$plugin.tx_slideshow_pi1.swfParams.menu}
+		
+		// Animation quality
+		quality = {$plugin.tx_slideshow_pi1.swfParams.quality}
+		
+		// Scale animation
+		scale = {$plugin.tx_slideshow_pi1.swfParams.scale}
+		
+		// Anmimation background color
+		bgcolor = {$plugin.tx_slideshow_pi1.swfParams.bgcolor}
+		
+		// Live connect
+		swliveconnect = {$plugin.tx_slideshow_pi1.swfParams.swliveconnect}
+	}
+
+	// Player parameters
+	playerParams {
+		
+		// Transition to use
+		transition = {$plugin.tx_slideshow_pi1.playerParams.transition}
+		
+		// Random play
+		random = {$plugin.tx_slideshow_pi1.playerParams.random}
+		
+		// Timer
+		timer = {$plugin.tx_slideshow_pi1.playerParams.timer}
+		
+		// Navigation menu
+		navigation = {$plugin.tx_slideshow_pi1.playerParams.navigation}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-slideshow-pi1 {
+			text-align: center;
+		}
+	)
+}
+
+/**
+ * Page object - XML output
+ */
+
+slideshow = PAGE
+slideshow {
+	
+	// Page type ID
+	typeNum = {$extension.slideshow.typeNum}
+	
+	// No cache
+	config.no_cache = 1
+	
+	// Page alternate generation script
+	config.pageGenScript = EXT:slideshow/xml_output.php
+	
+	// Hide admin panel
+	config.admPanel = 0
+}
