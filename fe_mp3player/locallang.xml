@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension "fe_mp3player"</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">MP3 Player</label>
+			<label index="pi1_plus_wiz_description">Adds a MP3 player to the page.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">Lecteur MP3</label>
+			<label index="pi1_plus_wiz_description">Ajoute un lecteur MP3 sur la page.</label>
+		</languageKey>
+	</data>
+</T3locallang>

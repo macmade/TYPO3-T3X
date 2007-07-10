@@ -24,8 +24,8 @@
 /**
  * Default TS constants - Extension 'FrontEnd MP3 Player'
  *
- * @author		Jean-David Gadina (macmade@gadlab.net)
- * @version		2.0
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		3.0
  */
 
 /**
@@ -34,23 +34,29 @@
 
 plugin.tx_femp3player_pi1 {
 	
-	# cat=fe_mp3player/enable/1; type=options[Enable=true,Disable=false]; label=Loop: Loop the Flash animation (Flash object parameter).
+	# cat=fe_mp3player/enable/0; type=options[Enable=true,Disable=false]; label=Loop: Loop the Flash animation (Flash object parameter).
 	swfParams.loop = false
 	
-	# cat=fe_mp3player/enable/2; type=options[Enable=true,Disable=false]; label=Menu: Allow the Flash menu to be displayed in the animation (Flash object parameter).
+	# cat=fe_mp3player/enable/1; type=options[Enable=true,Disable=false]; label=Menu: Allow the Flash menu to be displayed in the animation (Flash object parameter).
 	swfParams.menu = false
 	
-	# cat=fe_mp3player/enable/3; type=options[Enable=true,Disable=false]; label=SWLiveConnect: Enable the use of LiveConnect (Flash object parameter).
+	# cat=fe_mp3player/enable/2; type=options[Enable=true,Disable=false]; label=SWLiveConnect: Enable the use of LiveConnect (Flash object parameter).
 	swfParams.swliveconnect = false
 	
-	# cat=fe_mp3player/enable/4; type=boolean; label=Auto start: Automatically start playing songs when the player is loaded.
+	# cat=fe_mp3player/enable/3; type=boolean; label=Auto start: Automatically start playing songs when the player is loaded.
 	playerParams.autoStart = 1
 	
-	# cat=fe_mp3player/enable/5; type=boolean; label=Show display: Show display drawer at start.
+	# cat=fe_mp3player/enable/4; type=boolean; label=Show display: Show display drawer at start.
 	playerParams.showDisplay = 1
 	
-	# cat=fe_mp3player/enable/6; type=boolean; label=Show playlist: Show playlist drawer at start.
+	# cat=fe_mp3player/enable/5; type=boolean; label=Show playlist: Show playlist drawer at start.
 	playerParams.showPlaylist = 1
+	
+	# cat=fe_mp3player/enable/6; type=options[None=none,One=one,All=all,All list once=list]; label=Repeat: Repeat songs.
+	playerParams.repeat = list
+	
+	# cat=fe_mp3player/enable/7; type=boolean; label=Shuffle: Shuffle songs.
+	playerParams.shuffle = 1
 	
 	# cat=fe_mp3player/dims/0; type=int+; label=Width: Control the width of the player (used for both the swf file and the replacement picture).
 	width = 400
@@ -61,14 +67,26 @@ plugin.tx_femp3player_pi1 {
 	# cat=fe_mp3player/dims/2; type=options[Show all=showall,No border=noborder,Exact fit=exactfit]; label=Scale: The scale of the Flash animation (Flash object parameter).
 	swfParams.scale = showall
 	
-	# cat=fe_mp3player/file/0; type=options[Default=default,GSkin=gskin]; label=Skin: The skin to use for the MP3 Player.
+	# cat=fe_mp3player/file/0; type=options[Default=default,GSkin=gskin,Old=old]; label=Skin: The skin to use for the MP3 Player.
 	useSkin = default
+	
+	# cat=fe_mp3player/file/1; type=string; label=Background image: The location of an optionnal JPEG background image (only for default player).
+	playerParams.jpgfile =
 	
 	# cat=fe_mp3player/color/0; type=color; label=BGColor: The background color of the Flash animation.
 	swfParams.bgcolor = #FFFFFF
 	
-	# cat=fe_mp3player/color/1; type=options[Green=1,Purple=2,Blue=3,Red=4]; label=GSkin Color: The player color (only for GSkin).
+	# cat=fe_mp3player/color/1; type=options[Green=1,Purple=2,Blue=3,Red=4]; label=GSkin color: The player color (only for GSkin).
 	gskinColor = 1
+	
+	# cat=fe_mp3player/color/2; type=color; label=Background color: The background color (only for default player).
+	playerParams.backcolor = #FFFFFF
+	
+	# cat=fe_mp3player/color/3; type=color; label=Front color: The front color (only for default player).
+	playerParams.frontcolor = #333333
+	
+	# cat=fe_mp3player/color/4; type=color; label=Light color: The highlight color (only for default player).
+	playerParams.lightcolor = #CC0000
 	
 	# cat=fe_mp3player//0; type=int+; label=Flash version: The version of the Flash plugin required to view the player.
 	version = 6
@@ -81,4 +99,7 @@ plugin.tx_femp3player_pi1 {
 	
 	# cat=fe_mp3player//3; type=options[Left=l,Top=t,Right=r,Bottom=b,Top left=tl,Top right=tr,Bottom left=bl,Bottom right=br]; label=SAlign: The alignement of the Flash animation (Flash object parameter).
 	swfParams.salign = l
+	
+	# cat=fe_mp3player//4; type=int[0-100]; label=Volume: The initial volume (only for default player).
+	playerParams.volume = 80
 }

@@ -24,8 +24,8 @@
 /**
  * Default TS setup - Extension 'FrontEnd MP3 Player'
  *
- * @author		Jean-David Gadina (macmade@gadlab.net)
- * @version		2.0
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		3.0
  */
 
 /**
@@ -78,10 +78,13 @@ plugin.tx_femp3player_pi1 {
 	skins {
 		
 		// Default skin
-		default = EXT:fe_mp3player/pi1/mp3player.swf
+		default = EXT:fe_mp3player/res/mp3player_v2.swf
 		
 		// GSkin
-		gskin = EXT:fe_mp3player/pi1/mp3player_gskin.swf
+		gskin = EXT:fe_mp3player/res/mp3player_gskin.swf
+		
+		// Old skin
+		old = EXT:fe_mp3player/res/mp3player.swf
 	}
 	
 	// Player parameters
@@ -101,6 +104,27 @@ plugin.tx_femp3player_pi1 {
 		
 		// Auto start
 		autoStart = {$plugin.tx_femp3player_pi1.playerParams.autoStart}
+		
+		// Shuffle songs
+		shuffle = {$plugin.tx_femp3player_pi1.playerParams.shuffle}
+		
+		// Repeat songs (none, one, all, list)
+		repeat = {$plugin.tx_femp3player_pi1.playerParams.repeat}
+		
+		// Initial volume
+		volume = {$plugin.tx_femp3player_pi1.playerParams.volume}
+		
+		// Background color
+		backcolor = {$plugin.tx_femp3player_pi1.playerParams.backcolor}
+		
+		// Front color
+		frontcolor = {$plugin.tx_femp3player_pi1.playerParams.frontcolor}
+		
+		// Highlight color
+		lightcolor = {$plugin.tx_femp3player_pi1.playerParams.lightcolor}
+		
+		// Background image
+		jpgfile = {$plugin.tx_femp3player_pi1.playerParams.jpgfile}
 	}
 	
 	// Default CSS styling

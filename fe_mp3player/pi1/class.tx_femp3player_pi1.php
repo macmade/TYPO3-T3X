@@ -25,8 +25,8 @@
 	/** 
 	 * Plugin 'MP3 Player' for the 'fe_mp3player' extension.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
-	 * @version		2.0
+	 * @author		Jean-David Gadina (info@macmade.net)
+	 * @version		3.0
 	 */
 	
 	/**

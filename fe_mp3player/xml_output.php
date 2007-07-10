@@ -25,7 +25,7 @@
 	/** 
 	 * XML page generation script for the 'fe_mp3player' extension.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		2.0
 	 */
 	

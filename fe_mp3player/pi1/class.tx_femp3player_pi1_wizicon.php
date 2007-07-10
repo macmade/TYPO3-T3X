@@ -25,7 +25,7 @@
 	/** 
 	 * Class that adds the wizard icon.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		1.0
 	 */
 	
@@ -34,7 +34,7 @@
 	 * 
 	 * SECTION:		1 - MAIN
 	 *     60:		function proc($wizardItems)
-	 *     91:		function includeLocalLang
+	 *     92:		function includeLocalLang
 	 * 
 	 *				TOTAL FUNCTIONS: 2
 	 */
@@ -50,12 +50,12 @@
 		 *
 		 * Wizard items functions.
 		 ***************************************************************/
-		 
+		
 		/**
-		 * Add wizard item to the backend
-		 * 
+		 * Processing the wizard items array
+		 *
 		 * @param		$wizardItems		The wizard items
-		 * @return		The wizard item
+		 * @return		Modified array with wizard items
 		 */
 		function proc($wizardItems) {
 			global $LANG;
@@ -84,14 +84,16 @@
 		}
 		
 		/**
-		 * Include locallang values
-		 * 
-		 * @return		The content of the locallang file
+		 * Reads the [extDir]/locallang.xml and returns the $LOCAL_LANG array
+		 * found in that file.
+		 *
+		 * @return		The array with language labels
 		 */
 		function includeLocalLang() {
+			global $LANG;
 			
 			// Include file
-			include(t3lib_extMgm::extPath('fe_mp3player').'locallang.php');
+			$LOCAL_LANG = $LANG->includeLLFile('EXT:fe_mp3player/locallang.xml',FALSE);
 			
 			// Return file content
 			return $LOCAL_LANG;

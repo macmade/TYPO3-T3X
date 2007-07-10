@@ -26,17 +26,18 @@
 	 * Class/Function which manipulates the item-array for field nbo_podcast
 	 * of table tx_femp3player_playlists.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net
-	 * @version		1.0
+	 * @author		Jean-David Gadina (info@macmade.net
+	 * @version		1.1
 	 */
 	
 	/**
 	 * [CLASS/FUNCTION INDEX OF SCRIPT]
 	 * 
 	 * SECTION:		1 - MAIN
-	 *      59:		function main(&$params,&$pObj)
+	 *      61:		function main(&$params,&$pObj)
+	 *     109:		function warning(&$params,&$pObj)
 	 * 
-	 *				TOTAL FUNCTIONS: 1
+	 *				TOTAL FUNCTIONS: 2
 	 */
 	
 	class tx_femp3player_handlePodCastFiles {
@@ -59,28 +60,38 @@
 		 */
 		function main(&$params,&$pObj) {
 			
-			// Get storage directory
-			$readPath = t3lib_div::getFileAbsFileName('nbo_podcast');
-			
-			if (@is_dir($readPath)) {
+			// Check if extension is loaded
+			if (t3lib_extMgm::isLoaded('nbo_podcast')) {
 				
-				// Gets all MP3 files
-				$xmlFiles = t3lib_div::getFilesInDir($readPath,'',1,1);
+				// Get storage directory
+				$readPath = t3lib_div::getFileAbsFileName('nbo_podcast');
 				
-				foreach($xmlFiles as $xml) {
+				// Check for a real directory
+				if (@is_dir($readPath)) {
 					
-					// Do not include index.html
-					if (basename($xml) != 'index.html') {
-						
-						// Reset
-						$selectorBoxItem_title = '';
-						
-						// Adds items
-						$selectorBoxItem_title = basename($xml);
-						$params['items'][] = array(
-							$selectorBoxItem_title,
-							basename($xml)
-						);
+					// Gets all MP3 files
+					$xmlFiles = t3lib_div::getFilesInDir($readPath,'',1,1);
+					
+					// Check array
+					if (is_array($xmlFiles)) {
+					
+						// Process files
+						foreach($xmlFiles as $xml) {
+							
+							// Do not include index.html
+							if (basename($xml) != 'index.html') {
+								
+								// Reset
+								$selectorBoxItem_title = '';
+								
+								// Adds items
+								$selectorBoxItem_title = basename($xml);
+								$params['items'][] = array(
+									$selectorBoxItem_title,
+									basename($xml)
+								);
+							}
+						}
 					}
 				}
 			}
@@ -102,7 +113,7 @@
 			$LANG->includeLLFile('EXT:fe_mp3player/locallang_db.php');
 			
 			// Error message
-			return '<span class="typo3-red">' . $LANG->getLL('tx_femp3player_playlists.nbo_podcast_false.message') . '</span>';
+			return '<span class="typo3-red">' . $LANG->getLL('tt_content.flexform_pi1.s_def.nbo_podcast_false.message') . '</span>';
 		}
 	}
 	

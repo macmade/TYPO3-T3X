@@ -26,15 +26,15 @@
 	 * Class/Function which manipulates the item-array for field dir_songs
 	 * of table tx_femp3player_playlists.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net
-	 * @version		1.0
+	 * @author		Jean-David Gadina (info@macmade.net
+	 * @version		1.1
 	 */
 	
 	/**
 	 * [CLASS/FUNCTION INDEX OF SCRIPT]
 	 * 
 	 * SECTION:		1 - MAIN
-	 *      59:		function main(&$params,&$pObj)
+	 *      60:		function main(&$params,&$pObj)
 	 * 
 	 *				TOTAL FUNCTIONS: 1
 	 */
@@ -62,22 +62,28 @@
 			// Get storage directory
 			$readPath = t3lib_div::getFileAbsFileName($params['row']['dir_path']);
 			
+			// Check for a real directory
 			if (@is_dir($readPath)) {
 				
 				// Gets all MP3 files
 				$mp3Files = t3lib_div::getFilesInDir($readPath,'mp3',1,1);
 				
-				foreach($mp3Files as $mp3) {
+				// Check array
+				if (is_array($mp3Files)) {
 					
-					// Reset
-					$selectorBoxItem_title = '';
-					
-					// Adds items
-					$selectorBoxItem_title = basename($mp3);
-					$params['items'][] = array(
-						$selectorBoxItem_title,
-						basename($mp3)
-					);
+					// Process files
+					foreach($mp3Files as $mp3) {
+						
+						// Reset
+						$selectorBoxItem_title = '';
+						
+						// Adds items
+						$selectorBoxItem_title = basename($mp3);
+						$params['items'][] = array(
+							$selectorBoxItem_title,
+							basename($mp3)
+						);
+					}
 				}
 			}
 		}

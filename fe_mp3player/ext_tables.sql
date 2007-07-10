@@ -15,6 +15,7 @@ CREATE TABLE tx_femp3player_playlists (
 	dir_path text NOT NULL,
 	dir_songs blob NOT NULL,
 	dir_titles text NOT NULL,
+	dir_covers blob NOT NULL,
 	podcast_url text NOT NULL,
 	nbo_podcast blob NOT NULL,
 	

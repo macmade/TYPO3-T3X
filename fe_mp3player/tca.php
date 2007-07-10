@@ -46,8 +46,6 @@
 					'items' => Array (
 						Array('LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.type.I.0', '0'),
 						Array('LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.type.I.1', '1'),
-						Array('LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.type.I.2', '2'),
-						Array('LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.type.I.3', '3'),
 					),
 					'size' => 1,
 					'maxitems' => 1,
@@ -92,34 +90,19 @@
 					'rows' => '10',
 				)
 			),
-			'podcast_url' => Array (
+			'dir_covers' => Array (
 				'exclude' => 1,
-				'label' => 'LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.podcast_url',
+				'label' => 'LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.dir_covers',
 				'config' => Array (
-					'type' => 'input',
-					'size' => '30',
-					'eval' => 'nospace,required',
-				)
-			),
-			'nbo_podcast' => Array (
-				'exclude' => 1,
-				'label' => 'LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.nbo_podcast',
-				'displayCond' => 'EXT:nbo_podcast:LOADED:true',
-				'config' => Array (
-					'type' => 'select',
-					'items' => Array (),
-					'itemsProcFunc' => 'tx_femp3player_handlePodCastFiles->main',
-					'size' => 1,
-					'maxitems' => 1,
-				)
-			),
-			'nbo_podcast_false' => Array (
-				'exclude' => 1,
-				'label' => 'LLL:EXT:fe_mp3player/locallang_db.php:tx_femp3player_playlists.nbo_podcast_false',
-				'displayCond' => 'EXT:nbo_podcast:LOADED:false',
-				'config' => Array (
-					'type' => 'user',
-					'userFunc' => 'tx_femp3player_handlePodCastFiles->warning',
+					'type' => 'group',
+					'internal_type' => 'file',
+					'allowed' => 'jpg,jpeg',
+					'max_size' => 500,
+					'uploadfolder' => 'uploads/tx_femp3player',
+					'show_thumbs' => 1,
+					'size' => 5,
+					'maxitems' => 50,
+					'minitems' => 0,
 				)
 			),
 		),
@@ -127,9 +110,7 @@
 		// Types configuration
 		'types' => Array (
 			'0' => Array('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2, type;;;;3-3-3, playlist;;;;3-3-3'),
-			'1' => Array('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2, type;;;;3-3-3, dir_path;;;;3-3-3, dir_songs, dir_titles'),
-			'2' => Array('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2, type;;;;3-3-3, podcast_url;;;;3-3-3'),
-			'3' => Array('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2, type;;;;3-3-3, nbo_podcast;;;;3-3-3,nbo_podcast_false;;;;3-3-3'),
+			'1' => Array('showitem' => 'hidden;;;;1-1-1, title;;;;2-2-2, type;;;;3-3-3, dir_path;;;;3-3-3, dir_songs, dir_titles,dir_covers'),
 		),
 		
 		// Palettes configuration
