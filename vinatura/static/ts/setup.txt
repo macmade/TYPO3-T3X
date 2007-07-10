@@ -1,0 +1,185 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'Vinatura'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Member list
+ */
+plugin.tx_vinatura_pi1 {
+	
+	// Comma list of pages from where to fetch the records (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	pidList =
+	
+	// Recursive level (1 - 2 - 3 - 4 - 250) (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	recursive =
+	
+	// Template file
+	templateFile = EXT:vinatura/res/template_pi1.html
+	
+	/**
+	 * List parameters
+	 */
+	list {
+		
+		// MySQL SORTBY command
+		sortBy = name
+		
+		// Maximum number of records to display at a time
+		maxRecords = 10
+		
+		// Maximum number of pages to display at a time
+		maxPages = 20
+	}
+	
+	/**
+	 * Single parameters
+	 */
+	single {
+		
+		// Thumbnails CObject
+		picture {
+			file.maxW = 125
+			file.maxH = 150
+			params = 
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+	}
+}
+
+/**
+ * PI2 object - Registration
+ */
+plugin.tx_vinatura_pi2 {
+	
+	// Storage PID (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	storagePid =
+	
+	// FE user group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	usergroup =
+	
+	// Fields available (markers must be present in the template)
+	fieldList = username,password,name,image,telephone,fax,address,www,zip,city,email,title,state
+
+	// Required fields
+	requiredFields =
+	
+	// Template file
+	templateFile = EXT:vinatura/res/template_pi2.html
+	
+	// Redirect at login (PID)
+	redirect =
+	
+	// Size for inputs
+	inputSize = 20
+	
+	// Cols and rows for textareas
+	textareaCols = 20
+	textareaRows = 3
+}
+
+/**
+ * PI3 object - Profile
+ */
+plugin.tx_vinatura_pi3 {
+	
+	// Storage PID (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	storagePid =
+	
+	// FE user group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	usergroup =
+	
+	// Template file
+	templateFile = EXT:vinatura/res/template_pi3.html
+	
+	// Links
+	links {
+		
+		// Member list
+		members =
+	}
+	
+	// Description settings
+	description {
+		
+		// Required fields
+		requiredFields =
+		
+		// Cols and rows for textareas
+		textareaCols = 60
+		textareaRows = 10
+		
+		// Size for inputs
+		inputSize = 60
+	}
+	
+	// Profile settings
+	profile {
+		
+		// Size for inputs
+		inputSize = 30
+		
+		// Cols and rows for textareas
+		textareaCols = 30
+		textareaRows = 3
+		
+		// Fields available (markers must be present in the template)
+		fieldList = username,password,name,firstname,telephone,fax,image,address,www,zip,city,state,email,title,domain,cellular,member
+		
+		// Required fields
+		requiredFields =
+		
+		// Thumbnails CObject
+		imgConf {
+			file.maxW = 50
+			file.maxH = 50
+			params =
+		}
+	}
+	
+	// Babies settings
+	wines {
+		
+		// Size for inputs
+		inputSize = 60
+		
+		// Cols and rows for textareas
+		textareaCols = 60
+		textareaRows = 3
+		
+		// Required fields
+		requiredFields =
+	}
+}

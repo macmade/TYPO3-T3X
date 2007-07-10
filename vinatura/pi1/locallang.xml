@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_cjf_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="searchbox.header">Search for a member</label>
+			<label index="searchbox.submit">Search</label>
+			<label index="browsebox.previous">Previous page</label>
+			<label index="browsebox.next">Next page</label>
+			<label index="browsebox.page">Page %s</label>
+			<label index="browsebox.results">Displaying results %s to %s from %s</label>
+			<label index="backlist">Back to full list</label>
+			<label index="state">State:</label>
+			<label index="state.AG">Aargau (AG) </label>
+			<label index="state.AI">Appenzell Innerrhoden (AI) </label>
+			<label index="state.AR">Appenzell Ausserrhoden (AR) </label>
+			<label index="state.BE">Bern (BE) </label>
+			<label index="state.BL">Baselland (BL) </label>
+			<label index="state.BS">Basel Stadt (BS) </label>
+			<label index="state.FR">Fribourg (FR) </label>
+			<label index="state.GE">Genève (GE) </label>
+			<label index="state.GL">Glarus (GL) </label>
+			<label index="state.GR">Graubünden (GR) </label>
+			<label index="state.JU">Jura (JU) </label>
+			<label index="state.LU">Luzern (LU) </label>
+			<label index="state.NE">Neuchâtel (NE) </label>
+			<label index="state.NW">Nidwalden (NW) </label>
+			<label index="state.OW">Obwalden (OW) </label>
+			<label index="state.SG">Sankt Gallen (SG) </label>
+			<label index="state.SH">Schaffhausen (SH) </label>
+			<label index="state.SO">Solothurn (SO) </label>
+			<label index="state.SZ">Schwyz (SZ) </label>
+			<label index="state.TG">Thurgau (TG) </label>
+			<label index="state.TI">Ticino (TI) </label>
+			<label index="state.UR">Uri (UR) </label>
+			<label index="state.VD">Vaud (VD) </label>
+			<label index="state.VS">Valais (VS) </label>
+			<label index="state.ZG">Zug (ZG) </label>
+			<label index="state.ZH">Zürich (ZH) </label>
+			<label index="prices">Prices:</label>
+			<label index="redwines">Red wines:</label>
+			<label index="whitewines">White wines:</label>
+			<label index="winelist">List of wines</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="searchbox.header">Rechercher un membre</label>
+			<label index="searchbox.submit">Recherche</label>
+			<label index="browsebox.previous">Page précédente</label>
+			<label index="browsebox.next">Page suivante</label>
+			<label index="browsebox.page">Page %s</label>
+			<label index="browsebox.results">Affichage des résultats %s à %s de %s</label>
+			<label index="backlist">Retour à la liste complète</label>
+			<label index="state">Canton:</label>
+			<label index="state.AG">Aargau (AG) </label>
+			<label index="state.AI">Appenzell Innerrhoden (AI) </label>
+			<label index="state.AR">Appenzell Ausserrhoden (AR) </label>
+			<label index="state.BE">Bern (BE) </label>
+			<label index="state.BL">Baselland (BL) </label>
+			<label index="state.BS">Basel Stadt (BS) </label>
+			<label index="state.FR">Fribourg (FR) </label>
+			<label index="state.GE">Genève (GE) </label>
+			<label index="state.GL">Glarus (GL) </label>
+			<label index="state.GR">Graubünden (GR) </label>
+			<label index="state.JU">Jura (JU) </label>
+			<label index="state.LU">Luzern (LU) </label>
+			<label index="state.NE">Neuchâtel (NE) </label>
+			<label index="state.NW">Nidwalden (NW) </label>
+			<label index="state.OW">Obwalden (OW) </label>
+			<label index="state.SG">Sankt Gallen (SG) </label>
+			<label index="state.SH">Schaffhausen (SH) </label>
+			<label index="state.SO">Solothurn (SO) </label>
+			<label index="state.SZ">Schwyz (SZ) </label>
+			<label index="state.TG">Thurgau (TG) </label>
+			<label index="state.TI">Ticino (TI) </label>
+			<label index="state.UR">Uri (UR) </label>
+			<label index="state.VD">Vaud (VD) </label>
+			<label index="state.VS">Valais (VS) </label>
+			<label index="state.ZG">Zug (ZG) </label>
+			<label index="state.ZH">Zürich (ZH) </label>
+			<label index="prices">Distinctions:</label>
+			<label index="redwines">Cépages rouges:</label>
+			<label index="whitewines">Cépages blancs:</label>
+			<label index="winelist">Liste des vins</label>
+		</languageKey>
+	</data>
+</T3locallang>
