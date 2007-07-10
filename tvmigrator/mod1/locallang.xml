@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txtvl10nbugfixM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">TV Migrator</label>
+			<label index="menu.func.1">Map content elements to TemplaVoila data structure</label>
+			<label index="map.columns">Map content elements from column "%s" to</label>
+			<label index="column.I.0">Center</label>
+			<label index="column.I.1">Left</label>
+			<label index="column.I.2">Right</label>
+			<label index="column.I.3">Border</label>
+			<label index="noaccess">Sorry, you don't have access to this module</label>
+			<label index="list.elements">Content elements</label>
+			<label index="list.field">Field:</label>
+			<label index="list.uid">UID:</label>
+			<label index="list.type">Type:</label>
+			<label index="list.title">Title:</label>
+			<label index="list.content">Content:</label>
+			<label index="error.noContent">No content element.</label>
+			<label index="map">Map content elements:</label>
+			<label index="map.link">Click here to map the content elements to TemplaVoila.</label>
+			<label index="map.confirmation">Content elements were successfully mapped!</label>
+			<label index="map.recursive">Do this recursively on:</label>
+			<label index="map.recursive.I.current">current page only</label>
+			<label index="map.recursive.I.single">1 level</label>
+			<label index="map.recursive.I.multiple">%d levels</label>
+		</languageKey>
+	</data>
+</T3locallang>

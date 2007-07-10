@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txtvmigratorM1&quot; - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">TV Migrator</label>
+			<label index="mlang_labels_tabdescr">An extension that maps content from the old templating system to TemplaVoila content areas.</label>
+			<label index="mlang_labels_tablabel">TemplaVoila Migration assistant</label>
+		</languageKey>
+	</data>
+</T3locallang>
