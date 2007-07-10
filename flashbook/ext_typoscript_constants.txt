@@ -1,0 +1,72 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'Flash Book'
+ *
+ * @author		Jean-David Gadina (info@macmade.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - MP3 Player
+ */
+
+plugin.tx_flashbook_pi1 {
+	
+	# cat=flashbook/enable/0; type=options[Enable=true,Disable=false]; label=Loop: Loop the Flash animation (Flash object parameter).
+	swfParams.loop = false
+	
+	# cat=flashbook/enable/1; type=options[Enable=true,Disable=false]; label=Menu: Allow the Flash menu to be displayed in the animation (Flash object parameter).
+	swfParams.menu = false
+	
+	# cat=flashbook/enable/2; type=options[Enable=true,Disable=false]; label=SWLiveConnect: Enable the use of LiveConnect (Flash object parameter).
+	swfParams.swliveconnect = false
+	
+	# cat=flashbook/dims/0; type=int+; label=Width: Control the width of the Flash animation.
+	width = 500
+	
+	# cat=flashbook/dims/1; type=int+; label=Height: Control the height of the Flash animation.
+	height = 500
+	
+	# cat=flashbook/dims/2; type=options[Show all=showall,No border=noborder,Exact fit=exactfit]; label=Scale: The scale of the Flash animation (Flash object parameter).
+	swfParams.scale = showall
+		
+	# cat=flashbook/color/0; type=color; label=BGColor: The background color of the Flash animation.
+	swfParams.bgcolor = #FFFFFF
+	
+	# cat=flashbook/file/0; type=string; label=SWF file: The SWF file containing the Flash Book.
+	swf = EXT:flashbook/res/pageflip_v213_dynamic.swf
+		
+	# cat=flashbook//0; type=int+; label=Flash version: The version of the Flash plugin required to view the player.
+	version = 6
+	
+	# cat=flashbook//1; type=options[Low=low,High=high,Auto low=autolow,Auto high=autohigh,Best=best]; label=Quality: The quality of the Flash animation (Flash object parameter).
+	swfParams.quality = best
+	
+	# cat=flashbook//2; type=options[Window=window,Opaque=opaque,Transparent=transparent]; label=Window mode: The window mode for the Flash animation (Flash object parameter).
+	swfParams.wmode = window
+	
+	# cat=flashbook//3; type=options[Left=l,Top=t,Right=r,Bottom=b,Top left=tl,Top right=tr,Bottom left=bl,Bottom right=br]; label=SAlign: The alignement of the Flash animation (Flash object parameter).
+	swfParams.salign = b
+}

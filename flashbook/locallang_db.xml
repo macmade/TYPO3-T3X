@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'flashbook'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Flash Book</label>
+			<label index="tx_flashbook_books">Flash Book</label>
+			<label index="tx_flashbook_books.title">Title</label>
+			<label index="tx_flashbook_books.width">Width</label>
+			<label index="tx_flashbook_books.height">Height</label>
+			<label index="tx_flashbook_books.hardcover">Hard cover</label>
+			<label index="tx_flashbook_books.transparency">Transparency</label>
+			<label index="tx_flashbook_books.pages">Pages</label>
+			<label index="tx_flashbook_books.pages.section">Add a page</label>
+			<label index="tx_flashbook_books.pages.file">File</label>
+			<label index="tx_flashbook_books.pages.cantear">Can tear off</label>
+			<label index="tt_content.flexform_pi1.s_def">Main</label>
+			<label index="tt_content.flexform_pi1.s_def.book">Book</label>
+			<label index="tt_content.flexform_pi1.s_flash">Flash settings</label>
+			<label index="tt_content.flexform_pi1.s_flash.version">Version</label>
+			<label index="tt_content.flexform_pi1.s_flash.width">Width</label>
+			<label index="tt_content.flexform_pi1.s_flash.height">Height</label>
+			<label index="tt_content.flexform_pi1.s_flash.loop">Loop</label>
+			<label index="tt_content.flexform_pi1.s_flash.menu">Menu</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality">Quality</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.1">Low</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.2">High</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.3">Auto low</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.4">Auto high</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.5">Best</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale">Scale</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.1">Show all</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.2">No border</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.3">Exact fit</label>
+			<label index="tt_content.flexform_pi1.s_flash.bgcolor">BGColor</label>
+			<label index="tt_content.flexform_pi1.s_flash.color.wizard">Color picker</label>
+			<label index="tt_content.flexform_pi1.s_flash.swliveconnect">SWLiveConnect</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode">Window mode</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.1">Window</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.2">Opaque</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.3">Transparent</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign">SAlign</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.1">Left</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.2">Top</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.3">Right</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.4">Bottom</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.5">Top left</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.6">Top right</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.7">Bottom left</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.8">Bottom right</label>
+			<label index="tt_content.flexform_pi1.LGL.default">Default (set from TypoScript)</label>
+			<label index="tt_content.flexform_pi1.LGL.no">No</label>
+			<label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">Livre Flash</label>
+			<label index="tx_flashbook_books">Livre Flash</label>
+			<label index="tx_flashbook_books.title">Titre</label>
+			<label index="tx_flashbook_books.width">Largeur</label>
+			<label index="tx_flashbook_books.height">Hauteur</label>
+			<label index="tx_flashbook_books.hardcover">Couverture dure</label>
+			<label index="tx_flashbook_books.transparency">Transparence</label>
+			<label index="tx_flashbook_books.pages">Pages</label>
+			<label index="tx_flashbook_books.pages.section">Ajouter une page</label>
+			<label index="tx_flashbook_books.pages.file">Fichier</label>
+			<label index="tx_flashbook_books.pages.cantear">Peut être déchirée</label>
+			<label index="tt_content.flexform_pi1.s_def">Général</label>
+			<label index="tt_content.flexform_pi1.s_def.book">Livre</label>
+			<label index="tt_content.flexform_pi1.s_flash">Paramètres Flash</label>
+			<label index="tt_content.flexform_pi1.s_flash.version">Version</label>
+			<label index="tt_content.flexform_pi1.s_flash.width">Largeur</label>
+			<label index="tt_content.flexform_pi1.s_flash.height">Hauteur</label>
+			<label index="tt_content.flexform_pi1.s_flash.loop">Boucle</label>
+			<label index="tt_content.flexform_pi1.s_flash.menu">Menu</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality">Qualité</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.1">Bas</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.2">Haut</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.3">Bas automatique</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.4">Haut automatique</label>
+			<label index="tt_content.flexform_pi1.s_flash.quality.I.5">Meilleur</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale">Redimensionnement</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.1">Tout afficher</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.2">Sans bord</label>
+			<label index="tt_content.flexform_pi1.s_flash.scale.I.3">Dimensions exactes</label>
+			<label index="tt_content.flexform_pi1.s_flash.bgcolor">Couleur de fond</label>
+			<label index="tt_content.flexform_pi1.s_flash.color.wizard">Sélecteur de couleurs</label>
+			<label index="tt_content.flexform_pi1.s_flash.swliveconnect">SWLiveConnect</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode">Mode d'affichage</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.1">Fenêtre</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.2">Opaque</label>
+			<label index="tt_content.flexform_pi1.s_flash.wmode.I.3">Transparent</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign">SAlign</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.1">Gauche</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.2">Haut</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.3">Droite</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.4">Bas</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.5">Haut gauche</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.6">Haut droite</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.7">Bas gauche</label>
+			<label index="tt_content.flexform_pi1.s_flash.salign.I.8">Bas droite</label>
+			<label index="tt_content.flexform_pi1.LGL.default">Par défaut (défini par TypoScript)</label>
+			<label index="tt_content.flexform_pi1.LGL.no">Non</label>
+			<label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
+		</languageKey>
+	</data>
+</T3locallang>
