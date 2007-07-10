@@ -838,7 +838,7 @@
 					$value = $map['field']['el']['ldap']['vDEF'];
 					
 					// Add field
-					$insertFields[$field] = $this->utils->substituteLDAPValue($value,$this->utils->checkLDAPField($user,$value));
+					$insertFields[$field] = $this->utils->substituteLDAPValue($value,$user);
 				}
 			}
 			
@@ -1124,7 +1124,7 @@
 					$ldap = $field['field']['el']['ldap']['vDEF'];
 					
 					// Value
-					$value = $this->utils->substituteLDAPValue($ldap,$user[$ldap]);
+					$value = $this->utils->substituteLDAPValue($ldap,$user);
 					
 					// Add field
 					$htmlCode[] = '<td align="left" valign="middle">' . utf8_decode($value) . '</td>';

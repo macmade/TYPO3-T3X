@@ -152,7 +152,7 @@
 				'displayCond' => 'FIELD:be_enable:REQ:true',
 				'config' => Array (
 					'type' => 'user',
-					'userFunc' => 'tx_ldapmacmade_tca->be_auth',
+					'userFunc' => 'tx_ldapmacmade_tca->beAuth',
 				)
 			),
 			'be_pwdrule' => Array (
@@ -273,7 +273,7 @@
 				'displayCond' => 'FIELD:fe_enable:REQ:true',
 				'config' => Array (
 					'type' => 'user',
-					'userFunc' => 'tx_ldapmacmade_tca->fe_auth',
+					'userFunc' => 'tx_ldapmacmade_tca->feAuth',
 				)
 			),
 			'fe_pwdrule' => Array (
