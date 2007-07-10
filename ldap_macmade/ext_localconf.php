@@ -11,13 +11,14 @@
 	// Extension configuration
 	$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ldap_macmade']);
 	
+	// Storage
 	$authTypes = array();
 	
 	// Check backend authentification
 	if ($extConf['be_auth']) {
 		
 		// BE auth enabled
-		$authTypes[] = 'authUserBE';
+		$authTypes[] = 'getUserBE,authUserBE';
 		
 		// Send clear-text passwords
 		$TYPO3_CONF_VARS['BE']['loginSecurityLevel'] = 'normal';
@@ -27,7 +28,7 @@
 	if ($extConf['fe_auth']) {
 		
 		// FE auth enabled
-		$authTypes[] = 'authUserFE';
+		$authTypes[] = 'getUserFE,authUserFE';
 	}
 	
 	// Authentification check
@@ -53,7 +54,7 @@
 				'title' => 'OpenLDAP authentification',
 				'description' => 'This service allows backend users to be authenticated through an OpenLDAP server.',
 				'subtype' => $subTypes,
-				'available' => TRUE,
+				'available' => 1,
 				'priority' => 100,
 				'quality' => 50,
 				'os' => '',

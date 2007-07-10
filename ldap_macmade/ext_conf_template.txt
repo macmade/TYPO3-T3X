@@ -3,3 +3,6 @@ be_auth = 0
 
 # cat=basic//02; type=boolean; label=Frontend authentication: Enable the authentication of frontend users through OpenLDAP servers.
 fe_auth = 0
+
+# cat=basic//03; type=boolean; label=Stop authentication: Stop authentication process if the user cannot be authentified through LDAP. Note that this will prevent other authentication services. 
+stop_auth = 0

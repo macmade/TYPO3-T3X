@@ -47,6 +47,7 @@
 					'size' => '5',
 					'max' => '5',
 					'eval' => 'required,int,nospace',
+					'default' => '389',
 				)
 			),
 			'version' => Array (
@@ -64,6 +65,13 @@
 					'maxitems' => 1,
 				)
 			),
+			'tls' => Array (
+				'exclude' => 1,
+				'label' => 'LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.tls',
+				'config' => Array (
+					'type' => 'check',
+				)
+			),
 			'user' => Array (
 				'exclude' => 1,
 				'label' => 'LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.user',
@@ -71,7 +79,7 @@
 					'type' => 'input',
 					'size' => '30',
 					'checkbox' => '',
-					'eval' => 'nospace',
+					'default' => 'cn=admin,dc=localdomain',
 				)
 			),
 			'password' => Array (
@@ -90,7 +98,8 @@
 				'config' => Array (
 					'type' => 'input',
 					'size' => '30',
-					'eval' => 'required,nospace',
+					'eval' => 'required',
+					'default' => 'dc=localdomain',
 				)
 			),
 			'filter' => Array (
@@ -99,7 +108,35 @@
 				'config' => Array (
 					'type' => 'input',
 					'size' => '30',
+					'eval' => 'required',
+					'default' => '(objectClass=*)',
+				)
+			),
+			'group_class' => Array (
+				'exclude' => 1,
+				'label' => 'LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.group_class',
+				'config' => Array (
+					'type' => 'input',
+					'size' => '30',
 					'eval' => 'required,nospace',
+					'default' => 'posixGroup',
+				)
+			),
+			'group_member' => Array (
+				'exclude' => 1,
+				'label' => 'LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.group_member',
+				'config' => Array (
+					'type' => 'input',
+					'size' => '30',
+					'eval' => 'required,nospace',
+					'default' => 'memberUid',
+				)
+			),
+			'typo3_autoimport' => Array (
+				'exclude' => 1,
+				'label' => 'LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.typo3_autoimport',
+				'config' => Array (
+					'type' => 'check',
 				)
 			),
 			'be_enable' => Array (
@@ -220,7 +257,8 @@
 						)
 					),
 					'softref' => 'TSconfig'
-				)
+				),
+				'defaultExtras' => 'fixed-font : enable-tab',
 			),
 			'fe_enable' => Array (
 				'exclude' => 1,
@@ -302,7 +340,8 @@
 						)
 					),
 					'softref' => 'TSconfig'
-				)
+				),
+				'defaultExtras' => 'fixed-font : enable-tab',
 			),
 			'mapping_username' => Array (
 				'exclude' => 1,
@@ -332,6 +371,8 @@
 						Array('','')
 					),
 					'special' => 'tables',
+					'suppress_icons' => 1,
+					'iconsInOptionTags' => 1,
 				)
 			),
 			'mapping_external_fields' => Array (
@@ -362,7 +403,7 @@
 		
 		// Types configuration
 		'types' => Array (
-			'0' => Array('showitem' => '--div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_basic, hidden;;;;1-1-0, title;;;;--0, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_server, address;;;;1-1-0, port, version, user;;;;--0, password, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_ldap, basedn;;;;1-1-0, filter, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_backend, be_enable;;;;1-1-0, be_auth;;;;--0, be_pwdrule, be_groups_import;;;;--0, be_groups_fixed, be_lang;;;;--0, be_tsconf, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_frontend, fe_enable;;;;1-1-0, fe_auth;;;;--0, fe_pwdrule, fe_groups_import;;;;1-1-0, fe_groups_fixed, fe_lock;;;;--0, fe_tsconf, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_mapping, mapping_username;;;;1-1-0, mapping;;;;--0, mapping_external;;;;--0, mapping_external_fields, mapping_external_pid')
+			'0' => Array('showitem' => '--div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_basic, hidden;;;;1-1-0, title;;;;--0, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_server, address;;;;1-1-0, port, version, tls, user;;;;--0, password, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_ldap, basedn;;;;1-1-0, filter, group_class;;;;1-1-0, group_member, typo3_autoimport;;;;1-1-0, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_backend, be_enable;;;;1-1-0, be_auth;;;;--0, be_pwdrule, be_groups_import;;;;--0, be_groups_fixed, be_lang;;;;--0, be_tsconf, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_frontend, fe_enable;;;;1-1-0, fe_auth;;;;--0, fe_pwdrule, fe_groups_import;;;;1-1-0, fe_groups_fixed, fe_lock;;;;--0, fe_tsconf, --div--;LLL:EXT:ldap_macmade/locallang_db.php:tx_ldapmacmade_server.s_mapping, mapping_username;;;;1-1-0, mapping;;;;--0, mapping_external;;;;--0, mapping_external_fields, mapping_external_pid')
 		),
 		
 		// Palettes configuration

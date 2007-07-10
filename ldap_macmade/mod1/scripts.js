@@ -24,7 +24,7 @@
 	/**
 	 * JavaScript functions.
 	 * 
-	 * @author		Jean-David Gadina <macmade@gadlab.net>
+	 * @author		Jean-David Gadina <info@macmade.net>
 	 * @version		3.1
 	 */
 	

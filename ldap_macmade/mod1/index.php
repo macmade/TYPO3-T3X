@@ -2,7 +2,7 @@
 	/***************************************************************
 	 * Copyright notice
 	 * 
-	 * (c) 2004 Jean-David Gadina (macmade@gadlab.net)
+	 * (c) 2004 Jean-David Gadina (info@macmade.net)
 	 * All rights reserved
 	 * 
 	 * This script is part of the TYPO3 project. The TYPO3 project is 
@@ -25,7 +25,7 @@
 	/**
 	 * Module 'OpenLDAP' for the 'ldap_macmade' extension.
 	 *
-	 * @author		Jean-David Gadina <macmade@gadlab.net>
+	 * @author		Jean-David Gadina <info@macmade.net>
 	 * @version		1.0
 	 */
 	
@@ -51,7 +51,6 @@
 	 * 
 	 * SECTION:		5 - IMPORT
 	 *     612:		function importEntries($records)
-	 *     776:		function importGroups($user,$server,$type)
 	 *     882:		function importEXT($user,$server)
 	 * 
 	 * SECTION:		6 - MERGE
@@ -63,17 +62,9 @@
 	 * SECTION:		8 - UTILITIES
 	 *    1161:		function printContent
 	 *    1176:		function writeHTML($text,$tag='p',$style=false)
-	 *    1195:		function createLDAP($server)
-	 *    1239:		function cleanEntries($entries)
-	 *    1290:		function sortEntries($entries,$sortKey)
 	 *    1332:		function buildLDAPUserCols($user,$server,$mode)
-	 *    1425:		function substituteLDAPValue($ldapField,$ldapValue)
-	 *    1453:		function checkLDAPField($field)
 	 *    1476:		function getExistingUsers
 	 *    1517:		function getLDAPUsers($records,$mode)
-	 *    1637:		function ldap2BE($user,$server,$mode)
-	 *    1735:		function ldap2BE($user,$server,$mode)
-	 *    1833:		function mapFields($fields,$xmlds,$user)
 	 * 
 	 *				TOTAL FUNCTIONS: 27
 	 */
@@ -87,8 +78,8 @@
 	require_once (PATH_t3lib . 'class.t3lib_scbase.php');
 	$BE_USER->modAccess($MCONF,1);
 	
-	// LDAP extension class
-	require_once (t3lib_extMgm::extPath('ldap_macmade') . 'class.tx_ldapmacmade_div.php');
+	// LDAP helper class
+	require_once (t3lib_extMgm::extPath('ldap_macmade') . 'class.tx_ldapmacmade_utils.php');
 	
 	// Developer API class
 	require_once (t3lib_extMgm::extPath('api_macmade') . 'class.tx_apimacmade.php');
@@ -131,6 +122,9 @@
 			
 			// New instance of the Developer API
 			$this->api = new tx_apimacmade($this);
+			
+			// New instance of the LDAP helper class
+			$this->utils = t3lib_div::makeInstance('tx_ldapmacmade_utils');
 			
 			// Access check
 			$this->pageinfo = t3lib_BEfunc::readPageAccess($this->id,$this->perms_clause);
@@ -359,14 +353,17 @@
 			global $LANG;
 			
 			// Fields to display
-			$showFields = array('address','port','version','user','basedn','filter','be_enable','be_groups_import','fe_enable','fe_groups_import','mapping_external');
+			$showFields = array('address','port','version','user','basedn','filter','typo3_autoimport','be_enable','be_groups_import','be_auth','fe_enable','fe_groups_import','fe_auth','mapping_external');
 			
 			// Enable features - Human readable
-			$server['be_enable'] = ($server['be_enable'] == 1) ? $LANG->getLL('LGL.enabled') : $LANG->getLL('LGL.disabled');
-			$server['be_groups_import'] = ($server['be_groups_import'] == 1) ? $LANG->getLL('LGL.enabled') : $LANG->getLL('LGL.disabled');
-			$server['fe_enable'] = ($server['fe_enable'] == 1) ? $LANG->getLL('LGL.enabled') : $LANG->getLL('LGL.disabled');
-			$server['fe_groups_import'] = ($server['fe_groups_import'] == 1) ? $LANG->getLL('LGL.enabled') : $LANG->getLL('LGL.disabled');
-			$server['mapping_external'] = ($server['mapping_external']) ? $server['mapping_external'] : $LANG->getLL('LGL.disabled');
+			$server['typo3_autoimport'] = ($server['typo3_autoimport'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['be_enable'] = ($server['be_enable'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['be_groups_import'] = ($server['be_groups_import'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['be_auth'] = ($server['be_auth'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['fe_enable'] = ($server['fe_enable'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['fe_groups_import'] = ($server['fe_groups_import'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['fe_auth'] = ($server['fe_auth'] == 1) ? $this->writeHTML($LANG->getLL('LGL.enabled'),'span',array('color: green;')) : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
+			$server['mapping_external'] = ($server['mapping_external']) ? $server['mapping_external'] : $this->writeHTML($LANG->getLL('LGL.disabled'),'span',array('color: red;'));
 			
 			// Storage
 			$htmlCode = array();
@@ -375,18 +372,18 @@
 			$htmlCode[] = '<table border="0" width="100%" cellspacing="1" cellpadding="2" align="center" bgcolor="' . $this->doc->bgColor2 . '">';
 			
 			// Process each field
-			foreach ($server as $key=>$value) {
+			foreach ($showFields as $field) {
 				
-				if (in_array($key,$showFields)) {
+				if (array_key_exists($field,$server)) {
 					
 					// Start row
 					$htmlCode[] = '<tr>';
 					
 					// Key
-					$htmlCode[] = '<td width="25%" align="left" valign="center" bgcolor="' . $this->doc->bgColor4 . '">' . $LANG->getLL($key) . '</td>';
+					$htmlCode[] = '<td width="25%" align="left" valign="center" bgcolor="' . $this->doc->bgColor4 . '">' . $LANG->getLL($field) . '</td>';
 					
 					// Value
-					$htmlCode[] = '<td width="75%" align="left" valign="center" bgcolor="' . $this->doc->bgColor3 . '">' . $this->writeHTML($value,'b') . '</td>';
+					$htmlCode[] = '<td width="75%" align="left" valign="center" bgcolor="' . $this->doc->bgColor3 . '">' . $this->writeHTML($server[$field],'strong') . '</td>';
 					
 					// End $row
 					$htmlCode[] = '</tr>';
@@ -413,7 +410,7 @@
 			global $LANG;
 			
 			// LDAP
-			$ldap = $this->createLDAP($server);
+			$ldap = $this->utils->createLDAP($server);
 			
 			// Spacer
 			$htmlCode[] = $this->doc->spacer(5);
@@ -438,7 +435,7 @@
 				}
 				
 				// Paragraph elements
-				$legend = $this->writeHTML($LANG->getLL('status.' . $key) . ': ','b');
+				$legend = $this->writeHTML($LANG->getLL('status.' . $key) . ': ','strong');
 				$result = $this->writeHTML($status,'span',array('color: ' . $color . ''));
 				
 				// Paragraph style
@@ -499,15 +496,15 @@
 				$htmlCode[] = $this->doc->sectionHeader($this->api->be_getRecordCSMIcon($this->extTable,$server,$GLOBALS['BACK_PATH']) . $server['title']);
 				
 				// LDAP
-				$ldap = $this->createLDAP($server);
+				$ldap = $this->utils->createLDAP($server);
 				
 				if (is_array($ldap[0]['entries'])) {
 					
 					// Clean LDAP entries array
-					$entries = $this->cleanEntries($ldap[0]['entries']);
+					$entries = $this->utils->cleanEntries($ldap[0]['entries']);
 					
 					// Sort entries
-					$entries = $this->sortEntries($entries,$server['mapping_username']);
+					$entries = $this->utils->sortEntries($entries,$server['mapping_username']);
 					
 					// Entries count
 					$entriesCountStr = str_replace('###NUMBER###',$ldap[0]['count'],$LANG->getLL('entries.count.show'));
@@ -560,7 +557,7 @@
 					foreach ($entries as $key=>$val) {
 						
 						// Start row
-						$result[] = '<tr><td align="left" valign="middle" bgcolor="' . $this->doc->bgColor4 . '">' . $key . '</td><td align="left" valign="middle" bgcolor="' . $this->doc->bgColor3 . '">';
+						$result[] = '<tr><td align="left" valign="middle" bgcolor="' . $this->doc->bgColor4 . '"><strong>' . $key . '</strong></td><td align="left" valign="middle" bgcolor="' . $this->doc->bgColor3 . '">';
 						
 						if (is_array($val)) {
 								
@@ -569,8 +566,19 @@
 							
 						} else {
 							
-							// Result can be displayed directly
-							$result[] = (strlen($val) > 50) ? htmlentities(substr($val,0,50)) . $this->writeHTML(' [...]','span',array('color: green','font-weight: bold')) : htmlentities($val);
+							// Check field type
+							switch($key) {
+								
+								// JPEG picture -> special processing for base64 chunks
+								/*case 'jpegphoto':
+									$result[] = 'OK';
+								break;*/
+								
+								// Result can be displayed directly
+								default:
+									$result[] = (strlen($val) > 50) ? htmlentities(substr($val,0,50)) . $this->writeHTML(' [...]','span',array('color: green','font-weight: bold')) : htmlentities($val);
+								break;
+							}
 						}
 						
 						// End row
@@ -642,16 +650,16 @@
 				if ($server['be_enable'] || $server['fe_enable'] || $server['mapping_external']) {
 					
 					// LDAP
-					$ldap = $this->createLDAP($server);
+					$ldap = $this->utils->createLDAP($server);
 					
 					// Check LDAP entries
 					if (is_array($ldap[0]['entries'])) {
 						
 						// Clean LDAP entries array
-						$entries = $this->cleanEntries($ldap[0]['entries']);
+						$entries = $this->utils->cleanEntries($ldap[0]['entries']);
 						
 						// Sort entries
-						$entries = $this->sortEntries($entries,$server['mapping_username']);
+						$entries = $this->utils->sortEntries($entries,$server['mapping_username']);
 						
 						// Entries count
 						$htmlCode['count'] = '';
@@ -708,7 +716,7 @@
 						foreach ($entries as $user) {
 							
 							// LDAP username
-							$ldapUser = $this->checkLDAPField($user[$server['mapping_username']]);
+							$ldapUser = $this->utils->checkLDAPField($user,$server['mapping_username']);
 							
 							// LDAP user does not exist in FE users or BE users
 							if (!in_array($ldapUser,$this->users['FE']) || !in_array($ldapUser,$this->users['BE'])) {
@@ -761,112 +769,6 @@
 			
 			// Return HTML code
 			return implode(chr(10),$htmlCode);
-		}
-		
-		/**
-		 * Import LDAP groups.
-		 * 
-		 * This function import BE & FE groups for a user from the LDAP server.
-		 * 
-		 * @param		$user				The LDAP user
-		 * @param		$server				The LDAP server
-		 * @param		$type				The import type (BE or FE)
-		 * @return		Void
-		 */
-		function importGroups($user,$server,$type) {
-			
-			// User ID
-			$userId = $this->checkLDAPField($user[$server['mapping_username']]);
-			
-			// Search filter for groups
-			$filter = '(&(objectClass=posixGroup)(memberUid=' . $userId . '))';
-			
-			// Replace search filter
-			$server['filter'] = $filter;
-			
-			// LDAP
-			$ldap = $this->createLDAP($server);
-			
-			// Check LDAP entries
-			if (is_array($ldap[0]['entries'])) {
-				
-				// Clean LDAP entries array
-				$entries = $this->cleanEntries($ldap[0]['entries']);
-				
-				// Storage
-				$importGroups = array();
-				
-				// Process each groups
-				foreach($entries as $group) {
-					
-					// Get group name
-					$groupName = $this->checkLDAPField($group['cn']);
-					
-					// Check import type (BE or FE)
-					if ($type == 'BE') {
-						
-						// Try to get existing BE group
-						$t3_group = t3lib_BEfunc::getRecordsByField('be_groups','title',$groupName);
-						
-						// Check if group must be imported
-						if (!$t3_group) {
-							
-							// Storage
-							$insertFields = array();
-							
-							// Static fields to insert
-							$insertFields['pid'] = 0;
-							$insertFields['tstamp'] = time();
-							$insertFields['crdate'] = time();
-							$insertFields['cruser_id'] = $GLOBALS['BE_USER']->user['uid'];
-							
-							// Group name
-							$insertFields['title'] = $groupName;
-							
-							// MySQL INSERT query
-							$GLOBALS['TYPO3_DB']->exec_INSERTquery('be_groups',$insertFields);
-							
-							// Select group
-							$t3_group = t3lib_BEfunc::getRecordsByField('be_groups','title',$groupName);
-						}
-						
-					} else if ($type == 'FE') {
-						
-						// Try to get existing FE group
-						$t3_group = t3lib_BEfunc::getRecordsByField('fe_groups','title',$groupName);
-						
-						// Check if group must be imported
-						if (!$t3_group) {
-							
-							// Storage
-							$insertFields = array();
-							
-							// Static fields to insert
-							$insertFields['pid'] = $this->id;
-							$insertFields['tstamp'] = time();
-							
-							// Group name
-							$insertFields['title'] = $groupName;
-							
-							// MySQL INSERT query
-							$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_groups',$insertFields);
-							
-							// Select group
-							$t3_group = t3lib_BEfunc::getRecordsByField('fe_groups','title',$groupName);
-						}
-					}
-					
-					// Process each groups (if many)
-					foreach($t3_group as $key=>$value) {
-						
-						// Add GID
-						$importGroups[] = $value['uid'];
-					}
-				}
-				
-				// Remove duplicates if any and return GIDs
-				return array_unique($importGroups);
-			}
 		}
 		
 		/**
@@ -936,7 +838,7 @@
 					$value = $map['field']['el']['ldap']['vDEF'];
 					
 					// Add field
-					$insertFields[$field] = $this->checkLDAPField($this->substituteLDAPValue($value,$user[$value]));
+					$insertFields[$field] = $this->utils->substituteLDAPValue($value,$this->utils->checkLDAPField($user,$value));
 				}
 			}
 			
@@ -995,16 +897,16 @@
 				if ($server['be_enable'] || $server['fe_enable']) {
 					
 					// LDAP
-					$ldap = $this->createLDAP($server);
+					$ldap = $this->utils->createLDAP($server);
 					
 					// Check LDAP entries
 					if (is_array($ldap[0]['entries'])) {
 						
 						// Clean LDAP entries array
-						$entries = $this->cleanEntries($ldap[0]['entries']);
+						$entries = $this->utils->cleanEntries($ldap[0]['entries']);
 						
 						// Sort entries
-						$entries = $this->sortEntries($entries,$server['mapping_username']);
+						$entries = $this->utils->sortEntries($entries,$server['mapping_username']);
 						
 						// Entries count
 						$htmlCode['count'] = '';
@@ -1061,7 +963,7 @@
 						foreach ($entries as $user) {
 							
 							// LDAP username
-							$ldapUser = $this->checkLDAPField($user[$server['mapping_username']]);
+							$ldapUser = $this->utils->checkLDAPField($user,$server['mapping_username']);
 							
 							// LDAP user does not exist in FE users or BE users
 							if (in_array($ldapUser,$this->users['FE']) || in_array($ldapUser,$this->users['BE'])) {
@@ -1185,140 +1087,6 @@
 		}
 		
 		/**
-		 * Create a LDAP server instance
-		 * 
-		 * This function creates an instance of the LDAP helper class.
-		 * 
-		 * @param		$server				An OpenLDAP server row
-		 * @return		An array with the LDAP results and errors if any
-		 */
-		function createLDAP($server) {
-			
-			// Configuration array
-			$conf = array(
-				'host' => $server['address'],
-				'port' => $server['port'],
-				'version' => $server['version'],
-				'user' => $server['user'],
-				'password' => $server['password'],
-				'baseDN' => $server['basedn'],
-				'filter' => $server['filter'],
-			);
-			
-			// New LDAP class
-			$ldap = t3lib_div::makeInstance('tx_ldapmacmade_div');
-			
-			// Set LDAP class configuration array
-			$ldap->conf = $conf;
-			
-			// Initialization of the LDAP class
-			$ldap->init();
-			
-			// Results
-			$results = array(
-				'version' => $ldap->pver,
-				'bind' => $ldap->r,
-				'search' => $ldap->sr,
-				'count' => $ldap->num,
-				'entries' => $ldap->info,
-			);
-			
-			// Return results and errors array
-			return array($results,$ldap->errors);
-		}
-		
-		/**
-		 * Clean LDAP entries
-		 * 
-		 * This function cleans an array of LDAP entries, to allow a smooth
-		 * processing.
-		 * 
-		 * @param		$entries			An array with LDAP entries
-		 * @return		The cleaned array
-		 */
-		function cleanEntries($entries) {
-			
-			// Check every element
-			foreach ($entries as $key=>$val) {
-				
-				// Check for an array
-				if (is_array($val)) {
-					
-					// Check for a value
-					if (array_key_exists('count',$val) && count($val) == 2) {
-						
-						// Replace array by value
-						$entries[$key] = $val[0];
-						
-					} else {
-						
-						// Process subarray
-						$entries[$key] = $this->cleanEntries($val);
-					}
-				} else if (is_int($key)) {
-					
-					// Integer key / Check redundant information
-					if ($val == $lastKey) {
-						
-						// Unset data
-						unset($entries[$key]);
-					}
-				} else if ($key == 'count') {
-					
-					// LDAP count information
-					unset($entries[$key]);
-				}
-				
-				// Memorize key
-				$lastKey = $key;
-				settype($lastKey,'string');
-			}
-			
-			// Return clean array
-			return $entries;
-		}
-		
-		/**
-		 * Sort LDAP entries
-		 * 
-		 * This function sorts an array of LDAP entries.
-		 * 
-		 * @param		$entries			An array with LDAP entries
-		 * @param		$sortKey			The LDAP field used for sorting
-		 * @return		The sorted array
-		 */
-		function sortEntries($entries,$sortKey) {
-			
-			// Storage
-			$data = array();
-			
-			// Process input array
-			foreach($entries as $key=>$val) {
-				
-				// Check key
-				if ($val[$sortKey]) {
-					
-					// Get sort field
-					$field = $this->checkLDAPField($val[$sortKey]);
-					
-					// Set data
-					$data[$field] = $val;
-					
-				} else {
-					
-					// Don't change
-					$data[$key] = $val;
-				}
-			}
-			
-			// Sort array
-			ksort($data);
-			
-			// Return sorted array
-			return $data;
-		}
-		
-		/**
 		 * Build LDAP user informations
 		 * 
 		 * This function creates a table row with the needed informations
@@ -1335,7 +1103,7 @@
 			$htmlCode = array();
 			
 			// Get username
-			$username = $this->checkLDAPField($user[$server['mapping_username']]);
+			$username = utf8_decode($this->utils->checkLDAPField($user,$server['mapping_username']));
 			
 			// Checkbox
 			$htmlCode[] = '<td width="5%" align="center" valign="middle">' . '<input type="checkbox" name="ldap_action[]" id="list" value="' . $username . '"></td>';
@@ -1356,10 +1124,10 @@
 					$ldap = $field['field']['el']['ldap']['vDEF'];
 					
 					// Value
-					$value = $this->substituteLDAPValue($ldap,$user[$ldap]);
+					$value = $this->utils->substituteLDAPValue($ldap,$user[$ldap]);
 					
 					// Add field
-					$htmlCode[] = '<td align="left" valign="middle">' . $value . '</td>';
+					$htmlCode[] = '<td align="left" valign="middle">' . utf8_decode($value) . '</td>';
 				}
 			}
 			
@@ -1410,59 +1178,6 @@
 			
 			// Return the row
 			return implode(chr(10),$htmlCode);
-		}
-		
-		/**
-		 * Substitute LDAP value
-		 * 
-		 * This function is used to check if a LDAP value must be substituted
-		 * by a fixed value.
-		 * 
-		 * @param		$ldapField			The field to process
-		 * @param		$ldapValue			The LDAP value
-		 * @return		The final value
-		 */
-		function substituteLDAPValue($ldapField,$ldapValue) {
-			
-			// Checking field type
-			if (substr($ldapField,0,8) == '[STATIC]') {
-				
-				// Static data
-				$import = substr($ldapField,8);
-				
-			} else {
-				
-				// LDAP data
-				$import = $ldapValue;
-			}
-			
-			// Return processed field
-			return $import;
-		}
-		
-		/**
-		 * Check LDAP value
-		 * 
-		 * This function is used to check a LDAP value. In LDAP, a field value
-		 * can be an array with subvalues. In that case, the function returns
-		 * only the first subvalue.
-		 * 
-		 * @param		$field				The LDAP field
-		 * @return		The final value
-		 */
-		function checkLDAPField($field) {
-			
-			// Check if field is an array
-			if (is_array($field)) {
-				
-				// Return first value
-				return array_shift($field);
-				
-			} else {
-				
-				// Return value
-				return $field;
-			}
 		}
 		
 		/**
@@ -1544,19 +1259,19 @@
 			if (isset($settings) && is_array($settings) && is_array($users)) {
 				
 				// LDAP
-				$ldap = $this->createLDAP($settings);
+				$ldap = $this->utils->createLDAP($settings);
 				
 				// Check LDAP entries
 				if (is_array($ldap[0]['entries'])) {
 					
 					// Clean LDAP entries array
-					$entries = $this->cleanEntries($ldap[0]['entries']);
+					$entries = $this->utils->cleanEntries($ldap[0]['entries']);
 					
 					// Process LDAP entries
 					foreach ($entries as $user) {
 						
 						// Get username
-						$username = $this->checkLDAPField($user[$settings['mapping_username']]);
+						$username = $this->utils->checkLDAPField($user,$settings['mapping_username']);
 						
 						// Import or update user
 						if (in_array($username,$users)) {
@@ -1568,12 +1283,12 @@
 								if ($mode == 'IMPORT' && !in_array($username,$this->users['BE'])) {
 									
 									// Import
-									$this->ldap2BE($user,$server,$mode);
+									$this->utils->ldap2BE($user,$server,$mode);
 									
 								} else if ($mode == 'UPDATE' && in_array($username,$this->users['BE'])) {
 									
 									// Update
-									$this->ldap2BE($user,$server,$mode);
+									$this->utils->ldap2BE($user,$server,$mode);
 								}
 							}
 							
@@ -1584,12 +1299,12 @@
 								if ($mode == 'IMPORT' && !in_array($username,$this->users['FE'])) {
 									
 									// Import
-									$this->ldap2FE($user,$server,$mode);
+									$this->utils->ldap2FE($user,$server,$mode);
 									
 								} else if ($mode == 'UPDATE' && in_array($username,$this->users['FE'])) {
 									
 									// Update
-									$this->ldap2FE($user,$server,$mode);
+									$this->utils->ldap2FE($user,$server,$mode);
 								}
 							}
 							
@@ -1621,246 +1336,6 @@
 			
 			// Return result
 			return $this->writeHTML($result,'p',array('color: red','font-weight: bold'));
-		}
-		
-		/**
-		 * Get a backend user.
-		 * 
-		 * This function import or udpate a user from the LDAP server to the backend
-		 * users table.
-		 * 
-		 * @param		$user				The LDAP user
-		 * @param		$server				The LDAP server
-		 * @param		$mode				The mode (IMPORT or UPDATE)
-		 * @return		Void
-		 */
-		function ldap2BE($user,$server,$mode) {
-			
-			// Storage
-			$insertFields = array();
-			
-			// Check mode
-			if ($mode == 'IMPORT') {
-				
-				// Static fields to insert for import
-				$insertFields['pid'] = 0;
-				$insertFields['crdate'] = time();
-				$insertFields['cruser_id'] = $GLOBALS['BE_USER']->user['uid'];
-			}
-			
-			// Modification date
-			$insertFields['tstamp'] = time();
-			
-			// Username
-			$insertFields['username'] = $this->checkLDAPField($user[$server['mapping_username']]);
-			
-			// Get password rule
-			$pwdRule = $server['be_pwdrule'];
-			
-			// Find LDAP field
-			ereg('\[LDAP:([^]]+)\]',$pwdRule,$regs);
-			
-			// Try to get LDAP field
-			if ($ldapField = $this->checkLDAPField($user[$regs[1]])) {
-				
-				// Replace pattern
-				$password = ereg_replace('\[LDAP:[^]]+\]',$ldapField,$pwdRule);
-			}
-			
-			// Password
-			$insertFields['password'] = md5($password);
-			
-			// Lang
-			$insertFields['lang'] = $server['be_lang'];
-			
-			// TS Config
-			$insertFields['TSconfig'] = $server['be_tsconf'];
-			
-			// Additionnal fields
-			$additionnalFields = $this->mapFields(array('name'=>'realName','email'=>'email'),$server['mapping'],$user);
-			
-			// Check if groups must be imported from LDAP
-			if ($server['be_groups_import']) {
-				
-				// Import BE groups
-				$ldapGroups = $this->importGroups($user,$server,'BE');
-			}
-			
-			// Check for additionnal groups
-			if ($server['be_groups_fixed']) {
-				
-				// Get additionnal groups
-				$additionnalGroups = explode(',',$server['be_groups_fixed']);
-			}
-			
-			// Merge groups
-			$groups = array_merge($ldapGroups,$additionnalGroups);
-			
-			// Add groups for user
-			$insertFields['usergroup'] = implode(',',$groups);
-			
-			// Merge arrays
-			$insert = array_merge($insertFields,$additionnalFields);
-			
-			// Check mode
-			if ($mode == 'IMPORT') {
-				
-				// MySQL INSERT query
-				$GLOBALS['TYPO3_DB']->exec_INSERTquery('be_users',$insert);
-				
-			} else if ($mode == 'UPDATE') {
-				
-				// Get existing UID
-				$be_users = t3lib_BEfunc::getRecordsByField('be_users','username',$insert['username']);
-				
-				// Get first one (if many)
-				$be_user = array_shift($be_users);
-				
-				// MySQL UPDATE query
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('be_users','uid=' . $be_user['uid'],$insert);
-			}
-		}
-		
-		/**
-		 * Get a frontend user.
-		 * 
-		 * This function import or update a user from the LDAP server to the frontend
-		 * users table.
-		 * 
-		 * @param		$user				The LDAP user
-		 * @param		$server				The LDAP server
-		 * @param		$mode				The mode (IMPORT or UPDATE)
-		 * @return		Void
-		 */
-		function ldap2FE($user,$server,$mode) {
-			
-			// Storage
-			$insertFields = array();
-			
-			// Check mode
-			if ($mode == 'IMPORT') {
-				
-				// Static fields to insert
-				$insertFields['pid'] = $this->id;
-				$insertFields['crdate'] = time();
-				$insertFields['cruser_id'] = $GLOBALS['BE_USER']->user['uid'];
-			}
-			
-			// Modification date
-			$insertFields['tstamp'] = time();
-			
-			// Username
-			$insertFields['username'] = $this->checkLDAPField($user[$server['mapping_username']]);
-			
-			// Get password rule
-			$pwdRule = $server['be_pwdrule'];
-			
-			// Find LDAP field
-			ereg('\[LDAP:([^]]+)\]',$pwdRule,$regs);
-			
-			// Try to get LDAP field
-			if ($ldapField = $this->checkLDAPField($user[$regs[1]])) {
-				
-				// Replace pattern
-				$password = ereg_replace('\[LDAP:[^]]+\]',$ldapField,$pwdRule);
-			}
-			
-			// Password
-			$insertFields['password'] = $password;
-			
-			// Lang
-			$insertFields['lockToDomain'] = $server['fe_lock'];
-			
-			// TS Config
-			$insertFields['TSconfig'] = $server['be_tsconf'];
-			
-			// Additionnal fields
-			$additionnalFields = $this->mapFields(array('name'=>'name','address'=>'address','phone'=>'telephone','fax'=>'fax','email'=>'email','title'=>'title','zip'=>'zip','city'=>'city','country'=>'country','www'=>'www','company'=>'company'),$server['mapping'],$user);
-			
-			// Check if groups must be imported from LDAP
-			if ($server['fe_groups_import']) {
-				
-				// Import BE groups
-				$ldapGroups = $this->importGroups($user,$server,'FE');
-			}
-			
-			// Check for additionnal groups
-			if ($server['fe_groups_fixed']) {
-				
-				// Get additionnal groups
-				$additionnalGroups = explode(',',$server['fe_groups_fixed']);
-			}
-			
-			// Merge groups
-			$groups = array_merge($ldapGroups,$additionnalGroups);
-			
-			// Add groups for user
-			$insertFields['usergroup'] = implode(',',$groups);
-			
-			// Merge arrays
-			$insert = array_merge($insertFields,$additionnalFields);
-			
-			// Check mode
-			if ($mode == 'IMPORT') {
-				
-				// MySQL INSERT query
-				$GLOBALS['TYPO3_DB']->exec_INSERTquery('fe_users',$insert);
-				
-			} else if ($mode == 'UPDATE') {
-				
-				// Get existing UID
-				$fe_users = t3lib_BEfunc::getRecordsByField('fe_users','username',$insert['username'],' AND pid=' . $this->id);
-				
-				// Get first one (if many)
-				$fe_user = array_shift($fe_users);
-				
-				// MySQL UPDATE query
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('fe_users','uid=' . $fe_user['uid'],$insert);
-			}
-		}
-		
-		/**
-		 * Map additionnal fields.
-		 * 
-		 * This function is used to build an associative array with the optional
-		 * fields to import or udpate.
-		 * 
-		 * @param		$fields				An associative array with fields to map
-		 * @param		$xmlds				The flexform data with mapping informations
-		 * @param		$user				The LDAP user
-		 * @return		The import array
-		 */
-		function mapFields($fields,$xmlds,$user) {
-			
-			// Flexform as an array
-			$flex = t3lib_div::xml2array($xmlds);
-			
-			// Storage
-			$import = array();
-			
-			// Check array
-			if (is_array($flex['data']['sDEF']['lDEF']['fields']['el']) && count($flex['data']['sDEF']['lDEF']['fields']['el'])) {
-				
-				// Process each fields
-				foreach($flex['data']['sDEF']['lDEF']['fields']['el'] as $map) {
-					
-					// Field type
-					$type = $map['field']['el']['type']['vDEF'];
-					
-					// Field value
-					$value = $map['field']['el']['ldap']['vDEF'];
-					
-					// Check if field must be imported
-					if (array_key_exists($type,$fields)) {
-						
-						// Add field
-						$import[$fields[$type]] = $this->checkLDAPField($this->substituteLDAPValue($value,$user[$value]));
-					}
-				}
-			}
-			
-			// Return import array
-			return $import;
 		}
 	}
 	

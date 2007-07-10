@@ -2,7 +2,7 @@
 	/***************************************************************
 	 * Copyright notice
 	 * 
-	 * (c) 2004 Jean-David Gadina (macmade@gadlab.net)
+	 * (c) 2004 Jean-David Gadina (info@macmade.net)
 	 * All rights reserved
 	 * 
 	 * This script is part of the TYPO3 project. The TYPO3 project is 
@@ -25,7 +25,7 @@
 	/**
 	 * TCA helper class for extension 'ldap_macmade'.
 	 *
-	 * @author		Jean-David Gadina (macmade@gadlab.net)
+	 * @author		Jean-David Gadina (info@macmade.net)
 	 * @version		1.0
 	 */
 	
@@ -33,13 +33,24 @@
 	 * [CLASS/FUNCTION INDEX OF SCRIPT]
 	 * 
 	 * SECTION:		1 - MAIN
-	 *      54:		function showTableFields(&$params,&$pObj)
-	 *      89:		function be_auth($params,$pObj)
+	 *      65:		function showTableFields(&$params,&$pObj)
+	 *     100:		function be_auth($params,$pObj)
+	 *     149:		function fe_auth($params,$pObj)
 	 * 
-	 *				TOTAL FUNCTIONS: 2
+	 *				TOTAL FUNCTIONS: 3
 	 */
 	
 	class tx_ldapmacmade_tca {
+		
+		
+		
+		
+		
+		/***************************************************************
+		 * SECTION 1 - MAIN
+		 *
+		 * Main module functions.
+		 ***************************************************************/
 	
 		/**
 		 * List table fields
@@ -96,7 +107,7 @@
 			$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ldap_macmade']);
 			
 			// Check backend authentification
-			if ($extConf['be_auth']) {
+			if (array_key_exists('be_auth',$extConf)) {
 				
 				// Get element value
 				$elValue = $params['itemFormElValue'];
@@ -145,7 +156,7 @@
 			$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ldap_macmade']);
 			
 			// Check backend authentification
-			if ($extConf['fe_auth']) {
+			if (array_key_exists('fe_auth',$extConf)) {
 				
 				// Get element value
 				$elValue = $params['itemFormElValue'];

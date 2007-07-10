@@ -67,4 +67,7 @@
 			'fe_admin_fieldList' => 'hidden, title, address, port, version, user, password, basedn, filter',
 		)
 	);
+	
+	// Adding context sensitive help (CSH)
+	t3lib_extMgm::addLLrefForTCAdescr('tx_ldapmacmade_server','EXT:ldap_macmade/locallang_csh_server.php');
 ?>

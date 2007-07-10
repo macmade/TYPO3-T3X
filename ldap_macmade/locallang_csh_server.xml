@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>CSH</type>
+		<csh_table>tx_ldapmacmade_server</csh_table>
+		<description>Default TCA_DESCR for table 'tx_ldapmacmade_server</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index=".description">OpenLDAP server for Typo3</label>
+			<label index=".details">This record type allow you to create and configure an OpenLDAP server in Typo3. You can then import users and groups for the Typo3 backend and frontend. You can also use a LDAP server for backend/frontend authentication. Please read the manual for more details.</label>
+			<label index="_.seeAlso">OpenLDAP / macmade.net - Manual | http://typo3.org/documentation/document-library/extension-manuals/ldap_macmade/current/view/</label>
+			<label index=".image">EXT:ldap_macmade/csh/tca_settings.jpg,EXT:ldap_macmade/csh/mod1_status.jpg</label>
+			<label index=".image_descr">The parameters of an OpenLDAP server in the Typo3 backend
+The status view of an OpenLDAP server in the Typo3 administration module</label>
+			<label index="hidden.description">Hide the server</label>
+			<label index="hidden.details">This allow you to hide/deactivate the current OpenLDAP server. When a server is hidden, it won't be available in the OpenLDAP module, and it won't be used by authentication services anymore.</label>
+			<label index="title.description">The title of the server</label>
+			<label index="title.details">This name is only used in the Typo3 backend to identify the OpenLDAP server.</label>
+			<label index="address.description">The address of the LDAP server</label>
+			<label index="address.details">Enter here the address of the LDAP server. This can be either a domain name (eg. &quot;www.typo3.com&quot;) or an IP address (eg. &quot;10.34.222.83&quot;).</label>
+			<label index="port.description">The port number</label>
+			<label index="port.details">Enter here the port number of the LDAP server. By default, LDAP servers use port number 389.</label>
+			<label index="version.description">The LDAP protocol version</label>
+			<label index="version.details">Choose here the protocol version of your LDAP server. LDAP servers now use version 3 of the LDAP protocol, but you can choose a lower version if necessary. If you're not sure, choose &quot;Don't care&quot;. The module will then try to guess the protocol version.</label>
+			<label index="tls.description">Use TLS (Transport Layer Security)</label>
+			<label index="tls.details">This allow you to use TLS (Transport Layer Security) for the OpenLDAP server. It's a good idea to use such a system, if the server allows it, as it will improve security of the LDAP transactions.</label>
+			<label index="user.description">The user DN (optionnal)</label>
+			<label index="user.details">Enter here the user DN used to establish a connection with the LDAP server, if required.</label>
+			<label index="user.syntax">For instance: &quot;cn=admin,dc=localdomain&quot;</label>
+			<label index="password.description">The user password (optionnal)</label>
+			<label index="password.details">Enter here the user password used to establish a connection with the LDAP server, if required.</label>
+			<label index="basedn.description">The base DN of the LDAP server</label>
+			<label index="basedn.details">Enter here the base DN of the LDAP server, used to look for entries.</label>
+			<label index="basedn.syntax">For instance: &quot;dc=localdomain&quot;</label>
+			<label index="filter.description">An additionnal search filter</label>
+			<label index="filter.details">Enter here, if necessary, an additional search filter for the LDAP server (RFC2254). You can combine as many search filters as you want. Please see the URL below if you want to know more about LDAP search filters.</label>
+			<label index="filter.syntax">For instance: &quot;(|(objectClass=inetOrgPerson)(objectClass=organizationalRole))&quot;</label>
+			<label index="_filter.seeAlso">RFC2254 - The String Representation of LDAP Search Filters | http://rfc.net/rfc2254.html</label>
+			<label index="group_class.description">The objectClass for LDAP groups</label>
+			<label index="group_class.details">If you want to import groups (backend and/or frontend) directly from the LDAP server, enter here the objectClass for the groups in the LDAP server.</label>
+			<label index="group_member.description">The attribute for members in LDAP groups</label>
+			<label index="group_member.details">If you want to import groups (backend and/or frontend) directly from the LDAP server, enter here the attribute used to store the members of a group in the LDAP server.</label>
+			<label index="typo3_autoimport.description">Import new users at authentication</label>
+			<label index="typo3_autoimport.details">If this is checked, valid LDAP users will be automatically imported in the Typo3 database if they don't already exist. This option affects backend and frontend users. If the option is not set, you'll have to import manually the LDAP users through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="be_enable.description">Enable backend users import</label>
+			<label index="be_enable.details">With this option enabled, you will be able to import Typo3 backend users from the LDAP server. This is done through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="be_enable.image">EXT:ldap_macmade/csh/tca_be.jpg,EXT:ldap_macmade/csh/mod1_import.jpg</label>
+			<label index="be_enable.image_descr">The backend user import settings
+A LDAP user ready to be imported in Typo3</label>
+			<label index="be_auth.description">Use this server as backend authentication source</label>
+			<label index="be_auth.details">If this is checked, Typo3 will use the LDAP server to authenticate backend users
+
+&lt;strong&gt;Notice&lt;/strong&gt;: the backend authentication option must be enabled in the extension manager, in order to use this feature.</label>
+			<label index="be_auth.image">EXT:ldap_macmade/csh/em.jpg</label>
+			<label index="be_auth.image_descr">The authentication options, in the extension manager</label>
+			<label index="be_pwdrule.description">Generate a password for backend users</label>
+			<label index="be_pwdrule.details">This option is used to generate a password for each imported backend users. You can use fixed strings, and values from the LDAP user record. For instance, for a LDAP user named &quot;Foo&quot; (sn=Foo), if you write &quot;[LDAP:sn]_bar&quot; in this field, the generated user password will be &quot;foo_bar&quot;.
+			
+&lt;strong&gt;Notice&lt;/strong&gt;: the generated passwords won't be used if you use direct authentication from LDAP.</label>
+			<label index="be_groups_import.description">Import backend groups from LDAP</label>
+			<label index="be_groups_import.details">If this is checked, the LDAP user groups will be imported automatically as backend user groups, when a LDAP user is imported. For this feature to work, you need to specify the objectClass of the group objects, and the attribute used to store the members.</label>
+			<label index="_be_groups_import.seeAlso">tx_ldapmacmade_server:group_class,
+tx_ldapmacmade_server:group_member</label>
+			<label index="be_groups_fixed.description">Add existing backend groups to imported users</label>
+			<label index="be_groups_fixed.details">This allow you to attach existing backend user groups to the users imported from the LDAP server.</label>
+			<label index="be_lang.description">Select the default language for imported users</label>
+			<label index="be_lang.details">This determines the language of the backend interface for the user. All mainstream parts available for regular users are available in the system language selected.
+'Admin'-users however will experience that the 'Admin'-only parts of TYPO3 is in english. This includes all submodules in &quot;Tools&quot; and in the &quot;Web&gt;Template&quot; module.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: this is only setting the default language. As soon as the user has logged in the language must be changed through the &quot;User&gt;Setup&quot; module. Also you will have to install the corresponding language pack which can be downloaded with the extension manager.</label>
+			<label index="_be_lang.seeAlso">_MOD_user_setup:language</label>
+			<label index="be_tsconf.description">Enter additional TSconfig for imported user</label>
+			<label index="be_tsconf.details">This field allows you to extend the configuration of the user in severe details. A brief summary of the options include a more detailed configuration of the backend modules, setting of user specific default table field values, setting of Rich Text Editor options etc.</label>
+			<label index="_be_tsconf.seeAlso">pages:TSconfig,
+be_users:TSconfig,
+be_groups:TSconfig,
+User TSconfig | http://typo3.org/documentation/document-library/references/doc_core_tsconfig/current/view/1/2/</label>
+			<label index="fe_enable.description">Enable frontend users import</label>
+			<label index="fe_enable.details">With this option enabled, you will be able to import Typo3 frontend users from the LDAP server. This is done through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="fe_enable.image">EXT:ldap_macmade/csh/tca_fe.jpg,EXT:ldap_macmade/csh/mod1_import.jpg</label>
+			<label index="fe_enable.image_descr">The frontend user import settings
+A LDAP user ready to be imported in Typo3</label>
+			<label index="fe_auth.description">Use this server as frontend authentication source</label>
+			<label index="fe_auth.details">If this is checked, Typo3 will use the LDAP server to authenticate frontend users
+
+&lt;strong&gt;Notice&lt;/strong&gt;: the frontend authentication option must be enabled in the extension manager, in order to use this feature.</label>
+			<label index="fe_auth.image">EXT:ldap_macmade/csh/em.jpg</label>
+			<label index="fe_auth.image_descr">The authentication options, in the extension manager</label>
+			<label index="fe_pwdrule.description">Generate a password for frontend users</label>
+			<label index="fe_pwdrule.details">This option is used to generate a password for each imported frontend users. You can use fixed strings, and values from the LDAP user record. For instance, for a LDAP user named &quot;Foo&quot; (sn=Foo), if you write &quot;[LDAP:sn]_bar&quot; in this field, the generated user password will be &quot;foo_bar&quot;.
+			
+&lt;strong&gt;Notice&lt;/strong&gt;: the generated passwords won't be used if you use direct authentication from LDAP.</label>
+			<label index="fe_groups_import.description">Import frontend groups from LDAP</label>
+			<label index="be_groups_import.details">If this is checked, the LDAP user groups will be imported automatically as frontend user groups, when a LDAP user is imported. For this feature to work, you need to specify the objectClass of the group objects, and the attribute used to store the members.</label>
+			<label index="_fe_groups_import.seeAlso">tx_ldapmacmade_server:group_class,
+tx_ldapmacmade_server:group_member</label>
+			<label index="fe_groups_fixed.description">Add existing frontend groups to imported users</label>
+			<label index="fe_groups_fixed.details">This allow you to attach existing frontend user groups to the users imported from the LDAP server.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: a frontend user won't be able to log in unless he's member of a frontend user group. So if you don't import user groups directly from the LDAP, be sure to specify an existing frontend user group here.</label>
+			<label index="fe_lock.description">Enter the host name from which the imported users will be forced to login</label>
+			<label index="fe_lock.details">A Typo3 system may have multiple domains pointing to it. Therefore this option secures that users can login only from a certain host name.</label>
+			<label index="lockToDomain.syntax">Either a domain name, &quot;www.typo3.com&quot; or an IP address, &quot;10.34.222.83&quot;</label>
+			<label index="fe_tsconf.description">Enter additional TSconfig for imported user</label>
+			<label index="fe_tsconf.details">This field allows you to enter TypoScript style configuration values for the user. Currently there are no system defined keys. If there ever will be, they will be described in detail in the administrative documentation.
+
+The primary use of this field (as well as the 'sister'-field in the Website usergroup table) is for custom purposes. In this case, you should use the root-key &quot;user&quot; for your customly defined values. Thus you don't risk any future system keys to interfere with your configuration.
+
+You access the values of the configuration from your frontend plugins by calling the function &lt;em&gt;$GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;getUserTSconf()&lt;/em&gt; which will return an array with the valuetree in it.
+
+&lt;b&gt;Warning:&lt;/b&gt; You should use Website user/group TSconfig in your PHP-scripts ONLY if your resulting content is NOT being cached! So call it from TypoScript USER_INT cObjects or disable caching from your PHP-code by calling &lt;em&gt;$GLOBALS[&quot;TSFE&quot;]-&gt;set_no_cache();&lt;/em&gt;
+
+&lt;b&gt;TSconfig from Website usergroups:&lt;/b&gt;
+Notice that the configuration from the field TSconfig in the member groups of the user is accumulated and prepended to the TSconfig of the user before it's parsed. This means for instance that a key defined in the TSconfig of the user (this field) will override the same key defined in the last (bottom) usergroup in the list which will again override the same key defined in the first (top) usergroup in the list.
+
+&lt;b&gt;Example:&lt;/b&gt;
+Let's imagine you want to define for a user that his name is printed in the bottom of the webpages when he is logged in. First of all you must write a PHP-function and insert the result from it as a USER_INT cObject in the bottom of the page. But your function needs to know, whether or not this user is configured to have his name printed. So you decide to use a custom TSconfig key, 'user.printUserName':
+
+&lt;em&gt;In the TSconfig field of the user or usergroup:&lt;/em&gt;
+
+user.printUserName = 1
+
+
+&lt;em&gt;In your PHP-function:&lt;/em&gt;
+
+$userTSConfig = $GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;getUserTSconf();
+if ($userTSConfig[&quot;user.&quot;][&quot;printUserName&quot;]) {
+  return $GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;user[&quot;name&quot;];
+}</label>
+			<label index="fe_tsconf.syntax">TypoScript syntax, without conditions and constants</label>
+			<label index="_fe_tsconf.seeAlso">TSconfig for TSFE | http://typo3.org/documentation/document-library/references/doc_core_tsconfig/current/view/1/3/
+fe_users:TSconfig,
+fe_groups:TSconfig</label>
+			<label index="mapping_username.description">The username field in the LDAP</label>
+			<label index="mapping_username.details">This is the name of the field containing the username in the LDAP server. This field must of course be unique, and in accordance with Typo3 usernames (no space, no special characters, etc.)</label>
+			<label index="mapping.description">Mapping between LDAP and Typo3</label>
+			<label index="mapping.details">In this section, you'll be able to map the LDAP fields with the Typo3 user fields. For each mapping rule you add, you have to give the LDAP field name and set the corresponding Typo3 field. You can create as many mapping rule as you want by selecting &quot;NEW LDAP&quot; in the select box and saving the record.</label>
+			<label index="mapping.image">EXT:ldap_macmade/csh/tca_mapping.jpg</label>
+			<label index="mapping.image_descr">An example mapping configuration</label>
+			<label index="mapping_external.description">Choose a custom Typo3 database table in which to import LDAP users</label>
+			<label index="mapping_external.details">This feature allows you to import LDAP entries in any Typo3 database table. In this select box, just select the name of the table in which you want to import the LDAP entries. The page will be refreshed, and you'll then be able to configure the mapping between the LDAP server and the selected Typo3 table.</label>
+			<label index="mapping_external.image">EXT:ldap_macmade/csh/tca_mapping_ext.jpg</label>
+			<label index="mapping_external.image_descr">An example mapping configuration between a LDAP server and the tt_address table</label>
+			<label index="mapping_external_fields.description">Mapping between LDAP and a custom Typo3 database table</label>
+			<label index="mapping_external_fields.details">In this section, you'll be able to map the LDAP fields with the Typo3 table fields. For each mapping rule you add, you have to give the LDAP field name and set the corresponding Typo3 table field. You can create as many mapping rule as you want by selecting &quot;NEW LDAP&quot; in the select box and saving the record.</label>
+			<label index="mapping_external_fields.image">EXT:ldap_macmade/csh/tca_mapping_ext.jpg</label>
+			<label index="mapping_external_fields.image_descr">An example mapping configuration between a LDAP server and the tt_address table</label>
+			<label index="mapping_external_pid.description">The destination page for the imported records</label>
+			<label index="mapping_external_pid.details">You can here choose a page in which the entries from the LDAP will be imported. If you don't specify one, the LDAP entries will be imported in the current page.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: some Typo3 database tables require a &quot;sysfolder&quot; type page for their storage.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index=".description">Serveur OpenLDAP pour Typo3</label>
+			<label index=".details">Ce type d'enregistrement vous permet de créer et de configurer un serveur OpenLDAP dans Typo3. Vous pourrez ensuite importer des utilisateurs et groupes pour le backend et le frontend de Typo3. Vous avez également la possibilité d'utiliser un serveur LDAP pour l'authentification backend/frontend. Veuillez vous réferrer au manuel pour de plus amples informations.</label>
+			<label index="_.seeAlso">OpenLDAP / macmade.net - Manuel | http://typo3.org/documentation/document-library/extension-manuals/ldap_macmade/current/view/</label>
+			<label index=".image">EXT:ldap_macmade/csh/tca_settings.jpg,EXT:ldap_macmade/csh/mod1_status.jpg</label>
+			<label index=".image_descr">Les paramètres d'un serveur OpenLDAP dans le backend Typo3
+L'affichage du status d'un serveur OpenLDAP dans le module d'administration de Typo3</label>
+			<label index="hidden.description">Cacher le serveur</label>
+			<label index="hidden.details">Cette option vous permet de cacher/désactiver le serveur OpenLDAP. Lorsqu'un serveur est caché, il ne sera plus disponible dans le module OpenLDAP, et ne sera plus utilisé par les services d'authentification.</label>
+			<label index="title.description">Le titre du serveur</label>
+			<label index="title.details">Ce nom est utilisé uniquement dans le backend Typo3 pour identifier le serveur OpenLDAP.</label>
+			<label index="address.description">L'adresse du serveur LDAP</label>
+			<label index="address.details">Entrez ici l'adresse du serveur LDAP. Cela peut être soit un nom de domaine (ex. &quot;www.typo3.com&quot;) ou une adresse IP (ex. &quot;10.34.222.83&quot;).</label>
+			<label index="port.description">Le numéro de port</label>
+			<label index="port.details">Entrez ici le numéro de port du serveur LDAP. Par défaut, la plupart des serveurs LDAP utilisent le numéro de port 389.</label>
+			<label index="version.description">La version de protocole LDAP</label>
+			<label index="version.details">Choisissez ici la version de protocole de votre serveur LDAP. Les serveurs LDAP utilisent désormais la version 3 du protocole LDAP, mais vous pouvez choisir une nouvelle version si nécessaire. Si vous n'êtes pas sûr, choisissez &quot;Ne pas définir&quot;. Le module essaiera alors de détecter la version de protocole.</label>
+			<label index="tls.description">Utiliser TLS (Transport Layer Security)</label>
+			<label index="tls.details">Cette option vous permet d'utiliser TLS (Transport Layer Security) pour le serveur OpenLDAP. C'est généralement une bonne idée d'utiliser un tel système, si le serveur le permet. La sécurité des transactions LDAP seront en effet sécurisées.</label>
+			<label index="user.description">Le DN utilisateur (optionnel)</label>
+			<label index="user.details">Entrez ici, si nécessaire, le DN utilisateur qui sera utilisé pour établir une connexion avec le serveur LDAP.</label>
+			<label index="user.syntax">Par exemple: &quot;cn=admin,dc=localdomain&quot;</label>
+			<label index="password.description">Le mot de passe utilisateur (optionnel)</label>
+			<label index="password.details">Entrez ici, si nécessaire, le mot de passe utilisateur qui sera utilisé pour établir une connexion avec le serveur LDAP.</label>
+			<label index="basedn.description">Le DN de base du serveur LDAP</label>
+			<label index="basedn.details">Entrez ici le DN de base du serveur LDAP, qui sera utilisé pour rechercher des entrées.</label>
+			<label index="basedn.syntax">Par exemple: &quot;dc=localdomain&quot;</label>
+			<label index="filter.description">Un filtre de recherche additionnel</label>
+			<label index="filter.details">Entrez ici, si nécessaire, un filtre de recherche additionnel pour le serveur LDAP (RFC2254). Vous pouvez combiner autant de filtres de recherche que vous le désirez. Veuillez vous référer à l'adresse ci-dessous si vous désirez en savoir plus sur les filtres de recherche LDAP.</label>
+			<label index="filter.syntax">Par exemple: &quot;(|(objectClass=inetOrgPerson)(objectClass=organizationalRole))&quot;</label>
+			<label index="_filter.seeAlso">RFC2254 - &quot;The String Representation of LDAP Search Filters&quot; | http://rfc.net/rfc2254.html</label>
+			<label index="group_class.description">The objectClass for LDAP groups</label>
+			<label index="group_class.details">If you want to import groups (backend and/or frontend) directly from the LDAP server, enter here the objectClass for the groups in the LDAP server.</label>
+			<label index="group_member.description">The attribute for members in LDAP groups</label>
+			<label index="group_member.details">If you want to import groups (backend and/or frontend) directly from the LDAP server, enter here the attribute used to store the members of a group in the LDAP server.</label>
+			<label index="typo3_autoimport.description">Import new users at authentication</label>
+			<label index="typo3_autoimport.details">If this is checked, valid LDAP users will be automatically imported in the Typo3 database if they don't already exist. This option affects backend and frontend users. If the option is not set, you'll have to import manually the LDAP users through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="be_enable.description">Enable backend users import</label>
+			<label index="be_enable.details">With this option enabled, you will be able to import Typo3 backend users from the LDAP server. This is done through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="be_enable.image">EXT:ldap_macmade/csh/tca_be.jpg,EXT:ldap_macmade/csh/mod1_import.jpg</label>
+			<label index="be_enable.image_descr">The backend user import settings
+A LDAP user ready to be imported in Typo3</label>
+			<label index="be_auth.description">Use this server as backend authentication source</label>
+			<label index="be_auth.details">If this is checked, Typo3 will use the LDAP server to authenticate backend users
+
+&lt;strong&gt;Notice&lt;/strong&gt;: the backend authentication option must be enabled in the extension manager, in order to use this feature.</label>
+			<label index="be_auth.image">EXT:ldap_macmade/csh/em.jpg</label>
+			<label index="be_auth.image_descr">The authentication options, in the extension manager</label>
+			<label index="be_pwdrule.description">Generate a password for backend users</label>
+			<label index="be_pwdrule.details">This option is used to generate a password for each imported backend users. You can use fixed strings, and values from the LDAP user record. For instance, for a LDAP user named &quot;Foo&quot; (sn=Foo), if you write &quot;[LDAP:sn]_bar&quot; in this field, the generated user password will be &quot;foo_bar&quot;.
+			
+&lt;strong&gt;Notice&lt;/strong&gt;: the generated passwords won't be used if you use direct authentication from LDAP.</label>
+			<label index="be_groups_import.description">Import backend groups from LDAP</label>
+			<label index="be_groups_import.details">If this is checked, the LDAP user groups will be imported automatically as backend user groups, when a LDAP user is imported. For this feature to work, you need to specify the objectClass of the group objects, and the attribute used to store the members.</label>
+			<label index="_be_groups_import.seeAlso">tx_ldapmacmade_server:group_class,
+tx_ldapmacmade_server:group_member</label>
+			<label index="be_groups_fixed.description">Add existing backend groups to imported users</label>
+			<label index="be_groups_fixed.details">This allow you to attach existing backend user groups to the users imported from the LDAP server.</label>
+			<label index="be_lang.description">Select the default language for imported users</label>
+			<label index="be_lang.details">This determines the language of the backend interface for the user. All mainstream parts available for regular users are available in the system language selected.
+'Admin'-users however will experience that the 'Admin'-only parts of TYPO3 is in english. This includes all submodules in &quot;Tools&quot; and in the &quot;Web&gt;Template&quot; module.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: this is only setting the default language. As soon as the user has logged in the language must be changed through the &quot;User&gt;Setup&quot; module. Also you will have to install the corresponding language pack which can be downloaded with the extension manager.</label>
+			<label index="_be_lang.seeAlso">_MOD_user_setup:language</label>
+			<label index="be_tsconf.description">Enter additional TSconfig for imported user</label>
+			<label index="be_tsconf.details">This field allows you to extend the configuration of the user in severe details. A brief summary of the options include a more detailed configuration of the backend modules, setting of user specific default table field values, setting of Rich Text Editor options etc.</label>
+			<label index="_be_tsconf.seeAlso">pages:TSconfig,
+be_users:TSconfig,
+be_groups:TSconfig,
+User TSconfig | http://typo3.org/documentation/document-library/references/doc_core_tsconfig/current/view/1/2/</label>
+			<label index="fe_enable.description">Enable frontend users import</label>
+			<label index="fe_enable.details">With this option enabled, you will be able to import Typo3 frontend users from the LDAP server. This is done through the &quot;OpenLDAP&quot; backend module.</label>
+			<label index="fe_enable.image">EXT:ldap_macmade/csh/tca_fe.jpg,EXT:ldap_macmade/csh/mod1_import.jpg</label>
+			<label index="fe_enable.image_descr">The frontend user import settings
+A LDAP user ready to be imported in Typo3</label>
+			<label index="fe_auth.description">Use this server as frontend authentication source</label>
+			<label index="fe_auth.details">If this is checked, Typo3 will use the LDAP server to authenticate frontend users
+
+&lt;strong&gt;Notice&lt;/strong&gt;: the frontend authentication option must be enabled in the extension manager, in order to use this feature.</label>
+			<label index="fe_auth.image">EXT:ldap_macmade/csh/em.jpg</label>
+			<label index="fe_auth.image_descr">The authentication options, in the extension manager</label>
+			<label index="fe_pwdrule.description">Generate a password for frontend users</label>
+			<label index="fe_pwdrule.details">This option is used to generate a password for each imported frontend users. You can use fixed strings, and values from the LDAP user record. For instance, for a LDAP user named &quot;Foo&quot; (sn=Foo), if you write &quot;[LDAP:sn]_bar&quot; in this field, the generated user password will be &quot;foo_bar&quot;.
+			
+&lt;strong&gt;Notice&lt;/strong&gt;: the generated passwords won't be used if you use direct authentication from LDAP.</label>
+			<label index="fe_groups_import.description">Import frontend groups from LDAP</label>
+			<label index="be_groups_import.details">If this is checked, the LDAP user groups will be imported automatically as frontend user groups, when a LDAP user is imported. For this feature to work, you need to specify the objectClass of the group objects, and the attribute used to store the members.</label>
+			<label index="_fe_groups_import.seeAlso">tx_ldapmacmade_server:group_class,
+tx_ldapmacmade_server:group_member</label>
+			<label index="fe_groups_fixed.description">Add existing frontend groups to imported users</label>
+			<label index="fe_groups_fixed.details">This allow you to attach existing frontend user groups to the users imported from the LDAP server.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: a frontend user won't be able to log in unless he's member of a frontend user group. So if you don't import user groups directly from the LDAP, be sure to specify an existing frontend user group here.</label>
+			<label index="fe_lock.description">Enter the host name from which the imported users will be forced to login</label>
+			<label index="fe_lock.details">A Typo3 system may have multiple domains pointing to it. Therefore this option secures that users can login only from a certain host name.</label>
+			<label index="lockToDomain.syntax">Either a domain name, &quot;www.typo3.com&quot; or an IP address, &quot;10.34.222.83&quot;</label>
+			<label index="fe_tsconf.description">Enter additional TSconfig for imported user</label>
+			<label index="fe_tsconf.details">This field allows you to enter TypoScript style configuration values for the user. Currently there are no system defined keys. If there ever will be, they will be described in detail in the administrative documentation.
+
+The primary use of this field (as well as the 'sister'-field in the Website usergroup table) is for custom purposes. In this case, you should use the root-key &quot;user&quot; for your customly defined values. Thus you don't risk any future system keys to interfere with your configuration.
+
+You access the values of the configuration from your frontend plugins by calling the function &lt;em&gt;$GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;getUserTSconf()&lt;/em&gt; which will return an array with the valuetree in it.
+
+&lt;b&gt;Warning:&lt;/b&gt; You should use Website user/group TSconfig in your PHP-scripts ONLY if your resulting content is NOT being cached! So call it from TypoScript USER_INT cObjects or disable caching from your PHP-code by calling &lt;em&gt;$GLOBALS[&quot;TSFE&quot;]-&gt;set_no_cache();&lt;/em&gt;
+
+&lt;b&gt;TSconfig from Website usergroups:&lt;/b&gt;
+Notice that the configuration from the field TSconfig in the member groups of the user is accumulated and prepended to the TSconfig of the user before it's parsed. This means for instance that a key defined in the TSconfig of the user (this field) will override the same key defined in the last (bottom) usergroup in the list which will again override the same key defined in the first (top) usergroup in the list.
+
+&lt;b&gt;Example:&lt;/b&gt;
+Let's imagine you want to define for a user that his name is printed in the bottom of the webpages when he is logged in. First of all you must write a PHP-function and insert the result from it as a USER_INT cObject in the bottom of the page. But your function needs to know, whether or not this user is configured to have his name printed. So you decide to use a custom TSconfig key, 'user.printUserName':
+
+&lt;em&gt;In the TSconfig field of the user or usergroup:&lt;/em&gt;
+
+user.printUserName = 1
+
+
+&lt;em&gt;In your PHP-function:&lt;/em&gt;
+
+$userTSConfig = $GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;getUserTSconf();
+if ($userTSConfig[&quot;user.&quot;][&quot;printUserName&quot;]) {
+  return $GLOBALS[&quot;TSFE&quot;]-&gt;fe_user-&gt;user[&quot;name&quot;];
+}</label>
+			<label index="fe_tsconf.syntax">TypoScript syntax, without conditions and constants</label>
+			<label index="_fe_tsconf.seeAlso">TSconfig for TSFE | http://typo3.org/documentation/document-library/references/doc_core_tsconfig/current/view/1/3/
+fe_users:TSconfig,
+fe_groups:TSconfig</label>
+			<label index="mapping_username.description">The username field in the LDAP</label>
+			<label index="mapping_username.details">This is the name of the field containing the username in the LDAP server. This field must of course be unique, and in accordance with Typo3 usernames (no space, no special characters, etc.)</label>
+			<label index="mapping.description">Correspondance entre LDAP et Typo3</label>
+			<label index="mapping.details">In this section, you'll be able to map the LDAP fields with the Typo3 user fields. For each mapping rule you add, you have to give the LDAP field name and set the corresponding Typo3 field. You can create as many mapping rule as you want by selecting &quot;NEW LDAP&quot; in the select box and saving the record.</label>
+			<label index="mapping.image">EXT:ldap_macmade/csh/tca_mapping.jpg</label>
+			<label index="mapping.image_descr">An example mapping configuration</label>
+			<label index="mapping_external.description">Choose a custom Typo3 database table in which to import LDAP users</label>
+			<label index="mapping_external.details">This feature allows you to import LDAP entries in any Typo3 database table. In this select box, just select the name of the table in which you want to import the LDAP entries. The page will be refreshed, and you'll then be able to configure the mapping between the LDAP server and the selected Typo3 table.</label>
+			<label index="mapping_external.image">EXT:ldap_macmade/csh/tca_mapping_ext.jpg</label>
+			<label index="mapping_external.image_descr">An example mapping configuration between a LDAP server and the tt_address table</label>
+			<label index="mapping_external_fields.description">Mapping between LDAP and a custom Typo3 database table</label>
+			<label index="mapping_external_fields.details">In this section, you'll be able to map the LDAP fields with the Typo3 table fields. For each mapping rule you add, you have to give the LDAP field name and set the corresponding Typo3 table field. You can create as many mapping rule as you want by selecting &quot;NEW LDAP&quot; in the select box and saving the record.</label>
+			<label index="mapping_external_fields.image">EXT:ldap_macmade/csh/tca_mapping_ext.jpg</label>
+			<label index="mapping_external_fields.image_descr">An example mapping configuration between a LDAP server and the tt_address table</label>
+			<label index="mapping_external_pid.description">La page de destination pour les enregistrements impotés</label>
+			<label index="mapping_external_pid.details">You can here choose a page in which the entries from the LDAP will be imported. If you don't specify one, the LDAP entries will be imported in the current page.
+
+&lt;strong&gt;Notice&lt;/strong&gt;: some Typo3 database tables require a &quot;sysfolder&quot; type page for their storage.</label>
+		</languageKey>
+	</data>
+</T3locallang>
