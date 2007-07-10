@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'vd_municipalities'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_vdmunicipalities_municipalities">VD / Municipality</label>
+			<label index="tx_vdmunicipalities_municipalities.name_lower">Name (lowercase)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_lower15">Name (lowercase 15)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_upper">Name (uppercase)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_upper15">Name (uppercase 15)</label>
+			<label index="tx_vdmunicipalities_municipalities.id_state">State ID</label>
+			<label index="tx_vdmunicipalities_municipalities.id_district">District ID</label>
+			<label index="tx_vdmunicipalities_municipalities.id_municipality">Municipality ID</label>
+			<label index="tx_vdmunicipalities_municipalities.surface">Surface</label>
+			<label index="tx_vdmunicipalities_municipalities.objectid">Object ID</label>
+			<label index="tx_vdmunicipalities_municipalities.idex2000">IDEX 2000</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tx_vdressourcelocation_categories">VD / Commune</label>
+			<label index="tx_vdmunicipalities_municipalities.name_lower">Nom (minuscules)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_lower15">Nom (minuscules 15)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_upper">Nom (majuscules)</label>
+			<label index="tx_vdmunicipalities_municipalities.name_upper15">Nom (majuscules 15)</label>
+			<label index="tx_vdmunicipalities_municipalities.id_state">ID du canton</label>
+			<label index="tx_vdmunicipalities_municipalities.id_district">ID du district</label>
+			<label index="tx_vdmunicipalities_municipalities.id_municipality">ID de la commune</label>
+			<label index="tx_vdmunicipalities_municipalities.surface">Surface</label>
+			<label index="tx_vdmunicipalities_municipalities.objectid">ID de l'objet</label>
+			<label index="tx_vdmunicipalities_municipalities.idex2000">IDEX 2000</label>
+		</languageKey>
+	</data>
+</T3locallang>

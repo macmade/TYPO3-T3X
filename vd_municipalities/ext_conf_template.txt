@@ -1,0 +1,8 @@
+# cat=basic//0; type=string+; label=Host: The hostname for the web service connection.
+host =
+
+# cat=basic//1; type=string+; label=Port: The port for the web service connection.
+port = 80
+
+# cat=basic//2; type=string+; label=File: The XML file to get.
+file =

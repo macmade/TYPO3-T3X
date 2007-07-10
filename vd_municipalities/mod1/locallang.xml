@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;tools_txvdmunicipalitiesM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">VD / Municipalities</label>
+			<label index="noaccess">Sorry, you don't have access to this module</label>
+			<label index="extconf.error.title">Missing configuration</label>
+			<label index="extconf.error.msg">You haven't configured the extension properly. You can do that from the extension manager.</label>
+			<label index="import.title">Import</label>
+			<label index="import.view.title">Available municipalities</label>
+			<label index="municipality.id">ID</label>
+			<label index="municipality.name_lower">Name (lowercase)</label>
+			<label index="municipality.name_upper">Name (uppercase)</label>
+			<label index="municipality.district">District</label>
+			<label index="municipality.state">State</label>
+			<label index="municipality.surface">Surface</label>
+			<label index="municipality.objectid">ObjectID</label>
+			<label index="municipality.idex2000">Idex2000</label>
+			<label index="import.submit">Import municipalities</label>
+			<label index="import.error.title">Error</label>
+			<label index="import.error.http">The file cannot be fetched! ( %d, %s )</label>
+			<label index="import.error.xml">XML error! ( %d, %s )</label>
+			<label index="import.success">Municipalities have been imported</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="title">VD / Communes</label>
+			<label index="noaccess">Désolé, vous n'avez pas accès à ce module</label>
+			<label index="extconf.error.title">Configuration manquante</label>
+			<label index="extconf.error.msg">Vous n'avez pas configuré l'extension correctement. Vous pouvez le faire depuis le gestionnaire d'extensions.</label>
+			<label index="import.title">Import</label>
+			<label index="import.view.title">Communes disponibles</label>
+			<label index="municipality.id">ID</label>
+			<label index="municipality.name_lower">Nom (minuscules)</label>
+			<label index="municipality.name_upper">Nom (majuscules)</label>
+			<label index="municipality.district">District</label>
+			<label index="municipality.state">Etat</label>
+			<label index="municipality.surface">Surface</label>
+			<label index="municipality.objectid">ObjectID</label>
+			<label index="municipality.idex2000">Idex2000</label>
+			<label index="import.submit">Importer les communes</label>
+			<label index="import.error.title">Erreur</label>
+			<label index="import.error.http">Le fichier ne peut pas être atteint! ( %d, %s )</label>
+			<label index="import.error.xml">Erreur XML! ( %d, %s )</label>
+			<label index="import.success">Les communes ont été importées</label>
+		</languageKey>
+	</data>
+</T3locallang>
