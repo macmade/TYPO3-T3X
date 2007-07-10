@@ -1,0 +1,101 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'Classified Ads'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Classified ads
+ */
+plugin.tx_classifiedsmacmade_pi1 {
+	
+	# cat=classifiedsmacmade_pi1/enable/0; type=string; label=Allow HTML: Allow the use of HTML tags in description field.
+	allowHTML = 0
+	
+	# cat=classifiedsmacmade_pi1/dims/0; type=string; label=Category image width: The width of the category image.
+	catImageMaxW = 20m
+	
+	# cat=classifiedsmacmade_pi1/dims/1; type=string; label=Category image height: The maximum height of the category image.
+	catImageMaxH = 20m
+	
+	# cat=classifiedsmacmade_pi1/dims/2; type=string; label=Image width (list): The maximum width of the image(s) in the list view.
+	listImageMaxW = 50m
+	
+	# cat=classifiedsmacmade_pi1/dims/3; type=string; label=Image height (list): The maximum height of the image(s) in the list view.
+	listImageMaxH = 50m
+	
+	# cat=classifiedsmacmade_pi1/dims/4; type=string; label=Image width (single): The maximum width of the image(s) in the single view.
+	singleImageMaxW = 100m
+	
+	# cat=classifiedsmacmade_pi1/dims/5; type=string; label=Image height (single): The maximum height of the image(s) in the single view.
+	singleImageMaxH = 100m
+	
+	# cat=classifiedsmacmade_pi1/dims/6; type=int+; label=Input size: The size of the inputs in all the forms.
+	inputSize = 30
+	
+	# cat=classifiedsmacmade_pi1/dims/7; type=int+; label=Text area cols: The number of cols of the textareas in all the forms.
+	textAreaCols = 30
+	
+	# cat=classifiedsmacmade_pi1/dims/8; type=int+; label=Text area rows: The number of rows of the textareas in all the forms.
+	textAreaRows = 5
+	
+	# cat=classifiedsmacmade_pi1/file/0; type=string; label=Template file: The template file to use.
+	templateFile = EXT:classifieds_macmade/pi1/template/template.html
+	
+	# cat=classifiedsmacmade_pi1//0; type=int+; label=Default mode: The default mode of the list view (0 = Display most recent / 1 = Display most popular).
+	defaultMode = 0
+	
+	# cat=classifiedsmacmade_pi1//1; type=int+; label=Max records: The maximum number of records to display at a time in the list view.
+	maxRecords = 25
+	
+	# cat=classifiedsmacmade_pi1//2; type=int+; label=Max pages: The maximum number of pages to display at a time in the list view.
+	maxPages = 5
+	
+	# cat=classifiedsmacmade_pi1//3; type=string; label=Category image params: The parameters of the category image image tag.
+	catImageParams = align="middle"
+	
+	# cat=classifiedsmacmade_pi1//4; type=string; label=Image params (list): The parameters of the image tag in the list view.
+	listImageParams = align="middle"
+	
+	# cat=classifiedsmacmade_pi1//5; type=string; label=Image params (single): The parameters of the image tag in the single view.
+	singleImageParams = align="middle"
+	
+	# cat=classifiedsmacmade_pi1//6; type=int+; label=Expand levels: The number of levels to expand at start in the category menu.
+	catMenuExpand = 0
+	
+	# cat=classifiedsmacmade_pi1//7; type=string; label=Display fields (list): Comma list of fields to display in the list view (markers must be present in the template file).
+	listDisplayFields = title
+	
+	# cat=classifiedsmacmade_pi1//8; type=string; label=Display fields (single): Comma list of fields to display in the single view (markers must be present in the template file).
+	singleDisplayFields = title,subtitle,description,adtype,category,pictures,price,currency,price_best,price_undefined,crdate,views
+	
+	# cat=classifiedsmacmade_pi1//9; type=string; label=Date fomat: The format for all dates (see PHP strftime() function).
+	dateFormat = %a, %d %B %G
+	
+	# cat=classifiedsmacmade_pi1//10; type=boolean; label=ISO date: Convert the date to single-byte ISO-8859-1.
+	isoDate = 1
+}

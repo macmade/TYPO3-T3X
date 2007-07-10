@@ -1,0 +1,244 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Classified Ads'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Classified ads
+ */
+plugin.tx_classifiedsmacmade_pi1 {
+	
+	// Comma list of pages from where to fetch the records (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	pidList =
+	
+	// Recursive level (1 - 2 - 3 - 4 - 250) (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+	recursive =
+	
+	// Template file
+	templateFile = {$plugin.tx_classifiedsmacmade_pi1.templateFile}
+	
+	// Date format
+	dateFormat = {$plugin.tx_classifiedsmacmade_pi1.dateFormat}
+	
+	// Convert date to single-byte ISO
+	isoDate = {$plugin.tx_classifiedsmacmade_pi1.isoDate}
+	
+	// Allow HTML tags in description field
+	allowHTML = {$plugin.tx_classifiedsmacmade_pi1.allowHTML}
+	
+	/**
+	 * List parameters
+	 */
+	list {
+		
+		// MySQL SORTBY command
+		defaultMode = {$plugin.tx_classifiedsmacmade_pi1.defaultMode}
+		
+		// Maximum number of records to display at a time
+		maxRecords = {$plugin.tx_classifiedsmacmade_pi1.maxRecords}
+		
+		// Maximum number of pages to display at a time
+		maxPages = {$plugin.tx_classifiedsmacmade_pi1.maxPages}
+		
+		// Comma list of fields available in the list view (markers must be included in the template file)
+		displayFields = {$plugin.tx_classifiedsmacmade_pi1.listDisplayFields}
+		
+		// Wrap for each field defined in displayField
+		wrapFields {
+			
+			// Title
+			title = |
+		}
+		
+		/**
+		 * Pictures
+		 */
+		pictures {
+			file.maxW = {$plugin.tx_classifiedsmacmade_pi1.listImageMaxW}
+			file.maxH = {$plugin.tx_classifiedsmacmade_pi1.listImageMaxH}
+			params = {$plugin.tx_classifiedsmacmade_pi1.listImageParams}
+		}
+	}
+	
+	/**
+	 * Single parameters
+	 */
+	single {
+		
+		// Comma list of fields available in the list view (markers must be included in the template file)
+		displayFields = {$plugin.tx_classifiedsmacmade_pi1.singleDisplayFields}
+		
+		// Wrap for each field defined in displayField
+		wrapFields {
+			
+			// Title
+			title = <h2>|</h2>
+			
+			// Subtitle
+			subtitle = <h3>|</h3>
+			
+			// Views
+			views = <p>|</p>
+			
+			// Best price
+			price_best = <p>|</p>
+			
+			// Undefined price
+			price_undefined = <p>|</p>
+			
+			// Undefined price
+			crdate = <p>|</p>
+		}
+		
+		/**
+		 * Pictures
+		 */
+		pictures {
+			file.maxW = {$plugin.tx_classifiedsmacmade_pi1.singleImageMaxW}
+			file.maxH = {$plugin.tx_classifiedsmacmade_pi1.singleImageMaxH}
+			params = {$plugin.tx_classifiedsmacmade_pi1.singleImageParams}
+			wrap = |<br />
+			imageLinkWrap = 1
+			imageLinkWrap {
+				enable = 1
+				wrap = <a href="javascript:self.close();">|</a>
+				width = 800m
+				JSwindow = 1
+				JSwindow.expand = 20,20
+			}
+		}
+	}
+	
+	/**
+	 * Category image
+	 */
+	catImage {
+		file.maxW = {$plugin.tx_classifiedsmacmade_pi1.catImageMaxW}
+		file.maxH = {$plugin.tx_classifiedsmacmade_pi1.catImageMaxH}
+		params = {$plugin.tx_classifiedsmacmade_pi1.catImageParams}
+	}
+	
+	/**
+	 * Category menu
+	 */
+	catMenu {
+		
+		// Number of levels to expand at start
+		expandLevels = {$plugin.tx_classifiedsmacmade_pi1.catMenuExpand}
+		
+		// Wrap the whole item (without subcategories)
+		itemWrap = <nobr>|</nobr>
+	}
+	
+	/**
+	 * Users parameters
+	 */
+	users {
+		
+		// Storage PID for FE-Users (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+		storagePid =
+		
+		// Default group (DEPRECIATED - USE FLEXFORM CONFIGURATION)
+		defaultGroup =
+		
+		/**
+		 * Create settings
+		 */
+		create {
+			
+			// Do not look for TEMPLATE_CREATE_LOGIN
+			noSpecialLoginForm = 1
+			
+			// No preview
+			preview = 0
+			
+			// Fields available
+			fields = username,password,name,title,company,address,zip,city,country,telephone,fax,email,www
+			
+			// Required fields
+			required = username,password,name,email
+			
+			/**
+			 * Field evaluation
+			 */
+			evalValues {
+				username = uniqueLocal
+				email = email
+			}
+		
+			/**
+			 * Field parsing
+			 */
+			parseValues {
+				username = lower,nospace
+				password = nospace
+				www = nospace
+			}
+		}
+	}
+	
+	/**
+	 * Forms parameters
+	 */
+	forms {
+		
+		// Size of the inputs
+		inputSize = {$plugin.tx_classifiedsmacmade_pi1.inputSize}
+		
+		// Number of cols for textareas
+		textAreaCols = {$plugin.tx_classifiedsmacmade_pi1.textAreaCols}
+		
+		// Number of rows for textareas
+		textAreaRows = {$plugin.tx_classifiedsmacmade_pi1.textAreaRows}
+	}
+	
+	/**
+	 * Login parameters
+	 */
+	login {
+		
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-classifiedsmacmade-pi1 TABLE {
+			border: solid 1px #666666;
+			border-collapse: collapse;
+		}
+		.tx-classifiedsmacmade-pi1 TD {
+			border: dotted 1px #666666;
+			padding: 5px;
+		}
+		.tx-classifiedsmacmade-pi1 .tx-classifiedsmacmade-pi1-catMenu UL LI.open UL {
+			display: block;
+		}
+		.tx-classifiedsmacmade-pi1 .tx-classifiedsmacmade-pi1-catMenu UL LI.closed UL {
+			display: none;
+		}
+	)
+}
