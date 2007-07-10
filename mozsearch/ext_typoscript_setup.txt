@@ -1,0 +1,93 @@
+ /***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'MozSearch'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - MozSearch
+ */
+plugin.tx_mozsearch_pi1 {
+	
+	// Page ID for XML output
+	xmlPageId = {$extension.mozsearch.typeNum}
+	
+	// Version
+	version = {$plugin.tx_mozsearch_pi1.version}
+	
+	// Plugin name
+	name = {$plugin.tx_mozsearch_pi1.name}
+	
+	// Plugin description
+	description = {$plugin.tx_mozsearch_pi1.description}
+	
+	// PID of the search page
+	searchPid = {$plugin.tx_mozsearch_pi1.searchPid}
+	
+	// Search method (only GET is supported for now)
+	method = {$plugin.tx_mozsearch_pi1.method}
+	
+	// The source ID
+	sourceid = {$plugin.tx_mozsearch_pi1.sourceid}
+	
+	// Search word variable
+	sword = {$plugin.tx_mozsearch_pi1.sword}
+	
+	// Linked text
+	linkText = {$plugin.tx_mozsearch_pi1.linkText}
+	
+	// Icon
+	icon = {$plugin.tx_mozsearch_pi1.icon}
+	
+	// Category
+	cat = {$plugin.tx_mozsearch_pi1.cat}
+	
+	// File name
+	pluginFileName = {$plugin.tx_mozsearch_pi1.pluginFileName}
+	
+	// Charset
+	queryCharset = {$plugin.tx_mozsearch_pi1.queryCharset}
+}
+
+/**
+ * Page object - XML output
+ */
+mozsearch = PAGE
+mozsearch {
+	
+	// Page type ID
+	typeNum = {$extension.mozsearch.typeNum}
+	
+	// No cache
+	config.no_cache = 1
+	
+	// Page alternate generation script
+	config.pageGenScript = EXT:mozsearch/xml_output.php
+	
+	// Hide admin panel
+	config.admPanel = 0
+}

@@ -1,0 +1,72 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS constants - Extension 'MozSearch'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - MozSearch
+ */
+
+plugin.tx_mozsearch_pi1 {
+	
+	# cat=mozsearch//0; type=string; label=Version: The version number for the search plugin.
+	version = 7.1
+	
+	# cat=mozsearch//1; type=string; label=Name: The name of the plugin.
+	name = Typo3 Search Plugin
+	
+	# cat=mozsearch//2; type=string; label=Description: The description of the plugin.
+	description = Mozilla/Firefox search plugin for Typo3 sites
+	
+	# cat=mozsearch//3; type=string; label=Search PID: The PID of the page with the search form.
+	searchPid = 
+	
+	# cat=mozsearch//4; type=string; label=Method: The method for the search engine (only GET is supported at the moment).
+	method = get
+	
+	# cat=mozsearch//5; type=string; label=Source ID: The source ID for the search plugin.
+	sourceid = mozilla-search
+	
+	# cat=mozsearch//6; type=string; label=Search variable: The variable with the search word.
+	sword = tx_indexedsearch[sword]
+	
+	# cat=mozsearch//9; type=string; label=Link text: The text to display (with the plugin download link).
+	linkText = Download Mozilla/Firefox search plugin
+	
+	# cat=mozsearch//10; type=boolean; label=Icon: The icon of the plugin.
+	icon = EXT:mozsearch/res/icon.png
+	
+	# cat=mozsearch//11; type=string; label=Category: The category of the plugin.
+	cat = General
+	
+	# cat=mozsearch//12; type=string; label=File name: The file name for the plugin (no space, and without extension).
+	pluginFileName = t3search
+	
+	# cat=mozsearch//13; type=string; label=Charset: The charset for the search query.
+	queryCharset = UTF-8
+}

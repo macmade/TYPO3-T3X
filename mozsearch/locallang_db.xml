@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'mozsearch'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tt_content.list_type_pi1">Mozilla/Firefox search plugin</label>
+			<label index="tt_content.flexform_pi1.s_def">Main</label>
+			<label index="tt_content.flexform_pi1.s_def.searchpid">Search page</label>
+			<label index="tt_content.flexform_pi1.s_def.name">Plugin name</label>
+			<label index="tt_content.flexform_pi1.s_def.description">Plugin description</label>
+			<label index="tt_content.flexform_pi1.s_def.linktext">Download text</label>
+			<label index="tt_content.flexform_pi1.s_def.icon">Icon</label>
+			<label index="tt_content.flexform_pi1.s_opt">Options</label>
+			<label index="tt_content.flexform_pi1.s_opt.cat">Category</label>
+			<label index="tt_content.flexform_pi1.s_opt.version">Version</label>
+			<label index="tt_content.flexform_pi1.s_opt.method">Method</label>
+			<label index="tt_content.flexform_pi1.s_opt.sourceid">Source ID</label>
+			<label index="tt_content.flexform_pi1.s_opt.sword">Search variable</label>
+			<label index="tt_content.flexform_pi1.s_opt.plugin_filename">Plugin filename (no extension)</label>
+			<label index="tt_content.flexform_pi1.s_opt.query_charset">Query charset</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="tt_content.list_type_pi1">Plugin de recherche Mozilla/Firefox</label>
+			<label index="tt_content.flexform_pi1.s_def">Général</label>
+			<label index="tt_content.flexform_pi1.s_def.searchpid">Page de recherche</label>
+			<label index="tt_content.flexform_pi1.s_def.name">Nom du plugin</label>
+			<label index="tt_content.flexform_pi1.s_def.description">Description du plugin</label>
+			<label index="tt_content.flexform_pi1.s_def.linktext">Texte de téléchargement</label>
+			<label index="tt_content.flexform_pi1.s_def.icon">Icône</label>
+			<label index="tt_content.flexform_pi1.s_opt">Options</label>
+			<label index="tt_content.flexform_pi1.s_opt.cat">Catégorie</label>
+			<label index="tt_content.flexform_pi1.s_opt.version">Version</label>
+			<label index="tt_content.flexform_pi1.s_opt.method">Méthode</label>
+			<label index="tt_content.flexform_pi1.s_opt.sourceid">ID de la source</label>
+			<label index="tt_content.flexform_pi1.s_opt.sword">Variable de recherche</label>
+			<label index="tt_content.flexform_pi1.s_opt.plugin_filename">Nom du fichier (pas d'extension)</label>
+			<label index="tt_content.flexform_pi1.s_opt.query_charset">Charset de la requête</label>
+		</languageKey>
+	</data>
+</T3locallang>

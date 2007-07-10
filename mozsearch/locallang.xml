@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for extension "mozsearch"</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pi1_title">Mozilla/Firefox search plugin</label>
+			<label index="pi1_plus_wiz_description">Adds a search plugin generator for Mozilla/Firefox to the page.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="pi1_title">Plugin de recherche Mozilla/Firefox</label>
+			<label index="pi1_plus_wiz_description">Ajoute un générateur de plugin de recherche pour Mozilla/Firefox à la page.</label>
+		</languageKey>
+	</data>
+</T3locallang>
