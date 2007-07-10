@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;tools_txhomedirsM1&quot; - header, description</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mlang_tabs_tab">Home directories</label>
+			<label index="mlang_labels_tabdescr">Create and manage home directories</label>
+			<label index="mlang_labels_tablabel">This module allows you to create and manage home directories for BE-Users and BE-Groups.</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="mlang_tabs_tab">Dossiers personnels</label>
+			<label index="mlang_labels_tabdescr">Création et gestion des dossiers personnels</label>
+			<label index="mlang_labels_tablabel">Ce module vous permet de créer et de gérer les dossiers personnels des utilisateurs et groupes backend.</label>
+		</languageKey>
+	</data>
+</T3locallang>

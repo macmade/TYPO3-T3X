@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;tools_txhomedirsM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Home directories</label>
+			<label index="noaccess">Sorry, you don't have access to this module.</label>
+			<label index="menu.func.1">Manage users homes</label>
+			<label index="menu.func.2">Manage groups homes</label>
+			<label index="section.users.nodir">The following users have no home directory</label>
+			<label index="section.users.norel">The following directories no longer have an associated user</label>
+			<label index="section.users.show">Valid user home directories</label>
+			<label index="section.groups.nodir">The following groups have no home directory</label>
+			<label index="section.groups.norel">The following directories no longer have an associated group</label>
+			<label index="section.groups.show">Valid group home directories</label>
+			<label index="error.conf">Sorry, you first have to define a working directory for users/groups. This can be done through the Typo3 Install Tool ($TYPO3_CONF_VARS["BE"]["%s"]).</label>
+			<label index="error.nodir">Sorry, the specified directory does not exists (%s).</label>
+			<label index="error.nowrite">Sorry, the specified directory is not writeable (%s).</label>
+			<label index="create.auto">Create directory for me now</label>
+			<label index="create.manual">The parent directory is not writeable, so you have to create the missing directory by yourself.</label>
+			<label index="create.users">Create directories for selected users</label>
+			<label index="create.groups">Create directories for selected groups</label>
+			<label index="process.users">Process selected user directories</label>
+			<label index="process.groups">Process selected group directories</label>
+			<label index="delete.users">Delete selected user directories (NOT UNDOABLE!)</label>
+			<label index="delete.groups">Delete selected groups directories (NOT UNDOABLE!)</label>
+			<label index="move.users">Rename selected user directories with prefix (zzz_deleted_)</label>
+			<label index="move.groups">Rename selected group directories with prefix (zzz_deleted_)</label>
+			<label index="assign.users">Move selected user directories in the following user directory:</label>
+			<label index="assign.groups">Move selected group directories in the following group directory:</label>
+			<label index="btn.checkall">Check / Uncheck all</label>
+			<label index="be_users.uid">UID</label>
+			<label index="be_users.username">Username</label>
+			<label index="be_users.realName">Real name</label>
+			<label index="be_users.crdate">Creation date</label>
+			<label index="be_users.lastlogin">Last login</label>
+			<label index="be_groups.uid">UID</label>
+			<label index="be_groups.title">Title</label>
+			<label index="be_groups.crdate">Creation date</label>
+			<label index="dir.name">Name</label>
+			<label index="dir.files">Number of files</label>
+			<label index="dir.size">Size</label>
+			<label index="dir.path">Path</label>
+			<label index="megabyte">Mb</label>
+			<label index="kilobyte">Kb</label>
+			<label index="options">Options</label>
+			<label index="user">User</label>
+			<label index="group">Group</label>
+			<label index="section.listing">Directory listing</label>
+			<label index="modification">Last modification</label>
+		</languageKey>
+		<languageKey index="fr" type="array">
+			<label index="title">Dossiers personnels</label>
+			<label index="noaccess">Désolé, vous n'avez pas accès à ce module.</label>
+			<label index="menu.func.1">Administrer les dossiers d'utilisateurs</label>
+			<label index="menu.func.2">Administrer les dossiers de groupes</label>
+			<label index="section.users.nodir">Les utilisateurs suivants n'ont pas de dossier personnels</label>
+			<label index="section.users.norel">Les répertoires suivants n'ont plus d'utilisateur associé</label>
+			<label index="section.users.show">Dossiers personnels d'utilisateurs valides</label>
+			<label index="section.groups.nodir">Les groupes suivants n'ont pas de dossier personnels</label>
+			<label index="section.groups.norel">Les répertoires suivants n'ont plus de groupe associé</label>
+			<label index="section.groups.show">Dossiers personnels de groupes valides</label>
+			<label index="error.conf">Désolé, vous devez d'abord définir un répertoire spécifique pour les utilisateurs/groupes. Cette opération peut être effectuée depuis l'outil d'installation Typo3 ($TYPO3_CONF_VARS["BE"]["%s"]).</label>
+			<label index="error.nodir">Désolé, le répertoire n'existe pas (%s).</label>
+			<label index="error.nowrite">Désolé, le répertoire n'est pas disponible en écriture (%s).</label>
+			<label index="create.auto">Créer le dossier pour moi maintenant</label>
+			<label index="create.manual">Le répertoire parent n'est pas disponible en écriture. Vous devez donc créer le répertoire manquant vous-même.</label>
+			<label index="create.users">Créer des dossiers pour les utilisateurs sélectionnés</label>
+			<label index="create.groups">Créer des dossiers pour les groupes sélectionnés</label>
+			<label index="process.users">Traiter les dossiers d'utilisateurs sélectionnés</label>
+			<label index="process.groups">Traiter les dossiers de groupes sélectionnés</label>
+			<label index="delete.users">Effacer les dossiers d'utilisateurs sélectionnés (DEFINITIVEMENT!)</label>
+			<label index="delete.groups">Effacer les dossiers de groupes sélectionnés (DEFINITIVEMENT!)</label>
+			<label index="move.users">Renommer les dossiers d'utilisateurs sélectionnés avec un préfixe (zzz_deleted_)</label>
+			<label index="move.groups">Renommer les dossiers de groupes sélectionnés avec un préfixe (zzz_deleted_)</label>
+			<label index="assign.users">Déplacer les dossiers d'utilisateurs sélectionnés dans le dossier suivant:</label>
+			<label index="assign.groups">Déplacer les dossiers de groupes sélectionnés dans le dossier suivant:</label>
+			<label index="btn.checkall">Sélectionner / Désélectionner tout</label>
+			<label index="be_users.uid">UID</label>
+			<label index="be_users.username">Nom d'utilisateur</label>
+			<label index="be_users.realName">Nom</label>
+			<label index="be_users.crdate">Date de création</label>
+			<label index="be_users.lastlogin">Dernière connexion</label>
+			<label index="be_groups.uid">UID</label>
+			<label index="be_groups.title">Titre</label>
+			<label index="be_groups.crdate">Date de création</label>
+			<label index="dir.name">Nom</label>
+			<label index="dir.files">Nombre de fichiers</label>
+			<label index="dir.size">Taille</label>
+			<label index="dir.path">Chemin</label>
+			<label index="megabyte">Mb</label>
+			<label index="kilobyte">Kb</label>
+			<label index="options">Options</label>
+			<label index="user">Utilisateur</label>
+			<label index="group">Groupe</label>
+			<label index="section.listing">Contenu du répertoire</label>
+			<label index="modification">Dernière modification</label>
+		</languageKey>
+	</data>
+</T3locallang>
