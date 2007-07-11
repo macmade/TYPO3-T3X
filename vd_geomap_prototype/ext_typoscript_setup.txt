@@ -48,6 +48,9 @@ plugin.tx_vdgeomapprototype_pi1 {
 	// Image height
 	imgHeight = {$plugin.tx_vdgeomapprototype_pi1.imgHeight}
 	
+	// Key for the server name in $_SERVER
+	serverName = {$plugin.tx_vdgeomapprototype_pi1.serverName}
+	
 	// URL parameters
 	urlParameters {
 		xpos = {$plugin.tx_vdgeomapprototype_pi1.params.xpos}

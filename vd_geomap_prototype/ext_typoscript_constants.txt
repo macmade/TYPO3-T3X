@@ -71,4 +71,7 @@ plugin.tx_vdgeomapprototype_pi1 {
 	
 	# cat=vd_geomap_prototype//6; type=string; label=URL parameter: Height variable.
 	params.height = height
+	
+	# cat=vd_geomap_prototype//7; type=string; label=Server name: The key for the server name in $_SERVER.
+	serverName =
 }

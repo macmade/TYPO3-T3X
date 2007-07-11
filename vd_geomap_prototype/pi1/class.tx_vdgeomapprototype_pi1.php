@@ -86,6 +86,9 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
     // Page ID
     var $pid;
     
+    // Server name
+    var $serverName         = '';
+    
     // Map properties
     var $xpos;
     var $ypos;
@@ -224,6 +227,9 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             $this->piFlexForm
         );
         
+        // Server name
+        $this->serverName = ( $this->conf[ 'serverName' ] ) ? $_SERVER[ $this->conf[ 'serverName' ] ] : t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) ;
+        
         // DEBUG ONLY - Output configuration array
         #$this->api->debug($this->conf,'VD / Geomap: configuration array');
     }
@@ -324,7 +330,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                         'parameter' => 'javascript:'
                                     .  $this->prefixId
                                     .  '_ajaxRequest(\''
-                                    .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                    .  $this->serverName . '/' . $link
                                     .  '\');',
                         'title'     => $this->pi_getLL( 'show-title' )
                     )
@@ -389,7 +395,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                         'parameter' => 'javascript:'
                                     .  $this->prefixId
                                     .  '_ajaxRequest(\''
-                                    .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                    .  $this->serverName . '/' . $link
                                     .  '\');',
                         'title'     => $this->pi_getLL( 'hide-title' )
                     )
@@ -566,7 +572,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                         'parameter' => 'javascript:'
                                     .  $this->prefixId
                                     .  '_ajaxRequest(\''
-                                    .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $back
+                                    .  $this->serverName . '/' . $back
                                     .  '\');',
                         'title'     => $this->pi_getLL( 'backLink-title' )
                     )
@@ -699,7 +705,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                         'parameter' => 'javascript:'
                                     .  $this->prefixId
                                     .  '_ajaxRequest(\''
-                                    .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                    .  $this->serverName . '/' . $link
                                     .  '\');'
                     )
                 );
@@ -775,7 +781,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                             'parameter' => 'javascript:'
                                         .  $this->prefixId
                                         .  '_ajaxRequest(\''
-                                        .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                        .  $this->serverName . '/' . $link
                                         .  '\');'
                         )
                     );
@@ -818,7 +824,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                             'parameter' => 'javascript:'
                                         .  $this->prefixId
                                         .  '_ajaxRequest(\''
-                                        .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                        .  $this->serverName . '/' . $link
                                         .  '\');'
                         )
                     );
@@ -879,7 +885,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                         'parameter' => 'javascript:'
                                     .  $this->prefixId
                                     .  '_ajaxRequest(\''
-                                    .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                    .  $this->serverName . '/' . $link
                                     .  '\');'
                     )
                 );
@@ -1026,7 +1032,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                             'parameter' => 'javascript:'
                                         .  $this->prefixId
                                         .  '_ajaxRequest(\''
-                                        .  t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) . '/' . $link
+                                        .  $this->serverName . '/' . $link
                                         .  '\');'
                         )
                     );
