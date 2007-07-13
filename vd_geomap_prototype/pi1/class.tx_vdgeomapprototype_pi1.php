@@ -227,8 +227,18 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             $this->piFlexForm
         );
         
+        // HTTP scheme
+        $httpScheme = ( t3lib_div::getIndpEnv( 'TYPO3_SSL' ) ) ? 'https://' : 'http';
+        
         // Server name
-        $this->serverName = ( $this->conf[ 'serverName' ] ) ? $_SERVER[ $this->conf[ 'serverName' ] ] : t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' ) ;
+        if( isset( $this->conf[ 'serverName' ] ) && $this->conf[ 'serverName' ] && isset( $_SERVER[ $this->conf[ 'serverName' ] ] ) ) {
+            
+            $this->serverName = $httpScheme . $_SERVER[ $this->conf[ 'serverName' ] ];
+            
+        } else {
+            
+            $this->serverName = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' );
+        }
         
         // DEBUG ONLY - Output configuration array
         #$this->api->debug($this->conf,'VD / Geomap: configuration array');
