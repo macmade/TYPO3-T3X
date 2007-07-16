@@ -45,7 +45,7 @@
 			<label index="whitewines">White wines:</label>
 			<label index="winelist">List of wines:</label>
 			<label index="click.enlarge">Click on the picture to enlarge it</label>
-			<label index="headers.member">Vinatura member since:</label>
+			<label index="headers.member">Vinatura member since</label>
 			<label index="headers.surface">Production surface:</label>
 			<label index="headers.distribution">Nos vins sont distribués par:</label>
 			<label index="headers.restaurants">Dégustez nos vins dans les restaurants suivants:</label>

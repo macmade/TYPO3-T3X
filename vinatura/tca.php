@@ -308,7 +308,7 @@
 					'foreign_table_where' => 'AND tx_vinatura_winetypes.pid=###CURRENT_PID### AND tx_vinatura_winetypes.type=0 ORDER BY tx_vinatura_winetypes.title',
 					'size' => 5,
 					'minitems' => 0,
-					'maxitems' => 5,
+					'maxitems' => 50,
 				)
 			),
 			'redwines' => Array (
@@ -320,7 +320,7 @@
 					'foreign_table_where' => 'AND tx_vinatura_winetypes.pid=###CURRENT_PID### AND tx_vinatura_winetypes.type=1 ORDER BY tx_vinatura_winetypes.title',
 					'size' => 5,
 					'minitems' => 0,
-					'maxitems' => 5,
+					'maxitems' => 50,
 				)
 			),
 			'distribution' => Array (

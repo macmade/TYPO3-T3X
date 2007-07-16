@@ -161,6 +161,21 @@
 							</config>
 						</TCEforms>
 					</members_alt>
+					<login>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:vinatura/locallang_db.php:tx_vinatura_pi3.pi_flexform.s_link.login</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<size>1</size>
+								<maxitems>1</maxitems>
+								<minitems>1</minitems>
+								<show_thumbs>1</show_thumbs>
+							</config>
+						</TCEforms>
+					</login>
 				</el>
 			</ROOT>
 		</sLINK>

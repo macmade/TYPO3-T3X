@@ -168,26 +168,33 @@
 	$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi1']='layout,select_key,pages,recursive';
 	$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi2']='layout,select_key,pages,recursive';
 	$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi3']='layout,select_key,pages,recursive';
+	$TCA['tt_content']['types']['list']['subtypes_excludelist'][$_EXTKEY.'_pi4']='layout,select_key,pages,recursive';
 	
 	// Add flexform field to plugin options
 	$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi1']='pi_flexform';
 	$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi2']='pi_flexform';
 	$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi3']='pi_flexform';
+	$TCA['tt_content']['types']['list']['subtypes_addlist'][$_EXTKEY.'_pi4']='pi_flexform';
 	
 	// Add flexform DataStructure
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi1', 'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi1.xml');
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi2', 'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi2.xml');
 	t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi3', 'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi3.xml');
+	t3lib_extMgm::addPiFlexFormValue($_EXTKEY.'_pi4', 'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi4.xml');
 	
 	// FE plugin
 	t3lib_extMgm::addPlugin(Array('LLL:EXT:vinatura/locallang_db.php:tt_content.list_type_pi1', $_EXTKEY.'_pi1'),'list_type');
 	t3lib_extMgm::addPlugin(Array('LLL:EXT:vinatura/locallang_db.php:tt_content.list_type_pi2', $_EXTKEY.'_pi2'),'list_type');
 	t3lib_extMgm::addPlugin(Array('LLL:EXT:vinatura/locallang_db.php:tt_content.list_type_pi3', $_EXTKEY.'_pi3'),'list_type');
+	t3lib_extMgm::addPlugin(Array('LLL:EXT:vinatura/locallang_db.php:tt_content.list_type_pi4', $_EXTKEY.'_pi4'),'list_type');
 	
 	// Static templates
 	t3lib_extMgm::addStaticFile($_EXTKEY,'static/ts/','Vinatura');
 	t3lib_extMgm::addStaticFile($_EXTKEY,'static/css/','Vinatura (CSS Styles)');
 	
-	// Load content TCA
-	t3lib_div::loadTCA('tt_content');
+	// Load FE users TCA
+	t3lib_div::loadTCA('fe_users');
+	
+	$TCA[ 'fe_users' ][ 'columns' ][ 'image' ][ 'config' ][ 'max_size' ] = '5000';
+	$TCA[ 'fe_users' ][ 'columns' ][ 'title' ][ 'config' ][ 'max' ] = '100';
 ?>

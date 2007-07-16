@@ -43,13 +43,13 @@ require_once( PATH_tslib . 'class.tslib_pibase.php' );
 // Developer API class
 require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
-class tx_vinatura_pi1 extends tslib_pibase
+class tx_vinatura_pi4 extends tslib_pibase
 {
     // Same as class name
-    var $prefixId           = 'tx_vinatura_pi1';
+    var $prefixId           = 'tx_vinatura_pi4';
     
     // Path to this script relative to the extension dir.
-    var $scriptRelPath      = 'pi1/class.tx_vinatura_pi1.php';
+    var $scriptRelPath      = 'pi4/class.tx_vinatura_pi4.php';
     
     // The extension key
     var $extKey             = 'vinatura';
@@ -64,7 +64,7 @@ class tx_vinatura_pi1 extends tslib_pibase
     var $apimacmade_version = 2.8;
     
     // Internal variables
-    var $searchFields       = 'name,title,address,city,country';
+    var $searchFields       = 'name,city,country';
     var $orderByFields      = 'name';
     
     // Database tables
@@ -88,7 +88,7 @@ class tx_vinatura_pi1 extends tslib_pibase
     /**
      * Returns the content object of the plugin.
      * 
-     * This function initialises the plugin "tx_femp3player_pi1", and
+     * This function initialises the plugin "tx_femp3player_pi4", and
      * launches the needed functions to correctly display the plugin.
      * 
      * @param		$content			The content object
@@ -97,45 +97,47 @@ class tx_vinatura_pi1 extends tslib_pibase
      */
     function main( $content, $conf )
     {
-        
-        // New instance of the macmade.net API
-        $this->api = new tx_apimacmade( $this );
-        
-        // Set class confArray TS from the function
-        $this->conf = $conf;
-        
-        // Set default plugin variables
-        $this->pi_setPiVarDefaults();
-        
-        // Load locallang labels
-        $this->pi_loadLL();
-        
-        // Init flexform configuration of the plugin
-        $this->pi_initPIflexForm();
-        
-        // Store flexform informations
-        $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
-        
-        // Store FE language
-        $this->lang = $GLOBALS[ 'TSFE' ]->sys_page->sys_language_uid;
-        
-        // Set final configuration (TS or FF)
-        $this->setConfig();
-        
-        // MySQL query init
-        $this->setInternalVars();
-        
-        // Check template file (TS or Flex)
-        $templateFile = ( $this->pi_getFFvalue( $this->piFlexForm, 'template_file' , 'sTMPL' ) == '' ) ? $this->conf[ 'templateFile' ] : $this->uploadDir . $this->conf[ 'templateFile' ];
-        
-        // Template load and init
-        $this->api->fe_initTemplate($templateFile);
-        
-        // Content
-        $content = $this->buildList();
-        
-        // Return content
-        return $this->pi_wrapInBaseClass( $content );
+        if( isset( $this->piVars[ 'state' ] ) ) {
+            
+            // New instance of the macmade.net API
+            $this->api = new tx_apimacmade( $this );
+            
+            // Set class confArray TS from the function
+            $this->conf = $conf;
+            
+            // Set default plugin variables
+            $this->pi_setPiVarDefaults();
+            
+            // Load locallang labels
+            $this->pi_loadLL();
+            
+            // Init flexform configuration of the plugin
+            $this->pi_initPIflexForm();
+            
+            // Store flexform informations
+            $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
+            
+            // Store FE language
+            $this->lang = $GLOBALS[ 'TSFE' ]->sys_page->sys_language_uid;
+            
+            // Set final configuration (TS or FF)
+            $this->setConfig();
+            
+            // MySQL query init
+            $this->setInternalVars();
+            
+            // Check template file (TS or Flex)
+            $templateFile = ( $this->pi_getFFvalue( $this->piFlexForm, 'template_file' , 'sTMPL' ) == '' ) ? $this->conf[ 'templateFile' ] : $this->uploadDir . $this->conf[ 'templateFile' ];
+            
+            // Template load and init
+            $this->api->fe_initTemplate($templateFile);
+            
+            // Content
+            $content = $this->buildList();
+            
+            // Return content
+            return $this->pi_wrapInBaseClass( $content );
+        }
     }
     
     /**
@@ -153,6 +155,7 @@ class tx_vinatura_pi1 extends tslib_pibase
         // Mapping array for PI flexform
         $flex2conf = array(
             'pidList'      => 'sDEF:pages',
+            'backPage'     => 'sDEF:backpage',
             'recursive'    => 'sDEF:recursive',
             'usergroup'    => 'sDEF:usergroup',
             'templateFile' => 'sTMPL:template_file',
@@ -170,7 +173,7 @@ class tx_vinatura_pi1 extends tslib_pibase
         );
         
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug($this->conf,'Weleda Baby PI1: configuration array');
+        #$this->api->debug($this->conf,'Weleda Baby pi4: configuration array');
     }
     
     /**
@@ -208,98 +211,49 @@ class tx_vinatura_pi1 extends tslib_pibase
         }
         
         // Additionnal MySQL WHERE clause for filters
-        $whereClause = '';
-        
-        // Regular expression for navig
-        if ( array_key_exists( 'letter', $this->piVars ) ) {
-            
-            // Letter to select
-            $letter = $this->piVars[ 'letter' ];
-            
-            // Regular expression
-            $regExp = '^' . $letter . '';
-            
-            // Set WHERE clause
-            $whereClause = 'AND name REGEXP \'' . $regExp . '\'';
-        }
+        $whereClause = ' AND state="' . $this->piVars[ 'state' ] . '"';
         
         // Get records number
-        $res = $this->pi_exec_query( $this->extTables[ 'users' ], 1, $whereClause );
+        $res = $this->pi_exec_query( $this->extTables[ 'profiles' ], 1, $whereClause );
         list( $this->internal[ 'res_count' ] ) = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_row( $res );
         
         // Make listing query - Pass query to MySQL database
-        $res = $this->pi_exec_query( $this->extTables[ 'users' ], 0, $whereClause );
-        $this->internal[ 'currentTable' ] = $this->extTables[ 'users' ];
+        $res = $this->pi_exec_query( $this->extTables[ 'profiles' ], 0, $whereClause );
+        $this->internal[ 'currentTable' ] = $this->extTables[ 'profiles' ];
         
         // Template markers
         $templateMarkers = array();
         
         // Replace markers
-        $templateMarkers[ '###SEARCH###' ]   = $this->api->fe_buildSearchBox();
-        $templateMarkers[ '###NAVIG###' ]    = $this->buildNavig();
-        $templateMarkers[ '###BACKLIST###' ] = ( array_key_exists( 'letter', $this->piVars ) || array_key_exists( 'sword', $this->piVars ) ) ? $this->api->fe_makeStyledContent( 'div', 'back-list', $this->api->fe_linkTP_unsetPIvars( $this->pi_getLL( 'backlist' ), array(), array( 'sword', 'letter' ), 1 ) ) : '';
-        $templateMarkers[ '###MEMBERS###' ]  = ( $this->internal[ 'res_count' ] ) ? $this->makeList( $res ) : '';
-        $templateMarkers[ '###BROWSE###' ]   = $this->api->fe_buildBrowseBox();
-        $templateMarkers[ '###USER###' ]     = ( isset( $this->piVars[ 'showUid' ] ) ) ? $this->showUser() : '';
+        $templateMarkers[ '###STATEHEADER###' ]  = $this->buildStateHeader();
+        $templateMarkers[ '###MEMBERS###' ]      = ( $this->internal[ 'res_count' ] ) ? $this->makeList( $res ) : '';
+        $templateMarkers[ '###BROWSE###' ]       = $this->api->fe_buildBrowseBox();
+        $templateMarkers[ '###USER###' ]         = ( isset( $this->piVars[ 'showUid' ] ) ) ? $this->showUser() : '';
         
         // Wrap all in a CSS element
         return $this->api->fe_renderTemplate( $templateMarkers, '###LIST###' );
     }
     
-    /**
-     * 
-     */
-    function buildNavig()
+    function buildStateHeader()
     {
-        
-        // Letters
-        $letters = array(
-            'a',
-            'b',
-            'c',
-            'd',
-            'e',
-            'f',
-            'g',
-            'h',
-            'i',
-            'j',
-            'k',
-            'l',
-            'm',
-            'n',
-            'o',
-            'p',
-            'q',
-            'r',
-            's',
-            't',
-            'u',
-            'v',
-            'w',
-            'x',
-            'y',
-            'z'
+        $htmlCode = array();
+        $imgConf = $this->conf[ 'imgConf.' ];
+        $imgConf[ 'file' ] = $this->conf[ 'minimaps' ] . $this->piVars[ 'state' ] . '.gif';
+        $htmlCode[] = $this->api->fe_makeStyledContent( 'h1', 'state-title', $this->pi_getLL( 'state.' . $this->piVars[ 'state' ] ) );
+        $htmlCode[] = $this->api->fe_makeStyledContent(
+            'div',
+            'state-picture',
+            $this->pi_linkToPage(
+                $this->cObj->IMAGE( $imgConf ),
+                $this->conf[ 'backPage' ],
+                '',
+                array(
+                    'L' => t3lib_div::_GP( 'L' )
+                )
+            )
         );
         
-        // Storage
-        $htmlCode = array();
-        
-        // Process each letter
-        foreach( $letters as $value ) {
-            
-            // CSS class
-            $class = ( array_key_exists( 'letter', $this->piVars ) && $this->piVars[ 'letter' ] == $value ) ? 'letter-selected' : 'letter';
-            
-            // Letter
-            $letter = ( array_key_exists( 'letter', $this->piVars ) && $this->piVars[ 'letter' ] == $value ) ? $value : $this->pi_linkTP_keepPIvars( $value, array( 'letter' => $value ), 1 );
-            
-            // Add letter
-            $htmlCode[] = $this->api->fe_makeStyledContent( 'span', $class, $letter );
-        }
-        
-        // Return navig
-        return $this->api->fe_makeStyledContent( 'div', 'navig', implode( chr( 10 ), $htmlCode ) );
+        return $this->api->fe_makeStyledContent( 'div', 'state-header', implode( chr( 10 ), $htmlCode ) );
     }
     
     /**
@@ -312,10 +266,10 @@ class tx_vinatura_pi1 extends tslib_pibase
         $htmlCode = array();
         
         // Process each member
-        while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+        while( $profile = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
             
             // User profile
-            $profile = $this->getProfile( $row[ 'uid' ] );
+            $row = $this->pi_getRecord( $this->extTables[ 'users' ], $profile[ 'feuser' ] );
             
             // User name
             $userName = $row[ 'name' ] . ' ' . $profile[ 'firstname' ];
@@ -327,8 +281,10 @@ class tx_vinatura_pi1 extends tslib_pibase
             $class = ( isset( $this->piVars[ 'showUid' ] ) && $this->piVars[ 'showUid' ] == $row[ 'uid' ] ) ? 'list-member-act' : 'list-member';
             
             // Add username
-            $htmlCode[] = $this->api->fe_makeStyledContent( 'div', $class, $link );
+            $htmlCode[ $userName ] = $this->api->fe_makeStyledContent( 'div', $class, $link );
         }
+        
+        ksort( $htmlCode );
         
         // Return list
         return $this->api->fe_makeStyledContent( 'div', 'list', implode( chr( 10 ), $htmlCode ) );
@@ -440,7 +396,7 @@ class tx_vinatura_pi1 extends tslib_pibase
         
         // Cellular
         if( !empty( $profile[ 'cellular' ] ) ) {
-            $infos[] = $this->api->fe_makeStyledContent( 'div', 'cellular', '<span>M:</span> ' . $profile[ 'cellular' ] );
+            $infos[] = $this->api->fe_makeStyledContent( 'div', 'cellular', '<span>C:</span> ' . $profile[ 'cellular' ] );
         }
         
         // Email
@@ -596,7 +552,7 @@ class tx_vinatura_pi1 extends tslib_pibase
 /**
  * XCLASS inclusion
  */
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vinatura/pi1/class.tx_vinatura_pi1.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vinatura/pi1/class.tx_vinatura_pi1.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vinatura/pi4/class.tx_vinatura_pi4.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vinatura/pi4/class.tx_vinatura_pi4.php']);
 }
 ?>

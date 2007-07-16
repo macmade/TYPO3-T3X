@@ -371,7 +371,7 @@ class tx_vinatura_pi2 extends tslib_pibase
         }
         
         // Special check for email
-        if ( !array_key_exists( 'email', $this->errors ) ) {
+        if ( !array_key_exists( 'email', $this->errors ) && !empty( $this->fedata[ $this->prefixId ][ 'email' ] ) ) {
             
             // Check for a real email address
             if ( !t3lib_div::validEmail( $this->fedata[ $this->prefixId ][ 'email' ] ) ) {

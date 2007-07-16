@@ -188,6 +188,7 @@ class tx_vinatura_pi3 extends tslib_pibase
             'links.'       => array(
                 'members'    => 'sLINK:members',
                 'membersAlt' => 'sLINK:members_alt',
+                'login' => 'sLINK:login',
             ),
             'profile.'     => array(
                 'requiredFields' => 'sFIELDS:required',
@@ -347,7 +348,13 @@ class tx_vinatura_pi3 extends tslib_pibase
         $htmlCode = array();
         
         // Edit features
-        $edit = array( 'profile', 'description', 'wines' );
+        $edit = array( 'profile', 'description' );
+        
+        // Add wines list if enabled
+        if( isset( $this->conf[ 'enableWineList' ] ) && $this->conf[ 'enableWineList' ] == 1 ) {
+            
+            $edit[] = 'wines';
+        }
         
         // URL parameters
         $urlParams = array(
@@ -374,6 +381,9 @@ class tx_vinatura_pi3 extends tslib_pibase
             // Display link
             $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'edit-' . $option, $link );
         }
+        
+        // Logout
+        $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'edit-logout', $this->pi_linkTP( $this->pi_getLL( 'edit.logout' ), array( 'logintype' => 'logout' ), 0, $this->conf[ 'links.' ][ 'login' ] ) );
         
         // Return options
         return $this->api->fe_makeStyledContent( 'div', 'options-edit', implode( chr( 10 ), $htmlCode ) );
@@ -499,6 +509,9 @@ class tx_vinatura_pi3 extends tslib_pibase
                 // Update profile
                 $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery( $this->extTables[ 'profiles' ], 'uid=' . $this->profile[ 'uid' ], $profile );
                 
+                // Notify
+                $this->emailNotify();
+                
                 // Clear members page cache
                 $this->clearPageCache( $this->conf[ 'links.' ][ 'members' ] );
                 $this->clearPageCache( $this->conf[ 'links.' ][ 'membersAlt' ] );
@@ -577,7 +590,7 @@ class tx_vinatura_pi3 extends tslib_pibase
         }
         
         // Special check for email
-        if ( !array_key_exists( 'email', $this->errors ) ) {
+        if ( !array_key_exists( 'email', $this->errors ) && !empty( $this->fedata[ $this->prefixId ][ 'email' ] ) ) {
             
             // Check for a real email address
             if ( !t3lib_div::validEmail( $this->fedata[ $this->prefixId ][ 'email' ] ) ) {
@@ -623,7 +636,7 @@ class tx_vinatura_pi3 extends tslib_pibase
             $maxSize = $conf[ 'config' ][ 'max_size' ];
             
             // Check image
-            if ( !$ext || !in_array( $ext, $allowedExt ) || !t3lib_div::verifyFilenameAgainstDenyPattern( $pic ) ) {
+            if ( !$ext || !in_array( strtolower( $ext ), $allowedExt ) || !t3lib_div::verifyFilenameAgainstDenyPattern( $pic ) ) {
                 
                 // Wrong type
                 $this->errors[ 'image' ] = $this->pi_getLL( 'errors.image.type' );
@@ -690,6 +703,9 @@ class tx_vinatura_pi3 extends tslib_pibase
                 
                 // Update description
                 $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery( $this->extTables[ 'profiles' ], 'uid=' . $this->profile[ 'uid' ], $data );
+                
+                // Notify
+                $this->emailNotify();
                 
                 // Update profile array
                 $this->profile[ 'description' ]  = $data[ 'description' ];
@@ -774,6 +790,9 @@ class tx_vinatura_pi3 extends tslib_pibase
                     'tstamp'  => time()
                 )
             );
+            
+            // Notify
+            $this->emailNotify();
             
             // Clear members page cache
             $this->clearPageCache($this->conf[ 'links.' ][ 'members' ] );
@@ -893,6 +912,9 @@ class tx_vinatura_pi3 extends tslib_pibase
                 // New record
                 $GLOBALS[ 'TYPO3_DB' ]->exec_INSERTquery( $this->extTables[ 'wines' ], $data );
             }
+            
+            // Notify
+            $this->emailNotify();
             
             // Clear members page cache
             $this->clearPageCache( $this->conf[ 'links.' ][ 'members' ] );
@@ -1403,6 +1425,41 @@ class tx_vinatura_pi3 extends tslib_pibase
         
         // Delete page section cache
         $GLOBALS[ 'TYPO3_DB' ]->exec_DELETEquery( 'cache_pagesection', 'page_id=' . $pid );
+    }
+    
+    /**
+     * 
+     */
+    function emailNotify()
+    {
+        
+        if( isset( $this->conf[ 'notificationEmail' ] ) && isset( $this->conf[ 'notificationEmailFrom' ] ) && $this->conf[ 'notificationEmail' ] && $this->conf[ 'notificationEmailFrom' ] ) {
+            
+            // Profile URL
+            $url = $this->pi_getPageLink(
+                $this->conf[ 'links.' ][ 'members' ],
+                '',
+                array(
+                    'tx_vinatura_pi1[showUid]' => $this->user[ 'uid' ]
+                )
+            );
+            
+            // Message
+            $message = sprintf(
+                $this->pi_getLL( 'notifyEmail' ),
+                $this->user[ 'username' ],
+                t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' ) . $url
+            );
+            
+            // Send email
+            $this->cObj->sendNotifyEmail(
+                $message,
+                $this->conf[ 'notificationEmail' ],
+                '',
+                $this->conf[ 'notificationEmailFrom' ],
+                $this->conf[ 'notificationEmailFrom' ]
+            );
+        }
     }
 }
 
