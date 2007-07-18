@@ -23,10 +23,21 @@
 ***************************************************************/
 
 /** 
- * Class/Function which generates an XML menu
+ * Class which generates an XML menu
  *
  * @author      Jean-David Gadina <info@macmade.net>
  * @version     1.0
+ */
+
+/**
+ * [CLASS/FUNCTION INDEX OF SCRIPT]
+ * 
+ *       76:    function tx_xmlmenumacmade_menu
+ *      108:    function buildMenuConf
+ *      320:    function makeMenu
+ *      341:    function getXml
+ * 
+ *              TOTAL FUNCTIONS: 4
  */
 
 // Include classes that are needed by this one
@@ -57,7 +68,10 @@ class tx_xmlmenumacmade_menu
     var $pageId           = 0;
     
     /**
+     * Class constructor
      * 
+     * @return  NULL
+     * @see     buildMenuConf
      */
     function tx_xmlmenumacmade_menu()
     {
@@ -86,6 +100,11 @@ class tx_xmlmenumacmade_menu
         $this->buildMenuConf();
     }
     
+    /**
+     * Builds the menu configuration array
+     * 
+     * @return  boolean
+     */
     function buildMenuConf()
     {
         // Sets the options of the HMENU object
@@ -289,8 +308,15 @@ class tx_xmlmenumacmade_menu
                                                       . '>';
             }
         }
+        
+        return true;
     }
     
+    /**
+     * Builds the menu
+     * 
+     * @return  boolean
+     */
     function makeMenu()
     {
         // Starts the menu object
@@ -307,6 +333,11 @@ class tx_xmlmenumacmade_menu
         return true;
     }
     
+    /**
+     * Gets the menu XML result
+     * 
+     * @return  string  The XML menu
+     */
     function getXml()
     {
         // Storage
