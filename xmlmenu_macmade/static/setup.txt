@@ -1,0 +1,131 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'XML Menu / macmade.net'
+ *
+ * @author      Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version     1.0
+ */
+
+/**
+ * PI1 object - XML Menu / macmade.net
+ */
+plugin.tx_xmlmenumacmade_pi1 {
+    
+    // Levels to generate
+    levels                 = {$plugin.tx_xmlmenumacmade_pi1.levels}
+    
+    // Protect values with CDATA
+    cdata                  = {$plugin.tx_xmlmenumacmade_pi1.cdata}
+    
+    // Menu entry level
+    entryLevel             = {$plugin.tx_xmlmenumacmade_pi1.entryLevel}
+    
+    // Sets the entry level to the current page
+    startMenuOnCurrentPage = {$plugin.tx_xmlmenumacmade_pi1.startMenuOnCurrentPage}
+    
+    // Expan all sections
+    expAll                 = {$plugin.tx_xmlmenumacmade_pi1.expAll}
+    
+    // Exclude pages UIDs
+    excludeUidList         = {$plugin.tx_xmlmenumacmade_pi1.excludeUidList}
+    
+    // Exclude page types
+    excludeDoktypes        = {$plugin.tx_xmlmenumacmade_pi1.excludeDoktypes}
+    
+    // Include pages marked as not in menu
+    includeNotInMenu       = {$plugin.tx_xmlmenumacmade_pi1.includeNotInMenu}
+    
+    // Fields to include in the XML (page title is automatically added)
+    fields                 = {$plugin.tx_xmlmenumacmade_pi1.fields}
+    
+    // Add the link to the page
+    addPageLink            = {$plugin.tx_xmlmenumacmade_pi1.addPageLink}
+    
+    // Variables from GET to keep
+    keepGetVars            = {$plugin.tx_xmlmenumacmade_pi1.keepGetVars}
+    
+    // Include XML declaration
+    xmlDeclaration         = {$plugin.tx_xmlmenumacmade_pi1.xmlDeclaration}
+    
+    // XML document encoding
+    xmlEncoding            = {$plugin.tx_xmlmenumacmade_pi1.xmlEncoding}
+    
+    // Adds an XML content-type header
+    xmlContentTypeHeader   = {$plugin.tx_xmlmenumacmade_pi1.xmlContentTypeHeader}
+    
+    // XML tags configuration
+    tags {
+        
+        // Root tag
+        root     = {$plugin.tx_xmlmenumacmade_pi1.tags.root}
+        
+        // Tag for pages
+        page     = {$plugin.tx_xmlmenumacmade_pi1.tags.page}
+        
+        // Container for subpages
+        subPages = {$plugin.tx_xmlmenumacmade_pi1.tags.subPages}
+        
+        // Container for page fields
+        pageData = {$plugin.tx_xmlmenumacmade_pi1.tags.pageData}
+        
+        // Tag for the page link
+        pageLink = {$plugin.tx_xmlmenumacmade_pi1.tags.pageLink}
+    }
+    
+    // XML attributes configuration
+    attribs {
+        
+        // Attribute for pages that have subpages
+        ifsub    = {$plugin.tx_xmlmenumacmade_pi1.attribs.ifsub}
+        
+        // Attribute for active pages
+        act      = {$plugin.tx_xmlmenumacmade_pi1.attribs.act}
+        
+        // Attribute for the current pahe
+        cur      = {$plugin.tx_xmlmenumacmade_pi1.attribs.cur}
+        
+        // Attribute for pages that are spacers
+        spc      = {$plugin.tx_xmlmenumacmade_pi1.attribs.spc}
+    }
+}
+
+/**
+ * Page object - XML output
+ */
+xmlmenu_macmade = PAGE
+xmlmenu_macmade {
+    
+    // Page type ID
+    typeNum              = {$extension.xmlmenu_macmade.typeNum}
+    
+    // No cache
+    config.no_cache      = 1
+    
+    // Page alternate generation script
+    config.pageGenScript = EXT:xmlmenu_macmade/xml_output.php
+    
+    // Hide admin panel
+    config.admPanel      = 0
+}

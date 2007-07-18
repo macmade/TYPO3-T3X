@@ -1,0 +1,2 @@
+# cat=basic//0; type=int+; label=TypeNum: The type ID for the XML output.
+typeNum = 9100

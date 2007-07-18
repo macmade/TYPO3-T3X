@@ -1,0 +1,104 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'XML Menu / macmade.net'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.1
+ */
+
+/**
+ * PI1 object - XML Menu / macmade.net
+ */
+plugin.tx_xmlmenumacmade_pi1 {
+    
+    # cat=xmlmenu_macmade/enable/0; type=boolean; label=Starts the menu on current page: If this is set, the entry level will be set to the level of the current page
+    startMenuOnCurrentPage = 0
+    
+    # cat=xmlmenu_macmade/enable/1; type=boolean; label=Expand all: Expand all sections, even if they are not actives
+    expAll = 1
+    
+    # cat=xmlmenu_macmade/enable/2; type=boolean; label=Include not in menu: Also includes the pages that are marked as not in menu
+    includeNotInMenu = 0
+    
+    # cat=xmlmenu_macmade/enable/3; type=boolean; label=Page link: Add the link to the page
+    addPageLink = 1
+    
+    # cat=xmlmenu_macmade/enable/4; type=boolean; label=XML declaration: Include the XML declaration
+    xmlDeclaration = 1
+    
+    # cat=xmlmenu_macmade/enable/5; type=boolean; label=XML content type: Adds an XML content-type header
+    xmlContentTypeHeader = 1
+    
+    # cat=xmlmenu_macmade/enable/6; type=boolean; label=CDATA: Protect values with CDATA tags
+    cdata = 1
+    
+    # cat=xmlmenu_macmade/file/0; type=string; label=XML encoding: The encoding for the XML document
+    xmlEncoding = utf-8
+    
+    # cat=xmlmenu_macmade/file/1; type=string; label=Root tag: The tag name for the root node
+    tags.root = xmlMenu
+    
+    # cat=xmlmenu_macmade/file/2; type=string; label=Page tag: The tag name for the pages nodes
+    tags.page = page
+    
+    # cat=xmlmenu_macmade/file/3; type=string; label=Subpages tag: The tag name for the subpages node
+    tags.subPages = subPages
+    
+    # cat=xmlmenu_macmade/file/4; type=string; label=Data tag: The tag name for the page data node
+    tags.pageData = data
+    
+    # cat=xmlmenu_macmade/file/5; type=string; label=Link tag: The tag name for the page link node
+    tags.pageLink = href
+    
+    # cat=xmlmenu_macmade/file/6; type=string; label=IFSUB attribute: The attribute for pages that have subpages
+    attribs.ifsub = hasSubPages
+    
+    # cat=xmlmenu_macmade/file/7; type=string; label=ACT attribute: The attribute for active pages
+    attribs.act = isActive
+    
+    # cat=xmlmenu_macmade/file/8; type=string; label=CUR attribute: The attribute for the current page
+    attribs.cur = isCurrent
+    
+    # cat=xmlmenu_macmade/file/9; type=string; label=SPC attribute: The attribute for pages that are spacers
+    attribs.spc = isSpacer
+    
+    # cat=xmlmenu_macmade//0; type=int+; label=Levels: The number of levels to generate
+    levels = 2
+    
+    # cat=xmlmenu_macmade//1; type=int; label=Entry level: The entry level for the XML menu
+    entryLevel = 0
+    
+    # cat=xmlmenu_macmade//2; type=string; label=Exclude pages: A comma list of the pages UIDs to exclude
+    excludeUidList =
+    
+    # cat=xmlmenu_macmade//3; type=string; label=Exclude doktypes: A comma list of the pages types to exclude
+    excludeDoktypes =
+    
+    # cat=xmlmenu_macmade//4; type=string; label=Fields: A comma list of the fields from the pages to include
+    fields = uid,tstamp,crdate,doktype,subtitle,target,keywords,description,abstract,author,author_email,nav_title,alias
+    
+    # cat=xmlmenu_macmade//5; type=string; label=GET vars: GET variables to keep in the page links
+    keepGetVars = L
+}
