@@ -11,3 +11,4 @@ t3lib_extMgm::addTypoScriptConstants(
     'extension.xmlmenu_macmade.typeNum = '
   . $xmlmenu_macmade_extconf[ 'typeNum' ]
 );
+?>
