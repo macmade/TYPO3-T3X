@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
-	<meta type="array">
-		<type>module</type>
-		<description>Language labels for plugin &quot;tx_loginboxmacmade_pi1&quot;</description>
-	</meta>
-	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="pi_loginbox_username">Username</label>
-			<label index="pi_loginbox_password">Password</label>
-			<label index="pi_loginbox_login">Login</label>
-			<label index="pi_loginbox_logout">Logout</label>
-			<label index="pi_loginbox_permalogin">Remember me</label>
-			<label index="pi_loginbox_yes">Yes</label>
-			<label index="pi_loginbox_no">No</label>
-			<label index="welcome.header">User login</label>
-			<label index="welcome.message">Please enter your username and password in order to log in on the website.</label>
-			<label index="success.header">Login successful</label>
-			<label index="success.message">You are now logged on the website.</label>
-			<label index="error.header">Login error</label>
-			<label index="error.message">An error occurred during login process. Most likely you didn't enter your username or password correctly. Be certain that you enter them precisely as they are, including upper/lower case. Another possibility is that cookies might be disabled in your webbrowser.</label>
-			<label index="status.header">Connection status</label>
-			<label index="status.message">Here is your current connection status.</label>
-			<label index="logout.header">You have logged out</label>
-			<label index="logout.message">You just logged out from your user session.</label>
-			<label index="forgotpassword.header">Forgot your password?</label>
-			<label index="forgotpassword.message">Please enter the email address by which you registered on this website. Then press &quot;Send password&quot; and your password will immediately be emailed to you.</label>
-			<label index="forgotpassword.error.unvalidemail">Please enter a valid email address.</label>
-			<label index="forgotpassword.error.nouser">There is no user registered with that email address.</label>
-			<label index="forgotpassword.success">Your password has been sent to the email address you specified.</label>
-			<label index="forgotpassword.email">Your email address</label>
-			<label index="forgotpassword.send">Send</label>
-			<label index="forgotpassword.mailmsg">Password recover
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_loginboxmacmade_pi1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pi_loginbox_username">Username</label>
+            <label index="pi_loginbox_password">Password</label>
+            <label index="pi_loginbox_login">Login</label>
+            <label index="pi_loginbox_logout">Logout</label>
+            <label index="pi_loginbox_permalogin">Remember me</label>
+            <label index="pi_loginbox_yes">Yes</label>
+            <label index="pi_loginbox_no">No</label>
+            <label index="welcome.header">User login</label>
+            <label index="welcome.message">Please enter your username and password in order to log in on the website.</label>
+            <label index="success.header">Login successful</label>
+            <label index="success.message">You are now logged on the website.</label>
+            <label index="error.header">Login error</label>
+            <label index="error.message">An error occurred during login process. Most likely you didn't enter your username or password correctly. Be certain that you enter them precisely as they are, including upper/lower case. Another possibility is that cookies might be disabled in your webbrowser.</label>
+            <label index="status.header">Connection status</label>
+            <label index="status.message">Here is your current connection status.</label>
+            <label index="logout.header">You have logged out</label>
+            <label index="logout.message">You just logged out from your user session.</label>
+            <label index="forgotpassword.header">Forgot your password?</label>
+            <label index="forgotpassword.message">Please enter the email address by which you registered on this website. Then press &quot;Send password&quot; and your password will immediately be emailed to you.</label>
+            <label index="forgotpassword.error.unvalidemail">Please enter a valid email address.</label>
+            <label index="forgotpassword.error.nouser">There is no user registered with that email address.</label>
+            <label index="forgotpassword.success">Your password has been sent to the email address you specified.</label>
+            <label index="forgotpassword.email">Your email address</label>
+            <label index="forgotpassword.send">Send</label>
+            <label index="forgotpassword.mailmsg">Password recover
 %s,
 
 You are receiving this email from %s because you asked to recover your password.
@@ -42,30 +42,30 @@ Please connect to the following address in order to log in:
 %s
 
 Best regards,</label>
-		</languageKey>
-		<languageKey index="de" type="array">
-			<label index="pi_loginbox_username">Benutzername</label>
-			<label index="pi_loginbox_password">Passwort</label>
-			<label index="pi_loginbox_login">Login</label>
-			<label index="pi_loginbox_logout">Logout</label>
-			<label index="welcome.header">Benutzeranmeldung</label>
-			<label index="welcome.message">Bitte geben Sie Benutzernamen in Passwort ein um sich einzuloggen.</label>
-			<label index="success.header">Login erfolgreich</label>
-			<label index="success.message">Sie sind nun eingeloggt.</label>
-			<label index="error.header">Login Fehler</label>
-			<label index="error.message">Ein Fehler trat während des Login-Prozesses auf. Möglicherweise haben Sie Benutzername oder Passwort falsch eingegeben, oder Ihr Browser unterstätzt keine Cookies. Bitte achten Sie auf Groß- und Kleinschreibung!</label>
-			<label index="status.header">Verbindungsstatus</label>
-			<label index="status.message">Hier sehen Sie ihren momentanen Verbindungsstatus.</label>
-			<label index="logout.header">Sie haben sich abgemeldet</label>
-			<label index="logout.message">Sie haben sich gerade von der Benutzersession abgemeldet.</label>
-			<label index="forgotpassword.header">Passwort vergessen?</label>
-			<label index="forgotpassword.message">Bitte geben Sie die E-Mail Adresse ein, mit der Sie auf dieser Webseite registriert sind. Danach klicken Sie auf &quot;Passwort senden&quot;, und Ihr Passwort wird unmittelbar danach zu Ihnen gesendet.</label>
-			<label index="forgotpassword.error.unvalidemail">Bitte geben Sie eine gültige E-Mail Adresse ein.</label>
-			<label index="forgotpassword.error.nouser">Es existiert kein Benutzer mit dieser E-Mail Adresse!</label>
-			<label index="forgotpassword.success">Ihr Passwort wurde an die von Ihnen angegebene E-Mail Adresse geschickt.</label>
-			<label index="forgotpassword.email">Ihre E-Mail Adresse</label>
-			<label index="forgotpassword.send">Senden</label>
-			<label index="forgotpassword.mailmsg">Passwort Erinnerung
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="pi_loginbox_username">Benutzername</label>
+            <label index="pi_loginbox_password">Passwort</label>
+            <label index="pi_loginbox_login">Login</label>
+            <label index="pi_loginbox_logout">Logout</label>
+            <label index="welcome.header">Benutzeranmeldung</label>
+            <label index="welcome.message">Bitte geben Sie Benutzernamen in Passwort ein um sich einzuloggen.</label>
+            <label index="success.header">Login erfolgreich</label>
+            <label index="success.message">Sie sind nun eingeloggt.</label>
+            <label index="error.header">Login Fehler</label>
+            <label index="error.message">Ein Fehler trat während des Login-Prozesses auf. Möglicherweise haben Sie Benutzername oder Passwort falsch eingegeben, oder Ihr Browser unterstätzt keine Cookies. Bitte achten Sie auf Groß- und Kleinschreibung!</label>
+            <label index="status.header">Verbindungsstatus</label>
+            <label index="status.message">Hier sehen Sie ihren momentanen Verbindungsstatus.</label>
+            <label index="logout.header">Sie haben sich abgemeldet</label>
+            <label index="logout.message">Sie haben sich gerade von der Benutzersession abgemeldet.</label>
+            <label index="forgotpassword.header">Passwort vergessen?</label>
+            <label index="forgotpassword.message">Bitte geben Sie die E-Mail Adresse ein, mit der Sie auf dieser Webseite registriert sind. Danach klicken Sie auf &quot;Passwort senden&quot;, und Ihr Passwort wird unmittelbar danach zu Ihnen gesendet.</label>
+            <label index="forgotpassword.error.unvalidemail">Bitte geben Sie eine gültige E-Mail Adresse ein.</label>
+            <label index="forgotpassword.error.nouser">Es existiert kein Benutzer mit dieser E-Mail Adresse!</label>
+            <label index="forgotpassword.success">Ihr Passwort wurde an die von Ihnen angegebene E-Mail Adresse geschickt.</label>
+            <label index="forgotpassword.email">Ihre E-Mail Adresse</label>
+            <label index="forgotpassword.send">Senden</label>
+            <label index="forgotpassword.mailmsg">Passwort Erinnerung
 %s,
  
 Sie erhalten dieses E-Mail von %s, da Sie eine Passwort Erinnerung angefordert haben.
@@ -77,30 +77,30 @@ Bitte besuchen Sie folgende Adresse, um sich einzuloggen:
 %s
  
 Mit freundlichen Grüßen,</label>
-		</languageKey>
-		<languageKey index="it" type="array">
-			<label index="pi_loginbox_username">Username</label>
-			<label index="pi_loginbox_password">Password</label>
-			<label index="pi_loginbox_login">Login</label>
-			<label index="pi_loginbox_logout">Logout</label>
-			<label index="welcome.header">Login utente</label>
-			<label index="welcome.message">Inserisci il tuo username e la password per accedere al sito.</label>
-			<label index="success.header">Login effettuato con successo</label>
-			<label index="success.message">Sei stato autorizzato ad accedere al sito.</label>
-			<label index="error.header">Errore durante il login</label>
-			<label index="error.message">Si e' verificato un errore nel corso del login. Probabilmente non hai inserito correttamente il tuo username o la password. Accertati di digitarli in modo corretto, inclusi i caratteri maiuscoli/minuscoli. Un'altra possibilita' e' che i cookies siano disattivati sul tuo browser.</label>
-			<label index="status.header">Stato del collegamento</label>
-			<label index="status.message">Stato corrente del collegamento.</label>
-			<label index="logout.header">Hai eseguito il logout.</label>
-			<label index="logout.message">Hai eseguito il logout dalla tua sessione.</label>
-			<label index="forgotpassword.header">Hai dimenticato la password?</label>
-			<label index="forgotpassword.message">Inserisci l'indirizzo email con il quale sei stato registrato su questo sito. Poi premi &quot;Invia la password&quot; e la tua password ti verra' immediatamente spedita via mail.</label>
-			<label index="forgotpassword.error.unvalidemail">Inserisci un indirizzo email valido.</label>
-			<label index="forgotpassword.error.nouser">Non ci sono utenti registrati con questo indirizzo email.</label>
-			<label index="forgotpassword.success">La tua password e' stata spedita all'indirizzo email specificato.</label>
-			<label index="forgotpassword.email">Il tuo indirizzo email</label>
-			<label index="forgotpassword.send">Invia</label>
-			<label index="forgotpassword.mailmsg">Recupero della password
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="pi_loginbox_username">Username</label>
+            <label index="pi_loginbox_password">Password</label>
+            <label index="pi_loginbox_login">Login</label>
+            <label index="pi_loginbox_logout">Logout</label>
+            <label index="welcome.header">Login utente</label>
+            <label index="welcome.message">Inserisci il tuo username e la password per accedere al sito.</label>
+            <label index="success.header">Login effettuato con successo</label>
+            <label index="success.message">Sei stato autorizzato ad accedere al sito.</label>
+            <label index="error.header">Errore durante il login</label>
+            <label index="error.message">Si e' verificato un errore nel corso del login. Probabilmente non hai inserito correttamente il tuo username o la password. Accertati di digitarli in modo corretto, inclusi i caratteri maiuscoli/minuscoli. Un'altra possibilita' e' che i cookies siano disattivati sul tuo browser.</label>
+            <label index="status.header">Stato del collegamento</label>
+            <label index="status.message">Stato corrente del collegamento.</label>
+            <label index="logout.header">Hai eseguito il logout.</label>
+            <label index="logout.message">Hai eseguito il logout dalla tua sessione.</label>
+            <label index="forgotpassword.header">Hai dimenticato la password?</label>
+            <label index="forgotpassword.message">Inserisci l'indirizzo email con il quale sei stato registrato su questo sito. Poi premi &quot;Invia la password&quot; e la tua password ti verra' immediatamente spedita via mail.</label>
+            <label index="forgotpassword.error.unvalidemail">Inserisci un indirizzo email valido.</label>
+            <label index="forgotpassword.error.nouser">Non ci sono utenti registrati con questo indirizzo email.</label>
+            <label index="forgotpassword.success">La tua password e' stata spedita all'indirizzo email specificato.</label>
+            <label index="forgotpassword.email">Il tuo indirizzo email</label>
+            <label index="forgotpassword.send">Invia</label>
+            <label index="forgotpassword.mailmsg">Recupero della password
 %s,
 
 Hai ricevuto questo email da %s perche' hai chiesto di ricordarti la tua password.
@@ -112,33 +112,33 @@ Collegati al seguente indirizzo per eseguire il login:
 %s
 
 Cordiali saluti,</label>
-		</languageKey>
-		<languageKey index="fr" type="array">
-			<label index="pi_loginbox_username">Nom d'utilisateur</label>
-			<label index="pi_loginbox_password">Mot de passe</label>
-			<label index="pi_loginbox_login">Connexion</label>
-			<label index="pi_loginbox_logout">Déconnexion</label>
-			<label index="pi_loginbox_permalogin">Se souvenir de moi</label>
-			<label index="pi_loginbox_yes">Oui</label>
-			<label index="pi_loginbox_no">Non</label>
-			<label index="welcome.header">Connexion utilisateur</label>
-			<label index="welcome.message">Veuillez entrer votre nom d'utilisateur et votre mot de passe pour vous connecter sur le site.</label>
-			<label index="success.header">Connexion réussie</label>
-			<label index="success.message">Vous êtes maintenant connecté sur le site.</label>
-			<label index="error.header">Erreur de connexion</label>
-			<label index="error.message">Une erreur est survenue dans la phase de connexion. Vous n'avez certainement pas entré votre nom d'utilisateur ou votre mot de passe de manière correcte. Soyez certains de les entrer précisément, en incluant les majuscules/minuscules. Vérifiez également quel les cookies sont activés sur votre navigateur.</label>
-			<label index="status.header">Etat de connexion</label>
-			<label index="status.message">Voici l'état actuel de votre connexion utilisateur.</label>
-			<label index="logout.header">Vous êtes déconnecté</label>
-			<label index="logout.message">Vous venez de vous déconnecter de votre session utilisateur.</label>
-			<label index="forgotpassword.header">Oublié votre mot de passe?</label>
-			<label index="forgotpassword.message">Veuillez entrer l'adresse email avec laquelle vous vous êtes enregistré sur ce site. Cliquez ensuite sur &quot;Envoyer le mot de passe&quot; et votre mot de passe vous sera immédiatement envoyé.</label>
-			<label index="forgotpassword.error.unvalidemail">Veuillez entrer une adresse email valide.</label>
-			<label index="forgotpassword.error.nouser">Il n'y a aucun utilisateur enregistré avec cette adresse email.</label>
-			<label index="forgotpassword.success">Votre mot de passe a été envoyé à l'adresse email que vous avez indiquée.</label>
-			<label index="forgotpassword.email">Votre adresse email</label>
-			<label index="forgotpassword.send">Envoyer</label>
-			<label index="forgotpassword.mailmsg">Récupération de mot de passe
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="pi_loginbox_username">Nom d'utilisateur</label>
+            <label index="pi_loginbox_password">Mot de passe</label>
+            <label index="pi_loginbox_login">Connexion</label>
+            <label index="pi_loginbox_logout">Déconnexion</label>
+            <label index="pi_loginbox_permalogin">Se souvenir de moi</label>
+            <label index="pi_loginbox_yes">Oui</label>
+            <label index="pi_loginbox_no">Non</label>
+            <label index="welcome.header">Connexion utilisateur</label>
+            <label index="welcome.message">Veuillez entrer votre nom d'utilisateur et votre mot de passe pour vous connecter sur le site.</label>
+            <label index="success.header">Connexion réussie</label>
+            <label index="success.message">Vous êtes maintenant connecté sur le site.</label>
+            <label index="error.header">Erreur de connexion</label>
+            <label index="error.message">Une erreur est survenue dans la phase de connexion. Vous n'avez certainement pas entré votre nom d'utilisateur ou votre mot de passe de manière correcte. Soyez certains de les entrer précisément, en incluant les majuscules/minuscules. Vérifiez également quel les cookies sont activés sur votre navigateur.</label>
+            <label index="status.header">Etat de connexion</label>
+            <label index="status.message">Voici l'état actuel de votre connexion utilisateur.</label>
+            <label index="logout.header">Vous êtes déconnecté</label>
+            <label index="logout.message">Vous venez de vous déconnecter de votre session utilisateur.</label>
+            <label index="forgotpassword.header">Oublié votre mot de passe?</label>
+            <label index="forgotpassword.message">Veuillez entrer l'adresse email avec laquelle vous vous êtes enregistré sur ce site. Cliquez ensuite sur &quot;Envoyer le mot de passe&quot; et votre mot de passe vous sera immédiatement envoyé.</label>
+            <label index="forgotpassword.error.unvalidemail">Veuillez entrer une adresse email valide.</label>
+            <label index="forgotpassword.error.nouser">Il n'y a aucun utilisateur enregistré avec cette adresse email.</label>
+            <label index="forgotpassword.success">Votre mot de passe a été envoyé à l'adresse email que vous avez indiquée.</label>
+            <label index="forgotpassword.email">Votre adresse email</label>
+            <label index="forgotpassword.send">Envoyer</label>
+            <label index="forgotpassword.mailmsg">Récupération de mot de passe
 %s,
 
 Vous recevez cet email de %s parce que vous avez demandé à récupérer votre mot de passe.
@@ -150,6 +150,6 @@ Veuillez vous connecter à l'adresse suivante afin de vous identifier:
 %s
 
 Cordialement,</label>
-		</languageKey>
-	</data>
+        </languageKey>
+    </data>
 </T3locallang>

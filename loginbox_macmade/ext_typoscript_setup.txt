@@ -24,92 +24,92 @@
 /**
  * Default TS setup - Extension 'LoginBox / macmade.net'
  *
- * @author		Jean-David Gadina (info@macmade.net)
- * @version		1.0
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
  */
 
 /**
  * PI1 object - LoginBox / macmade.net
  */
 plugin.tx_loginboxmacmade_pi1 {
-	
-	/**
-	 * Login box parameters
-	 */
-	loginBox {
-		
-		// Size of the text inputs
-		inputSize = {$plugin.tx_loginboxmacmade_pi1.inputSize}
-		
-		// Method for the form
-		method = {$plugin.tx_loginboxmacmade_pi1.method}
-		
-		// Target of the form
-		target = {$plugin.tx_loginboxmacmade_pi1.target}
-		
-		// Wrap the whole login box
-		wrap = {$plugin.tx_loginboxmacmade_pi1.wrap}
-		
-		// Login box layout
-		layout = {$plugin.tx_loginboxmacmade_pi1.layout}
-	}
-	
-	/**
-	 * Mailer settings
-	 */
-	mailer {
-		
-		// From
-		from = {$plugin.tx_loginboxmacmade_pi1.from}
-		
-		// From name
-		fromName = {$plugin.tx_loginboxmacmade_pi1.fromName}
-		
-		// Reply to
-		replyTo = {$plugin.tx_loginboxmacmade_pi1.replyTo}
-	}
-	
-	// Default CSS styling
-	_CSS_DEFAULT_STYLE (
-		.tx-loginboxmacmade-pi1 .tx-loginboxmacmade-pi1-error {
-			color: #FF0000;
-		}
-		.tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable {
-			margin-top: 5px;
-			margin-bottom: 5px;
-			border: solid 1px #DFE2E3;
-			border-collapse: collapse;
-		}
-		.tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD {
-			border: solid 1px #DFE2E3;
-			background-color: #FAFBFB;
-			padding: 5px;
-		}
-		.tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD.tx-loginboxmacmade-pi1-labelCell {
-			border: solid 1px #E5D9B1;
-			background-color: #F0E9D2;
-			font-weight: bold;
-		}
-	)
+    
+    /**
+     * Login box parameters
+     */
+    loginBox {
+        
+        // Size of the text inputs
+        inputSize = {$plugin.tx_loginboxmacmade_pi1.inputSize}
+        
+        // Method for the form
+        method    = {$plugin.tx_loginboxmacmade_pi1.method}
+        
+        // Target of the form
+        target    = {$plugin.tx_loginboxmacmade_pi1.target}
+        
+        // Wrap the whole login box
+        wrap      = {$plugin.tx_loginboxmacmade_pi1.wrap}
+        
+        // Login box layout
+        layout    = {$plugin.tx_loginboxmacmade_pi1.layout}
+    }
+    
+    /**
+     * Mailer settings
+     */
+    mailer {
+        
+        // From
+        from     = {$plugin.tx_loginboxmacmade_pi1.from}
+        
+        // From name
+        fromName = {$plugin.tx_loginboxmacmade_pi1.fromName}
+        
+        // Reply to
+        replyTo  = {$plugin.tx_loginboxmacmade_pi1.replyTo}
+    }
+    
+    // Default CSS styling
+    _CSS_DEFAULT_STYLE (
+        .tx-loginboxmacmade-pi1 .tx-loginboxmacmade-pi1-error {
+            color: #FF0000;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: solid 1px #DFE2E3;
+            border-collapse: collapse;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD {
+            border: solid 1px #DFE2E3;
+            background-color: #FAFBFB;
+            padding: 5px;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD.tx-loginboxmacmade-pi1-labelCell {
+            border: solid 1px #E5D9B1;
+            background-color: #F0E9D2;
+            font-weight: bold;
+        }
+    )
 }
 
 /**
  * PI2 object - LoginBox / macmade.net
  */
 plugin.tx_loginboxmacmade_pi2 {
-	
-	// Template file
-	template = {$plugin.tx_loginboxmacmade_pi2.template}
-	
-	// Storage PID for the FE users
-	feUsersPID = {$plugin.tx_loginboxmacmade_pi2.feUsersPID}
-	
-	// PID of the login page
-	loginPage = {$plugin.tx_loginboxmacmade_pi2.loginPage}
-	
-	// Redirect after login (if void, the user will be redirected to same page)
-	redirectLogin = {$plugin.tx_loginboxmacmade_pi2.redirectLogin}
-	
-	// Redirect after logout (if void, the user will be redirected to same page)
-	redirectLogout = {$plugin.tx_loginboxmacmade_pi2.redirectLogout}
+    
+    // Template file
+    template       = {$plugin.tx_loginboxmacmade_pi2.template}
+    
+    // Storage PID for the FE users
+    feUsersPID     = {$plugin.tx_loginboxmacmade_pi2.feUsersPID}
+    
+    // PID of the login page
+    loginPage      = {$plugin.tx_loginboxmacmade_pi2.loginPage}
+    
+    // Redirect after login (if void, the user will be redirected to same page)
+    redirectLogin  = {$plugin.tx_loginboxmacmade_pi2.redirectLogin}
+    
+    // Redirect after logout (if void, the user will be redirected to same page)
+    redirectLogout = {$plugin.tx_loginboxmacmade_pi2.redirectLogout}
 }
