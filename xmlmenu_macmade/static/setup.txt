@@ -45,7 +45,7 @@ plugin.tx_xmlmenumacmade_pi1 {
     // Sets the entry level to the current page
     startMenuOnCurrentPage = {$plugin.tx_xmlmenumacmade_pi1.startMenuOnCurrentPage}
     
-    // Expan all sections
+    // Expand all sections
     expAll                 = {$plugin.tx_xmlmenumacmade_pi1.expAll}
     
     // Exclude pages UIDs
