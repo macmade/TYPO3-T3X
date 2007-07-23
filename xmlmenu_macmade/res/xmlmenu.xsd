@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:complexType name="dataType">
+        <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="1" name="title" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="href" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="uid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="pid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_oid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_id" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_wsid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_label" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_state" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_stage" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_count" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_tstamp" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3ver_swapmode" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="t3_origuid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="tstamp" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="sorting" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="deleted" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="perms_userid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="perms_groupid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="perms_user" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="perms_group" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="perms_everybody" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="editlock" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="crdate" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="cruser_id" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="doktype" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="TSconfig" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="storage_pid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="is_siteroot" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="php_tree_stop" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="tx_impexp_origuid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="url" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="hidden" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="starttime" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="endtime" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="urltype" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="shortcut" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="shortcut_mode" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="no_cache" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="fe_group" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="subtitle" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="layout" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="target" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="media" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="lastUpdated" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="keywords" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="cache_timeout" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="newUntil" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="description" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="no_search" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="SYS_LASTCHANGED" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="abstract" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="module" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="extendToSubpages" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="author" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="author_email" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="nav_title" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="nav_hide" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="content_from_pid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="mount_pid" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="mount_pid_ol" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="alias" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="l18n_cfg" type="xsd:string" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="fe_login_mode" type="xsd:string" />
+        </xsd:all>
+    </xsd:complexType>
+    <xsd:attributeGroup name="pageAttribs">
+        <xsd:attribute name="hasSubPages" type="xsd:boolean" />
+        <xsd:attribute name="isActive" type="xsd:boolean" />
+        <xsd:attribute name="isCurrent" type="xsd:boolean" />
+        <xsd:attribute name="isSpacer" type="xsd:boolean" />
+    </xsd:attributeGroup>
+    <xsd:complexType name="pageType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="1" name="data" type="dataType" />
+            <xsd:element maxOccurs="1" minOccurs="0" name="subPages" type="xmlMenuType" />
+        </xsd:sequence>
+        <xsd:attributeGroup ref="pageAttribs" />
+    </xsd:complexType>
+    <xsd:complexType name="xmlMenuType">
+        <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="page" type="pageType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="xmlMenu" type="xmlMenuType" />
+</xsd:schema>
