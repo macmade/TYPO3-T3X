@@ -1,0 +1,76 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Wessex Academy'
+ *
+ * @author		Jean-David Gadina (macmade@gadlab.net)
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Wessex - Linguistic stays
+ */
+plugin.tx_wessex_pi1 {
+	
+	// Template file
+	templateFile = {$plugin.tx_wessex_pi1.templateFile}
+	
+	// Images configuration
+	imgConf {
+		
+		// Front picture
+		front_picture {
+			file.maxW = {$plugin.tx_wessex_pi1.front_picture.maxW}
+			file.maxH = {$plugin.tx_wessex_pi1.front_picture.maxH}
+		}
+		
+		// Map
+		map {
+			file.maxW = {$plugin.tx_wessex_pi1.map.maxW}
+			file.maxH = {$plugin.tx_wessex_pi1.map.maxH}
+		}
+		
+		// Pictures
+		pictures {
+			file.maxW = {$plugin.tx_wessex_pi1.pictures.maxW}
+			file.maxH = {$plugin.tx_wessex_pi1.pictures.maxH}
+		}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-wessex-pi1 LI.open OL {
+			display: block;
+		}
+		.tx-wessex-pi1 LI.closed OL {
+			display: none;
+		}
+		.tx-wessex-pi1 LI.open UL {
+			display: block;
+		}
+		.tx-wessex-pi1 LI.closed UL {
+			display: none;
+		}
+	)
+}
