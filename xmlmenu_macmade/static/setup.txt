@@ -69,6 +69,12 @@ plugin.tx_xmlmenumacmade_pi1 {
     // Include XML declaration
     xmlDeclaration         = {$plugin.tx_xmlmenumacmade_pi1.xmlDeclaration}
     
+    // Include XML schema
+    xmlSchema              = {$plugin.tx_xmlmenumacmade_pi1.xmlSchema}
+    
+    // The location of the XML schema
+    xmlSchemaLocation      = {$plugin.tx_xmlmenumacmade_pi1.xmlSchemaLocation}
+    
     // XML document encoding
     xmlEncoding            = {$plugin.tx_xmlmenumacmade_pi1.xmlEncoding}
     

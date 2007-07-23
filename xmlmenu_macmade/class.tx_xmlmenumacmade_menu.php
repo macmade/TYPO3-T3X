@@ -353,9 +353,22 @@ class tx_xmlmenumacmade_menu
                      . '"?>';
         }
         
+        // Storage for attributes
+        $attribs = '';
+        
+        // XML schema
+        if( $this->conf[ 'xmlSchema' ] == 1 ) {
+            
+            $attribs .= ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'
+                     .  ' xsi:noNamespaceSchemaLocation="'
+                     .  str_replace( PATH_site, t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' ), t3lib_div::getFileAbsFileName( $this->conf[ 'xmlSchemaLocation' ] ) )
+                     .  '"';
+        }
+        
         // Writes the full menu
         $xmlMenu .= '<'
                   . $this->conf[ 'tags.' ][ 'root' ]
+                  . $attribs
                   . '>'
                   . $this->menuObject->writeMenu()
                   . '</'

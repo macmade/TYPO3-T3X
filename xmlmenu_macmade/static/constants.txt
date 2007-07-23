@@ -33,72 +33,78 @@
  */
 plugin.tx_xmlmenumacmade_pi1 {
     
-    # cat=xmlmenu_macmade/enable/0; type=boolean; label=Starts the menu on current page: If this is set, the entry level will be set to the level of the current page
+    # cat=xmlmenu_macmade/enable/00; type=boolean; label=Starts the menu on current page: If this is set, the entry level will be set to the level of the current page
     startMenuOnCurrentPage = 0
     
-    # cat=xmlmenu_macmade/enable/1; type=boolean; label=Expand all: Expand all sections, even if they are not actives
+    # cat=xmlmenu_macmade/enable/01; type=boolean; label=Expand all: Expand all sections, even if they are not actives
     expAll = 1
     
-    # cat=xmlmenu_macmade/enable/2; type=boolean; label=Include not in menu: Also includes the pages that are marked as not in menu
+    # cat=xmlmenu_macmade/enable/02; type=boolean; label=Include not in menu: Also includes the pages that are marked as not in menu
     includeNotInMenu = 0
     
-    # cat=xmlmenu_macmade/enable/3; type=boolean; label=Page link: Add the link to the page
+    # cat=xmlmenu_macmade/enable/03; type=boolean; label=Page link: Add the link to the page
     addPageLink = 1
     
-    # cat=xmlmenu_macmade/enable/4; type=boolean; label=XML declaration: Include the XML declaration
+    # cat=xmlmenu_macmade/enable/04; type=boolean; label=XML declaration: Include the XML declaration
     xmlDeclaration = 1
     
-    # cat=xmlmenu_macmade/enable/5; type=boolean; label=XML content type: Adds an XML content-type header
+    # cat=xmlmenu_macmade/enable/05; type=boolean; label=XML schema: Include the XML schema
+    xmlSchema = 1
+    
+    # cat=xmlmenu_macmade/enable/06; type=boolean; label=XML content type: Adds an XML content-type header
     xmlContentTypeHeader = 1
     
-    # cat=xmlmenu_macmade/enable/6; type=boolean; label=CDATA: Protect values with CDATA tags
+    # cat=xmlmenu_macmade/enable/07; type=boolean; label=CDATA: Protect values with CDATA tags
     cdata = 1
     
-    # cat=xmlmenu_macmade/file/0; type=string; label=XML encoding: The encoding for the XML document
+    # cat=xmlmenu_macmade/file/00; type=string; label=XML encoding: The encoding for the XML document
     xmlEncoding = utf-8
     
-    # cat=xmlmenu_macmade/file/1; type=string; label=Root tag: The tag name for the root node
+    # cat=xmlmenu_macmade/file/01; type=string; label=Root tag: The tag name for the root node
     tags.root = xmlMenu
     
-    # cat=xmlmenu_macmade/file/2; type=string; label=Page tag: The tag name for the pages nodes
+    # cat=xmlmenu_macmade/file/02; type=string; label=Page tag: The tag name for the pages nodes
     tags.page = page
     
-    # cat=xmlmenu_macmade/file/3; type=string; label=Subpages tag: The tag name for the subpages node
+    # cat=xmlmenu_macmade/file/03; type=string; label=Subpages tag: The tag name for the subpages node
     tags.subPages = subPages
     
-    # cat=xmlmenu_macmade/file/4; type=string; label=Data tag: The tag name for the page data node
+    # cat=xmlmenu_macmade/file/04; type=string; label=Data tag: The tag name for the page data node
     tags.pageData = data
     
-    # cat=xmlmenu_macmade/file/5; type=string; label=Link tag: The tag name for the page link node
+    # cat=xmlmenu_macmade/file/05; type=string; label=Link tag: The tag name for the page link node
     tags.pageLink = href
     
-    # cat=xmlmenu_macmade/file/6; type=string; label=IFSUB attribute: The attribute for pages that have subpages
+    # cat=xmlmenu_macmade/file/06; type=string; label=IFSUB attribute: The attribute for pages that have subpages
     attribs.ifsub = hasSubPages
     
-    # cat=xmlmenu_macmade/file/7; type=string; label=ACT attribute: The attribute for active pages
+    # cat=xmlmenu_macmade/file/07; type=string; label=ACT attribute: The attribute for active pages
     attribs.act = isActive
     
-    # cat=xmlmenu_macmade/file/8; type=string; label=CUR attribute: The attribute for the current page
+    # cat=xmlmenu_macmade/file/08; type=string; label=CUR attribute: The attribute for the current page
     attribs.cur = isCurrent
     
-    # cat=xmlmenu_macmade/file/9; type=string; label=SPC attribute: The attribute for pages that are spacers
+    # cat=xmlmenu_macmade/file/09; type=string; label=SPC attribute: The attribute for pages that are spacers
     attribs.spc = isSpacer
     
-    # cat=xmlmenu_macmade//0; type=int+; label=Levels: The number of levels to generate
+    # cat=xmlmenu_macmade/file/10; type=string; label=XML schema location: The location of the XML schema
+    xmlSchemaLocation = EXT:xmlmenu_macmade/res/xmlmenu.xsd
+    
+    # cat=xmlmenu_macmade//00; type=int+; label=Levels: The number of levels to generate
     levels = 2
     
-    # cat=xmlmenu_macmade//1; type=int; label=Entry level: The entry level for the XML menu
+    # cat=xmlmenu_macmade//01; type=int; label=Entry level: The entry level for the XML menu
     entryLevel = 0
     
-    # cat=xmlmenu_macmade//2; type=string; label=Exclude pages: A comma list of the pages UIDs to exclude
+    # cat=xmlmenu_macmade//02; type=string; label=Exclude pages: A comma list of the pages UIDs to exclude
     excludeUidList =
     
-    # cat=xmlmenu_macmade//3; type=string; label=Exclude doktypes: A comma list of the pages types to exclude
+    # cat=xmlmenu_macmade//03; type=string; label=Exclude doktypes: A comma list of the pages types to exclude
     excludeDoktypes =
     
-    # cat=xmlmenu_macmade//4; type=string; label=Fields: A comma list of the fields from the pages to include
+    # cat=xmlmenu_macmade//04; type=string; label=Fields: A comma list of the fields from the pages to include
     fields = uid,tstamp,crdate,doktype,subtitle,target,keywords,description,abstract,author,author_email,nav_title,alias
     
-    # cat=xmlmenu_macmade//5; type=string; label=GET vars: GET variables to keep in the page links
+    # cat=xmlmenu_macmade//05; type=string; label=GET vars: GET variables to keep in the page links
     keepGetVars = L
 }
