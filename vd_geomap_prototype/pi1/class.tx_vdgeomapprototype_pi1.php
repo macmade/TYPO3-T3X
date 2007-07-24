@@ -228,7 +228,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
         );
         
         // HTTP scheme
-        $httpScheme = ( t3lib_div::getIndpEnv( 'TYPO3_SSL' ) ) ? 'https://' : 'http';
+        $httpScheme = ( t3lib_div::getIndpEnv( 'TYPO3_SSL' ) ) ? 'https://' : 'http://';
         
         // Server name
         if( isset( $this->conf[ 'serverName' ] ) && $this->conf[ 'serverName' ] && isset( $_SERVER[ $this->conf[ 'serverName' ] ] ) ) {
