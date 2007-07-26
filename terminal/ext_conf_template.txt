@@ -1,0 +1,11 @@
+# cat=basic/dims/01; type=int+; label=Font size: The font size of the terminal.
+fontSize = 12
+
+# cat=basic/color/00; type= color; label=Background: The background color of the terminal.
+background = #000000
+
+# cat=basic/color/00; type= color; label=Foreground: The foreground color of the terminal.
+foreground = #FFFFFF
+
+# cat=basic/color/00; type= color; label=Prompt: The foreground color of the prompt.
+prompt = #00FF00

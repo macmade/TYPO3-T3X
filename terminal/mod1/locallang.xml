@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;tools_txterminalM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">Terminal</label>
+			<label index="noaccess">Sorry, you don't have access to this module</label>
+			<label index="history">Shell history:</label>
+			<label index="cwd">Working directory:</label>
+		</languageKey>
+	</data>
+</T3locallang>
