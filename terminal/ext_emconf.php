@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "terminal"
 #
-# Auto generated 27-07-2007 06:21
+# Auto generated 27-07-2007 07:21
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -11,7 +11,7 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Terminal',
+	'title' => 'Terminal (PHP Shell)',
 	'description' => 'Yet another PHP shell extension. This extension allows you to run shell commands on the server from the TYPO3 backend. This may be useful for changing files permissions, creating symbolic links, uncompressing archives, etc.',
 	'category' => 'module',
 	'author' => 'Jean-David Gadina',
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => 'macmade.net',
-	'version' => '0.0.0',
+	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
 			'api_macmade' => '0.3.0-',
