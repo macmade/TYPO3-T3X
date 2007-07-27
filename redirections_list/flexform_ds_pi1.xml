@@ -1,0 +1,56 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:redirections_list/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <selection>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:redirections_list/locallang_db.php:tt_content.flexform_pi1.s_def.selection</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:redirections_list/locallang_db.php:tt_content.flexform_pi1.s_def.selection.I.0</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:redirections_list/locallang_db.php:tt_content.flexform_pi1.s_def.selection.I.1</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </selection>
+                    <redirections>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:redirections_list/locallang_db.php:tt_content.flexform_pi1.s_def.redirections</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">BLANK</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>tx_redirectionslist_tca->getRedirections</itemsProcFunc>
+                                <size>20</size>
+                                <renderMode>singlebox</renderMode>
+                                <multiple>1</multiple>
+                                <maxitems>500</maxitems>
+                            </config>
+                        </TCEforms>
+                    </redirections>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

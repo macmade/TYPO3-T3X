@@ -1,0 +1,73 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'RealURL redirections list'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object - RealURL redirections list
+ */
+plugin.tx_redirectionslist_pi1 {
+    
+    // Default CSS styles
+    _CSS_DEFAULT_STYLE (
+        .tx-redirectionslist-pi1 .tx-redirectionslist-pi1-redirection {
+            overflow: hidden;
+            height: 100%;
+            border: solid 1px #A2C3EB;
+            margin-bottom: 5px;
+            color: inherit;
+            background-color: #F6F9FD;
+        }
+        .tx-redirectionslist-pi1 .tx-redirectionslist-pi1-redirection DIV {
+            float: left;
+        }
+        .tx-redirectionslist-pi1 .tx-redirectionslist-pi1-url {
+            border-right: solid 1px #A2C3EB;
+            color: inherit;
+            background-color: #F6F9FD;
+            padding: 5px;
+        }
+        .tx-redirectionslist-pi1 .tx-redirectionslist-pi1-destination {
+            border-right: solid 1px #A2C3EB;
+            color: inherit;
+            background-color: #FFFFFF;
+            background-image: url( '/typo3conf/ext/redirections_list/res/arrow.png' );
+            background-repeat: no-repeat;
+            background-position: 0px 3px;
+            padding-left: 16px;
+            padding-right: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        .tx-redirectionslist-pi1 .tx-redirectionslist-pi1-title {
+            color: inherit;
+            background-color: #F6F9FD;
+            padding: 5px;
+        }
+    )
+}

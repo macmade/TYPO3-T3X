@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'redirections_list'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pi1_title">RealURL redirections list</label>
+            <label index="pi1_plus_wiz_description">Adds the RealURL redirections list plugin to the page.</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="pi1_title">Liste des redirections RealURL</label>
+            <label index="pi1_plus_wiz_description">Ajoute une liste des redirections RealURL à la page.</label>
+        </languageKey>
+    </data>
+</T3locallang>

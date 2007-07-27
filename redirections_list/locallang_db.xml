@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'redirections_list'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tt_content.list_type_pi1">RealURL redirections list</label>
+            <label index="tt_content.flexform_pi1.s_def">Main</label>
+            <label index="tt_content.flexform_pi1.s_def.selection">Selection</label>
+            <label index="tt_content.flexform_pi1.s_def.selection.I.0">Exclude selected redirections</label>
+            <label index="tt_content.flexform_pi1.s_def.selection.I.1">Include only selected redirections</label>
+            <label index="tt_content.flexform_pi1.s_def.redirections">Redirections</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="tt_content.list_type_pi1">Liste des redirections RealURL</label>
+            <label index="tt_content.flexform_pi1.s_def">Général</label>
+            <label index="tt_content.flexform_pi1.s_def.selection">Sélection</label>
+            <label index="tt_content.flexform_pi1.s_def.selection.I.0">Exclure les redirections sélectionnées</label>
+            <label index="tt_content.flexform_pi1.s_def.selection.I.1">Inlucre seulement les redirections sélectionnées</label>
+            <label index="tt_content.flexform_pi1.s_def.redirections">Redirections</label>
+        </languageKey>
+    </data>
+</T3locallang>
