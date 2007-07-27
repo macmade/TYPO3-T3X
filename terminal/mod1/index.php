@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Module 'Ressource location' for the 'terminal' extension.
+ * Module 'Terminal' for the 'terminal' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
  * @version     1.0
@@ -33,14 +33,21 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *        :     function init
- *        : function main
+ *     166:     function init
+ *     200:     function main
  * 
  * SECTION:     2 - MAIN
- *        :     function menuConfig
- *        :     function moduleContent
+ *     332:     function printContent
+ *     348:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     379:     function moduleContent
+ *     442:     function shellHistory
+ *     482:     function buildShortcuts
+ *     536:     function buildTerminal
+ *     570:     function buildCssStyles
+ *     655:     function processCommand
+ *     828:     function sessionData
  * 
- *              TOTAL FUNCTIONS: 
+ *              TOTAL FUNCTIONS: 11
  */
 
 // Default initialization of the module
@@ -52,6 +59,7 @@ $LANG->includeLLFile( 'EXT:terminal/mod1/locallang.xml' );
 require_once( PATH_t3lib . 'class.t3lib_scbase.php' );
 $BE_USER->modAccess( $MCONF, 1 );
 
+// Include the Developer API class
 require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
 class  tx_terminal_module1 extends t3lib_SCbase
@@ -199,8 +207,10 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         if( ( $this->id && $access ) || ( $BE_USER->user[ 'admin' ] && !$this->id ) ) {
             
+            // Checks for an Ajax call
             if( t3lib_div::_GET( 'ajaxCall' ) && $this->procOpen ) {
                 
+                // Process the command from ajax
                 $this->processCommand();
             }
             
@@ -256,6 +266,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             $this->content .= $this->doc->section( '', $headerSection );
             $this->content .= $this->doc->divider( 5 );
             
+            // proc_open has been detected
             if( $this->procOpen ) {
                 
                 // Render content
@@ -285,7 +296,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             #}
             
             // Spacer
-            $this->content .= $this->doc->spacer(10);
+            $this->content .= $this->doc->spacer( 10 );
             
         } else {
             
@@ -412,8 +423,10 @@ class  tx_terminal_module1 extends t3lib_SCbase
         // Spacer
         $htmlCode[]     = $this->doc->spacer( 10 );
         
+        // Checks for the shortcuts
         if( $this->extConf[ 'shortcuts' ] ) {
             
+            // Add shortcuts
             $htmlCode[]     = $this->buildShortcuts();
         }
         
@@ -421,18 +434,28 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $this->content .= implode( chr( 10 ), $htmlCode );
     }
     
+    /**
+     * Builds the history section
+     * 
+     * @return  string  The history section
+     */
     function shellHistory()
     {
         global $LANG;
         
+        // Storage
         $htmlCode   = array();
         
+        // Title
         $htmlCode[] = $LANG->getLL( 'history' );
         
+        // Start select
         $htmlCode[] = ' <select id="history" name="history" onChange="shell.exec( this.options[ this.selectedIndex ].value )">';
         
+        // Process each stored command
         foreach( $this->commands as $command ) {
             
+            // Add option
             $htmlCode[] = '<option value="'
                         . $command
                         . '">'
@@ -440,8 +463,10 @@ class  tx_terminal_module1 extends t3lib_SCbase
                         . '</option>';
         }
         
+        // End select
         $htmlCode[] = '</select>';
         
+        // Return history section
         return $this->writeHtml(
             implode( chr( 10 ), $htmlCode ),
             'div',
@@ -449,21 +474,34 @@ class  tx_terminal_module1 extends t3lib_SCbase
         );
     }
     
+    /**
+     * Builds the shortcuts section
+     * 
+     * @return  string  The shortcuts section
+     */
     function buildShortcuts()
     {
         global $LANG;
         
+        // Storage
         $htmlCode   = array();
         
+        // Title
         $htmlCode[] = $this->writeHtml( $LANG->getLL( 'shortcuts' ) );
         $htmlCode[] = $this->doc->spacer( 10 );
         
+        // Process each shortcut
         foreach( $this->shortcuts as $key => $value ) {
             
+            // Shortcut label
             $label = $LANG->getLL( 'shortcuts.' . $key );
+            
+            // Shortcut icon
             $icon  = '<img src="../res/'
                    . $value[ 'icon' ]
                    . '" alt="" width="16" height="16" />';
+            
+            // Full link
             $link  = '<a href="#console" onclick="shell.exec( \''
                    . $value[ 'command' ]
                    . '\' );" title="'
@@ -472,6 +510,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                    . $label
                    . '</a>';
             
+            // Add shortcut
             $htmlCode[] = $this->writeHtml(
                 $icon . $link,
                 'div',
@@ -479,6 +518,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             );
         }
         
+        // Return shortcut section
         return $this->writeHtml(
             $this->writeHtml(
                 implode( chr( 10 ), $htmlCode ),
@@ -488,6 +528,11 @@ class  tx_terminal_module1 extends t3lib_SCbase
         );
     }
     
+    /**
+     * Builds the terminal section
+     * 
+     * @return  string  The terminal section
+     */
     function buildTerminal()
     {
         // Storage
@@ -517,135 +562,198 @@ class  tx_terminal_module1 extends t3lib_SCbase
         );
     }
     
+    /**
+     * Builds the module's CSS styles
+     * 
+     * @return  boolean
+     */
     function buildCssStyles()
     {
+        // Storage
         $css   = array();
         
+        // Shell
         $css[] = '.shell {';
         $css[] = '  color: ' . $this->extConf[ 'foreground' ] . ';';
         $css[] = '  background-color: ' . $this->extConf[ 'background' ] . ';';
         $css[] = '  padding: 10px;';
         $css[] = '}';
+        
+        // Common properties
         $css[] = '.shell, .shell * {';
         $css[] = '  font-family: monospace;';
         $css[] = '  font-size: ' . $this->extConf[ 'fontSize' ] . ';';
         $css[] = '}';
+        
+        // Result container
         $css[] = '#result {';
         $css[] = '  height: 400px;';
         $css[] = '  overflow: auto;';
         $css[] = '}';
+        
+        // Result
         $css[] = '#result DIV {';
         $css[] = '  color: ' . $this->extConf[ 'foreground' ] . ';';
         $css[] = '  background-color: ' . $this->extConf[ 'background' ] . ';';
         $css[] = '}';
+        
+        // Command line
         $css[] = '#command {';
         $css[] = '  color: ' . $this->extConf[ 'foreground' ] . ';';
         $css[] = '  background-color: ' . $this->extConf[ 'background' ] . ';';
         $css[] = '  border: none;';
         $css[] = '  font-weight: bold;';
         $css[] = '}';
+        
+        // Command prompt
         $css[] = '.prompt {';
         $css[] = '  color: ' . $this->extConf[ 'prompt' ] . ';';
         $css[] = '  background-color: ' . $this->extConf[ 'background' ] . ';';
         $css[] = '}';
-        $css[] = '.commandPrompt {';
-        $css[] = '  text-decoration: blink;';
-        $css[] = '}';
+        
+        // Shell command
         $css[] = '.command {';
         $css[] = '  font-weight: bold;';
         $css[] = '}';
+        
+        // Shell result
         $css[] = '.result {';
         $css[] = '  white-space: pre;';
         $css[] = '}';
+        
+        // Container for shortcuts
         $css[] = '.shortcuts {';
         $css[] = '  overflow: hidden;';
         $css[] = '}';
+        
+        // Shortcut item
         $css[] = '.shortcut {';
         $css[] = '  float: left;';
         $css[] = '  width: 230px;';
         $css[] = '  margin-right: 5px;';
         $css[] = '}';
+        
+        // Shortcut pictures
         $css[] = '.shortcut IMG {';
         $css[] = '  margin-right: 5px;';
         $css[] = '}';
         
+        // Returns the CSS styles
         return implode( chr( 10 ), $css );
     }
     
+    /**
+     * Process a command
+     * 
+     * This function is used to call a shell command when requested by
+     * an ajax request. It displays the result of the command, then
+     * aborts the script. The last line of the output is the current
+     * working directory.
+     * 
+     * @return  NULL
+     */
     function processCommand()
     {
         global $BE_USER;
         
+        // Gets the command
         $cmd = t3lib_div::_GET( 'command' );
         
+        // Checks for an empty command
         if( $cmd == '' ) {
             
+            // Prints the current workind directory and exit
             print chr( 10 ) . $this->cwd;
             exit();
         }
         
+        // Checks if the command must be kept in the history
         if( $this->extConf[ 'history' ] ) {
             
-            $this->commands[] = $cmd;
+            // Adds the command
+            array_unshift( $this->commands, $cmd );
         }
         
+        // Only keep 50 entries in history
+        $this->commands = array_slice( $this->commands, 0, 50 );
+        
+        // Process pipes
         $descriptorSpec = array(
             0 => array( 'pipe', 'r' ),
             1 => array( 'pipe', 'w' ),
             2 => array( 'pipe', 'r' )
         );
         
+        // Storage
         $return = '';
         $error  = '';
         
+        // Gets multiple commands
         $commands = explode( ' && ', $cmd );
         
+        // Process each command
         foreach( $commands as $command ) {
             
+            // Command is 'cd'
             if( preg_match( '/^\s*cd\s*$/', $command ) ) {
                 
+                // Home is TYPO3 site
                 $this->cwd = PATH_site;
             }
             
+            // Change directory command
             if( preg_match( '/\s*cd ([^\s]+)\s*/', $command, $matches ) ) {
                 
+                // DIrectory to change
                 $dir = $matches[ 1 ];
                 
+                // Checks for an absolute path
                 if( substr( $dir, 0, 1 ) == '/' ) {
                     
+                    // Sets the current directory
                     $this->cwd = $matches[ 1 ];
                     
                 } else {
                     
+                    // Sets the current directory
                     $this->cwd = $this->cwd . $matches[ 1 ];
                 }
             }
-                                
+            
+            // Adds a trailing slash if necessary
             if( substr( $this->cwd, strlen( $this->cwd ) - 1, 1 ) != '/' ) {
                 
                 $this->cwd .= '/';
             }
             
+            // Normalize the path
             $this->cwd = preg_replace( '/\/\/+/', '/', $this->cwd );
             $this->cwd = str_replace( '/./', '/', $this->cwd );
             
+            // Get path parts
             $cwdParts = explode( '/', $this->cwd );
             $cwd      = array();
             
+            // Process each part of the path
             foreach( $cwdParts as $key => $value  ) {
                 
+                // Previous directory
                 if( $value == '..' ) {
                     
+                    // Removes last directory
                     array_pop( $cwd );
                     
                 } else {
                     
+                    // Stores current directory
                     $cwd[] = $value;
                 }
             }
             
+            // Rebuilds the path
             $this->cwd = implode( '/', $cwd );
             
+            // Stores commands and working directory in session data
             $BE_USER->pushModuleData(
                 $GLOBALS[ 'MCONF' ][ 'name' ],
                 array(
@@ -654,6 +762,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 )
             );
             
+            // Open process
             $process = proc_open(
                 $command,
                 $descriptorSpec,
@@ -662,34 +771,43 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 $_ENV
             );
             
+            // Checks the process
             if( is_resource( $process ) ) {
                 
+                // Process pipes
                 $stdin  = $pipes[0];
                 $stdout = $pipes[1];
                 $stderr = $pipes[2];
                 
+                // Process and stores the result
                 while( !feof( $stdout ) ) {
                     
                     $return .= fgets( $stdout );
                 }
-                
+
+                // Process and stores errors
                 while( !feof( $stderr ) ) {
                     
                     $error .= fgets( $stderr );
                 }
                 
+                // Close process pipes
                 fclose( $stdin );
                 fclose( $stdout );
                 fclose( $stderr );
                 
+                // Close the process
                 proc_close( $process );
                 
+                // Checks for errors
                 if( empty( $error ) ) {
                     
+                    // Display results
                     print $return;
                     
                 } else {
                     
+                    // Display errors, current working directory and exit
                     print $error;
                     print chr( 10 ) . $this->cwd;
                     exit();
@@ -697,26 +815,38 @@ class  tx_terminal_module1 extends t3lib_SCbase
            }
         }
         
+        // Prints the current working directory and exit
         print chr( 10 ) . $this->cwd;
         exit();
     }
     
+    /**
+     * Gets the session data for this module
+     * 
+     * @return  boolean
+     */
     function sessionData()
     {
         global $BE_USER;
         
+        // Get module session data
         $data = $BE_USER->getModuleData( $GLOBALS[ 'MCONF' ][ 'name' ] );
         
+        // Checks for working directory
         if( !isset( $data[ 'cwd' ] ) ) {
             
+            // Default is TYPO3 site
             $data[ 'cwd' ] = PATH_site;
         }
         
+        // Checks for commands
         if( !isset( $data[ 'commands' ] ) || $this->extConf[ 'history' ] == 0 ) {
             
+            // Empty array
             $data[ 'commands' ] = array();
         }
         
+        // Stores session data for other methods
         $this->cwd      = $data[ 'cwd' ];
         $this->commands = $data[ 'commands' ];
         
