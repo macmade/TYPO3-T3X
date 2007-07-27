@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Terminal',
-	'description' => 'Yet another PHP shell extension',
+	'description' => 'Yet another PHP shell extension. This extension allows you to run shell commands on the server from the TYPO3 backend. This may be useful for changing files permissions, creating symbolic links, uncompressing archives, etc.',
 	'category' => 'module',
 	'author' => 'Jean-David Gadina',
 	'author_email' => 'info@macmade.net',

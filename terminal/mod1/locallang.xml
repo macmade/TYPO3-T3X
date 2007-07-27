@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3locallang>
-	<meta type="array">
-		<type>module</type>
-		<description>Language labels for module &quot;tools_txterminalM1&quot;</description>
-	</meta>
-	<data type="array">
-		<languageKey index="default" type="array">
-			<label index="title">Terminal</label>
-			<label index="noaccess">Sorry, you don't have access to this module</label>
-			<label index="history">Shell history:</label>
-			<label index="cwd">Working directory:</label>
-		</languageKey>
-	</data>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for module &quot;tools_txterminalM1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Terminal</label>
+            <label index="noaccess">Sorry, you don't have access to this module</label>
+            <label index="history">Shell history:</label>
+            <label index="cwd">Working directory:</label>
+            <label index="noProcOpen">Sorry, the PHP function 'proc_open' is not available.</label>
+            <label index="shortcuts">Shortcuts:</label>
+            <label index="shortcuts.processes">Show running processes</label>
+            <label index="shortcuts.diskUse">Show disk usage</label>
+            <label index="shortcuts.networking">Show network informations</label>
+            <label index="shortcuts.listing">List current directory</label>
+            <label index="shortcuts.date">Show current date</label>
+            <label index="shortcuts.userName">Show current user name</label>
+            <label index="shortcuts.pathInfo">Show current path</label>
+            <label index="shortcuts.home">Go the the TYPO3 site directory</label>
+            <label index="shortcuts.fileadmin">Go to the fileadmin directory</label>
+            <label index="shortcuts.typo3conf">Go to the typo3conf directory</label>
+            <label index="shortcuts.uploads">Go to the uploads directory</label>
+            <label index="shortcuts.typo3temp">Go to the typo3temp directory</label>
+            <label index="shortcuts.typo3">Go to the typo3 directory</label>
+            <label index="shortcuts.t3lib">Go to the t3lib directory</label>
+        </languageKey>
+    </data>
 </T3locallang>

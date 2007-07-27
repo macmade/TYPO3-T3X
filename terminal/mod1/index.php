@@ -74,6 +74,74 @@ class  tx_terminal_module1 extends t3lib_SCbase
     // Current working directory
     var $cwd                = '';
     
+    // Shell commands
+    var $commands           = array();
+    
+    // Function proc_open is available
+    var $procOpen           = false;
+    
+    // Shortcuts
+    var $shortcuts          = array(
+        'processes' => array(
+            'icon'    => 'top.png',
+            'command' => 'top -l1'
+        ),
+        'diskUse' => array(
+            'icon'    => 'df.png',
+            'command' => 'df -h'
+        ),
+        'networking' => array(
+            'icon'    => 'ifconfig.png',
+            'command' => 'ifconfig'
+        ),
+        'pathInfo' => array(
+            'icon'    => 'pwd.png',
+            'command' => 'pwd'
+        ),
+        'userName' => array(
+            'icon'    => 'whoami.png',
+            'command' => 'whoami'
+        ),
+        'date' => array(
+            'icon'    => 'date.png',
+            'command' => 'date'
+        ),
+        'listing' => array(
+            'icon'    => 'ls.png',
+            'command' => 'ls -alh'
+        ),
+        'home' => array(
+            'icon'    => 'site.png',
+            'command' => 'cd && ls -alh'
+        ),
+        'fileadmin' => array(
+            'icon'    => 'fileadmin.png',
+            'command' => 'cd && cd fileadmin && ls -alh'
+        ),
+        'typo3conf' => array(
+            'icon'    => 'typo3conf.png',
+            'command' => 'cd && cd typo3conf && ls -alh'
+        ),
+        'uploads' => array(
+            'icon'    => 'uploads.png',
+            'command' => 'cd && cd uploads && ls -alh'
+        ),
+        't3lib' => array(
+            'icon'    => 't3lib.png',
+            'command' => 'cd && cd t3lib && ls -alh'
+        ),
+        'typo3' => array(
+            'icon'    => 'typo3.png',
+            'command' => 'cd && cd typo3 && ls -alh'
+        ),
+        'typo3temp' => array(
+            'icon'    => 'typo3temp.png',
+            'command' => 'cd && cd typo3temp && ls -alh'
+        ),
+    );
+    
+    
+    
     
     
     /***************************************************************
@@ -92,16 +160,19 @@ class  tx_terminal_module1 extends t3lib_SCbase
         global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
         
         // Get extension configuration
-        $this->extConf = unserialize( $TYPO3_CONF_VARS['EXT']['extConf']['terminal'] );
+        $this->extConf  = unserialize( $TYPO3_CONF_VARS['EXT']['extConf']['terminal'] );
         
         // New instance of the developer API
-        $this->api     = new tx_apimacmade( $this );
+        $this->api      = new tx_apimacmade( $this );
+        
+        // Detect proc_open
+        $this->procOpen = function_exists( 'proc_open' );
         
         // Terminal prompt
-        $this->prompt  = t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' )
-                       . ': '
-                       . $GLOBALS[ 'BE_USER' ]->user[ 'username' ]
-                       . '$';
+        $this->prompt   = t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' )
+                        . ': '
+                        . $GLOBALS[ 'BE_USER' ]->user[ 'username' ]
+                        . '$';
         
         // Session data
         $this->sessionData();
@@ -128,7 +199,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         if( ( $this->id && $access ) || ( $BE_USER->user[ 'admin' ] && !$this->id ) ) {
             
-            if( t3lib_div::_GET( 'ajaxCall' ) ) {
+            if( t3lib_div::_GET( 'ajaxCall' ) && $this->procOpen ) {
                 
                 $this->processCommand();
             }
@@ -185,21 +256,33 @@ class  tx_terminal_module1 extends t3lib_SCbase
             $this->content .= $this->doc->section( '', $headerSection );
             $this->content .= $this->doc->divider( 5 );
             
-            // Render content
-            $this->moduleContent();
+            if( $this->procOpen ) {
+                
+                // Render content
+                $this->moduleContent();
+                
+            } else {
+                
+                $this->content .= $this->doc->spacer( 10 );
+                $this->content .= $this->writeHtml(
+                    $LANG->getLL( 'noProcOpen' ),
+                    'div',
+                    'typo3-red'
+                );
+            }
             
             // Adds shortcut
-            if( $BE_USER->mayMakeShortcut() ) {
-                $this->content .= $this->doc->spacer( 20 )
-                               .  $this->doc->section(
-                                    '',
-                                    $this->doc->makeShortcutIcon(
-                                        'id',
-                                        implode( ',', array_keys( $this->MOD_MENU ) ),
-                                        $this->MCONF[ 'name' ]
-                                    )
-                                  );
-            }
+            #if( $BE_USER->mayMakeShortcut() ) {
+            #    $this->content .= $this->doc->spacer( 20 )
+            #                   .  $this->doc->section(
+            #                        '',
+            #                        $this->doc->makeShortcutIcon(
+            #                            'id',
+            #                            implode( ',', array_keys( $this->MOD_MENU ) ),
+            #                            $this->MCONF[ 'name' ]
+            #                        )
+            #                      );
+            #}
             
             // Spacer
             $this->content .= $this->doc->spacer(10);
@@ -324,10 +407,85 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $htmlCode[]     = $this->doc->spacer( 10 );
         
         // Shell history
-        $htmlCode[]     = $LANG->getLL( 'history' ) . ' <select id="history" name="history" onChange="shell.exec( this.options[ this.selectedIndex ].value )"></select>';
+        $htmlCode[]     = $this->shellHistory();
+        
+        // Spacer
+        $htmlCode[]     = $this->doc->spacer( 10 );
+        
+        if( $this->extConf[ 'shortcuts' ] ) {
+            
+            $htmlCode[]     = $this->buildShortcuts();
+        }
         
         // Add content
         $this->content .= implode( chr( 10 ), $htmlCode );
+    }
+    
+    function shellHistory()
+    {
+        global $LANG;
+        
+        $htmlCode   = array();
+        
+        $htmlCode[] = $LANG->getLL( 'history' );
+        
+        $htmlCode[] = ' <select id="history" name="history" onChange="shell.exec( this.options[ this.selectedIndex ].value )">';
+        
+        foreach( $this->commands as $command ) {
+            
+            $htmlCode[] = '<option value="'
+                        . $command
+                        . '">'
+                        . $command
+                        . '</option>';
+        }
+        
+        $htmlCode[] = '</select>';
+        
+        return $this->writeHtml(
+            implode( chr( 10 ), $htmlCode ),
+            'div',
+            'history'
+        );
+    }
+    
+    function buildShortcuts()
+    {
+        global $LANG;
+        
+        $htmlCode   = array();
+        
+        $htmlCode[] = $this->writeHtml( $LANG->getLL( 'shortcuts' ) );
+        $htmlCode[] = $this->doc->spacer( 10 );
+        
+        foreach( $this->shortcuts as $key => $value ) {
+            
+            $label = $LANG->getLL( 'shortcuts.' . $key );
+            $icon  = '<img src="../res/'
+                   . $value[ 'icon' ]
+                   . '" alt="" width="16" height="16" />';
+            $link  = '<a href="#console" onclick="shell.exec( \''
+                   . $value[ 'command' ]
+                   . '\' );" title="'
+                   . $label
+                   . '">'
+                   . $label
+                   . '</a>';
+            
+            $htmlCode[] = $this->writeHtml(
+                $icon . $link,
+                'div',
+                'shortcut'
+            );
+        }
+        
+        return $this->writeHtml(
+            $this->writeHtml(
+                implode( chr( 10 ), $htmlCode ),
+                'div',
+                'shortcuts'
+            )
+        );
     }
     
     function buildTerminal()
@@ -336,7 +494,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $htmlCode   = array();
         
         // Shell result
-        $htmlCode[] = '<div id="result"></div>';
+        $htmlCode[] = '<a name="console"></a><div id="result"></div>';
         
         // Spacer
         $htmlCode[]     = $this->doc->spacer( 5 );
@@ -399,6 +557,17 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $css[] = '.result {';
         $css[] = '  white-space: pre;';
         $css[] = '}';
+        $css[] = '.shortcuts {';
+        $css[] = '  overflow: hidden;';
+        $css[] = '}';
+        $css[] = '.shortcut {';
+        $css[] = '  float: left;';
+        $css[] = '  width: 230px;';
+        $css[] = '  margin-right: 5px;';
+        $css[] = '}';
+        $css[] = '.shortcut IMG {';
+        $css[] = '  margin-right: 5px;';
+        $css[] = '}';
         
         return implode( chr( 10 ), $css );
     }
@@ -411,8 +580,13 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         if( $cmd == '' ) {
             
-            print $this->cwd . chr( 10 );
+            print chr( 10 ) . $this->cwd;
             exit();
+        }
+        
+        if( $this->extConf[ 'history' ] ) {
+            
+            $this->commands[] = $cmd;
         }
         
         $descriptorSpec = array(
@@ -444,20 +618,39 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 } else {
                     
                     $this->cwd = $this->cwd . $matches[ 1 ];
-                    
-                    if( substr( $this->cwd, strlen( $this->cwd ) - 1, 1 ) != '/' ) {
-                        
-                        $this->cwd .= '/';
-                    }
                 }
+            }
+                                
+            if( substr( $this->cwd, strlen( $this->cwd ) - 1, 1 ) != '/' ) {
+                
+                $this->cwd .= '/';
             }
             
             $this->cwd = preg_replace( '/\/\/+/', '/', $this->cwd );
+            $this->cwd = str_replace( '/./', '/', $this->cwd );
+            
+            $cwdParts = explode( '/', $this->cwd );
+            $cwd      = array();
+            
+            foreach( $cwdParts as $key => $value  ) {
+                
+                if( $value == '..' ) {
+                    
+                    array_pop( $cwd );
+                    
+                } else {
+                    
+                    $cwd[] = $value;
+                }
+            }
+            
+            $this->cwd = implode( '/', $cwd );
             
             $BE_USER->pushModuleData(
                 $GLOBALS[ 'MCONF' ][ 'name' ],
                 array(
-                    'cwd' => $this->cwd
+                    'cwd'      => $this->cwd,
+                    'commands' => $this->commands
                 )
             );
             
@@ -498,11 +691,13 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 } else {
                     
                     print $error;
+                    print chr( 10 ) . $this->cwd;
                     exit();
                 }
            }
         }
         
+        print chr( 10 ) . $this->cwd;
         exit();
     }
     
@@ -517,7 +712,13 @@ class  tx_terminal_module1 extends t3lib_SCbase
             $data[ 'cwd' ] = PATH_site;
         }
         
-        $this->cwd = $data[ 'cwd' ];
+        if( !isset( $data[ 'commands' ] ) || $this->extConf[ 'history' ] == 0 ) {
+            
+            $data[ 'commands' ] = array();
+        }
+        
+        $this->cwd      = $data[ 'cwd' ];
+        $this->commands = $data[ 'commands' ];
         
         return true;
     }

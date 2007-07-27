@@ -42,7 +42,16 @@ function Shell() {
     function _exec()
     {
         // Command to run (from arguments or text input)
-        var command     = ( typeof arguments[ 0 ] == 'string' ) ? arguments[ 0 ] : _command.value;
+        if( typeof arguments[ 0 ] == 'string' ) {
+            
+            var command       = arguments[ 0 ];
+            var formSubmitted = 0;
+        
+        } else {
+            
+            var command       = _command.value;
+            var formSubmitted = 1;
+        }
         
         // Reset text input
         _command.value  = '';
@@ -78,8 +87,9 @@ function Shell() {
                 onSuccess  : function( transport )
                 {
                     var commandReturn = transport.responseText;
-                    var cwd           = commandReturn.replace( /\n.*/gi, '' );
-                    commandReturn     = commandReturn.replace( /^[^\n]+\n/i, '' );
+                    var cwdParts      = commandReturn.split( '\n' );
+                    var cwd           = cwdParts[ cwdParts.length - 1 ];
+                    commandReturn     = commandReturn.replace( /\n.+$/i, '' );
                     var result        = document.createElement( 'div' );
                     result.className  = 'result';
                     result.appendChild(
@@ -100,9 +110,7 @@ function Shell() {
             }
         );
         
-        //_result.value += result + '\n';
-        
-        return false;
+        return ( formSubmitted ) ? false : true;
     }
     
     function _addHistory( command )
