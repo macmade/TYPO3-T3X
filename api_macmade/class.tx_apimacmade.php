@@ -70,8 +70,8 @@
  *              function fe_buildLoginBox( $pid, $inputSize = '30', $method = 'post', $target = '_self', $wrap = false, $layout = false, $langPrefix = 'pi_loginbox_', $permaLogin = false )
  *              function fe_buildSearchBox( $method = 'post', $nocache = true, $sword = 'sword', $pointer = 'pointer' )
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
- *              function fe_includePrototypeJs()
- *              function fe_includeScriptaculousJs()
+ *              function fe_includePrototypeJs
+ *              function fe_includeScriptaculousJs
  * 
  * SECTION:		3 - BE
  *         		function be_buildRecordIcons( $actions, $table, $uid )
@@ -79,6 +79,8 @@
  *         		function be_getSelectStyleRecordIcon( $table, $rec, $backPath )
  *         		function be_initCSM
  *         		function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
+ *              function be_includePrototypeJs
+ *              function be_includeScriptaculousJs
  * 
  * SECTION:		4 - DB
  *         		function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
@@ -2336,6 +2338,68 @@ class tx_apimacmade
             $rec[ 'uid' ],
             1
         );
+    }
+    
+    /**
+     * Includes the Prototype framework
+     * 
+     * This function includes the Prototype JavaScript framework by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @return      boolean
+     */
+    function be_includePrototypeJs()
+    {
+        // Check if script has already been included
+        if( !$this->prototype ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     . $GLOBALS[ 'BACK_PATH' ]
+                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     . 'res/js/prototype/prototype.js'
+                                     . '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->prototype = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the Scriptaculous framework
+     * 
+     * This function includes the Scriptaculous JavaScript framework by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @return      boolean
+     * @see         be_includePrototypeJs
+     */
+    function be_includeScriptaculousJs()
+    {
+        // Include prototype
+        $this->be_includePrototypeJs();
+        
+        // Check if script has already been included
+        if( !$this->scriptaculous ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     . $GLOBALS[ 'BACK_PATH' ]
+                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     . 'res/js/scriptaculous/src/scriptaculous.js'
+                                     . '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->scriptaculous = true;
+        }
+        
+        return true;
     }
     
     
@@ -5945,9 +6009,7 @@ class tx_apimacmade
     }
 }
 
-/**
- * XCLASS inclusion
- */
-if(defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/api_macmade/class.tx_apimacmade.php']) {
+// XCLASS inclusion
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/api_macmade/class.tx_apimacmade.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/api_macmade/class.tx_apimacmade.php']);
 }

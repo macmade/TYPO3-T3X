@@ -1,3 +1,9 @@
+2007-07-25  Jean-David Gadina  <info@macmade.net>
+	* New function: be_includePrototypeJs. This function is used to include the Prototype JavaScript framework in a backend context.
+	* New function: be_includeScriptaculousJs. This function is used to include the Scriptaculous JavaScript framework in a backend context.
+	* Updated the API documentation (doc/manual.sxw).
+	* Release of version 3.0 of the API.
+
 2007-07-04  Jean-David Gadina  <info@macmade.net>
 
 	* Increased API internal version number to 3.0.
