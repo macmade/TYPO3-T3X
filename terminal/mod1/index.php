@@ -505,7 +505,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             $link  = '<a href="#console" onclick="shell.exec( \''
                    . $value[ 'command' ]
                    . '\' );" title="'
-                   . $label
+                   . $value[ 'command' ]
                    . '">'
                    . $label
                    . '</a>';
@@ -552,7 +552,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         );
         
         // Shell command
-        $htmlCode[] = '<input name="command" id="command" type="text" size="30" />';
+        $htmlCode[] = '<input name="command" id="command" type="text" size="50" />';
         
         // Return terminal
         return $this->writeHtml(
