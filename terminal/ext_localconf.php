@@ -43,6 +43,11 @@ t3lib_extMgm::addUserTSConfig(
                 
             }
         }
+        
+        // Command aliases
+        aliases {
+            
+        }
     }'
 );
 ?>

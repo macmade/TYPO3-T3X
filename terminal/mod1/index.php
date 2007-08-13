@@ -98,6 +98,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
     // User TSConfig
     var $tsConfig           = array();
     
+    // Command aliases
+    var $aliases            = array();
+    
     // Shortcuts
     var $shortcuts          = array(
         'processes' => array(
@@ -182,6 +185,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // User TSConfig
         $this->tsConfig =& $BE_USER->userTS[ 'mod.' ][ 'tools_txterminalM1.' ];
+        
+        // Command aliases
+        $this->aliases  =& $this->tsConfig[ 'aliases.' ];
         
         // New instance of the developer API
         $this->api      =  new tx_apimacmade( $this );
@@ -842,6 +848,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
             // Changes the working directory
             chdir( $this->cwd );
             
+            // Process aliases
+            $command = $this->processAliases( $command );
+            
             // Tries to execute command
             if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
                 
@@ -894,6 +903,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
             
             // Support for cd commands
             $this->handleCwd( $command );
+            
+            // Process aliases
+            $command = $this->processAliases( $command );
             
             // Open process
             $process = proc_open(
@@ -993,6 +1005,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
             // Changes the working directory
             chdir( $this->cwd );
             
+            // Process aliases
+            $command = $this->processAliases( $command );
+            
             // Tries to execute command
             if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
                 
@@ -1074,6 +1089,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
             
             // Changes the working directory
             chdir( $this->cwd );
+            
+            // Process aliases
+            $command = $this->processAliases( $command );
             
             // Tries to execute command
             if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
@@ -1236,6 +1254,25 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $this->commands = $data[ 'commands' ];
         
         return true;
+    }
+    
+    /**
+     * Process aliases for shell commands
+     * 
+     * @param   string  $command    The original shell command
+     * @return  string  The shell command to use
+     */
+    function processAliases( $command )
+    {
+        // Checks aliases
+        if( isset( $this->aliases[ $command ] ) ) {
+            
+            // Return command alias
+            return $this->aliases[ $command ];
+        }
+        
+        // Returns the original command
+        return $command;
     }
 }
 
