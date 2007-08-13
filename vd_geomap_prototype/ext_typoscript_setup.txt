@@ -210,7 +210,7 @@ plugin.tx_vdgeomapprototype_pi1 {
 			clear: both;
 		}
 		.tx-vdgeomapprototype-pi1-mapMiddle .tx-vdgeomapprototype-pi1-left IMG, .tx-vdgeomapprototype-pi1-mapMiddle .tx-vdgeomapprototype-pi1-right IMG {
-			margin-top: 192px;
+			margin-top: 144px;
 		}
 		.tx-vdgeomapprototype-pi1-scaleBar {
 			margin-top: 10px;

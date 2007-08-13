@@ -37,7 +37,7 @@ plugin.tx_vdgeomapprototype_pi1 {
 	imgWidth = 400
 	
 	# cat=vd_geomap_prototype/dims/1; type=int+; label=Map height: The height of the map.
-	imgHeight = 400
+	imgHeight = 300
 	
 	# cat=vd_geomap_prototype/dims/2; type=int+; label=Icon width: The width of the icons.
 	iconWidth = 20
