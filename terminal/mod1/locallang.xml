@@ -10,7 +10,6 @@
             <label index="noaccess">Sorry, you don't have access to this module</label>
             <label index="history">Shell history:</label>
             <label index="cwd">Working directory:</label>
-            <label index="noProcOpen">Sorry, the PHP function 'proc_open' is not available.</label>
             <label index="shortcuts">Shortcuts:</label>
             <label index="shortcuts.processes">Show running processes</label>
             <label index="shortcuts.diskUse">Show disk usage</label>
@@ -26,6 +25,12 @@
             <label index="shortcuts.typo3temp">Go to the typo3temp directory</label>
             <label index="shortcuts.typo3">Go to the typo3 directory</label>
             <label index="shortcuts.t3lib">Go to the t3lib directory</label>
+            <label index="errors.noExecFunc">Sorry, the PHP function '%s' is not available.</label>
+            <label index="errors.noPhp5">Sorry, you need PHP 5 to use this shell with proc_open.</label>
+            <label index="errors.noResult">Error: no result from the command.</label>
+            <label index="errors.noChdir">Error: cwd could not be changed.
+It has been reset to %s.
+Commands have been aborted.</label>
         </languageKey>
     </data>
 </T3locallang>

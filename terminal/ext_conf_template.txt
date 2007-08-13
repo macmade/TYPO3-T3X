@@ -15,3 +15,6 @@ history = 1
 
 # cat=basic/enable/01; type=boolean; label=Shortcuts: Show shortcuts.
 shortcuts = 1
+
+# cat=basic//00; type=options[proc_open() - PHP 5 only=proc_open,exec()=exec]; label=Execution: The PHP function that will call the shell command.
+execFunc = proc_open

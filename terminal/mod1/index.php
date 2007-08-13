@@ -26,28 +26,31 @@
  * Module 'Terminal' for the 'terminal' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.0
+ * @version     1.1
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     166:     function init
- *     200:     function main
+ *     169:     function init
+ *     203:     function main
  * 
  * SECTION:     2 - MAIN
- *     332:     function printContent
- *     348:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     379:     function moduleContent
- *     442:     function shellHistory
- *     482:     function buildShortcuts
- *     536:     function buildTerminal
- *     570:     function buildCssStyles
- *     655:     function processCommand
- *     828:     function sessionData
+ *     350:     function printContent
+ *     366:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     397:     function moduleContent
+ *     460:     function shellHistory
+ *     500:     function buildShortcuts
+ *     554:     function buildTerminal
+ *     592:     function buildCssStyles
+ *     679:     function processCommand
+ *     730:     function exec( $commands )
+ *     802:     function procOpen( $commands )
+ *     884:     function handleCwd( $command )
+ *     964:     function sessionData
  * 
- *              TOTAL FUNCTIONS: 11
+ *              TOTAL FUNCTIONS: 14
  */
 
 // Default initialization of the module
@@ -85,8 +88,8 @@ class  tx_terminal_module1 extends t3lib_SCbase
     // Shell commands
     var $commands           = array();
     
-    // Function proc_open is available
-    var $procOpen           = false;
+    // Execution function is available
+    var $execFunc           = false;
     
     // Shortcuts
     var $shortcuts          = array(
@@ -174,7 +177,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $this->api      = new tx_apimacmade( $this );
         
         // Detect proc_open
-        $this->procOpen = function_exists( 'proc_open' );
+        $this->execFunc = function_exists( $this->extConf[ 'execFunc' ] );
         
         // Terminal prompt
         $this->prompt   = t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' )
@@ -208,7 +211,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         if( ( $this->id && $access ) || ( $BE_USER->user[ 'admin' ] && !$this->id ) ) {
             
             // Checks for an Ajax call
-            if( t3lib_div::_GET( 'ajaxCall' ) && $this->procOpen ) {
+            if( t3lib_div::_GET( 'ajaxCall' ) && $this->execFunc ) {
                 
                 // Process the command from ajax
                 $this->processCommand();
@@ -266,17 +269,32 @@ class  tx_terminal_module1 extends t3lib_SCbase
             $this->content .= $this->doc->section( '', $headerSection );
             $this->content .= $this->doc->divider( 5 );
             
-            // proc_open has been detected
-            if( $this->procOpen ) {
+            // Exec function has been detected
+            if( $this->execFunc ) {
                 
-                // Render content
-                $this->moduleContent();
+                // Checks the PHP version for proc_open()
+                if( $this->execFunc == 'proc_open' && ( double )phpversion() < 5.0 ) {
+                    
+                    // Display error
+                    $this->content .= $this->doc->spacer( 10 );
+                    $this->content .= $this->writeHtml(
+                        $LANG->getLL( 'errors.noPhp5' ),
+                        'div',
+                        'typo3-red'
+                    );
+                    
+                } else {
+                    
+                    // Render content
+                    $this->moduleContent();
+                }
                 
             } else {
                 
+                // Display error
                 $this->content .= $this->doc->spacer( 10 );
                 $this->content .= $this->writeHtml(
-                    $LANG->getLL( 'noProcOpen' ),
+                    sprintf( $LANG->getLL( 'errors.noExecFunc' ), $this->extConf[ 'execFunc' ] . '()' ),
                     'div',
                     'typo3-red'
                 );
@@ -547,8 +565,12 @@ class  tx_terminal_module1 extends t3lib_SCbase
         // Prompt
         $htmlCode[] = $this->writeHtml(
             $this->prompt,
-            'span',
-            'prompt'
+            'label',
+            'prompt',
+            false,
+            array(
+                'for' => 'command'
+            )
         );
         
         // Shell command
@@ -651,6 +673,8 @@ class  tx_terminal_module1 extends t3lib_SCbase
      * working directory.
      * 
      * @return  NULL
+     * @see     exec
+     * @see     procOpen
      */
     function processCommand()
     {
@@ -677,6 +701,110 @@ class  tx_terminal_module1 extends t3lib_SCbase
         // Only keep 50 entries in history
         $this->commands = array_slice( $this->commands, 0, 50 );
         
+        // Gets multiple commands
+        $commands = explode( ' && ', $cmd );
+        
+        switch( $this->extConf[ 'execFunc' ] ) {
+            
+            case 'exec':
+                $this->exec( $commands );
+                break;
+            
+            case 'proc_open':
+                $this->procOpen( $commands );
+                break;
+        }
+        
+        // Prints the current working directory and exit
+        print chr( 10 ) . $this->cwd;
+        exit();
+    }
+    
+    /**
+     * Executes a shell command using the PHP exec() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function exec( $commands )
+    {
+        global $BE_USER, $LANG;
+        
+        // Storage
+        $return = '';
+        $error  = '';
+        
+        // Process each command
+        foreach( $commands as $command ) {
+            
+            // Support for cd commands
+            $this->handleCwd( $command );
+            
+            // Change current working directory
+            if( !@file_exists( $this->cwd ) || !@is_readable( $this->cwd ) ) {
+                
+                // Directory cannot be changed. Reset to home (TYPO3 site root)
+                $this->cwd = PATH_site;
+                print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
+                print chr( 10 ) . $this->cwd;
+                
+                // Stores commands and working directory in session data
+                $BE_USER->pushModuleData(
+                    $GLOBALS[ 'MCONF' ][ 'name' ],
+                    array(
+                        'cwd'      => $this->cwd,
+                        'commands' => $this->commands
+                    )
+                );
+                
+                // Aborts the script
+                exit();
+            }
+            
+            // Changes the working directory
+            chdir( $this->cwd );
+            
+            // Tries to execute command
+            if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
+                
+                // Change current working directory
+                if( @chdir( $this->cwd ) ) {
+                    
+                    continue;
+                }
+                
+                // Directory cannot be changed
+                print chr( 10 ) . $this->cwd;
+                exit();
+                
+            } elseif( @exec( $command, $return ) ) {
+                
+                // Display the command result
+                print implode( chr( 10 ), $return );
+                
+            } else {
+                
+                // Command cannot be executed
+                print chr( 10 ) . $this->cwd;
+                exit();
+            }
+        }
+    }
+    
+    /**
+     * Executes a shell command using the PHP proc_open() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function procOpen( $commands )
+    {
+        // Storage
+        $return = '';
+        $error  = '';
+        
         // Process pipes
         $descriptorSpec = array(
             0 => array( 'pipe', 'r' ),
@@ -684,83 +812,11 @@ class  tx_terminal_module1 extends t3lib_SCbase
             2 => array( 'pipe', 'r' )
         );
         
-        // Storage
-        $return = '';
-        $error  = '';
-        
-        // Gets multiple commands
-        $commands = explode( ' && ', $cmd );
-        
         // Process each command
         foreach( $commands as $command ) {
             
-            // Command is 'cd'
-            if( preg_match( '/^\s*cd\s*$/', $command ) ) {
-                
-                // Home is TYPO3 site
-                $this->cwd = PATH_site;
-            }
-            
-            // Change directory command
-            if( preg_match( '/\s*cd ([^\s]+)\s*/', $command, $matches ) ) {
-                
-                // DIrectory to change
-                $dir = $matches[ 1 ];
-                
-                // Checks for an absolute path
-                if( substr( $dir, 0, 1 ) == '/' ) {
-                    
-                    // Sets the current directory
-                    $this->cwd = $matches[ 1 ];
-                    
-                } else {
-                    
-                    // Sets the current directory
-                    $this->cwd = $this->cwd . $matches[ 1 ];
-                }
-            }
-            
-            // Adds a trailing slash if necessary
-            if( substr( $this->cwd, strlen( $this->cwd ) - 1, 1 ) != '/' ) {
-                
-                $this->cwd .= '/';
-            }
-            
-            // Normalize the path
-            $this->cwd = preg_replace( '/\/\/+/', '/', $this->cwd );
-            $this->cwd = str_replace( '/./', '/', $this->cwd );
-            
-            // Get path parts
-            $cwdParts = explode( '/', $this->cwd );
-            $cwd      = array();
-            
-            // Process each part of the path
-            foreach( $cwdParts as $key => $value  ) {
-                
-                // Previous directory
-                if( $value == '..' ) {
-                    
-                    // Removes last directory
-                    array_pop( $cwd );
-                    
-                } else {
-                    
-                    // Stores current directory
-                    $cwd[] = $value;
-                }
-            }
-            
-            // Rebuilds the path
-            $this->cwd = implode( '/', $cwd );
-            
-            // Stores commands and working directory in session data
-            $BE_USER->pushModuleData(
-                $GLOBALS[ 'MCONF' ][ 'name' ],
-                array(
-                    'cwd'      => $this->cwd,
-                    'commands' => $this->commands
-                )
-            );
+            // Support for cd commands
+            $this->handleCwd( $command );
             
             // Open process
             $process = proc_open(
@@ -814,10 +870,90 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 }
            }
         }
+    }
+    
+    /**
+     * Handle 'cd' commands
+     * 
+     * This function will handle any type of 'cd' command, normalize tha path
+     * and store the current working directory in the module's session.
+     * 
+     * @param   $command    The current command
+     * @return  boolean
+     */
+    function handleCwd( $command )
+    {
+        global $BE_USER;
         
-        // Prints the current working directory and exit
-        print chr( 10 ) . $this->cwd;
-        exit();
+        // Command is 'cd'
+        if( preg_match( '/^\s*cd\s*$/', $command ) ) {
+            
+            // Home is TYPO3 site
+            $this->cwd = PATH_site;
+        }
+        
+        // Change directory command
+        if( preg_match( '/\s*cd ([^\s]+)\s*/', $command, $matches ) ) {
+            
+            // DIrectory to change
+            $dir = $matches[ 1 ];
+            
+            // Checks for an absolute path
+            if( substr( $dir, 0, 1 ) == '/' ) {
+                
+                // Sets the current directory
+                $this->cwd = $matches[ 1 ];
+                
+            } else {
+                
+                // Sets the current directory
+                $this->cwd = $this->cwd . $matches[ 1 ];
+            }
+        }
+        
+        // Adds a trailing slash if necessary
+        if( substr( $this->cwd, strlen( $this->cwd ) - 1, 1 ) != '/' ) {
+            
+            $this->cwd .= '/';
+        }
+        
+        // Normalize the path
+        $this->cwd = preg_replace( '/\/\/+/', '/', $this->cwd );
+        $this->cwd = str_replace( '/./', '/', $this->cwd );
+        
+        // Get path parts
+        $cwdParts = explode( '/', $this->cwd );
+        $cwd      = array();
+        
+        // Process each part of the path
+        foreach( $cwdParts as $key => $value  ) {
+            
+            // Previous directory
+            if( $value == '..' ) {
+                
+                // Removes last directory
+                array_pop( $cwd );
+                
+            } else {
+                
+                // Stores current directory
+                $cwd[] = $value;
+            }
+        }
+        
+        // Rebuilds the path
+        $this->cwd = implode( '/', $cwd );
+        
+        // Stores commands and working directory in session data
+        $BE_USER->pushModuleData(
+            $GLOBALS[ 'MCONF' ][ 'name' ],
+            array(
+                'cwd'      => $this->cwd,
+                'commands' => $this->commands
+            )
+        );
+        
+        return true;
     }
     
     /**
