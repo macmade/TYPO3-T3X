@@ -33,24 +33,27 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     169:     function init
- *     203:     function main
+ *     172:     function init
+ *     206:     function main
  * 
  * SECTION:     2 - MAIN
- *     350:     function printContent
- *     366:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     397:     function moduleContent
- *     460:     function shellHistory
- *     500:     function buildShortcuts
- *     554:     function buildTerminal
- *     592:     function buildCssStyles
- *     679:     function processCommand
- *     730:     function exec( $commands )
- *     802:     function procOpen( $commands )
- *     884:     function handleCwd( $command )
- *     964:     function sessionData
+ *     353:     function printContent
+ *     369:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     400:     function moduleContent
+ *     463:     function shellHistory
+ *     503:     function buildShortcuts
+ *     557:     function buildTerminal
+ *     595:     function buildCssStyles
+ *     682:     function processCommand
+ *     745:     function exec( $commands )
+ *     816:     function procOpen( $commands )
+ *     896:     function system( $commands )
+ *     966:     function passthru( $commands )
+ *     978:     function pOpen( $commands )
+ *    1070:     function handleCwd( $command )
+ *    1150:     function sessionData
  * 
- *              TOTAL FUNCTIONS: 14
+ *              TOTAL FUNCTIONS: 17
  */
 
 // Default initialization of the module
@@ -175,7 +178,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // New instance of the developer API
         $this->api      = new tx_apimacmade( $this );
-        $this->extConf[ 'execFunc' ] = 'system';
+        
         // Detect proc_open
         $this->execFunc = function_exists( $this->extConf[ 'execFunc' ] );
         
@@ -884,7 +887,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
     }
     
     /**
-     * Executes a shell command using the PHP exec() function.
+     * Executes a shell command using the PHP system() function.
      * 
      * @param   array       $commands       An array with the shell commands
      * @return  boolean
@@ -949,6 +952,108 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 // Command cannot be executed
                 print chr( 10 ) . $this->cwd;
                 exit();
+            }
+        }
+    }
+    
+    /**
+     * Executes a shell command using the PHP passthru() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function passthru( $commands )
+    {
+        $this->system( $commands );
+    }
+    
+    /**
+     * Executes a shell command using the PHP popen() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function pOpen( $commands )
+    {
+        global $BE_USER, $LANG;
+        
+        // Storage
+        $return = '';
+        
+        // Process each command
+        foreach( $commands as $command ) {
+            
+            // Support for cd commands
+            $this->handleCwd( $command );
+            
+            // Change current working directory
+            if( !@file_exists( $this->cwd ) || !@is_readable( $this->cwd ) ) {
+                
+                // Directory cannot be changed. Reset to home (TYPO3 site root)
+                $this->cwd = PATH_site;
+                print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
+                print chr( 10 ) . $this->cwd;
+                
+                // Stores commands and working directory in session data
+                $BE_USER->pushModuleData(
+                    $GLOBALS[ 'MCONF' ][ 'name' ],
+                    array(
+                        'cwd'      => $this->cwd,
+                        'commands' => $this->commands
+                    )
+                );
+                
+                // Aborts the script
+                exit();
+            }
+            
+            // Changes the working directory
+            chdir( $this->cwd );
+            
+            // Tries to execute command
+            if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
+                
+                // Change current working directory
+                if( @chdir( $this->cwd ) ) {
+                    
+                    continue;
+                }
+                
+                // Directory cannot be changed
+                print chr( 10 ) . $this->cwd;
+                exit();
+                
+            } else {
+                
+                // Open process
+                $process = popen(
+                    $command,
+                    'r'
+                );
+                
+                // Checks the process
+                if( is_resource( $process ) ) {
+                    
+                    // Process and stores the result
+                    while( !feof( $process ) ) {
+                        
+                        $return .= fgets( $process );
+                    }
+                    
+                    // Close the process
+                    pclose( $process );
+                    
+                    // Display results
+                    print $return;
+                    
+                } else {
+                    
+                    // Command cannot be executed
+                    print chr( 10 ) . $this->cwd;
+                    exit();
+                }
             }
         }
     }
