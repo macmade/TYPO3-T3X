@@ -175,7 +175,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // New instance of the developer API
         $this->api      = new tx_apimacmade( $this );
-        
+        $this->extConf[ 'execFunc' ] = 'system';
         // Detect proc_open
         $this->execFunc = function_exists( $this->extConf[ 'execFunc' ] );
         
@@ -713,6 +713,18 @@ class  tx_terminal_module1 extends t3lib_SCbase
             case 'proc_open':
                 $this->procOpen( $commands );
                 break;
+            
+            case 'system':
+                $this->system( $commands );
+                break;
+            
+            case 'passthru':
+                $this->passthru( $commands );
+                break;
+            
+            case 'popen':
+                $this->pOpen( $commands );
+                break;
         }
         
         // Prints the current working directory and exit
@@ -732,8 +744,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         global $BE_USER, $LANG;
         
         // Storage
-        $return = '';
-        $error  = '';
+        $return = array();
         
         // Process each command
         foreach( $commands as $command ) {
@@ -869,6 +880,76 @@ class  tx_terminal_module1 extends t3lib_SCbase
                     exit();
                 }
            }
+        }
+    }
+    
+    /**
+     * Executes a shell command using the PHP exec() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function system( $commands )
+    {
+        global $BE_USER, $LANG;
+        
+        // Storage
+        $return = '';
+        
+        // Process each command
+        foreach( $commands as $command ) {
+            
+            // Support for cd commands
+            $this->handleCwd( $command );
+            
+            // Change current working directory
+            if( !@file_exists( $this->cwd ) || !@is_readable( $this->cwd ) ) {
+                
+                // Directory cannot be changed. Reset to home (TYPO3 site root)
+                $this->cwd = PATH_site;
+                print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
+                print chr( 10 ) . $this->cwd;
+                
+                // Stores commands and working directory in session data
+                $BE_USER->pushModuleData(
+                    $GLOBALS[ 'MCONF' ][ 'name' ],
+                    array(
+                        'cwd'      => $this->cwd,
+                        'commands' => $this->commands
+                    )
+                );
+                
+                // Aborts the script
+                exit();
+            }
+            
+            // Changes the working directory
+            chdir( $this->cwd );
+            
+            // Tries to execute command
+            if( substr( $command, 0, 3 ) == 'cd ' || $command == 'cd' ) {
+                
+                // Change current working directory
+                if( @chdir( $this->cwd ) ) {
+                    
+                    continue;
+                }
+                
+                // Directory cannot be changed
+                print chr( 10 ) . $this->cwd;
+                exit();
+                
+            } elseif( @system( $command, $return ) ) {
+                
+                continue;
+                
+            } else {
+                
+                // Command cannot be executed
+                print chr( 10 ) . $this->cwd;
+                exit();
+            }
         }
     }
     
