@@ -93,7 +93,6 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
     var $xpos;
     var $ypos;
     var $scale;
-    var $layers;
     var $move;
     
     // Availables scales
@@ -449,11 +448,6 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
         $this->ypos  = ( isset( $this->piVars['ypos'] ) )  ? $this->piVars[ 'ypos' ]  : $this->conf[ 'ypos' ];
         $this->scale = ( isset( $this->piVars['scale'] ) ) ? $this->piVars[ 'scale' ] : $this->conf[ 'scale' ];
         
-        // Layers to display (depends of scale)
-        // CS = Road map
-        // CN = National map
-        $this->layers = ( $this->scale < 10000 ) ? 'cs' : 'cn';
-        
         // Move relative to scale
         $this->move = $this->scale / 20;
         
@@ -620,11 +614,11 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
         $mapParams = array(
             $params[ 'xpos' ]   => $this->xpos,
             $params[ 'ypos' ]   => $this->ypos,
-            $params[ 'scale' ]  => $this->scale,
-            $params[ 'layers' ] => $this->layers,
-            $params[ 'width' ]  => $this->conf[ 'imgWidth' ],
-            $params[ 'height' ] => $this->conf[ 'imgHeight' ]
+            $params[ 'scale' ]  => $this->scale
         );
+        
+        // Add additionnal URL parameters
+        $mapParams = array_merge( $mapParams, $this->conf[ 'additionalUrlParams.' ] );
         
         // Map image URL
         $mapUrl = $this->conf[ 'url' ]

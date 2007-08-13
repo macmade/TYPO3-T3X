@@ -34,31 +34,37 @@
 plugin.tx_vdgeomapprototype_pi1 {
 	
 	// Use Xajax
-	ajax = {$plugin.tx_vdgeomapprototype_pi1.ajax}
+	ajax       = {$plugin.tx_vdgeomapprototype_pi1.ajax}
 	
 	// Geomap url
-	url = {$plugin.tx_vdgeomapprototype_pi1.url}
+	url        = {$plugin.tx_vdgeomapprototype_pi1.url}
 	
 	// Start scale
-	scale = {$plugin.tx_vdgeomapprototype_pi1.scale}
+	scale      = {$plugin.tx_vdgeomapprototype_pi1.scale}
 	
 	// Image width
-	imgWidth = {$plugin.tx_vdgeomapprototype_pi1.imgWidth}
+	imgWidth   = {$plugin.tx_vdgeomapprototype_pi1.imgWidth}
 	
 	// Image height
-	imgHeight = {$plugin.tx_vdgeomapprototype_pi1.imgHeight}
+	imgHeight  = {$plugin.tx_vdgeomapprototype_pi1.imgHeight}
 	
 	// Key for the server name in $_SERVER
 	serverName = {$plugin.tx_vdgeomapprototype_pi1.serverName}
 	
 	// URL parameters
 	urlParameters {
-		xpos = {$plugin.tx_vdgeomapprototype_pi1.params.xpos}
-		ypos = {$plugin.tx_vdgeomapprototype_pi1.params.ypos}
+		xpos  = {$plugin.tx_vdgeomapprototype_pi1.params.xpos}
+		ypos  = {$plugin.tx_vdgeomapprototype_pi1.params.ypos}
 		scale = {$plugin.tx_vdgeomapprototype_pi1.params.scale}
-		layers = {$plugin.tx_vdgeomapprototype_pi1.params.layers}
-		width = {$plugin.tx_vdgeomapprototype_pi1.params.width}
-		height = {$plugin.tx_vdgeomapprototype_pi1.params.height}
+	}
+	
+	// Additionnal URL parameters
+	additionalUrlParams {
+	    mode           = image
+	    switch_id      = switch_camac
+	    layer_select   = carte_rout
+	    mapsize        = 0
+	    show_crosshair = 1
 	}
 	
 	// Ressources
@@ -66,106 +72,106 @@ plugin.tx_vdgeomapprototype_pi1 {
 		
 		// Minus icon
 		minus {
-			file = EXT:vd_geomap_prototype/res/minus.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/minus.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Minus off icon
 		minus-off {
-			file = EXT:vd_geomap_prototype/res/minus-off.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/minus-off.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Plus icon
 		plus {
-			file = EXT:vd_geomap_prototype/res/plus.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/plus.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Plus off icon
 		plus-off {
-			file = EXT:vd_geomap_prototype/res/plus-off.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/plus-off.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Left icon
 		left {
-			file = EXT:vd_geomap_prototype/res/left.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/left.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Right icon
 		right {
-			file = EXT:vd_geomap_prototype/res/right.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/right.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Up icon
 		up {
-			file = EXT:vd_geomap_prototype/res/up.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/up.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Down icon
 		down {
-			file = EXT:vd_geomap_prototype/res/down.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/down.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Left up icon
 		left-up {
-			file = EXT:vd_geomap_prototype/res/left-up.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/left-up.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Left down icon
 		left-down {
-			file = EXT:vd_geomap_prototype/res/left-down.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/left-down.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Right up icon
 		right-up {
-			file = EXT:vd_geomap_prototype/res/right-up.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/right-up.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Right down icon
 		right-down {
-			file = EXT:vd_geomap_prototype/res/right-down.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/right-down.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Zoom increase icon
 		zoom-increase {
-			file = EXT:vd_geomap_prototype/res/zoom-increase.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/zoom-increase.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Zoom increase icon
 		zoom-decrease {
-			file = EXT:vd_geomap_prototype/res/zoom-decrease.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/zoom-decrease.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 		
 		// Zoom current icon
 		zoom-current {
-			file = EXT:vd_geomap_prototype/res/zoom-current.gif
-			file.width = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
+			file        = EXT:vd_geomap_prototype/res/zoom-current.gif
+			file.width  = {$plugin.tx_vdgeomapprototype_pi1.iconWidth}
 			file.height = {$plugin.tx_vdgeomapprototype_pi1.iconHeight}
 		}
 	}

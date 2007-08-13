@@ -55,22 +55,13 @@ plugin.tx_vdgeomapprototype_pi1 {
 	url =
 	
 	# cat=vd_geomap_prototype//1; type=string; label=URL parameter: X position variable.
-	params.xpos = x
+	params.xpos = recenter_x
 	
 	# cat=vd_geomap_prototype//2; type=string; label=URL parameter: Y position variable.
-	params.ypos = y
+	params.ypos = recenter_y
 	
 	# cat=vd_geomap_prototype//3; type=string; label=URL parameter: Scale variable.
-	params.scale = scale
-	
-	# cat=vd_geomap_prototype//4; type=string; label=URL parameter: Layers variable.
-	params.layers = layers
-	
-	# cat=vd_geomap_prototype//5; type=string; label=URL parameter: Width variable.
-	params.width = width
-	
-	# cat=vd_geomap_prototype//6; type=string; label=URL parameter: Height variable.
-	params.height = height
+	params.scale = recenter_scale
 	
 	# cat=vd_geomap_prototype//7; type=string; label=Server name: The key for the server name in $_SERVER.
 	serverName =
