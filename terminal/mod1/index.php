@@ -26,34 +26,35 @@
  * Module 'Terminal' for the 'terminal' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.1
+ * @version     1.2
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     172:     function init
- *     206:     function main
+ *     176:     function init
+ *     213:     function setConf
+ *     235:     function main
  * 
  * SECTION:     2 - MAIN
- *     353:     function printContent
- *     369:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     400:     function moduleContent
- *     463:     function shellHistory
- *     503:     function buildShortcuts
- *     557:     function buildTerminal
- *     595:     function buildCssStyles
- *     682:     function processCommand
- *     745:     function exec( $commands )
- *     816:     function procOpen( $commands )
- *     896:     function system( $commands )
- *     966:     function passthru( $commands )
- *     978:     function pOpen( $commands )
- *    1070:     function handleCwd( $command )
- *    1150:     function sessionData
+ *     382:     function printContent
+ *     398:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     429:     function moduleContent
+ *     492:     function shellHistory
+ *     532:     function buildShortcuts
+ *     620:     function buildTerminal
+ *     658:     function buildCssStyles
+ *     745:     function processCommand
+ *     808:     function exec( $commands )
+ *     879:     function procOpen( $commands )
+ *     959:     function system( $commands )
+ *    1029:     function passthru( $commands )
+ *    1041:     function pOpen( $commands )
+ *    1133:     function handleCwd( $command )
+ *    1213:     function sessionData
  * 
- *              TOTAL FUNCTIONS: 17
+ *              TOTAL FUNCTIONS: 18
  */
 
 // Default initialization of the module
@@ -93,6 +94,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
     
     // Execution function is available
     var $execFunc           = false;
+    
+    // User TSConfig
+    var $tsConfig           = array();
     
     // Shortcuts
     var $shortcuts          = array(
@@ -174,25 +178,50 @@ class  tx_terminal_module1 extends t3lib_SCbase
         global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
         
         // Get extension configuration
-        $this->extConf  = unserialize( $TYPO3_CONF_VARS['EXT']['extConf']['terminal'] );
+        $this->extConf  =  unserialize( $TYPO3_CONF_VARS['EXT']['extConf']['terminal'] );
+        
+        // User TSConfig
+        $this->tsConfig =& $BE_USER->userTS[ 'mod.' ][ 'tools_txterminalM1.' ];
         
         // New instance of the developer API
-        $this->api      = new tx_apimacmade( $this );
+        $this->api      =  new tx_apimacmade( $this );
         
         // Detect proc_open
-        $this->execFunc = function_exists( $this->extConf[ 'execFunc' ] );
+        $this->execFunc =  function_exists( $this->extConf[ 'execFunc' ] );
         
         // Terminal prompt
-        $this->prompt   = t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' )
-                        . ': '
-                        . $GLOBALS[ 'BE_USER' ]->user[ 'username' ]
-                        . '$';
+        $this->prompt   =  t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' )
+                        .  ': '
+                        .  $GLOBALS[ 'BE_USER' ]->user[ 'username' ]
+                        .  '$';
+        
+        // Sets the final module configuration
+        $this->setConf();
         
         // Session data
         $this->sessionData();
         
         // Init
         parent::init();
+    }
+    
+    /**
+     * Sets the module configuration
+     * 
+     * @return      Boolean
+     */
+    function setConf()
+    {
+        // Reference to main option sections
+        $display =& $this->tsConfig[ 'display.' ];
+        
+        // Sets the display options
+        $this->extConf[ 'fontSize' ]   = ( $display[ 'fontSize' ] )   ? $display[ 'fontSize' ]   : $this->extConf[ 'fontSize' ];
+        $this->extConf[ 'background' ] = ( $display[ 'background' ] ) ? $display[ 'background' ] : $this->extConf[ 'background' ];
+        $this->extConf[ 'foreground' ] = ( $display[ 'foreground' ] ) ? $display[ 'foreground' ] : $this->extConf[ 'foreground' ];
+        $this->extConf[ 'prompt' ]     = ( $display[ 'prompt' ] )     ? $display[ 'prompt' ]     : $this->extConf[ 'prompt' ];
+        
+        return true;
     }
     
     /**
@@ -511,32 +540,66 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $htmlCode[] = $this->writeHtml( $LANG->getLL( 'shortcuts' ) );
         $htmlCode[] = $this->doc->spacer( 10 );
         
-        // Process each shortcut
+        // Process each default shortcut
         foreach( $this->shortcuts as $key => $value ) {
             
-            // Shortcut label
-            $label = $LANG->getLL( 'shortcuts.' . $key );
+            // Checks if the current shortcut is enabled
+            if( $this->tsConfig[ 'shortcuts.' ][ 'defaults.' ][ $key ] ) {
+                
+                // Shortcut label
+                $label = $LANG->getLL( 'shortcuts.' . $key );
+                
+                // Shortcut icon
+                $icon  = '<img src="../res/'
+                       . $value[ 'icon' ]
+                       . '" alt="" width="16" height="16" />';
+                
+                // Full link
+                $link  = '<a href="#console" onclick="shell.exec( \''
+                       . $value[ 'command' ]
+                       . '\' );" title="'
+                       . $value[ 'command' ]
+                       . '">'
+                       . $label
+                       . '</a>';
+                
+                // Add shortcut
+                $htmlCode[] = $this->writeHtml(
+                    $icon . $link,
+                    'div',
+                    'shortcut'
+                );
+            }
+        }
+        
+        // Custom shortcut icon
+        $customIcon = '<img src="../res/custom.png" alt="" width="16" height="16" />';
+        
+        // Process each custom shortcut
+        foreach( $this->tsConfig[ 'shortcuts.' ][ 'custom.' ] as $shortcut ) {
             
-            // Shortcut icon
-            $icon  = '<img src="../res/'
-                   . $value[ 'icon' ]
-                   . '" alt="" width="16" height="16" />';
-            
-            // Full link
-            $link  = '<a href="#console" onclick="shell.exec( \''
-                   . $value[ 'command' ]
-                   . '\' );" title="'
-                   . $value[ 'command' ]
-                   . '">'
-                   . $label
-                   . '</a>';
-            
-            // Add shortcut
-            $htmlCode[] = $this->writeHtml(
-                $icon . $link,
-                'div',
-                'shortcut'
-            );
+            // Checks for a command
+            if( isset( $shortcut[ 'command' ] ) ) {
+                
+                // Label
+                $label = ( isset( $shortcut[ 'label' ] ) ) ? $shortcut[ 'label' ] : $shortcut[ 'command' ];
+                
+                // Full link
+                $link  = '<a href="#console" onclick="shell.exec( \''
+                       . $shortcut[ 'command' ]
+                       . '\' );" title="'
+                       . $shortcut[ 'command' ]
+                       . '">'
+                       . $label
+                       . '</a>';
+                
+                // Add shortcut
+                $htmlCode[] = $this->writeHtml(
+                    $customIcon . $link,
+                    'div',
+                    'shortcut'
+                );
+            }
         }
         
         // Return shortcut section
