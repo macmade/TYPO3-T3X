@@ -33,6 +33,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'api_macmade' => '0.3.0-',
+			'php' => '4.1.2-',
+			'typo3' => '3.8.0-',
 		),
 		'conflicts' => array(
 		),
