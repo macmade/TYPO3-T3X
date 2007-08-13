@@ -42,12 +42,23 @@
 
 class ext_update
 {
+    // Content table
     var $table   = '';
+    
+    // Database records
     var $records = array();
     
+    /**
+     * Class constructor
+     * 
+     * @return  null
+     */
     function ext_update()
     {
+        // Content table
         $this->table   = $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'contentTable' ];
+        
+        // Gets old records
         $this->records = t3lib_BEfunc::getRecordsByField(
             $this->table,
             'list_type',
@@ -65,6 +76,7 @@ class ext_update
      */
     function access()
     {
+        // Checks if some records needs an update
         if( is_array( $this->records ) && count( $this->records ) ) {
             
             return true;
@@ -99,7 +111,9 @@ class ext_update
         if ( t3lib_div::_GP( 'update' ) ) {
             
             // Infos
-            $htmlCode[] = '<p><img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_note.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Here are the results of the update process.</strong><br />If all the records were successfully updated, you won\'t see this page anymore in the extension manager.</p>';
+            $htmlCode[] = '<p><img '
+                        . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_note.gif', '' )
+                        . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Here are the results of the update process.</strong><br />If all the records were successfully updated, you won\'t see this page anymore in the extension manager.</p>';
             
             // Divider
             $htmlCode[] = $this->doc->divider( 5 );
@@ -142,11 +156,25 @@ class ext_update
                 $htmlCode[]  = '<tr' . $tr_params . '>'; 
                 
                 // Fields
-                $htmlCode[]  = '<td align="left" valign="middle">' . t3lib_iconWorks::getIconImage( 'tt_content', $row, $GLOBALS[ 'BACK_PATH' ] ) . '</td>';
-                $htmlCode[]  = '<td align="left" valign="middle"><strong>' . $row[ 'header' ] . '</strong> (' . $row[ 'uid' ] .')</td>';
-                $htmlCode[]  = '<td align="left" valign="middle">' . $page[ 'title' ] . ' (' . $page[ 'uid' ] . ')</td>';
-                $htmlCode[]  = '<td align="left" valign="middle">' . t3lib_BEfunc::getRecordPath( $row[ 'pid' ], '', 50 ) . '</td>';
-                $htmlCode[]  = '<td align="left" valign="middle"><img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], $status, '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle"></td>';
+                $htmlCode[]  = '<td align="left" valign="middle">'
+                             . t3lib_iconWorks::getIconImage( 'tt_content', $row, $GLOBALS[ 'BACK_PATH' ] )
+                             . '</td>';
+                $htmlCode[]  = '<td align="left" valign="middle"><strong>'
+                             . $row[ 'header' ]
+                             . '</strong> ('
+                             . $row[ 'uid' ]
+                             . ')</td>';
+                $htmlCode[]  = '<td align="left" valign="middle">'
+                             . $page[ 'title' ]
+                             . ' ('
+                             . $page[ 'uid' ]
+                             . ')</td>';
+                $htmlCode[]  = '<td align="left" valign="middle">'
+                             . t3lib_BEfunc::getRecordPath( $row[ 'pid' ], '', 50 )
+                             . '</td>';
+                $htmlCode[]  = '<td align="left" valign="middle"><img '
+                             . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], $status, '' )
+                             . ' alt="" hspace="0" vspace="0" border="0" align="middle"></td>';
                 
                 // End row
                 $htmlCode[] = '</tr>';
@@ -158,28 +186,40 @@ class ext_update
         } else {
             
             // Infos
-            $htmlCode[] = '<p><img ' . t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'],'gfx/icon_note.gif','') . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Some of the database records need to be updated in order to use the new version of the extension.</strong><br />Please click the button below to update the records listed here.</p>';
+            $htmlCode[] = '<p><img '
+                        . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_note.gif', '' )
+                        . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Some of the database records need to be updated in order to use the new version of the extension.</strong><br />Please click the button below to update the records listed here.</p>';
             
             // Spacer
-            $htmlCode[] = $this->doc->spacer(5);
+            $htmlCode[] = $this->doc->spacer( 5 );
             
             // Submit
-            $htmlCode[] = '<input name="update" type="submit" value="Update database (' . $recNum . ' record(s) affected)">';
+            $htmlCode[] = '<input name="update" type="submit" value="Update database ('
+                        . $recNum
+                        . ' record(s) affected)">';
             
             // GET variables
-            $CMD = t3lib_div::_GP('CMD');
-            $SET = t3lib_div::_GP('SET');
+            $CMD = t3lib_div::_GP( 'CMD' );
+            $SET = t3lib_div::_GP( 'SET' );
             
             // Hidden inputs to preserve GET variables
-            $htmlCode[] = '<input name="id" type="hidden" value="' . t3lib_div::_GP('id') . '">';
-            $htmlCode[] = '<input name="CMD[showExt]" type="hidden" value="' . $CMD['showExt'] . '">';
-            $htmlCode[] = '<input name="SET[singleDetails]" type="hidden" value="' . $SET['singleDetails'] . '">';
+            $htmlCode[] = '<input name="id" type="hidden" value="'
+                        . t3lib_div::_GP( 'id' )
+                        . '">';
+            $htmlCode[] = '<input name="CMD[showExt]" type="hidden" value="'
+                        . $CMD[ 'showExt' ]
+                        . '">';
+            $htmlCode[] = '<input name="SET[singleDetails]" type="hidden" value="'
+                        . $SET[ 'singleDetails' ]
+                        . '">';
             
             // Divider
-            $htmlCode[] = $this->doc->divider(5);
+            $htmlCode[] = $this->doc->divider( 5 );
             
             // Start table
-            $htmlCode[] = '<table id="recList" border="0" width="100%" cellspacing="1" cellpadding="2" align="center" bgcolor="' . $this->doc->bgColor2 . '">';
+            $htmlCode[] = '<table id="recList" border="0" width="100%" cellspacing="1" cellpadding="2" align="center" bgcolor="'
+                        . $this->doc->bgColor2
+                        . '">';
             $htmlCode[] = '<tr>';
             $htmlCode[] = '<td align="left" valign="middle"></td>';
             $htmlCode[] = '<td align="left" valign="middle"><strong>Title</strong></td>';
@@ -191,8 +231,8 @@ class ext_update
             foreach( $this->records as $row ) {
                 
                 // Change row color
-                $colorcount = ($colorcount == 1) ? 0: 1;
-                $color = ($colorcount == 1) ? $this->doc->bgColor4 : $this->doc->bgColor5;
+                $colorcount = ( $colorcount == 1 ) ? 0                    : 1;
+                $color      = ( $colorcount == 1 ) ? $this->doc->bgColor4 : $this->doc->bgColor5;
                 
                 // Build row parameters
                 $tr_params = ' bgcolor="' . $color . '"';
@@ -201,13 +241,25 @@ class ext_update
                 $htmlCode[] = '<tr' . $tr_params . '>';
                 
                 // Page row
-                $page = t3lib_BEfunc::getRecord('pages',$row['pid']);
+                $page = t3lib_BEfunc::getRecord( 'pages', $row[ 'pid' ] );
                 
                 // Fields
-                $htmlCode[] = '<td align="left" valign="middle">' . t3lib_iconWorks::getIconImage('tt_content',$row,$GLOBALS['BACK_PATH']) . '</td>';
-                $htmlCode[] = '<td align="left" valign="middle"><strong>' . $row['header'] . '</strong> (' . $row['uid'] .')</td>';
-                $htmlCode[] = '<td align="left" valign="middle">' . $page['title'] . ' (' . $page['uid'] . ')</td>';
-                $htmlCode[] = '<td align="left" valign="middle">' . t3lib_BEfunc::getRecordPath($row['pid'],'',50) . '</td>';
+                $htmlCode[] = '<td align="left" valign="middle">'
+                            . t3lib_iconWorks::getIconImage( 'tt_content', $row, $GLOBALS[ 'BACK_PATH' ] )
+                            . '</td>';
+                $htmlCode[] = '<td align="left" valign="middle"><strong>'
+                            . $row[ 'header' ]
+                            . '</strong> ('
+                            . $row[ 'uid' ]
+                            . ')</td>';
+                $htmlCode[] = '<td align="left" valign="middle">'
+                            . $page[ 'title' ]
+                            . ' ('
+                            . $page[ 'uid' ]
+                            . ')</td>';
+                $htmlCode[] = '<td align="left" valign="middle">'
+                            . t3lib_BEfunc::getRecordPath( $row[ 'pid' ], '', 50 )
+                            . '</td>';
                 
                 // End row
                 $htmlCode[] = '</tr>';
