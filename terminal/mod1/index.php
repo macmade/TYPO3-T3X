@@ -26,35 +26,36 @@
  * Module 'Terminal' for the 'terminal' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.2
+ * @version     1.3
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     176:     function init
- *     213:     function setConf
- *     235:     function main
+ *     180:     function init
+ *     220:     function setConf
+ *     242:     function main
  * 
  * SECTION:     2 - MAIN
- *     382:     function printContent
- *     398:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     429:     function moduleContent
- *     492:     function shellHistory
- *     532:     function buildShortcuts
- *     620:     function buildTerminal
- *     658:     function buildCssStyles
- *     745:     function processCommand
- *     808:     function exec( $commands )
- *     879:     function procOpen( $commands )
- *     959:     function system( $commands )
- *    1029:     function passthru( $commands )
- *    1041:     function pOpen( $commands )
- *    1133:     function handleCwd( $command )
- *    1213:     function sessionData
+ *     389:     function printContent
+ *     405:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     436:     function moduleContent
+ *     499:     function shellHistory
+ *     539:     function buildShortcuts
+ *     627:     function buildTerminal
+ *     665:     function buildCssStyles
+ *     752:     function processCommand
+ *     815:     function exec( $commands )
+ *     889:     function procOpen( $commands )
+ *     972:     function system( $commands )
+ *    1045:     function passthru( $commands )
+ *    1057:     function pOpen( $commands )
+ *    1152:     function handleCwd( $command )
+ *    1232:     function sessionData
+ *    1266:     function processAliases( $command )
  * 
- *              TOTAL FUNCTIONS: 18
+ *              TOTAL FUNCTIONS: 19
  */
 
 // Default initialization of the module
@@ -895,7 +896,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $descriptorSpec = array(
             0 => array( 'pipe', 'r' ),
             1 => array( 'pipe', 'w' ),
-            2 => array( 'pipe', 'r' )
+            2 => array( 'pipe', 'w' )
         );
         
         // Process each command
