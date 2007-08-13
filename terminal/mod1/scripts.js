@@ -9,21 +9,24 @@
 function Shell() {
     
     // Form HTML elements
-    var _form          = null;
-    var _result        = null;
-    var _command       = null;
-    var _history       = null;
-    var _lastCommand   = null;
-    var _cwd           = null;
+    var _form                = null;
+    var _result              = null;
+    var _command             = null;
+    var _history             = null;
+    var _lastCommand         = null;
+    var _cwd                 = null;
     
     // Terminal prompt
-    var _prompt        = '';
+    var _prompt              = '';
     
     // Number of commands to keep in the history
-    var _historyLength = 50;
+    var _historyLength       = 50;
+    
+    // Current history command
+    var _currentHistoryIndex = -1;
     
     // URL for Ajax requests
-    var _ajaxUrl       = '';
+    var _ajaxUrl             = '';
     
     // Calls the constructor
     __construct.apply( this, arguments );
@@ -42,7 +45,10 @@ function Shell() {
         _cwdPath = document.getElementById( 'cwdPath' );
         
         // Form submission method
-        _form.onsubmit = _exec;
+        _form.onsubmit   = _exec;
+        
+        // Input keypress method
+        _command.onkeyup = _keyUp;
     }
     
     /**
@@ -226,8 +232,50 @@ function Shell() {
         return true;
     }
     
+    /**
+     * Process keyboard events for the command input
+     * 
+     * @param   object      event       The event object
+     * @return  boolean
+     */
+    function _keyUp( event )
+    {
+        // Normalize event object
+        var event = ( !event ) ? window.event : event;
+        
+        // History direction
+        var direction = ( event.keyCode == 38 ) ? 1 : ( ( event.keyCode == 40 ) ? -1 : false );
+        
+        if( direction ) {
+            
+            // New history index
+            var newIndex = _currentHistoryIndex + direction;
+            
+            // Checks the new index
+            if( newIndex == history.length ) {
+                
+                // Restart from beginning of history
+                newIndex = 0;
+                
+            } else if( newIndex <= -1 ) {
+                
+                // Restart from end of history
+                newIndex = history.length - 1;
+            }
+            
+            // Writes the command and stores the new index
+            _command.value       = _history.options[ newIndex ].value;
+            _currentHistoryIndex = newIndex;
+            
+            return true;
+        }
+        
+        return false;
+    }
+    
     // Public methods
     this.exec       = _exec;
+    this.keyUp      = _keyUp;
     this.setPrompt  = _setPrompt;
     this.setAjaxUrl = _setAjaxUrl;
 }
