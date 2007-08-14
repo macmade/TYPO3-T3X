@@ -34,26 +34,26 @@
  * 
  * SECTION:     1 - INIT
  *     180:     function init
- *     220:     function setConf
- *     242:     function main
+ *     226:     function setConf
+ *     248:     function main
  * 
  * SECTION:     2 - MAIN
- *     389:     function printContent
- *     405:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     436:     function moduleContent
- *     499:     function shellHistory
- *     539:     function buildShortcuts
- *     627:     function buildTerminal
- *     665:     function buildCssStyles
- *     752:     function processCommand
- *     815:     function exec( $commands )
- *     889:     function procOpen( $commands )
- *     972:     function system( $commands )
- *    1045:     function passthru( $commands )
- *    1057:     function pOpen( $commands )
- *    1152:     function handleCwd( $command )
- *    1232:     function sessionData
- *    1266:     function processAliases( $command )
+ *     395:     function printContent
+ *     411:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     442:     function moduleContent
+ *     505:     function shellHistory
+ *     545:     function buildShortcuts
+ *     633:     function buildTerminal
+ *     671:     function buildCssStyles
+ *     758:     function processCommand
+ *     821:     function exec( $commands )
+ *     895:     function procOpen( $commands )
+ *     978:     function system( $commands )
+ *    1051:     function passthru( $commands )
+ *    1063:     function pOpen( $commands )
+ *    1158:     function handleCwd( $command )
+ *    1238:     function sessionData
+ *    1272:     function processAliases( $command )
  * 
  *              TOTAL FUNCTIONS: 19
  */
@@ -106,7 +106,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
     var $shortcuts          = array(
         'processes' => array(
             'icon'    => 'top.png',
-            'command' => 'top -l1'
+            'command' => 'top -n1'
         ),
         'diskUse' => array(
             'icon'    => 'df.png',
@@ -207,6 +207,12 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // Session data
         $this->sessionData();
+        
+        // Fix for BSD like top command
+        if( isset( $_SERVER[ 'SERVER_SOFTWARE' ] ) && stristr( $_SERVER[ 'SERVER_SOFTWARE' ], 'unix' ) ) {
+            
+            $this->shortcuts[ 'processes' ][ 'command' ] = 'top -l1';
+        }
         
         // Init
         parent::init();
