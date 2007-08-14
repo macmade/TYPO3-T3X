@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'dropdown_sitemap'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tt_content.list_type_pi1">Drop-Down sitemap</label>
+            <label index="tt_content.flexform_pi1.s_def">Main</label>
+            <label index="tt_content.flexform_pi1.s_options">Options</label>
+            <label index="tt_content.flexform_pi1.s_options.show_levels">Levels to show</label>
+            <label index="tt_content.flexform_pi1.s_options.expand_levels">Levels to expand</label>
+            <label index="tt_content.flexform_pi1.s_options.exclude_pages">Exclude pages</label>
+            <label index="tt_content.flexform_pi1.s_options.exclude_doktypes">Exclude page types</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu">Include not in menu</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.1">Yes</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.2">No</label>
+            <label index="tt_content.flexform_pi1.s_options.expall">Expand all link</label>
+            <label index="tt_content.flexform_pi1.s_options.expall.I.1">Enable</label>
+            <label index="tt_content.flexform_pi1.s_options.expall.I.2">Disable</label>
+            <label index="tt_content.flexform_pi1.s_advanced">Advanced</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag">List tag</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag.I.1">Ordered list (OL)</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag.I.2">Unordered list (UL)</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_type">List type</label>
+            <label index="tt_content.flexform_pi1.s_advanced.link_target">Target for links</label>
+            <label index="tt_content.flexform_pi1.LGL.default">Default</label>
+       </languageKey>
+        <languageKey index="de" type="array">
+            <label index="tt_content.list_type_pi1">Drop-Down Sitemap</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+            <label index="tt_content.list_type_pi1">Drop-Down sidekart</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="tt_content.list_type_pi1">Plan du site déroulant</label>
+            <label index="tt_content.flexform_pi1.s_def">Général</label>
+            <label index="tt_content.flexform_pi1.s_options">Options</label>
+            <label index="tt_content.flexform_pi1.s_options.show_levels">Niveaux à afficher</label>
+            <label index="tt_content.flexform_pi1.s_options.expand_levels">Niveaux à étendre</label>
+            <label index="tt_content.flexform_pi1.s_options.exclude_pages">Pages à exclure</label>
+            <label index="tt_content.flexform_pi1.s_options.exclude_doktypes">Types de pages à exclure</label>
+            <label index="tt_content.flexform_pi1.s_options.expall">Lien afficher tout</label>
+            <label index="tt_content.flexform_pi1.s_options.expall.I.1">Activer</label>
+            <label index="tt_content.flexform_pi1.s_options.expall.I.2">Désactiver</label>
+            <label index="tt_content.flexform_pi1.s_advanced">Avancé</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag">Balise de liste</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag.I.1">Liste à numéro (OL)</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_tag.I.2">Liste à puce (UL)</label>
+            <label index="tt_content.flexform_pi1.s_advanced.list_type">Type de liste</label>
+            <label index="tt_content.flexform_pi1.s_advanced.link_target">Cible des liens</label>
+            <label index="tt_content.flexform_pi1.LGL.default">Par défaut</label>
+        </languageKey>
+        <languageKey index="cz" type="array">
+            <label index="tt_content.list_type_pi1">Rozbalovací mapa webu</label>
+        </languageKey>
+        <languageKey index="fi" type="array">
+            <label index="tt_content.list_type_pi1">Drop-Down sivukartta</label>
+        </languageKey>
+        <languageKey index="br" type="array">
+            <label index="tt_content.list_type_pi1">Mapa do Site "Drop-Down"</label>
+        </languageKey>
+    </data>
+</T3locallang>

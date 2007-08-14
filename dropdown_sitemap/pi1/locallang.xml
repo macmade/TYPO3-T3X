@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_dropdownsitemap_pi1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="expall">Expand / Collapse all</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="expall">Alles aus-/einklappen</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+            <label index="expall">Udvid / Skjul alle</label>
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="expall">Tutto pubblicare / mascherare</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="expall">Tout afficher / masquer</label>
+        </languageKey>
+        <languageKey index="cz" type="array">
+            <label index="expall">Rozbalit / sbalit ve</label>
+        </languageKey>
+        <languageKey index="fi" type="array">
+            <label index="expall">Laajenna / Supista kaikki</label>
+        </languageKey>
+    </data>
+</T3locallang>
