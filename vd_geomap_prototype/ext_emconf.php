@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "vd_geomap_prototype"
 #
-# Auto generated 13-08-2007 20:04
+# Auto generated 13-08-2007 20:54
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'A plugin to display swiss maps from Geoplanet.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '0.0.0',
+	'version' => '0.1.0',
 	'dependencies' => 'cms,lang,api_macmade',
 	'conflicts' => '',
 	'priority' => '',
