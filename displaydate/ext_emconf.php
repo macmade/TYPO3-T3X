@@ -34,7 +34,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'depends' => array(
 			'cms' => '',
 			'lang' => '',
-			'api_macmade' => '0.2.8-',
+			'api_macmade' => '0.3.0-',
 		),
 		'conflicts' => array(
 		),

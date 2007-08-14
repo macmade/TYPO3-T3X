@@ -31,7 +31,6 @@
 /**
  * PI1 object - Display Date
  */
-
 plugin.tx_displaydate_pi1 {
 	
 	// Default format (strftime)
