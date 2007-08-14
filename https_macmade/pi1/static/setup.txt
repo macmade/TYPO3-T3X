@@ -24,15 +24,15 @@
 /**
  * Default TS setup - Extension 'HTTPS Enforcer / macmade.net'
  *
- * @author		Jean-David Gadina (info@macmade.net)
- * @version		1.0
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
  */
 
 /**
  * PI1 object - HTTPS Enforcer / macmade.net
  */
 plugin.tx_httpsmacmade_pi1 {
-	
-	// SSL enforce mode
-	mode = {$plugin.tx_httpsmacmade_pi1.mode}
+    
+    // SSL enforce mode
+    mode = {$plugin.tx_httpsmacmade_pi1.mode}
 }
