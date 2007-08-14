@@ -42,6 +42,9 @@ plugin.tx_dropdownsitemap_pi1 {
     // Include not in menu pages
     includeNotInMenu = {$plugin.tx_dropdownsitemap_pi1.includeNotInMenu}
     
+    // Include spacers pages
+    showSpacers = {$plugin.tx_dropdownsitemap_pi1.showSpacers}
+    
     // Add the expand/collapse all link
     expAllLink       = {$plugin.tx_dropdownsitemap_pi1.expAllLink}
     
@@ -86,6 +89,9 @@ plugin.tx_dropdownsitemap_pi1 {
     // Default CSS styling
     _CSS_DEFAULT_STYLE (
         .tx-dropdownsitemap-pi1 A {
+            font-weight: bold;
+        }
+        .tx-dropdownsitemap-pi1 .spc {
             font-weight: bold;
         }
         .tx-dropdownsitemap-pi1 LI.open OL {

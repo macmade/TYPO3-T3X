@@ -16,6 +16,9 @@
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu">Include not in menu</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.1">Yes</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.2">No</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers">Show spacers</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers.I.1">Yes</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers.I.2">No</label>
             <label index="tt_content.flexform_pi1.s_options.expall">Expand all link</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.1">Enable</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.2">Disable</label>
@@ -41,6 +44,12 @@
             <label index="tt_content.flexform_pi1.s_options.expand_levels">Niveaux à étendre</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_pages">Pages à exclure</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_doktypes">Types de pages à exclure</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu">Inclure les pages hors-menu</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.1">Oui</label>
+            <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.2">Non</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers">Affricher les espaceurs</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers.I.1">Oui</label>
+            <label index="tt_content.flexform_pi1.s_options.show_spacers.I.2">Non</label>
             <label index="tt_content.flexform_pi1.s_options.expall">Lien afficher tout</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.1">Activer</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.2">Désactiver</label>

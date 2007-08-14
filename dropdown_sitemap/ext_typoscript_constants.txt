@@ -57,6 +57,12 @@ plugin.tx_dropdownsitemap_pi1 {
     # cat= dropdown_sitemap/links/1; type=boolean; label=ExpAll link: Add the expand/collapse all link in the sitemap.
     expAllLink = 1
     
+    # cat= dropdown_sitemap/enable/0; type=boolean; label=Include not in menu: If this is enabled, pages that are marked as not in menu will appear in the sitemap.
+    includeNotInMenu = 0
+    
+    # cat= dropdown_sitemap/enable/1; type=boolean; label=Show spacers: If this is enabled, pages that are marked as spacers will appear in the sitemap.
+    showSpacers = 1
+    
     # cat= dropdown_sitemap//0; type=int+; label=Levels - Show: The number of levels to show in the sitemap.
     showLevels = 5
     
@@ -68,9 +74,6 @@ plugin.tx_dropdownsitemap_pi1 {
     
     # cat= dropdown_sitemap//3; type=string; label=Exclude page types: A comma list of the page types you don't want to appear in the sitemap.
     excludeDoktypes =
-    
-    # cat= dropdown_sitemap//4; type=boolean; label=Include not in menu: If this is enabled, pages that are marked as not in menu will appear in the sitemap.
-    includeNotInMenu = 0
     
     # cat= dropdown_sitemap//5; type=string; label=Image parameters: The HTML parameters for the expand & collapse images.
     picture.params = hspace="6" vspace="0" border="0" align="middle"

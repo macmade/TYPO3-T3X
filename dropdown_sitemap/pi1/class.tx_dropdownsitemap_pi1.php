@@ -181,6 +181,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             'excludeList'      => 'sOPTIONS:exclude_pages',
             'excludeDoktypes'  => 'sOPTIONS:exclude_doktypes',
             'includeNotInMenu' => 'sOPTIONS:include_not_in_menu',
+            'showSpacers'      => 'sOPTIONS:show_spacers',
             'expAllLink'       => 'sOPTIONS:expall',
             'showLevels'       => 'sOPTIONS:show_levels',
             'expandLevels'     => 'sOPTIONS:expand_levels',
@@ -199,7 +200,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         );
         
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug($this->conf,'Drop-Down Site Map: configuration array');
+        #$this->api->debug( $this->conf, 'Drop-Down Site Map: configuration array' );
     }
     
     /**
@@ -268,7 +269,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                               . $i
                                                               . '">'
                                                               . $this->cObj->IMAGE( $imgTSConfig[ 'NO' ] )
-                                                              . '|';
+                                                              . '<span class="no">|</span>';
             
             // Only check for subpages if sublevels must be shown
             if( $i < $this->conf[ 'showLevels' ] ) {
@@ -293,10 +294,27 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                                      . $this->prefixId
                                                                      . '_swapClasses({elementUid});">'
                                                                      . $this->cObj->IMAGE( $imgTSConfig[ 'IFSUB' ] )
-                                                                     . '</a>|';
+                                                                     . '</a><span class="ifsub">|</span>';
                 
                 // IFSUB state activation
                 $mconf[ $i . '.' ][ 'IFSUB' ]                        = '1';
+            }
+            
+            // Configuration for spacers
+            if( $this->conf[ 'showSpacers' ] ) {
+                
+                // Activate spacers
+                $mconf[ $i . '.' ][ 'SPC' ]                      = '1';
+                
+                // End wrap
+                $mconf[ $i . '.' ][ 'SPC.' ][ 'wrapItemAndSub' ] = '|</div></li>';
+                
+                // Start wrap
+                $mconf[ $i . '.' ][ 'SPC.' ][ 'allWrap' ]        = '<li class="closed"><div class="level_'
+                                                                 . $i
+                                                                 . '">'
+                                                                 . $this->cObj->IMAGE( $imgTSConfig[ 'NO' ] )
+                                                                 . '<span class="spc">|</span>';
             }
         }
         
