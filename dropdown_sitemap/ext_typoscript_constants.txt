@@ -75,6 +75,12 @@ plugin.tx_dropdownsitemap_pi1 {
     # cat= dropdown_sitemap//3; type=string; label=Exclude page types: A comma list of the page types you don't want to appear in the sitemap.
     excludeDoktypes =
     
-    # cat= dropdown_sitemap//5; type=string; label=Image parameters: The HTML parameters for the expand & collapse images.
+    # cat= dropdown_sitemap//4; type=string; label=Image parameters: The HTML parameters for the expand & collapse images.
     picture.params = hspace="6" vspace="0" border="0" align="middle"
+    
+    # cat= dropdown_sitemap//5; type=string; label=Title field(s): The field(s) to use as title attribute for the A tag.
+    titleFields = abstract // description // title
+    
+    # cat= dropdown_sitemap//6; type=string; label=Description field: The field to use as description, placed after the page title.
+    descriptionField =
 }

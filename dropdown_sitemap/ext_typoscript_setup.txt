@@ -57,6 +57,12 @@ plugin.tx_dropdownsitemap_pi1 {
     // Target of the menu links
     linkTarget       = {$plugin.tx_dropdownsitemap_pi1.linkTarget}
     
+    // Field(s) for the A tag title
+    titleFields      = {$plugin.tx_dropdownsitemap_pi1.titleFields}
+    
+    // Field for description
+    descriptionField = {$plugin.tx_dropdownsitemap_pi1.descriptionField}
+    
     // Picture
     picture { 
         
@@ -93,6 +99,11 @@ plugin.tx_dropdownsitemap_pi1 {
         }
         .tx-dropdownsitemap-pi1 .spc {
             font-weight: bold;
+        }
+        .tx-dropdownsitemap-pi1 .description {
+            font-style: italic;
+            font-size: 80%;
+            margin-left: 5px;
         }
         .tx-dropdownsitemap-pi1 LI.open OL {
             display: block;

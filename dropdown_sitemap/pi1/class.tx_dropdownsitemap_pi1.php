@@ -26,18 +26,18 @@
  * Plugin 'Drop-Down sitemap' for the 'dropdown_sitemap' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.2.0
+ * @version     1.5.0
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *      96:     function main($content,$conf)
- *     162:     function setConfig
- *     193:     function buildMenuConfArray
- *     270:     function buildImageTSConfig($expanded=false)
- *     317:     function buildJSCode
+ *      97:     function main($content,$conf)
+ *     175:     function setConfig
+ *     215:     function buildMenuConfArray
+ *     354:     function buildImageTSConfig($expanded=false)
+ *     403:     function buildJSCode
  * 
  *              TOTAL FUNCTIONS: 5
  */
@@ -185,6 +185,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             'expAllLink'       => 'sOPTIONS:expall',
             'showLevels'       => 'sOPTIONS:show_levels',
             'expandLevels'     => 'sOPTIONS:expand_levels',
+            'descriptionField' => 'sOPTIONS:description_field',
             'linkTarget'       => 'sADVANCED:link_target',
             'list.'            => array(
                 'tag'  => 'sADVANCED:list_tag',
@@ -229,6 +230,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         // Include not in menu
         $mconf[ 'includeNotInMenu' ] =& $this->conf[ 'includeNotInMenu' ];
         
+        // Include not in menu
+        $mconf[ 'insertData' ]       =  '1';
+        
         // Creating menu items configuration
         for( $i = 1; $i < ( $this->conf[ 'showLevels' ] + 1 ); $i++ ) {
             
@@ -270,6 +274,22 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                               . '">'
                                                               . $this->cObj->IMAGE( $imgTSConfig[ 'NO' ] )
                                                               . '<span class="no">|</span>';
+            
+            // Check if A tag title must be added
+            if( $this->conf[ 'titleFields' ] ) {
+                
+                // Add fields for A tag
+                $mconf[ $i . '.' ][ 'NO.' ][ 'ATagTitle.' ][ 'field' ] = $this->conf[ 'titleFields' ];
+            }
+            
+            // Check if a description must be added
+            if( $this->conf[ 'descriptionField' ] && $this->conf[ 'descriptionField' ] != 'none' ) {
+                
+                // Add description
+                $mconf[ $i . '.' ][ 'NO.' ][ 'after.' ][ 'dataWrap' ] = '|<span class="description">&nbsp;{field:'
+                                                                      . $this->conf[ 'descriptionField' ]
+                                                                      . '}</span>';
+            }
             
             // Only check for subpages if sublevels must be shown
             if( $i < $this->conf[ 'showLevels' ] ) {

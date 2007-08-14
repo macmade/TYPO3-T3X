@@ -12,6 +12,8 @@
             <label index="tt_content.flexform_pi1.s_options.show_levels">Levels to show</label>
             <label index="tt_content.flexform_pi1.s_options.expand_levels">Levels to expand</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_pages">Exclude pages</label>
+            <label index="tt_content.flexform_pi1.s_options.description_field">Description field</label>
+            <label index="tt_content.flexform_pi1.s_options.description_field.I.1">None</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_doktypes">Exclude page types</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu">Include not in menu</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.1">Yes</label>
@@ -43,6 +45,8 @@
             <label index="tt_content.flexform_pi1.s_options.show_levels">Niveaux à afficher</label>
             <label index="tt_content.flexform_pi1.s_options.expand_levels">Niveaux à étendre</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_pages">Pages à exclure</label>
+            <label index="tt_content.flexform_pi1.s_options.description_field">Champ de description</label>
+            <label index="tt_content.flexform_pi1.s_options.description_field.I.1">Aucun</label>
             <label index="tt_content.flexform_pi1.s_options.exclude_doktypes">Types de pages à exclure</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu">Inclure les pages hors-menu</label>
             <label index="tt_content.flexform_pi1.s_options.include_not_in_menu.I.1">Oui</label>
