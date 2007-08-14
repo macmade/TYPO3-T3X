@@ -92,12 +92,10 @@ class tx_dropdownsitemap_pi1_wizicon
      */
     function includeLocalLang()
     {
+        $llFile    = t3lib_extMgm::extPath( 'dropdown_sitemap' ) . 'locallang.xml';
+        $localLang = t3lib_div::readLLXMLfile( $llFile, $GLOBALS[ 'LANG' ]->lang );
         
-        // Include file
-        include( t3lib_extMgm::extPath( 'dropdown_sitemap' ) . 'locallang.php' );
-        
-        // Return file content
-        return $LOCAL_LANG;
+        return $localLang;
     }
 }
 
