@@ -33,29 +33,30 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     180:     function init
- *     226:     function setConf
- *     248:     function main
+ *     181:     function init
+ *     227:     function setConf
+ *     249:     function main
  * 
  * SECTION:     2 - MAIN
- *     395:     function printContent
- *     411:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     442:     function moduleContent
- *     505:     function shellHistory
- *     545:     function buildShortcuts
- *     633:     function buildTerminal
- *     671:     function buildCssStyles
- *     758:     function processCommand
- *     821:     function exec( $commands )
- *     895:     function procOpen( $commands )
- *     978:     function system( $commands )
- *    1051:     function passthru( $commands )
- *    1063:     function pOpen( $commands )
- *    1158:     function handleCwd( $command )
- *    1238:     function sessionData
- *    1272:     function processAliases( $command )
+ *     396:     function printContent
+ *     412:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     443:     function moduleContent
+ *     506:     function shellHistory
+ *     546:     function buildShortcuts
+ *     634:     function buildTerminal
+ *     672:     function buildCssStyles
+ *     759:     function processCommand
+ *     826:     function exec( $commands )
+ *     900:     function procOpen( $commands )
+ *     987:     function system( $commands )
+ *    1060:     function passthru( $commands )
+ *    1072:     function shellExec( $commands )
+ *    1084:     function pOpen( $commands )
+ *    1179:     function handleCwd( $command )
+ *    1259:     function sessionData
+ *    1293:     function processAliases( $command )
  * 
- *              TOTAL FUNCTIONS: 19
+ *              TOTAL FUNCTIONS: 20
  */
 
 // Default initialization of the module
@@ -804,6 +805,10 @@ class  tx_terminal_module1 extends t3lib_SCbase
             case 'popen':
                 $this->pOpen( $commands );
                 break;
+            
+            case 'shell_exec':
+                $this->shellExec( $commands );
+                break;
         }
         
         // Prints the current working directory and exit
@@ -911,60 +916,64 @@ class  tx_terminal_module1 extends t3lib_SCbase
             // Support for cd commands
             $this->handleCwd( $command );
             
-            // Process aliases
-            $command = $this->processAliases( $command );
+            // Do not process cd commands
+            if( substr( $command, 0, 3 ) != 'cd ' && $command != 'cd' ) {
             
-            // Open process
-            $process = proc_open(
-                $command,
-                $descriptorSpec,
-                $pipes,
-                $this->cwd,
-                $_ENV
-            );
-            
-            // Checks the process
-            if( is_resource( $process ) ) {
+                // Process aliases
+                $command = $this->processAliases( $command );
                 
-                // Process pipes
-                $stdin  = $pipes[0];
-                $stdout = $pipes[1];
-                $stderr = $pipes[2];
+                // Open process
+                $process = proc_open(
+                    $command,
+                    $descriptorSpec,
+                    $pipes,
+                    $this->cwd,
+                    $_ENV
+                );
                 
-                // Process and stores the result
-                while( !feof( $stdout ) ) {
+                // Checks the process
+                if( is_resource( $process ) ) {
                     
-                    $return .= fgets( $stdout );
+                    // Process pipes
+                    $stdin  = $pipes[0];
+                    $stdout = $pipes[1];
+                    $stderr = $pipes[2];
+                    
+                    // Process and stores the result
+                    while( !feof( $stdout ) ) {
+                        
+                        $return .= fgets( $stdout );
+                    }
+    
+                    // Process and stores errors
+                    while( !feof( $stderr ) ) {
+                        
+                        $error .= fgets( $stderr );
+                    }
+                    
+                    // Close process pipes
+                    fclose( $stdin );
+                    fclose( $stdout );
+                    fclose( $stderr );
+                    
+                    // Close the process
+                    proc_close( $process );
+                    
+                    // Checks for errors
+                    if( empty( $error ) ) {
+                        
+                        // Display results
+                        print $return;
+                        
+                    } else {
+                        
+                        // Display errors, current working directory and exit
+                        print $error;
+                        print chr( 10 ) . $this->cwd;
+                        exit();
+                    }
                 }
-
-                // Process and stores errors
-                while( !feof( $stderr ) ) {
-                    
-                    $error .= fgets( $stderr );
-                }
-                
-                // Close process pipes
-                fclose( $stdin );
-                fclose( $stdout );
-                fclose( $stderr );
-                
-                // Close the process
-                proc_close( $process );
-                
-                // Checks for errors
-                if( empty( $error ) ) {
-                    
-                    // Display results
-                    print $return;
-                    
-                } else {
-                    
-                    // Display errors, current working directory and exit
-                    print $error;
-                    print chr( 10 ) . $this->cwd;
-                    exit();
-                }
-           }
+            }
         }
     }
     
@@ -1049,6 +1058,18 @@ class  tx_terminal_module1 extends t3lib_SCbase
      * @see     handleCwd
      */
     function passthru( $commands )
+    {
+        $this->system( $commands );
+    }
+    
+    /**
+     * Executes a shell command using the PHP shell_exec() function.
+     * 
+     * @param   array       $commands       An array with the shell commands
+     * @return  boolean
+     * @see     handleCwd
+     */
+    function shellExec( $commands )
     {
         $this->system( $commands );
     }
