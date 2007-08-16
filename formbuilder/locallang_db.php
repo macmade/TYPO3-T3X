@@ -1,4 +1,4 @@
-<strong></strong><?php
+<?php
 	/**
 	 * Language labels for database tables/fields belonging to extension 'formbuilder'
 	 * 
