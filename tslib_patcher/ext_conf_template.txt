@@ -1,0 +1,5 @@
+# cat=basic/enable/00; type=boolean; label=TSLib Content: Enable the patch for the core class tslib_cObj.
+tslib_content = 0
+
+# cat=basic/enable/00; type=boolean; label=TSLib Menu: Enable the patch for the core class tslib_menu.
+tslib_menu = 0
