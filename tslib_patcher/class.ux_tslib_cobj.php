@@ -40,8 +40,8 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- * SECTION:     1 - MAIN
- *        :     function typoLink( $linkText, $conf )
+ *      49:     class ux_tslib_cObj
+ *      61:     function typoLink( $linkText, $conf )
  * 
  *              TOTAL FUNCTIONS: 1
  */
