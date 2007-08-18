@@ -32,8 +32,8 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *      49:     class tx_tslibpatcher
- *      58:     function cHashCheck( &$params, &$ref )
+ *      41:     class tx_tslibpatcher
+ *      57:     function cHashCheck( &$params, &$ref )
  * 
  *              TOTAL FUNCTIONS: 1
  */
