@@ -48,6 +48,56 @@
 
 class ux_tslib_cObj extends tslib_cObj
 {
+    // RealURL default preVars
+    var $ux_realUrlDefaultPreVars = '';
+    
+    /**
+     * 
+     */
+    function ux_getRealUrlDefaultPreVars()
+    {
+        // Gets a reference to the registered extension data
+        $extData =& $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'tslib_patcher' ];
+        
+        // Checks if variables have already been defined and checks the extension configuration
+        if( !$this->ux_realUrlDefaultPreVars
+            && isset( $extData[ 'config' ] )
+            && isset( $extData[ 'config' ][ 'realurl' ] )
+            && $extData[ 'config' ][ 'realurl' ]
+            && t3lib_extMgm::isLoaded( 'realurl' )
+            && isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'realurl' ]  )
+        ) {
+            
+            // Gets a reference to the RealURL configuration array
+            $realUrlConf =& $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'realurl' ];
+            
+            // Checks if the default configuration exists
+            if( is_array( $realUrlConf ) && isset( $realUrlConf[ '_DEFAULT' ][ 'preVars' ] ) ) {
+                
+                // Process each preVars of the default host
+                foreach( $realUrlConf[ '_DEFAULT' ][ 'preVars' ] as $var ) {
+                    
+                    // Checks for a default value which is not yet in _GET
+                    if( isset( $var[ 'GETvar' ] )
+                        && isset( $var[ 'valueDefault' ] )
+                        && isset( $var[ 'valueMap' ][ $var[ 'valueDefault' ] ] )
+                        && !isset( $extData[ 'getVars' ][ $var[ 'GETvar' ] ] )
+                    ) {
+                        
+                        // Adds the variable
+                        $this->ux_realUrlDefaultPreVars .= '&'
+                                                        .  $var[ 'GETvar' ]
+                                                        . '='
+                                                        .  $var[ 'valueMap' ][ $var[ 'valueDefault' ] ];
+                    }
+                }
+            }
+                    
+            return true;
+        }
+        
+        return false;
+    }
     
     /**
      * Redefinition of method typoLink to correct cHash calculation which doen't work!
@@ -454,10 +504,16 @@ class ux_tslib_cObj extends tslib_cObj
                             $addQueryParams = '';
                         }
                         
-                        // Here's the patch from Popy for calculating the cHash. Let's hope it will be integrated.
-                        if( $conf[ 'useCacheHash' ] && trim( $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams ) ) {
+                        // Here's the patch from Popy for calculating the cHash. Let's hope it will be integrated soon.
+                        if( $conf[ 'useCacheHash' ] ) {
                             
-                            $pA              = t3lib_div::cHashParams( $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams );
+                            // Get RealURL variables if necessary
+                            if( !$this->ux_realUrlDefaultPreVars ) {
+                                
+                                $this->ux_getRealUrlDefaultPreVars();
+                            }
+                            
+                            $pA              = t3lib_div::cHashParams( trim( $GLOBALS[ 'TSFE' ]->linkVars . $this->ux_realUrlDefaultPreVars . $addQueryParams ) );
                             $addQueryParams .= '&cHash=' . t3lib_div::shortMD5( serialize( $pA ) );
                         }
                         

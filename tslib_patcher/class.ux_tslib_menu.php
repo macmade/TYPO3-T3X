@@ -41,9 +41,15 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *        :     
+ *      55:     class ux_tslib_menu
+ *      58:     class ux_tslib_gmenu
+ *      61:     class ux_tslib_imgmenu
+ *      64:     class ux_tslib_jsmenu
+ *      67:     class ux_tslib_tmenu
+ *      77:     function ux_tslib_tmenu
+ *      91:     function function link( $key, $altTarget = '', $typeOverride = '' )
  * 
- *              TOTAL FUNCTIONS: 
+ *              TOTAL FUNCTIONS: 2
  */
 
 class ux_tslib_menu extends tslib_menu
@@ -116,6 +122,20 @@ class ux_tslib_tmenu extends tslib_tmenu
             // Gets the page row
             $thePage  = $this->sys_page->getPage( $this->menuArr[ $key ][ 'pid' ] );
             
+            // Gets the link with the typoLink method, in order to enable the cache hash
+            $typoLinkUrl = $this->ux_cObj->typoLink_URL(
+                array(
+                    'parameter'    => $thePage[ 'uid' ],
+                    'useCacheHash' => 1
+                )
+            );
+            
+            // Gets the cHash
+            $cHash = preg_replace( '/.*[?&]cHash=([^&$]+)/', '$1', $typoLinkUrl );
+            
+            // Adds the cHash if available
+            $this->mconf[ 'addParams' ] .= ( $cHash ) ? '&cHash=' . $cHash : '';
+            
             // Gets the link data
             $linkData = $this->tmpl->linkData(
                 $thePage,
@@ -128,6 +148,20 @@ class ux_tslib_tmenu extends tslib_tmenu
             );
             
         } else {
+            
+            // Gets the link with the typoLink method, in order to enable the cache hash
+            $typoLinkUrl = $this->ux_cObj->typoLink_URL(
+                array(
+                    'parameter'    => $this->menuArr[ $key ][ 'uid' ],
+                    'useCacheHash' => 1
+                )
+            );
+            
+            // Gets the cHash
+            $cHash = preg_replace( '/.*[?&]cHash=([^&$]+)/', '$1', $typoLinkUrl );
+            
+            // Adds the cHash if available
+            $this->mconf[ 'addParams' ] .= ( $cHash ) ? '&cHash=' . $cHash : '';
             
             // Gets the link data
             $linkData = $this->tmpl->linkData(
@@ -184,7 +218,7 @@ class ux_tslib_tmenu extends tslib_tmenu
         $onClick = '';
         
         // Checks if the window should open in a popup
-        if( isset( $this->mconf[ 'JSWindow' ] && $this->mconf[ 'JSWindow' ] ) {
+        if( isset( $this->mconf[ 'JSWindow' ] ) && $this->mconf[ 'JSWindow' ] ) {
             
             // JavaScript configuration
             $conf                   = isset( $this->mconf[ 'JSWindow.' ] ) ? $this->mconf[ 'JSWindow.' ] : array();

@@ -1,5 +1,8 @@
 # cat=basic/enable/00; type=boolean; label=TSLib Content: Enable the patch for the core class tslib_cObj.
 tslib_content = 0
 
-# cat=basic/enable/00; type=boolean; label=TSLib Menu: Enable the patch for the core class tslib_menu.
+# cat=basic/enable/01; type=boolean; label=TSLib Menu: Enable the patch for the core class tslib_menu.
 tslib_menu = 0
+
+# cat=basic/enable/02; type=boolean; label=RealURL: Enable the patch for the RealURL extension (class tx_realurl) which has some bugs related to the cHash computation.
+realurl = 0
