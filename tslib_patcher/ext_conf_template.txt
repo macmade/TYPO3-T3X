@@ -6,3 +6,6 @@ tslib_menu = 0
 
 # cat=basic/enable/02; type=boolean; label=RealURL: Enable the patch for the RealURL extension (class tx_realurl) which has some bugs related to the cHash computation.
 realurl = 0
+
+# cat=basic/enable/03; type=boolean; label=Force cHash: Force the cHash checks. Maybe you shouldn't set this on production boxes...
+cHashForce = 0

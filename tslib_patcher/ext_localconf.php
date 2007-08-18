@@ -21,6 +21,15 @@ if( TYPO3_MODE == 'FE' ) {
     // Checks the configuration
     if( is_array( $extConf ) ) {
         
+        // Checks for the cHash checker
+        if( isset( $extConf[ 'cHashForce' ] ) && $extConf[ 'cHashForce' ] ) {
+            
+            // Registers the cHash checker method
+            $TYPO3_CONF_VARS[ 'SC_OPTIONS' ][ 'tslib/class.tslib_fe.php' ][ 'contentPostProc-all' ][] = 'EXT:'
+                                                                                                      . $_EXTKEY
+                                                                                                      . '/class.tx_tslibpatcher.php:tx_tslibpatcher->cHashCheck';
+        }
+        
         // Checks for RealURL
         if( isset( $extConf[ 'realurl' ] ) && $extConf[ 'realurl' ] && t3lib_extMgm::isLoaded( 'realurl' ) ) {
             
@@ -38,7 +47,7 @@ if( TYPO3_MODE == 'FE' ) {
         foreach( $extConf as $className => $enable ) {
             
             // Do not process RealURL here
-            if( $className == 'realurl' ) {
+            if( $className == 'realurl' || $className == 'cHashForce' ) {
                 
                 continue;
             }
