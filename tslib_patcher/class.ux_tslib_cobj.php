@@ -594,6 +594,8 @@ class ux_tslib_cObj extends tslib_cObj
                         }
                         
                         // Checks if the cHash parameter must be computed
+                        // This is the patch from Popy (popy.dev@gmail.com)
+                        // See http://bugs.typo3.org/view.php?id=5161
                         if ( $conf[ 'useCacheHash' ] && trim( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams ) ) {
                             
                             // Gets the GET variables needed to compute the cHash

@@ -13,7 +13,7 @@
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'TSLib Patcher',
 	'description' => 'A correction for some bugs in the TSLib core classes. Actually, it mainly correct bugs related to the cache hash (cHash) variable. The use of this extension should increase the overall performances of your TYPO3 website.',
-	'category' => 'module',
+	'category' => 'fe',
 	'author' => 'Jean-David Gadina',
 	'author_email' => 'info@macmade.net',
 	'shy' => '',
