@@ -779,8 +779,8 @@ class tx_apimacmade
      * except the fact that it will always return a correct cHash.
      * 
      * @param       string      $str                The content string to wrap in <a> tags
-     * @param       array       $unsetPIvars        Array of values not to include in the current piVars
-     * @param       boolean     $cache      Ask the page to be cached by a &cHash value
+     * @param       array       $overrulePIvars     Array of values to override or add in the current piVars
+     * @param       boolean     $cache              Ask the page to be cached by a &cHash value
      * @param       boolean     $clearAnyway        Do not preserve current piVars
      * @param       int         $altPageId          Alternative page ID for the link
      * @return      string      The input string wrapped in <a> tags
@@ -863,8 +863,7 @@ class tx_apimacmade
      * 
      * This function links a string to a page (the active one by default), while keeping current piVars.
      * Additionnal piVars can be added or overlaid in the overrulePIvars array. All piVars found in the
-     * unsetPIvars array won't be preserved. Please see the pi_linkTP_keepPIvars function of tslib_pibase
-     * for more details.
+     * unsetPIvars array won't be preserved.
      * 
      * @param       string      $str                The content string to wrap in <a> tags
      * @param       array       $overrulePIvars     Array of values to override or add in the current piVars
@@ -908,7 +907,6 @@ class tx_apimacmade
      * This function returns the URL to a page (the active one by default), while keeping current piVars.
      * Additionnal piVars can be added or overlaid in the overrulePIvars array. All piVars found in the
      * unsetPIvars array won't be preserved. Same as fe_linkTP_unsetPIvars, but it returns only the URL.
-     * Please see the pi_linkTP_keepPIvars_url function of tslib_pibase for more details.
      * 
      * @param       array       $overrulePIvars     Array of values to override or add in the current piVars
      * @param       array       $unsetPIvars        Array of values not to include in the current piVars
@@ -952,7 +950,8 @@ class tx_apimacmade
      * Each parameter of the array will be formed as a piVar (prefixed with
      * pObj->prefixId).
      * 
-     * @param       array       $params             An associative array with URL parameters
+     * @param       array       $params             
+     * @return      string      The additional parameters ready for a typoLink
      */
     function fe_typoLinkParams( $params )
     {
