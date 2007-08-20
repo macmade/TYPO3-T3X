@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "tslib_patcher"
 #
-# Auto generated 17-08-2007 13:18
+# Auto generated 20-08-2007 17:13
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -40,7 +40,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:4:{s:26:"class.ux_tslib_content.php";s:4:"7801";s:21:"ext_conf_template.txt";s:4:"f4de";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"5902";}',
+	'_md5_values_when_last_written' => 'a:8:{s:25:"class.tx_tslibpatcher.php";s:4:"4c87";s:23:"class.ux_tslib_cobj.php";s:4:"bb67";s:23:"class.ux_tslib_menu.php";s:4:"1ce8";s:23:"class.ux_tx_realurl.php";s:4:"f92c";s:21:"ext_conf_template.txt";s:4:"acdd";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"c9ff";s:14:"doc/manual.sxw";s:4:"df20";}',
 	'suggests' => array(
 	),
 );

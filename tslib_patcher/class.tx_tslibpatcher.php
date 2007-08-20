@@ -90,6 +90,6 @@ class tx_tslibpatcher
 /**
  * XClass inclusion.
  */
-if( defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE][ 'XCLASS' ][ 'ext/tslib_patcher/class.tx_tslibpatcher.php' ]) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE][ 'XCLASS' ][ 'ext/tslib_patcher/class.tx_tslibpatcher.php' ]);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tslib_patcher/class.tx_tslibpatcher.php'])	{
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tslib_patcher/class.tx_tslibpatcher.php']);
 }
