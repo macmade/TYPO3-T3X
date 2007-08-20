@@ -925,6 +925,53 @@ class ux_tslib_cObj extends tslib_cObj
             return $linkText;
         }
     }
+    
+    /**
+     * Redefinition of method getTypoLink to force cHash calculation!
+     * 
+     * @param   string      $label          The string to link
+     * @param   string      $params         The parameter option for the typoLink
+     * @param   array       $urlParameters  An associative array with the URL parameters
+     * @param   string      $target         The target for the link
+     * @return  string      The wrapped label
+     */
+    function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
+    {
+        // TypoLink configuration
+        $conf                   = array();
+        $conf[ 'parameter' ]    = $params;
+        $conf[ 'useCacheHash' ] = 1;
+        
+        // Checks for a target
+        if( $target ) {
+            
+            // Sets the target options
+            $conf[ 'target' ]    = $target;
+            $conf[ 'extTarget' ] = $target;
+        }
+        
+        // Checks the URL parameters
+        if( is_array( $urlParameters ) ) {
+            
+            // Checks for URL parameters in the array
+            if( count( $urlParameters ) ) {
+                
+                // Adds the URL parameters
+                $conf[ 'additionalParams' ] .= t3lib_div::implodeArrayForUrl( '', $urlParameters );
+            }
+            
+        } else {
+            
+            // Adds the URL parameters
+            $conf['additionalParams'] .= $urlParameters;
+        }
+        
+        // Creates the typoLInk
+        $out = $this->typolink( $label, $conf );
+        
+        // Returns the typoLink
+        return $out;
+    }
 }
 
 /**
