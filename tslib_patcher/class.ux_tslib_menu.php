@@ -47,7 +47,7 @@
  *      64:     class ux_tslib_jsmenu
  *      67:     class ux_tslib_tmenu
  *      77:     function ux_tslib_tmenu
- *      91:     function function link( $key, $altTarget = '', $typeOverride = '' )
+ *      100:     function function link( $key, $altTarget = '', $typeOverride = '' )
  * 
  *              TOTAL FUNCTIONS: 2
  */
@@ -76,8 +76,17 @@ class ux_tslib_tmenu extends tslib_tmenu
      */
     function ux_tslib_tmenu()
     {
-        // Gets a reference to the tslib_cObj object
-        $this->ux_cObj =& $GLOBALS[ 'TSFE' ]->cObj;
+        if( isset( $GLOBALS[ 'TSFE' ]->cObj ) && is_object( $GLOBALS[ 'TSFE' ]->cObj ) ) {
+            
+            // Gets a reference to the tslib_cObj object
+            $this->ux_cObj =& $GLOBALS[ 'TSFE' ]->cObj;
+            
+        } else {
+            
+            // Creates a new instance of tslib_cObj
+            $this->ux_cObj = t3lib_div::makeInstance( 'tslib_cObj' );
+            $this->cObj->start( $this->page, 'pages' );
+        }
     }
     
     /**

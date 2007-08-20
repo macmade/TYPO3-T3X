@@ -34,17 +34,18 @@
  * guidelines.
  * 
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
+ * @version     1.2
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *      50:     class ux_tslib_cObj
- *      61:     function typoLink( $linkText, $conf )
- *     119:     function ux_getRealUrlDefaultPreVars
+ *      51:     class ux_tslib_cObj
+ *      62:     function ux_getRealUrlDefaultPreVars
+ *     120:     function typoLink( $linkText, $conf )
+ *     939:     function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
  * 
- *              TOTAL FUNCTIONS: 2
+ *              TOTAL FUNCTIONS: 3
  */
 
 class ux_tslib_cObj extends tslib_cObj
