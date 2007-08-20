@@ -1,3 +1,9 @@
+2007-08-20  Jean-David Gadina  <info@macmade.net>
+
+	* Increased API internal version number to 3.1.
+	* Fixed to fe_buildLoginBox method (cHash related problem)
+	* New function: fe_typoLinkParams. This function is used to build the additionalParams option of a typoLink from a frontend plugin.
+
 2007-07-25  Jean-David Gadina  <info@macmade.net>
 	* New function: be_includePrototypeJs. This function is used to include the Prototype JavaScript framework in a backend context.
 	* New function: be_includeScriptaculousJs. This function is used to include the Scriptaculous JavaScript framework in a backend context.

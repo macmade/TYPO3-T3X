@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     3.0
+ * @version     3.1
  */
 
 /**
@@ -72,6 +72,7 @@
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
  *              function fe_includePrototypeJs
  *              function fe_includeScriptaculousJs
+ *              function fe_typoLinkParams( $params )
  * 
  * SECTION:		3 - BE
  *         		function be_buildRecordIcons( $actions, $table, $uid )
@@ -141,7 +142,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 3.0;
+    var $version         = 3.1;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -1773,8 +1774,23 @@ class tx_apimacmade
             }
         }
         
-        // Return login box
-        return $this->pObj->cObj->FORM( $conf );
+        // Builds the login box
+        $form = $this->pObj->cObj->FORM( $conf );
+        
+        // Form action
+        $formAction = $this->pObj->cObj->typoLink_URL(
+            array(
+                'parameter'    => $GLOBALS[ 'TSFE' ]->id,
+                'useCacheHash' => 1
+            )
+        );
+        
+        // Fixes the form action and returns the full form
+        return preg_replace(
+            '/form action="[^"]+"/',
+            'form action="' . $formAction . '"',
+            $form
+        );
     }
     
     /**
@@ -2400,6 +2416,36 @@ class tx_apimacmade
         }
         
         return true;
+    }
+    
+    /**
+     * 
+     */
+    function fe_typoLinkParams( $params )
+    {
+        
+        // Storage
+        $additionalParams = '';
+        
+        // Checks the extension prefix
+        if( isset( $this->pObj->prefixId ) ) {
+            
+            // Process parameters
+            foreach( $params as $key => $value ) {
+                
+                // Adds the parameter
+                $additionalParams .= '&'
+                                  .  $this->pObj->prefixId
+                                  .  '['
+                                  .  $key
+                                  .  ']'
+                                  .  '='
+                                  . $value;
+            }
+        }
+        
+        // Returns the parameters
+        return $additionalParams;
     }
     
     
