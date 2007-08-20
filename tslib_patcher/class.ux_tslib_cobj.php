@@ -49,7 +49,10 @@
 class ux_tslib_cObj extends tslib_cObj
 {
     // RealURL default preVars
-    var $ux_realUrlDefaultPreVars = '';
+    var $ux_realUrlDefaultPreVars    = '';
+    
+    // Flag to know if the RealURL default preVars have already been computed
+    var $ux_hasRealUrlDefaultPreVars = false;
     
     /**
      * 
@@ -65,7 +68,9 @@ class ux_tslib_cObj extends tslib_cObj
             && isset( $extData[ 'config' ][ 'realurl' ] )
             && $extData[ 'config' ][ 'realurl' ]
             && t3lib_extMgm::isLoaded( 'realurl' )
-            && isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'realurl' ]  )
+            && isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'realurl' ] )
+            && isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'config.' ][ 'tx_realurl_enable' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'config.' ][ 'tx_realurl_enable' ] == 1
         ) {
             
             // Gets a reference to the RealURL configuration array
@@ -92,11 +97,13 @@ class ux_tslib_cObj extends tslib_cObj
                     }
                 }
             }
-                    
+            
+            $this->ux_hasRealUrlDefaultPreVars = true;
             return true;
         }
-        
-        return false;
+            
+            $this->ux_hasRealUrlDefaultPreVars = true;
+            return false;
     }
     
     /**
@@ -499,25 +506,35 @@ class ux_tslib_cObj extends tslib_cObj
                             $linkText = $page[ 'title' ];
                         }
                         
-                        // Query Params
-                        $addQueryParams  = $conf[ 'addQueryString' ] ? $this->getQueryArguments( $conf[ 'addQueryString.' ] ) : '';
+                        $addQueryParams  = ( $conf['addQueryString'] ) ? $this->getQueryArguments( $conf[ 'addQueryString.' ] ) : '';
                         $addQueryParams .= trim( $this->stdWrap( $conf[ 'additionalParams' ], $conf[ 'additionalParams.' ] ) );
                         
-                        if( substr( $addQueryParams, 0, 1 ) != '&' ) {
+                        // Original not working code
+                        #if( substr( $addQueryParams, 0, 1 ) != '&' ) {
+                        #    
+                        #    $addQueryParams = '';
+                        #    
+                        #} elseif( $conf[ 'useCacheHash' ] ) {
+                        #    
+                        #    $pA              = t3lib_div::cHashParams( $addQueryParams . $GLOBALS[ 'TSFE' ]->linkVars );
+                        #    $addQueryParams .= '&cHash='.t3lib_div::shortMD5( serialize( $pA ) );
+                        #}
+                        
+                        // RealURL default variables
+                        if( !$this->ux_hasRealUrlDefaultPreVars ) {
+                            
+                            $this->ux_getRealUrlDefaultPreVars();
+                        }
+                        
+                        if ( substr( $addQueryParams, 0, 1 ) != '&' ) {
                             
                             $addQueryParams = '';
                         }
                         
-                        // Here's the patch from Popy for calculating the cHash. Let's hope it will be integrated soon.
-                        if( $conf[ 'useCacheHash' ] ) {
+                        if ( $conf[ 'useCacheHash' ] && trim( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams ) ) {
                             
-                            // Get RealURL variables if necessary
-                            if( !$this->ux_realUrlDefaultPreVars ) {
-                                
-                                $this->ux_getRealUrlDefaultPreVars();
-                            }
-                            
-                            $pA              = t3lib_div::cHashParams( trim( $GLOBALS[ 'TSFE' ]->linkVars . $this->ux_realUrlDefaultPreVars . $addQueryParams ) );
+                            $pA              = t3lib_div::cHashParams( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams );
+                            unset( $pA[ '' ] );
                             $addQueryParams .= '&cHash=' . t3lib_div::shortMD5( serialize( $pA ) );
                         }
                         

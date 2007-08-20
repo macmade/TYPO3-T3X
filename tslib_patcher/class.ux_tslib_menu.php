@@ -122,20 +122,6 @@ class ux_tslib_tmenu extends tslib_tmenu
             // Gets the page row
             $thePage  = $this->sys_page->getPage( $this->menuArr[ $key ][ 'pid' ] );
             
-            // Gets the link with the typoLink method, in order to enable the cache hash
-            $typoLinkUrl = $this->ux_cObj->typoLink_URL(
-                array(
-                    'parameter'    => $thePage[ 'uid' ],
-                    'useCacheHash' => 1
-                )
-            );
-            
-            // Gets the cHash
-            $cHash = preg_replace( '/.*[?&]cHash=([^&$]+)/', '$1', $typoLinkUrl );
-            
-            // Adds the cHash if available
-            $this->mconf[ 'addParams' ] .= ( $cHash ) ? '&cHash=' . $cHash : '';
-            
             // Gets the link data
             $linkData = $this->tmpl->linkData(
                 $thePage,
@@ -149,20 +135,6 @@ class ux_tslib_tmenu extends tslib_tmenu
             
         } else {
             
-            // Gets the link with the typoLink method, in order to enable the cache hash
-            $typoLinkUrl = $this->ux_cObj->typoLink_URL(
-                array(
-                    'parameter'    => $this->menuArr[ $key ][ 'uid' ],
-                    'useCacheHash' => 1
-                )
-            );
-            
-            // Gets the cHash
-            $cHash = preg_replace( '/.*[?&]cHash=([^&$]+)/', '$1', $typoLinkUrl );
-            
-            // Adds the cHash if available
-            $this->mconf[ 'addParams' ] .= ( $cHash ) ? '&cHash=' . $cHash : '';
-            
             // Gets the link data
             $linkData = $this->tmpl->linkData(
                 $this->menuArr[ $key ],
@@ -173,6 +145,42 @@ class ux_tslib_tmenu extends tslib_tmenu
                 $this->mconf[ 'addParams' ] . $mountPointParams . $this->I[ 'val' ][ 'additionalParams' ] . $this->menuArr[ $key ][ '_ADD_GETVARS' ],
                 $typeOverride
             );
+            
+            // Gets the link with the typoLink method, in order to enable the cache hash
+            $typoLinkUrl = $this->ux_cObj->typoLink_URL(
+                array(
+                    'parameter'        => $this->menuArr[ $key ][ 'uid' ],
+                    'useCacheHash'     => 1,
+                    'additionalParams' => $linkData[ 'linkVars' ]
+                )
+            );
+            
+            // Gets the cHash
+            $cHash                  = preg_replace(
+                '/.*[?&]cHash=([^&$]+)/',
+                '$1',
+                $typoLinkUrl
+            );
+            
+            // Removes any existing cHash in the linkVars
+            $linkData[ 'totalURL' ] = preg_replace(
+                '/[?&]cHash=[^&$]+/',
+                '',
+                $linkData[ 'totalURL' ]
+            );
+            
+            // Adds the cHash if available
+            if( $cHash != $typoLinkUrl ) {
+                
+                if( strstr( $linkData[ 'totalURL' ], '?' ) ) {
+                    
+                    $linkData[ 'totalURL' ] .= '&cHash=' . $cHash;
+                    
+                } else {
+                    
+                    $linkData[ 'totalURL' ] .= '?cHash=' . $cHash;
+                }
+            }
         }
         
         // Overrides the URL if using "External URL" as doktype with a valid e-mail address
