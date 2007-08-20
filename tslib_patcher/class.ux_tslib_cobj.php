@@ -40,10 +40,11 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *      49:     class ux_tslib_cObj
+ *      50:     class ux_tslib_cObj
  *      61:     function typoLink( $linkText, $conf )
+ *     119:     function ux_getRealUrlDefaultPreVars
  * 
- *              TOTAL FUNCTIONS: 1
+ *              TOTAL FUNCTIONS: 2
  */
 
 class ux_tslib_cObj extends tslib_cObj
@@ -227,33 +228,33 @@ class ux_tslib_cObj extends tslib_cObj
             }
             
             // Check if the target is coded as a JS open window link
-            $JsWindowParts  = array();
-            $JsWindowParams = '';
+            $jsWindowParts  = array();
+            $jsWindowParams = '';
             $onClick        = '';
             
             // Checks the target
-            if( $forceTarget && ereg( '^([0-9]+)x([0-9]+)(:(.*)|.*)$', $forceTarget, $JsWindowParts ) ) {
+            if( $forceTarget && ereg( '^([0-9]+)x([0-9]+)(:(.*)|.*)$', $forceTarget, $jsWindowParts ) ) {
                 
                 // Take all pre-configured and inserted parameters and compile parameter list, including width + height
-                $JsWindowTempParamsArray = t3lib_div::trimExplode( ',', strtolower( $conf[ 'JSwindow_params' ] . ',' . $JsWindowParts[ 4 ] ), 1 );
-                $JsWindowParamsArray     = array();
+                $jsWindowTempParamsArray = t3lib_div::trimExplode( ',', strtolower( $conf[ 'JSwindow_params' ] . ',' . $jsWindowParts[ 4 ] ), 1 );
+                $jsWindowParamsArray     = array();
                 
                 // 
                 
                 // Process each JavaScript parameter
-                foreach( $JsWindowTempParamsArray as $JsValue ) {
+                foreach( $jsWindowTempParamsArray as $jsValue ) {
                     
                     // Stores the parameter
-                    list( $jsKey, $JsValue )       = explode( '=', $JsValue );
-                    $JsWindowParamsArray[ $jsKey ] = $jsKey . '=' . $JsValue;
+                    list( $jsKey, $jsValue )       = explode( '=', $jsValue );
+                    $jsWindowParamsArray[ $jsKey ] = $jsKey . '=' . $jsValue;
                 }
                 
                 // Add width/height if necessary
-                $JsWindowParamsArray[ 'width' ]  = ( isset( $JsWindowParts[ 1 ] ) ) ? 'width='  . $JsWindowParts[ 1 ] : '';
-                $JsWindowParamsArray[ 'height' ] = ( isset( $JsWindowParts[ 2 ] ) ) ? 'height=' . $JsWindowParts[ 2 ] : '';
+                $jsWindowParamsArray[ 'width' ]  = ( isset( $jsWindowParts[ 1 ] ) ) ? 'width='  . $jsWindowParts[ 1 ] : '';
+                $jsWindowParamsArray[ 'height' ] = ( isset( $jsWindowParts[ 2 ] ) ) ? 'height=' . $jsWindowParts[ 2 ] : '';
                 
                 // Implodes the JavaScript parameters
-                $JsWindowParams = implode( ',', $JsWindowParamsArray );
+                $jsWindowParams = implode( ',', $jsWindowParamsArray );
                 
                 // Resets the target since we will use onClick
                 $forceTarget    = '';
@@ -292,61 +293,79 @@ class ux_tslib_cObj extends tslib_cObj
                 $finalTagParts[ 'TYPE' ]                  = 'mailto';
                 
             } else {
-################################################################################
-################################################################################
-################################################################################
-################################################################################
-################################################################################
+                
+                // Default value
                 $isLocalFile = 0;
+                
+                // Gets the position of some characters in the link
                 $fileChar    = ( int )strpos( $linkParam, '/' );
                 $urlChar     = ( int )strpos( $linkParam, '.' );
                 
-                // Detects if a file is found in site-root (or is a 'virtual' simulateStaticDocument file!) and if so it will be treated like a normal file
-                list( $rootFileDat ) = explode( '?', rawurldecode( $linkParam ) );
-                $containsSlash       = strstr( $rootFileDat, '/' );
-                $rFD_fI              = pathinfo( $rootFileDat );
+                // Detects if a file is found in site-root (or is a 'virtual' simulateStaticDocument file). If so, it will be treated as a normal file
+                list( $rootFileData ) = explode( '?', rawurldecode( $linkParam ) );
+                $containsSlash        = strstr( $rootFileData, '/' );
+                $rootFileDataInfos    = pathinfo( $rootFileData );
                 
-                if( trim( $rootFileDat ) && !$containsSlash && ( @is_file( PATH_site . $rootFileDat ) || t3lib_div::inList( 'php,html,htm', strtolower( $rFD_fI[ 'extension' ] ) ) ) ) {
+                // Checks if the file is a local file
+                if( trim( $rootFileData )
+                    && !$containsSlash
+                    && ( @is_file( PATH_site . $rootFileData ) || t3lib_div::inList( 'php,html,htm', strtolower( $rootFileDataInfos[ 'extension' ] ) ) )
+                ) {
                     
+                    // Sets the flag
                     $isLocalFile = 1;
                     
                 } elseif( $containsSlash ) {
                     
-                    // Adding this so realurl directories are linked right (non-existing)
+                    // Adding this so RealURL directories are linked right (non-existing)
                     $isLocalFile = 2;		
                 }
                 
-                // URL (external): If doubleSlash or if a '.' comes before a '/'
+                // Checks for an external URL (doubleSlash or '.' before a '/')
                 if( $urlParts[ 'scheme' ] || ( $isLocalFile != 1 && $urlChar && ( !$containsSlash || $urlChar < $fileChar ) ) ) {
                     
+                    // Sets the target for external URLs
                     $target = isset($conf[ 'extTarget' ]) ? $conf[ 'extTarget' ] : $GLOBALS[ 'TSFE' ]->extTarget;
                     
-                    if( $conf[ 'extTarget.' ] ) {
+                    // Checks for a subconfiguration for the external target
+                    if( isset( $conf[ 'extTarget.' ] ) ) {
                         
+                        // Process the subconfiguration
                         $target = $this->stdWrap( $target, $conf[ 'extTarget.' ] );
                     }
                     
+                    // Checks if the target should be forced
                     if( $forceTarget) {
                         
+                        // Forces the target
                         $target = $forceTarget;
                     }
                     
+                    // Checks for a link text
                     if( $linkText == '' ) {
                         
+                        // No link text, so sets the URL as link text
                         $linkText = $linkParam;
                     }
                     
+                    // Checks for an URL scheme
                     if( !$urlParts[ 'scheme' ] ) {
                         
+                        // No scheme, so the default is http
                         $scheme = 'http://';
                         
                     } else {
                         
+                        // The scheme is already present
                         $scheme = '';
                     }
                     
-                    if( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'jumpurl_enable' ] ) {
+                    // Checks for jump URL settings
+                    if( isset( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'jumpurl_enable' ] )
+                        && $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'jumpurl_enable' ]
+                    ) {
                         
+                        // Sets the last typoLink
                         $this->lastTypoLinkUrl = $GLOBALS[ 'TSFE' ]->absRefPrefix
                                                . $GLOBALS[ 'TSFE' ]->config[ 'mainScript' ]
                                                . $initPage
@@ -356,10 +375,14 @@ class ux_tslib_cObj extends tslib_cObj
                         
                     } else {
                         
+                        // Sets the last typoLink
                         $this->lastTypoLinkUrl = $scheme . $linkParam;
                     }
                     
+                    // Sets the last typoLink target
                     $this->lastTypoLinkTarget        = $target;
+                    
+                    // Sets the A tag parts
                     $finalTagParts[ 'url' ]          = $this->lastTypoLinkUrl;
                     $finalTagParts[ 'targetParams' ] = ( $target ) ? ' target="' . $target . '"' : '';
                     $finalTagParts[ 'TYPE' ]         = 'url';
@@ -369,15 +392,20 @@ class ux_tslib_cObj extends tslib_cObj
                     // File (internal)
                     $splitLinkParam = explode( '?', $linkParam );
                     
+                    // Checks if the file exists
                     if( @file_exists( rawurldecode( $splitLinkParam[ 0 ] ) ) || $isLocalFile ) {
                         
+                        // Checks for a link text
                         if( $linkText == '') {
                             
+                            // No link text, so sets the URL as link text
                             $linkText = rawurldecode( $linkParam );
                         }
                         
+                        // Checks for jump URL settings
                         if( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'jumpurl_enable' ] ) {
                             
+                            // Sets the last typoLink
                             $this->lastTypoLinkUrl = $GLOBALS[ 'TSFE' ]->absRefPrefix
                                                    . $GLOBALS[ 'TSFE' ]->config[ 'mainScript' ]
                                                    . $initPage
@@ -387,21 +415,28 @@ class ux_tslib_cObj extends tslib_cObj
                             
                         } else {
                             
+                            // Sets the last typoLink
                             $this->lastTypoLinkUrl = $GLOBALS[ 'TSFE' ]->absRefPrefix . $linkParam;
                         }
                         
+                        // Checks if the target should be forced
                         if( $forceTarget ) {
                             
+                            // Forces the target
                             $target = $forceTarget;
                         }
                         
+                        // Sets the last typoLink target
                         $this->lastTypoLinkTarget        = $target;
+                        
+                        // Sets the A tag parts
                         $finalTagParts[ 'url' ]          = $this->lastTypoLinkUrl;
                         $finalTagParts[ 'targetParams' ] = $target ? ' target="' . $target . '"' : '';
                         $finalTagParts[ 'TYPE' ]         = 'file';
                         
                     } else {
                         
+                        // The file does not exists. Puts a message in the log
                         $GLOBALS[ 'TT' ]->setTSlogMessage(
                             'typolink(): File \''
                           . $splitLinkParam[ 0 ]
@@ -411,102 +446,126 @@ class ux_tslib_cObj extends tslib_cObj
                             1
                         );
                         
+                        // Returns only the link text
                         return $linkText;
                     }
                 } else {
                     
-                    // Integer or alias (alias is without slashes or periods or commas, that is 'nospace,alphanum_x,lower,unique' according to definition in $TCA!)
+                    // Checks for the no cache settings
                     if( isset( $conf[ 'no_cache.' ] ) ) {
                         
+                        // Applies the no cache settings
                         $conf[ 'no_cache' ] = $this->stdWrap( $conf[ 'no_cache' ], $conf[ 'no_cache.' ] );
                     }
                     
-                    $link_params_parts = explode( '#', $linkParam );
+                    // Gets the parts of the link parameter
+                    $linkParamsParts = explode( '#', $linkParam );
                     
-                    // Link-data del
-                    $linkParam         = trim( $link_params_parts[ 0 ] );
+                    // Gets the link data
+                    $linkParam         = trim( $linkParamsParts[ 0 ] );
                     
+                    // Checks the link data
                     if( !strcmp( $linkParam, '' ) ) {
                         
-                        // If no id or alias is given
+                        // No ID nor alias, so the link is the current page
                         $linkParam = $GLOBALS[ 'TSFE' ]->id;
                     }
                     
-                    if( $link_params_parts[ 1 ] && !$sectionMark ) {
+                    // Checks for an anchor to a content element
+                    if( isset( $linkParamsParts[ 1 ] ) && $linkParamsParts[ 1 ]  && !$sectionMark ) {
                         
-                        $sectionMark = trim( $link_params_parts[ 1 ] );
+                        // Adds the section mark
+                        $sectionMark = trim( $linkParamsParts[ 1 ] );
                         $sectionMark = ( t3lib_div::testInt( $sectionMark ) ? '#c' : '#' ) . $sectionMark;
                     }
                     
-                    // Splitting the parameter by ',' and if the array counts more than 1 element it's a id/type/? pair
-                    unset( $theTypeP );
-                    
+                    // Splits the parameter to see if there is a type parameter
                     $pairParts = t3lib_div::trimExplode( ',', $linkParam );
                     
-                    if( count( $pairParts ) > 1 ) {
+                    // Checks for a type
+                    if( isset( $pairParts[ 1 ] ) ) {
                         
-                        $linkParam  = $pairParts[ 0 ];
+                        // Sets the link parameter
+                        $linkParam     = $pairParts[ 0 ];
                         
-                        // Overruling 'type'
-                        $theTypeP   = $pairParts[ 1 ];
+                        // Override the 'type' parameter
+                        $pageTypeParam = $pairParts[ 1 ];
                     }
                     
                     // Checking if the id-parameter is an alias
                     if( !t3lib_div::testInt( $linkParam ) ) {
                         
+                        // Gets the page ID for the alias
                         $linkParam = $GLOBALS[ 'TSFE' ]->sys_page->getPageIdFromAlias( $linkParam );
                     }
                     
-                    // Looking up the page record to verify its existence
+                    // Looks up the page record to verify its existence
                     $disableGroupAccessCheck = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages' ] ? true : false;
                     $page                    = $GLOBALS[ 'TSFE' ]->sys_page->getPage( $linkParam, $disableGroupAccessCheck );
                     
+                    // Checks the page
                     if( count( $page ) ) {
                     
-                        // MointPoints, look for closest MPvar
-                        $MPvarAcc = array();
+                        // MointPoints, so looks for the closest MPvar
+                        $mpVarArray = array();
                         
-                        if( !$GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'MP_disableTypolinkClosestMPvalue' ] ) {
+                        // Checks the configuration for the MPvar
+                        if( !isset( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'MP_disableTypolinkClosestMPvalue' ] )
+                            || !$GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'MP_disableTypolinkClosestMPvalue' ]
+                        ) {
                             
-                            $temp_MP = $this->getClosestMPvalueForPage( $page[ 'uid' ], true );
+                            // Gets the closest MPvar
+                            $tempMp = $this->getClosestMPvalueForPage( $page[ 'uid' ], true );
                             
-                            if( $temp_MP) {
+                            // Checks for a result
+                            if( $tempMp) {
                                 
-                                $MPvarAcc[ 'closest' ] = $temp_MP;
+                                // Sets the closest MPvar
+                                $mpVarArray[ 'closest' ] = $tempMp;
                             }
                         }
                         
-                        // Look for overlay Mount Point
-                        $mount_info = $GLOBALS[ 'TSFE' ]->sys_page->getMountPointInfo( $page[ 'uid' ], $page );
+                        // Looks for an mount point overlay
+                        $mountInfos = $GLOBALS[ 'TSFE' ]->sys_page->getMountPointInfo( $page[ 'uid' ], $page );
                         
-                        if( is_array( $mount_info ) && $mount_info[ 'overlay' ] ) {
+                        // Checks the results
+                        if( is_array( $mountInfos ) && isset( $mountInfos[ 'overlay' ] ) && $mountInfos[ 'overlay' ] ) {
                             
-                            $page = $GLOBALS[ 'TSFE' ]->sys_page->getPage( $mount_info[ 'mount_pid' ], $disableGroupAccessCheck );
+                            // Gets the page
+                            $page = $GLOBALS[ 'TSFE' ]->sys_page->getPage( $mountInfos[ 'mount_pid' ], $disableGroupAccessCheck );
                             
+                            // Checks the page
                             if( !count( $page ) ) {
                                 
+                                // No page. Puts a message in the logs
                                 $GLOBALS[ 'TT' ]->setTSlogMessage(
                                     'typolink(): Mount point \''
-                                  . $mount_info[ 'mount_pid' ]
+                                  . $mountInfos[ 'mount_pid' ]
                                   . '\' was not available, so \''
                                   . $linkText
                                   . '\' was not linked.',
                                     1
                                 );
                                 
+                                // Returns the link text only
                                 return $linkText;
                             }
                             
-                            $MPvarAcc[ 're-map' ] = $mount_info[ 'MPvar' ];
+                            // Sets the 're-map' information
+                            $mpVarArray[ 're-map' ] = $mountInfos[ 'MPvar' ];
                         }
                         
-                        // Setting title if blank value to link
+                        // Checks for a link text
                         if( $linkText == '' ) {
                             
+                            // No link text, so use the page title
                             $linkText = $page[ 'title' ];
                         }
                         
+                        // Adds the query string if configured
                         $addQueryParams  = ( $conf['addQueryString'] ) ? $this->getQueryArguments( $conf[ 'addQueryString.' ] ) : '';
+                        
+                        // Add the additionnal parameters if any
                         $addQueryParams .= trim( $this->stdWrap( $conf[ 'additionalParams' ], $conf[ 'additionalParams.' ] ) );
                         
                         // Original not working code
@@ -516,165 +575,213 @@ class ux_tslib_cObj extends tslib_cObj
                         #    
                         #} elseif( $conf[ 'useCacheHash' ] ) {
                         #    
-                        #    $pA              = t3lib_div::cHashParams( $addQueryParams . $GLOBALS[ 'TSFE' ]->linkVars );
-                        #    $addQueryParams .= '&cHash='.t3lib_div::shortMD5( serialize( $pA ) );
+                        #    $cHashParams     = t3lib_div::cHashParams( $addQueryParams . $GLOBALS[ 'TSFE' ]->linkVars );
+                        #    $addQueryParams .= '&cHash='.t3lib_div::shortMD5( serialize( $cHashParams ) );
                         #}
                         
-                        // RealURL default variables
+                        // Checks if the default variables for RealURL has already been computed
                         if( !$this->ux_hasRealUrlDefaultPreVars ) {
                             
+                            // Gets the RealURL default variables
                             $this->ux_getRealUrlDefaultPreVars();
                         }
                         
+                        // Checks the validity of the additionnal parameters
                         if ( substr( $addQueryParams, 0, 1 ) != '&' ) {
                             
+                            // Invalid, so remove them
                             $addQueryParams = '';
                         }
                         
+                        // Checks if the cHash parameter must be computed
                         if ( $conf[ 'useCacheHash' ] && trim( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams ) ) {
                             
-                            $pA              = t3lib_div::cHashParams( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams );
-                            unset( $pA[ '' ] );
-                            $addQueryParams .= '&cHash=' . t3lib_div::shortMD5( serialize( $pA ) );
+                            // Gets the GET variables needed to compute the cHash
+                            $cHashParams = t3lib_div::cHashParams( $this->ux_realUrlDefaultPreVars . $GLOBALS[ 'TSFE' ]->linkVars . $addQueryParams );
+                            
+                            // Removes the blank key - Don't know why it's there...
+                            unset( $cHashParams[ '' ] );
+                            
+                            // Adds the cHash parameter
+                            $addQueryParams .= '&cHash=' . t3lib_div::shortMD5( serialize( $cHashParams ) );
                         }
                         
-                        $tCR_domain = '';
+                        // Storage for the domain name
+                        $domain = '';
                         
                         // Mount pages are always local and never link to another domain
-                        if( count( $MPvarAcc ) ) {
+                        if( count( $mpVarArray ) ) {
                             
-                            // Add "&MP" var
-                            $addQueryParams .= '&MP=' . rawurlencode( implode( ',', $MPvarAcc ) );
+                            // Adds the MPvar
+                            $addQueryParams .= '&MP=' . rawurlencode( implode( ',', $mpVarArray ) );
                             
                         } elseif( isset( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkCheckRootline' ] ) && $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkCheckRootline' ] ) {
                             
-                            // This checks if the linked id is in the rootline of this site and if not it will find the domain for that ID and prefix it
-                            $tCR_rootline = $GLOBALS[ 'TSFE' ]->sys_page->getRootLine( $page[ 'uid' ] );
-                            $tCR_flag     = 0;
+                            // Gets the rootLine
+                            $rootLine   = $GLOBALS[ 'TSFE' ]->sys_page->getRootLine( $page[ 'uid' ] );
                             
-                            foreach ( $tCR_rootline as $tCR_data ) {
+                            // Rootline flag
+                            $inRootLine = 0;
+                            
+                            // Process the pages in the rootLine
+                            foreach( $rootLine as $rootLineData ) {
                                 
-                                if( $tCR_data[ 'uid' ] == $GLOBALS[ 'TSFE' ]->tmpl->rootLine[ 0 ][ 'uid' ] ) {
+                                // Checks the page ID
+                                if( $rootLineData[ 'uid' ] == $GLOBALS[ 'TSFE' ]->tmpl->rootLine[ 0 ][ 'uid' ] ) {
                                     
-                                    // OK, it was in rootline!
-                                    $tCR_flag = 1;
+                                    // The page is in the rootline
+                                    $inRootLine = 1;
                                     break;
                                 }
                             }
                             
-                            if( !$tCR_flag ) {
+                            // The page was not found in the rootLine
+                            if( !$inRootLine ) {
                                 
-                                foreach ( $tCR_rootline as $tCR_data ) {
+                                // Process the pages in the rootLine
+                                foreach( $rootLine as $rootLineData ) {
                                     
+                                    // Gets the domain related to the page
                                     $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
                                         '*',
                                         'sys_domain',
-                                        'pid=' . intval( $tCR_data[ 'uid' ] ) . ' AND redirectTo=\'\'' . $this->enableFields( 'sys_domain' ),
+                                        'pid=' . intval( $rootLineData[ 'uid' ] ) . ' AND redirectTo=\'\'' . $this->enableFields( 'sys_domain' ),
                                         '',
                                         'sorting'
                                     );
                                     
+                                    // Checks for a domain
                                     if( $res && $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
                                         
-                                        $tCR_domain = preg_replace( '/\/$/', '', $row[ 'domainName' ] );
+                                        // Removes the trailing slash
+                                        $domain = preg_replace( '/\/$/', '', $row[ 'domainName' ] );
                                         break;
                                     }
                                 }
                             }
                         }
                         
-                        // If other domain, overwrite
-                        if( strlen( $tCR_domain ) ) {
+                        // Overwrites the current domain if another must be used
+                        if( strlen( $domain ) ) {
                             
+                            // Sets the external target
                             $target = isset($conf[ 'extTarget' ]) ? $conf[ 'extTarget' ] : $GLOBALS[ 'TSFE' ]->extTarget;
                             
+                            // Checks for a target subconfigurations
                             if( $conf[ 'extTarget.' ] ) {
                                 
+                                // Process the target subconfiguration
                                 $target = $this->stdWrap( $target, $conf[ 'extTarget.' ] );
                             }
                             
+                            // Checks if the target must be forced
                             if( $forceTarget) {
                                 
+                                // Forces the target
                                 $target = $forceTarget;
                             }
                             
-                            $LD[ 'target' ]        = $target;
+                            // Sets the target
+                            $linkData[ 'target' ]  = $target;
+                            
+                            // Sets the last typoLink
                             $this->lastTypoLinkUrl = $this->URLqMark(
-                                                        'http://' . $tCR_domain . '/index.php?id=' . $page[ 'uid' ],
+                                                        'http://' . $domain . '/index.php?id=' . $page[ 'uid' ],
                                                         $addQueryParams
                                                      )
                                                    . $sectionMark;
                             
                         } else {
                             
-                            // Internal link
+                            // Checks if the target must be forced
                             if( $forceTarget) {
                                 
+                                // Forces the target
                                 $target = $forceTarget;
                             }
                             
-                            $LD = $GLOBALS[ 'TSFE' ]->tmpl->linkData(
+                            // Sets the link data
+                            $linkData = $GLOBALS[ 'TSFE' ]->tmpl->linkData(
                                     $page,
                                     $target,
                                     $conf[ 'no_cache' ],
                                     '',
                                     '',
                                     $addQueryParams,
-                                    $theTypeP
+                                    $pageTypeParam
                                  );
-                            $this->lastTypoLinkUrl = $this->URLqMark( $LD[ 'totalURL' ], '' ) . $sectionMark;
+                            
+                            // Sets the last typoLink
+                            $this->lastTypoLinkUrl = $this->URLqMark( $linkData[ 'totalURL' ], '' ) . $sectionMark;
                         }
                         
-                        $this->lastTypoLinkTarget = $LD[ 'target' ];
-                        $targetPart               = ( $LD[ 'target' ] ) ? ' target="' . $LD[ 'target' ] . '"' : '';
+                            // Sets the last typoLink target
+                        $this->lastTypoLinkTarget = $linkData[ 'target' ];
                         
-                        // If sectionMark is set, there is no baseURL AND the current page is the page the link is to, check if there are any additional parameters and is not, drop the url
+                        // Target attribute for the A tag
+                        $targetPart               = ( $linkData[ 'target' ] ) ? ' target="' . $linkData[ 'target' ] . '"' : '';
+                        
+                        // Checks if the sectionMark is set, if there is no baseURL and if the link is to the current page
                         if( $sectionMark
                             && !trim( $addQueryParams )
                             && $page[ 'uid' ] == $GLOBALS[ 'TSFE' ]->id
                             && !$GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'baseURL' ]
                         ) {
                             
-                            list( , $URLparams ) = explode( '?', $this->lastTypoLinkUrl );
-                            list( $URLparams )   = explode( '#', $URLparams );
+                            // Gets the URL parameters
+                            list( , $urlParams ) = explode( '?', $this->lastTypoLinkUrl );
+                            list( $urlParams )   = explode( '#', $urlParams );
                             
-                            parse_str( $URLparams . $LD[ 'orig_type' ], $URLparamsArray );
+                            // Parses the query string
+                            parse_str( $urlParams . $linkData[ 'orig_type' ], $urlParamsArray );
                             
-                            // Type nums must match as well as page ids
-                            if( intval( $URLparamsArray[ 'type' ] ) == $GLOBALS[ 'TSFE' ]->type ) {
+                            // Checks the typeNum
+                            if( intval( $urlParamsArray[ 'type' ] ) == $GLOBALS[ 'TSFE' ]->type ) {
                                 
-                                unset( $URLparamsArray[ 'id' ] );
-                                unset( $URLparamsArray[ 'type' ] );
+                                // Removes the id and type parameters
+                                unset( $urlParamsArray[ 'id' ] );
+                                unset( $urlParamsArray[ 'type' ] );
                                 
-                                // If there are no parameters left, set the new url
-                                if( !count( $URLparamsArray ) ) {
+                                // Checks for other parameters
+                                if( !count( $urlParamsArray ) ) {
                                     
+                                    // Sets the last typoLink
                                     $this->lastTypoLinkUrl = $sectionMark;
                                 }
                             }
                         }
                         
-                        // If link is to a access restricted page which should be redirected, then find new URL
+                        // Checks if the access to the page is restricted
                         if( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages' ]
                             && $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages' ] !== 'NONE'
                             && !$GLOBALS[ 'TSFE' ]->checkPageGroupAccess( $page )
                         ) {
                             
+                            // Gets tha page
                             $thePage               = $GLOBALS[ 'TSFE' ]->sys_page->getPage( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages' ] );
-                            $addParams             = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages_addParams' ];
+                            
+                            // Gets the parameters
+                            $addParams             = isset( $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages_addParams' ] ) ? $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'typolinkLinkAccessRestrictedPages_addParams' ] : '';
+                            
+                            // Replace markers in the parameters
                             $addParams             = str_replace( '###RETURN_URL###', rawurlencode( $this->lastTypoLinkUrl ), $addParams );
                             $addParams             = str_replace( '###PAGE_ID###', $page[ 'uid' ], $addParams );
-                            $LD                    = $GLOBALS[ 'TSFE' ]->tmpl->linkData( $thePage, $target, '', '', '', $addParams, $theTypeP );
-                            $this->lastTypoLinkUrl = $this->URLqMark( $LD[ 'totalURL' ], '' );
+                            
+                            // Gets the link data
+                            $linkData              = $GLOBALS[ 'TSFE' ]->tmpl->linkData( $thePage, $target, '', '', '', $addParams, $pageTypeParam );
+                            
+                            // Sets the last typoLink
+                            $this->lastTypoLinkUrl = $this->URLqMark( $linkData[ 'totalURL' ], '' );
                         }
                         
-                        // Rendering the tag.
+                        // Renders the tag
                         $finalTagParts[ 'url' ]          = $this->lastTypoLinkUrl;
                         $finalTagParts[ 'targetParams' ] = $targetPart;
                         $finalTagParts[ 'TYPE' ]         = 'page';
                         
                     } else {
                         
+                        // PAge not found, puts a message in the log
                         $GLOBALS[ 'TT' ]->setTSlogMessage(
                             'typolink(): Page id \''
                           . $linkParam
@@ -684,34 +791,42 @@ class ux_tslib_cObj extends tslib_cObj
                             1
                         );
                         
+                        // Returns the link text only
                         return $linkText;
                     }
                 }
             }
             
+            // Checks if the title must be forced
             if( $forceTitle ) {
                 
+                // Forces the title
                 $title = $forceTitle;
             }
             
-            if( $JsWindowParams ) {
+            // Checks for JavaScript parameters
+            if( $jsWindowParams ) {
                 
-                // Create TARGET-attribute only if the right doctype is used
+                // Creates the target attribute only if the right doctype is used
                 if( !t3lib_div::inList( 'xhtml_strict,xhtml_11,xhtml_2', $GLOBALS[ 'TSFE' ]->xhtmlDoctype ) ) {
                     
+                    // Sets the target
                     $target = ' target="FEopenLink"';
                     
                 } else {
                     
+                    // No target
                     $target = '';
                 }
                 
+                // Builds the onclick parameter
                 $onClick = 'vHWin = window.open( \''
                          . $GLOBALS[ 'TSFE' ]->baseUrlWrap($finalTagParts[ 'url' ])
                          . '\', \'FEopenLink\', \''
-                         . $JsWindowParams
+                         . $jsWindowParams
                          . '\' ); vHWin.focus(); return false;';
-                         
+                
+                // Builds the A tag
                 $res     = '<a href="'
                          . htmlspecialchars( $finalTagParts[ 'url' ] )
                          . '"'
@@ -726,8 +841,10 @@ class ux_tslib_cObj extends tslib_cObj
                          
             } else {
                 
+                // Checks for an email, and if it must be spam-protected
                 if( $GLOBALS[ 'TSFE' ]->spamProtectEmailAddresses === 'ascii' && $finalTagParts[ 'TYPE' ] === 'mailto' ) {
                     
+                    // Builds the A tag
                     $res = '<a href="'
                          . $finalTagParts[ 'url' ]
                          . '"'
@@ -739,6 +856,7 @@ class ux_tslib_cObj extends tslib_cObj
                 
                 } else {
                     
+                    // Builds the A tag
                     $res = '<a href="'
                          . htmlspecialchars( $finalTagParts[ 'url' ] )
                          . '"'
@@ -750,42 +868,58 @@ class ux_tslib_cObj extends tslib_cObj
                 }
             }
             
-                // Call user function:
-            if( $conf[ 'userFunc' ] ) {
+            // Checks for a user defined function
+            if( isset( $conf[ 'userFunc' ] ) && $conf[ 'userFunc' ] ) {
                 
+                // Stores the A tag
                 $finalTagParts[ 'TAG' ] = $res;
-                $res                    = $this->callUserFunction( $conf[ 'userFunc' ], $conf[ 'userFunc.' ], $finalTagParts );
+                
+                // User function parameters
+                $userFuncParams         = ( isset( $conf[ 'userFunc.' ] ) ) ? $conf[ 'userFunc.' ] : array();
+                
+                // Calls the user function
+                $res                    = $this->callUserFunction(
+                    $conf[ 'userFunc' ],
+                    $userFuncParams,
+                    $finalTagParts
+                );
             }
             
-            // If flag "returnLastTypoLinkUrl" set, then just return the latest URL made
+            // Checks if the last typoLink must be returned
             if( $conf[ 'returnLast' ] ) {
                 
+                // Checks configuration
                 switch( $conf[ 'returnLast' ] ) {
                     
+                    // Returns the URL
                     case 'url':
                         
                         return $this->lastTypoLinkUrl;
-                    break;
+                        break;
                     
+                    // Returns the target
                     case 'target':
                         
                         return $this->lastTypoLinkTarget;
-                    break;
+                        break;
                 }
             }
             
-            if( $conf[ 'ATagBeforeWrap' ] ) {
+            // Checks the wrap type
+            if( isset( $conf[ 'ATagBeforeWrap' ] ) && $conf[ 'ATagBeforeWrap' ] ) {
                 
+                // The A tag is before the wrap
                 return $res . $this->wrap( $linkText, $conf[ 'wrap' ] ) . '</a>';
                 
             } else {
                 
+                // Thw wrap is before the A tag
                 return $this->wrap( $res . $linkText . '</a>', $conf[ 'wrap' ] );
             }
             
         } else {
             
-            // No parameter in the TypoLink. Returns the text only
+            // No parameter in the typoLink. Returns the link text only
             return $linkText;
         }
     }
