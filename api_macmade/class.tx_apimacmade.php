@@ -59,8 +59,11 @@
  *              function fe_makeSwapClassesJSLink( $elementId, $content = false, $htmlSpecialChars = false, $startTagOnly = false, $params = array() )
  *              function fe_createImageObjects( $imgRefs, $conf, $imgPath = false )
  *              function fe_linkTP( $str, $urlParameters = array(), $cache = 0, $altPageId = 0, $conf = array() )
+ *              function fe_linkTP_keepPIvars( $str, $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId=0 )
+ *              function fe_linkTP_keepPIvars_url( $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
  *              function fe_linkTP_unsetPIvars( $str, $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
  *              function fe_linkTP_unsetPIvars_url( $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
+ *              function fe_typoLinkParams( $params )
  *              function fe_initFeAdmin( $conf, $table, $pid, $feAdminConf, $create = 1, $edit = 0, $delete = 0, $infomail = 0, $fe_userOwnSelf = 0, $fe_userEditSelf = 0, $debug = 0, $defaultCmd = 'create', $confKey = 'fe_adminLib' )
  *              function fe_createInput( $type, $name, $feAdminConf, $feAdminSection, $number = 1, $params = array(), $defaultValue = 0, $defaultChecked = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
  *              function fe_createTextArea( $name, $feAdminConf, $feAdminSection, $params = array(), $defaultValue = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
@@ -72,7 +75,6 @@
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
  *              function fe_includePrototypeJs
  *              function fe_includeScriptaculousJs
- *              function fe_typoLinkParams( $params )
  * 
  * SECTION:		3 - BE
  *         		function be_buildRecordIcons( $actions, $table, $uid )
@@ -738,9 +740,10 @@ class tx_apimacmade
     /**
      * Link a string to some page.
      * 
-     * This function links a string to a page (the active one by default). It's the same function as
-     * tslib_pibase::pi_linkTP(), except that a configuration array for the typolink can be passed
-     * directly as argument.
+     * This function links a string to a page (the active one by default). It's
+     * the same function as tslib_pibase::pi_linkTP(), except that a
+     * configuration array for the typolink can be passed directly as argument,
+     * and that it will always returns a correct cHash.
      *
      * @param       string      $str                The content string to wrap in <a> tags
      * @param       array       $urlParameters      Array with URL parameters as key/value pairs. They will be "imploded" and added to the list of parameters defined in the plugins TypoScript property "parent.addParams" plus $this->pi_moreParams
@@ -751,8 +754,8 @@ class tx_apimacmade
      */
     function fe_linkTP( $str, $urlParameters = array(), $cache = 0, $altPageId = 0, $conf = array() )
     {
-        // Cache hash
-        $conf[ 'useCacheHash' ]     = ( $this->pObj->pi_USER_INT_obj ) ? 0 : $cache;
+        // Cache hash (this should always be true!)
+        $conf[ 'useCacheHash' ]     = 1;
         
         // No cache
         $conf[ 'no_cache' ]         = ( $this->pObj->pi_USER_INT_obj ) ? 0 : !$cache;
@@ -772,6 +775,92 @@ class tx_apimacmade
     /**
      * Link a string to some page.
      * 
+     * This method is the same as method fe_linkTP_keepPIvars of tslib_piBase,
+     * except the fact that it will always return a correct cHash.
+     * 
+     * @param       string      $str                The content string to wrap in <a> tags
+     * @param       array       $unsetPIvars        Array of values not to include in the current piVars
+     * @param       boolean     $cache      Ask the page to be cached by a &cHash value
+     * @param       boolean     $clearAnyway        Do not preserve current piVars
+     * @param       int         $altPageId          Alternative page ID for the link
+     * @return      string      The input string wrapped in <a> tags
+     * @see         fe_linkTP
+     */
+    function fe_linkTP_keepPIvars( $str, $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId=0 )
+    {
+        // Checks arguments
+        if( is_array( $this->pObj->piVars )
+            && is_array( $overrulePIvars )
+            && !$clearAnyway
+        ) {
+            
+            // Gets a copy of the plugin variables
+            $piVars = $this->piVars;
+            
+            // Unset the DATA variable
+            unset( $piVars[ 'DATA' ] );
+            
+            // Merge the plugin variables with the passed variables
+            $overrulePIvars = t3lib_div::array_merge_recursive_overrule( $piVars, $overrulePIvars );
+            
+            // Checsk cache settings
+            if ( isset( $this->pObj->pi_autoCacheEn ) && $this->pObj->pi_autoCacheEn ) {
+                
+                // Cache value
+                $cache = $this->pObj->pi_autoCache( $overrulePIvars );
+            }
+            
+            // Creates the link
+            $res = $this->fe_linkTP(
+                $str,
+                array(
+                    $this->pObj->prefixId => $overrulePIvars
+                ),
+                $cache,
+                $altPageId
+            );
+            
+            // Returns the link
+            return $res;
+            
+        }
+        
+        // Error
+        tx_apimacmade::errorMsg( __METHOD__ );
+        return false;
+    }
+    
+    /**
+     * Returns an URL to some page.
+     * 
+     * This method is the same as method pi_fe_linkTP_keepPIvars_url of
+     * tslib_piBase, except the fact that it will always return a correct cHash.
+     * 
+     * @param       array       $overrulePIvars     Array of values to override or add in the current piVars
+     * @param       boolean     $cache              Ask the page to be cached by a &cHash value
+     * @param       boolean     $clearAnyway        Do not preserve current piVars
+     * @param       int         $altPageId          Alternative page ID for the link
+     * @return      string      The complete URL
+     * @see         fe_linkTP_keepPIvars
+     */
+    function fe_linkTP_keepPIvars_url( $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
+    {
+        // Creates the the link
+        $this->fe_linkTP_keepPIvars(
+            '|',
+            $overrulePIvars,
+            $cache,
+            $clearAnyway,
+            $altPageId
+        );
+        
+        // Returns the link
+        return $this->pObj->cObj->lastTypoLinkUrl;
+    }
+    
+    /**
+     * Link a string to some page.
+     * 
      * This function links a string to a page (the active one by default), while keeping current piVars.
      * Additionnal piVars can be added or overlaid in the overrulePIvars array. All piVars found in the
      * unsetPIvars array won't be preserved. Please see the pi_linkTP_keepPIvars function of tslib_pibase
@@ -784,6 +873,7 @@ class tx_apimacmade
      * @param       boolean     $clearAnyway        Do not preserve current piVars
      * @param       int         $altPageId          Alternative page ID for the link
      * @return      string      The input string wrapped in <a> tags
+     * @see         fe_linkTP_keepPIvars
      */
     function fe_linkTP_unsetPIvars( $str, $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
     {
@@ -798,7 +888,7 @@ class tx_apimacmade
             }
             
             // Returns link
-            return $this->pObj->pi_linkTP_keepPIvars(
+            return $this->fe_linkTP_keepPIvars(
                 $str,
                 $overrulePIvars,
                 $cache,
@@ -826,6 +916,7 @@ class tx_apimacmade
      * @param       boolean     $clearAnyway        Do not preserve current piVars
      * @param       int         $altPageId          Alternative page ID for the link
      * @return      string      The complete URL
+     * @see         fe_linkTP_keepPIvars_url
      */
     function fe_linkTP_unsetPIvars_url( $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
     {
@@ -840,13 +931,55 @@ class tx_apimacmade
             }
             
             // Returns link
-            return $this->pObj->pi_linkTP_keepPIvars_url(
+            return $this->fe_linkTP_keepPIvars_url(
                 $overrulePIvars,
                 $cache,
                 $clearAnyway,
                 $altPageId
             );
             
+        }
+        
+        // Error
+        tx_apimacmade::errorMsg( __METHOD__ );
+        return false;
+    }
+    
+    /**
+     * Builds parameters for a typoLink
+     * 
+     * This method is used to build the 'additionalParams' TypoScript option.
+     * Each parameter of the array will be formed as a piVar (prefixed with
+     * pObj->prefixId).
+     * 
+     * @param       array       $params             An associative array with URL parameters
+     */
+    function fe_typoLinkParams( $params )
+    {
+        if( is_array( $params ) ) {
+            
+            // Storage
+            $additionalParams = '';
+            
+            // Checks the extension prefix
+            if( isset( $this->pObj->prefixId ) ) {
+                
+                // Process parameters
+                foreach( $params as $key => $value ) {
+                    
+                    // Adds the parameter
+                    $additionalParams .= '&'
+                                      .  $this->pObj->prefixId
+                                      .  '['
+                                      .  $key
+                                      .  ']'
+                                      .  '='
+                                      . $value;
+                }
+            }
+            
+            // Returns the parameters
+            return $additionalParams;
         }
         
         // Error
@@ -2416,36 +2549,6 @@ class tx_apimacmade
         }
         
         return true;
-    }
-    
-    /**
-     * 
-     */
-    function fe_typoLinkParams( $params )
-    {
-        
-        // Storage
-        $additionalParams = '';
-        
-        // Checks the extension prefix
-        if( isset( $this->pObj->prefixId ) ) {
-            
-            // Process parameters
-            foreach( $params as $key => $value ) {
-                
-                // Adds the parameter
-                $additionalParams .= '&'
-                                  .  $this->pObj->prefixId
-                                  .  '['
-                                  .  $key
-                                  .  ']'
-                                  .  '='
-                                  . $value;
-            }
-        }
-        
-        // Returns the parameters
-        return $additionalParams;
     }
     
     

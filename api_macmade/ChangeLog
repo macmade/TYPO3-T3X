@@ -3,6 +3,9 @@
 	* Increased API internal version number to 3.1.
 	* Fixed to fe_buildLoginBox method (cHash related problem)
 	* New function: fe_typoLinkParams. This function is used to build the additionalParams option of a typoLink from a frontend plugin.
+	* New function: fe_linkTP_keepPIvars. Same as tslib_piBase::pi_linkTP_keepPIvars, but with a bugfix for the cHash.
+	* New function: fe_linkTP_keepPIvars_url. Same as tslib_piBase::pi_linkTP_keepPIvars_url, but with a bugfix for the cHash.
+	* Fixed a bug in method fe_linkTP related to the cHash.
 
 2007-07-25  Jean-David Gadina  <info@macmade.net>
 	* New function: be_includePrototypeJs. This function is used to include the Prototype JavaScript framework in a backend context.
