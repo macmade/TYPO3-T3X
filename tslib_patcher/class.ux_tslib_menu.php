@@ -96,8 +96,8 @@ class ux_tslib_menu extends tslib_menu
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
-            $altTarget = '',
-            $typeOverride = ''
+            $altTarget,
+            $typeOverride
         );
     }
 }
@@ -137,8 +137,8 @@ class ux_tslib_gmenu extends tslib_gmenu
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
-            $altTarget = '',
-            $typeOverride = ''
+            $altTarget,
+            $typeOverride
         );
     }
 }
@@ -178,8 +178,8 @@ class ux_tslib_imgmenu extends tslib_imgmenu
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
-            $altTarget = '',
-            $typeOverride = ''
+            $altTarget,
+            $typeOverride
         );
     }
 }
@@ -219,8 +219,8 @@ class ux_tslib_jsmenu extends tslib_jsmenu
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
-            $altTarget = '',
-            $typeOverride = ''
+            $altTarget,
+            $typeOverride
         );
     }
 }
@@ -260,8 +260,8 @@ class ux_tslib_tmenu extends tslib_tmenu
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
-            $altTarget = '',
-            $typeOverride = ''
+            $altTarget,
+            $typeOverride
         );
     }
 }

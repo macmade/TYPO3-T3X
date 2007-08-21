@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "tslib_patcher"
 #
-# Auto generated 21-08-2007 02:15
+# Auto generated 21-08-2007 02:36
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -40,7 +40,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:8:{s:25:"class.tx_tslibpatcher.php";s:4:"fba3";s:23:"class.ux_tslib_cobj.php";s:4:"28e8";s:23:"class.ux_tslib_menu.php";s:4:"21f8";s:23:"class.ux_tx_realurl.php";s:4:"f92c";s:21:"ext_conf_template.txt";s:4:"acdd";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"c9ff";s:14:"doc/manual.sxw";s:4:"5f51";}',
+	'_md5_values_when_last_written' => 'a:8:{s:25:"class.tx_tslibpatcher.php";s:4:"fba3";s:23:"class.ux_tslib_cobj.php";s:4:"28e8";s:23:"class.ux_tslib_menu.php";s:4:"83fd";s:23:"class.ux_tx_realurl.php";s:4:"f92c";s:21:"ext_conf_template.txt";s:4:"acdd";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"c9ff";s:14:"doc/manual.sxw";s:4:"5f51";}',
 	'suggests' => array(
 	),
 );
