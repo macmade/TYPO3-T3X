@@ -34,16 +34,16 @@
  * guidelines.
  * 
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.2
+ * @version     1.1
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  *      51:     class ux_tslib_cObj
- *      62:     function ux_getRealUrlDefaultPreVars
- *     120:     function typoLink( $linkText, $conf )
- *     939:     function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
+ *      64:     function ux_getRealUrlDefaultPreVars
+ *     122:     function typoLink( $linkText, $conf )
+ *     941:     function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
  * 
  *              TOTAL FUNCTIONS: 3
  */
@@ -57,7 +57,9 @@ class ux_tslib_cObj extends tslib_cObj
     var $ux_hasRealUrlDefaultPreVars = false;
     
     /**
+     * Gets the default preVars of the RealURL extension
      * 
+     * @return  boolean
      */
     function ux_getRealUrlDefaultPreVars()
     {
@@ -100,12 +102,14 @@ class ux_tslib_cObj extends tslib_cObj
                 }
             }
             
+            // The preVars has been computed
             $this->ux_hasRealUrlDefaultPreVars = true;
             return true;
         }
-            
-            $this->ux_hasRealUrlDefaultPreVars = true;
-            return false;
+        
+        // The preVars has been computed
+        $this->ux_hasRealUrlDefaultPreVars = true;
+        return false;
     }
     
     /**
