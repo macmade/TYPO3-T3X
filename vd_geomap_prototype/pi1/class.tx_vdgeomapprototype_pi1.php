@@ -26,21 +26,23 @@
  * Plugin 'VD / GeoMap - Prototype JS version' for the 'vd_geomap_prototype' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
+ * @version     1.1
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *     125:     function main($content,$conf)
- *     200:     function setConfig
- *     227:     function displayMap
- *     302:     function getPicture
- *     335:     function buildScaleBar
- *     424:     function getIcons
+ *     135:     function main($content,$conf)
+ *     214:     function setConfig
+       251:     function addJsFunctions
+       274:     function buildContent
+ *     445:     function displayMap
+ *     623:     function getPicture
+ *     676:     function buildScaleBar
+ *    1024:     function getIcons
  * 
- *              TOTAL FUNCTIONS: 6
+ *              TOTAL FUNCTIONS: 8
  */
 
 // Typo3 FE plugin class
@@ -72,7 +74,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
     var $extKey             = 'vd_geomap_prototype';
     
     // Version of the Developer API required
-    var $apimacmade_version = 3.0;
+    var $apimacmade_version = 3.3;
     
     // Check plugin hash
     var $pi_checkCHash      = true;
@@ -270,12 +272,7 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
      * 
      */
     function buildContent()
-    {
-        // Page link
-        $this->pageLink = $this->pi_getPageLink( $this->pid )
-                        . '#'
-                        . $this->prefixId;
-        
+    {   
         // Storage
         $htmlCode = array();
         
@@ -297,14 +294,15 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             if( $this->conf[ 'ajax' ] == 0 ) {
                 
                 // Link to show / hide map
-                $link = $this->api->fe_linkTP_unsetPIvars_url(
+                $link = $this->pObj->typoLink_URL(
                     array(
-                        'showMap' => '1'
-                    ),
-                    array(
-                        'xpos',
-                        'ypos',
-                        'scale'
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'showMap'  => 1
+                            )
+                        )
                     )
                 );
                 
@@ -320,15 +318,16 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             } else {
                 
                 // Link to show / hide map
-                $link = $this->api->fe_linkTP_unsetPIvars_url(
+                $link = $this->cObj->typoLink_URL(
                     array(
-                        'showMap'  => '1',
-                        'ajaxCall' => '1'
-                    ),
-                    array(
-                        'xpos',
-                        'ypos',
-                        'scale'
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'showMap'  => 1,
+                                'ajaxCall' => 1
+                            )
+                        )
                     )
                 );
                 
@@ -362,14 +361,15 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             if( $this->conf[ 'ajax' ] == 0 ) {
             
                 // Link to show / hide map
-                $link = $this->api->fe_linkTP_unsetPIvars_url(
+                $link = $this->cObj->typoLink_URL(
                     array(
-                        'showMap' => '0'
-                    ),
-                    array(
-                        'xpos',
-                        'ypos',
-                        'scale'
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'showMap'  => 0
+                            )
+                        )
                     )
                 );
                 
@@ -385,15 +385,16 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             } else {
                 
                 // Link to show / hide map
-                $link = $this->api->fe_linkTP_unsetPIvars_url(
+                $link = $this->cObj->typoLink_URL(
                     array(
-                        'showMap'  => '0',
-                        'ajaxCall' => '1'
-                    ),
-                    array(
-                        'xpos',
-                        'ypos',
-                        'scale'
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'showMap'  => 0,
+                                'ajaxCall' => 1
+                            )
+                        )
                     )
                 );
                 
@@ -541,11 +542,18 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             if( $this->conf[ 'ajax' ] == 0 ) {
                 
                 // Back link
-                $back = $this->pi_linkTP_keepPIvars_url(
+                $back = $this->cObj->typoLink_URL(
                     array(
-                        'xpos'  => $this->conf[ 'xpos' ],
-                        'ypos'  => $this->conf[ 'ypos' ],
-                        'scale' => $this->conf[ 'scale' ]
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'xpos'  => $this->conf[ 'xpos' ],
+                                'ypos'  => $this->conf[ 'ypos' ],
+                                'scale' => $this->conf[ 'scale' ]
+                            ),
+                            true
+                        )
                     )
                 );
                 
@@ -561,11 +569,18 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             } else {
                 
                 // Back link
-                $back = $this->pi_linkTP_keepPIvars_url(
+                $back = $this->cObj->typoLink_URL(
                     array(
-                        'xpos'  => $this->conf[ 'xpos' ],
-                        'ypos'  => $this->conf[ 'ypos' ],
-                        'scale' => $this->conf[ 'scale' ]
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'xpos'  => $this->conf[ 'xpos' ],
+                                'ypos'  => $this->conf[ 'ypos' ],
+                                'scale' => $this->conf[ 'scale' ]
+                            ),
+                            true
+                        )
                     )
                 );
                 
@@ -685,20 +700,41 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             if( $this->conf[ 'ajax' ] == 0 ) {
                 
                 // Dezoom available
-                $icon = $this->pi_linkTP_keepPIvars(
+                $link = $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'scale'    => $this->availableScales[ $newScale ],
+                            ),
+                            true
+                        )
+                    )
+                );
+                
+                // Dezoom available
+                $icon = $this->cObj->typoLink(
                     $this->icons[ 'minus' ],
                     array(
-                        'scale' => $this->availableScales[ $newScale ]
+                        'parameter' => $link
                     )
                 );
                 
             } else {
                 
                 // Dezoom available
-                $link = $this->pi_linkTP_keepPIvars_url(
+                $link = $this->cObj->typoLink_URL(
                     array(
-                        'scale'    => $this->availableScales[ $newScale ],
-                        'ajaxCall' => 1
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'scale'    => $this->availableScales[ $newScale ],
+                                'ajaxCall' => 1
+                            ),
+                            true
+                        )
                     )
                 );
                 
@@ -761,20 +797,41 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                 if( $this->conf[ 'ajax' ] == 0 ) {
                     
                     // Scale link
-                    $icon = $this->pi_linkTP_keepPIvars(
+                    $link = $this->cObj->typoLink_URL(
+                        array(
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'scale'    => $value,
+                                ),
+                                true
+                            )
+                        )
+                    );
+                    
+                    // Scale link
+                    $icon = $this->cObj->typoLink(
                         $image,
                         array(
-                            'scale' => $value
+                            'parameter' => $link
                         )
                     );
                     
                 } else {
                     
                     // Scale link
-                    $link = $this->pi_linkTP_keepPIvars_url(
+                    $link = $this->cObj->typoLink_URL(
                         array(
-                            'scale'    => $value,
-                            'ajaxCall' => 1
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'scale'    => $value,
+                                    'ajaxCall' => 1
+                                ),
+                                true
+                            )
                         )
                     );
                     
@@ -802,22 +859,43 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                 
                 // Check for Ajax
                 if( $this->conf[ 'ajax' ] == 0 ) {
+                    
+                    // Scale link
+                    $link = $this->cObj->typoLink_URL(
+                        array(
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'scale'    => $value,
+                                ),
+                                true
+                            )
+                        )
+                    );
                 
                     // Scale link
-                    $icon = $this->pi_linkTP_keepPIvars(
+                    $icon = $this->cObj->typoLink(
                         $image,
                         array(
-                            'scale' => $value
+                            'parameter' => $link
                         )
                     );
                     
                 } else {
                     
                     // Scale link
-                    $link = $this->pi_linkTP_keepPIvars_url(
+                    $link = $this->cObj->typoLink_URL(
                         array(
-                            'scale'    => $value,
-                            'ajaxCall' => 1
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'scale'    => $value,
+                                    'ajaxCall' => 1
+                                ),
+                                true
+                            )
                         )
                     );
                     
@@ -865,20 +943,41 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
             if( $this->conf[ 'ajax' ] == 0 ) {
                 
                 // Zoom available
-                $icon = $this->pi_linkTP_keepPIvars(
+                $link = $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'scale'    => $this->availableScales[ $newScale ],
+                            ),
+                            true
+                        )
+                    )
+                );
+                
+                // Zoom available
+                $icon = $this->cObj->typoLink(
                     $this->icons[ 'plus' ],
                     array(
-                        'scale' => $this->availableScales[ $newScale ]
+                        'parameter' => $link
                     )
                 );
                 
             } else {
                 
                 // Zoom available
-                $link = $this->pi_linkTP_keepPIvars_url(
+                $link = $this->cObj->typoLink_URL(
                     array(
-                        'scale'    => $this->availableScales[ $newScale ],
-                        'ajaxCall' => 1
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 1,
+                        'additionalParams' => $this->api->fe_typoLinkParams(
+                            array(
+                                'scale'    => $this->availableScales[ $newScale ],
+                                'ajaxCall' => 1
+                            ),
+                            true
+                        )
                     )
                 );
                 
@@ -1001,35 +1100,49 @@ class tx_vdgeomapprototype_pi1 extends tslib_pibase
                 
                 // Check for Ajax
                 if( $this->conf[ 'ajax' ] == 0 ) {
-                
+                    
+                    // Ajax link
+                    $link = $this->cObj->typoLink_URL(
+                        array(
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'xpos'     => $x,
+                                    'ypos'     => $y,
+                                ),
+                                true
+                            )
+                        )
+                    );
+                    
                     // Add generated icon with link
-                    $this->icons[ $key ] = $this->pi_linkTP_keepPIvars(
+                    $this->icons[ $key ] = $this->cObj->typoLink(
                         $this->cObj->IMAGE( $val ),
                         array(
-                            'xpos' => $x,
-                            'ypos' => $y
+                            'parameter' => $link,
                         )
                     );
                     
                 } else {
                     
                     // Ajax link
-                    $link = $this->pi_linkTP_keepPIvars_url(
+                    $link = $this->cObj->typoLink_URL(
                         array(
-                            'xpos'     => $x,
-                            'ypos'     => $y,
-                            'ajaxCall' => 1
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'xpos'     => $x,
+                                    'ypos'     => $y,
+                                    'ajaxCall' => 1
+                                ),
+                                true
+                            )
                         )
                     );
                     
                     // Add generated icon with link
-                    $this->icons[ $key ] = $this->pi_linkTP_keepPIvars(
-                        $this->cObj->IMAGE( $val ),
-                        array(
-                            'xpos' => $x,
-                            'ypos' => $y
-                        )
-                    );
                     $this->icons[ $key ] = $this->cObj->typoLink(
                         $this->cObj->IMAGE( $val ),
                         array(
