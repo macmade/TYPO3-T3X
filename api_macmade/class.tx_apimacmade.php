@@ -950,8 +950,8 @@ class tx_apimacmade
      * Each parameter of the array will be formed as a piVar (prefixed with
      * pObj->prefixId).
      * 
-     * @param       array       $params             An associative array with the parameters
-     * @param       boolean     $keepPiVars         If this is true, the piVars will be kept             
+     * @param       array       $params             An associative array with the URL parameters
+     * @param       boolean     $keepPiVars         If this is true, the piVars will be kept
      * @return      string      The additional parameters ready for a typoLink
      */
     function fe_typoLinkParams( $params, $keepPiVars = false )
