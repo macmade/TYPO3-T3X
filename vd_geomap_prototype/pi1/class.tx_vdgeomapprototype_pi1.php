@@ -35,8 +35,8 @@
  * SECTION:     1 - MAIN
  *     135:     function main($content,$conf)
  *     214:     function setConfig
-       251:     function addJsFunctions
-       274:     function buildContent
+ *     251:     function addJsFunctions
+ *     274:     function buildContent
  *     445:     function displayMap
  *     623:     function getPicture
  *     676:     function buildScaleBar
