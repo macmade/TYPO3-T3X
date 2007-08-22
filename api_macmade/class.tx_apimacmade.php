@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     3.1
+ * @version     3.2
  */
 
 /**
@@ -144,7 +144,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 3.1;
+    var $version         = 3.2;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -795,7 +795,7 @@ class tx_apimacmade
         ) {
             
             // Gets a copy of the plugin variables
-            $piVars = $this->piVars;
+            $piVars = $this->pObj->piVars;
             
             // Unset the DATA variable
             unset( $piVars[ 'DATA' ] );

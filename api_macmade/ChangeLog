@@ -1,3 +1,7 @@
+2007-08-22  Jean-David Gadina  <info@macmade.net>
+
+	* Fixed a bug in function fe_linkTP_keepPIvars.
+
 2007-08-20  Jean-David Gadina  <info@macmade.net>
 
 	* Increased API internal version number to 3.1.
