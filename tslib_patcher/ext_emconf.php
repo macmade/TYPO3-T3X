@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "tslib_patcher"
 #
-# Auto generated 22-08-2007 12:24
+# Auto generated 22-08-2007 12:25
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => 'macmade.net',
-	'version' => '0.1.2',
+	'version' => '0.1.3',
 	'constraints' => array(
 		'depends' => array(
 			'php' => '4.1.2-0.0.0',
