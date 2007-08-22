@@ -33,7 +33,7 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *      97:     function main( $content, $conf )
+ *      98:     function main( $content, $conf )
  * 
  *              TOTAL FUNCTIONS: 1
  */
@@ -44,7 +44,8 @@ require_once(PATH_tslib . 'class.tslib_pibase.php');
 // Developer API class
 require_once(t3lib_extMgm::extPath('api_macmade') . 'class.tx_apimacmade.php');
 
-class tx_loginboxmacmade_pi2 extends tslib_pibase {
+class tx_loginboxmacmade_pi2 extends tslib_pibase
+{
     
     
     
@@ -66,7 +67,7 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase {
     var $extKey             = 'loginbox_macmade';
     
     // Version of the Developer API required
-    var $apimacmade_version = 2.8;
+    var $apimacmade_version = 3.2;
     
     // Configuration array
     var $conf               = array();
@@ -115,7 +116,7 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase {
         $templateMarkers = array();
         
         // Overwriting template markers
-        $templateMarkers[ '###FORM_URL###' ]     = $this->pi_linkTP_keepPIvars_url(
+        $templateMarkers[ '###FORM_URL###' ]     = $this->api->fe_linkTP_keepPIvars_url(
             array(),
             0,
             0,
@@ -132,11 +133,11 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase {
             // Redirection
             if( empty( $this->conf[ 'redirectLogout' ] ) ) {
                 
-                $redirect = $this->pi_linkTP_keepPIvars_url();
+                $redirect = $this->api->fe_linkTP_keepPIvars_url();
                 
             } else {
                 
-                $redirect = $this->pi_linkTP_keepPIvars_url(
+                $redirect = $this->api->fe_linkTP_keepPIvars_url(
                     array(),
                     0,
                     0,
@@ -160,11 +161,11 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase {
             // Redirection
             if( empty( $this->conf[ 'redirectLogin' ] ) ) {
                 
-                $redirect = $this->pi_linkTP_keepPIvars_url();
+                $redirect = $this->api->fe_linkTP_keepPIvars_url();
                 
             } else {
                 
-                $redirect = $this->pi_linkTP_keepPIvars_url(
+                $redirect = $this->api->fe_linkTP_keepPIvars_url(
                     array(),
                     0,
                     0,
@@ -196,4 +197,3 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/loginbox_macmade/pi2/class.tx_loginboxmacmade_pi2.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/loginbox_macmade/pi2/class.tx_loginboxmacmade_pi2.php']);
 }
-?>

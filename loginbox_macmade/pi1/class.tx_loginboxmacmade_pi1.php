@@ -33,10 +33,10 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *     100:     function main( $content, $conf )
- *     243:     function setDefaultLangValues
- *     267:     function setConfig
- *     312:     function forgotPassword
+ *     112:     function main( $content, $conf )
+ *     293:     function setDefaultLangValues
+ *     325:     function setConfig
+ *     375:     function forgotPassword
  * 
  *              TOTAL FUNCTIONS: 4
  */
@@ -72,7 +72,7 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
     var $extKey             = 'loginbox_macmade';
     
     // Version of the Developer API required
-    var $apimacmade_version = 2.8;
+    var $apimacmade_version = 3.2;
     
     // Storage for GET/POST variables
     var $GP                 = array();
@@ -202,8 +202,16 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
             
         } elseif ( $state == 'success' && $this->conf[ 'redirect' ] ) {
             
+            // Redirect link
+            $redirectLink = $this->cObj->typoLink_URL(
+                array(
+                    'parameter'    => $this->conf[ 'redirect' ],
+                    'useCacheHash' => 1
+                )
+            );
+            
             // Redirect user to specified page
-            header( 'Location: ' . t3lib_div::locationHeaderUrl( $this->pi_getPageLink( $this->conf[ 'redirect' ] ) ) );
+            header( 'Location: ' . t3lib_div::locationHeaderUrl( $redirectLink ) );
             
         } else {
             
@@ -245,10 +253,16 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                 if( $this->conf[ 'forgotpassword' ] && ( $state == 'error' || $state == 'welcome' || $state == 'logout' ) ) {
                     
                     // Link
-                    $forgotPwdLink = $this->pi_linkTP_keepPIvars(
+                    $forgotPwdLink = $this->cObj->typoLink(
                         $this->pi_getLL( 'forgotpassword.header' ),
                         array(
-                            'forgot' => '1'
+                            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                            'useCacheHash'     => 1,
+                            'additionalParams' => $this->api->fe_typoLinkParams(
+                                array(
+                                    'forgot' => 1
+                                )
+                            )
                         )
                     );
                     
@@ -412,8 +426,7 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                         t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' ),
                         $user[ 'username' ],
                         $user[ 'password' ],
-                        'http://'
-                      . t3lib_div::getIndpEnv( 'HTTP_HOST' )
+                        t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' )
                       . '/'
                       . $this->api->fe_linkTP_unsetPIvars_url(
                             array(),
@@ -529,4 +542,3 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/loginbox_macmade/pi1/class.tx_loginboxmacmade_pi1.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/loginbox_macmade/pi1/class.tx_loginboxmacmade_pi1.php']);
 }
-?>
