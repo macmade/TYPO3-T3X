@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     3.2
+ * @version     3.3
  */
 
 /**
@@ -63,7 +63,7 @@
  *              function fe_linkTP_keepPIvars_url( $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
  *              function fe_linkTP_unsetPIvars( $str, $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
  *              function fe_linkTP_unsetPIvars_url( $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
- *              function fe_typoLinkParams( $params )
+ *              function fe_typoLinkParams( $params, $keepPiVars = false )
  *              function fe_initFeAdmin( $conf, $table, $pid, $feAdminConf, $create = 1, $edit = 0, $delete = 0, $infomail = 0, $fe_userOwnSelf = 0, $fe_userEditSelf = 0, $debug = 0, $defaultCmd = 'create', $confKey = 'fe_adminLib' )
  *              function fe_createInput( $type, $name, $feAdminConf, $feAdminSection, $number = 1, $params = array(), $defaultValue = 0, $defaultChecked = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
  *              function fe_createTextArea( $name, $feAdminConf, $feAdminSection, $params = array(), $defaultValue = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
@@ -144,7 +144,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 3.2;
+    var $version         = 3.3;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -950,35 +950,53 @@ class tx_apimacmade
      * Each parameter of the array will be formed as a piVar (prefixed with
      * pObj->prefixId).
      * 
-     * @param       array       $params             
+     * @param       array       $params             An associative array with the parameters
+     * @param       boolean     $keepPiVars         If this is true, the piVars will be kept             
      * @return      string      The additional parameters ready for a typoLink
      */
-    function fe_typoLinkParams( $params )
+    function fe_typoLinkParams( $params, $keepPiVars = false )
     {
         if( is_array( $params ) ) {
             
             // Storage
-            $additionalParams = '';
+            $additionalParams = array();
             
             // Checks the extension prefix
             if( isset( $this->pObj->prefixId ) ) {
+                
+                // Checks if the piVars must be kept
+                if( $keepPiVars && Isset( $this->pObj->piVars ) && is_array( $this->pObj->piVars ) ) {
+                    
+                    // Process piVars
+                    foreach( $this->pObj->piVars as $key => $value ) {
+                        
+                        // Adds the parameter
+                        $additionalParams[ $key ] .= '&'
+                                                  .  $this->pObj->prefixId
+                                                  .  '['
+                                                  .  $key
+                                                  .  ']'
+                                                  .  '='
+                                                  . $value;
+                    }
+                }
                 
                 // Process parameters
                 foreach( $params as $key => $value ) {
                     
                     // Adds the parameter
-                    $additionalParams .= '&'
-                                      .  $this->pObj->prefixId
-                                      .  '['
-                                      .  $key
-                                      .  ']'
-                                      .  '='
-                                      . $value;
+                    $additionalParams[ $key ] .= '&'
+                                              .  $this->pObj->prefixId
+                                              .  '['
+                                              .  $key
+                                              .  ']'
+                                              .  '='
+                                              . $value;
                 }
             }
             
             // Returns the parameters
-            return $additionalParams;
+            return implode( '', $additionalParams );
         }
         
         // Error
