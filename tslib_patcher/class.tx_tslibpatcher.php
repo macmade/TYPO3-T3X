@@ -128,7 +128,7 @@ class tx_tslibpatcher
     function setMenuObject( &$menuObj )
     {
         // Checks argument
-        if( is_object( $menuObj ) ) {
+        if( is_object( $menuObj ) && !is_object( $this->menuObj ) ) {
             
             // Sets the menu object
             $this->menuObj =& $menuObj;

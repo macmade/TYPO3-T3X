@@ -76,9 +76,6 @@ class ux_tslib_menu extends tslib_menu
         // New instance of the TSLib patcher class
         $this->ux_tslibPatcher = t3lib_div::makeInstance( 'tx_tslibpatcher' );
         
-        // Sets the menu object
-        $this->ux_tslibPatcher->setMenuObject( $this );
-        
         // Creates an instance of tslib_cObj
         $this->ux_tslibPatcher->cObjInstance();
     }
@@ -93,6 +90,9 @@ class ux_tslib_menu extends tslib_menu
      */
     function link( $key, $altTarget = '', $typeOverride = '' )
     {
+        // Sets the menu object
+        $this->ux_tslibPatcher->setMenuObject( $this );
+        
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
@@ -117,9 +117,6 @@ class ux_tslib_gmenu extends tslib_gmenu
         // New instance of the TSLib patcher class
         $this->ux_tslibPatcher = t3lib_div::makeInstance( 'tx_tslibpatcher' );
         
-        // Sets the menu object
-        $this->ux_tslibPatcher->setMenuObject( $this );
-        
         // Creates an instance of tslib_cObj
         $this->ux_tslibPatcher->cObjInstance();
     }
@@ -134,6 +131,9 @@ class ux_tslib_gmenu extends tslib_gmenu
      */
     function link( $key, $altTarget = '', $typeOverride = '' )
     {
+        // Sets the menu object
+        $this->ux_tslibPatcher->setMenuObject( $this );
+        
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
@@ -158,9 +158,6 @@ class ux_tslib_imgmenu extends tslib_imgmenu
         // New instance of the TSLib patcher class
         $this->ux_tslibPatcher = t3lib_div::makeInstance( 'tx_tslibpatcher' );
         
-        // Sets the menu object
-        $this->ux_tslibPatcher->setMenuObject( $this );
-        
         // Creates an instance of tslib_cObj
         $this->ux_tslibPatcher->cObjInstance();
     }
@@ -175,6 +172,9 @@ class ux_tslib_imgmenu extends tslib_imgmenu
      */
     function link( $key, $altTarget = '', $typeOverride = '' )
     {
+        // Sets the menu object
+        $this->ux_tslibPatcher->setMenuObject( $this );
+        
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
@@ -199,9 +199,6 @@ class ux_tslib_jsmenu extends tslib_jsmenu
         // New instance of the TSLib patcher class
         $this->ux_tslibPatcher = t3lib_div::makeInstance( 'tx_tslibpatcher' );
         
-        // Sets the menu object
-        $this->ux_tslibPatcher->setMenuObject( $this );
-        
         // Creates an instance of tslib_cObj
         $this->ux_tslibPatcher->cObjInstance();
     }
@@ -216,6 +213,9 @@ class ux_tslib_jsmenu extends tslib_jsmenu
      */
     function link( $key, $altTarget = '', $typeOverride = '' )
     {
+        // Sets the menu object
+        $this->ux_tslibPatcher->setMenuObject( $this );
+        
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
@@ -240,9 +240,6 @@ class ux_tslib_tmenu extends tslib_tmenu
         // New instance of the TSLib patcher class
         $this->ux_tslibPatcher = t3lib_div::makeInstance( 'tx_tslibpatcher' );
         
-        // Sets the menu object
-        $this->ux_tslibPatcher->setMenuObject( $this );
-        
         // Creates an instance of tslib_cObj
         $this->ux_tslibPatcher->cObjInstance();
     }
@@ -257,6 +254,9 @@ class ux_tslib_tmenu extends tslib_tmenu
      */
     function link( $key, $altTarget = '', $typeOverride = '' )
     {
+        // Sets the menu object
+        $this->ux_tslibPatcher->setMenuObject( $this );
+        
         // Calls the common link method
         return $this->ux_tslibPatcher->tsMenuLink(
             $key,
