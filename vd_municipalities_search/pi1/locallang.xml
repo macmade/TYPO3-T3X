@@ -14,7 +14,7 @@
 			<label index="submit-title">click here to search</label>
 		</languageKey>
 		<languageKey index="fr" type="array">
-			<label index="searchBox-submit">valider</label>
+			<label index="searchBox-submit">chercher</label>
 			<label index="searchBox-sword-default">commune</label>
 			<label index="noResult">Aucune page n'a été trouvée</label>
 			<label index="results-header">Résultats de la recherche</label>
