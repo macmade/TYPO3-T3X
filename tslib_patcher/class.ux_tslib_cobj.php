@@ -34,18 +34,21 @@
  * guidelines.
  * 
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.1
+ * @version     1.2
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *      51:     class ux_tslib_cObj
- *      64:     function ux_getRealUrlDefaultPreVars
- *     122:     function typoLink( $linkText, $conf )
- *     941:     function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
+ *      54:     class ux_tslib_cObj
+ *      67:     function ux_getRealUrlDefaultPreVars
+ *     125:     function typoLink( $linkText, $conf )
+ *     944:     function getTypoLink( $label, $params, $urlParameters = array(), $target = '' )
+ *     999:     function ux_kjLightBox2Compat
+ *    1059:     function cImage( $file, $conf )
+ *    1080:     function IMGTEXT( $conf )
  * 
- *              TOTAL FUNCTIONS: 3
+ *              TOTAL FUNCTIONS: 6
  */
 
 class ux_tslib_cObj extends tslib_cObj
@@ -976,6 +979,115 @@ class ux_tslib_cObj extends tslib_cObj
         
         // Returns the typoLink
         return $out;
+    }
+    
+    /**
+     * Compatibility with the kj_imagelightbox2 extension
+     * 
+     * This function checks if the this extension needs to be compatible with the
+     * kj_imagelightbox2 extensions.
+     * If so, as the two extensions have an XClass statement for the core
+     * tslib_cObj class, it will read the ux_tslib_cObj class from the
+     * kj_imagelightbox2 extension and change it's name to tx_tslibpatcher_kjImageLightBox2,
+     * before evaluating it's code to make the class available.
+     * This is a dirty fix, as it uses the PHP eval() function, but as far as
+     * I know, this is unfortunately  the only possibility to have two working
+     * XClass for the same base class.
+     * 
+     * @return  boolean
+     */
+    function ux_kjLightBox2Compat()
+    {
+        // Checks the desired compatibility mode
+        if( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'tslib_patcher' ][ 'lightBoxCompat' ] ) {
+            
+            // Checks if this process has already been done
+            if( !class_exists( 'tx_tslibpatcher_kjImageLightBox2' ) ) {
+                
+                // Gets the class file
+                $classFile = t3lib_extMgm::extPath( 'kj_imagelightbox2' ) . 'class.ux_tslib_content.php';
+                
+                // Try to open the class file
+                if( is_readable( $classFile ) && $classFileHandle = fopen( $classFile, 'r' ) ) {
+                    
+                    // Class code storage
+                    $classContent = '';
+                    
+                    // Process the whole class file
+                    while( !feof( $classFileHandle ) ) {
+                        
+                        // Gets the current line
+                        $line = fgets( $classFileHandle );
+                        
+                        // Do not store the PHP instructions
+                        if( !strstr( $line, '<?php' ) && !strstr( $line, '?>' ) ) {
+                            
+                            // Looks for the class declaration
+                            if( strstr( $line, 'class ux_tslib_cObj extends tslib_cObj' ) ) {
+                                
+                                // Replace the class name
+                                $line = str_replace( 'ux_tslib_cObj', 'tx_tslibpatcher_kjImageLightBox2', $line );
+                            }
+                            
+                            // Stores the current line
+                            $classContent .= $line;
+                        }
+                    }
+                    
+                    // Evalutes the class code (sorry for the eval)
+                    eval( $classContent );
+                }
+            }
+            
+            // Compatibility is now possible
+            return true;
+        }
+        
+        // No compatibility possible
+        return false;
+    }
+    
+    /**
+     * Redefinition of method cImage to be compatible with the kj_imagelightbox2
+     * extension.
+     * 
+     * @param   string      $file           The TS file ressource
+     * @param   array       $conf           The TS configuration array
+     * @return  string      The image
+     * @see     ux_kjLightBox2Compat
+     */
+    function cImage( $file, $conf )
+    {
+        // Checks for lightBox compatibility
+        if( $this->ux_kjLightBox2Compat() ) {
+            
+            // Calls the function from lightbox
+            return tx_tslibpatcher_kjImageLightBox2::cImage( $file, $conf );
+        }
+        
+        // Calls the original function
+        return parent::cImage( $file, $conf );
+    }
+    
+    /**
+     * Redefinition of method IMGTEXT to be compatible with the kj_imagelightbox2
+     * extension.
+     * 
+     * @param   array       $conf           The TS configuration array
+     * @return  string      The image
+     * @see     ux_kjLightBox2Compat
+     */
+    function IMGTEXT( $conf )
+    {
+        // Checks for lightBox compatibility
+        if( $this->ux_kjLightBox2Compat() ) {
+            
+            // Calls the function from lightbox
+            return tx_tslibpatcher_kjImageLightBox2::IMGTEXT( $conf );
+        }
+        
+        // Calls the original function
+        return parent::IMGTEXT( $conf );
     }
 }
 

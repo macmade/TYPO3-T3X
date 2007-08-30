@@ -13,13 +13,25 @@ if( TYPO3_MODE == 'FE' ) {
     $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $_EXTKEY ][ 'getVars' ] = t3lib_div::_GET();
     
     // Gets the extension configuration
-    $extConf = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ]['EXT']['extConf']['tslib_patcher'] );
+    $extConf = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] );
     
     // Regiters the extension configuration
     $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $_EXTKEY ][ 'config' ] = $extConf;
     
     // Checks the configuration
     if( is_array( $extConf ) ) {
+        
+        // Checks for the lightbox compatibility mode
+        if( isset( $extConf[ 'lightBoxCompat' ] ) && $extConf[ 'lightBoxCompat' ] && t3lib_extMgm::isLoaded( 'kj_imagelightbox2' ) ) {
+            
+            // Lightbox compatibility mode is possible
+            $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $_EXTKEY ][ 'lightBoxCompat' ] = true;
+            
+        } else {
+            
+            // No lightbox compatibility
+            $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ $_EXTKEY ][ 'lightBoxCompat' ] = false;
+        }
         
         // Checks for the cHash checker
         if( isset( $extConf[ 'cHashForce' ] ) && $extConf[ 'cHashForce' ] ) {
@@ -47,7 +59,7 @@ if( TYPO3_MODE == 'FE' ) {
         foreach( $extConf as $className => $enable ) {
             
             // Do not process RealURL here
-            if( $className == 'realurl' || $className == 'cHashForce' ) {
+            if( $className == 'realurl' || $className == 'cHashForce' || $className == 'lighBoxCompat' ) {
                 
                 continue;
             }

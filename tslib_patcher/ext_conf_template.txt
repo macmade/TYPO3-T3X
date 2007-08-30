@@ -9,3 +9,6 @@ realurl = 0
 
 # cat=basic/enable/03; type=boolean; label=Force cHash: Force the cHash checks. Maybe you shouldn't set this on production boxes...
 cHashForce = 0
+
+# cat=basic/enable/04; type=boolean; label=LightBox compatibility: Enable the compatibility with the 'KJ: Image Lightbox v2' extension (kj_imagelightbox2), if loaded.
+lightBoxCompat = 0
