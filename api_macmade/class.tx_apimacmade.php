@@ -75,6 +75,8 @@
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
  *              function fe_includePrototypeJs
  *              function fe_includeScriptaculousJs
+ *              function fe_includeUfo
+ *              function fe_includeSwfObject
  * 
  * SECTION:		3 - BE
  *         		function be_buildRecordIcons( $actions, $table, $uid )
@@ -84,6 +86,8 @@
  *         		function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
  *              function be_includePrototypeJs
  *              function be_includeScriptaculousJs
+ *              function be_includeUfo
+ *              function be_includeSwfObject
  * 
  * SECTION:		4 - DB
  *         		function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
@@ -154,6 +158,12 @@ class tx_apimacmade
     
     // Scriptaculous file was included
     var $scriptaculous   = false;
+    
+    // UFO file was included
+    var $ufo             = false;
+    
+    // SWFObject file was included
+    var $swfObject       = false;
     
     // Template object for frontend functions
     var $templateContent = NULL;
@@ -2233,6 +2243,60 @@ class tx_apimacmade
         return true;
     }
     
+    /**
+     * Includes the UFO script
+     * 
+     * This function includes the UFO JavaScript script by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a frontend context.
+     * 
+     * @return      boolean
+     */
+    function fe_includeUfo()
+    {
+        // Check if script has already been included
+        if( !$this->ufo ) {
+            
+            // Add script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_ufo' ] = '<script src="'
+                                                                            . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                            . 'res/js/ufo/ufo.js'
+                                                                            . '" type="text/javascript"></script>';            
+            
+            // Set included flag
+            $this->ufo = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the SWFObject script
+     * 
+     * This function includes the SWFObject JavaScript script by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a frontend context.
+     * 
+     * @return      boolean
+     */
+    function fe_includeSwfObject()
+    {
+        // Check if script has already been included
+        if( !$this->swfObject ) {
+            
+            // Add script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_swfObject' ] = '<script src="'
+                                                                                  . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                                  . 'res/js/swfobject1-5/swfobject.js'
+                                                                                  . '" type="text/javascript"></script>';            
+            
+            // Set included flag
+            $this->swfObject = true;
+        }
+        
+        return true;
+    }
+    
     
     
     
@@ -2563,6 +2627,64 @@ class tx_apimacmade
             
             // Set included flag
             $this->scriptaculous = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the UFO script
+     * 
+     * This function includes the UFO JavaScript script by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @return      boolean
+     */
+    function be_includeUfo()
+    {   
+        // Check if script has already been included
+        if( !$this->ufo ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     . $GLOBALS[ 'BACK_PATH' ]
+                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     . 'res/js/ufo/ufo.js'
+                                     . '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->ufo = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the SWFObject script
+     * 
+     * This function includes the SWFObject JavaScript script by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @return      boolean
+     */
+    function be_includeSwfObject()
+    {   
+        // Check if script has already been included
+        if( !$this->swfObject ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     . $GLOBALS[ 'BACK_PATH' ]
+                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     . 'res/js/swfobject1-5/swfobject.js'
+                                     . '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->swfObject = true;
         }
         
         return true;
