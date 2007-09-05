@@ -35,6 +35,7 @@ plugin.tx_vdmunicipalitiessearch_pi1 {
     
     // TypoLink configuration for pages links
     pagesTypoLink {
+        useCacheHash = 1
     }
     
     // Institution link text

@@ -6,7 +6,7 @@
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is 
-  * free software; you can redistribute it and/or modify
+ * free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
@@ -26,16 +26,22 @@
  * Plugin 'VD / Municipalites Search' for the 'vd_municipalities_search' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
+ * @version     1.1
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - MAIN
- *     125:     function main($content,$conf)
+ *     117:     function main( $content,$conf )
+ *     165:     function setConfig
+ *     193:     function searchView
+ *     300:     function searchResults
+ *     432:     function noResult
+ *     453:     function showMunicipalities( $res )
+ *     584:     function singleMunicipality( $mid )
  * 
- *              TOTAL FUNCTIONS: 0
+ *              TOTAL FUNCTIONS: 7
  */
 
 // Typo3 FE plugin class
@@ -67,7 +73,7 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
     var $extKey             = 'vd_municipalities_search';
     
     // Version of the Developer API required
-    var $apimacmade_version = 2.8;
+    var $apimacmade_version = 3.3;
     
     // Check plugin hash
     var $pi_checkCHash      = true;
@@ -178,6 +184,12 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
         #$this->api->debug($this->conf,'VD / Municipalities Search: configuration array');
     }
     
+    /**
+     * Builds the search view
+     * 
+     * @return  string  The complete search view
+     * @see     searchResults
+     */
     function searchView()
     {
         // Storage
@@ -193,7 +205,12 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
             false,
             true,
             array(
-                'action'  => $this->pi_getPageLink( $GLOBALS[ 'TSFE' ]->id ),
+                'action'  => $this->cObj->typolink_URL(
+                    array(
+                        'parameter'    => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash' => 1
+                    )
+                ),
                 'method'  => 'post',
                 'enctype' => $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ]
             )
@@ -268,7 +285,17 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
     }
     
     /**
+     * Builds the search results
+     *
+     * This function is used to display the search results. If only one
+     * If only one municipality is found, it will display diirectly the list
+     * of the related pages. In any case, only municipalities associated with
+     * TYPO3 pages will be displayed.
      * 
+     * @return  string  The search results view
+     * @see     singleMunicipality
+     * @see     showMunicipalities
+     * @see     noResult
      */
     function searchResults()
     {
@@ -398,7 +425,9 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
     }
     
     /**
+     * Displays a no result message
      * 
+     * @return  string  The no result message 
      */
     function noResult()
     {
@@ -411,7 +440,15 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
     }
     
     /**
+     * Shows the list of the found municipalities
      * 
+     * Only municipalities associated with TYPO3 pages will be shown. If only
+     * one is found. it will swap to the single view.
+     * 
+     * @param   ressource   $res    The MySQL query ressource
+     * @return  string      The list of the municipalities
+     * @see     singleMunicipality
+     * @see     noResult
      */
     function showMunicipalities( $res )
     {
@@ -435,26 +472,95 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
             true
         );
         
+        // Storage for municipalities
+        $municipalities = array();
+        
         while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
             
-            // TypoLink configuration
-            $typoLink = $this->conf[ 'pagesTypoLink.' ];
-            
-            // Add parameters
-            $typoLink[ 'title' ]     = ( isset( $typoLink[ 'title' ] ) ) ? $typoLink[ 'title' ] : $row[ 'name_lower' ];
-            $typoLink[ 'parameter' ] = $this->pi_linkTP_keepPIvars_url(
-                array( 'mid' => $row[ 'id_municipality' ] )
+            // WHERE clause for selecting pages based on the municipality
+            $whereClause = $GLOBALS[ 'TYPO3_DB' ]->listQuery(
+                'tx_vdmunicipalitiessearch_municipalities',
+                $row[ 'id_municipality' ],
+                'pages'
             );
             
-            // Get page link
-            $link = $this->cObj->typoLink( $row[ 'name_lower' ], $typoLink );
+            // Check if institutions are selected
+            if( isset( $this->conf[ 'institutions' ] ) && $this->conf[ 'institutions' ] ) {
+                
+                // Storage
+                $addWhere         = array();
+                
+                // Selected institutions
+                $institutionsList = explode( ',', $this->conf[ 'institutions' ] );
+                
+                // Process each institution
+                foreach( $institutionsList as $instId ) {
+                    
+                    // Add additionnal where clause
+                    $addWhere[] = $GLOBALS[ 'TYPO3_DB' ]->listQuery(
+                        'tx_vdmunicipalitiessearch_institution',
+                        $instId,
+                        'pages'
+                    );
+                }
+                
+                // Add full additionnal where clause
+                $whereClause .= ' AND (' . implode( ' OR ', $addWhere ) . ')';
+            }
             
-            // Add municipality name
-            $htmlCode[] = $this->api->fe_makeStyledContent(
-                'li',
-                'municipality',
-                $link
+            // Select pages
+            $pagesRes = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+                '*',
+                'pages',
+                $whereClause
             );
+            
+            // Checks the result from the pages table
+            if( $pagesRes && $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $pagesRes ) ) {
+                
+                // Stores the municipality ID
+                $mid = $row[ 'id_municipality' ];
+                
+                // TypoLink configuration
+                $typoLink = $this->conf[ 'pagesTypoLink.' ];
+                
+                // Add parameters
+                $typoLink[ 'title' ]            = ( isset( $typoLink[ 'title' ] ) ) ? $typoLink[ 'title' ] : $row[ 'name_lower' ];
+                $typoLink[ 'parameter' ]        = $GLOBALS[ 'TSFE' ]->id;
+                $typoLink[ 'additionalParams' ] = $this->api->fe_typoLinkParams(
+                    array(
+                        'mid' => $row[ 'id_municipality' ]
+                    ),
+                    true
+                );
+                
+                // Get page link
+                $link = $this->cObj->typoLink( $row[ 'name_lower' ], $typoLink );
+                
+                // Add municipality name
+                $municipalities[] = $this->api->fe_makeStyledContent(
+                    'li',
+                    'municipality',
+                    $link
+                );
+            }
+        }
+        
+        // Checks for municipalities
+        if( count( $municipalities ) > 1 ) {
+            
+            // Shows the municipalities
+            $htmlCode[] = implode( chr( 10 ), $municipalities );
+            
+        } elseif( count( $municipalities ) == 1 ) {
+                
+                // Only one municipality is available. Displays the single view
+                return $this->singleMunicipality( $mid );
+                
+        } else {
+            
+            // No results
+            $htmlCode[] = $this->noResult();
         }
         
         // End list
@@ -469,7 +575,11 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
     }
     
     /**
+     * Display the pages associated with a municipality
      * 
+     * @param   int     $mid    The municipality ID (not the uid field)
+     * @return  The list of the associated pages
+     * @see     noResult
      */
     function singleMunicipality( $mid )
     {
