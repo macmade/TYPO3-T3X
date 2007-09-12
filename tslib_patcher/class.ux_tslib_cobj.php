@@ -296,7 +296,7 @@ class ux_tslib_cObj extends tslib_cObj
                 
                 // Email address
                 $linkParam                                = eregi_replace( '^mailto:', '', $linkParam );
-                list( $this->lastTypoLinkUrl, $linkText ) = $this->getMailTo( $linkParam, $linktext, $initPage );
+                list( $this->lastTypoLinkUrl, $linkText ) = $this->getMailTo( $linkParam, $linkText, $initPage );
                 $finalTagParts[ 'url' ]                   = $this->lastTypoLinkUrl;
                 $finalTagParts[ 'TYPE' ]                  = 'mailto';
                 
@@ -844,7 +844,7 @@ class ux_tslib_cObj extends tslib_cObj
                          .' onclick="'
                          . htmlspecialchars( $onClick )
                          . '"'
-                         . ( $title     ? ' title="' . $title . '"'     : '' )
+                         . ( ( $title ) ? ' title="' . $title . '"'     : '' )
                          . ( $linkClass ? ' class="' . $linkClass . '"' : '' )
                          . $finalTagParts[ 'aTagParams' ]
                          . '>';
@@ -858,7 +858,7 @@ class ux_tslib_cObj extends tslib_cObj
                     $res = '<a href="'
                          . $finalTagParts[ 'url' ]
                          . '"'
-                         . ( $title ? ' title="' . $title . '"' : '' )
+                         . ( ( $title ) ? ' title="' . $title . '"' : '' )
                          . $finalTagParts[ 'targetParams' ]
                          . ( $linkClass ? ' class="' . $linkClass . '"' : '' )
                          . $finalTagParts[ 'aTagParams' ]
@@ -870,7 +870,7 @@ class ux_tslib_cObj extends tslib_cObj
                     $res = '<a href="'
                          . htmlspecialchars( $finalTagParts[ 'url' ] )
                          . '"'
-                         . ( $title ? ' title="' . $title . '"' : '' )
+                         . ( ( $title ) ? ' title="' . $title . '"' : '' )
                          . $finalTagParts[ 'targetParams' ]
                          . ( $linkClass ? ' class="' . $linkClass . '"' : '' )
                          . $finalTagParts[ 'aTagParams' ]
