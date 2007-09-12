@@ -38,6 +38,9 @@ plugin.tx_vdmunicipalitiessearch_pi1 {
         useCacheHash = 1
     }
     
+    // Keeps the search word
+    keepSword           = 1
+    
     // Institution link text
     // (possible values are 'page' or 'institution')
     institutionLinkText = page

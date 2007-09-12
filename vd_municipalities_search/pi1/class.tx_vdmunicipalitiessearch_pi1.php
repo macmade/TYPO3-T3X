@@ -216,11 +216,14 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
             )
         );
         
+        // Search box value
+        $swordValue = ( isset( $this->piVars[ 'sword' ] ) && $this->conf[ 'keepSword' ] ) ? $this->piVars[ 'sword' ] : $this->pi_getLL( 'searchBox-sword-default' );
+        
         // On focus action
-        $onFocus = 'this.value=(this.value==\'' . $this->pi_getLL( 'searchBox-sword-default' ) . '\') ? \'\' : this.value;';
+        $onFocus    = 'this.value=(this.value==\'' . $swordValue . '\') ? \'\' : this.value;';
         
         // On blur action
-        $onBlur = 'this.value=(this.value.length > 0) ? this.value : \'' . $this->pi_getLL( 'searchBox-sword-default' ) . '\';';
+        $onBlur     = 'this.value=(this.value.length > 0) ? this.value : \'' . $swordValue . '\';';
         
         // Search input
         $searchBox[] = $this->api->fe_makeStyledContent(
@@ -231,7 +234,7 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
                 . '[sword]" id="'
                 . $this->prefixId
                 . '-sword" type="text" value="'
-                . $this->pi_getLL( 'searchBox-sword-default' )
+                . $swordValue
                 . '" size="25" onfocus="'
                 . $onFocus
                 .  '" onblur="'
@@ -560,7 +563,7 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
         } else {
             
             // No results
-            $htmlCode[] = $this->noResult();
+            return $this->noResult();
         }
         
         // End list
