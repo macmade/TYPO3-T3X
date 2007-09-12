@@ -36,10 +36,10 @@
  *     117:     function main( $content,$conf )
  *     165:     function setConfig
  *     193:     function searchView
- *     300:     function searchResults
- *     432:     function noResult
- *     453:     function showMunicipalities( $res )
- *     584:     function singleMunicipality( $mid )
+ *     303:     function searchResults
+ *     435:     function noResult
+ *     456:     function showMunicipalities( $res )
+ *     587:     function singleMunicipality( $mid )
  * 
  *              TOTAL FUNCTIONS: 7
  */
