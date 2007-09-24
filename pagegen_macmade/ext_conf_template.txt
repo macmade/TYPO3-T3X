@@ -1,0 +1,8 @@
+# cat=basic//00; type=string; label=HTML lang: The default value for the HTML lang tag.
+htmlLangTag = en
+
+# cat=basic//01; type=options[None=none,XML 1.0=xml_10,XML 1.1=xml_11]; label=XML prologue: The default XML prologue.
+xmlPrologue = xml_10
+
+# cat=basic//02; type=options[None=none,XHTML TR=xhtml_trans,XHTML Strict=xhtml_strict,XHTML Frameset=xhtml_frames,XHTML Basic=xhtml_basic,XHTML 1.1=xhtml_11,XHTML 2=xhtml_2]; label=Document type: The default value for the HTML doctype.
+htmlDocType = xhtml_trans
