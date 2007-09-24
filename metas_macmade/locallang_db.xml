@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'metas_macmade'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pages.tx_metasmacmade_metas">Meta tags:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general">General</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.author">Author:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.author-corporate">Author corporate:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.author-email">Author email:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.author-personal">Author personal:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.copyright">Copyright:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.description">Description:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.distribution">Distribution:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.subject">Subject:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.keywords">Keywords:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.publisher-email">Publisher email:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.rating">Rating:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.revisit-after">Revisit after:</label>
+            <label index="pages.tx_metasmacmade_metas.s_general.robots">Robots:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi">DCMI</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.contributor">Contributor:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.coverage">Coverage:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.creator">Creator:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.date">Date:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.description">Description:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.format">Format:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.identifier">Identifier:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.language">Language:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.publisher">Publisher:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.relation">Relation:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.rights">Rights:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.source">Source:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.subject">Subject:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.title">Title:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi.type">Type:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others">DCMI (others)</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.accrualMethod">Accrual method:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.accrualPeriodicity">Accrual periodicity:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.accrualPolicy">Accrual policy:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.audience">Audience:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.instructionalMethod">Instructional method:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.provenance">Provenance:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-others.rightsHolder">Rights holder:</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements">DCMI (refinements)</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.description-abstract">Abstract (ref. description):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.rights-accessRights">Access rights (ref. rights):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.title-alternative">Alternative (ref. title):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-available">Available (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.identifier-bibliographicCitation">Bibliographic citation (ref. identifier):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-conformsTo">Conforms to (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-created">Created (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-dateAccepted">Date accepted (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-dateCopyrighted">Date copyrighted (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-dateSubmitted">Date submitted (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.audience-educationLevel">Education level (ref. audience):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.format-extent">Extent (ref. format):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-hasFormat">Has format (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-hasPart">Has part (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-hasVersion">Has version (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isFormatOf">Is format of (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isPartOf">Is part of (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isReferencedBy">Is referenced by (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isReplacedBy">Is replaced by (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isRequiredBy">Is required by (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-issued">Issued (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-isVersionOf">Is version of (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.rights-license">License (ref. rights):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.audience-mediator">Mediator (ref. audience):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.format-medium">Medium (ref. format):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-modified">Modified (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-references">References (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-replaces">Replaces (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.relation-requires">Requires (ref. relation):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.coverage-spatial">Spatial (ref. coverage):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.description-tableOfContents">Table of contents (ref. description):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.coverage-temporal">Temporal (ref. coverage):</label>
+            <label index="pages.tx_metasmacmade_metas.s_dcmi-refinements.date-valid">Valid (ref. date):</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig">HtDig</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig.htdig-keywords">HtDig keywords:</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig.htdig-noindex">HtDig no index:</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig.htdig-email">HtDig email:</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig.htdig-notification-date">HtDig notification date:</label>
+            <label index="pages.tx_metasmacmade_metas.s_htdig.htdig-email-subject">HtDig email subject:</label>
+            <label index="pages.tx_metasmacmade_metas.s_custom">Custom</label>
+            <label index="pages.tx_metasmacmade_metas.s_custom.custom">Adds a custom meta tag:</label>
+            <label index="pages.tx_metasmacmade_metas.s_custom.custom.name">Name</label>
+            <label index="pages.tx_metasmacmade_metas.s_custom.custom.value">Value</label>
+        </languageKey>
+    </data>
+</T3locallang>

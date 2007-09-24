@@ -1,0 +1,2 @@
+# cat=basic/enable/00; type=boolean; label=Recursivity: Meta tags will be search in the parent pages if they are not present in the current page.
+recursiveMetaTags = 1
