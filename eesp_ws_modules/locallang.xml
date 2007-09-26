@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'eesp_ws_modules'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pi1_title">EESP / Modules Calendar (WS Version)</label>
+            <label index="pi1_plus_wiz_description">Adds a calendar of the courses modules to the page.</label>
+        </languageKey>
+    </data>
+</T3locallang>
