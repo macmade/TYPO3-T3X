@@ -1,3 +1,19 @@
+2007-09-26  Jean-David Gadina  <info@macmade.net>
+
+    * Removed the 'displayErrors' property, which was not usefull.
+    * Modified the errorMsg function. An error message and the line number have now to be passed with the method name.
+    * Added error messages for each function calling the errorMsg function.
+    * Fixed a bug in the function fe_linkTP_keepPIvars.
+	* Increased API internal version number to 4.0.
+    * Added a directory for PHP5 only classes.
+    * New function: getPhp5Class. This function is used to load API classes designed exclusively for PHP5.
+    * Added the tx_apimacmade_flexform PHP5 class.
+
+2007-09-20  Jean-David Gadina  <info@macmade.net>
+	
+	* Increased API internal version number to 3.4.
+	* New function: fe_includeLightBoxJs. This function is used to include the lightbox JavaScript in a frontend context.
+
 2007-08-22  Jean-David Gadina  <info@macmade.net>
 	
 	* Increased API internal version number to 3.1.

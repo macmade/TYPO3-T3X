@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     3.3
+ * @version     4.0
  */
 
 /**
@@ -47,7 +47,8 @@
  * SECTION:     1 - INTERNAL
  *              function tx_apimacmade( &$pObj )
  *              function versionError( $version = false )
- *              function errorMsg( $funcId )
+ *              function errorMsg( $method, $message, $line )
+ *              function getPhp5Class( $section, $args = array() )
  * 
  * SECTION:     2 - FE
  *              function fe_mergeTSconfFlex( $mapArray, $tsArray, $flexRes )
@@ -75,60 +76,61 @@
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
  *              function fe_includePrototypeJs
  *              function fe_includeScriptaculousJs
+ *              function fe_includeLightBoxJs( $includeCss = true )
  *              function fe_includeUfo
  *              function fe_includeSwfObject
  * 
- * SECTION:		3 - BE
- *         		function be_buildRecordIcons( $actions, $table, $uid )
- *         		function be_buildPageTreeSelect( $name, $treeStartingPoint = 0, $size = '1', $multiple = false, $pageIcons = 1 )
- *         		function be_getSelectStyleRecordIcon( $table, $rec, $backPath )
- *         		function be_initCSM
- *         		function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
+ * SECTION:     3 - BE
+ *              function be_buildRecordIcons( $actions, $table, $uid )
+ *              function be_buildPageTreeSelect( $name, $treeStartingPoint = 0, $size = '1', $multiple = false, $pageIcons = 1 )
+ *              function be_getSelectStyleRecordIcon( $table, $rec, $backPath )
+ *              function be_initCSM
+ *              function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
  *              function be_includePrototypeJs
  *              function be_includeScriptaculousJs
  *              function be_includeUfo
  *              function be_includeSwfObject
  * 
- * SECTION:		4 - DB
- *         		function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
- *         		function db_table2xml( $table, $fieldList = '*', $whereClause = '', $groupBy = '', $orderBy = '', $limit = '', $uppercase = 1, $xmlDeclaration = 1, $xmlVersion = '1.0', $xmlEncoding = 'iso-8859-1', $directOut = 0, $ns = '', $nsPrefix = 'ns' )
+ * SECTION:     4 - DB
+ *              function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
+ *              function db_table2xml( $table, $fieldList = '*', $whereClause = '', $groupBy = '', $orderBy = '', $limit = '', $uppercase = 1, $xmlDeclaration = 1, $xmlVersion = '1.0', $xmlEncoding = 'iso-8859-1', $directOut = 0, $ns = '', $nsPrefix = 'ns' )
  * 
- * SECTION:		5 - DIV
- *         		function div_utf8ToIso( $content )
- *         		function div_getAge( $tstamp, $currentTime = false, $ageType = false )
- *         		function div_writeTagParams( $params )
- *         		function div_checkVarType( $vars, $type = 'array' )
- *         		function div_cleanArray( $input, $keys, $inverse = 0 )
- *         		function div_baseURL( $url, $http = 1, $trailingSlash = 1 )
- *         		function div_vCardCreate( $user, $version = '3.0', $charset = false )
- *         		function div_vCardFileParse( $file )
- *         		function div_str2list( $string, $sep = ', ', $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
- *         		function div_array2list( $array, $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
- *         		function div_output( $out, $cType, $fName, $cDisp = 'attachment', $charset = 'utf-8' )
- *         		function div_xml2array( $data, $keepAttribs = 1, $caseFolding = 0, $skipWhite = 0, $prefix = false, $numeric = 'n', $index = 'index', $type = 'type', $base64 = 'base64', $php5defCharset = 'iso-8859-1' )
- *         		function div_array2xml( $input, $xmlRoot = 'phpArray', $prefix = '', $numeric = 'item', $numericAsAttribute = 'index', $addArrayAttribute = 'type', $xmlDeclaration = 1, $encoding = 'iso-8859-1', $version = '1.0', $standalone = 'yes', $doctype = false, $newLine = 10, $indent = 9, $level = 0 )
- *         		function div_crop( $str, $chars, $endString = '...', $crop2space = 1, $stripTags = 1 )
- *         		function div_week2date( $day, $week, $year )
- *         		function div_numberInRange( $number, $min, $max, $int = false )
- *         		function div_rgb2hsl( $R, $G, $B, $round = 1 )
- *         		function div_hsl2rgb( $H, $S, $L, $round = 1 )
- *         		function div_rgb2hsv( $R, $G, $B, $round = 1 )
- *         		function div_hsv2rgb( $H, $S, $V, $round = 1 )
- *         		function div_hsl2hsv( $H, $S, $L, $round = 1 )
- *         		function div_hsv2hsl( $H, $S, $V, $round = 1 )
- *         		function div_createHexColor( $v1, $v2, $v3, $method = 'RGB', $uppercase = 1 )
- *         		function div_modifyHexColor( $color, $v1, $v2, $v3, $methid = 'RGB', $uppercase = 1 )
- *         		function div_formatXHTML( $xhtml, $uppercase = 0, $newLine = 10, $indent = 9, $level = 0 )
- *         		function div_convertLineBreaks( $text, $stripNull = 1 )
- *         		function div_checkArrayKeys( $array, $keys, $allowEmpty = false, $checkType )
- *         		function div_rmdir( $path, $relative = 0, $cleaned = false )
- *         		function div_isType( $var, $type )
+ * SECTION:     5 - DIV
+ *              function div_utf8ToIso( $content )
+ *              function div_getAge( $tstamp, $currentTime = false, $ageType = false )
+ *              function div_writeTagParams( $params )
+ *              function div_checkVarType( $vars, $type = 'array' )
+ *              function div_cleanArray( $input, $keys, $inverse = 0 )
+ *              function div_baseURL( $url, $http = 1, $trailingSlash = 1 )
+ *              function div_vCardCreate( $user, $version = '3.0', $charset = false )
+ *              function div_vCardFileParse( $file )
+ *              function div_str2list( $string, $sep = ', ', $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
+ *              function div_array2list( $array, $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
+ *              function div_output( $out, $cType, $fName, $cDisp = 'attachment', $charset = 'utf-8' )
+ *              function div_xml2array( $data, $keepAttribs = 1, $caseFolding = 0, $skipWhite = 0, $prefix = false, $numeric = 'n', $index = 'index', $type = 'type', $base64 = 'base64', $php5defCharset = 'iso-8859-1' )
+ *              function div_array2xml( $input, $xmlRoot = 'phpArray', $prefix = '', $numeric = 'item', $numericAsAttribute = 'index', $addArrayAttribute = 'type', $xmlDeclaration = 1, $encoding = 'iso-8859-1', $version = '1.0', $standalone = 'yes', $doctype = false, $newLine = 10, $indent = 9, $level = 0 )
+ *              function div_crop( $str, $chars, $endString = '...', $crop2space = 1, $stripTags = 1 )
+ *              function div_week2date( $day, $week, $year )
+ *              function div_numberInRange( $number, $min, $max, $int = false )
+ *              function div_rgb2hsl( $R, $G, $B, $round = 1 )
+ *              function div_hsl2rgb( $H, $S, $L, $round = 1 )
+ *              function div_rgb2hsv( $R, $G, $B, $round = 1 )
+ *              function div_hsv2rgb( $H, $S, $V, $round = 1 )
+ *              function div_hsl2hsv( $H, $S, $L, $round = 1 )
+ *              function div_hsv2hsl( $H, $S, $V, $round = 1 )
+ *              function div_createHexColor( $v1, $v2, $v3, $method = 'RGB', $uppercase = 1 )
+ *              function div_modifyHexColor( $color, $v1, $v2, $v3, $methid = 'RGB', $uppercase = 1 )
+ *              function div_formatXHTML( $xhtml, $uppercase = 0, $newLine = 10, $indent = 9, $level = 0 )
+ *              function div_convertLineBreaks( $text, $stripNull = 1 )
+ *              function div_checkArrayKeys( $array, $keys, $allowEmpty = false, $checkType )
+ *              function div_rmdir( $path, $relative = 0, $cleaned = false )
+ *              function div_isType( $var, $type )
  * 
- * SECTION:		6 - DEBUG
- *         		function viewArray( $array, $indent = 0 )
- *         		function debug( $variable, $header = 'DEBUG' )
+ * SECTION:     6 - DEBUG
+ *              function viewArray( $array, $indent = 0 )
+ *              function debug( $variable, $header = 'DEBUG' )
  * 
- *				TOTAL FUNCTIONS: 62
+ *              TOTAL FUNCTIONS: 62
  */
 
 class tx_apimacmade
@@ -148,7 +150,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 3.3;
+    var $version         = 4.0;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -159,6 +161,9 @@ class tx_apimacmade
     // Scriptaculous file was included
     var $scriptaculous   = false;
     
+    // Lightbox file was included
+    var $lightbox        = false;
+    
     // UFO file was included
     var $ufo             = false;
     
@@ -167,9 +172,6 @@ class tx_apimacmade
     
     // Template object for frontend functions
     var $templateContent = NULL;
-    
-    // Outputs error messages from methods
-    var $displayErrors   = true;
     
     
     
@@ -258,7 +260,7 @@ class tx_apimacmade
                   . 'padding: 5px; border: solid 1px #660000; '
                   . 'background: #E7CECE; margin: 10px">'
                   . chr( 10 )
-                  . '<p><h1>Typo3 Developer API error:</strong></h1>'
+                  . '<p><h1>TYPO3 Developer API error:</strong></h1>'
                   . '<p>The version of Typo3 Developer API you are trying to '
                   . 'use is too old. Please update to the required version.</p>'
                   . chr( 10 )
@@ -286,39 +288,118 @@ class tx_apimacmade
      * This function is used to produce an error message, if another function
      * report a problem, often caused by bad argument types.
      * 
-     * @param       string      $function   The ID/name of the function
+     * @param       string      $method     The name of the method
+     * @param       string      $message    The error message to display
+     * @param       int         $line       The line number
      * @return      boolean
      */
-    function errorMsg( $function )
+    function errorMsg( $method, $message, $line )
     {
-        if( $this->displayErrors ) {
-            
-            // HTML code storage
-            $htmlCode = '';
+        // HTML code storage
+        $htmlCode = '';
+        
+        // Error message
+        $htmlCode = '<div align="center" style="color: #666666; '
+                  . 'font-size: 12px; '
+                  . 'font-family: Verdana,Arial,Helvetica; padding: 5px; '
+                  . 'border: solid 1px #660000; background: #E7CECE; '
+                  . 'margin: 10px">'
+                  . chr( 10 )
+                  . '<p style="margin-bottom: 10px;"><strong>TYPO3 Developer API error:</strong></p>'
+                  . chr( 10 )
+                  . '<p style="margin-bottom: 10px;">The method <strong>'
+                  . $method
+                  . '</strong> reported the following error on line <strong>'
+                  . $line
+                  . '</strong>:</p>'
+                  . chr( 10 )
+                  . '<p><strong>'
+                  . $message
+                  . '</strong></p>'
+                  . chr( 10 )
+                  . '</div>';
+        
+        // Return error message
+        print $htmlCode;
+        return true;
+    }
+    
+    /**
+     * Gets a PHP 5 class
+     *
+     * This function is used to load an PHP5 class contained in this API.
+     * 
+     * @param   string  $name   The name of the component to load
+     * @param   array   $args   An array with the arguments to pass to the constructor (5 maximum)
+     * @return  object  An instance of the requested class
+     */
+    function getPhp5Class( $name, $args = array() )
+    {
+        // Checks the PHP version
+        if( ( double )PHP_VERSION < 5 ) {
             
             // Error message
-            $htmlCode = '<div align="center" style="color: #666666; '
-                      . 'font-size: 12px; '
-                      . 'font-family: Verdana,Arial,Helvetica; padding: 5px; '
-                      . 'border: solid 1px #660000; background: #E7CECE; '
-                      . 'margin: 10px">'
-                      . chr( 10 )
-                      . '<p><h1>Typo3 Developer API error:</strong></h1>'
-                      . chr( 10 )
-                      . '<p>The function <pre>'
-                      . $function
-                      . '</pre> reported an error. Please check the arguments '
-                      . 'you passed to that function in order to solve the '
-                      . 'problem.</p>'
-                      . chr( 10 )
-                      . '</div>';
-            
-            // Return error message
-            print $htmlCode;
-            return true;
+            tx_apimacmade::errorMsg( __METHOD__, 'PHP5 is required in order to use this method.', __LINE__ );
         }
         
-        return false;
+        // File to load
+        $file = t3lib_extMgm::extPath( 'api_macmade' )
+              . 'php5/class.tx_apimacmade_'
+              . $name
+              . '.php';
+        
+        // Checks if the file exists
+        if( @file_exists( $file ) ) {
+            
+            // Includes the file
+            require_once( $file );
+            
+            // Gets the class name
+            $className = 'tx_apimacmade_' . $name;
+            
+            // Checks for constructor arguments
+            switch( count( $args ) ) {
+                
+                case 0:
+                    
+                    // Return an instance of the class
+                    return new $className();
+                
+                case 1:
+                    
+                    // Return an instance of the class
+                    return new $className( $args[ 0 ] );
+                
+                case 2:
+                    
+                    // Return an instance of the class
+                    return new $className( $args[ 0 ], $args[ 1 ] );
+                
+                case 3:
+                    
+                    // Return an instance of the class
+                    return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ] );
+                
+                case 4:
+                    
+                    // Return an instance of the class
+                    return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ] );
+                
+                case 5:
+                    
+                    // Return an instance of the class
+                    return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ], $args[ 4 ] );
+                
+                default:
+                    
+                    // More than 5 constructor arguments - Bad idea... ; )
+                    tx_apimacmade::errorMsg( __METHOD__, 'A maximum of 5 arguments can be passed to the class constructor.', __LINE__ );
+                    return false;
+            }
+        }
+        
+        // The file does not exist
+        tx_apimacmade::errorMsg( __METHOD__, 'Requested class file \'' . $file . '\' does not exists', __LINE__ );
     }
     
     
@@ -353,53 +434,61 @@ class tx_apimacmade
      */
     function fe_mergeTSconfFlex( $mapArray, $tsArray, $flexRes )
     {
-        // Check for valid arguments
-        if( is_array( $mapArray ) && is_array( $tsArray ) ) {
+        // Checks the argument
+        if( !is_array( $mapArray ) ) {
             
-            // Temporary config array
-            $tempConfig = $tsArray;
-            
-            // Process each entry of the mapping array
-            foreach( $mapArray as $key => $value ) {
-                
-                // Check if current TS object has sub objects
-                if( is_array( $value ) ) {
-                    
-                    // Item has sub objects - Process the array
-                    $tempConfig[ $key ] = $this->fe_mergeTSconfFlex(
-                        $value,
-                        $tsArray[ $key ],
-                        $flexRes
-                    );
-                    
-                } else {
-                    
-                    // No sub objects - Get informations about the flexform value to get
-                    $flexInfo = explode( ':', $value );
-                    
-                    // Try to get the requested flexform value
-                    $flexValue = ( string )$this->pObj->pi_getFFvalue(
-                        $flexRes,
-                        $flexInfo[ 1 ],
-                        $flexInfo[ 0 ]
-                    );
-                    
-                    // Check for an existing value, or a zero value
-                    if( !empty( $flexValue ) || $flexValue == '0' ) {
-                        
-                        // Override TS setup
-                        $tempConfig[ $key ] = $flexValue;
-                    }
-                }
-            }
-            
-            // Return configuration array
-            return $tempConfig;
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $mapArray must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Checks the argument
+        if( !is_array( $tsArray ) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $tsArray must be an array.', __LINE__ );
+            return false;
+        }
+            
+        // Temporary config array
+        $tempConfig = $tsArray;
+        
+        // Process each entry of the mapping array
+        foreach( $mapArray as $key => $value ) {
+            
+            // Check if current TS object has sub objects
+            if( is_array( $value ) ) {
+                
+                // Item has sub objects - Process the array
+                $tempConfig[ $key ] = $this->fe_mergeTSconfFlex(
+                    $value,
+                    $tsArray[ $key ],
+                    $flexRes
+                );
+                
+            } else {
+                
+                // No sub objects - Get informations about the flexform value to get
+                $flexInfo = explode( ':', $value );
+                
+                // Try to get the requested flexform value
+                $flexValue = ( string )$this->pObj->pi_getFFvalue(
+                    $flexRes,
+                    $flexInfo[ 1 ],
+                    $flexInfo[ 0 ]
+                );
+                
+                // Check for an existing value, or a zero value
+                if( !empty( $flexValue ) || $flexValue == '0' ) {
+                    
+                    // Override TS setup
+                    $tempConfig[ $key ] = $flexValue;
+                }
+            }
+        }
+        
+        // Return configuration array
+        return $tempConfig;
     }
     
     /**
@@ -431,27 +520,35 @@ class tx_apimacmade
      */
     function fe_renderTemplate( $templateMarkers, $templateSection )
     {
-        // Check arguments and if template is loaded
-        if( isset( $this->templateContent ) && is_array( $templateMarkers ) ) {
+        // Check if the template is loaded
+        if( !$this->templateContent ) {
             
-            // Get template subparts
-            $subpart = $this->pObj->cObj->getSubpart(
-                $this->templateContent,
-                $templateSection
-            );
-            
-            // Return substituted section
-            return $this->pObj->cObj->substituteMarkerArrayCached(
-                $subpart,
-                array(),
-                $templateMarkers,
-                array()
-            );
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The template object does not exists. Please call the fe_initTemplate method before using this method.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check argument
+        if( !is_array( $templateMarkers ) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $templateMarkers must be an array.', __LINE__ );
+            return false;
+        }
+            
+        // Get template subparts
+        $subpart = $this->pObj->cObj->getSubpart(
+            $this->templateContent,
+            $templateSection
+        );
+        
+        // Return substituted section
+        return $this->pObj->cObj->substituteMarkerArrayCached(
+            $subpart,
+            array(),
+            $templateMarkers,
+            array()
+        );
     }
     
     /**
@@ -474,53 +571,53 @@ class tx_apimacmade
     function fe_makeStyledContent( $element, $className, $content = false, $piClass = 1, $htmlSpecialChars = false, $startTagOnly = false, $params = array() )
     {
         // Check arguments
-        if( is_array( $params ) ) {
+        if( !is_array( $params ) ) {
             
-            // Check if the content must be passed through htmlspecialchars()
-            if( $content && $htmlSpecialChars ) {
-                
-                $content = htmlspecialchars( $content );
-            }
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
+        }
+    
+        // Check if the content must be passed through htmlspecialchars()
+        if( $content && $htmlSpecialChars ) {
             
-            // Clean parameters array to remove class if present
-            $params = $this->div_cleanArray( $params, 'class' );
-            
-            // CSS class attribute
-            if( $piClass ) {
-                
-                // Prepend class name with plugin name
-                $classAttrib = $this->pObj->pi_classParam( $className );
-                
-            } else {
-                
-                // Use class name as is
-                $classAttrib = 'class="' . $className . '"';
-            }
-            
-            // Tag parameters
-            $tagParams = ( count( $params ) ) ? ' ' . $this->div_writeTagParams( $params ) : '';
-            
-            // Create start tag
-            $startTag = $element . ' ' . $classAttrib . $tagParams;
-            
-            // Check rendering method
-            if( $startTagOnly ) {
-                
-                // Return only the starting tag
-                return '<' . $startTag . '>';
-                
-            }
-            
-            // Create complete element
-            $styledContent = ( $content !== false ) ? '<' . $startTag . '>' . $content . '</' . $element . '>' : '<' . $startTag . ' />';
-            
-            // Return content
-            return $styledContent;
+            $content = htmlspecialchars( $content );
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Clean parameters array to remove class if present
+        $params = $this->div_cleanArray( $params, 'class' );
+        
+        // CSS class attribute
+        if( $piClass ) {
+            
+            // Prepend class name with plugin name
+            $classAttrib = $this->pObj->pi_classParam( $className );
+            
+        } else {
+            
+            // Use class name as is
+            $classAttrib = 'class="' . $className . '"';
+        }
+        
+        // Tag parameters
+        $tagParams = ( count( $params ) ) ? ' ' . $this->div_writeTagParams( $params ) : '';
+        
+        // Create start tag
+        $startTag = $element . ' ' . $classAttrib . $tagParams;
+        
+        // Check rendering method
+        if( $startTagOnly ) {
+            
+            // Return only the starting tag
+            return '<' . $startTag . '>';
+            
+        }
+        
+        // Create complete element
+        $styledContent = ( $content !== false ) ? '<' . $startTag . '>' . $content . '</' . $element . '>' : '<' . $startTag . ' />';
+        
+        // Return content
+        return $styledContent;
     }
     
     /**
@@ -538,32 +635,32 @@ class tx_apimacmade
     function fe_setInternalVars( $results_at_a_time = false, $maxPages = false, $searchFieldList = false, $orderByList = false )
     {
         // Check arguments
-        if( is_array( $this->pObj->internal ) ) {
+        if( !is_array( $this->pObj->internal ) ) {
             
-            // MySQL ORDER BY parameter
-            list(
-                $this->pObj->internal[ 'orderBy' ],
-                $this->pObj->internal[ 'descFlag' ]
-            )                                            = explode( ':', $this->pObj->piVars[ 'sort' ] );
-            
-            // Number of results to show in a listing
-            $this->pObj->internal[ 'results_at_a_time' ] = t3lib_div::intInRange( $results_at_a_time, 0 );
-            
-            // Maximum number of pages
-            $this->pObj->internal[ 'maxPages' ]          = t3lib_div::intInRange( $maxPages, 0 );
-            
-            // Search fields
-            $this->pObj->internal[ 'searchFieldList' ]   = $searchFieldList;
-            
-            // MySQL ORDER BY list
-            $this->pObj->internal[ 'orderByList' ]       = $orderByList;
-            
-            return true;
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The $internal property of the parent object must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // MySQL ORDER BY parameter
+        list(
+            $this->pObj->internal[ 'orderBy' ],
+            $this->pObj->internal[ 'descFlag' ]
+        )                                            = explode( ':', $this->pObj->piVars[ 'sort' ] );
+        
+        // Number of results to show in a listing
+        $this->pObj->internal[ 'results_at_a_time' ] = t3lib_div::intInRange( $results_at_a_time, 0 );
+        
+        // Maximum number of pages
+        $this->pObj->internal[ 'maxPages' ]          = t3lib_div::intInRange( $maxPages, 0 );
+        
+        // Search fields
+        $this->pObj->internal[ 'searchFieldList' ]   = $searchFieldList;
+        
+        // MySQL ORDER BY list
+        $this->pObj->internal[ 'orderByList' ]       = $orderByList;
+        
+        return true;
     }
     
     /**
@@ -659,44 +756,43 @@ class tx_apimacmade
     function fe_makeSwapClassesJSLink( $elementId, $content = false, $htmlSpecialChars = false, $startTagOnly = false, $params = array() )
     {
         // Check arguments
-        if( is_array( $params ) ) {
+        if( !is_array( $params ) ) {
             
-            // Check if the content must be passed through htmlspecialchars()
-            if( $content && $htmlSpecialChars ) {
-                
-                $content = htmlspecialchars( $content );
-            }
-            
-            // Clean parameters array to remove href if present
-            $params = $this->div_cleanArray( $params, 'class' );
-            
-            // Create start tag
-            $startTag = '<a href="javascript:'
-                      . $this->pObj->prefixId
-                      . '_swapClasses(\''
-                      . $elementId
-                      . '\');" '
-                      . $this->div_writeTagParams( $params )
-                      . '>';
-            
-            if( $startTagOnly ) {
-                
-                // Return only the starting tag
-                return $startTag;
-                
-            }
-            
-            // Create complete element
-            $fullLink = $startTag . $content . '</a>';
-            
-            // Return content
-            return $fullLink;
-                
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check if the content must be passed through htmlspecialchars()
+        if( $content && $htmlSpecialChars ) {
+            
+            $content = htmlspecialchars( $content );
+        }
+        
+        // Clean parameters array to remove href if present
+        $params = $this->div_cleanArray( $params, 'class' );
+        
+        // Create start tag
+        $startTag = '<a href="javascript:'
+                  . $this->pObj->prefixId
+                  . '_swapClasses(\''
+                  . $elementId
+                  . '\');" '
+                  . $this->div_writeTagParams( $params )
+                  . '>';
+        
+        if( $startTagOnly ) {
+            
+            // Return only the starting tag
+            return $startTag;
+            
+        }
+        
+        // Create complete element
+        $fullLink = $startTag . $content . '</a>';
+        
+        // Return content
+        return $fullLink;
     }
     
     /**
@@ -714,37 +810,37 @@ class tx_apimacmade
     function fe_createImageObjects( $imgRefs, $conf, $imgPath = false )
     {
         // Check arguments
-        if( is_array( $conf ) ) {
+        if( !is_array( $conf ) ) {
             
-            // Storage
-            $content = array();
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $conf must be an array.', __LINE__ );
+            return false;
+        }
+    
+        // Storage
+        $content = array();
+        
+        // Pictures to get
+        $imgObjects = explode( ',', $imgRefs );
+        
+        // Process each picture
+        foreach( $imgObjects as $file ) {
             
-            // Pictures to get
-            $imgObjects = explode( ',', $imgRefs );
+            // Full path
+            $fullPath              = $imgPath . $file;
             
-            // Process each picture
-            foreach( $imgObjects as $file ) {
-                
-                // Full path
-                $fullPath              = $imgPath . $file;
-                
-                // Set IMG TS config
-                $imgTSConfig           = $conf;
-                
-                // Add file reference
-                $imgTSConfig[ 'file' ] = $fullPath;
-                
-                // Add picture
-                $content[]             = $this->pObj->cObj->IMAGE( $imgTSConfig );
-            }
-            // Return content
-            return implode( chr( 10 ), $content );
+            // Set IMG TS config
+            $imgTSConfig           = $conf;
             
+            // Add file reference
+            $imgTSConfig[ 'file' ] = $fullPath;
+            
+            // Add picture
+            $content[]             = $this->pObj->cObj->IMAGE( $imgTSConfig );
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Return content
+        return implode( chr( 10 ), $content );
     }
     
     /**
@@ -798,9 +894,16 @@ class tx_apimacmade
      */
     function fe_linkTP_keepPIvars( $str, $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId=0 )
     {
+        // Checks argument
+        if( !is_array( $overrulePIvars ) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $overrulePIvars must be an array.', __LINE__ );
+            return false;
+        }
+        
         // Checks arguments
         if( is_array( $this->pObj->piVars )
-            && is_array( $overrulePIvars )
             && !$clearAnyway
         ) {
             
@@ -819,25 +922,20 @@ class tx_apimacmade
                 // Cache value
                 $cache = $this->pObj->pi_autoCache( $overrulePIvars );
             }
-            
-            // Creates the link
-            $res = $this->fe_linkTP(
-                $str,
-                array(
-                    $this->pObj->prefixId => $overrulePIvars
-                ),
-                $cache,
-                $altPageId
-            );
-            
-            // Returns the link
-            return $res;
-            
         }
-        
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+    
+        // Creates the link
+        $res = $this->fe_linkTP(
+            $str,
+            array(
+                $this->pObj->prefixId => $overrulePIvars
+            ),
+            $cache,
+            $altPageId
+        );
+            
+        // Returns the link
+        return $res;
     }
     
     /**
@@ -887,28 +985,36 @@ class tx_apimacmade
     function fe_linkTP_unsetPIvars( $str, $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
     {
         // Check arguments
-        if( is_array( $overrulePIvars ) && is_array( $unsetPIvars ) ) {
+        if( !is_array( $overrulePIvars ) ) {
             
-            // Process unsetPIvars array
-            foreach( $unsetPIvars as $piVar ) {
-                
-                // Set piVar to false
-                $overrulePIvars[ $piVar ] = false;
-            }
-            
-            // Returns link
-            return $this->fe_linkTP_keepPIvars(
-                $str,
-                $overrulePIvars,
-                $cache,
-                $clearAnyway,
-                $altPageId
-            );
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $overrulePIvars argument be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check argument
+        if( !is_array( $unsetPIvars ) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $unsetPIvars argument be an array.', __LINE__ );
+            return false;
+        }
+        
+        // Process unsetPIvars array
+        foreach( $unsetPIvars as $piVar ) {
+            
+            // Set piVar to false
+            $overrulePIvars[ $piVar ] = false;
+        }
+        
+        // Returns link
+        return $this->fe_linkTP_keepPIvars(
+            $str,
+            $overrulePIvars,
+            $cache,
+            $clearAnyway,
+            $altPageId
+        );
     }
     
     /**
@@ -929,28 +1035,35 @@ class tx_apimacmade
     function fe_linkTP_unsetPIvars_url( $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
     {
         // Check arguments
-        if( is_array( $overrulePIvars ) && is_array( $unsetPIvars ) ) {
+        if( !is_array( $overrulePIvars ) ) {
             
-            // Process unsetPIvars array
-            foreach( $unsetPIvars as $piVar ) {
-                
-                // Set piVar to false
-                $overrulePIvars[ $piVar ] = false;
-            }
-            
-            // Returns link
-            return $this->fe_linkTP_keepPIvars_url(
-                $overrulePIvars,
-                $cache,
-                $clearAnyway,
-                $altPageId
-            );
-            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $overrulePIvars argument be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check arguments
+        if( !is_array( $unsetPIvars ) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $unsetPIvars argument be an array.', __LINE__ );
+            return false;
+        }
+            
+        // Process unsetPIvars array
+        foreach( $unsetPIvars as $piVar ) {
+            
+            // Set piVar to false
+            $overrulePIvars[ $piVar ] = false;
+        }
+        
+        // Returns link
+        return $this->fe_linkTP_keepPIvars_url(
+            $overrulePIvars,
+            $cache,
+            $clearAnyway,
+            $altPageId
+        );
     }
     
     /**
@@ -966,33 +1079,24 @@ class tx_apimacmade
      */
     function fe_typoLinkParams( $params, $keepPiVars = false )
     {
-        if( is_array( $params ) ) {
+        if( !is_array( $params ) ) {
             
-            // Storage
-            $additionalParams = array();
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params argument be an array.', __LINE__ );
+            return false;
+        }
+        
+        // Storage
+        $additionalParams = array();
+        
+        // Checks the extension prefix
+        if( isset( $this->pObj->prefixId ) ) {
             
-            // Checks the extension prefix
-            if( isset( $this->pObj->prefixId ) ) {
+            // Checks if the piVars must be kept
+            if( $keepPiVars && Isset( $this->pObj->piVars ) && is_array( $this->pObj->piVars ) ) {
                 
-                // Checks if the piVars must be kept
-                if( $keepPiVars && Isset( $this->pObj->piVars ) && is_array( $this->pObj->piVars ) ) {
-                    
-                    // Process piVars
-                    foreach( $this->pObj->piVars as $key => $value ) {
-                        
-                        // Adds the parameter
-                        $additionalParams[ $key ] .= '&'
-                                                  .  $this->pObj->prefixId
-                                                  .  '['
-                                                  .  $key
-                                                  .  ']'
-                                                  .  '='
-                                                  . $value;
-                    }
-                }
-                
-                // Process parameters
-                foreach( $params as $key => $value ) {
+                // Process piVars
+                foreach( $this->pObj->piVars as $key => $value ) {
                     
                     // Adds the parameter
                     $additionalParams[ $key ] .= '&'
@@ -1005,13 +1109,22 @@ class tx_apimacmade
                 }
             }
             
-            // Returns the parameters
-            return implode( '', $additionalParams );
+            // Process parameters
+            foreach( $params as $key => $value ) {
+                
+                // Adds the parameter
+                $additionalParams[ $key ] .= '&'
+                                          .  $this->pObj->prefixId
+                                          .  '['
+                                          .  $key
+                                          .  ']'
+                                          .  '='
+                                          . $value;
+            }
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Returns the parameters
+        return implode( '', $additionalParams );
     }
     
     /**
@@ -1038,83 +1151,90 @@ class tx_apimacmade
     function fe_initFeAdmin( $conf, $table, $pid, $feAdminConf, $create = 1, $edit = 0, $delete = 0, $infomail = 0, $fe_userOwnSelf = 0, $fe_userEditSelf = 0, $debug = 0, $defaultCmd = 'create', $confKey = 'fe_adminLib' )
     {
         // Check arguments
-        if( is_array( $conf ) && is_array( $feAdminConf) ) {
-            
-            // Create feAdmin configuration array
-            $conf[ $confKey]        = 'USER_INT';
-            $conf[ $confKey . '.' ] = array(
-                
-                // User func
-                'userFunc'        => 'user_feAdmin->init',
-                
-                // Include library
-                'includeLibs'     => 'media/scripts/fe_adminLib.inc',
-                
-                // Database table to use
-                'table'           => $table,
-                
-                // PID for storage
-                'pid'             => $pid,
-                
-                // Default command
-                'defaultCmd'      => $defaultCmd,
-                
-                // Output debug infos
-                'debug'           => $debug,
-                
-                // Deletion capabilities
-                'delete'          => $delete,
-                
-                // Infomail setup
-                'infomail'        => $infomail,
-                
-                // Creation capabilities
-                'create'          => $create,
-                
-                // Edition capabilities
-                'edit'            => $edit,
-                
-                // Own capabilities
-                'fe_userOwnSelf'  => $fe_userOwnSelf,
-                'fe_userEditSelf' => $fe_userEditSelf
-            );
-            
-            // Create configuration
-            if( $create ) {
-                
-                // Add sub-configuration
-                $conf[ $confKey . '.' ][ 'create.' ]   = $feAdminConf[ 'create.' ];
-            }
-            
-            // Edit configuration
-            if( $edit ) {
-                
-                // Add sub-configuration
-                $conf[ $confKey . '.' ][ 'edit.' ]     = $feAdminConf[ 'edit.' ];
-            }
-            
-            // Delete configuration
-            if( $delete ) {
-                
-                // Add sub-configuration
-                $conf[ $confKey . '.' ][ 'delete.' ]   = $feAdminConf[ 'delete.' ];
-            }
-            
-            // Infomail configuration
-            if( $infomail ) {
-                
-                // Add sub-configuration
-                $conf[ $confKey . '.' ][ 'infomail.' ] = $feAdminConf[ 'infomail.' ];
-            }
-            
-            // Return configuration array
-            return $conf;
-            
+        if( !is_array( $conf ) ) {
+        
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $conf must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check arguments
+        if( !is_array( $feAdminConf) ) {
+        
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $feAdminConf must be an array.', __LINE__ );
+            return false;
+        }
+        
+        // Create feAdmin configuration array
+        $conf[ $confKey]        = 'USER_INT';
+        $conf[ $confKey . '.' ] = array(
+            
+            // User func
+            'userFunc'        => 'user_feAdmin->init',
+            
+            // Include library
+            'includeLibs'     => 'media/scripts/fe_adminLib.inc',
+            
+            // Database table to use
+            'table'           => $table,
+            
+            // PID for storage
+            'pid'             => $pid,
+            
+            // Default command
+            'defaultCmd'      => $defaultCmd,
+            
+            // Output debug infos
+            'debug'           => $debug,
+            
+            // Deletion capabilities
+            'delete'          => $delete,
+            
+            // Infomail setup
+            'infomail'        => $infomail,
+            
+            // Creation capabilities
+            'create'          => $create,
+            
+            // Edition capabilities
+            'edit'            => $edit,
+            
+            // Own capabilities
+            'fe_userOwnSelf'  => $fe_userOwnSelf,
+            'fe_userEditSelf' => $fe_userEditSelf
+        );
+        
+        // Create configuration
+        if( $create ) {
+            
+            // Add sub-configuration
+            $conf[ $confKey . '.' ][ 'create.' ]   = $feAdminConf[ 'create.' ];
+        }
+        
+        // Edit configuration
+        if( $edit ) {
+            
+            // Add sub-configuration
+            $conf[ $confKey . '.' ][ 'edit.' ]     = $feAdminConf[ 'edit.' ];
+        }
+        
+        // Delete configuration
+        if( $delete ) {
+            
+            // Add sub-configuration
+            $conf[ $confKey . '.' ][ 'delete.' ]   = $feAdminConf[ 'delete.' ];
+        }
+        
+        // Infomail configuration
+        if( $infomail ) {
+            
+            // Add sub-configuration
+            $conf[ $confKey . '.' ][ 'infomail.' ] = $feAdminConf[ 'infomail.' ];
+        }
+        
+        // Return configuration array
+        return $conf;
     }
     
     /**
@@ -1142,141 +1262,148 @@ class tx_apimacmade
     function fe_createInput( $type, $name, $feAdminConf, $feAdminSection, $number = 1, $params = array(), $defaultValue = 0, $defaultChecked = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
     {
         // Check arguments
-        if( is_array( $feAdminConf ) && is_array( $params) ) {
+        if( !is_array( $feAdminConf ) ) {
             
-            // HTML code storage
-            $htmlCode    = array();
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $feAdminConf must be an array.', __LINE__ );
+            return false;
+        }
+        
+        // Check arguments
+        if( !is_array( $params) ) {
             
-            // Create FE-Admin name for all types except submit
-            $feAdminName = ( $type != 'submit' ) ? 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']' : $name;
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
+        }
             
-            // Update name for multiple inputs or file inputs
-            if( $number > 1 ) {
+        // HTML code storage
+        $htmlCode    = array();
+        
+        // Create FE-Admin name for all types except submit
+        $feAdminName = ( $type != 'submit' ) ? 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']' : $name;
+        
+        // Update name for multiple inputs or file inputs
+        if( $number > 1 ) {
+            
+            $feAdminName .= '[]';
+        }
+        
+        // Clean parameters array to remove name and type if present
+        $params = $this->div_cleanArray( $params, 'type,name' );
+        
+        // Check if input is not a submit
+        if( $type != 'submit' ) {
+            
+            // Add form element header
+            $htmlCode[] = $this->fe_buildFormElementHeader(
+                $name,
+                $langPrefix,
+                $headerSeparation,
+                $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
+                $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
+            );
+        }
+        
+        // Recover sent variables
+        $feAdmin_vars = t3lib_div::_GP( 'FE' );
+        
+        // Check for valid variables
+        if( is_array( $feAdmin_vars ) ) {
+            
+            // Set value
+            $fieldValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
+        }
+        
+        // Process input(s)
+        for( $i = 0; $i < $number; $i++ ) {
+            
+            // Check value type
+            if( is_array( $defaultValue ) ) {
                 
-                $feAdminName .= '[]';
+                // Custom values
+                $currentValue = $defaultValue[ $i ];
+                
+            } elseif( $defaultValue && $defaultValue == 'unix' ) {
+                
+                // Unix like values
+                $currentValue = pow(2,$i);
+                
+            } elseif( $defaultValue && $defaultValue == 'increment' ) {
+                
+                // Increment values
+                $currentValue = $i;
+                
+            } elseif( $keepSentValues && $fieldValue ) {
+                
+                // Recover sent variable
+                $currentValue = $fieldValue;
+                
+            } elseif( $defaultValue ) {
+                
+                // Normal value
+                $currentValue = $defaultValue;
+                
             }
             
-            // Clean parameters array to remove name and type if present
-            $params = $this->div_cleanArray( $params, 'type,name' );
-            
-            // Check if input is not a submit
-            if( $type != 'submit' ) {
+            // Set value parameter
+            if( $currentValue ) {
                 
-                // Add form element header
-                $htmlCode[] = $this->fe_buildFormElementHeader(
-                    $name,
-                    $langPrefix,
-                    $headerSeparation,
-                    $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
-                    $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
-                );
+                $params[ 'value' ] = $currentValue;
             }
             
-            // Recover sent variables
-            $feAdmin_vars = t3lib_div::_GP( 'FE' );
-            
-            // Check for valid variables
-            if( is_array( $feAdmin_vars ) ) {
+            // Special processing for checkboxes
+            if( $type == 'radio' || $type == 'checkbox' ) {
                 
-                // Set value
-                $fieldValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
-            }
-            
-            // Process input(s)
-            for( $i = 0; $i < $number; $i++ ) {
-                
-                // Check value type
-                if( is_array( $defaultValue ) ) {
+                // Check for value
+                if( $keepSentValues && $fieldValue ) {
                     
-                    // Custom values
-                    $currentValue = $defaultValue[ $i ];
+                    // Get checked values
+                    $checked = ( is_array( $fieldValue ) ) ? $fieldValue : explode( ',', $fieldValue );
                     
-                } elseif( $defaultValue && $defaultValue == 'unix' ) {
-                    
-                    // Unix like values
-                    $currentValue = pow(2,$i);
-                    
-                } elseif( $defaultValue && $defaultValue == 'increment' ) {
-                    
-                    // Increment values
-                    $currentValue = $i;
-                    
-                } elseif( $keepSentValues && $fieldValue ) {
-                    
-                    // Recover sent variable
-                    $currentValue = $fieldValue;
-                    
-                } elseif( $defaultValue ) {
-                    
-                    // Normal value
-                    $currentValue = $defaultValue;
-                    
-                }
-                
-                // Set value parameter
-                if( $currentValue ) {
-                    
-                    $params[ 'value' ] = $currentValue;
-                }
-                
-                // Special processing for checkboxes
-                if( $type == 'radio' || $type == 'checkbox' ) {
-                    
-                    // Check for value
-                    if( $keepSentValues && $fieldValue ) {
+                    // Check if input must be checked or not
+                    if( in_array( $currentValue, $checked ) ) {
                         
-                        // Get checked values
-                        $checked = ( is_array( $fieldValue ) ) ? $fieldValue : explode( ',', $fieldValue );
-                        
-                        // Check if input must be checked or not
-                        if( in_array( $currentValue, $checked ) ) {
-                            
-                            // Checked by default
-                            $params[ 'checked' ] = 'checked';
-                            
-                        } else {
-                            
-                            // Not checked by default
-                            unset( $params[ 'checked' ] );
-                        }
+                        // Checked by default
+                        $params[ 'checked' ] = 'checked';
                         
                     } else {
                         
-                        // Get default checked values
-                        $checked = explode( ',', $defaultChecked );
+                        // Not checked by default
+                        unset( $params[ 'checked' ] );
+                    }
+                    
+                } else {
+                    
+                    // Get default checked values
+                    $checked = explode( ',', $defaultChecked );
+                    
+                    // Check if input must be checked by default or not
+                    if( in_array( $i + 1, $checked ) ) {
                         
-                        // Check if input must be checked by default or not
-                        if( in_array( $i + 1, $checked ) ) {
-                            
-                            // Checked by default
-                            $params[ 'checked' ] = 'checked';
-                            
-                        } else {
-                            
-                            // Not checked by default
-                            unset( $params[ 'checked' ] );
-                        }
+                        // Checked by default
+                        $params[ 'checked' ] = 'checked';
+                        
+                    } else {
+                        
+                        // Not checked by default
+                        unset( $params[ 'checked' ] );
                     }
                 }
-                
-                // Create input
-                $htmlCode[] = '<input type="'
-                            . $type
-                            . '" name="'
-                            . $feAdminName
-                            . '" '
-                            . $this->div_writeTagParams( $params )
-                            . '>';
             }
             
-            // Return HTML code
-            return implode( chr( 10 ), $htmlCode );
-            
+            // Create input
+            $htmlCode[] = '<input type="'
+                        . $type
+                        . '" name="'
+                        . $feAdminName
+                        . '" '
+                        . $this->div_writeTagParams( $params )
+                        . '>';
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Return HTML code
+        return implode( chr( 10 ), $htmlCode );
     }
     
     /**
@@ -1301,62 +1428,69 @@ class tx_apimacmade
     function fe_createTextArea( $name, $feAdminConf, $feAdminSection, $params = array(), $defaultValue = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
     {
         // Check arguments
-        if( is_array( $feAdminConf ) && is_array( $params) ) {
+        if( !is_array( $feAdminConf ) ) {
             
-            // Check for value
-            if( $keepSentValues ) {
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $feAdminConf must be an array.', __LINE__ );
+            return false;
+        }
+        
+        // Check arguments
+        if( !is_array( $params) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
+        }
+            
+        // Check for value
+        if( $keepSentValues ) {
+            
+            // Recover sent variables
+            $feAdmin_vars = t3lib_div::_GP( 'FE' );
+            
+            // Check for valid variables
+            if( is_array( $feAdmin_vars ) ) {
                 
-                // Recover sent variables
-                $feAdmin_vars = t3lib_div::_GP( 'FE' );
-                
-                // Check for valid variables
-                if( is_array( $feAdmin_vars ) ) {
-                    
-                    // Set value
-                    $value = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
-                }
-                
-            } elseif( $defaultValue ) {
-                
-                // Use default value
-                $value = $defaultValue;
+                // Set value
+                $value = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
             }
             
-            // HTML code storage
-            $htmlCode    = array();
+        } elseif( $defaultValue ) {
             
-            // Create FE-Admin name for all types except submit
-            $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
-            
-            // Clean parameters array to remove name and value if present
-            $params      = $this->div_cleanArray( $params, 'name,value' );
-            
-            // Add form element header
-            $htmlCode[]  = $this->fe_buildFormElementHeader(
-                $name,
-                $langPrefix,
-                $headerSeparation,
-                $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
-                $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
-            );
-            
-            // Create textarea
-            $htmlCode[]  = '<textarea name="'
-                         . $feAdminName
-                         . '" '
-                         . $this->div_writeTagParams( $params )
-                         . '>'
-                         . $value
-                         . '</textarea>';
-            
-            // Return HTML code
-            return implode( chr( 10 ), $htmlCode );
-            
+            // Use default value
+            $value = $defaultValue;
         }
-    
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        
+        // HTML code storage
+        $htmlCode    = array();
+        
+        // Create FE-Admin name for all types except submit
+        $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
+        
+        // Clean parameters array to remove name and value if present
+        $params      = $this->div_cleanArray( $params, 'name,value' );
+        
+        // Add form element header
+        $htmlCode[]  = $this->fe_buildFormElementHeader(
+            $name,
+            $langPrefix,
+            $headerSeparation,
+            $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
+            $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
+        );
+        
+        // Create textarea
+        $htmlCode[]  = '<textarea name="'
+                     . $feAdminName
+                     . '" '
+                     . $this->div_writeTagParams( $params )
+                     . '>'
+                     . $value
+                     . '</textarea>';
+        
+        // Return HTML code
+        return implode( chr( 10 ), $htmlCode );
     }
     
     /**
@@ -1389,120 +1523,128 @@ class tx_apimacmade
     function fe_createSelect( $name, $feAdminConf, $feAdminSection, $options, $htmlspecialchars = 1, $params = array(), $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
     {
         // Check arguments
-        if( is_array( $feAdminConf ) && is_array( $params) ) {
+        if( !is_array( $feAdminConf ) ) {
             
-            // HTML code storage
-            $htmlCode    = array();
-            
-            // Create FE-Admin name for all types except submit
-            $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
-            
-            // Clean parameters array to remove name if present
-            $params      = $this->div_cleanArray( $params, 'name' );
-            
-            // Add form element header
-            $htmlCode[]  = $this->fe_buildFormElementHeader(
-                $name,
-                $langPrefix,
-                $headerSeparation,
-                $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
-                $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
-            );
-            
-            // Start select
-            $htmlCode[]  = '<select name="'
-                         . $feAdminName
-                         . '" '
-                         . $this->div_writeTagParams( $params )
-                         . '>';
-            
-            // Check for value
-            if( $keepSentValues ) {
-                
-                // Recover sent variables
-                $feAdmin_vars = t3lib_div::_GP( 'FE' );
-                
-                // Check for valid variables
-                if( is_array( $feAdmin_vars ) ) {
-                    
-                    // Set value
-                    $sentValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
-                }
-            }
-            
-            // Check options
-            if( is_array( $options ) ) {
-                
-                // Create options from array
-                foreach( $options as $key => $value ) {
-                    
-                    // Check if the option must be selected
-                    if( $sentValue && $key == $sentValue ) {
-                        
-                        // Selected
-                        $selected = ' selected';
-                        
-                    } else {
-                        
-                        // Not selected
-                        $selected = '';
-                    }
-                    
-                    // Pass the value through htmlspecialchars() if required
-                    $value = ( $htmlspecialchars ) ? htmlspecialchars( $value ) : $value;
-                    
-                    // Add option
-                    $htmlCode[] = '<option value="'
-                                . $key
-                                . '"'
-                                . $selected
-                                . '>'
-                                . $value
-                                . '</option>';
-                    
-                }
-                
-            } else {
-                
-                // Create options from number
-                for( $i = 0; $i < $options; $i++ ) {
-                    
-                    // Check if the option must be selected
-                    if( $sentValue && $i == $sentValue ) {
-                        
-                        // Selected
-                        $selected = ' selected';
-                        
-                    } else {
-                        
-                        // Not selected
-                        $selected = '';
-                    }
-                    
-                    // Pass the value through htmlspecialchars() if required
-                    $value = ( $htmlspecialchars ) ? htmlspecialchars( $value ) : $value;
-                    
-                    // Add option
-                    $htmlCode[] = '<option value="'
-                                . $i
-                                . '"'
-                                . $selected
-                                . '>'
-                                . $this->pObj->pi_getLL( $langPrefix . $name . '.I.' . $i, '[item' . $i . ']' )
-                                . '</option>';
-                }
-            }
-            
-            // End select
-            $htmlCode[] = '</select>';
-            
-            // Return HTML code
-            return implode( chr( 10 ), $htmlCode );
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $feAdminConf must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check arguments
+        if( !is_array( $params) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
+        }
+            
+        // HTML code storage
+        $htmlCode    = array();
+        
+        // Create FE-Admin name for all types except submit
+        $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
+        
+        // Clean parameters array to remove name if present
+        $params      = $this->div_cleanArray( $params, 'name' );
+        
+        // Add form element header
+        $htmlCode[]  = $this->fe_buildFormElementHeader(
+            $name,
+            $langPrefix,
+            $headerSeparation,
+            $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
+            $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
+        );
+        
+        // Start select
+        $htmlCode[]  = '<select name="'
+                     . $feAdminName
+                     . '" '
+                     . $this->div_writeTagParams( $params )
+                     . '>';
+        
+        // Check for value
+        if( $keepSentValues ) {
+            
+            // Recover sent variables
+            $feAdmin_vars = t3lib_div::_GP( 'FE' );
+            
+            // Check for valid variables
+            if( is_array( $feAdmin_vars ) ) {
+                
+                // Set value
+                $sentValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
+            }
+        }
+        
+        // Check options
+        if( is_array( $options ) ) {
+            
+            // Create options from array
+            foreach( $options as $key => $value ) {
+                
+                // Check if the option must be selected
+                if( $sentValue && $key == $sentValue ) {
+                    
+                    // Selected
+                    $selected = ' selected';
+                    
+                } else {
+                    
+                    // Not selected
+                    $selected = '';
+                }
+                
+                // Pass the value through htmlspecialchars() if required
+                $value = ( $htmlspecialchars ) ? htmlspecialchars( $value ) : $value;
+                
+                // Add option
+                $htmlCode[] = '<option value="'
+                            . $key
+                            . '"'
+                            . $selected
+                            . '>'
+                            . $value
+                            . '</option>';
+                
+            }
+            
+        } else {
+            
+            // Create options from number
+            for( $i = 0; $i < $options; $i++ ) {
+                
+                // Check if the option must be selected
+                if( $sentValue && $i == $sentValue ) {
+                    
+                    // Selected
+                    $selected = ' selected';
+                    
+                } else {
+                    
+                    // Not selected
+                    $selected = '';
+                }
+                
+                // Pass the value through htmlspecialchars() if required
+                $value = ( $htmlspecialchars ) ? htmlspecialchars( $value ) : $value;
+                
+                // Add option
+                $htmlCode[] = '<option value="'
+                            . $i
+                            . '"'
+                            . $selected
+                            . '>'
+                            . $this->pObj->pi_getLL( $langPrefix . $name . '.I.' . $i, '[item' . $i . ']' )
+                            . '</option>';
+            }
+        }
+        
+        // End select
+        $htmlCode[] = '</select>';
+        
+        // Return HTML code
+        return implode( chr( 10 ), $htmlCode );
     }
     
     /**
@@ -1536,121 +1678,128 @@ class tx_apimacmade
     function fe_createSelectFromTable( $name, $feAdminConf, $feAdminSection, $table, $pidList, $labelField, $valueField = 'uid', $htmlspecialchars = 1, $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $params = array(), $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
     {
         // Check arguments
-        if( is_array( $feAdminConf ) && is_array( $params) ) {
+        if( !is_array( $feAdminConf ) ) {
             
-            // HTML code storage
-            $htmlCode    = array();
-            
-            // Create FE-Admin name for all types except submit
-            $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
-            
-            // Clean parameters array to remove name if present
-            $params      = $this->div_cleanArray( $params, 'name' );
-            
-            // Add form element header
-            $htmlCode[]  = $this->fe_buildFormElementHeader(
-                $name,
-                $langPrefix,
-                $headerSeparation,
-                $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
-                $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
-            );
-            
-            // Start select
-            $htmlCode[]  = '<select name="'
-                         . $feAdminName
-                         . '" '
-                         . $this->div_writeTagParams( $params )
-                         . '>';
-            
-            // Check for value
-            if( $keepSentValues ) {
-                
-                // Recover sent variables
-                $feAdmin_vars = t3lib_div::_GP( 'FE' );
-                
-                // Check for valid variables
-                if( is_array( $feAdmin_vars ) ) {
-                    
-                    // Set value
-                    $sentValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
-                }
-            }
-            
-            // Get an array with all PID to select records from
-            $pages          = explode( ',', $pidList );
-            
-            // Get main PID
-            $mainPid        = array_shift( $pages );
-            
-            // MySQL WHERE clause storage
-            $whereClause    = array();
-            
-            // Add enableFields
-            $whereClause[]  = $this->pObj->enableFields( $table );
-            
-            // Process each remaining PID
-            foreach( $pages as $pid ) {
-                
-                $addWhere[] = 'OR pid=' . $pid;
-            }
-            
-            // Add user defined clause
-            $whereClause[]  = $addWhere;
-            
-            // Get items from table
-            $options        = $this->pObj->pi_getCategoryTableContents(
-                $table,
-                $mainPid,
-                implode( ' ', $whereClause ),
-                $groupBy,
-                $orderBy
-            );
-            
-            // Check options
-            if( is_array( $options ) ) {
-                
-                // Create options from rows
-                foreach( $options as $row ) {
-                    
-                    // Check if the option must be selected
-                    if( $sentValue && $row[ $valueField ] == $sentValue ) {
-                        
-                        // Selected
-                        $selected = ' selected';
-                        
-                    } else {
-                        
-                        // Not selected
-                        $selected = '';
-                    }
-                    
-                    // Pass the value through htmlspecialchars() if required
-                    $value = ( $htmlspecialchars ) ? htmlspecialchars( $row[ $labelField ] ) : $row[ $labelField ];
-                    
-                    // Add option
-                    $htmlCode[] = '<option value="'
-                                . $row[ $valueField ]
-                                . '"'
-                                . $selected
-                                . '>'
-                                . $value
-                                . '</option>';
-                    
-                }
-            }
-            
-            // End select
-            $htmlCode[] = '</select>';
-            
-            // Return HTML code
-            return implode( chr( 10 ), $htmlCode );
-            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $feAdminConf must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Check arguments
+        if( !is_array( $params) ) {
+            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
+        }
+            
+        // HTML code storage
+        $htmlCode    = array();
+        
+        // Create FE-Admin name for all types except submit
+        $feAdminName = 'FE[' . $feAdminConf[ 'table' ] . '][' . $name . ']';
+        
+        // Clean parameters array to remove name if present
+        $params      = $this->div_cleanArray( $params, 'name' );
+        
+        // Add form element header
+        $htmlCode[]  = $this->fe_buildFormElementHeader(
+            $name,
+            $langPrefix,
+            $headerSeparation,
+            $feAdminConf[ $feAdminSection . '.' ][ 'required' ],
+            $feAdminConf[ $feAdminSection . '.' ][ 'evalValues.' ]
+        );
+        
+        // Start select
+        $htmlCode[]  = '<select name="'
+                     . $feAdminName
+                     . '" '
+                     . $this->div_writeTagParams( $params )
+                     . '>';
+        
+        // Check for value
+        if( $keepSentValues ) {
+            
+            // Recover sent variables
+            $feAdmin_vars = t3lib_div::_GP( 'FE' );
+            
+            // Check for valid variables
+            if( is_array( $feAdmin_vars ) ) {
+                
+                // Set value
+                $sentValue = $feAdmin_vars[ $feAdminConf[ 'table' ] ][ $name ];
+            }
+        }
+        
+        // Get an array with all PID to select records from
+        $pages          = explode( ',', $pidList );
+        
+        // Get main PID
+        $mainPid        = array_shift( $pages );
+        
+        // MySQL WHERE clause storage
+        $whereClause    = array();
+        
+        // Add enableFields
+        $whereClause[]  = $this->pObj->enableFields( $table );
+        
+        // Process each remaining PID
+        foreach( $pages as $pid ) {
+            
+            $addWhere[] = 'OR pid=' . $pid;
+        }
+        
+        // Add user defined clause
+        $whereClause[]  = $addWhere;
+        
+        // Get items from table
+        $options        = $this->pObj->pi_getCategoryTableContents(
+            $table,
+            $mainPid,
+            implode( ' ', $whereClause ),
+            $groupBy,
+            $orderBy
+        );
+        
+        // Check options
+        if( is_array( $options ) ) {
+            
+            // Create options from rows
+            foreach( $options as $row ) {
+                
+                // Check if the option must be selected
+                if( $sentValue && $row[ $valueField ] == $sentValue ) {
+                    
+                    // Selected
+                    $selected = ' selected';
+                    
+                } else {
+                    
+                    // Not selected
+                    $selected = '';
+                }
+                
+                // Pass the value through htmlspecialchars() if required
+                $value = ( $htmlspecialchars ) ? htmlspecialchars( $row[ $labelField ] ) : $row[ $labelField ];
+                
+                // Add option
+                $htmlCode[] = '<option value="'
+                            . $row[ $valueField ]
+                            . '"'
+                            . $selected
+                            . '>'
+                            . $value
+                            . '</option>';
+                
+            }
+        }
+        
+        // End select
+        $htmlCode[] = '</select>';
+        
+        // Return HTML code
+        return implode( chr( 10 ), $htmlCode );
     }
     
     /**
@@ -2203,7 +2352,7 @@ class tx_apimacmade
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_prototype' ] = '<script src="'
                                                                                   . t3lib_extMgm::extRelPath( 'api_macmade' )
                                                                                   . 'res/js/prototype/prototype.js'
-                                                                                  . '" type="text/javascript"></script>';            
+                                                                                  . '" type="text/javascript"></script>';
             
             // Set included flag
             $this->prototype = true;
@@ -2234,10 +2383,79 @@ class tx_apimacmade
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_scriptaculous' ] = '<script src="'
                                                                                       . t3lib_extMgm::extRelPath( 'api_macmade' )
                                                                                       . 'res/js/scriptaculous/src/scriptaculous.js'
-                                                                                      . '" type="text/javascript"></script>';            
+                                                                                      . '" type="text/javascript"></script>';
             
             // Set included flag
             $this->scriptaculous = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the lightbox script
+     * 
+     * This function includes the lightbox JavaScript by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a frontend context.
+     * 
+     * @param       boolean     $includeCss     If set, the default lightbox CSS styles will be included
+     * @return      boolean
+     * @see         fe_includeScriptaculousJs
+     */
+    function fe_includeLightBoxJs( $includeCss = true )
+    {
+        // Include Scriptaculous
+        $this->fe_includeScriptaculousJs();
+        
+        // Check if script has already been included
+        if( !$this->lightbox ) {
+            
+            // Extension relative path
+            $extPath = t3lib_extMgm::extRelPath( 'api_macmade' );
+            
+            // Add script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_lightbox' ] = '<script src="'
+                                                                                 . $extPath
+                                                                                 . 'res/js/lightbox/js/lightbox.js'
+                                                                                 . '" type="text/javascript"></script>'
+                                                                                 . chr( 10 )
+                                                                                 . '<script type="text/javascript" charset="utf-8">'
+                                                                                 . chr( 10 )
+                                                                                 . '// <![CDATA['
+                                                                                 . chr( 10 )
+                                                                                 . 'var fileLoadingImage = "' . $extPath . 'res/js/lightbox/images/loading.gif";'
+                                                                                 . chr( 10 )
+                                                                                 . 'var fileBottomNavCloseImage = "' . $extPath . 'res/js/lightbox/images/closelabel.gif";'
+                                                                                 . chr( 10 )
+                                                                                 . '// ]]>'
+                                                                                 . chr( 10 )
+                                                                                 . '</script>';
+            
+            // Checks if the CSS styles must be included
+            if( $includeCss ) {
+                
+                // Adds the CSS styles
+                $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_lightbox_css' ] = '<link rel="stylesheet" href="'
+                                                                                         . $extPath
+                                                                                         . 'res/js/lightbox/css/lightbox.css'
+                                                                                         . '" type="text/css" media="screen" charset="utf-8" />'
+                                                                                         . chr( 10 )
+                                                                                         . '<style type="text/css" media="screen">'
+                                                                                         . chr( 10 )
+                                                                                         . '/* <![CDATA[ */'
+                                                                                         . chr( 10 )
+                                                                                         . '#prevLink:hover, #prevLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/prevlabel.gif" ) left 15% no-repeat; }'
+                                                                                         . chr( 10 )
+                                                                                         . '#nextLink:hover, #nextLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/nextlabel.gif" ) right 15% no-repeat; }'
+                                                                                         . chr( 10 )
+                                                                                         . '/* ]]> */'
+                                                                                         . chr( 10 )
+                                                                                         . '</style>';
+            }
+            
+            // Set included flag
+            $this->lightbox = true;
         }
         
         return true;
@@ -2261,7 +2479,7 @@ class tx_apimacmade
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_ufo' ] = '<script src="'
                                                                             . t3lib_extMgm::extRelPath( 'api_macmade' )
                                                                             . 'res/js/ufo/ufo.js'
-                                                                            . '" type="text/javascript"></script>';            
+                                                                            . '" type="text/javascript"></script>';
             
             // Set included flag
             $this->ufo = true;
@@ -2288,7 +2506,7 @@ class tx_apimacmade
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_swfObject' ] = '<script src="'
                                                                                   . t3lib_extMgm::extRelPath( 'api_macmade' )
                                                                                   . 'res/js/swfobject1-5/swfobject.js'
-                                                                                  . '" type="text/javascript"></script>';            
+                                                                                  . '" type="text/javascript"></script>';
             
             // Set included flag
             $this->swfObject = true;
@@ -2587,10 +2805,10 @@ class tx_apimacmade
             // Add script
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
-                                     . $GLOBALS[ 'BACK_PATH' ]
-                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
-                                     . 'res/js/prototype/prototype.js'
-                                     . '" type="text/javascript" charset="utf-8"></script>';
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/prototype/prototype.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
             
             // Set included flag
             $this->prototype = true;
@@ -2620,13 +2838,82 @@ class tx_apimacmade
             // Add script
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
-                                     . $GLOBALS[ 'BACK_PATH' ]
-                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
-                                     . 'res/js/scriptaculous/src/scriptaculous.js'
-                                     . '" type="text/javascript" charset="utf-8"></script>';
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/scriptaculous/src/scriptaculous.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
             
             // Set included flag
             $this->scriptaculous = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the lightbox script
+     * 
+     * This function includes the lightbox JavaScript by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @param       boolean     $includeCss     If set, the default lightbox CSS styles will be included
+     * @return      boolean
+     * @see         be_includeScriptaculousJs
+     */
+    function be_includeLightBoxJs( $includeCss = true )
+    {
+        // Include Scriptaculous
+        $this->be_includeScriptaculousJs();
+        
+        // Check if script has already been included
+        if( !$this->lightbox ) {
+            
+            // Extension relative path
+            $extPath = t3lib_extMgm::extRelPath( 'api_macmade' );
+            
+            // Add script
+            $this->pObj->doc->JScode .= '<script src="'
+                                     .  $extPath
+                                     .  'res/js/lightbox/js/lightbox.js'
+                                     .  '" type="text/javascript"></script>'
+                                     .  chr( 10 )
+                                     .  '<script type="text/javascript" charset="utf-8">'
+                                     .  chr( 10 )
+                                     .  '// <![CDATA['
+                                     .  chr( 10 )
+                                     .  'var fileLoadingImage = "' . $extPath . 'res/js/lightbox/images/loading.gif";'
+                                     .  chr( 10 )
+                                     .  'var fileBottomNavCloseImage = "' . $extPath . 'res/js/lightbox/images/closelabel.gif";'
+                                     .  chr( 10 )
+                                     .  '// ]]>'
+                                     .  chr( 10 )
+                                     .  '</script>';
+
+            // Checks if the CSS styles must be included
+            if( $includeCss ) {
+                
+                // Adds the CSS styles
+                $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_lightbox_css' ] = '<link rel="stylesheet" href="'
+                                                                                         . $extPath
+                                                                                         . 'res/js/lightbox/css/lightbox.css'
+                                                                                         . '" type="text/css" media="screen" charset="utf-8" />'
+                                                                                         . chr( 10 )
+                                                                                         . '<style type="text/css" media="screen">'
+                                                                                         . chr( 10 )
+                                                                                         . '/* <![CDATA[ */'
+                                                                                         . chr( 10 )
+                                                                                         . '#prevLink:hover, #prevLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/prevlabel.gif" ) left 15% no-repeat; }'
+                                                                                         . chr( 10 )
+                                                                                         . '#nextLink:hover, #nextLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/nextlabel.gif" ) right 15% no-repeat; }'
+                                                                                         . chr( 10 )
+                                                                                         . '/* ]]> */'
+                                                                                         . chr( 10 )
+                                                                                         . '</style>';
+            }
+            
+            // Set included flag
+            $this->lightbox = true;
         }
         
         return true;
@@ -2649,10 +2936,10 @@ class tx_apimacmade
             // Add script
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
-                                     . $GLOBALS[ 'BACK_PATH' ]
-                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
-                                     . 'res/js/ufo/ufo.js'
-                                     . '" type="text/javascript" charset="utf-8"></script>';
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/ufo/ufo.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
             
             // Set included flag
             $this->ufo = true;
@@ -2678,10 +2965,10 @@ class tx_apimacmade
             // Add script
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
-                                     . $GLOBALS[ 'BACK_PATH' ]
-                                     . t3lib_extMgm::extRelPath( 'api_macmade' )
-                                     . 'res/js/swfobject1-5/swfobject.js'
-                                     . '" type="text/javascript" charset="utf-8"></script>';
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/swfobject1-5/swfobject.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
             
             // Set included flag
             $this->swfObject = true;
@@ -3040,25 +3327,25 @@ class tx_apimacmade
     function div_writeTagParams( $params )
     {
         // Check arguments
-        if( is_array( $params ) ) {
+        if( !is_array( $params ) ) {
             
-            // Parameters storages
-            $tagParams = array();
-            
-            // Process each parameter
-            foreach( $params as $key => $value ) {
-                
-                // Store parameter
-                $tagParams[] = $key . '="' . $value . '"';
-            }
-            
-            // Return parameters
-            return implode( ' ', $tagParams );
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $params must be an array.', __LINE__ );
+            return false;
         }
+    
+        // Parameters storages
+        $tagParams = array();
+        
+        // Process each parameter
+        foreach( $params as $key => $value ) {
             
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+            // Store parameter
+            $tagParams[] = $key . '="' . $value . '"';
+        }
+        
+        // Return parameters
+        return implode( ' ', $tagParams );
     }
     
     /**
@@ -3078,35 +3365,35 @@ class tx_apimacmade
     function div_checkVarType( $vars, $type = 'array' )
     {
         // Check for a valid input array
-        if( is_array( $vars ) ) {
+        if( !is_array( $vars ) ) {
             
-            // Result
-            $result = false;
-            
-            // Check each variable
-            foreach( $vars as $object ) {
-                
-                // Check if each object is valid
-                if( tx_apimacmade::div_isType( $object, $type ) ) {
-                    
-                    // Valid object
-                    $result = true;
-                    
-                } else {
-                    
-                    // Invalid object - Exit and return false
-                    $result = false;
-                    break;
-                }
-            }
-            
-            // Return result
-            return $result;
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $vars must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Result
+        $result = false;
+        
+        // Check each variable
+        foreach( $vars as $object ) {
+            
+            // Check if each object is valid
+            if( tx_apimacmade::div_isType( $object, $type ) ) {
+                
+                // Valid object
+                $result = true;
+                
+            } else {
+                
+                // Invalid object - Exit and return false
+                $result = false;
+                break;
+            }
+        }
+        
+        // Return result
+        return $result;
     }
     
     /**
@@ -3159,7 +3446,7 @@ class tx_apimacmade
         }
         
         // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
+        tx_apimacmade::errorMsg( __METHOD__, 'The argument $vars must be an array.', __LINE__ );
         return false;
     }
     
@@ -3270,295 +3557,294 @@ class tx_apimacmade
      */
     function div_vCardCreate( $user, $version = '3.0', $charset = false )
     {
-        if( is_array( $user ) ) {
+        if( !is_array( $user ) ) {
             
-            // vCard fields storage
-            $vCard = array();
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $user must be an array.', __LINE__ );
+            return false;
+        }
+    
+        // vCard fields storage
+        $vCard = array();
+        
+        // Check charset
+        if( $charset ) {
             
-            // Check charset
-            if( $charset ) {
+            // Create charset property
+            $charset = ';CHARSET=' . $charset;
+        }
+        
+        // Items number counter
+        $items = 1;
+        
+        // Begin vCard
+        $vCard[] = 'BEGIN:VCARD';
+        $vCard[] = 'VERSION:' . $version;
+        
+        // Process fixed fields
+        $vCard[] = 'N'
+                 . $charset
+                 . ':'
+                 . $user[ 'name' ]
+                 . ';'
+                 . $user[ 'firstname' ]
+                 . ';;;';
+        $vCard[] = 'NICKNAME'
+                 . $charset
+                 . ':'
+                 . $user[ 'username' ];
+        $vCard[] = 'ORG'
+                 . $charset
+                 . ':'
+                 . $user[ 'company' ]
+                 . ';'
+                 . $user[ 'department' ];
+        $vCard[] = 'TITLE'
+                 . $charset
+                 . ':'
+                 . $user[ 'title' ];
+        $vCard[] = 'URL:'
+                 . $user[ 'www' ];
+        $vCard[] = 'BDAY;value=date:'
+                 . date( 'Y-m-d', $user[ 'birthday' ] );
+        $vCard[] = 'NOTE'
+                 . $charset
+                 . ':'
+                 . $user[ 'note' ];
+        
+        // Create email fields
+        if( is_array( $user[ 'email' ] ) && count( $user[ 'email' ] ) ) {
+            
+            // Process each email
+            foreach( $user[ 'email' ] as $email ) {
                 
-                // Create charset property
-                $charset = ';CHARSET=' . $charset;
-            }
-            
-            // Items number counter
-            $items = 1;
-            
-            // Begin vCard
-            $vCard[] = 'BEGIN:VCARD';
-            $vCard[] = 'VERSION:' . $version;
-            
-            // Process fixed fields
-            $vCard[] = 'N'
-                     . $charset
-                     . ':'
-                     . $user[ 'name' ]
-                     . ';'
-                     . $user[ 'firstname' ]
-                     . ';;;';
-            $vCard[] = 'NICKNAME'
-                     . $charset
-                     . ':'
-                     . $user[ 'username' ];
-            $vCard[] = 'ORG'
-                     . $charset
-                     . ':'
-                     . $user[ 'company' ]
-                     . ';'
-                     . $user[ 'department' ];
-            $vCard[] = 'TITLE'
-                     . $charset
-                     . ':'
-                     . $user[ 'title' ];
-            $vCard[] = 'URL:'
-                     . $user[ 'www' ];
-            $vCard[] = 'BDAY;value=date:'
-                     . date( 'Y-m-d', $user[ 'birthday' ] );
-            $vCard[] = 'NOTE'
-                     . $charset
-                     . ':'
-                     . $user[ 'note' ];
-            
-            // Create email fields
-            if( is_array( $user[ 'email' ] ) && count( $user[ 'email' ] ) ) {
-                
-                // Process each email
-                foreach( $user[ 'email' ] as $email ) {
+                // Check valid array
+                if( is_array( $email ) ) {
                     
-                    // Check valid array
-                    if( is_array( $email ) ) {
+                    // Check type
+                    if( $email[ 'type' ] == 'WORK' || $email[ 'type' ] == 'HOME' ) {
                         
-                        // Check type
-                        if( $email[ 'type' ] == 'WORK' || $email[ 'type' ] == 'HOME' ) {
-                            
-                            // Add standard email
-                            $vCard[] = 'EMAIL;type=INTERNET;type='
-                                     . $email[ 'type' ] 
-                                     . ':' 
-                                     . $email[ 'mail' ];
-                            
-                        } else {
-                            
-                            // Add custom email
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.EMAIL;type=INTERNET:'
-                                     . $email[ 'mail' ];
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.X-ABLabel:_$!<Other>!$_';
-                            
-                            // Increase item counter
-                            $item++;
-                        }
-                    }
-                }
-            }
-            
-            // Create messenger fields
-            if( is_array( $user[ 'messenger' ] ) && count( $user[ 'messenger' ] ) ) {
-                
-                // Process each account
-                foreach( $user[ 'messenger' ] as $messenger ) {
-                    
-                    // Check valid array
-                    if( is_array( $messenger ) ) {
+                        // Add standard email
+                        $vCard[] = 'EMAIL;type=INTERNET;type='
+                                 . $email[ 'type' ] 
+                                 . ':' 
+                                 . $email[ 'mail' ];
                         
-                        // Check type
-                        if( $messenger[ 'type' ] == 'WORK' || $messenger[ 'type' ] == 'HOME' ) {
-                            
-                            // Add standard messenger
-                            $vCard[] = 'X-'
-                                     . $messenger[ 'service' ]
-                                     . ';type='
-                                     . $messenger[ 'type' ]
-                                     . ':'
-                                     . $messenger[ 'name' ];
-                            
-                        } else {
-                            
-                            // Add custom messenger
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.X-'
-                                     . $messenger[ 'service' ]
-                                     . ':'
-                                     . $messenger[ 'mail' ];
-                            $vCard[] = 'item'
-                                     . $items 
-                                     . '.X-ABLabel:_$!<Other>!$_';
-                            
-                            // Increase item counter
-                            $item++;
-                        }
-                    }
-                }
-            }
-            
-            // Create address fields
-            if( is_array( $user[ 'address' ] ) && count( $user[ 'address' ] ) ) {
-                
-                // Process each address
-                foreach( $user[ 'address' ] as $address ) {
-                    
-                    // Check valid array
-                    if( is_array( $address ) ) {
+                    } else {
                         
-                        // Check type
-                        if( $address[ 'type' ] == 'WORK' || $address[ 'type' ] == 'HOME' ) {
-                            
-                            // Add standard address
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.ADR'
-                                     . $charset
-                                     . ';type='
-                                     . $address[ 'type' ]
-                                     . ':;;'
-                                     . $address[ 'street' ]
-                                     . ';'
-                                     . $address[ 'city' ]
-                                     . ';'
-                                     . $address[ 'state' ]
-                                     . ';'
-                                     . $address[ 'zip' ]
-                                     . ';'
-                                     . $address[ 'country' ];
-                            
-                        } else {
-                            
-                            // Add custom address
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.ADR'
-                                     . $charset
-                                     . ';type=HOME:;;'
-                                     . $address[ 'street' ]
-                                     . ';'
-                                     . $address[ 'city' ]
-                                     . ';'
-                                     . $address[ 'state' ]
-                                     . ';'
-                                     . $address[ 'zip' ]
-                                     . ';'
-                                     . $address[ 'country' ];
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.X-ABLabel:_$!<Other>!$_';
-                        }
-                        
-                        // Fixed fields
+                        // Add custom email
                         $vCard[] = 'item'
                                  . $items
-                                 . '.X-ABADR:us';
+                                 . '.EMAIL;type=INTERNET:'
+                                 . $email[ 'mail' ];
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.X-ABLabel:_$!<Other>!$_';
                         
                         // Increase item counter
                         $item++;
                     }
                 }
             }
+        }
+        
+        // Create messenger fields
+        if( is_array( $user[ 'messenger' ] ) && count( $user[ 'messenger' ] ) ) {
             
-            // Create phone fields
-            if( is_array( $user[ 'phone' ] ) && count( $user[ 'phone' ] ) ) {
+            // Process each account
+            foreach( $user[ 'messenger' ] as $messenger ) {
                 
-                // Process each phone number
-                foreach( $user[ 'phone' ] as $phone ) {
+                // Check valid array
+                if( is_array( $messenger ) ) {
                     
-                    // Check valid array
-                    if( is_array( $phone ) ) {
+                    // Check type
+                    if( $messenger[ 'type' ] == 'WORK' || $messenger[ 'type' ] == 'HOME' ) {
                         
-                        // Check type
-                        if( $phone[ 'type' ] == 'WORK' ||
-                            $phone[ 'type' ] == 'HOME' ||
-                            $phone[ 'type' ] == 'CELL' ||
-                            $phone[ 'type' ] == 'MAIN' ||
-                            $phone[ 'type' ] == 'PAGER') {
-                            
-                            // Add standard number
-                            $vCard[] = 'TEL;type='
-                                     . $phone['type']
-                                     . ':'
-                                     . $phone['number'];
-                            
-                        } elseif( $phone[ 'type' ] == 'WORKFAX' || $phone[ 'type' ] == 'HOMEFAX' ) {
-                            
-                            // Add fax number
-                            $vCard[] = 'TEL;type='
-                                     . substr( $phone[ 'type' ], 0, 4 )
-                                     . ';type=FAX:'
-                                     . $phone[ 'number' ];
-                            
-                        } else {
-                            
-                            // Add custom number
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.TEL:'
-                                     . $phone[ 'number' ];
-                            $vCard[] = 'item'
-                                     . $items
-                                     . '.X-ABLabel:_$!<Other>!$_';
-                            
-                            // Increase item counter
-                            $item++;
-                        }
+                        // Add standard messenger
+                        $vCard[] = 'X-'
+                                 . $messenger[ 'service' ]
+                                 . ';type='
+                                 . $messenger[ 'type' ]
+                                 . ':'
+                                 . $messenger[ 'name' ];
+                        
+                    } else {
+                        
+                        // Add custom messenger
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.X-'
+                                 . $messenger[ 'service' ]
+                                 . ':'
+                                 . $messenger[ 'mail' ];
+                        $vCard[] = 'item'
+                                 . $items 
+                                 . '.X-ABLabel:_$!<Other>!$_';
+                        
+                        // Increase item counter
+                        $item++;
                     }
                 }
             }
-            
-            // Check for a picture
-            if( !empty( $user[ 'image' ] ) ) {
-                
-                // Picture path
-                $picturePath = $user[ 'image' ];
-                
-                // Open file ressource
-                if( $handle = @fopen( $user[ 'image' ],  'r' ) ) {
-                    
-                    // Read image
-                    $pictureContent =  fread( $handle, filesize( $picturePath ) );
-                    
-                    // Close file ressource
-                    fclose( $handle );
-                
-                    // Add picture to vCard
-                    $vCard[] = 'PHOTO;BASE64:';
-                    $vCard[] = '  ' . chunk_split( base64_encode( $pictureContent ), 76, "\r\n  " );
-                }
-            }
-            
-            // Check if vCard is a company
-            if( $user[ 'iscompany' ] ) {
-                
-                // FN as company
-                $vCard[] = 'FN:' . $user[ 'company' ];
-                
-                // Add company flag
-                $vCard[] = 'X-ABShowAs:COMPANY';
-                
-            } else {
-                
-                // FN as user
-                $vCard[] = 'FN'
-                         . $charset
-                         . ':'
-                         . $user[ 'firstname' ]
-                         . ' '
-                         . $user[ 'name' ];
-            }
-            
-            // End vCard
-            $vCard[] = 'END:VCARD';
-            
-            // Return vCard
-            return implode( chr( 10 ), $vCard );
-            
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__);
-        return false;
+        // Create address fields
+        if( is_array( $user[ 'address' ] ) && count( $user[ 'address' ] ) ) {
+            
+            // Process each address
+            foreach( $user[ 'address' ] as $address ) {
+                
+                // Check valid array
+                if( is_array( $address ) ) {
+                    
+                    // Check type
+                    if( $address[ 'type' ] == 'WORK' || $address[ 'type' ] == 'HOME' ) {
+                        
+                        // Add standard address
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.ADR'
+                                 . $charset
+                                 . ';type='
+                                 . $address[ 'type' ]
+                                 . ':;;'
+                                 . $address[ 'street' ]
+                                 . ';'
+                                 . $address[ 'city' ]
+                                 . ';'
+                                 . $address[ 'state' ]
+                                 . ';'
+                                 . $address[ 'zip' ]
+                                 . ';'
+                                 . $address[ 'country' ];
+                        
+                    } else {
+                        
+                        // Add custom address
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.ADR'
+                                 . $charset
+                                 . ';type=HOME:;;'
+                                 . $address[ 'street' ]
+                                 . ';'
+                                 . $address[ 'city' ]
+                                 . ';'
+                                 . $address[ 'state' ]
+                                 . ';'
+                                 . $address[ 'zip' ]
+                                 . ';'
+                                 . $address[ 'country' ];
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.X-ABLabel:_$!<Other>!$_';
+                    }
+                    
+                    // Fixed fields
+                    $vCard[] = 'item'
+                             . $items
+                             . '.X-ABADR:us';
+                    
+                    // Increase item counter
+                    $item++;
+                }
+            }
+        }
+        
+        // Create phone fields
+        if( is_array( $user[ 'phone' ] ) && count( $user[ 'phone' ] ) ) {
+            
+            // Process each phone number
+            foreach( $user[ 'phone' ] as $phone ) {
+                
+                // Check valid array
+                if( is_array( $phone ) ) {
+                    
+                    // Check type
+                    if( $phone[ 'type' ] == 'WORK' ||
+                        $phone[ 'type' ] == 'HOME' ||
+                        $phone[ 'type' ] == 'CELL' ||
+                        $phone[ 'type' ] == 'MAIN' ||
+                        $phone[ 'type' ] == 'PAGER') {
+                        
+                        // Add standard number
+                        $vCard[] = 'TEL;type='
+                                 . $phone['type']
+                                 . ':'
+                                 . $phone['number'];
+                        
+                    } elseif( $phone[ 'type' ] == 'WORKFAX' || $phone[ 'type' ] == 'HOMEFAX' ) {
+                        
+                        // Add fax number
+                        $vCard[] = 'TEL;type='
+                                 . substr( $phone[ 'type' ], 0, 4 )
+                                 . ';type=FAX:'
+                                 . $phone[ 'number' ];
+                        
+                    } else {
+                        
+                        // Add custom number
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.TEL:'
+                                 . $phone[ 'number' ];
+                        $vCard[] = 'item'
+                                 . $items
+                                 . '.X-ABLabel:_$!<Other>!$_';
+                        
+                        // Increase item counter
+                        $item++;
+                    }
+                }
+            }
+        }
+        
+        // Check for a picture
+        if( !empty( $user[ 'image' ] ) ) {
+            
+            // Picture path
+            $picturePath = $user[ 'image' ];
+            
+            // Open file ressource
+            if( $handle = @fopen( $user[ 'image' ],  'r' ) ) {
+                
+                // Read image
+                $pictureContent =  fread( $handle, filesize( $picturePath ) );
+                
+                // Close file ressource
+                fclose( $handle );
+            
+                // Add picture to vCard
+                $vCard[] = 'PHOTO;BASE64:';
+                $vCard[] = '  ' . chunk_split( base64_encode( $pictureContent ), 76, "\r\n  " );
+            }
+        }
+        
+        // Check if vCard is a company
+        if( $user[ 'iscompany' ] ) {
+            
+            // FN as company
+            $vCard[] = 'FN:' . $user[ 'company' ];
+            
+            // Add company flag
+            $vCard[] = 'X-ABShowAs:COMPANY';
+            
+        } else {
+            
+            // FN as user
+            $vCard[] = 'FN'
+                     . $charset
+                     . ':'
+                     . $user[ 'firstname' ]
+                     . ' '
+                     . $user[ 'name' ];
+        }
+        
+        // End vCard
+        $vCard[] = 'END:VCARD';
+        
+        // Return vCard
+        return implode( chr( 10 ), $vCard );
     }
     
     /**
@@ -4043,45 +4329,44 @@ class tx_apimacmade
     function div_array2list( $inputArray, $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
     {
         // Check arguments
-        if( is_array( $inputArray ) ) {
+        if( !is_array( $inputArray ) ) {
             
-            // Storage
-            $listCode = array();
-            
-            // Start list
-            $listCode[] = '<'
-                        . $listType
-                        . ' '
-                        . tx_apimacmade::div_writeTagParams( $listParams )
-                        . '>';
-            
-            // Process each value
-            foreach( $inputArray as $val ) {
-                
-                // Pass the item through htmlspecialchars() if required
-                $item       = ( $htmlspecialchars ) ? htmlspecialchars( $val ) : $val;
-                
-                // Write list item
-                $listCode[] = '<li '
-                            . tx_apimacmade::div_writeTagParams( $itemsParams )
-                            . '>'
-                            . $item
-                            . '</li>';
-            }
-            
-            // End list
-            $listCode[] = '</'
-                        . $listType
-                        . '>';
-            
-            // Return list
-            return implode( chr( 10 ), $listCode );
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $inputArray must be an array.', __LINE__ );
+            return false;
+        }
+    
+        // Storage
+        $listCode = array();
         
+        // Start list
+        $listCode[] = '<'
+                    . $listType
+                    . ' '
+                    . tx_apimacmade::div_writeTagParams( $listParams )
+                    . '>';
+        
+        // Process each value
+        foreach( $inputArray as $val ) {
+            
+            // Pass the item through htmlspecialchars() if required
+            $item       = ( $htmlspecialchars ) ? htmlspecialchars( $val ) : $val;
+            
+            // Write list item
+            $listCode[] = '<li '
+                        . tx_apimacmade::div_writeTagParams( $itemsParams )
+                        . '>'
+                        . $item
+                        . '</li>';
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // End list
+        $listCode[] = '</'
+                    . $listType
+                    . '>';
+        
+        // Return list
+        return implode( chr( 10 ), $listCode );
     }
     
     /**
@@ -4444,299 +4729,298 @@ class tx_apimacmade
         $valueOnly = 'xml-value';
         
         // Check arguments
-        if( is_array( $input ) ) {
+        if( !is_array( $input ) ) {
             
-            // Storage
-            $xml = array();
-            
-            // Include XML declaration?
-            if( $xmlDeclaration && $level == 0 ) {
-                
-                // XML declaration
-                $xml[] = '<?xml version="'
-                       . $version
-                       . '" encoding="'
-                       . $encoding
-                       . '" standalone="'
-                       . $standalone
-                       . '"?'
-                       . '>';
-            }
-            
-            // Doctype?
-            if( $doctype && $level == 0 ) {
-                
-                // XML declaration
-                $xml[] = '<!DOCTYPE '
-                       . $xmlRoot
-                       . ' SYSTEM "'
-                       . $doctype
-                       . '" >';
-            }
-            
-            // Start root element
-            if( $level == 0 ) {
-                
-                // Storage
-                $rootAttribs = array('');
-                
-                // Root element attributes?
-                if( is_array( $input[ $attribs ] ) ) {
-                    
-                    // Process attributes
-                    foreach( $input[ $attribs ] as $attrName => $attrValue ) {
-                        
-                        // Add attribute
-                        $rootAttribs[] = $attrName
-                                       . '="'
-                                       . $attrValue
-                                       . '"';
-                    }
-                }
-                
-                // Write tag
-                $xml[] = '<'
-                       . $prefix
-                       . $xmlRoot
-                       . implode( ' ', $rootAttribs )
-                       . '>';
-            }
-            
-            // Code indentation
-            $codeIndents;
-            
-            // Adds necessary indentations
-            for( $i = 0; $i < ( $level + 1 ); $i++ ) {
-                
-                // Add indentation character
-                $codeIndents .= chr( $indent );
-            }
-            
-            // Process array elements
-            foreach( $input as $tagName => $tagValue ) {
-                
-                // Don't process arguments array
-                if( ( string )$tagName != $attribs ) {
-                    
-                    // Check if tag name begins with xml
-                    if( strtolower( substr( $tagName, 0, 3 ) ) == 'xml' ) {
-                        
-                        // Remove XML prefix
-                        $tagName = substr( $tagName, 3 );
-                    }
-                    
-                    // Check if tag name begins with a number
-                    if( is_numeric( substr( $tagName, 0, 1 ) ) ) {
-                        
-                        // Check how to handle numeric tags (attribute or prefix)
-                        if( $numericAsAttribute ) {
-                            
-                            // Numeric attribute
-                            $numKey  = ( string )$tagName;
-                            
-                            // Tag name
-                            $tagName = $numeric;
-                            
-                            // Add flag to add numeric attribute
-                            $isNum   = 1;
-                            
-                        } else {
-                            
-                            // Add prefix
-                            $tagName = $numeric . $tagName;
-                        }
-                    } else {
-                        
-                        // Reset variables
-                        $numKey = false;
-                        $isNum  = false;
-                    }
-                    
-                    // Check if tag name contains a space
-                    if( strstr( $tagName, ' ' ) ) {
-                        
-                        // Replace space
-                        $tagName = str_replace( ' ', '_', $tagName );
-                    }
-                    
-                    // Check if tag name contains an equal sign
-                    if( strstr( $tagName, '=' ) ) {
-                        
-                        // Replace space
-                        $tagName = str_replace( '=', '_', $tagName );
-                    }
-                    
-                    // Remove numeric suffic in tag names if present
-                    $tagName = ereg_replace( '-[0-9]+', '', $tagName );
-                    
-                    // Check for numeric attribute
-                    if( $isNum ) {
-                        
-                        // Set attribute
-                        $fixedAttribs = ' '
-                                      . $numericAsAttribute
-                                      . '="'
-                                      . $numKey
-                                      . '"';
-                        
-                    } else {
-                        
-                        // Reset fixed attributes
-                        $fixedAttribs = false;
-                    }
-                    
-                    // Check for sub arrays
-                    if( is_array( $tagValue ) ) {
-                        
-                        // Storage
-                        $elAttribs = array('');
-                        
-                        // Add array attribute?
-                        if( $addArrayAttribute ) {
-                            
-                            // Add attribute
-                            $elAttribs[] = $addArrayAttribute . '="array"';
-                        }
-                        
-                        // Element attributes?
-                        if( is_array( $tagValue[ $attribs ] ) ) {
-                            
-                            // Process attributes
-                            foreach( $tagValue[ $attribs ] as $attrName => $attrValue ) {
-                                
-                                // Add attribute
-                                $elAttribs[] = $attrName
-                                             . '="'
-                                             . $attrValue
-                                             . '"';
-                            }
-                            
-                            // Remove attributes array for further processing
-                            unset( $tagValue[ $attribs ] );
-                        }
-                        
-                        // Check for a value
-                        if( count( $tagValue ) ) {
-                            
-                            // Check for a single value stored in a sub array
-                            if( array_key_exists( 'xml-value', $tagValue ) ) {
-                                
-                                // Add single value
-                                $elValue = $tagValue[ 'xml-value' ];
-                                
-                            } else {
-                            
-                                // Process sub arrays
-                                $elValue = chr( $newLine )
-                                         . tx_apimacmade::div_array2xml(
-                                                $tagValue,
-                                                $xmlRoot,
-                                                $prefix,
-                                                $numeric,
-                                                $numericAsAttribute,
-                                                $addArrayAttribute,
-                                                $xmlDeclaration,
-                                                $encoding,
-                                                $version,
-                                                $standalone,
-                                                $doctype,
-                                                $newLine,
-                                                $indent,
-                                                $level + 1
-                                           )
-                                         . chr( $newLine )
-                                         . $codeIndents;
-                            }
-                            
-                            // Write tag
-                            $xml[] = $codeIndents
-                                   . '<'
-                                   . $prefix
-                                   . $tagName
-                                   . $fixedAttribs
-                                   . implode( ' ', $elAttribs )
-                                   . '>'
-                                   . $elValue
-                                   . '</'
-                                   . $prefix
-                                   . $tagName
-                                   . '>';
-                        
-                        } else {
-                            
-                            // Empty tag
-                            $xml[] = $codeIndents
-                                   . '<'
-                                   . $prefix
-                                   . $tagName
-                                   . $fixedAttribs
-                                   . implode( ' ', $elAttribs )
-                                   . ' />';
-                        }
-                        
-                    } else {
-                        
-                        // Check for a value
-                        if( $tagValue ) {
-                            
-                            // Check if value must be protected
-                            if( strstr( $tagValue, '&' ) || strstr( $tagValue, '<' ) ) {
-                                
-                                // Protect with CDATA
-                                $elValue = '<![CDATA['
-                                         . $tagValue
-                                         . ']]>';
-                                
-                            } else {
-                                
-                                // Don't protect
-                                $elValue = $tagValue;
-                            }
-                            
-                            // Write tag
-                            $xml[] = $codeIndents
-                                   . '<'
-                                   . $prefix
-                                   . $tagName
-                                   . $fixedAttribs
-                                   . '>'
-                                   . $elValue
-                                   . '</'
-                                   . $prefix
-                                   . $tagName
-                                   . '>';
-                            
-                        } else {
-                            
-                            // Empty tag
-                            $xml[] = $codeIndents
-                                   . '<'
-                                   . $prefix
-                                   . $fixedAttribs
-                                   . $tagName
-                                   . ' />';
-                        }
-                    }
-                }
-            }
-            
-            // End root element
-            if( $level == 0 ) {
-                
-                $xml[] = '</'
-                       . $prefix
-                       . $xmlRoot
-                       . '>';
-            }
-            
-            // Return XML code
-            return implode( chr( $newLine ), $xml );
-            
+            // Error
+            tx_apimacmade::errorMsg( __METHOD__, 'The argument $input must be an array.', __LINE__ );
+            return false;
         }
         
-        // Error
-        tx_apimacmade::errorMsg( __METHOD__ );
-        return false;
+        // Storage
+        $xml = array();
+        
+        // Include XML declaration?
+        if( $xmlDeclaration && $level == 0 ) {
+            
+            // XML declaration
+            $xml[] = '<?xml version="'
+                   . $version
+                   . '" encoding="'
+                   . $encoding
+                   . '" standalone="'
+                   . $standalone
+                   . '"?'
+                   . '>';
+        }
+        
+        // Doctype?
+        if( $doctype && $level == 0 ) {
+            
+            // XML declaration
+            $xml[] = '<!DOCTYPE '
+                   . $xmlRoot
+                   . ' SYSTEM "'
+                   . $doctype
+                   . '" >';
+        }
+        
+        // Start root element
+        if( $level == 0 ) {
+            
+            // Storage
+            $rootAttribs = array('');
+            
+            // Root element attributes?
+            if( is_array( $input[ $attribs ] ) ) {
+                
+                // Process attributes
+                foreach( $input[ $attribs ] as $attrName => $attrValue ) {
+                    
+                    // Add attribute
+                    $rootAttribs[] = $attrName
+                                   . '="'
+                                   . $attrValue
+                                   . '"';
+                }
+            }
+            
+            // Write tag
+            $xml[] = '<'
+                   . $prefix
+                   . $xmlRoot
+                   . implode( ' ', $rootAttribs )
+                   . '>';
+        }
+        
+        // Code indentation
+        $codeIndents;
+        
+        // Adds necessary indentations
+        for( $i = 0; $i < ( $level + 1 ); $i++ ) {
+            
+            // Add indentation character
+            $codeIndents .= chr( $indent );
+        }
+        
+        // Process array elements
+        foreach( $input as $tagName => $tagValue ) {
+            
+            // Don't process arguments array
+            if( ( string )$tagName != $attribs ) {
+                
+                // Check if tag name begins with xml
+                if( strtolower( substr( $tagName, 0, 3 ) ) == 'xml' ) {
+                    
+                    // Remove XML prefix
+                    $tagName = substr( $tagName, 3 );
+                }
+                
+                // Check if tag name begins with a number
+                if( is_numeric( substr( $tagName, 0, 1 ) ) ) {
+                    
+                    // Check how to handle numeric tags (attribute or prefix)
+                    if( $numericAsAttribute ) {
+                        
+                        // Numeric attribute
+                        $numKey  = ( string )$tagName;
+                        
+                        // Tag name
+                        $tagName = $numeric;
+                        
+                        // Add flag to add numeric attribute
+                        $isNum   = 1;
+                        
+                    } else {
+                        
+                        // Add prefix
+                        $tagName = $numeric . $tagName;
+                    }
+                } else {
+                    
+                    // Reset variables
+                    $numKey = false;
+                    $isNum  = false;
+                }
+                
+                // Check if tag name contains a space
+                if( strstr( $tagName, ' ' ) ) {
+                    
+                    // Replace space
+                    $tagName = str_replace( ' ', '_', $tagName );
+                }
+                
+                // Check if tag name contains an equal sign
+                if( strstr( $tagName, '=' ) ) {
+                    
+                    // Replace space
+                    $tagName = str_replace( '=', '_', $tagName );
+                }
+                
+                // Remove numeric suffic in tag names if present
+                $tagName = ereg_replace( '-[0-9]+', '', $tagName );
+                
+                // Check for numeric attribute
+                if( $isNum ) {
+                    
+                    // Set attribute
+                    $fixedAttribs = ' '
+                                  . $numericAsAttribute
+                                  . '="'
+                                  . $numKey
+                                  . '"';
+                    
+                } else {
+                    
+                    // Reset fixed attributes
+                    $fixedAttribs = false;
+                }
+                
+                // Check for sub arrays
+                if( is_array( $tagValue ) ) {
+                    
+                    // Storage
+                    $elAttribs = array('');
+                    
+                    // Add array attribute?
+                    if( $addArrayAttribute ) {
+                        
+                        // Add attribute
+                        $elAttribs[] = $addArrayAttribute . '="array"';
+                    }
+                    
+                    // Element attributes?
+                    if( is_array( $tagValue[ $attribs ] ) ) {
+                        
+                        // Process attributes
+                        foreach( $tagValue[ $attribs ] as $attrName => $attrValue ) {
+                            
+                            // Add attribute
+                            $elAttribs[] = $attrName
+                                         . '="'
+                                         . $attrValue
+                                         . '"';
+                        }
+                        
+                        // Remove attributes array for further processing
+                        unset( $tagValue[ $attribs ] );
+                    }
+                    
+                    // Check for a value
+                    if( count( $tagValue ) ) {
+                        
+                        // Check for a single value stored in a sub array
+                        if( array_key_exists( 'xml-value', $tagValue ) ) {
+                            
+                            // Add single value
+                            $elValue = $tagValue[ 'xml-value' ];
+                            
+                        } else {
+                        
+                            // Process sub arrays
+                            $elValue = chr( $newLine )
+                                     . tx_apimacmade::div_array2xml(
+                                            $tagValue,
+                                            $xmlRoot,
+                                            $prefix,
+                                            $numeric,
+                                            $numericAsAttribute,
+                                            $addArrayAttribute,
+                                            $xmlDeclaration,
+                                            $encoding,
+                                            $version,
+                                            $standalone,
+                                            $doctype,
+                                            $newLine,
+                                            $indent,
+                                            $level + 1
+                                       )
+                                     . chr( $newLine )
+                                     . $codeIndents;
+                        }
+                        
+                        // Write tag
+                        $xml[] = $codeIndents
+                               . '<'
+                               . $prefix
+                               . $tagName
+                               . $fixedAttribs
+                               . implode( ' ', $elAttribs )
+                               . '>'
+                               . $elValue
+                               . '</'
+                               . $prefix
+                               . $tagName
+                               . '>';
+                    
+                    } else {
+                        
+                        // Empty tag
+                        $xml[] = $codeIndents
+                               . '<'
+                               . $prefix
+                               . $tagName
+                               . $fixedAttribs
+                               . implode( ' ', $elAttribs )
+                               . ' />';
+                    }
+                    
+                } else {
+                    
+                    // Check for a value
+                    if( $tagValue ) {
+                        
+                        // Check if value must be protected
+                        if( strstr( $tagValue, '&' ) || strstr( $tagValue, '<' ) ) {
+                            
+                            // Protect with CDATA
+                            $elValue = '<![CDATA['
+                                     . $tagValue
+                                     . ']]>';
+                            
+                        } else {
+                            
+                            // Don't protect
+                            $elValue = $tagValue;
+                        }
+                        
+                        // Write tag
+                        $xml[] = $codeIndents
+                               . '<'
+                               . $prefix
+                               . $tagName
+                               . $fixedAttribs
+                               . '>'
+                               . $elValue
+                               . '</'
+                               . $prefix
+                               . $tagName
+                               . '>';
+                        
+                    } else {
+                        
+                        // Empty tag
+                        $xml[] = $codeIndents
+                               . '<'
+                               . $prefix
+                               . $fixedAttribs
+                               . $tagName
+                               . ' />';
+                    }
+                }
+            }
+        }
+        
+        // End root element
+        if( $level == 0 ) {
+            
+            $xml[] = '</'
+                   . $prefix
+                   . $xmlRoot
+                   . '>';
+        }
+        
+        // Return XML code
+        return implode( chr( $newLine ), $xml );
     }
     
     /**
