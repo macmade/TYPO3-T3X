@@ -130,7 +130,7 @@
  *              function viewArray( $array, $indent = 0 )
  *              function debug( $variable, $header = 'DEBUG' )
  * 
- *              TOTAL FUNCTIONS: 62
+ *              TOTAL FUNCTIONS: 75
  */
 
 class tx_apimacmade
