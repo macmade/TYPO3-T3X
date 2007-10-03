@@ -38,6 +38,7 @@
  * SECTION:     1 - PHP methods
  *              public function __construct( &$xmlData )
  *              public function __get( $fieldName )
+ *              public function __toString
  * 
  * SECTION:     2 - SPL Iterator methods
  *              public function rewind
@@ -47,7 +48,7 @@
  *              public function valid
  * 
  * SECTION:     3 - Private or protected class methods
- *              protected function _relinkFieldsShortcut
+ *              protected function _getFieldsShortcut
  * 
  * SECTION:     4 - Public class methods
  *              public function getFieldValue( $fieldName, $sheet = 'sDEF', $lang = 'lDEF', $value = 'vDEF' )
@@ -55,7 +56,7 @@
  *              public function setDefaultLang( $name )
  *              public function setDefaultValue( $name )
  * 
- *              TOTAL FUNCTIONS: 12
+ *              TOTAL FUNCTIONS: 13
  */
 
 class tx_apimacmade_flexform implements Iterator
@@ -74,6 +75,12 @@ class tx_apimacmade_flexform implements Iterator
     // Current position for the iterator methods
     protected $_iteratorIndex = 0;
     
+    // Current instance is for a flexform section
+    protected $_subObject     = false;
+    
+    // The items type for a flexform section
+    protected $_itemType      = '';
+    
     /***************************************************************
      * SECTION 1:
      * 
@@ -86,7 +93,7 @@ class tx_apimacmade_flexform implements Iterator
      * @param   string  $xmlData    The flexform XML data
      * @return  NULL
      */
-    public function __construct( &$xmlData )
+    public function __construct( &$xmlData, $itemType = '' )
     {
         // Checks if the SimpleXMLElement class is available
         if( !class_exists( SimpleXMLElement ) ) {
@@ -95,16 +102,32 @@ class tx_apimacmade_flexform implements Iterator
             throw new Exception( 'The SimpleXMLElement class is not available in your PHP installation.' );
         }
         
-        // Creates a SImpleXMLElement with the flexform data
-        try {
+        if( is_object( $xmlData ) ) {
             
-            // Create the object
-            $this->_flexData = new SimpleXMLElement( $xmlData );
+            $this->_flexData  =& $xmlData;
+            $this->_fields    =& $xmlData;
+            $this->_itemType  = $itemType;
+            $this->_subObject = true;
             
-        } catch( Exception $e ) {
+        } else {
             
-            // Cannot parse the flexform
-            throw $e;
+            // Creates a SImpleXMLElement with the flexform data
+            try {
+                
+                // Create the object
+                $this->_flexData = new SimpleXMLElement( $xmlData );
+                
+                // DEBUG ONLY - Shows the flexform structure
+                #t3lib_div::debug( $this->_flexData, 'Flex Structure' );
+                
+                // Gets the fields shortcuts
+                $this->_getFieldsShortcut();
+                
+            } catch( Exception $e ) {
+                
+                // Cannot parse the flexform
+                throw $e;
+            }
         }
     }
     
@@ -125,6 +148,17 @@ class tx_apimacmade_flexform implements Iterator
             $this->_lang,
             $this->_value
         );
+    }
+    
+    
+    /**
+     * PHP toString method
+     * 
+     * @return  string  A blank string or the item type, if used in a flexform section
+     */
+    public function __toString()
+    {
+        return $this->_itemType;
     }
     
     /***************************************************************
@@ -155,6 +189,26 @@ class tx_apimacmade_flexform implements Iterator
             
             // Returns the value
             return ( string )array_shift( $value );
+        }
+        
+        // Checks for a flexform section
+        if( isset( $this->_fields->field[ $this->_iteratorIndex ]->el->section ) ) {
+            
+            // Storage for elements
+            $section = array();
+            
+            // Process each element in the section
+            foreach( $this->_fields->field[ $this->_iteratorIndex ]->el->section as $nodeName => $nodeValue ) {
+                
+                // Gets the item type
+                $itemType = ( string )$nodeValue->itemType[ 'index' ];
+                
+                // Adds the sub-object
+                $section[] = new self( $nodeValue->itemType->el, $itemType );
+            }
+            
+            // Return the section
+            return $section;
         }
         
         // No such value
@@ -203,7 +257,7 @@ class tx_apimacmade_flexform implements Iterator
      * 
      * @return  boolean
      */
-    protected function _relinkFieldsShortcut()
+    protected function _getFieldsShortcut()
     {
         // Creates the XPath expression
         $xPath = '/T3FlexForms/data/sheet[@index="'
@@ -242,8 +296,25 @@ class tx_apimacmade_flexform implements Iterator
      */
     public function getFieldValue( $fieldName, $sheet = 'sDEF', $lang = 'lDEF', $value = 'vDEF' )
     {
-        // Creates the XPath expression
-        $xPath = '/T3FlexForms/data/sheet[@index="'
+        // Checks if the current instance is a sub-object
+        if( $this->_subObject ) {
+            
+            // XPath expression for the field value
+            $xPath = 'field[@index="' . $fieldName . '"]/value';
+            
+            // Tries to get the value
+            if( $value = $this->_flexData->xpath( $xPath ) ) {
+                
+                // Returns the value
+                return ( string )array_shift( $value );
+            }
+            
+            // No such field
+            return false;
+        }
+        
+        // Creates the XPath expression for a value field
+        $valueXpath = '/T3FlexForms/data/sheet[@index="'
                . $sheet
                . '"]/language[@index="'
                . $lang
@@ -253,11 +324,40 @@ class tx_apimacmade_flexform implements Iterator
                . $value
                . '"]';
         
+        // Creates the XPath expression for a section field
+        $sectionXpath = '/T3FlexForms/data/sheet[@index="'
+               . $sheet
+               . '"]/language[@index="'
+               . $lang
+               . '"]/field[@index="'
+               . $fieldName
+               . '"]/el/section';
+        
         // Tries to get the field value
-        if( $value = $this->_flexData->xpath( $xPath ) ) {
+        if( $value = $this->_flexData->xpath( $valueXpath ) ) {
             
             // Returns the value
             return ( string )array_shift( $value );
+        }
+        
+        // Checks for a flexform section
+        if( $section = $this->_flexData->xpath( $sectionXpath ) ) {
+            
+            // Storage for elements
+            $section = array();
+            
+            // Process each element in the section
+            foreach( $this->_fields->field[ $this->_iteratorIndex ]->el->section as $nodeName => $nodeValue ) {
+                
+                // Gets the item type
+                $itemType = ( string )$nodeValue->itemType[ 'index' ];
+                
+                // Adds the sub-object
+                $section[] = new self( $nodeValue->itemType->el, $itemType );
+            }
+            
+            // Return the section
+            return $section;
         }
         
         // No such field
@@ -272,11 +372,17 @@ class tx_apimacmade_flexform implements Iterator
      */
     public function setDefaultSheet( $id )
     {
+        // Not available for sections sub-objects
+        if( $this->_subObject ) {
+            
+            return false;
+        }
+        
         // Sets the sheet ID
         $this->_sheet = ( string )$id;
         
         // Relink the fields shortcut
-        $this->_relinkFieldsShortcut();
+        $this->_getFieldsShortcut();
         return true;
     }
     
@@ -288,11 +394,17 @@ class tx_apimacmade_flexform implements Iterator
      */
     public function setDefaultLang( $id )
     {
+        // Not available for sections sub-objects
+        if( $this->_subObject ) {
+            
+            return false;
+        }
+        
         // Sets the lang ID
         $this->_lang = ( string )$id;
         
         // Relink the fields shortcut
-        $this->_relinkFieldsShortcut();
+        $this->_getFieldsShortcut();
         return true;
     }
     
@@ -304,6 +416,12 @@ class tx_apimacmade_flexform implements Iterator
      */
     public function setDefaultValue( $id )
     {
+        // Not available for sections sub-objects
+        if( $this->_subObject ) {
+            
+            return false;
+        }
+        
         // Sets the value ID
         $this->_value = ( string )$id;
         return true;
