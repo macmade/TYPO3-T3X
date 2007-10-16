@@ -112,7 +112,7 @@ class tx_tvmigrator_module1 extends t3lib_SCbase
      * This function creates the basic page in which the module will
      * take place.
      * 
-     * @return      Void
+     * @return      null
      */
     function main()
     {
@@ -202,6 +202,7 @@ class tx_tvmigrator_module1 extends t3lib_SCbase
                                 );
             }
             
+            // Spacer
             $this->content .= $this->doc->spacer(10);
             
         } else {
@@ -736,9 +737,9 @@ class tx_tvmigrator_module1 extends t3lib_SCbase
     }
 }
 
-// XCLASS inclusion
-if( defined( 'TYPO3_MODE' ) && $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/tvmigrator/mod1/index.php' ] ) {
-    include_once( $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/tvmigrator/mod1/index.php' ] );
+// XClass inclusion
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tvmigrator/mod1/index.php'])	{
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/tvmigrator/mod1/index.php']);
 }
 
 // Make instance
