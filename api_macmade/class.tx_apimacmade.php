@@ -411,8 +411,8 @@ class tx_apimacmade
      * will be passed to the class constructor.
      * 
      * @param   string  $className  The name of the class
-     * @param   array   $args       An array with the arguments to pass to the constructor
-     * @return  object  An instance of the required class
+     * @param   array   $args       An array with the arguments to pass to the constructor (5 maximum)
+     * @return  object  An instance of the requested class
      */
     function &newInstance( $className, $args = array() )
     {
