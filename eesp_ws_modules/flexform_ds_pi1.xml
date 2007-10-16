@@ -1,0 +1,279 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <year>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.year</label>
+                            <config>
+                                <type>input</type>
+                                <size>4</size>
+                                <eval>year</eval>
+                            </config>
+                        </TCEforms>
+                    </year>
+                    <years_number>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.years_number</label>
+                            <config>
+                                <type>input</type>
+                                <size>4</size>
+                                <eval>int+</eval>
+                            </config>
+                        </TCEforms>
+                    </years_number>
+                    <default_year>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.default_year</label>
+                            <config>
+                                <type>input</type>
+                                <size>4</size>
+                                <eval>int+</eval>
+                            </config>
+                        </TCEforms>
+                    </default_year>
+                    <empty_search>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.empty_search</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </empty_search>
+                    <current_date>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.current_date</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </current_date>
+                    <end_date_nbweek>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_def.end_date_nbweek</label>
+                            <config>
+                                <type>input</type>
+                                <size>5</size>
+                                <eval>int+</eval>
+                            </config>
+                        </TCEforms>
+                    </end_date_nbweek>
+                </el>
+            </ROOT>
+        </sDEF>
+        <sWSDL>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_wsdl</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <wsdl_url>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_wsdl.wsdl_url</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>nospace,required</eval>
+                            </config>
+                        </TCEforms>
+                    </wsdl_url>
+                    <soap_operation_list>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_wsdl.soap_operation_list</label>
+                            <config>
+                                <type>select</type>
+                                <items></items>
+                                <itemsProcFunc>tx_eespwsmodules_tca->getSoapOperations</itemsProcFunc>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </soap_operation_list>
+                    <soap_operation_single>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_wsdl.soap_operation_single</label>
+                            <config>
+                                <type>select</type>
+                                <items></items>
+                                <itemsProcFunc>tx_eespwsmodules_tca->getSoapOperations</itemsProcFunc>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </soap_operation_single>
+                </el>
+            </ROOT>
+        </sWSDL>
+        <sDISPLAY>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <collapse_list_items>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.collapse_list_items</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </collapse_list_items>
+                    <appear>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.appear</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.0</numIndex>
+                                        <numIndex index="1">Appear</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.1</numIndex>
+                                        <numIndex index="1">BlindDown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.2</numIndex>
+                                        <numIndex index="1">SlideDown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.3</numIndex>
+                                        <numIndex index="1">Grow</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </appear>
+                    <fade>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.0</numIndex>
+                                        <numIndex index="1">Fade</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.1</numIndex>
+                                        <numIndex index="1">Puff</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.2</numIndex>
+                                        <numIndex index="1">BlindUp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.3</numIndex>
+                                        <numIndex index="1">SwitchOff</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.4</numIndex>
+                                        <numIndex index="1">SlideUp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.5</numIndex>
+                                        <numIndex index="1">DropOut</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.6</numIndex>
+                                        <numIndex index="1">Squish</numIndex>
+                                    </numIndex>
+                                    <numIndex index="8">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.7</numIndex>
+                                        <numIndex index="1">Fold</numIndex>
+                                    </numIndex>
+                                    <numIndex index="9">
+                                        <numIndex index="0">LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.8</numIndex>
+                                        <numIndex index="1">Shrink</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </fade>
+                </el>
+            </ROOT>
+        </sDISPLAY>
+    </sheets>
+</T3DataStructure>
