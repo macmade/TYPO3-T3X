@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     4.0
+ * @version     4.1
  */
 
 /**
@@ -49,6 +49,7 @@
  *              function versionError( $version = false )
  *              function errorMsg( $method, $message, $line )
  *              function getPhp5Class( $section, $args = array() )
+ *              function &newInstance( $className, $args = array() )
  * 
  * SECTION:     2 - FE
  *              function fe_mergeTSconfFlex( $mapArray, $tsArray, $flexRes )
@@ -150,7 +151,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 4.0;
+    var $version         = 4.1;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -400,6 +401,84 @@ class tx_apimacmade
         
         // The file does not exist
         tx_apimacmade::errorMsg( __METHOD__, 'Requested class file \'' . $file . '\' does not exists', __LINE__ );
+    }
+    
+    /**
+     * Returns a new instance of a class
+     * 
+     * This method does basically the same stuff as the makeInstance method
+     * from t3lib_div, except the fact that this one can take arguments that
+     * will be passed to the class constructor.
+     * 
+     * @param   string  $className  The name of the class
+     * @param   array   $args       An array with the arguments to pass to the constructor
+     * @return  object  An instance of the required class
+     */
+    function &newInstance( $className, $args = array() )
+    {
+        if( !class_exists( $className ) ) {
+            
+            $prefix = substr( $className, 0, 6 );
+            
+            if( $prefix === 't3lib_' ) {
+                
+                t3lib_div::requireOnce( PATH_t3lib . 'class.' . strtolower( $className ) . '.php' );
+            }
+            
+            if( $prefix === 'tslib_' ) {
+                
+                t3lib_div::requireOnce( PATH_tslib . 'class.' . strtolower( $className ) . '.php' );
+            }
+        }
+        
+        if( class_exists( 'ux_' . $className ) ) {
+            
+            return tx_apimacmade::newInstance( 'ux_' . $className, $args );
+        }
+        
+        if( !is_array( $args ) ) {
+            
+            return new $className;
+        }
+        
+        // Checks for constructor arguments
+        switch( count( $args ) ) {
+            
+            case 0:
+                
+                // Return an instance of the class
+                return new $className();
+            
+            case 1:
+                
+                // Return an instance of the class
+                return new $className( $args[ 0 ] );
+            
+            case 2:
+                
+                // Return an instance of the class
+                return new $className( $args[ 0 ], $args[ 1 ] );
+            
+            case 3:
+                
+                // Return an instance of the class
+                return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ] );
+            
+            case 4:
+                
+                // Return an instance of the class
+                return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ] );
+            
+            case 5:
+                
+                // Return an instance of the class
+                return new $className( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ], $args[ 4 ] );
+            
+            default:
+                
+                // More than 5 constructor arguments - Bad idea... ; )
+                return new $className;
+        }
     }
     
     
@@ -2350,7 +2429,7 @@ class tx_apimacmade
             
             // Add script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_prototype' ] = '<script src="'
-                                                                                  . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                                  . t3lib_extMgm::siteRelPath( 'api_macmade' )
                                                                                   . 'res/js/prototype/prototype.js'
                                                                                   . '" type="text/javascript"></script>';
             
@@ -2381,7 +2460,7 @@ class tx_apimacmade
             
             // Add script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_scriptaculous' ] = '<script src="'
-                                                                                      . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                                      . t3lib_extMgm::siteRelPath( 'api_macmade' )
                                                                                       . 'res/js/scriptaculous/src/scriptaculous.js'
                                                                                       . '" type="text/javascript"></script>';
             
@@ -2412,7 +2491,7 @@ class tx_apimacmade
         if( !$this->lightbox ) {
             
             // Extension relative path
-            $extPath = t3lib_extMgm::extRelPath( 'api_macmade' );
+            $extPath = t3lib_extMgm::siteRelPath( 'api_macmade' );
             
             // Add script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_lightbox' ] = '<script src="'
@@ -2477,7 +2556,7 @@ class tx_apimacmade
             
             // Add script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_ufo' ] = '<script src="'
-                                                                            . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                            . t3lib_extMgm::siteRelPath( 'api_macmade' )
                                                                             . 'res/js/ufo/ufo.js'
                                                                             . '" type="text/javascript"></script>';
             
@@ -2504,7 +2583,7 @@ class tx_apimacmade
             
             // Add script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_swfObject' ] = '<script src="'
-                                                                                  . t3lib_extMgm::extRelPath( 'api_macmade' )
+                                                                                  . t3lib_extMgm::siteRelPath( 'api_macmade' )
                                                                                   . 'res/js/swfobject1-5/swfobject.js'
                                                                                   . '" type="text/javascript"></script>';
             
@@ -2806,7 +2885,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
                                      .  'res/js/prototype/prototype.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -2839,7 +2918,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
                                      .  'res/js/scriptaculous/src/scriptaculous.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -2870,7 +2949,7 @@ class tx_apimacmade
         if( !$this->lightbox ) {
             
             // Extension relative path
-            $extPath = t3lib_extMgm::extRelPath( 'api_macmade' );
+            $extPath = t3lib_extMgm::siteRelPath( 'api_macmade' );
             
             // Add script
             $this->pObj->doc->JScode .= '<script src="'
@@ -2937,7 +3016,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
                                      .  'res/js/ufo/ufo.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -2966,7 +3045,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
                                      .  'res/js/swfobject1-5/swfobject.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             

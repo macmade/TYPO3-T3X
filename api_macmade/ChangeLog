@@ -1,3 +1,8 @@
+2007-10-16  Jean-David Gadina  <info@macmade.net>
+
+	* Increased API internal version number to 4.1.
+	* New function: newInstance. This function is used to to get an instance of a class.
+
 2007-10-03  Jean-David Gadina  <info@macmade.net>
 
 	* Updated the API documentation (doc/manual.sxw).
