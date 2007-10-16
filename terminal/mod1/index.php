@@ -319,7 +319,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             if( $this->execFunc ) {
                 
                 // Checks the PHP version for proc_open()
-                if( $this->execFunc == 'proc_open' && ( double )phpversion() < 5.0 ) {
+                if( $this->extConf[ 'execFunc' ] == 'proc_open' && ( double )phpversion() < 5.0 ) {
                     
                     // Display error
                     $this->content .= $this->doc->spacer( 10 );
