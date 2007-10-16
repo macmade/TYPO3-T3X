@@ -131,7 +131,7 @@
 			$xmlPagePath = str_replace($_SERVER['DOCUMENT_ROOT'],'', PATH_site);
 			
 			// Add FlashVars param to TS
-			$this->conf['swfParams.']['FlashVars'] = 'xmlPageId=' . $GLOBALS['TSFE']->id . '&xmlPageType=' . $this->conf['xmlPageId'] . '&xmlPagePath=' . $xmlPagePath;
+			$this->conf['swfParams.']['FlashVars'] = 'xmlPageId=' . $GLOBALS['TSFE']->id . '&xmlPageType=' . $this->conf['xmlPageId'] . '&xmlPagePath=' . $xmlPagePath . '&t3LangId=' . $GLOBALS['TSFE']->sys_page->sys_language_uid;
 			
 			// Add movie param to TS
 			$this->conf['swfParams.']['movie'] = $swfPath;
