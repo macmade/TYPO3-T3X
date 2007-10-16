@@ -1,0 +1,102 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'EESP - Modules (WSDL)'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object
+ */
+plugin.tx_eespwsmodules_pi1 {
+    
+    emptySearchAtStart   = 0
+    
+    endDateNbMonth       =
+    
+    startWithCurrentDate = 1
+    
+    year                 = 
+    
+    yearsNumber          = 
+    
+    defaultYear          = 
+    
+    wsdlUrl              = 
+    
+    soapOperation        = 
+    
+    collapseListItems    = 1
+    
+    templateFile         = EXT:eesp_ws_modules/res/template_pi1.html
+    
+    sections             = TS,AS,ASC,ES
+    
+    modes                = PT,TP,EE
+    
+    holidays             = -99
+    
+    dateFormat           = d.m.Y
+    
+    dateFormatStrftime   = %A, %d %B %G
+    
+    scriptaculous {
+        
+        appear = BlindDown
+        
+        fade   = BlindUp
+    }
+    
+    collapsePicture {
+        
+        file        = EXT:eesp_ws_modules/res/information.png
+        file.width  = 16
+        file.height = 16
+    }
+    
+    calendar {
+        
+        inputSize = 10
+        
+        format    = %e.%m.%y
+        
+        align     = Br
+        
+        picture {
+            
+            file        = EXT:eesp_ws_modules/res/calendar/cal2.png
+            file.width  = 16
+            file.height = 16
+        }
+        
+        deletePicture {
+            
+            file        = EXT:eesp_ws_modules/res/calendar/delete.png
+            file.width  = 16
+            file.height = 16
+        }
+    }
+}
