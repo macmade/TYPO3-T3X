@@ -2885,7 +2885,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
                                      .  'res/js/prototype/prototype.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -2918,7 +2918,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
                                      .  'res/js/scriptaculous/src/scriptaculous.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -3016,7 +3016,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
                                      .  'res/js/ufo/ufo.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
@@ -3045,7 +3045,7 @@ class tx_apimacmade
             $this->pObj->doc->JScode .= chr( 10 )
                                      .  '<script src="'
                                      .  $GLOBALS[ 'BACK_PATH' ]
-                                     .  t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
                                      .  'res/js/swfobject1-5/swfobject.js'
                                      .  '" type="text/javascript" charset="utf-8"></script>';
             
