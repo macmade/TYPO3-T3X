@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'vd_sanimedia'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_vdsanimedia_public">Sanimedia - Public</label>
+            <label index="tx_vdsanimedia_public.title">Title</label>
+            <label index="tx_vdsanimedia_themes">Sanimedia - Theme</label>
+            <label index="tx_vdsanimedia_themes.title">Title</label>
+            <label index="tx_vdsanimedia_keywords">Sanimedia - Keyword</label>
+            <label index="tx_vdsanimedia_keywords.keyword">Keyword</label>
+            <label index="pages.tx_vdsanimedia_enable">Sanimedia</label>
+            <label index="pages.tx_vdsanimedia_public">Sanimedia - Public</label>
+            <label index="pages.tx_vdsanimedia_themes">Sanimedia - Themes</label>
+            <label index="pages.tx_vdsanimedia_keywords">Sanimedia - Keywords</label>
+            <label index="tt_content.list_type_pi1">VD / Sanimedia</label>
+            <label index="tt_content.flexform_pi1.LGL.default">Default (set by TS)</label>
+            <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+            <label index="tt_content.flexform_pi1.LGL.no">No</label>
+            <label index="tt_content.flexform_pi1.s_def">General</label>
+            <label index="tt_content.flexform_pi1.s_def.show_public">Show public (in the results):</label>
+            <label index="tt_content.flexform_pi1.s_def.show_themes">Show themes (in the results):</label>
+            <label index="tt_content.flexform_pi1.s_def.sortby">Sort results by:</label>
+            <label index="tt_content.flexform_pi1.s_def.maxitems">Number of results per page:</label>
+            <label index="tt_content.flexform_pi1.s_def.maxpages">Max number of pages:</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select">Select mode for the keywords:</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.0">OR</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.1">AND</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="tx_vdsanimedia_public">Sanimedia - Public</label>
+            <label index="tx_vdsanimedia_public.title">Titre</label>
+            <label index="tx_vdsanimedia_themes">Sanimedia - Thème</label>
+            <label index="tx_vdsanimedia_themes.title">Titre</label>
+            <label index="tx_vdsanimedia_keywords">Sanimedia - Mot clé</label>
+            <label index="tx_vdsanimedia_keywords.keyword">Mot clé</label>
+            <label index="pages.tx_vdsanimedia_enable">Sanimedia</label>
+            <label index="pages.tx_vdsanimedia_public">Sanimedia - Public</label>
+            <label index="pages.tx_vdsanimedia_themes">Sanimedia - Thèmes</label>
+            <label index="pages.tx_vdsanimedia_keywords">Sanimedia - Mots clés</label>
+            <label index="tt_content.list_type_pi1">VD / Sanimedia</label>
+            <label index="tt_content.flexform_pi1.LGL.default">Par défault (défini via TS)</label>
+            <label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
+            <label index="tt_content.flexform_pi1.LGL.no">Non</label>
+            <label index="tt_content.flexform_pi1.s_def">Général</label>
+            <label index="tt_content.flexform_pi1.s_def.show_public">Afficher le public (dans les résultats):</label>
+            <label index="tt_content.flexform_pi1.s_def.show_themes">Afficher les themes (dans les résultats):</label>
+            <label index="tt_content.flexform_pi1.s_def.sortby">Trier les résultats par:</label>
+            <label index="tt_content.flexform_pi1.s_def.maxitems">Nombre de résultats par page:</label>
+            <label index="tt_content.flexform_pi1.s_def.maxpages">Nombre maximum de pages:</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select">Mode de sélection pour les mots-clés:</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.0">ET</label>
+            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.1">OU</label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,224 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <maxitems>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.maxitems</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">5</numIndex>
+                                        <numIndex index="1">5</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">10</numIndex>
+                                        <numIndex index="1">10</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">15</numIndex>
+                                        <numIndex index="1">15</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">20</numIndex>
+                                        <numIndex index="1">20</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5">
+                                        <numIndex index="0">25</numIndex>
+                                        <numIndex index="1">25</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6">
+                                        <numIndex index="0">30</numIndex>
+                                        <numIndex index="1">30</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7">
+                                        <numIndex index="0">35</numIndex>
+                                        <numIndex index="1">35</numIndex>
+                                    </numIndex>
+                                    <numIndex index="8">
+                                        <numIndex index="0">40</numIndex>
+                                        <numIndex index="1">40</numIndex>
+                                    </numIndex>
+                                    <numIndex index="9">
+                                        <numIndex index="0">45</numIndex>
+                                        <numIndex index="1">45</numIndex>
+                                    </numIndex>
+                                    <numIndex index="10">
+                                        <numIndex index="0">50</numIndex>
+                                        <numIndex index="1">50</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </maxitems>
+                    <maxpages>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.maxpages</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">5</numIndex>
+                                        <numIndex index="1">5</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">10</numIndex>
+                                        <numIndex index="1">10</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">15</numIndex>
+                                        <numIndex index="1">15</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">20</numIndex>
+                                        <numIndex index="1">20</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5">
+                                        <numIndex index="0">25</numIndex>
+                                        <numIndex index="1">25</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6">
+                                        <numIndex index="0">30</numIndex>
+                                        <numIndex index="1">30</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7">
+                                        <numIndex index="0">35</numIndex>
+                                        <numIndex index="1">35</numIndex>
+                                    </numIndex>
+                                    <numIndex index="8">
+                                        <numIndex index="0">40</numIndex>
+                                        <numIndex index="1">40</numIndex>
+                                    </numIndex>
+                                    <numIndex index="9">
+                                        <numIndex index="0">45</numIndex>
+                                        <numIndex index="1">45</numIndex>
+                                    </numIndex>
+                                    <numIndex index="10">
+                                        <numIndex index="0">50</numIndex>
+                                        <numIndex index="1">50</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </maxpages>
+                    <sortby>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.sortby</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                                <itemsProcFunc>tx_vdsanimedia_tca->getPageFields</itemsProcFunc>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </sortby>
+                    <keyword_select>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.keyword_select</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.keyword_select.I.0</numIndex>
+                                        <numIndex index="1">OR</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.keyword_select.I.1</numIndex>
+                                        <numIndex index="1">AND</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </keyword_select>
+                    <show_public>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.show_public</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </show_public>
+                    <show_themes>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def.show_themes</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </show_themes>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

@@ -1,0 +1,59 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'VD / Sanimedia'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object
+ */
+plugin.tx_vdsanimedia_pi1 {
+    
+    // Template file
+    templateFile     = EXT:vd_sanimedia/res/template_pi1.html
+    
+    // Size of the text input for the keywords
+    keywordInputSize = 20
+    
+    // Sorting field for the pages table
+    sortBy           = title
+    
+    // Maximum number of records to display
+    maxRecords       = 10
+    
+    // Maximum number of pages to display in the browse box
+    maxPages         = 50
+    
+    // Selection type for the keywords (AND or OR)
+    keywordSelection = OR
+    
+    // Shows the related public
+    showPublic = 1
+    
+    // Shows the related themes
+    showThemes = 1
+}

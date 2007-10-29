@@ -1,0 +1,180 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Static TS setup - Extension 'VD / Sanimedia'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object
+ */
+plugin.tx_vdsanimedia_pi1 {
+    
+    // Default CSS styles
+    _CSS_DEFAULT_STYLE (
+        .tx-vdsanimedia-pi1-error-ts {
+            color: #FF0000;
+            font-weight: bold;
+            border: solid 1px #FF0000;
+            padding: 10px;
+            background-color: #FFCCCC;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .tx-vdsanimedia-pi1-search-options, .tx-vdsanimedia-pi1-browsebox {
+            background-color: #F6F9FD;
+            color: inherit;
+            padding: 10px;
+            border: solid 1px #A2C3EB;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .tx-vdsanimedia-pi1-search-options DIV {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tx-vdsanimedia-pi1-clearer {
+            clear: both;
+        }
+        
+        .tx-vdsanimedia-pi1-center {
+            text-align: center;
+        }
+        
+        .tx-vdsanimedia-pi1-left {
+            float: left;
+            margin-right: 10px;
+        }
+        
+        .tx-vdsanimedia-pi1-error {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .tx-vdsanimedia-pi1-browsebox UL {
+            list-style: none;
+            margin-left: 0px;
+            margin-top: 10px;
+            margin-right: 0px;
+            margin-bottom 0px;
+            padding: 0px;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .tx-vdsanimedia-pi1-browsebox LI {
+            float: left;
+            margin-left: 0px;
+            margin-top: 0px;
+            margin-right: 5px;
+            margin-bottom 0px;
+            border: solid 1px #A2C3EB;
+            color: inherit;
+            background-color: #FFFFFF;
+            padding: 5px;
+        }
+        
+        .tx-vdsanimedia-pi1-browsebox LI A {
+            color: #336CA6;
+            background-color: inherit;
+        }
+        
+        .tx-vdsanimedia-pi1-results, .tx-vdsanimedia-pi1-rescount {
+            font-weight: bold;
+        }
+        
+        .tx-vdsanimedia-pi1-page {
+            background-color: #F6F9FD;
+            border: solid 1px #A2C3EB;
+            margin-top: 10px;
+            padding: 5px;
+        }
+        
+        .tx-vdsanimedia-pi1 H2 {
+            color: #336CA6;
+            background-color: inherit;
+            font-size: 13px;
+        }
+        
+        .tx-vdsanimedia-pi1 A, .tx-vdsanimedia-pi1 A:link {
+            color: #336CA6;
+            background-color: inherit;
+        }
+        
+        .tx-vdsanimedia-pi1 A:visited {
+            color: #A2C3EB;
+            background-color: inherit;
+        }
+        
+        .tx-vdsanimedia-pi1 A:hover, .tx-vdsanimedia-pi1 A:active {
+            color: #FF9F33;
+            background-color: inherit;
+        }
+        
+        .tx-vdsanimedia-pi1 INPUT, .tx-vdsanimedia-pi1 SELECT {
+            border: solid 1px #A2C3EB;
+            padding: 5px;
+            background-color: #FFFFFF;
+            color: #336CA6;
+        }
+        
+        #tx_vdsanimedia_pi1_submit {
+            border: solid 1px #336CA6;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            background-color: #336CA6;
+            color: #FFFFFF;
+            background-image: url( "/typo3conf/ext/vd_sanimedia/res/magnifier.gif" );
+            background-repeat: no-repeat;
+            background-position: 5px 5px;
+        }
+        
+        #tx_vdsanimedia_pi1_reset {
+            border: solid 1px #336CA6;
+            padding-left: 20px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            background-color: #336CA6;
+            color: #FFFFFF;
+            background-image: url( "/typo3conf/ext/vd_sanimedia/res/cancel.gif" );
+            background-repeat: no-repeat;
+            background-position: 5px 5px;
+        }
+        
+        .tx-vdsanimedia-pi1-infos {
+            margin-top: 10px;
+        }
+    )
+}
