@@ -53,6 +53,38 @@ class tx_vdsanimedia_tca
             $params[ 'items' ][] = array( $key, $key );
         }
     }
+    
+    /**
+     * Gets a comma list of the sanimedia sysfolders
+     * 
+     * @return  string  A comma list of the sysfolders UIDs
+     */
+    function getStoragePid()
+    {
+        // Select Sanimedia sysfolders
+        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+            'uid',
+            'pages',
+            'module="sanimedia"'
+        );
+        
+        // Storage
+        $pidList = array();
+        
+        // Check DB ressource
+        if( $res ) {
+            
+            // Process each sysfolder
+            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                
+                // Adds the UID
+                $pidList[] = $row[ 'uid' ];
+            }
+        }
+        
+        // Returns as a comma list
+        return implode( ',', $pidList );
+    }
 }
 
 /**

@@ -3,6 +3,9 @@ if( !defined( 'TYPO3_MODE' ) ) {
     die ( 'Access denied.' );
 }
 
+// Includes the TCA helper class
+require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_vdsanimedia_tca.php' );
+
 // Load content TCA
 t3lib_div::loadTCA( 'tt_content' );
 
@@ -37,8 +40,17 @@ if ( TYPO3_MODE == 'BE' ) {
     // Content wizard
     $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_vdsanimedia_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_vdsanimedia_pi1_wizicon.php';
     
-    // Includes the TCA helper class
-    require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_vdsanimedia_tca.php' );
+    
+    // Module flag on pages
+    $TCA[ 'pages' ][ 'columns' ][ 'module' ][ 'config' ][ 'items' ][] = array(
+        'VD / Sanimedia',
+        'sanimedia'
+    );
+    
+    // Type icon
+    $ICON_TYPES[ 'sanimedia' ] = array(
+        'icon' => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/sysfolder.gif'
+    );
 }
 
 // Public table
@@ -69,10 +81,10 @@ $TCA[ 'tx_vdsanimedia_public' ] = array(
         'delete'            => 'deleted',
         
         // Only admin users can view records
-        'adminOnly'         => 1,
+        #'adminOnly'         => 1,
         
         // Records are stored on site container
-        'rootLevel'         => 1,
+        #'rootLevel'         => 1,
         
         // External configuration file
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
@@ -117,10 +129,10 @@ $TCA[ 'tx_vdsanimedia_themes' ] = array(
         'delete'            => 'deleted',
         
         // Only admin users can view records
-        'adminOnly'         => 1,
+        #'adminOnly'         => 1,
         
         // Records are stored on site container
-        'rootLevel'         => 1,
+        #'rootLevel'         => 1,
         
         // External configuration file
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
@@ -165,10 +177,10 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
         'delete'            => 'deleted',
         
         // Only admin users can view records
-        'adminOnly'         => 1,
+        #'adminOnly'         => 1,
         
         // Records are stored on site container
-        'rootLevel'         => 1,
+        #'rootLevel'         => 1,
         
         // External configuration file
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
@@ -184,6 +196,9 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
         'fe_admin_fieldList' => ''
     )
 );
+
+// Storage pages for the sanimedia records
+$sanimediaPidList = tx_vdsanimedia_tca::getStoragePid();
 
 // Temp TCA
 $tempColumns = array (
@@ -201,7 +216,7 @@ $tempColumns = array (
         'config'      => array (
             'type'                => 'select',
             'foreign_table'       => 'tx_vdsanimedia_public',
-            'foreign_table_where' => 'ORDER BY title',
+            'foreign_table_where' => 'AND tx_vdsanimedia_public.pid IN (' . $sanimediaPidList . ') ORDER BY title',
             'size'                => 10,
             'minitems'            => 0,
             'maxitems'            => 100
@@ -214,7 +229,7 @@ $tempColumns = array (
         'config'      => array (
             'type'                => 'select',
             'foreign_table'       => 'tx_vdsanimedia_themes',
-            'foreign_table_where' => 'ORDER BY title',
+            'foreign_table_where' => 'AND tx_vdsanimedia_themes.pid IN (' . $sanimediaPidList . ') ORDER BY title',
             'size'                => 10,
             'minitems'            => 0,
             'maxitems'            => 100
@@ -227,7 +242,7 @@ $tempColumns = array (
         'config'      => array (
             'type'                => 'select',
             'foreign_table'       => 'tx_vdsanimedia_keywords',
-            'foreign_table_where' => 'ORDER BY keyword',
+            'foreign_table_where' => 'AND tx_vdsanimedia_keywords.pid IN (' . $sanimediaPidList . ') ORDER BY keyword',
             'size'                => 10,
             'minitems'            => 0,
             'maxitems'            => 100
@@ -261,4 +276,5 @@ t3lib_extMgm::addToAllTCAtypes(
 
 // Cleanup
 unset( $tempColumns );
+unset( $sanimediaPidList );
 ?>

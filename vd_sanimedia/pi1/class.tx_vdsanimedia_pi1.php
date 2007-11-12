@@ -632,23 +632,52 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
      */
     function getTableData()
     {
-        // Gets the table data
-        $this->public = $this->pi_getCategoryTableContents(
-            $this->extTables[ 'public' ],
-            0
+        // Gets the storage pages
+        $pidList = $this->getStoragePid();
+        
+        // Tables to get
+        $tables = array(
+            'public',
+            'themes',
+            'keywords'
         );
         
-        // Gets the table data
-        $this->themes = $this->pi_getCategoryTableContents(
-            $this->extTables[ 'themes' ],
-            0
-        );
+        // Storage for the keywords
+        $keywords = array();
         
-        // Gets the table data
-        $keywords = $this->pi_getCategoryTableContents(
-            $this->extTables[ 'keywords' ],
-            0
-        );
+        // Process each table
+        foreach( $tables as $tableName ) {
+            
+            // Selects the records
+            $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+                '*',
+                $this->extTables[ $tableName ],
+                'pid IN (' . $pidList . ')'
+            );
+            
+            // Check DB ressource
+            if( $res ) {
+                
+                // Process each record
+                while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                    
+                    // Checks the table name
+                    if( $tableName === 'keywords' ) {
+                        
+                        // Reference to the storage array
+                        $storage =& $keywords;
+                        
+                    } else {
+                        
+                        // Reference to the storage array
+                        $storage =& $this->$tableName;
+                    }
+                    
+                    // Adds the record
+                    $storage[] = $row;
+                }
+            }
+        }
         
         // Process each keyword
         foreach( $keywords as $key => $value ) {
@@ -664,6 +693,38 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         #$this->api->debug( $this->public,   'VD / Sanimedia: table data' );
         #$this->api->debug( $this->themes,   'VD / Sanimedia: table data' );
         #$this->api->debug( $this->keywords, 'VD / Sanimedia: table data' );
+    }
+    
+    /**
+     * Gets a comma list of the sanimedia sysfolders
+     * 
+     * @return  string  A comma list of the sysfolders UIDs
+     */
+    function getStoragePid()
+    {
+        // Select Sanimedia sysfolders
+        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+            'uid',
+            'pages',
+            'module="sanimedia"'
+        );
+        
+        // Storage
+        $pidList = array();
+        
+        // Check DB ressource
+        if( $res ) {
+            
+            // Process each sysfolder
+            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                
+                // Adds the UID
+                $pidList[] = $row[ 'uid' ];
+            }
+        }
+        
+        // Returns as a comma list
+        return implode( ',', $pidList );
     }
     
     /**
