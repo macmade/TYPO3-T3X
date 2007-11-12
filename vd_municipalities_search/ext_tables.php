@@ -138,3 +138,4 @@ t3lib_extMgm::addToAllTCAtypes(
     'tx_vdmunicipalitiessearch_institution;;;;1-1-1, tx_vdmunicipalitiessearch_municipalities'
 );
 ?>
+

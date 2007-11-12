@@ -690,8 +690,11 @@ class tx_vdmunicipalitiessearch_pi1 extends tslib_pibase
                         // Get page link
                         $link = $this->cObj->typoLink( $text, $typoLink );
                         
+                        // Array key
+                        $key = $page[ 'title' ] . '-' . $page[ 'uid' ];
+                        
                         // Add page link
-                        $pagesItems[ $page[ 'title' ] ] = $this->api->fe_makeStyledContent(
+                        $pagesItems[ $key ] = $this->api->fe_makeStyledContent(
                             'li',
                             'page',
                             $link
