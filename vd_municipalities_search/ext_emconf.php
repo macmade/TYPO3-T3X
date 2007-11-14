@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "vd_municipalities_search"
 #
-# Auto generated 14-11-2007 15:22
+# Auto generated 14-11-2007 15:23
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'A plugin to search specific municipalities pages.',
 	'category' => 'plugin',
 	'shy' => 0,
-	'version' => '0.1.0',
+	'version' => '0.1.1',
 	'dependencies' => 'cms,lang,api_macmade,vd_municipalities',
 	'conflicts' => '',
 	'priority' => '',
