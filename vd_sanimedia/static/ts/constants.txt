@@ -45,6 +45,9 @@ plugin.tx_vdsanimedia_pi1 {
     # cat=vd_sanimedia/enable/1; type=boolean; label=Show themes: Shows the related themes in the page details.
     showThemes = 1
     
+    # cat=vd_sanimedia/enable/2; type=boolean; label=Substitue page title: Substitutes the page title on the results view.
+    substitutePageTitle = 1
+    
     # cat=vd_sanimedia//0; type=string; label=Sort by: The sorting field for the pages table.
     sortBy = title
     
@@ -56,4 +59,7 @@ plugin.tx_vdsanimedia_pi1 {
     
     # cat=vd_sanimedia//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
     keywordSelection = OR
+    
+    # cat=vd_sanimedia//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
+    substitutePageTitle = OR
 }

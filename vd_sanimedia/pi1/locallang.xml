@@ -13,8 +13,8 @@
             <label index="label-themes">Themes:</label>
             <label index="label-keywords">Keyword:</label>
             <label index="label-submit">Search</label>
-            <label index="label-reset">Cancel</label>
-            <label index="error-novalue">Please enter your search criterias</label>
+            <label index="label-reset">Reset</label>
+            <label index="error-novalue">Please enter your search criterias in order to find the institution</label>
             <label index="error-noresult">No page found</label>
             <label index="browsebox.previous">Previous page</label>
             <label index="browsebox.next">Next page</label>
@@ -22,6 +22,9 @@
             <label index="browsebox.results">Displaying results %s to %s from %s</label>
             <label index="rescount">%s results were found:</label>
             <label index="rescount-single">%s result was found:</label>
+            <label index="title">Search engine</label>
+            <label index="title-results">Search results</label>
+            <label index="title-page">Institutions: search results</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="error-ts">Erreur de configuration TypoScript: veuillez vérifier que vous avez inclu le gabarit statique pour ce plugin.</label>
@@ -31,8 +34,8 @@
             <label index="label-themes">Thèmes:</label>
             <label index="label-keywords">Mot-clés:</label>
             <label index="label-submit">Chercher</label>
-            <label index="label-reset">Annuler</label>
-            <label index="error-novalue">Veuillez entrer vos critères de recherche</label>
+            <label index="label-reset">Recommencer</label>
+            <label index="error-novalue">Veuillez entrer vos critères de recherche pour trouver l'institution</label>
             <label index="error-noresult">Aucune page trouvée</label>
             <label index="browsebox.previous">Page précédente</label>
             <label index="browsebox.next">Page suivante</label>
@@ -40,6 +43,9 @@
             <label index="browsebox.results">Affichage des résultats %s à %s de %s</label>
             <label index="rescount">%s résultats ont été trouvés:</label>
             <label index="rescount-single">%s résultat a été trouvé:</label>
+            <label index="title">Moteur de recherche</label>
+            <label index="title-results">Résultats de la recherche</label>
+            <label index="title-page">Institutions de prévention: résultat de votre recherche</label>
         </languageKey>
     </data>
 </T3locallang>

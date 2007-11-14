@@ -174,6 +174,9 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
             // Storage for the template markers
             $markers = array();
             
+            // Title
+            $markers[ '###TITLE###' ]        = $this->pi_getLL( 'title' );
+            
             // Search options
             $markers[ '###MAIN_OPTIONS###' ] = $this->searchOptions();
             
@@ -263,9 +266,21 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         $searchInputValue = ( isset( $this->piVars[ 'keyword' ] ) ) ? $this->piVars[ 'keyword' ] : '';
         
         // Adds the labels
-        $markers[ '###OPTIONS_PUBLIC_LABEL###' ]   = $this->pi_getLL( 'label-public' );
-        $markers[ '###OPTIONS_THEMES_LABEL###' ]   = $this->pi_getLL( 'label-themes' );
-        $markers[ '###OPTIONS_KEYWORDS_LABEL###' ] = $this->pi_getLL( 'label-keywords' );
+        $markers[ '###OPTIONS_PUBLIC_LABEL###' ]   = '<label for="'
+                                                   . $this->prefixId
+                                                   . '_public">'
+                                                   . $this->pi_getLL( 'label-public' )
+                                                   . '</label>';
+        $markers[ '###OPTIONS_THEMES_LABEL###' ]   = '<label for="'
+                                                   . $this->prefixId
+                                                   . '_themes">'
+                                                   . $this->pi_getLL( 'label-themes' )
+                                                   . '</label>';
+        $markers[ '###OPTIONS_KEYWORDS_LABEL###' ] = '<label for="'
+                                                   . $this->prefixId
+                                                   . '_keyword">'
+                                                   . $this->pi_getLL( 'label-keywords' )
+                                                   . '</label>';
         
         // Adds the select menus
         $markers[ '###OPTIONS_PUBLIC###' ]         = $this->buildSelect( 'public' );
@@ -292,7 +307,12 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
                                                    . '" id="'
                                                    . $this->prefixId
                                                    . '_submit'
-                                                   . '" />';
+                                                   . '" />'
+                                                   . '<input name="'
+                                                   . $this->prefixId
+                                                   . '[formSubmit]" id="'
+                                                   . $this->prefixId
+                                                   . '_formSubmit" type="hidden" value="1" />';
         
         // Adds the reset input
         $markers[ '###OPTIONS_CANCEL###' ]         = '<input name="'
@@ -349,13 +369,10 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         $markers[ '###RESULTS_COUNT###' ] = '';
         $markers[ '###RESULTS_ITEMS###' ] = '';
         $markers[ '###RESULTS_PAGES###' ] = '';
+        $markers[ '###RESULTS_TITLE###' ] = '';
         
         // Checks for submitted values
-        if( isset( $this->piVars[ 'submit' ] )
-            && ( isset( $this->piVars[ 'public' ] )
-            || isset( $this->piVars[ 'themes' ] )
-            || isset( $this->piVars[ 'keyword' ] ) )
-        ) {
+        if( isset( $this->piVars[ 'formSubmit' ] ) ) {
             
             // Only search if values are not empty
             if( !$this->piVars[ 'public' ]
@@ -370,7 +387,30 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
                     $this->pi_getLL( 'error-novalue' )
                 );
                 
+                // Sets the title
+                $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
+                
+                // Checks if the page title must be substituted
+                if( $this->conf[ 'substitutePageTitle' ] ) {
+                    
+                    // Sets the page title
+                    $GLOBALS[ 'TSFE' ]->page[ 'title' ] = $this->pi_getLL( 'title-page' );
+				    $GLOBALS[ 'TSFE' ]->indexedDocTitle = $this->pi_getLL( 'title-page' );
+                }
+                
             } else {
+                
+                // Sets the title
+                $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
+                
+                // Checks if the page title must be substituted
+                if( $this->conf[ 'substitutePageTitle' ] ) {
+                    
+                    // Sets the page title
+                    $GLOBALS[ 'TSFE' ]->page[ 'title' ] = $this->pi_getLL( 'title-page' );
+				    $GLOBALS[ 'TSFE' ]->indexedDocTitle = $this->pi_getLL( 'title-page' );
+				    $GLOBALS[ 'TSFE' ]->altPageTitle    = $this->pi_getLL( 'title-page' );
+                }
                 
                 // No active page
                 if ( !isset( $this->piVars[ 'pointer' ] ) ) {
@@ -642,7 +682,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
             'keywords'
         );
         
-        // Storage for the keywords
+        // Storage
         $keywords = array();
         
         // Process each table
@@ -674,7 +714,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
                     }
                     
                     // Adds the record
-                    $storage[] = $row;
+                    $storage[ $row[ 'uid' ] ] = $row;
                 }
             }
         }
@@ -738,7 +778,8 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         // Starts the select
         $htmlCode[] = '<select id="'
                     . $this->prefixId
-                    . '_name'
+                    . '_'
+                    . $name
                     . '" name="'
                     . $this->prefixId
                     . '['

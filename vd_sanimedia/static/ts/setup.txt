@@ -56,4 +56,7 @@ plugin.tx_vdsanimedia_pi1 {
     
     // Shows the related themes
     showThemes = {$plugin.tx_vdsanimedia_pi1.showThemes}
+    
+    // Substitute the page title
+    substitutePageTitle = {$plugin.tx_vdsanimedia_pi1.substitutePageTitle}
 }
