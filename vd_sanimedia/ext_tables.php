@@ -208,8 +208,14 @@ $tempColumns = array (
         'config'  => array (
             'type' => 'check'
         )
-    ),
-    'tx_vdsanimedia_public' => array (
+    )
+);
+
+// Checks if a storage page has been found
+if( $sanimediaPidList ) {
+
+    // Public field
+    $tempColumns[ 'tx_vdsanimedia_public' ] = array (
         'exclude'     => 1,
         'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_public',
         'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
@@ -221,8 +227,10 @@ $tempColumns = array (
             'minitems'            => 0,
             'maxitems'            => 100
         )
-    ),
-    'tx_vdsanimedia_themes' => array (
+    );
+    
+    // Themes field
+    $tempColumns[ 'tx_vdsanimedia_themes' ] = array (
         'exclude'     => 1,
         'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_themes',
         'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
@@ -234,8 +242,10 @@ $tempColumns = array (
             'minitems'            => 0,
             'maxitems'            => 100
         )
-    ),
-    'tx_vdsanimedia_keywords' => array (
+    );
+    
+    // Keywords field
+    $tempColumns[ 'tx_vdsanimedia_keywords' ] = array (
         'exclude'     => 1,
         'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_keywords',
         'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
@@ -247,8 +257,16 @@ $tempColumns = array (
             'minitems'            => 0,
             'maxitems'            => 100
         )
-    ),
-);
+    );
+    
+    // Field list
+    $fieldList = 'tx_vdsanimedia_enable;;;;1-1-1,tx_vdsanimedia_public,tx_vdsanimedia_themes,tx_vdsanimedia_keywords';
+    
+} else {
+    
+    // Field list
+    $fieldList = 'tx_vdsanimedia_enable;;;;1-1-1';
+}
 
 // Load pages TCA
 t3lib_div::loadTCA( 'pages' );
@@ -269,7 +287,7 @@ if( isset( $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] ) && $TCA[ 'pages' ][ 'c
 t3lib_extMgm::addTCAcolumns( 'pages', $tempColumns, 1 );
 t3lib_extMgm::addToAllTCAtypes(
     'pages',
-    'tx_vdsanimedia_enable;;;;1-1-1,tx_vdsanimedia_public,tx_vdsanimedia_themes,tx_vdsanimedia_keywords',
+    $fieldList,
     '1,2,5',
     'after:subtitle'
 );
@@ -277,4 +295,5 @@ t3lib_extMgm::addToAllTCAtypes(
 // Cleanup
 unset( $tempColumns );
 unset( $sanimediaPidList );
+unset( $fieldList );
 ?>

@@ -72,7 +72,7 @@ class tx_vdsanimedia_tca
         $pidList = array();
         
         // Check DB ressource
-        if( $res ) {
+        if( $res && $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res ) > 0 ) {
             
             // Process each sysfolder
             while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
@@ -80,10 +80,13 @@ class tx_vdsanimedia_tca
                 // Adds the UID
                 $pidList[] = $row[ 'uid' ];
             }
+            
+            // Returns as a comma list
+            return implode( ',', $pidList );
         }
         
-        // Returns as a comma list
-        return implode( ',', $pidList );
+        // No storage PID
+        return false;
     }
 }
 
