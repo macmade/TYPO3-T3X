@@ -61,5 +61,5 @@ plugin.tx_vdsanimedia_pi1 {
     keywordSelection = OR
     
     # cat=vd_sanimedia//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
-    substitutePageTitle = OR
+    substitutePageTitle = 1
 }

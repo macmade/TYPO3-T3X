@@ -21,14 +21,15 @@
             <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
             <label index="tt_content.flexform_pi1.LGL.no">No</label>
             <label index="tt_content.flexform_pi1.s_def">General</label>
-            <label index="tt_content.flexform_pi1.s_def.show_public">Show public (in the results):</label>
-            <label index="tt_content.flexform_pi1.s_def.show_themes">Show themes (in the results):</label>
-            <label index="tt_content.flexform_pi1.s_def.sortby">Sort results by:</label>
-            <label index="tt_content.flexform_pi1.s_def.maxitems">Number of results per page:</label>
-            <label index="tt_content.flexform_pi1.s_def.maxpages">Max number of pages:</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select">Select mode for the keywords:</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.0">OR</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.1">AND</label>
+            <label index="tt_content.flexform_pi1.s_display">Display options</label>
+            <label index="tt_content.flexform_pi1.s_display.show_public">Show public (in the results):</label>
+            <label index="tt_content.flexform_pi1.s_display.show_themes">Show themes (in the results):</label>
+            <label index="tt_content.flexform_pi1.s_display.sortby">Sort results by:</label>
+            <label index="tt_content.flexform_pi1.s_display.maxitems">Number of results per page:</label>
+            <label index="tt_content.flexform_pi1.s_display.maxpages">Max number of pages:</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select">Select mode for the keywords:</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select.I.0">OR</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select.I.1">AND</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="tx_vdsanimedia_public">Sanimedia - Public</label>
@@ -46,14 +47,15 @@
             <label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
             <label index="tt_content.flexform_pi1.LGL.no">Non</label>
             <label index="tt_content.flexform_pi1.s_def">Général</label>
-            <label index="tt_content.flexform_pi1.s_def.show_public">Afficher le public (dans les résultats):</label>
-            <label index="tt_content.flexform_pi1.s_def.show_themes">Afficher les themes (dans les résultats):</label>
-            <label index="tt_content.flexform_pi1.s_def.sortby">Trier les résultats par:</label>
-            <label index="tt_content.flexform_pi1.s_def.maxitems">Nombre de résultats par page:</label>
-            <label index="tt_content.flexform_pi1.s_def.maxpages">Nombre maximum de pages:</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select">Mode de sélection pour les mots-clés:</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.0">ET</label>
-            <label index="tt_content.flexform_pi1.s_def.keyword_select.I.1">OU</label>
+            <label index="tt_content.flexform_pi1.s_display">Options d'affichage</label>
+            <label index="tt_content.flexform_pi1.s_display.show_public">Afficher le public (dans les résultats):</label>
+            <label index="tt_content.flexform_pi1.s_display.show_themes">Afficher les themes (dans les résultats):</label>
+            <label index="tt_content.flexform_pi1.s_display.sortby">Trier les résultats par:</label>
+            <label index="tt_content.flexform_pi1.s_display.maxitems">Nombre de résultats par page:</label>
+            <label index="tt_content.flexform_pi1.s_display.maxpages">Nombre maximum de pages:</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select">Mode de sélection pour les mots-clés:</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select.I.0">ET</label>
+            <label index="tt_content.flexform_pi1.s_display.keyword_select.I.1">OU</label>
         </languageKey>
     </data>
 </T3locallang>

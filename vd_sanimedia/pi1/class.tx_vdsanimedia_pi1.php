@@ -213,12 +213,13 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
     {
         // Mapping array for PI flexform
         $flex2conf = array(
-            'sortBy'           => 'sDEF:sortby',
-            'maxRecords'       => 'sDEF:maxitems',
-            'maxPages'         => 'sDEF:maxpages',
-            'keywordSelection' => 'sDEF:keyword_select',
-            'showPublic'       => 'sDEF:show_public',
-            'showThemes'       => 'sDEF:show_themes'
+            'pidList'          => 'sDEF:pages',
+            'sortBy'           => 'sDISPLAY:sortby',
+            'maxRecords'       => 'sDISPLAY:maxitems',
+            'maxPages'         => 'sDISPLAY:maxpages',
+            'keywordSelection' => 'sDISPLAY:keyword_select',
+            'showPublic'       => 'sDISPLAY:show_public',
+            'showThemes'       => 'sDISPLAY:show_themes'
         );
         
         // Ovverride TS setup with flexform
@@ -672,9 +673,6 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
      */
     function getTableData()
     {
-        // Gets the storage pages
-        $pidList = $this->getStoragePid();
-        
         // Tables to get
         $tables = array(
             'public',
@@ -685,6 +683,16 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         // Storage
         $keywords = array();
         
+        // Where clause to select records
+        $whereClause = '';
+        
+        // Checks for storage pages
+        if( $this->conf[ 'pidList' ] ) {
+            
+            // Adds the pages IDs
+            $whereClause = 'pid IN (' . $this->conf[ 'pidList' ] . ')';
+        }
+        
         // Process each table
         foreach( $tables as $tableName ) {
             
@@ -692,7 +700,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
             $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
                 '*',
                 $this->extTables[ $tableName ],
-                'pid IN (' . $pidList . ')'
+                $whereClause
             );
             
             // Check DB ressource
@@ -733,38 +741,6 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         #$this->api->debug( $this->public,   'VD / Sanimedia: table data' );
         #$this->api->debug( $this->themes,   'VD / Sanimedia: table data' );
         #$this->api->debug( $this->keywords, 'VD / Sanimedia: table data' );
-    }
-    
-    /**
-     * Gets a comma list of the sanimedia sysfolders
-     * 
-     * @return  string  A comma list of the sysfolders UIDs
-     */
-    function getStoragePid()
-    {
-        // Select Sanimedia sysfolders
-        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
-            'uid',
-            'pages',
-            'module="sanimedia"'
-        );
-        
-        // Storage
-        $pidList = array();
-        
-        // Check DB ressource
-        if( $res ) {
-            
-            // Process each sysfolder
-            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
-                
-                // Adds the UID
-                $pidList[] = $row[ 'uid' ];
-            }
-        }
-        
-        // Returns as a comma list
-        return implode( ',', $pidList );
     }
     
     /**

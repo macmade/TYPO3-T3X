@@ -39,18 +39,6 @@ if ( TYPO3_MODE == 'BE' ) {
     
     // Content wizard
     $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_vdsanimedia_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_vdsanimedia_pi1_wizicon.php';
-    
-    
-    // Module flag on pages
-    $TCA[ 'pages' ][ 'columns' ][ 'module' ][ 'config' ][ 'items' ][] = array(
-        'VD / Sanimedia',
-        'sanimedia'
-    );
-    
-    // Type icon
-    $ICON_TYPES[ 'sanimedia' ] = array(
-        'icon' => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/sysfolder.gif'
-    );
 }
 
 // Public table
@@ -197,9 +185,6 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
     )
 );
 
-// Storage pages for the sanimedia records
-$sanimediaPidList = tx_vdsanimedia_tca::getStoragePid();
-
 // Temp TCA
 $tempColumns = array (
     'tx_vdsanimedia_enable' => array (
@@ -211,62 +196,53 @@ $tempColumns = array (
     )
 );
 
-// Checks if a storage page has been found
-if( $sanimediaPidList ) {
+// Public field
+$tempColumns[ 'tx_vdsanimedia_public' ] = array (
+    'exclude'     => 1,
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_public',
+    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'config'      => array (
+        'type'          => 'select',
+        'items'         => array(),
+        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'size'          => 10,
+        'minitems'      => 0,
+        'maxitems'      => 100
+    )
+);
 
-    // Public field
-    $tempColumns[ 'tx_vdsanimedia_public' ] = array (
-        'exclude'     => 1,
-        'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_public',
-        'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
-        'config'      => array (
-            'type'                => 'select',
-            'foreign_table'       => 'tx_vdsanimedia_public',
-            'foreign_table_where' => 'AND tx_vdsanimedia_public.pid IN (' . $sanimediaPidList . ') ORDER BY title',
-            'size'                => 10,
-            'minitems'            => 0,
-            'maxitems'            => 100
-        )
-    );
-    
-    // Themes field
-    $tempColumns[ 'tx_vdsanimedia_themes' ] = array (
-        'exclude'     => 1,
-        'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_themes',
-        'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
-        'config'      => array (
-            'type'                => 'select',
-            'foreign_table'       => 'tx_vdsanimedia_themes',
-            'foreign_table_where' => 'AND tx_vdsanimedia_themes.pid IN (' . $sanimediaPidList . ') ORDER BY title',
-            'size'                => 10,
-            'minitems'            => 0,
-            'maxitems'            => 100
-        )
-    );
-    
-    // Keywords field
-    $tempColumns[ 'tx_vdsanimedia_keywords' ] = array (
-        'exclude'     => 1,
-        'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_keywords',
-        'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
-        'config'      => array (
-            'type'                => 'select',
-            'foreign_table'       => 'tx_vdsanimedia_keywords',
-            'foreign_table_where' => 'AND tx_vdsanimedia_keywords.pid IN (' . $sanimediaPidList . ') ORDER BY keyword',
-            'size'                => 10,
-            'minitems'            => 0,
-            'maxitems'            => 100
-        )
-    );
-    
-    // Field list
-    $fieldList = 'tx_vdsanimedia_enable;;;;1-1-1,tx_vdsanimedia_public,tx_vdsanimedia_themes,tx_vdsanimedia_keywords';
-    
-} else {
-    
-    // Field list
-    $fieldList = 'tx_vdsanimedia_enable;;;;1-1-1';
-}
+// Themes field
+$tempColumns[ 'tx_vdsanimedia_themes' ] = array (
+    'exclude'     => 1,
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_themes',
+    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'config'      => array (
+        'type'          => 'select',
+        'items'         => array(),
+        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'size'          => 10,
+        'minitems'      => 0,
+        'maxitems'      => 100
+    )
+);
+
+// Keywords field
+$tempColumns[ 'tx_vdsanimedia_keywords' ] = array (
+    'exclude'     => 1,
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_keywords',
+    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'config'      => array (
+        'type'          => 'select',
+        'items'         => array(),
+        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'size'          => 10,
+        'minitems'      => 0,
+        'maxitems'      => 100
+    )
+);
+
+// Field list
+$fieldList = 'tx_vdsanimedia_enable;;;;1-1-1,tx_vdsanimedia_public,tx_vdsanimedia_themes,tx_vdsanimedia_keywords';
 
 // Load pages TCA
 t3lib_div::loadTCA( 'pages' );
@@ -294,6 +270,5 @@ t3lib_extMgm::addToAllTCAtypes(
 
 // Cleanup
 unset( $tempColumns );
-unset( $sanimediaPidList );
 unset( $fieldList );
 ?>

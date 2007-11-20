@@ -55,38 +55,53 @@ class tx_vdsanimedia_tca
     }
     
     /**
-     * Gets a comma list of the sanimedia sysfolders
+     * Fills the parameters array with records
      * 
-     * @return  string  A comma list of the sysfolders UIDs
+     * @param   array   &$params    The parameters of the form
+     * @param   object  &$pObj      A reference to the parent object
+     * @return  NULL
      */
-    function getStoragePid()
+    function getRecords( &$params, &$pObj )
     {
-        // Select Sanimedia sysfolders
-        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
-            'uid',
-            'pages',
-            'module="sanimedia"'
-        );
+        // Database table from where to get the records (same as field name)
+        $table = $params[ 'field' ];
         
-        // Storage
-        $pidList = array();
+        // Title field
+        $title = ( $table == 'tx_vdsanimedia_keywords' ) ? 'keyword' : 'title';
         
-        // Check DB ressource
-        if( $res && $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res ) > 0 ) {
+        // Current page ID
+        $pid   = $params[ 'row' ][ 'uid' ];
+        
+        // Gets the page TSConfig
+        $conf  = t3lib_BEfunc::getPagesTSconfig( $pid );
+        
+        // Where clause to select records
+        $whereClause = '';
+        
+        // Checks for a storage page
+        if( isset( $conf[ 'tx_vdsanimedia.' ][ 'storage' ] ) ) {
             
-            // Process each sysfolder
-            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
-                
-                // Adds the UID
-                $pidList[] = $row[ 'uid' ];
-            }
-            
-            // Returns as a comma list
-            return implode( ',', $pidList );
+            // Do not select records globally
+            $whereClause = 'pid IN (' . $conf[ 'tx_vdsanimedia.' ][ 'storage' ] . ')';
         }
         
-        // No storage PID
-        return false;
+        // Select records
+        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+            '*',
+            $table,
+            $whereClause
+        );
+        
+        // Checks DB ressource
+        if( $res ) {
+            
+            // Process each record
+            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                
+                // Add the current record
+                $params[ 'items' ][] = array( $row[ $title ], $row[ 'uid' ] );
+            }
+        }
     }
 }
 
