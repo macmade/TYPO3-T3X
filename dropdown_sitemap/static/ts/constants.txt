@@ -63,6 +63,9 @@ plugin.tx_dropdownsitemap_pi1 {
     # cat= dropdown_sitemap/enable/1; type=boolean; label=Show spacers: If this is enabled, pages that are marked as spacers will appear in the sitemap.
     showSpacers = 1
     
+    # cat= dropdown_sitemap/enable/2; type=boolean; label=Scriptaculous: Enable the use of Scriptaculous for the collapse effects.
+    scriptaculousEnable = 1
+    
     # cat= dropdown_sitemap//0; type=int+; label=Levels - Show: The number of levels to show in the sitemap.
     showLevels = 5
     
@@ -83,4 +86,10 @@ plugin.tx_dropdownsitemap_pi1 {
     
     # cat= dropdown_sitemap//6; type=string; label=Description field: The field to use as description, placed after the page title.
     descriptionField =
+    
+    # cat= dropdown_sitemap//7; type=options[Appear=Appear,BlindDown=BlindDown,SlideDown=SlideDown,Grow=Grow]; label=Appear effect: The appear effect to use, if scriptaculous is enabled.
+    scriptaculousAppear = BlindDown
+    
+    # cat= dropdown_sitemap//8; type=options[Fade=Fade,Puff=Puff,BlindUp=BlindUp,SwitchOff=SwitchOff,SlideUp=SlideUp,DropOut=DropOut,Squish=Squish,Fold=Fold,Shrink=Shrink]; label=Fade effect: The fade effect to use, if scriptaculous is enabled.
+    scriptaculousFade = BlindUp
 }

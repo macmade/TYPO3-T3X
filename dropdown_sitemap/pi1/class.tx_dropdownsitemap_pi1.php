@@ -26,7 +26,7 @@
  * Plugin 'Drop-Down sitemap' for the 'dropdown_sitemap' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.5.0
+ * @version     2.0.0
  */
 
 /**
@@ -71,7 +71,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
     var $extKey             = 'dropdown_sitemap';
     
     // Version of the Developer API required
-    var $apimacmade_version = 1.8;
+    var $apimacmade_version = 4.2;
     
     
     
@@ -96,7 +96,6 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     function main( $content, $conf )
     {
-        
         // New instance of the macmade.net API
         $this->api  = new tx_apimacmade( $this );
         
@@ -112,8 +111,28 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         // Store flexform informations
         $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
         
+        // Checks the configuration array
+        if( !is_array( $this->conf ) || count( $this->conf ) <= 2 ) {
+            
+            // Static template not included
+            return $this->api->fe_makeStyledContent(
+                'strong',
+                'error',
+                $this->pi_getLL( 'error' )
+            );
+        }
+        
         // Set final configuration (TS or FF)
         $this->setConfig();
+        
+        // Checks for Scriptaculous
+        if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
+            && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+        ) {
+            
+            // Includes Scriptaculous
+            $this->api->fe_includeScriptaculousJs();
+        }
         
         // Create the menu configuration array
         $mconf = $this->buildMenuConfArray();
@@ -174,7 +193,6 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     function setConfig()
     {
-        
         // Mapping array for PI flexform
         $flex2conf = array(
             'startingPoint'    => 'sDEF:pages',
@@ -190,6 +208,11 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             'list.'            => array(
                 'tag'  => 'sADVANCED:list_tag',
                 'type' => 'sADVANCED:list_type'
+            ),
+            'scriptaculous.'   => array(
+                'enable' => 'sDISPLAY:scriptaculous',
+                'appear' => 'sDISPLAY:appear',
+                'fade'   => 'sDISPLAY:fade'
             )
         );
         
@@ -214,7 +237,6 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     function buildMenuConfArray()
     {
-        
         // PID list storage
         $pidList = array();
         
@@ -239,17 +261,36 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             // Create image TS Config
             $imgTSConfig                                      = ( $i <= $this->conf[ 'expandLevels' ] ) ? $this->buildImageTSConfig( 1 ) : $this->buildImageTSConfig();
             
-            // CSS class name for expand/collapse
-            $className                                        = ( $i <= $this->conf[ 'expandLevels' ] ) ? 'open'                         : 'closed';
-            
+            // Checks for Scriptaculous
+            if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
+                && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+            ) {
+                
+                // No CSS class
+                $className = '';
+                
+                // CSS styles name for expand/collapse
+                $styles    = ( $i - 1 <= $this->conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
+                
+            } else {
+                
+                // CSS class name for expand/collapse
+                $className = ( $i <= $this->conf[ 'expandLevels' ] )     ? ' class="open"'            : ' class="closed"';
+                
+                // No CSS styles
+                $styles    = '';
+            }
             // TMENU object
             $mconf[ $i ]                                      = 'TMENU';
             
             // Wrap in an HTML list element
-            $mconf[ $i . '.' ][ 'wrap' ]                      = '<' . $this->conf[ 'list.']['tag' ]
+            $mconf[ $i . '.' ][ 'wrap' ]                      = '<'
+                                                              . $this->conf[ 'list.' ][ 'tag' ]
                                                               . ' type="'
                                                               . $this->conf[ 'list.' ][ 'type' ]
-                                                              . '">|</'
+                                                              . '"'
+                                                              . $styles
+                                                              . '>|</'
                                                               . $this->conf[ 'list.' ][ 'tag' ]
                                                               . '>';
             
@@ -306,9 +347,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 // Start wrap
                 $mconf[ $i . '.' ][ 'IFSUB.' ][ 'allWrap' ]          = '<li id="'
                                                                      . $this->prefixId
-                                                                     . '_{elementUid}" class="'
+                                                                     . '_{elementUid}"'
                                                                      . $className
-                                                                     . '"><div class="level_'
+                                                                     . '><div class="level_'
                                                                      . $i
                                                                      . '"><a href="javascript:'
                                                                      . $this->prefixId
@@ -353,7 +394,6 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     function buildImageTSConfig($expanded=false)
     {
-        
         // Image TS Config array for NO state
         $imgTSConfigNo                        = array();
         
@@ -402,7 +442,6 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     function buildJSCode() 
     {
-        
         // Storage
         $jsCode      = array();
         
@@ -424,32 +463,87 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             )
         );
         
-        // Function for swappingelement class
-        $jsCode[] = 'function ' . $this->prefixId . '_swapClasses(element) {';
-        $jsCode[] = '	if (document.getElementById) {';
-        $jsCode[] = '		var liClass = "' . $this->prefixId . '_" + element;';
-        $jsCode[] = '		var picture = "pic_" + element;';
-        $jsCode[] = '		document.getElementById(liClass).className = (document.getElementById(liClass).className == "open") ? "closed" : "open";';
-        $jsCode[] = '		document.getElementById(picture).src = (document.getElementById(liClass).className == "open") ? "' . $minusImgURL . '" : "' . $plusImgURL . '";';
-        $jsCode[] = '	}';
-        $jsCode[] = '}';
-        
-        // Function for expanding/collapsing all elements
-        $jsCode[] = 'var expanded = 0;';
-        $jsCode[] = 'function ' . $this->prefixId . '_expAll() {';
-        $jsCode[] = '	if (document.getElementsByTagName) {';
-        $jsCode[] = '		var listItems = document.getElementsByTagName("li");';
-        $jsCode[] = '		for (i = 0; i < listItems.length; i++) {';
-        $jsCode[] = '			if (listItems[i].id.indexOf("' . $this->prefixId . '") != -1) {';
-        $jsCode[] = '				listItems[i].className = (expanded) ? "closed" : "open";';
-        $jsCode[] = '				var picture = "pic_" + listItems[i].id.replace("' . $this->prefixId . '_","");';
-        $jsCode[] = '				listItems[i].className = (expanded) ? "closed" : "open"';
-        $jsCode[] = '				document.getElementById(picture).src = (expanded) ? "' . $plusImgURL . '" : "' . $minusImgURL . '";';
-        $jsCode[] = '			}';
-        $jsCode[] = '		}';
-        $jsCode[] = '	expanded = (expanded == 1) ? 0 : 1;';
-        $jsCode[] = '	}';
-        $jsCode[] = '}';
+        // Checks for Scriptaculous
+        if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
+            && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+        ) {
+            
+            // Effects
+            $appear = $this->conf[ 'scriptaculous.' ][ 'appear' ];
+            $fade   = $this->conf[ 'scriptaculous.' ][ 'fade' ];
+            
+            // Function for swapping element class
+            $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
+            $jsCode[] = '{';
+            $jsCode[] = '    var listItem    = document.getElementById( "' . $this->prefixId . '_" + element );';
+            $jsCode[] = '    var descendants = listItem.firstDescendant().immediateDescendants();';
+            $jsCode[] = '    var list        = descendants[ descendants.length - 1 ];';
+            $jsCode[] = '    var picture     = "pic_" + element;';
+            $jsCode[] = '    if( list.getStyle( "display" ) == "none" ) {';
+            $jsCode[] = '        Effect.' . $appear . '( list );';
+            $jsCode[] = '        document.getElementById( picture ).src = "' . $minusImgURL . '";';
+            $jsCode[] = '    } else {';
+            $jsCode[] = '        Effect.' . $fade . '( list );';
+            $jsCode[] = '        document.getElementById( picture ).src = "' . $plusImgURL . '";';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+            
+            // Function for expanding/collapsing all elements
+            $jsCode[] = 'var ' . $this->prefixId . '_expanded = 0;';
+            $jsCode[] = 'function ' . $this->prefixId . '_expAll()';
+            $jsCode[] = '{';
+            $jsCode[] = '    if( document.getElementsByTagName ) {';
+            $jsCode[] = '        var style     = ( ' . $this->prefixId . '_expanded ) ? "none" : "block";';
+            $jsCode[] = '        var listItems = document.getElementsByTagName( "li" );';
+            $jsCode[] = '        for( i = 0; i < listItems.length; i++ ) {';
+            $jsCode[] = '            if( listItems[ i ].id.indexOf( "' . $this->prefixId . '" ) != -1 ) {';
+            $jsCode[] = '                var descendants = listItems[ i ].firstDescendant().immediateDescendants();';
+            $jsCode[] = '                var list        = descendants[ descendants.length - 1 ];';
+            $jsCode[] = '                var picture     = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
+            $jsCode[] = '                if( ' . $this->prefixId . '_expanded ) {';
+            $jsCode[] = '                    Effect.' . $fade . '( list );';
+            $jsCode[] = '                    document.getElementById( picture ).src = "' . $plusImgURL . '";';
+            $jsCode[] = '                } else {';
+            $jsCode[] = '                    Effect.' . $appear . '( list );';
+            $jsCode[] = '                    document.getElementById( picture ).src = "' . $minusImgURL . '";';
+            $jsCode[] = '                }';
+            $jsCode[] = '            }';
+            $jsCode[] = '        }';
+            $jsCode[] = '        ' . $this->prefixId . '_expanded = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+            
+        } else {
+            
+            // Function for swapping element class
+            $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
+            $jsCode[] = '{';
+            $jsCode[] = '    if( document.getElementById ) {';
+            $jsCode[] = '        var liClass                                  = "' . $this->prefixId . '_" + element;';
+            $jsCode[] = '        var picture                                  = "pic_" + element;';
+            $jsCode[] = '        document.getElementById( liClass ).className = ( document.getElementById( liClass ).className == "open" ) ? "closed" : "open";';
+            $jsCode[] = '        document.getElementById( picture ).src       = ( document.getElementById( liClass ).className == "open" ) ? "' . $minusImgURL . '" : "' . $plusImgURL . '";';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+            
+            // Function for expanding/collapsing all elements
+            $jsCode[] = 'var ' . $this->prefixId . '_expanded = 0;';
+            $jsCode[] = 'function ' . $this->prefixId . '_expAll()';
+            $jsCode[] = '{';
+            $jsCode[] = '    if( document.getElementsByTagName ) {';
+            $jsCode[] = '        var listItems = document.getElementsByTagName( "li" );';
+            $jsCode[] = '        for( i = 0; i < listItems.length; i++ ) {';
+            $jsCode[] = '            if( listItems[ i ].id.indexOf( "' . $this->prefixId . '" ) != -1 ) {';
+            $jsCode[] = '                listItems[ i ].className               = ( ' . $this->prefixId . '_expanded ) ? "closed" : "open";';
+            $jsCode[] = '                var picture                            = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
+            $jsCode[] = '                listItems[ i ].className               = ( ' . $this->prefixId . '_expanded ) ? "closed" : "open"';
+            $jsCode[] = '                document.getElementById( picture ).src = ( ' . $this->prefixId . '_expanded ) ? "' . $plusImgURL . '" : "' . $minusImgURL . '";';
+            $jsCode[] = '            }';
+            $jsCode[] = '        }';
+            $jsCode[] = '        ' . $this->prefixId . '_expanded = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+        }
         
         // Adds JS code
         $GLOBALS[ 'TSFE' ]->setJS(

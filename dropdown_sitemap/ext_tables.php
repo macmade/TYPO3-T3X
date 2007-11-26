@@ -27,8 +27,13 @@ t3lib_extMgm::addPlugin(
     'list_type'
 );
 
+// Static templates
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'Drop-Down Site Map' );
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'Drop-Down Site Map - CSS Styles' );
+
 // Wizard icons
 if( TYPO3_MODE == 'BE' ) {
+    
     $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_dropdownsitemap_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_dropdownsitemap_pi1_wizicon.php';
 }
 ?>

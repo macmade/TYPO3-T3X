@@ -31,6 +31,25 @@
             <label index="tt_content.flexform_pi1.s_advanced.list_type">List type</label>
             <label index="tt_content.flexform_pi1.s_advanced.link_target">Target for links</label>
             <label index="tt_content.flexform_pi1.LGL.default">Default</label>
+            <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+            <label index="tt_content.flexform_pi1.LGL.no">No</label>
+            <label index="tt_content.flexform_pi1.s_display">Display</label>
+            <label index="tt_content.flexform_pi1.s_display.scriptaculous">Use Scriptaculous</label>
+            <label index="tt_content.flexform_pi1.s_display.appear">Appear effect</label>
+            <label index="tt_content.flexform_pi1.s_display.appear.I.0">Appear</label>
+            <label index="tt_content.flexform_pi1.s_display.appear.I.1">Blind Down</label>
+            <label index="tt_content.flexform_pi1.s_display.appear.I.2">Slide Down</label>
+            <label index="tt_content.flexform_pi1.s_display.appear.I.3">Grow</label>
+            <label index="tt_content.flexform_pi1.s_display.fade">Fade effect</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.0">Fade</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.1">Puff</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.2">Blind Up</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.3">Switch Off</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.4">Slide Up</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.5">Drop Out</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.6">Squish</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.7">Fold</label>
+            <label index="tt_content.flexform_pi1.s_display.fade.I.8">Shrink</label>
        </languageKey>
         <languageKey index="de" type="array">
             <label index="tt_content.list_type_pi1">Drop-Down Sitemap</label>

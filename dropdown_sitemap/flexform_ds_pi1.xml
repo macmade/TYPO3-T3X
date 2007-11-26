@@ -302,6 +302,127 @@
                 </el>
             </ROOT>
         </sOPTIONS>
+        <sDISPLAY>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <scriptaculous>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.scriptaculous</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="1">1</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="1">0</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </scriptaculous>
+                    <appear>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.appear</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.0</numIndex>
+                                        <numIndex index="1">Appear</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.1</numIndex>
+                                        <numIndex index="1">BlindDown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.2</numIndex>
+                                        <numIndex index="1">SlideDown</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.appear.I.3</numIndex>
+                                        <numIndex index="1">Grow</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </appear>
+                    <fade>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade</label>
+                            <config>
+                                <type>select</type>
+                                <items>
+                                    <numIndex index="0">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.0</numIndex>
+                                        <numIndex index="1">Fade</numIndex>
+                                    </numIndex>
+                                    <numIndex index="2">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.1</numIndex>
+                                        <numIndex index="1">Puff</numIndex>
+                                    </numIndex>
+                                    <numIndex index="3">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.2</numIndex>
+                                        <numIndex index="1">BlindUp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="4">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.3</numIndex>
+                                        <numIndex index="1">SwitchOff</numIndex>
+                                    </numIndex>
+                                    <numIndex index="5">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.4</numIndex>
+                                        <numIndex index="1">SlideUp</numIndex>
+                                    </numIndex>
+                                    <numIndex index="6">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.5</numIndex>
+                                        <numIndex index="1">DropOut</numIndex>
+                                    </numIndex>
+                                    <numIndex index="7">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.6</numIndex>
+                                        <numIndex index="1">Squish</numIndex>
+                                    </numIndex>
+                                    <numIndex index="8">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.7</numIndex>
+                                        <numIndex index="1">Fold</numIndex>
+                                    </numIndex>
+                                    <numIndex index="9">
+                                        <numIndex index="0">LLL:EXT:dropdown_sitemap/locallang_db.php:tt_content.flexform_pi1.s_display.fade.I.8</numIndex>
+                                        <numIndex index="1">Shrink</numIndex>
+                                    </numIndex>
+                                </items>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </fade>
+                </el>
+            </ROOT>
+        </sDISPLAY>
         <sADVANCED>
             <ROOT>
                 <TCEforms>

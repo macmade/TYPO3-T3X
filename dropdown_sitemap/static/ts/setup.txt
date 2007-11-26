@@ -63,6 +63,19 @@ plugin.tx_dropdownsitemap_pi1 {
     // Field for description
     descriptionField = {$plugin.tx_dropdownsitemap_pi1.descriptionField}
     
+    // Scriptaculous options
+    scriptaculous {
+        
+        // Enable the use of Scriptaculous
+        enable = {$plugin.tx_dropdownsitemap_pi1.scriptaculousEnable}
+        
+        // Appear effect
+        appear = {$plugin.tx_dropdownsitemap_pi1.scriptaculousAppear}
+        
+        // Fade effect
+        fade   = {$plugin.tx_dropdownsitemap_pi1.scriptaculousFade}
+    }
+    
     // Picture
     picture { 
         
@@ -97,14 +110,6 @@ plugin.tx_dropdownsitemap_pi1 {
         .tx-dropdownsitemap-pi1 A {
             font-weight: bold;
         }
-        .tx-dropdownsitemap-pi1 .spc {
-            font-weight: bold;
-        }
-        .tx-dropdownsitemap-pi1 .description {
-            font-style: italic;
-            font-size: 80%;
-            margin-left: 5px;
-        }
         .tx-dropdownsitemap-pi1 LI.open OL {
             display: block;
         }
@@ -116,6 +121,14 @@ plugin.tx_dropdownsitemap_pi1 {
         }
         .tx-dropdownsitemap-pi1 LI.closed UL {
             display: none;
+        }
+        .tx-dropdownsitemap-pi1 .spc {
+            font-weight: bold;
+        }
+        .tx-dropdownsitemap-pi1 .description {
+            font-style: italic;
+            font-size: 80%;
+            margin-left: 5px;
         }
         .tx-dropdownsitemap-pi1 DIV {
             border: solid 1px #DFE2E3;
