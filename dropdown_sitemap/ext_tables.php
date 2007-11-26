@@ -29,7 +29,6 @@ t3lib_extMgm::addPlugin(
 
 // Static templates
 t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'Drop-Down Site Map' );
-t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'Drop-Down Site Map - CSS Styles' );
 
 // Wizard icons
 if( TYPO3_MODE == 'BE' ) {
