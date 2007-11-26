@@ -196,10 +196,10 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         // Mapping array for PI flexform
         $flex2conf = array(
             'startingPoint'    => 'sDEF:pages',
-            'excludeList'      => 'sOPTIONS:exclude_pages',
-            'excludeDoktypes'  => 'sOPTIONS:exclude_doktypes',
-            'includeNotInMenu' => 'sOPTIONS:include_not_in_menu',
-            'showSpacers'      => 'sOPTIONS:show_spacers',
+            'excludeList'      => 'sPAGES:exclude_pages',
+            'excludeDoktypes'  => 'sPAGES:exclude_doktypes',
+            'includeNotInMenu' => 'sPAGES:include_not_in_menu',
+            'showSpacers'      => 'sPAGES:show_spacers',
             'expAllLink'       => 'sOPTIONS:expall',
             'showLevels'       => 'sOPTIONS:show_levels',
             'expandLevels'     => 'sOPTIONS:expand_levels',
@@ -210,9 +210,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 'type' => 'sADVANCED:list_type'
             ),
             'scriptaculous.'   => array(
-                'enable' => 'sDISPLAY:scriptaculous',
-                'appear' => 'sDISPLAY:appear',
-                'fade'   => 'sDISPLAY:fade'
+                'enable' => 'sEFFECTS:scriptaculous',
+                'appear' => 'sEFFECTS:appear',
+                'fade'   => 'sEFFECTS:fade'
             )
         );
         
