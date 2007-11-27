@@ -547,10 +547,10 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '                var descendants = listItems[ i ].firstDescendant().immediateDescendants();';
             $jsCode[] = '                var list        = descendants[ descendants.length - 1 ];';
             $jsCode[] = '                var picture     = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
-            $jsCode[] = '                if( ' . $this->prefixId . '_expanded ) {';
+            $jsCode[] = '                if( ' . $this->prefixId . '_expanded && list.getStyle( "display" ) == "block" ) {';
             $jsCode[] = '                    Effect.' . $fade . '( list );';
             $jsCode[] = '                    document.getElementById( picture ).src = "' . $plusImgURL . '";';
-            $jsCode[] = '                } else {';
+            $jsCode[] = '                } else if( list.getStyle( "display" ) == "none" ) {';
             $jsCode[] = '                    Effect.' . $appear . '( list );';
             $jsCode[] = '                    document.getElementById( picture ).src = "' . $minusImgURL . '";';
             $jsCode[] = '                }';
