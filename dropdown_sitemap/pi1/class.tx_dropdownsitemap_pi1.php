@@ -381,6 +381,22 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 
                 // IFSUB state activation
                 $mconf[ $i . '.' ][ 'IFSUB' ]                        = '1';
+                
+                // Check if A tag title must be added
+                if( $this->conf[ 'titleFields' ] ) {
+                    
+                    // Add fields for A tag
+                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'ATagTitle.' ][ 'field' ] = $this->conf[ 'titleFields' ];
+                }
+                
+                // Check if a description must be added
+                if( $this->conf[ 'descriptionField' ] && $this->conf[ 'descriptionField' ] != 'none' ) {
+                    
+                    // Add description
+                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'after.' ][ 'dataWrap' ] = '|<span class="description">&nbsp;{field:'
+                                                                             . $this->conf[ 'descriptionField' ]
+                                                                             . '}</span>';
+                }
             }
             
             // Configuration for spacers
