@@ -166,11 +166,33 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         $content = array();
         
         // Display the expAll link
-        if( $this->conf[ 'expAllLink' ] == 1 ) {    
+        if( $this->conf[ 'expAllLink' ] == 1 ) {
+            
+            // Picture TS configuration array
+            $imgTSConfig                        = array();
+            
+            // File reference
+            $imgTSConfig[ 'file' ]              = $this->conf[ 'picture.' ][ 'expOn' ];
+            
+            // File ressource array
+            $imgTSConfig[ 'file.' ]             = array();
+            
+            // Width
+            $imgTSConfig[ 'file.' ][ 'width' ]  = $this->conf[ 'picture.' ][ 'width' ];
+            
+            // Height
+            $imgTSConfig[ 'file.' ][ 'height' ] = $this->conf[ 'picture.' ][ 'height' ];
+            
+            // HTML tag parameters
+            $imgTSConfig[ 'params' ]            = $this->conf[ 'picture.' ][ 'params' ]
+                                                . ' id="'
+                                                . $this->prefixId
+                                                . '_expImg"';
             
             $content[] = '<div class="expAll"><a href="javascript:'
                        . $this->prefixId
                        . '_expAll();">'
+                       . $this->cObj->IMAGE( $imgTSConfig )
                        . $this->pi_getLL( 'expall' )
                        . '</a></div>';
         }
@@ -374,7 +396,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 $mconf[ $i . '.' ][ 'SPC.' ][ 'allWrap' ]        = '<li class="closed"><div class="level_'
                                                                  . $i
                                                                  . '">'
-                                                                 . $this->cObj->IMAGE( $imgTSConfig[ 'NO' ] )
+                                                                 . $this->cObj->IMAGE( $imgTSConfig[ 'SPC' ] )
                                                                  . '<span class="spc">|</span>';
             }
         }
@@ -392,13 +414,13 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      * @param       $expanded           Boolean - True if the menu should be expanded
      * @return      The configuration arrays for the pictures.
      */
-    function buildImageTSConfig($expanded=false)
+    function buildImageTSConfig( $expanded = false )
     {
         // Image TS Config array for NO state
         $imgTSConfigNo                        = array();
         
         // File reference
-        $imgTSConfigNo[ 'file' ]              = 'EXT:' . $this->extKey . '/pi1/spacer.gif';
+        $imgTSConfigNo[ 'file' ]              = $this->conf[ 'picture.' ][ 'page' ];
         
         // File ressource array
         $imgTSConfigNo[ 'file.' ]             = array();
@@ -411,6 +433,12 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         
         // HTML tag parameters
         $imgTSConfigNo[ 'params' ]            = $this->conf[ 'picture.' ][ 'params' ];
+        
+        // Image TS Config array for SPC state
+        $imgTSConfigSpc                       = $imgTSConfigNo;
+        
+        // File reference
+        $imgTSConfigSpc[ 'file' ]             = $this->conf[ 'picture.' ][ 'spacer' ];
         
         // Image TS Config array for IFSUB state
         $imgTSConfigSub                       = $imgTSConfigNo;
@@ -426,6 +454,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         $imgTSConfig = array(
             'NO'    => $imgTSConfigNo,
             'IFSUB' => $imgTSConfigSub,
+            'SPC'   => $imgTSConfigSpc
         );
         
         // Return array
@@ -460,6 +489,24 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             '',
             t3lib_div::getFileAbsFileName(
                 $this->conf[ 'picture.' ][ 'collapse' ]
+            )
+        );
+        
+        // Expand all image URL
+        $expOn = str_replace(
+            PATH_site,
+            '',
+            t3lib_div::getFileAbsFileName(
+                $this->conf[ 'picture.' ][ 'expOn' ]
+            )
+        );
+        
+        // Collapse all image URL
+        $expOff = str_replace(
+            PATH_site,
+            '',
+            t3lib_div::getFileAbsFileName(
+                $this->conf[ 'picture.' ][ 'expOff' ]
             )
         );
         
@@ -509,7 +556,8 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '                }';
             $jsCode[] = '            }';
             $jsCode[] = '        }';
-            $jsCode[] = '        ' . $this->prefixId . '_expanded = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
+            $jsCode[] = '        document.getElementById( "' . $this->prefixId . '_expImg" ).src = ( ' . $this->prefixId . '_expanded == 1 ) ? "' . $expOn . '" : "' . $expOff . '"';
+            $jsCode[] = '        ' . $this->prefixId . '_expanded                                = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
             $jsCode[] = '    }';
             $jsCode[] = '}';
             
@@ -540,7 +588,8 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '                document.getElementById( picture ).src = ( ' . $this->prefixId . '_expanded ) ? "' . $plusImgURL . '" : "' . $minusImgURL . '";';
             $jsCode[] = '            }';
             $jsCode[] = '        }';
-            $jsCode[] = '        ' . $this->prefixId . '_expanded = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
+            $jsCode[] = '        document.getElementById( "' . $this->prefixId . '_expImg" ).src = ( ' . $this->prefixId . '_expanded == 1 ) ? "' . $expOn . '" : "' . $expOff . '"';
+            $jsCode[] = '        ' . $this->prefixId . '_expanded                                = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
             $jsCode[] = '    }';
             $jsCode[] = '}';
         }

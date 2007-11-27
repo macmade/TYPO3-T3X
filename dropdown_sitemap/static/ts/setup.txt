@@ -85,6 +85,18 @@ plugin.tx_dropdownsitemap_pi1 {
         // Collapse Image
         collapse = {$plugin.tx_dropdownsitemap_pi1.picture.collapse}
         
+        // Page Image
+        page     = {$plugin.tx_dropdownsitemap_pi1.picture.page}
+        
+        // Spacer Image
+        spacer   = {$plugin.tx_dropdownsitemap_pi1.picture.spacer}
+        
+        // Expand Image
+        expOn    = {$plugin.tx_dropdownsitemap_pi1.picture.expOn}
+        
+        // Collapse Image
+        expOff   = {$plugin.tx_dropdownsitemap_pi1.picture.expOff}
+        
         // IMG tag parameters
         params   = {$plugin.tx_dropdownsitemap_pi1.picture.params}
         
@@ -107,8 +119,19 @@ plugin.tx_dropdownsitemap_pi1 {
     
     // Default CSS styling
     _CSS_DEFAULT_STYLE (
-        .tx-dropdownsitemap-pi1 A {
-            font-weight: bold;
+        .tx-dropdownsitemap-pi1 UL, .tx-dropdownsitemap-pi1 OL {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+        .tx-dropdownsitemap-pi1 A, .tx-dropdownsitemap-pi1 A:link, .tx-dropdownsitemap-pi1 A:visited, .tx-dropdownsitemap-pi1 A:hover, .tx-dropdownsitemap-pi1 A:active {
+            color: #FF8700;
+            background-color: inherit;
+        }
+        .tx-dropdownsitemap-pi1 DIV {
+            margin-left: 20px;
+            margin-top: 2px;
+            padding: 2px;
         }
         .tx-dropdownsitemap-pi1 LI.open OL {
             display: block;
@@ -122,8 +145,13 @@ plugin.tx_dropdownsitemap_pi1 {
         .tx-dropdownsitemap-pi1 LI.closed UL {
             display: none;
         }
-        .tx-dropdownsitemap-pi1 .spc {
+        .tx-dropdownsitemap-pi1 SPAN.ifsub {
+            text-transform: uppercase;
             font-weight: bold;
+        }
+        .tx-dropdownsitemap-pi1 SPAN.spc {
+            text-transform: uppercase;
+            font-style: italic;
         }
         .tx-dropdownsitemap-pi1 .description {
             font-style: italic;
@@ -131,30 +159,23 @@ plugin.tx_dropdownsitemap_pi1 {
             margin-left: 5px;
         }
         .tx-dropdownsitemap-pi1 DIV {
-            border: solid 1px #DFE2E3;
-            background: #FAFBFB;
-            padding: 2px;
-            margin-bottom: 5px;
         }
         .tx-dropdownsitemap-pi1 DIV.level_2 {
-            background: #FFFFFF;
-        }
-        .tx-dropdownsitemap-pi1 DIV.level_2 A {
-            font-weight: normal;
         }
         .tx-dropdownsitemap-pi1 DIV.level_3 {
-            background: #FAFBFB;
         }
         .tx-dropdownsitemap-pi1 DIV.level_4 {
-            background: #FFFFFF;
         }
         .tx-dropdownsitemap-pi1 DIV.level_5 {
-            background: #FAFBFB;
         }
         .tx-dropdownsitemap-pi1 DIV.expAll {
-            text-align: center;
-            border: solid 1px #DFE2E3;
-            background: #FAFBFB;
+            border: solid 1px #DBA83B;
+            background-color: #FCF2C8;
+            color: inherit;
+            padding: 5px;
+        }
+        .tx-dropdownsitemap-pi1 IMG {
+            margin-right: 5px;
         }
     )
 }
