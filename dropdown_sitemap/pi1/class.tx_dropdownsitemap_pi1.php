@@ -189,9 +189,15 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                 . $this->prefixId
                                                 . '_expImg"';
             
+            // Adds the alt and title text
+            $imgTSConfig[ 'altText' ]           = $this->pi_getLL( 'expall' );
+            $imgTSConfig[ 'titleText' ]         = $this->pi_getLL( 'expall' );
+            
             $content[] = '<div class="expAll"><a href="javascript:'
                        . $this->prefixId
-                       . '_expAll();">'
+                       . '_expAll();" title="'
+                       . $this->pi_getLL( 'expall' )
+                       . '">'
                        . $this->cObj->IMAGE( $imgTSConfig )
                        . $this->pi_getLL( 'expall' )
                        . '</a></div>';
@@ -375,7 +381,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                                      . $i
                                                                      . '"><a href="javascript:'
                                                                      . $this->prefixId
-                                                                     . '_swapClasses({elementUid});">'
+                                                                     . '_swapClasses({elementUid});" title="'
+                                                                     . $this->pi_getLL( 'title-ifsub' )
+                                                                     . '">'
                                                                      . $this->cObj->IMAGE( $imgTSConfig[ 'IFSUB' ] )
                                                                      . '</a><span class="ifsub">|</span>';
                 
@@ -472,6 +480,16 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             'IFSUB' => $imgTSConfigSub,
             'SPC'   => $imgTSConfigSpc
         );
+        
+        // Add alt texts
+        $imgTSConfig[ 'NO' ][ 'altText' ]    = $this->pi_getLL( 'alt-no' );
+        $imgTSConfig[ 'IFSUB' ][ 'altText' ] = $this->pi_getLL( 'alt-ifsub' );
+        $imgTSConfig[ 'SPC' ][ 'altText' ]   = $this->pi_getLL( 'alt-spc' );
+        
+        // Add title texts
+        $imgTSConfig[ 'NO' ][ 'titleText' ]    = $this->pi_getLL( 'title-no' );
+        $imgTSConfig[ 'IFSUB' ][ 'titleText' ] = $this->pi_getLL( 'title-ifsub' );
+        $imgTSConfig[ 'SPC' ][ 'titleText' ]   = $this->pi_getLL( 'title-spc' );
         
         // Return array
         return $imgTSConfig;

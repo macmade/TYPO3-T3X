@@ -8,6 +8,12 @@
         <languageKey index="default" type="array">
             <label index="expall">Expand / Collapse all</label>
             <label index="error">Error: please include the static TS template as described in the manual.</label>
+            <label index="alt-no">Page</label>
+            <label index="title-no">Page</label>
+            <label index="alt-ifsub">Folder</label>
+            <label index="title-ifsub">Click here to view the subpages</label>
+            <label index="alt-spc">Spacer</label>
+            <label index="title-spc">Spacer</label>
         </languageKey>
         <languageKey index="de" type="array">
             <label index="expall">Alles aus-/einklappen</label>
@@ -21,6 +27,12 @@
         <languageKey index="fr" type="array">
             <label index="expall">Tout afficher / masquer</label>
             <label index="error">Erreur: veuillez inclure le gabarit statique TS comme précisé dans le manuel.</label>
+            <label index="alt-no">Page</label>
+            <label index="title-no">Page</label>
+            <label index="alt-ifsub">Dossier</label>
+            <label index="title-ifsub">Cliquez ici pour voir les sous-pages</label>
+            <label index="alt-spc">Espaceur</label>
+            <label index="title-spc">Espaceur</label>
         </languageKey>
         <languageKey index="cz" type="array">
             <label index="expall">Rozbalit / sbalit ve</label>
