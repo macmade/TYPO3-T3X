@@ -34,10 +34,10 @@
  * 
  * SECTION:     1 - MAIN
  *      97:     function main($content,$conf)
- *     175:     function setConfig
- *     215:     function buildMenuConfArray
- *     354:     function buildImageTSConfig($expanded=false)
- *     403:     function buildJSCode
+ *     222:     function setConfig
+ *     267:     function buildMenuConfArray
+ *     463:     function buildImageTSConfig($expanded=false)
+ *     528:     function buildJSCode
  * 
  *              TOTAL FUNCTIONS: 5
  */
