@@ -2429,6 +2429,15 @@ class tx_apimacmade
      */
     function fe_includePrototypeJs()
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasPrototype' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasPrototype' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Check if script has already been included
         if( !$this->prototype ) {
             
@@ -2456,6 +2465,15 @@ class tx_apimacmade
      */
     function fe_includeMootoolsJs()
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasMootools' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasMootools' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Check if script has already been included
         if( !$this->mootools ) {
             
@@ -2484,6 +2502,15 @@ class tx_apimacmade
      */
     function fe_includeScriptaculousJs()
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasScriptaculous' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasScriptaculous' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Include prototype
         $this->fe_includePrototypeJs();
         
@@ -2516,6 +2543,15 @@ class tx_apimacmade
      */
     function fe_includeLightBoxJs( $includeCss = true )
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasLightBox' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasLightBox' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Include Scriptaculous
         $this->fe_includeScriptaculousJs();
         
@@ -2583,6 +2619,15 @@ class tx_apimacmade
      */
     function fe_includeUfo()
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasUfo' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasUfo' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Check if script has already been included
         if( !$this->ufo ) {
             
@@ -2610,6 +2655,15 @@ class tx_apimacmade
      */
     function fe_includeSwfObject()
     {
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasSwfObject' ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasSwfObject' ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->scriptaculous = true;
+        }
+        
         // Check if script has already been included
         if( !$this->swfObject ) {
             
