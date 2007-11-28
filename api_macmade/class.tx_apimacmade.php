@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     4.2
+ * @version     4.3
  */
 
 /**
@@ -76,6 +76,7 @@
  *              function fe_buildSearchBox( $method = 'post', $nocache = true, $sword = 'sword', $pointer = 'pointer' )
  *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
  *              function fe_includePrototypeJs
+ *              function fe_includeMootoolsJs
  *              function fe_includeScriptaculousJs
  *              function fe_includeLightBoxJs( $includeCss = true )
  *              function fe_includeUfo
@@ -88,6 +89,7 @@
  *              function be_initCSM
  *              function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
  *              function be_includePrototypeJs
+ *              function be_includeMootoolsJs
  *              function be_includeScriptaculousJs
  *              function be_includeUfo
  *              function be_includeSwfObject
@@ -151,13 +153,16 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 4.2;
+    var $version         = 4.3;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
     
     // Prototype JS file was included
     var $prototype       = false;
+    
+    // Mootools JS file was included
+    var $mootools        = false;
     
     // Scriptaculous file was included
     var $scriptaculous   = false;
@@ -2441,6 +2446,33 @@ class tx_apimacmade
     }
     
     /**
+     * Includes the Mootools framework
+     * 
+     * This function includes the Mootools JavaScript framework by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a frontend context.
+     * 
+     * @return      boolean
+     */
+    function fe_includeMootoolsJs()
+    {
+        // Check if script has already been included
+        if( !$this->mootools ) {
+            
+            // Add script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_mootools' ] = '<script src="'
+                                                                                 . t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                                                                 . 'res/js/mootools/mootools.js'
+                                                                                 . '" type="text/javascript"></script>';
+            
+            // Set included flag
+            $this->mootools = true;
+        }
+        
+        return true;
+    }
+    
+    /**
      * Includes the Scriptaculous framework
      * 
      * This function includes the Scriptaculous JavaScript framework by adding a
@@ -2891,6 +2923,35 @@ class tx_apimacmade
             
             // Set included flag
             $this->prototype = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes the Prototype framework
+     * 
+     * This function includes the Prototype JavaScript framework by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context.
+     * 
+     * @return      boolean
+     */
+    function be_includeMootoolsJs()
+    {
+        // Check if script has already been included
+        if( !$this->mootools ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/mootools/mootools.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->mootools = true;
         }
         
         return true;
