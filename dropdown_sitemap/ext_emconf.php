@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "dropdown_sitemap"
 #
-# Auto generated 28-11-2007 18:31
+# Auto generated 28-11-2007 18:33
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -32,7 +32,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '2.0.0',
+	'version' => '2.1.0',
 	'_md5_values_when_last_written' => 'a:21:{s:20:"class.ext_update.php";s:4:"6ed8";s:32:"class.tx_dropdownsitemap_tca.php";s:4:"420c";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"a2f3";s:14:"ext_tables.php";s:4:"65f4";s:19:"flexform_ds_pi1.xml";s:4:"374c";s:13:"locallang.xml";s:4:"3723";s:16:"locallang_db.xml";s:4:"974e";s:14:"doc/manual.sxw";s:4:"bc6f";s:14:"pi1/ce_wiz.gif";s:4:"1ea2";s:36:"pi1/class.tx_dropdownsitemap_pi1.php";s:4:"f959";s:44:"pi1/class.tx_dropdownsitemap_pi1_wizicon.php";s:4:"3f5b";s:17:"pi1/locallang.xml";s:4:"9150";s:15:"res/exp-off.gif";s:4:"8587";s:14:"res/exp-on.gif";s:4:"6def";s:18:"res/folder-off.gif";s:4:"8c47";s:17:"res/folder-on.gif";s:4:"4431";s:12:"res/page.gif";s:4:"a659";s:14:"res/spacer.gif";s:4:"2a7d";s:23:"static/ts/constants.txt";s:4:"c858";s:19:"static/ts/setup.txt";s:4:"0c84";}',
 	'constraints' => array(
 		'depends' => array(
