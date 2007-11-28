@@ -1,5 +1,14 @@
 2007-10-29  Jean-David Gadina  <info@macmade.net>
 
+	* Increased API internal version number to 4.3.
+	* Added the Mootools JS framework.
+	* Added TS setup and constants.
+	* Added the possibility not to load the JS scripts.
+	* Updated the API documentation (doc/manual.sxw).
+	* Release of version 4.3 of the API.
+
+2007-10-29  Jean-David Gadina  <info@macmade.net>
+
 	* Increased API internal version number to 4.2.
 	* Fixed a bug in the backend JS functions.
 	* Updated the API documentation (doc/manual.sxw).
