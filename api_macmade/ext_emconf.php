@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "api_macmade"
 #
-# Auto generated 28-11-2007 18:15
+# Auto generated 28-11-2007 18:18
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'This extension provides an API to help developing Typo3 extensions. It includes helpful functions, for frontend, backend, databases and miscellaneous development. Please take a look at the manual for a complete description of this API.',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '0.4.2',
+	'version' => '0.4.3',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
