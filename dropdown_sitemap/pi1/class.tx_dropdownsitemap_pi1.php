@@ -71,7 +71,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
     var $extKey             = 'dropdown_sitemap';
     
     // Version of the Developer API required
-    var $apimacmade_version = 4.2;
+    var $apimacmade_version = 4.3;
     
     
     

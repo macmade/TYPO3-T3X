@@ -33,9 +33,11 @@
  */
 plugin.tx_dropdownsitemap_pi1 {
     
-    # cat= dropdown_sitemap/dims/0; type=int+; label=Image width: The width of the icons.    picture.width = 16
+    # cat= dropdown_sitemap/dims/0; type=int+; label=Image width: The width of the icons.
+    picture.width = 16
     
-    # cat= dropdown_sitemap/dims/1; type=int+; label=Image height: The height of the icons.    picture.height = 16
+    # cat= dropdown_sitemap/dims/1; type=int+; label=Image height: The height of the icons.
+    picture.height = 16
     
     # cat=dropdown_sitemap/file/0; type=string; label=Expand image: A little image for expanding a level of the sitemap.
     picture.expand = EXT:dropdown_sitemap/res/folder-on.gif
