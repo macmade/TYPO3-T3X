@@ -126,12 +126,24 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         $this->setConfig();
         
         // Checks for Scriptaculous
-        if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
-            && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+            && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
         ) {
             
             // Includes Scriptaculous
             $this->api->fe_includeScriptaculousJs();
+        }
+        
+        // Set final configuration (TS or FF)
+        $this->setConfig();
+        
+        // Checks for Mootools
+        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+            && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
+        ) {
+            
+            // Includes Scriptaculous
+            $this->api->fe_includeMootoolsJs();
         }
         
         // Create the menu configuration array
@@ -238,8 +250,8 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 'tag'  => 'sADVANCED:list_tag',
                 'type' => 'sADVANCED:list_type'
             ),
-            'scriptaculous.'   => array(
-                'enable' => 'sEFFECTS:scriptaculous',
+            'effects.'   => array(
+                'engine' => 'sEFFECTS:engine',
                 'appear' => 'sEFFECTS:appear',
                 'fade'   => 'sEFFECTS:fade'
             )
@@ -290,15 +302,25 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             // Create image TS Config
             $imgTSConfig                                      = ( $i <= $this->conf[ 'expandLevels' ] ) ? $this->buildImageTSConfig( 1 ) : $this->buildImageTSConfig();
             
-            // Checks for Scriptaculous
-            if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
-                && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+            // Checks for the effects engine
+            if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+                && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
             ) {
                 
                 // No CSS class
                 $className = '';
                 
-                // CSS styles name for expand/collapse
+                // CSS styles for expand/collapse
+                $styles    = ( $i - 1 <= $this->conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
+                
+            } elseif( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+                && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
+            ) {
+                
+                // No CSS class
+                $className = '';
+                
+                // CSS styles for expand/collapse
                 $styles    = ( $i - 1 <= $this->conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
                 
             } else {
@@ -309,6 +331,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 // No CSS styles
                 $styles    = '';
             }
+            
             // TMENU object
             $mconf[ $i ]                                      = 'TMENU';
             
@@ -567,13 +590,13 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         );
         
         // Checks for Scriptaculous
-        if( isset( $this->conf[ 'scriptaculous.' ][ 'enable' ] )
-            && $this->conf[ 'scriptaculous.' ][ 'enable' ]
+        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+            && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
         ) {
             
             // Effects
-            $appear = $this->conf[ 'scriptaculous.' ][ 'appear' ];
-            $fade   = $this->conf[ 'scriptaculous.' ][ 'fade' ];
+            $appear = $this->conf[ 'effects.' ][ 'appear' ];
+            $fade   = $this->conf[ 'effects.' ][ 'fade' ];
             
             // Function for swapping element class
             $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
@@ -608,6 +631,55 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '                    document.getElementById( picture ).src = "' . $plusImgURL . '";';
             $jsCode[] = '                } else if( list.getStyle( "display" ) == "none" ) {';
             $jsCode[] = '                    Effect.' . $appear . '( list );';
+            $jsCode[] = '                    document.getElementById( picture ).src = "' . $minusImgURL . '";';
+            $jsCode[] = '                }';
+            $jsCode[] = '            }';
+            $jsCode[] = '        }';
+            $jsCode[] = '        document.getElementById( "' . $this->prefixId . '_expImg" ).src = ( ' . $this->prefixId . '_expanded == 1 ) ? "' . $expOn . '" : "' . $expOff . '"';
+            $jsCode[] = '        ' . $this->prefixId . '_expanded                                = ( ' . $this->prefixId . '_expanded == 1 ) ? 0 : 1;';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+            
+        } elseif( isset( $this->conf[ 'effects.' ][ 'engine' ] )
+            && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
+        ) {
+            
+            // Function for swapping element class
+            $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
+            $jsCode[] = '{';
+            $jsCode[] = '    var list = $E( "' . $this->conf[ 'list.' ][ 'tag' ] . '", "' . $this->prefixId . '_" + element );';
+            $jsCode[] = '    var picture     = "pic_" + element;';
+            $jsCode[] = '    if( list.getStyle( "display" ) == "block" ) {';
+            $jsCode[] = '        var width = list.getStyle( "width" );';
+            $jsCode[] = '        var fx = new Fx.Elements( list, { onComplete : function () { list.setStyle( "width", width ); list.setStyle( "display", "none" ); list.setStyle( "opacity", 1 ); } } );';
+            $jsCode[] = '        fx.start( { 0 : { opacity : [ 1, 0 ], width : [ width, 0 ] } } );';
+            $jsCode[] = '        document.getElementById( picture ).src = "' . $plusImgURL . '";';
+            $jsCode[] = '    } else {';
+            $jsCode[] = '        list.setStyle( "opacity", 0 );';
+            $jsCode[] = '        list.setStyle( "display", "block" );';
+            $jsCode[] = '        var width = list.getStyle( "width" );';
+            $jsCode[] = '        list.setStyle( "width", 0 );';
+            $jsCode[] = '        var fx = new Fx.Elements( list );';
+            $jsCode[] = '        fx.start( { 0 : { opacity : [ 0, 1 ], width : [ 0, width ] } } );';
+            $jsCode[] = '        document.getElementById( picture ).src = "' . $minusImgURL . '";';
+            $jsCode[] = '    }';
+            $jsCode[] = '}';
+            
+            // Function for expanding/collapsing all elements
+            $jsCode[] = 'var ' . $this->prefixId . '_expanded = 0;';
+            $jsCode[] = 'function ' . $this->prefixId . '_expAll()';
+            $jsCode[] = '{';
+            $jsCode[] = '    if( document.getElementsByTagName ) {';
+            $jsCode[] = '        var listItems = document.getElementsByTagName( "li" );';
+            $jsCode[] = '        for( i = 0; i < listItems.length; i++ ) {';
+            $jsCode[] = '            if( listItems[ i ].id.indexOf( "' . $this->prefixId . '" ) != -1 ) {';
+            $jsCode[] = '                var list    = $E( "' . $this->conf[ 'list.' ][ 'tag' ] . '", listItems[ i ].id );';
+            $jsCode[] = '                var picture = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
+            $jsCode[] = '                if( ' . $this->prefixId . '_expanded && list.getStyle( "display" ) == "block" ) {';
+            $jsCode[] = '                    list.setStyle( "display", "none" );';
+            $jsCode[] = '                    document.getElementById( picture ).src = "' . $plusImgURL . '";';
+            $jsCode[] = '                } else if( list.getStyle( "display" ) == "none" ) {';
+            $jsCode[] = '                    list.setStyle( "display", "block" );';
             $jsCode[] = '                    document.getElementById( picture ).src = "' . $minusImgURL . '";';
             $jsCode[] = '                }';
             $jsCode[] = '            }';

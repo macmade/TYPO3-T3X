@@ -66,17 +66,17 @@ plugin.tx_dropdownsitemap_pi1 {
     // Field for description
     descriptionField = {$plugin.tx_dropdownsitemap_pi1.descriptionField}
     
-    // Scriptaculous options
-    scriptaculous {
+    // Effects options
+    effects {
         
-        // Enable the use of Scriptaculous
-        enable = {$plugin.tx_dropdownsitemap_pi1.scriptaculousEnable}
+        // Enable the use of JS effects
+        engine = {$plugin.tx_dropdownsitemap_pi1.effectsEngine}
         
         // Appear effect
-        appear = {$plugin.tx_dropdownsitemap_pi1.scriptaculousAppear}
+        appear = {$plugin.tx_dropdownsitemap_pi1.effectsAppear}
         
         // Fade effect
-        fade   = {$plugin.tx_dropdownsitemap_pi1.scriptaculousFade}
+        fade   = {$plugin.tx_dropdownsitemap_pi1.effectsFade}
     }
     
     // Picture

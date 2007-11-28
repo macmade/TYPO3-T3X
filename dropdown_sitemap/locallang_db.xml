@@ -31,13 +31,16 @@
             <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
             <label index="tt_content.flexform_pi1.LGL.no">No</label>
             <label index="tt_content.flexform_pi1.s_effects">Effects</label>
-            <label index="tt_content.flexform_pi1.s_effects.scriptaculous">Use Scriptaculous</label>
-            <label index="tt_content.flexform_pi1.s_effects.appear">Appear effect</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine">Use effects</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.0">None</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.1">Scriptaculous</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.2">Mootools</label>
+            <label index="tt_content.flexform_pi1.s_effects.appear">Appear effect (Scriptaculous)</label>
             <label index="tt_content.flexform_pi1.s_effects.appear.I.0">Appear</label>
             <label index="tt_content.flexform_pi1.s_effects.appear.I.1">Blind Down</label>
             <label index="tt_content.flexform_pi1.s_effects.appear.I.2">Slide Down</label>
             <label index="tt_content.flexform_pi1.s_effects.appear.I.3">Grow</label>
-            <label index="tt_content.flexform_pi1.s_effects.fade">Fade effect</label>
+            <label index="tt_content.flexform_pi1.s_effects.fade">Fade effect (Scriptaculous)</label>
             <label index="tt_content.flexform_pi1.s_effects.fade.I.0">Fade</label>
             <label index="tt_content.flexform_pi1.s_effects.fade.I.1">Puff</label>
             <label index="tt_content.flexform_pi1.s_effects.fade.I.2">Blind Up</label>
@@ -80,9 +83,13 @@
             <label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
             <label index="tt_content.flexform_pi1.LGL.no">Non</label>
             <label index="tt_content.flexform_pi1.s_effects">Effets</label>
-            <label index="tt_content.flexform_pi1.s_effects.scriptaculous">Utiliser Scriptaculous</label>
-            <label index="tt_content.flexform_pi1.s_effects.appear">Effet d'apparition</label>
-            <label index="tt_content.flexform_pi1.s_effects.fade">Effet de disparition</label>
+            <label index="tt_content.flexform_pi1.s_effects.scriptaculous">Utiliser des effets</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine">Use effects</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.0">Aucun</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.1">Scriptaculous</label>
+            <label index="tt_content.flexform_pi1.s_effects.engine.I.2">Mootools</label>
+            <label index="tt_content.flexform_pi1.s_effects.appear">Effet d'apparition (Scriptaculous)</label>
+            <label index="tt_content.flexform_pi1.s_effects.fade">Effet de disparition (Scriptaculous)</label>
         </languageKey>
         <languageKey index="cz" type="array">
             <label index="tt_content.list_type_pi1">Rozbalovací mapa webu</label>
