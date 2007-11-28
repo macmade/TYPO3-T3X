@@ -231,6 +231,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             'expAllLink'       => 'sOPTIONS:expall',
             'showLevels'       => 'sOPTIONS:show_levels',
             'expandLevels'     => 'sOPTIONS:expand_levels',
+            'linkText'         => 'sOPTIONS:link_text',
             'descriptionField' => 'sOPTIONS:description_field',
             'linkTarget'       => 'sADVANCED:link_target',
             'list.'            => array(
@@ -344,6 +345,13 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                               . $this->cObj->IMAGE( $imgTSConfig[ 'NO' ] )
                                                               . '<span class="no">|</span>';
             
+            // Checks for a specific link text
+            if( $this->conf[ 'linkText' ] ) {
+                
+                // Forces the link text
+                $mconf[ $i . '.' ][ 'NO.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+            }
+            
             // Check if A tag title must be added
             if( $this->conf[ 'titleFields' ] ) {
                 
@@ -390,6 +398,13 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 // IFSUB state activation
                 $mconf[ $i . '.' ][ 'IFSUB' ]                        = '1';
                 
+                // Checks for a specific link text
+                if( $this->conf[ 'linkText' ] ) {
+                    
+                    // Forces the link text
+                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+                }
+                
                 // Check if A tag title must be added
                 if( $this->conf[ 'titleFields' ] ) {
                     
@@ -422,6 +437,13 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                                  . '">'
                                                                  . $this->cObj->IMAGE( $imgTSConfig[ 'SPC' ] )
                                                                  . '<span class="spc">|</span>';
+                
+                // Checks for a specific link text
+                if( $this->conf[ 'linkText' ] ) {
+                    
+                    // Forces the link text
+                    $mconf[ $i . '.' ][ 'SPC.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+                }
             }
         }
         

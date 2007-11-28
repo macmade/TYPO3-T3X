@@ -60,6 +60,9 @@ plugin.tx_dropdownsitemap_pi1 {
     // Field(s) for the A tag title
     titleFields      = {$plugin.tx_dropdownsitemap_pi1.titleFields}
     
+    // Link text
+    linkTest         = {$plugin.tx_dropdownsitemap_pi1.linkTest}
+    
     // Field for description
     descriptionField = {$plugin.tx_dropdownsitemap_pi1.descriptionField}
     
@@ -125,7 +128,7 @@ plugin.tx_dropdownsitemap_pi1 {
             padding: 0px;
         }
         .tx-dropdownsitemap-pi1 A, .tx-dropdownsitemap-pi1 A:link, .tx-dropdownsitemap-pi1 A:visited, .tx-dropdownsitemap-pi1 A:hover, .tx-dropdownsitemap-pi1 A:active {
-            color: #FF8700;
+            color: {$plugin.tx_dropdownsitemap_pi1.colors.links};
             background-color: inherit;
         }
         .tx-dropdownsitemap-pi1 DIV {
@@ -169,8 +172,8 @@ plugin.tx_dropdownsitemap_pi1 {
         .tx-dropdownsitemap-pi1 DIV.level_5 {
         }
         .tx-dropdownsitemap-pi1 DIV.expAll {
-            border: solid 1px #DBA83B;
-            background-color: #FCF2C8;
+            border: solid 1px {$plugin.tx_dropdownsitemap_pi1.colors.expallBorder};
+            background-color: {$plugin.tx_dropdownsitemap_pi1.colors.expallBackground};
             color: inherit;
             padding: 5px;
         }

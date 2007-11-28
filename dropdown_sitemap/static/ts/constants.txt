@@ -96,12 +96,24 @@ plugin.tx_dropdownsitemap_pi1 {
     # cat= dropdown_sitemap//5; type=string; label=Title field(s): The field(s) to use as title attribute for the A tag.
     titleFields = abstract // description // title
     
-    # cat= dropdown_sitemap//6; type=string; label=Description field: The field to use as description, placed after the page title.
-    descriptionField =
+    # cat= dropdown_sitemap//6; type=string; label=Link text: Forces the field to use as link text.
+    linkText =
     
-    # cat= dropdown_sitemap//7; type=options[Appear=Appear,BlindDown=BlindDown,SlideDown=SlideDown,Grow=Grow]; label=Appear effect: The appear effect to use, if scriptaculous is enabled.
+    # cat= dropdown_sitemap//7; type=string; label=Description field: The field to use as description, placed after the page title.
+    descriptionField = description
+    
+    # cat= dropdown_sitemap//8; type=options[Appear=Appear,BlindDown=BlindDown,SlideDown=SlideDown,Grow=Grow]; label=Appear effect: The appear effect to use, if scriptaculous is enabled.
     scriptaculousAppear = BlindDown
     
-    # cat= dropdown_sitemap//8; type=options[Fade=Fade,Puff=Puff,BlindUp=BlindUp,SwitchOff=SwitchOff,SlideUp=SlideUp,DropOut=DropOut,Squish=Squish,Fold=Fold,Shrink=Shrink]; label=Fade effect: The fade effect to use, if scriptaculous is enabled.
+    # cat= dropdown_sitemap//9; type=options[Fade=Fade,Puff=Puff,BlindUp=BlindUp,SwitchOff=SwitchOff,SlideUp=SlideUp,DropOut=DropOut,Squish=Squish,Fold=Fold,Shrink=Shrink]; label=Fade effect: The fade effect to use, if scriptaculous is enabled.
     scriptaculousFade = BlindUp
+    
+    # cat= dropdown_sitemap/color/0; type=color; label=Links color: The color of the links, if using the default CSS styles.
+    colors.links = #FF8700
+    
+    # cat= dropdown_sitemap/color/0; type=color; label=Expall border color: The color of the expall border, if using the default CSS styles.
+    colors.expallBorder = #DBA83B
+    
+    # cat= dropdown_sitemap/color/0; type=color; label=Expall background color: The color of the expall background, if using the default CSS styles.
+    colors.expallBackground = #FCF2C8
 }

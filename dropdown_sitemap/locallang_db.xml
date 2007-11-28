@@ -16,8 +16,8 @@
             <label index="tt_content.flexform_pi1.s_options">Options</label>
             <label index="tt_content.flexform_pi1.s_options.show_levels">Levels to show</label>
             <label index="tt_content.flexform_pi1.s_options.expand_levels">Levels to expand</label>
+            <label index="tt_content.flexform_pi1.s_options.link_text">Forces the link text</label>
             <label index="tt_content.flexform_pi1.s_options.description_field">Description field</label>
-            <label index="tt_content.flexform_pi1.s_options.description_field.I.1">None</label>
             <label index="tt_content.flexform_pi1.s_options.expall">Expand all link</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.1">Enable</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.2">Disable</label>
@@ -65,8 +65,8 @@
             <label index="tt_content.flexform_pi1.s_options">Options</label>
             <label index="tt_content.flexform_pi1.s_options.show_levels">Niveaux à afficher</label>
             <label index="tt_content.flexform_pi1.s_options.expand_levels">Niveaux à étendre</label>
+            <label index="tt_content.flexform_pi1.s_options.link_text">Forcer le texte du lien</label>
             <label index="tt_content.flexform_pi1.s_options.description_field">Champ de description</label>
-            <label index="tt_content.flexform_pi1.s_options.description_field.I.1">Aucun</label>
             <label index="tt_content.flexform_pi1.s_options.expall">Lien afficher tout</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.1">Activer</label>
             <label index="tt_content.flexform_pi1.s_options.expall.I.2">Désactiver</label>

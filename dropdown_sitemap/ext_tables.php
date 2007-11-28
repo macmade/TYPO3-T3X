@@ -3,6 +3,9 @@ if( !defined( 'TYPO3_MODE' ) ) {
     die( 'Access denied.' );
 }
 
+// Includes the TCA helper class
+require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_dropdownsitemap_tca.php' );
+
 // Load content TCA
 t3lib_div::loadTCA( 'tt_content' );
 
