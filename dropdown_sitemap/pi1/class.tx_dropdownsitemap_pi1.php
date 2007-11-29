@@ -601,7 +601,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             // Function for swapping element class
             $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
             $jsCode[] = '{';
-            $jsCode[] = '    var listItem    = document.getElementById( "' . $this->prefixId . '_" + element );';
+            $jsCode[] = '    var listItem    = $( "' . $this->prefixId . '_" + element );';
             $jsCode[] = '    var descendants = listItem.firstDescendant().immediateDescendants();';
             $jsCode[] = '    var list        = descendants[ descendants.length - 1 ];';
             $jsCode[] = '    var picture     = "pic_" + element;';
@@ -623,6 +623,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '        var listItems = document.getElementsByTagName( "li" );';
             $jsCode[] = '        for( i = 0; i < listItems.length; i++ ) {';
             $jsCode[] = '            if( listItems[ i ].id.indexOf( "' . $this->prefixId . '" ) != -1 ) {';
+            $jsCode[] = '                var listItem    = $( listItems[ i ].id );';
             $jsCode[] = '                var descendants = listItems[ i ].firstDescendant().immediateDescendants();';
             $jsCode[] = '                var list        = descendants[ descendants.length - 1 ];';
             $jsCode[] = '                var picture     = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
