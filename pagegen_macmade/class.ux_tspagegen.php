@@ -534,7 +534,7 @@ class ux_TSpagegen extends TSpagegen
                     
                     // Creates an external stylesheet
                     $GLOBALS[ 'TSFE' ]->content .= $this->TAB
-                                                .  self::inline2TempFile( $tempCssExternalStyles, 'css' );
+                                                .  ux_TSpagegen::inline2TempFile( $tempCssExternalStyles, 'css' );
                     
                     // Free some memory
                     unset( $tempCssStyles );
