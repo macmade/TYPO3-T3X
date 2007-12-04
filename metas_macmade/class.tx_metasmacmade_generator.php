@@ -130,7 +130,9 @@ class tx_metasmacmade_generator
                     if( $sheetId == 'sCUSTOM' ) {
                         
                         // Checks for custom meta tags
-                        if( isset( $fields[ $lang ][ 'custom' ][ 'el' ] ) ) {
+                        if( isset( $fields[ $lang ][ 'custom' ][ 'el' ] )
+                            && is_array( $fields[ $lang ][ 'custom' ][ 'el' ] )
+                        ) {
                             
                             // Process each custom meta tag
                             foreach( $fields[ $lang ][ 'custom' ][ 'el' ] as $customMeta ) {
