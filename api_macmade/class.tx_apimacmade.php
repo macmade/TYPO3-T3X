@@ -1976,10 +1976,11 @@ class tx_apimacmade
      * @param       mixed       $layout             The layout of the form object
      * @param       string      $langPrefix         The prefix to use to get the field title in the locallang file
      * @param       boolean     $permaLogin         Show permalogin option (needs extension 'core_permalogin')
+     * @param       boolean     $asTsArray          Returns the TS array, not the HTML code
      * @return      string      A login box
      * @see         fe_makeStyledContent
      */
-    function fe_buildLoginBox( $pid, $inputSize = '30', $method = 'post', $target = '_self', $wrap = false, $layout = false, $langPrefix = 'pi_loginbox_', $permaLogin = false )
+    function fe_buildLoginBox( $pid, $inputSize = '30', $method = 'post', $target = '_self', $wrap = false, $layout = false, $langPrefix = 'pi_loginbox_', $permaLogin = false, $asTsArray = false )
     {
         // Get locallang values
         $labels = array(
@@ -2178,9 +2179,6 @@ class tx_apimacmade
             }
         }
         
-        // Builds the login box
-        $form = $this->pObj->cObj->FORM( $conf );
-        
         // Form action
         $formAction = $this->pObj->cObj->typoLink_URL(
             array(
@@ -2189,12 +2187,26 @@ class tx_apimacmade
             )
         );
         
-        // Fixes the form action and returns the full form
-        return preg_replace(
-            '/form action="[^"]+"/',
-            'form action="' . $formAction . '"',
-            $form
-        );
+        // Checks the return mode
+        if( $asTsArray ) {
+            
+            return array(
+                'ts'     => $conf,
+                'action' => $formAction
+            );
+            
+        } else {
+            
+            // Builds the login box
+            $form = $this->pObj->cObj->FORM( $conf );
+            
+            // Fixes the form action and returns the full form
+            return preg_replace(
+                '/form action="[^"]+"/',
+                'form action="' . $formAction . '"',
+                $form
+            );
+        }
     }
     
     /**

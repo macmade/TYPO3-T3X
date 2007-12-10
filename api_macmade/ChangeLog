@@ -2,6 +2,7 @@
 
 	* Increased API internal version number to 4.4.
 	* Added the WebToolKit JS scripts.
+	* Added a parameter in function fe_buildLoginBox to get the TS configuration array instead of the HTML code.
 
 2007-10-29  Jean-David Gadina  <info@macmade.net>
 
