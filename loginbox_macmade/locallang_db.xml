@@ -13,6 +13,7 @@
             <label index="tt_content.flexform_pi1.s_main.forgotpassword">Show forgot password link</label>
             <label index="tt_content.flexform_pi1.s_main.permalogin">Show permalogin option</label>
             <label index="tt_content.flexform_pi1.s_main.redirect">Redirect after login</label>
+            <label index="tt_content.flexform_pi1.s_main.kb_md5fepw">MD5 passwords (kb_md5fepw)</label>
             <label index="tt_content.flexform_pi1.s_welcome">Welcome</label>
             <label index="tt_content.flexform_pi1.s_success">Login</label>
             <label index="tt_content.flexform_pi1.s_error">Error</label>
@@ -27,6 +28,7 @@
             <label index="tt_content.flexform_pi1.s_main.forgotpassword">Activer le lien oubli de mot de passe</label>
             <label index="tt_content.flexform_pi1.s_main.permalogin">Activer l'option permalogin</label>
             <label index="tt_content.flexform_pi1.s_main.redirect">Redirection après connexion</label>
+            <label index="tt_content.flexform_pi1.s_main.kb_md5fepw">Mots de passe MD5 (kb_md5fepw)</label>
             <label index="tt_content.flexform_pi1.s_welcome">Bienvenue</label>
             <label index="tt_content.flexform_pi1.s_success">Connexion</label>
             <label index="tt_content.flexform_pi1.s_error">Erreur</label>
