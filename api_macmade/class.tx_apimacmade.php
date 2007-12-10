@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     4.3
+ * @version     4.4
  */
 
 /**
@@ -153,7 +153,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 4.3;
+    var $version         = 4.4;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -175,6 +175,17 @@ class tx_apimacmade
     
     // SWFObject file was included
     var $swfObject       = false;
+    
+    // WebToolkit JS files include state
+    var $webToolKit      = array(
+        'base64' => false,
+        'crc32'  => false,
+        'md5'    => false,
+        'sha1'   => false,
+        'sha256' => false,
+        'url'    => false,
+        'utf8'   => false
+    );
     
     // Template object for frontend functions
     var $templateContent = NULL;
@@ -2680,6 +2691,53 @@ class tx_apimacmade
         return true;
     }
     
+    /**
+     * Includes a script from WebToolKit
+     * 
+     * This function includes a JavaScript script from WebToolKit by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a frontend context. Available scripts are base64, crc32, md5, sha1,
+     * sha256, url and utf8.
+     * 
+     * @param       string      $file       The name of the script to include
+     * @return      boolean
+     */
+    function fe_includeWebToolKitJs( $file )
+    {
+        // Checks for a valid name
+        if( !isset( $this->webToolKit[ $file ] ) ) {
+            
+            // The requested file is not available
+            return false;
+        }
+        
+        // Checks if the script must be loaded from the API
+        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasWebToolkit.' ][ $file ] )
+            && $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'plugin.' ][ 'tx_apimacmade_pi1.' ][ 'hasWebToolkit.' ][ $file ] == 1
+        ) {
+            
+            // Script should not be loaded from the API
+            $this->webToolKit[ $file ] = true;
+        }
+        
+        // Check if script has already been included
+        if( !$this->webToolKit[ $file ] ) {
+            
+            // Add script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_webToolKit_' . $file ] = '<script src="'
+                                                                                            . t3lib_extMgm::siteRelPath( 'api_macmade' )
+                                                                                            . 'res/js/webtoolkit/webtoolkit.'
+                                                                                            . $file
+                                                                                            . '.js'
+                                                                                            . '" type="text/javascript"></script>';
+            
+            // Set included flag
+            $this->webToolKit[ $file ] = true;
+        }
+        
+        return true;
+    }
+    
     
     
     
@@ -3166,6 +3224,46 @@ class tx_apimacmade
             
             // Set included flag
             $this->swfObject = true;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Includes a script from WebToolKit
+     * 
+     * This function includes a JavaScript script from WebToolKit by adding a
+     * script tag to the TYPO3 page headers. This method can only be used in
+     * a backend context. Available scripts are base64, crc32, md5, sha1,
+     * sha256, url and utf8.
+     * 
+     * @param       string      $file       The name of the script to include
+     * @return      boolean
+     */
+    function be_includeWebToolKitJs( $file )
+    {
+        // Checks for a valid name
+        if( !isset( $this->webToolKit[ $file ] ) ) {
+            
+            // The requested file is not available
+            return false;
+        }
+        
+        // Check if script has already been included
+        if( !$this->webToolKit[ $file ] ) {
+            
+            // Add script
+            $this->pObj->doc->JScode .= chr( 10 )
+                                     .  '<script src="'
+                                     .  $GLOBALS[ 'BACK_PATH' ]
+                                     .  t3lib_extMgm::extRelPath( 'api_macmade' )
+                                     .  'res/js/webtoolkit/webtoolkit.'
+                                     .  $file
+                                     .  '.js'
+                                     .  '" type="text/javascript" charset="utf-8"></script>';
+            
+            // Set included flag
+            $this->webToolKit[ $file ] = true;
         }
         
         return true;
