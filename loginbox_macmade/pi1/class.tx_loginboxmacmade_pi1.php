@@ -72,7 +72,7 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
     var $extKey             = 'loginbox_macmade';
     
     // Version of the Developer API required
-    var $apimacmade_version = 3.2;
+    var $apimacmade_version = 4.4;
     
     // Storage for GET/POST variables
     var $GP                 = array();
