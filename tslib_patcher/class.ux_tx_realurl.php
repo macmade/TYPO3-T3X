@@ -151,7 +151,7 @@ class ux_tx_realurl extends tx_realurl
             ) {
                 
                 // Checks if the trailing slash is present
-                if( substr( $speakingUriPath, -1 ) == '/' ) {
+                if( substr( $speakingUriPath, -1 ) != '/' ) {
                     
                     switch( ( string )$this->extConf[ 'init' ][ 'appendMissingSlash' ] ) {
                         
