@@ -220,15 +220,8 @@ class tx_metasmacmade_generator
             }
         }
         
-        // Checks for meta tags
-        if( count( $metaTags ) ) {
-            
-            // Returns the meta tags array
-            return $metaTags;
-        }
-        
-        // No meta tags for this page
-        return false;
+        // Returns the meta tags array
+        return $metaTags;
     }
 }
 
