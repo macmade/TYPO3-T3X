@@ -437,6 +437,15 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
      */
     function forgotPassword()
     {
+        // Checks for MD5 support
+        if( $this->conf[ 'kb_md5fepw' ] && t3lib_extMgm::isLoaded( 'kb_md5fepw' ) ) {            
+            
+            // Requires the helper class
+            require_once( t3lib_extMgm::extPath( 'kb_md5fepw' ) . 'class.tx_kbmd5fepw_funcs.php' );;
+            
+            // Generates a new password
+            $newPassword = tx_kbmd5fepw_funcs::generatePassword( $this->conf[ 'kb_md5fepw.' ][ 'generatedPasswordLength' ] );
+        }
         
         // Storage
         $htmlCode   = array();
@@ -482,13 +491,16 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                     // Get username or real name
                     $username = ( $user[ 'name' ] ) ? $user[ 'name' ] : $user[ 'username' ];
                     
+                    // Password
+                    $password = ( isset( $newPassword ) ) ? $newPassword : $user[ 'password' ];
+                    
                     // Create email message
                     $mailMsg  = sprintf(
                         $this->pi_getLL( 'forgotpassword.mailmsg' ),
                         $username,
                         t3lib_div::getIndpEnv( 'TYPO3_HOST_ONLY' ),
                         $user[ 'username' ],
-                        $user[ 'password' ],
+                        $password,
                         t3lib_div::getIndpEnv( 'TYPO3_REQUEST_HOST' )
                       . '/'
                       . $this->api->fe_linkTP_unsetPIvars_url(

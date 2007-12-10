@@ -69,6 +69,15 @@ plugin.tx_loginboxmacmade_pi1 {
         replyTo  = {$plugin.tx_loginboxmacmade_pi1.replyTo}
     }
     
+    /**
+     * Settings for the kb_md5fepw extension
+     */
+    kb_md5fepw {
+        
+        // Length for the generated passwords
+        generatedPasswordLength = {$plugin.tx_loginboxmacmade_pi1.kb_md5fepw.generatedPasswordLength}
+    }
+    
     // Default CSS styling
     _CSS_DEFAULT_STYLE (
         .tx-loginboxmacmade-pi1 .tx-loginboxmacmade-pi1-error {

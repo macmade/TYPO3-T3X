@@ -56,6 +56,9 @@ plugin.tx_loginboxmacmade_pi1 {
     
     # cat=loginbox_macmade_pi1//5; type=string; label=Reply to: The reply to email address (mailer parameter).
     replyTo = noreply@site.com
+    
+    # cat=loginbox_macmade_pi1//6; type=string; label=Password length: The length of the generated passwords, if using the kb_md5fepw extension.
+    kb_md5fepw.generatedPasswordLength = 5
 }
 
 /**
