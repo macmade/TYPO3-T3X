@@ -237,17 +237,79 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                     $this->conf[ $state . '.' ][ 'message' ]
                 );
                 
-                // Content
-                $htmlCode[] = $this->api->fe_buildLoginBox(
-                    $this->conf[ 'pid' ],
-                    $this->conf[ 'loginBox.' ][ 'inputSize' ],
-                    $this->conf[ 'loginBox.' ][ 'method' ],
-                    $this->conf[ 'loginBox.' ][ 'target' ],
-                    $this->conf[ 'loginBox.' ][ 'wrap' ],
-                    $this->conf[ 'loginBox.' ][ 'layout' ],
-                    'pi_loginbox_',
-                    $this->conf[ 'permaLogin' ]
-                );
+                // Checks for MD5 support
+                if( $this->conf[ 'kb_md5fepw' ] && t3lib_extMgm::isLoaded( 'kb_md5fepw' ) ) {
+                    
+                    // Includes the MD5 script
+                    $this->api->fe_includeWebToolKitJs( 'md5' );
+                    
+                    // Content
+                    $loginBox = $this->api->fe_buildLoginBox(
+                        $this->conf[ 'pid' ],
+                        $this->conf[ 'loginBox.' ][ 'inputSize' ],
+                        $this->conf[ 'loginBox.' ][ 'method' ],
+                        $this->conf[ 'loginBox.' ][ 'target' ],
+                        $this->conf[ 'loginBox.' ][ 'wrap' ],
+                        $this->conf[ 'loginBox.' ][ 'layout' ],
+                        'pi_loginbox_',
+                        $this->conf[ 'permaLogin' ],
+                        true
+                    );
+                    
+                    // Checks for hidden fields
+                    if( !isset( $loginBox[ 'ts' ][ 'hiddenFields.' ] ) ) {
+                        
+                        // Create array for hidden fields
+                        $loginBox[ 'ts' ][ 'hiddenFields.' ] = array();
+                    }
+                    
+                    // Challenge
+                    $challenge = md5( time() . getmypid() );
+                    
+                    // Inserts the challenge in the database
+                    $GLOBALS[ 'TYPO3_DB' ]->exec_INSERTquery(
+                        'tx_kbmd5fepw_challenge',
+                        array(
+                            'challenge' => $challenge,
+                            'tstamp'    => time()
+                        )
+                    );
+                    
+                    // Adds the challenge field
+                    $loginBox[ 'ts' ][ 'hiddenFields.' ][ 'challenge' ]             = 'TEXT';
+                    $loginBox[ 'ts' ][ 'hiddenFields.' ][ 'challenge.' ]            = array();
+                    $loginBox[ 'ts' ][ 'hiddenFields.' ][ 'challenge.' ][ 'value' ] = $challenge;
+                    
+                    // Gets the form code
+                    $formCode   = $this->cObj->FORM( $loginBox[ 'ts' ] );
+                    
+                    // Adds the challenge JS code
+                    $this->challengeJsCode();
+                    
+                    // Submit action
+                    $onSubmit   = 'onsubmit="' . $this->prefixId . '_superChallengedPassword( this ); return true;"';
+                    
+                    // Adds the form
+                    $htmlCode[] = preg_replace(
+                        '/form action="[^"]+"/',
+                        'form ' . $onSubmit . 'action="' . $loginBox[ 'action' ] . '"',
+                        $formCode
+                    );
+                    
+                } else {
+                    
+                    // Content
+                    $htmlCode[] = $this->api->fe_buildLoginBox(
+                        $this->conf[ 'pid' ],
+                        $this->conf[ 'loginBox.' ][ 'inputSize' ],
+                        $this->conf[ 'loginBox.' ][ 'method' ],
+                        $this->conf[ 'loginBox.' ][ 'target' ],
+                        $this->conf[ 'loginBox.' ][ 'wrap' ],
+                        $this->conf[ 'loginBox.' ][ 'layout' ],
+                        'pi_loginbox_',
+                        $this->conf[ 'permaLogin' ]
+                    );
+                }
                 
                 // Forgot password link
                 if( $this->conf[ 'forgotpassword' ] && ( $state == 'error' || $state == 'welcome' || $state == 'logout' ) ) {
@@ -330,6 +392,7 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
             'forgotpassword' => 'sDEF:forgotpassword',
             'permaLogin'     => 'sDEF:permalogin',
             'redirect'       => 'sDEF:redirect',
+            'kb_md5fepw'     => 'sDEF:kb_md5fepw',
             'welcome.'       => array(
                 'header'  => 'sWELCOME:header',
                 'message' => 'sWELCOME:message'
@@ -535,6 +598,38 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
         
         // Return content
         return implode( chr( 10 ), $htmlCode );
+    }
+    
+    /**
+     * Adds JavaScript Code.
+     * 
+     * This function adds the javascript code used to challenge the password
+     * field of the loginbox.
+     * 
+     * @return      Void.
+     */
+    function challengeJsCode()
+    {
+        // Storage
+        $jsCode   = array();
+        
+        // JS code
+        $jsCode[] = 'function ' . $this->prefixId . '_superChallengedPassword( formObject )';
+        $jsCode[] = '{';
+        $jsCode[] = '    if( formObject.pass.value && formObject.user.value && formObject.challenge.value ) {';
+        $jsCode[] = '        var md5Password       = MD5( formObject.pass.value );';
+        $jsCode[] = '        var superChallenge    = formObject.user.value + ":" + md5Password + ":" + formObject.challenge.value';
+        $jsCode[] = '        formObject.pass.value = MD5( superChallenge );';
+        $jsCode[] = '        return true;';
+        $jsCode[] = '    }';
+        $jsCode[] = '    return false;';
+        $jsCode[] = '}';
+        
+        // Adds JS code
+        $GLOBALS[ 'TSFE' ]->setJS(
+            $this->prefixId,
+            implode( chr( 10 ), $jsCode )
+        ); 
     }
 }
 
