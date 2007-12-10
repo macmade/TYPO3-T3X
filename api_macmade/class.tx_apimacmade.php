@@ -81,6 +81,7 @@
  *              function fe_includeLightBoxJs( $includeCss = true )
  *              function fe_includeUfo
  *              function fe_includeSwfObject
+ *              function fe_includeWebToolKitJs( $file )
  * 
  * SECTION:     3 - BE
  *              function be_buildRecordIcons( $actions, $table, $uid )
@@ -93,6 +94,7 @@
  *              function be_includeScriptaculousJs
  *              function be_includeUfo
  *              function be_includeSwfObject
+ *              function fe_includeWebToolKitJs( $file )
  * 
  * SECTION:     4 - DB
  *              function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
@@ -133,7 +135,7 @@
  *              function viewArray( $array, $indent = 0 )
  *              function debug( $variable, $header = 'DEBUG' )
  * 
- *              TOTAL FUNCTIONS: 75
+ *              TOTAL FUNCTIONS: 79
  */
 
 class tx_apimacmade
