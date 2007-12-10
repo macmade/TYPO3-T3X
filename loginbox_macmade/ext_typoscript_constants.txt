@@ -39,6 +39,9 @@ plugin.tx_loginboxmacmade_pi1 {
     # cat=loginbox_macmade_pi1/links/0; type=string; label=Target: The target of the form.
     target = _self
     
+    # cat=loginbox_macmade_pi1/enable/0; type=boolean; label=kb_md5fepw: Passwords are encrypted in MD5. using the kb_md5fepw extension.
+    kb_md5fepw = 0
+    
     # cat=loginbox_macmade_pi1//0; type=string; label=Method: The method of the form.
     method = POST
     
@@ -68,6 +71,9 @@ plugin.tx_loginboxmacmade_pi2 {
     
     # cat=loginbox_macmade_pi2/file/0; type=string; label=Template file: The template file to use for the small login box.
     template = EXT:loginbox_macmade/res/template.html
+    
+    # cat=loginbox_macmade_pi2/enable/0; type=boolean; label=kb_md5fepw: Passwords are encrypted in MD5. using the kb_md5fepw extension.
+    kb_md5fepw = 0
     
     # cat=loginbox_macmade_pi2//0; type=int+; label=FE users PID: The storage page for the FE users to use for the small login box.
     feUsersPID =

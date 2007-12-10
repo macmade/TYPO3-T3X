@@ -67,7 +67,7 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
     var $extKey             = 'loginbox_macmade';
     
     // Version of the Developer API required
-    var $apimacmade_version = 3.2;
+    var $apimacmade_version = 4.4;
     
     // Configuration array
     var $conf               = array();
@@ -115,13 +115,16 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
         // Template markers
         $templateMarkers = array();
         
-        // Overwriting template markers
-        $templateMarkers[ '###FORM_URL###' ]     = $this->api->fe_linkTP_keepPIvars_url(
+        // Form URL
+        $formUrl = $this->api->fe_linkTP_keepPIvars_url(
             array(),
             0,
             0,
             $this->conf[ 'loginPage' ]
         );
+        
+        // Overwriting template markers
+        $templateMarkers[ '###FORM_URL###' ]     = $formUrl;
         $templateMarkers[ '###FORM_ENCTYPE###' ] = $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ];
         $templateMarkers[ '###EXT_PATH###' ]     = t3lib_extMgm::extRelPath( 'loginbox_macmade' );
         
@@ -181,6 +184,42 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
                                                       . '" /><input name="pid" type="hidden" value="'
                                                       . $this->conf[ 'feUsersPID' ]
                                                       . '" />';
+            
+            // Checks for MD5 support
+            if( $this->conf[ 'kb_md5fepw' ] && t3lib_extMgm::isLoaded( 'kb_md5fepw' ) ) {
+                
+                // Includes the MD5 script
+                $this->api->fe_includeWebToolKitJs( 'md5' );
+                
+                // Adds the challenge JS code
+                $this->challengeJsCode();
+                
+                // Submit action
+                $onSubmit                            = $this->prefixId
+                                                     . '_superChallengedPassword( this ); return true;';
+                
+                // Form URL
+                $templateMarkers[ '###FORM_URL###' ] = $formUrl
+                                                     . '" onsubmit="'
+                                                     . $onSubmit;
+                
+                // Challenge
+                $challenge = md5( time() . getmypid() );
+                
+                // Inserts the challenge in the database
+                $GLOBALS[ 'TYPO3_DB' ]->exec_INSERTquery(
+                    'tx_kbmd5fepw_challenge',
+                    array(
+                        'challenge' => $challenge,
+                        'tstamp'    => time()
+                    )
+                );
+                
+                // Adds the challenge hidden fields
+                $templateMarkers[ '###HIDDEN_FIELDS###' ] .= '<input name="challenge" type="hidden" value="'
+                                                          .  $challenge
+                                                          .  '" />';
+            }
         }
         
         // Return section
@@ -190,6 +229,38 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
                 $section
             )
         );
+    }
+    
+    /**
+     * Adds JavaScript Code.
+     * 
+     * This function adds the javascript code used to challenge the password
+     * field of the loginbox.
+     * 
+     * @return      Void.
+     */
+    function challengeJsCode()
+    {
+        // Storage
+        $jsCode   = array();
+        
+        // JS code
+        $jsCode[] = 'function ' . $this->prefixId . '_superChallengedPassword( formObject )';
+        $jsCode[] = '{';
+        $jsCode[] = '    if( formObject.pass.value && formObject.user.value && formObject.challenge.value ) {';
+        $jsCode[] = '        var md5Password       = MD5( formObject.pass.value );';
+        $jsCode[] = '        var superChallenge    = formObject.user.value + ":" + md5Password + ":" + formObject.challenge.value';
+        $jsCode[] = '        formObject.pass.value = MD5( superChallenge );';
+        $jsCode[] = '        return true;';
+        $jsCode[] = '    }';
+        $jsCode[] = '    return false;';
+        $jsCode[] = '}';
+        
+        // Adds JS code
+        $GLOBALS[ 'TSFE' ]->setJS(
+            $this->prefixId,
+            implode( chr( 10 ), $jsCode )
+        ); 
     }
 }
 

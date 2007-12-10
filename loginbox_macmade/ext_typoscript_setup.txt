@@ -69,6 +69,9 @@ plugin.tx_loginboxmacmade_pi1 {
         replyTo  = {$plugin.tx_loginboxmacmade_pi1.replyTo}
     }
     
+    // Support for the kb_md5fepw extension
+    kb_md5fepw = {$plugin.tx_loginboxmacmade_pi1.kb_md5fepw}
+    
     /**
      * Settings for the kb_md5fepw extension
      */
@@ -121,4 +124,7 @@ plugin.tx_loginboxmacmade_pi2 {
     
     // Redirect after logout (if void, the user will be redirected to same page)
     redirectLogout = {$plugin.tx_loginboxmacmade_pi2.redirectLogout}
+    
+    // Support for the kb_md5fepw extension
+    kb_md5fepw     = {$plugin.tx_loginboxmacmade_pi2.kb_md5fepw}
 }
