@@ -26,35 +26,35 @@
  * Module 'Terminal' for the 'terminal' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.3
+ * @version     1.4
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  * SECTION:     1 - INIT
- *     181:     function init
- *     227:     function setConf
- *     249:     function main
+ *     184:     function init
+ *     233:     function setConf
+ *     255:     function main
  * 
  * SECTION:     2 - MAIN
- *     396:     function printContent
- *     412:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
- *     443:     function moduleContent
- *     506:     function shellHistory
- *     546:     function buildShortcuts
- *     634:     function buildTerminal
- *     672:     function buildCssStyles
- *     759:     function processCommand
- *     826:     function exec( $commands )
- *     900:     function procOpen( $commands )
- *     987:     function system( $commands )
- *    1060:     function passthru( $commands )
- *    1072:     function shellExec( $commands )
- *    1084:     function pOpen( $commands )
- *    1179:     function handleCwd( $command )
- *    1259:     function sessionData
- *    1293:     function processAliases( $command )
+ *     403:     function printContent
+ *     419:     function writeHtml( $text, $tag = 'div', $class = false, $style = false, $params = array() )
+ *     450:     function moduleContent
+ *     513:     function shellHistory
+ *     553:     function buildShortcuts
+ *     641:     function buildTerminal
+ *     679:     function buildCssStyles
+ *     766:     function processCommand
+ *     833:     function exec( $commands )
+ *     907:     function procOpen( $commands )
+ *     994:     function system( $commands )
+ *    1067:     function passthru( $commands )
+ *    1079:     function shellExec( $commands )
+ *    1091:     function pOpen( $commands )
+ *    1186:     function handleCwd( $command )
+ *    1266:     function sessionData
+ *    1300:     function processAliases( $command )
  * 
  *              TOTAL FUNCTIONS: 20
  */
@@ -90,6 +90,9 @@ class  tx_terminal_module1 extends t3lib_SCbase
     
     // Current working directory
     var $cwd                = '';
+    
+    // New line character
+    var $NL                 = '';
     
     // Shell commands
     var $commands           = array();
@@ -182,6 +185,10 @@ class  tx_terminal_module1 extends t3lib_SCbase
     {
         global $BE_USER, $LANG, $BACK_PATH, $TCA_DESCR, $TCA, $CLIENT, $TYPO3_CONF_VARS;
         
+        // Sets the new line character
+        // Thanx to Valentin Schmid for the fix
+        $this->NL = chr( 13 ) . chr( 10 );
+        
         // Get extension configuration
         $this->extConf  =  unserialize( $TYPO3_CONF_VARS['EXT']['extConf']['terminal'] );
         
@@ -266,6 +273,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             // Draw the header
             $this->doc              = t3lib_div::makeInstance( 'bigDoc' );
             $this->doc->backPath    = $BACK_PATH;
+            $this->doc->docType     = 'xhtml_trans';
             $this->doc->form        = '<form action="" method="POST" id="shellForm">';
             $this->doc->inDocStyles = $this->buildCssStyles();
             
@@ -495,7 +503,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         }
         
         // Add content
-        $this->content .= implode( chr( 10 ), $htmlCode );
+        $this->content .= implode( $this->NL, $htmlCode );
     }
     
     /**
@@ -532,7 +540,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // Return history section
         return $this->writeHtml(
-            implode( chr( 10 ), $htmlCode ),
+            implode( $this->NL, $htmlCode ),
             'div',
             'history'
         );
@@ -619,7 +627,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         // Return shortcut section
         return $this->writeHtml(
             $this->writeHtml(
-                implode( chr( 10 ), $htmlCode ),
+                implode( $this->NL, $htmlCode ),
                 'div',
                 'shortcuts'
             )
@@ -658,7 +666,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         
         // Return terminal
         return $this->writeHtml(
-            implode( chr( 10 ), $htmlCode ),
+            implode( $this->NL, $htmlCode ),
             'div',
             'shell'
         );
@@ -684,7 +692,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         // Common properties
         $css[] = '.shell, .shell * {';
         $css[] = '  font-family: monospace;';
-        $css[] = '  font-size: ' . $this->extConf[ 'fontSize' ] . ';';
+        $css[] = '  font-size: ' . $this->extConf[ 'fontSize' ] . 'px;';
         $css[] = '}';
         
         // Result container
@@ -741,7 +749,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         $css[] = '}';
         
         // Returns the CSS styles
-        return implode( chr( 10 ), $css );
+        return implode( $this->NL, $css );
     }
     
     /**
@@ -767,7 +775,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         if( $cmd == '' ) {
             
             // Prints the current workind directory and exit
-            print chr( 10 ) . $this->cwd;
+            print $this->NL . $this->cwd;
             exit();
         }
         
@@ -812,7 +820,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
         }
         
         // Prints the current working directory and exit
-        print chr( 10 ) . $this->cwd;
+        print $this->NL . $this->cwd;
         exit();
     }
     
@@ -842,7 +850,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 // Directory cannot be changed. Reset to home (TYPO3 site root)
                 $this->cwd = PATH_site;
                 print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 
                 // Stores commands and working directory in session data
                 $BE_USER->pushModuleData(
@@ -873,18 +881,18 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 }
                 
                 // Directory cannot be changed
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 exit();
                 
             } elseif( @exec( $command, $return ) ) {
                 
                 // Display the command result
-                print implode( chr( 10 ), $return );
+                print implode( $this->NL, $return );
                 
             } else {
                 
                 // Command cannot be executed
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 exit();
             }
         }
@@ -963,13 +971,13 @@ class  tx_terminal_module1 extends t3lib_SCbase
                     if( empty( $error ) ) {
                         
                         // Display results
-                        print $return;
+                        print preg_replace( '/(\r\n|\r|\n)/', $this->NL, $return );
                         
                     } else {
                         
                         // Display errors, current working directory and exit
                         print $error;
-                        print chr( 10 ) . $this->cwd;
+                        print $this->NL . $this->cwd;
                         exit();
                     }
                 }
@@ -1003,7 +1011,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 // Directory cannot be changed. Reset to home (TYPO3 site root)
                 $this->cwd = PATH_site;
                 print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 
                 // Stores commands and working directory in session data
                 $BE_USER->pushModuleData(
@@ -1034,7 +1042,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 }
                 
                 // Directory cannot be changed
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 exit();
                 
             } elseif( @system( $command, $return ) ) {
@@ -1044,7 +1052,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
             } else {
                 
                 // Command cannot be executed
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 exit();
             }
         }
@@ -1100,7 +1108,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 // Directory cannot be changed. Reset to home (TYPO3 site root)
                 $this->cwd = PATH_site;
                 print sprintf( $LANG->getLL( 'errors.noChdir' ), $this->cwd );
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 
                 // Stores commands and working directory in session data
                 $BE_USER->pushModuleData(
@@ -1131,7 +1139,7 @@ class  tx_terminal_module1 extends t3lib_SCbase
                 }
                 
                 // Directory cannot be changed
-                print chr( 10 ) . $this->cwd;
+                print $this->NL . $this->cwd;
                 exit();
                 
             } else {
@@ -1155,12 +1163,12 @@ class  tx_terminal_module1 extends t3lib_SCbase
                     pclose( $process );
                     
                     // Display results
-                    print $return;
+                    print preg_replace( '/(\r\n|\r|\n)/', $this->NL, $return );
                     
                 } else {
                     
                     // Command cannot be executed
-                    print chr( 10 ) . $this->cwd;
+                    print $this->NL . $this->cwd;
                     exit();
                 }
             }

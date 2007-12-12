@@ -120,13 +120,13 @@ function Shell() {
                     var commandReturn = transport.responseText;
                     
                     // Gets each line of the response
-                    var cwdParts      = commandReturn.split( '\n' );
+                    var cwdParts      = commandReturn.split( '\r\n' );
                     
                     // Current directory is the last line
                     var cwd           = cwdParts[ cwdParts.length - 1 ];
                     
                     // Removes the last line from the response
-                    commandReturn     = commandReturn.replace( /\n.+$/i, '' );
+                    commandReturn     = commandReturn.replace( /\r\n.+$/i, '' );
                     
                     // Creates the result element
                     var result        = document.createElement( 'div' );
