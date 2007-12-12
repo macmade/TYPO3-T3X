@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "terminal"
 #
-# Auto generated 12-12-2007 15:55
+# Auto generated 12-12-2007 15:57
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author_company' => 'macmade.net',
-	'version' => '0.3.1',
+	'version' => '0.3.2',
 	'constraints' => array(
 		'depends' => array(
 			'api_macmade' => '0.3.0-',
