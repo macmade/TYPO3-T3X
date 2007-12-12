@@ -49,9 +49,6 @@
     // Developer API class
     require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
     
-    // Xajax class
-    require_once ( t3lib_extMgm::extPath( 'xajax' ) . 'class.tx_xajax.php' );
-    
     class tx_vdgeomap_pi1 extends tslib_pibase
     {
         
@@ -162,7 +159,10 @@
             
             // Check for Xajax
             if( $this->conf[ 'xajax' ] ) {
-            
+                
+                // Xajax class
+                require_once ( t3lib_extMgm::extPath( 'xajax' ) . 'class.tx_xajax.php' );
+                
                 // New instance of Xajax
                 $this->xajax = t3lib_div::makeInstance( 'tx_xajax' );
                 
