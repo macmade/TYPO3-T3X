@@ -437,16 +437,6 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
      */
     function forgotPassword()
     {
-        // Checks for MD5 support
-        if( $this->conf[ 'kb_md5fepw' ] && t3lib_extMgm::isLoaded( 'kb_md5fepw' ) ) {            
-            
-            // Requires the helper class
-            require_once( t3lib_extMgm::extPath( 'kb_md5fepw' ) . 'class.tx_kbmd5fepw_funcs.php' );;
-            
-            // Generates a new password
-            $newPassword = tx_kbmd5fepw_funcs::generatePassword( $this->conf[ 'kb_md5fepw.' ][ 'generatedPasswordLength' ] );
-        }
-        
         // Storage
         $htmlCode   = array();
         
@@ -479,6 +469,25 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                 
                 // Get FE user
                 if( $user = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                    
+                    // Checks for MD5 support
+                    if( $this->conf[ 'kb_md5fepw' ] && t3lib_extMgm::isLoaded( 'kb_md5fepw' ) ) {            
+                        
+                        // Requires the helper class
+                        require_once( t3lib_extMgm::extPath( 'kb_md5fepw' ) . 'class.tx_kbmd5fepw_funcs.php' );;
+                        
+                        // Generates a new password
+                        $newPassword = tx_kbmd5fepw_funcs::generatePassword( $this->conf[ 'kb_md5fepw.' ][ 'generatedPasswordLength' ] );
+                        
+                        // Stores the new password
+                        $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery(
+                            'fe_users',
+                            'uid=' . $user[ 'uid' ],
+                            array(
+                                'password' => md5( $newPassword )
+                            )
+                        );
+                    }
                     
                     // Success message
                     $message  = '<strong>'
