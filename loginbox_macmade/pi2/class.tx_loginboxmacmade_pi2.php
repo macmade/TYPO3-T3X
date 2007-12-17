@@ -109,6 +109,28 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
         // Set default plufin variables
         $this->pi_setPiVarDefaults();
         
+        // Load LOCAL_LANG values
+        $this->pi_loadLL();
+        
+        // Checks the TS configuration
+        if( !isset( $this->conf[ 'template' ] )
+            || !isset( $this->conf[ 'feUsersPID' ] )
+            || !isset( $this->conf[ 'loginPage' ] )
+            || !isset( $this->conf[ 'redirectLogin' ] )
+            || !isset( $this->conf[ 'redirectLogout' ] )
+            || !isset( $this->conf[ 'kb_md5fepw.' ] )
+        ) {
+            
+            // No static template
+            return $this->pi_wrapInBaseClass(
+                $this->api->fe_makeStyledContent(
+                    'div',
+                    'error',
+                    $this->pi_getLL( 'ts-error' )
+                )
+            );
+        }
+        
         // Template load and init
         $this->api->fe_initTemplate( $this->conf[ 'template' ] );
         

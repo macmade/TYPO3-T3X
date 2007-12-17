@@ -6,6 +6,7 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
+            <label index="ts-error">No TypoScript configuration. Please include the static template for this plugin.</label>
             <label index="pi_loginbox_username">Username</label>
             <label index="pi_loginbox_password">Password</label>
             <label index="pi_loginbox_login">Login</label>

@@ -126,6 +126,27 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
         // Load LOCAL_LANG values
         $this->pi_loadLL();
         
+        // Checks the TS configuration
+        if( !isset( $this->conf[ 'inputSize' ] )
+            || !isset( $this->conf[ 'method' ] )
+            || !isset( $this->conf[ 'target' ] )
+            || !isset( $this->conf[ 'wrap' ] )
+            || !isset( $this->conf[ 'layout' ] )
+            || !isset( $this->conf[ 'mailer.' ] )
+            || !isset( $this->conf[ 'kb_md5fepw' ] )
+            || !isset( $this->conf[ 'kb_md5fepw.' ] )
+        ) {
+            
+            // No static template
+            return $this->pi_wrapInBaseClass(
+                $this->api->fe_makeStyledContent(
+                    'div',
+                    'error',
+                    $this->pi_getLL( 'ts-error' )
+                )
+            );
+        }
+        
         // Set default 
         $this->setDefaultLangValues();
         
