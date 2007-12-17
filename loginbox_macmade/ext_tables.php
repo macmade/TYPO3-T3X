@@ -27,6 +27,10 @@ t3lib_extMgm::addPlugin(
     'list_type'
 );
 
+// Static templates
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'LoginBox / macmade.net' );
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'CSS Styles - LoginBox / macmade.net' );
+
 // Wizard icons
 if( TYPO3_MODE == 'BE' ) {
     $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_loginboxmacmade_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY )

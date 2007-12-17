@@ -118,7 +118,7 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
             || !isset( $this->conf[ 'loginPage' ] )
             || !isset( $this->conf[ 'redirectLogin' ] )
             || !isset( $this->conf[ 'redirectLogout' ] )
-            || !isset( $this->conf[ 'kb_md5fepw.' ] )
+            || !isset( $this->conf[ 'kb_md5fepw' ] )
         ) {
             
             // No static template

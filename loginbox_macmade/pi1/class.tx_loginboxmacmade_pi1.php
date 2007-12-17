@@ -127,13 +127,8 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
         $this->pi_loadLL();
         
         // Checks the TS configuration
-        if( !isset( $this->conf[ 'inputSize' ] )
-            || !isset( $this->conf[ 'method' ] )
-            || !isset( $this->conf[ 'target' ] )
-            || !isset( $this->conf[ 'wrap' ] )
-            || !isset( $this->conf[ 'layout' ] )
+        if( !isset( $this->conf[ 'loginBox.' ] )
             || !isset( $this->conf[ 'mailer.' ] )
-            || !isset( $this->conf[ 'kb_md5fepw' ] )
             || !isset( $this->conf[ 'kb_md5fepw.' ] )
         ) {
             

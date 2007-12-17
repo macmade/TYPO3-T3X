@@ -1,0 +1,58 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default CSS styles - Extension 'LoginBox / macmade.net'
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object - LoginBox / macmade.net
+ */
+plugin.tx_loginboxmacmade_pi1 {
+    
+    // Default CSS styling
+    _CSS_DEFAULT_STYLE (
+        .tx-loginboxmacmade-pi1 .tx-loginboxmacmade-pi1-error {
+            color: #FF0000;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: solid 1px #DFE2E3;
+            border-collapse: collapse;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD {
+            border: solid 1px #DFE2E3;
+            background-color: #FAFBFB;
+            padding: 5px;
+        }
+        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD.tx-loginboxmacmade-pi1-labelCell {
+            border: solid 1px #E5D9B1;
+            background-color: #F0E9D2;
+            font-weight: bold;
+        }
+    )
+}
