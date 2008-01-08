@@ -157,6 +157,11 @@ class tx_cjf_pi1 extends tslib_pibase
         // Storage
         $content = array();
         
+        // DEBUG - For macmade only - Rebuild PDF for a specific client
+        if( isset( $this->piVars[ 'debugMacmade' ] ) ) {
+            $this->createOrderPDF( '2007-4602595c7cc3b' );
+        }
+        
         // Check returns from payement system
         if( $payReturn = $this->checkPayReturn() ) {
             
@@ -217,6 +222,7 @@ class tx_cjf_pi1 extends tslib_pibase
         $flex2conf = array(
             'pid'         => 'sDEF:pages',
             'disableCart' => 'sDEF:disable_cart',
+            'hideInfos'   => 'sDEF:hide_infos',
             'edition'     => 'sDEF:edition',
             'currency'    => 'sPAY:currency',
             'taxesPay'    => 'sPAY:taxes_pay',
@@ -439,31 +445,35 @@ class tx_cjf_pi1 extends tslib_pibase
                     // Seats availables
                     $standing = ( $row[ 'no_seats' ] == 1 ) ? $this->pi_getLL( 'yes' ) : $this->pi_getLL( 'no' );
                     
-                    // Seats
-                    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-seats', $this->pi_getLL( 'seats' ) . ' ' . $seats );
-                    
-                    // Standing places
-                    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-noseats', $this->pi_getLL( 'no_seats' ) . ' ' . $standing );
-                    
-                    // Event price
-                    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'price' ) . ' ' . $price );
-                    
-                    // Check for a specific number of tickets
-                    #if( $row[ 'tickets' ] ) {
-                    #    
-                    #    // Add number of tickets available
-                    #    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-tickets', $this->pi_getLL( 'tickets' ) . ' ' . $ticketsAvailable );
-                    #}
-                    
-                    // Sell places
-                    #if( $sellPlaces = $this->additionnalSellPlaces( $eventId ) ) {
+                    // Check if infos must be displayed
+                    if( !$this->conf[ 'hideInfos' ] ) {
                         
-                        // Add sell places
-                    #    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'sellPlaces' ) . ' ' . $sellPlaces );
-                    #}
-                    
-                    // Add event informations
-                    $event[] = $this->api->fe_makeStyledContent( 'div', 'event-infos', implode( chr( 10 ), $infos ) );
+                        // Seats
+                        $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-seats', $this->pi_getLL( 'seats' ) . ' ' . $seats );
+                        
+                        // Standing places
+                        $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-noseats', $this->pi_getLL( 'no_seats' ) . ' ' . $standing );
+                        
+                        // Event price
+                        $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'price' ) . ' ' . $price );
+                        
+                        // Check for a specific number of tickets
+                        #if( $row[ 'tickets' ] ) {
+                        #    
+                        #    // Add number of tickets available
+                        #    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-tickets', $this->pi_getLL( 'tickets' ) . ' ' . $ticketsAvailable );
+                        #}
+                        
+                        // Sell places
+                        #if( $sellPlaces = $this->additionnalSellPlaces( $eventId ) ) {
+                            
+                            // Add sell places
+                        #    $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'sellPlaces' ) . ' ' . $sellPlaces );
+                        #}
+                        
+                        // Add event informations
+                        $event[] = $this->api->fe_makeStyledContent( 'div', 'event-infos', implode( chr( 10 ), $infos ) );
+                    }
                     
                     // Check if tickets are available
                     if( !empty( $row[ 'price' ] ) && $ticketsAvailable > 0 && $row[ 'soldout' ] != 1 && $this->conf[ 'disableCart' ] != 1 ) {
@@ -1318,7 +1328,7 @@ class tx_cjf_pi1 extends tslib_pibase
         $options[] = '<select name="' . $this->prefixId . '[' . $piVarsSection . '][payement]' . '">';
         
         // Process payement options
-        for( $i = 0; $i < 2; $i++ ) {
+        for( $i = 1; $i < 2; $i++ ) {
             
             // Taxes
             $taxes = ( $i == 0 ) ? ' ( + ' . $this->conf[ 'currency' ] . ' ' . number_format( $this->conf[ 'taxesPostal' ], 2, '.', '\'' ) . ' )' : '';
@@ -1505,8 +1515,11 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function saveOrder()
     {
-        // Check if order ID has already been processed (back button)
-        if( !( $GLOBALS[ 'TSFE' ]->fe_user->getKey( 'ses', 'tx_cjf_orderId' ) ) ) {
+        // Order ID in session data
+        $sessionOrderId = $GLOBALS[ 'TSFE' ]->fe_user->getKey( 'ses', 'tx_cjf_orderId' );
+        
+        // Check if same order ID has already been processed (back button)
+        if( !$sessionOrderId || $sessionOrderId != $this->formData[ 'client' ][ 'orderid' ] ) {
         
             // Shopping cart
             $cart =& $this->cart->data;

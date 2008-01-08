@@ -16,6 +16,7 @@
 			<label index="no">No</label>
 			<label index="menuDates">Order by dates</label>
 			<label index="menuPlaces">Order by places</label>
+			<label index="menuStyles">Order by styles</label>
 			<label index="country">Country:</label>
 			<label index="style">Style:</label>
 			<label index="www">Website:</label>
@@ -109,6 +110,7 @@ Le retrait s'effectue à la billetterie du festival
 			<label index="no">Non</label>
 			<label index="menuDates">Trier par dates</label>
 			<label index="menuPlaces">Trier par lieux</label>
+			<label index="menuStyles">Trier par styles</label>
 			<label index="country">Pays:</label>
 			<label index="style">Style:</label>
 			<label index="www">Site internet:</label>
