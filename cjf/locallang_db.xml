@@ -82,6 +82,7 @@
 			<label index="tx_cjf_pi1.pi_flexform.s_def.disable_cart">Disable cart</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_def.hide_infos">Hide infos</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_def.edition">Edition</label>
+			<label index="tx_cjf_pi1.pi_flexform.s_def.postal_delivery">Postal delivery available</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay">Payement options</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay.currency">Currency</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay.taxes_pay">Payement taxes</label>
@@ -180,6 +181,7 @@
 			<label index="tx_cjf_pi1.pi_flexform.s_def.disable_cart">Désactiver le caddie</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_def.hide_infos">Masquer les infos</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_def.edition">Edition</label>
+			<label index="tx_cjf_pi1.pi_flexform.s_def.postal_delivery">Envoi postal disponible</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay">Options de paiement</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay.currency">Devise</label>
 			<label index="tx_cjf_pi1.pi_flexform.s_pay.taxes_pay">Taxes de paiement</label>

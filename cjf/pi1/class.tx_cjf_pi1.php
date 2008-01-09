@@ -220,23 +220,24 @@ class tx_cjf_pi1 extends tslib_pibase
         
         // Mapping array for PI flexform
         $flex2conf = array(
-            'pid'         => 'sDEF:pages',
-            'disableCart' => 'sDEF:disable_cart',
-            'hideInfos'   => 'sDEF:hide_infos',
-            'edition'     => 'sDEF:edition',
-            'currency'    => 'sPAY:currency',
-            'taxesPay'    => 'sPAY:taxes_pay',
-            'taxesPostal' => 'sPAY:taxes_postal',
-            'shopId'      => 'sPAY:shopid',
-            'shopIdFull'  => 'sPAY:shopid_full',
-            'langId'      => 'sPAY:langid',
-            'hashSeed'    => 'sPAY:hash_seed',
-            'payTest'     => 'sPAY:pay_test',
-            'pdfTitle'    => 'sPDF:pdf_title',
-            'pdfStorage'  => 'sPDF:pdf_store',
-            'email'       => 'sMAIL:email',
-            'emailTitle'  => 'sMAIL:mail_title',
-            'emailBody'   => 'sMAIL:mail_body',
+            'pid'            => 'sDEF:pages',
+            'disableCart'    => 'sDEF:disable_cart',
+            'hideInfos'      => 'sDEF:hide_infos',
+            'edition'        => 'sDEF:edition',
+            'postalDelivery' => 'sDEF:postal_delivery',
+            'currency'       => 'sPAY:currency',
+            'taxesPay'       => 'sPAY:taxes_pay',
+            'taxesPostal'    => 'sPAY:taxes_postal',
+            'shopId'         => 'sPAY:shopid',
+            'shopIdFull'     => 'sPAY:shopid_full',
+            'langId'         => 'sPAY:langid',
+            'hashSeed'       => 'sPAY:hash_seed',
+            'payTest'        => 'sPAY:pay_test',
+            'pdfTitle'       => 'sPDF:pdf_title',
+            'pdfStorage'     => 'sPDF:pdf_store',
+            'email'          => 'sMAIL:email',
+            'emailTitle'     => 'sMAIL:mail_title',
+            'emailBody'      => 'sMAIL:mail_body',
         );
         
         // Ovverride TS setup with flexform
@@ -436,6 +437,16 @@ class tx_cjf_pi1 extends tslib_pibase
                     // Event comments
                     $event[] = $this->api->fe_makeStyledContent( 'div', 'event-comments', $row[ 'comments' ] );
                     
+                    // Check if tickets are available
+                    if( !empty( $row[ 'price' ] ) && $ticketsAvailable > 0 && $row[ 'soldout' ] != 1 && $this->conf[ 'disableCart' ] != 1 ) {
+                        
+                        // Cart link
+                        $cartLink = $this->pi_linkTP_keepPIvars( $this->pi_getLL( 'cartAdd' ), array( 'addToCart' => $eventId ) );
+                        
+                        // Add to cart
+                        $event[] = $this->api->fe_makeStyledContent( 'div', 'event-add-to-cart', $cartLink );
+                    }
+                    
                     // Event hour
                     $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-hour', $this->pi_getLL( 'hour' ) . ' ' . $this->cObj->stdWrap( $row[ 'hour' ] + ( 3600 * $this->conf[ 'hourCorrection' ] ), array( 'strftime' => $this->conf[ 'hourFormat' ] ) ) );
                     
@@ -473,16 +484,6 @@ class tx_cjf_pi1 extends tslib_pibase
                         
                         // Add event informations
                         $event[] = $this->api->fe_makeStyledContent( 'div', 'event-infos', implode( chr( 10 ), $infos ) );
-                    }
-                    
-                    // Check if tickets are available
-                    if( !empty( $row[ 'price' ] ) && $ticketsAvailable > 0 && $row[ 'soldout' ] != 1 && $this->conf[ 'disableCart' ] != 1 ) {
-                        
-                        // Cart link
-                        $cartLink = $this->pi_linkTP_keepPIvars( $this->pi_getLL( 'cartAdd' ), array( 'addToCart' => $eventId ) );
-                        
-                        // Add to cart
-                        $event[] = $this->api->fe_makeStyledContent( 'div', 'event-add-to-cart', $cartLink );
                     }
                     
                     // Add event to content
@@ -573,8 +574,28 @@ class tx_cjf_pi1 extends tslib_pibase
         $htmlCode = array();
         
         // Links
-        $datesLink  = $this->api->fe_linkTP_unsetPIvars( $this->pi_getLL('menuDates'), array( 'sortBy' => '0' ), array() );
-        $placesLink = $this->api->fe_linkTP_unsetPIvars( $this->pi_getLL('menuPlaces'), array( 'sortBy' => '1' ), array() );;
+        $datesLink  = $this->api->fe_makeStyledContent(
+            'div',
+            'event-menu-dates',
+            $this->api->fe_linkTP_unsetPIvars(
+                $this->pi_getLL( 'menuDates' ),
+                array(
+                    'sortBy' => '0'
+                ),
+                array()
+            )
+        );
+        $placesLink = $this->api->fe_makeStyledContent(
+            'div',
+            'event-menu-places',
+            $this->api->fe_linkTP_unsetPIvars(
+                $this->pi_getLL( 'menuPlaces' ),
+                array(
+                    'sortBy' => '1'
+                ),
+                array()
+            )
+        );
         
         // CSS classes
         $datesClass  = ( $this->piVars[ 'sortBy' ] ) ? 'item' : 'item-act';
@@ -852,10 +873,28 @@ class tx_cjf_pi1 extends tslib_pibase
                 $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'cart-status-items', sprintf( $this->pi_getLL( 'cartItemsNum' ), $items ) );
                 
                 // View cart
-                $actions[] = $this->api->fe_linkTP_unsetPIvars( $this->pi_getLL('cartShow'), array( 'showCart' => '1' ) );
+                $actions[] = $this->api->fe_makeStyledContent(
+                    'div',
+                    'view-cart',
+                    $this->api->fe_linkTP_unsetPIvars(
+                        $this->pi_getLL( 'cartShow' ),
+                        array(
+                            'showCart' => '1'
+                        )
+                    )
+                );
                 
                 // Checkout
-                $actions[] = $this->api->fe_linkTP_unsetPIvars( $this->pi_getLL('cartCheckOut'), array( 'checkOut' => '1' ) );
+                $actions[] = $this->api->fe_makeStyledContent(
+                    'div',
+                    'checkout',
+                    $this->api->fe_linkTP_unsetPIvars(
+                        $this->pi_getLL( 'cartCheckOut' ),
+                        array(
+                            'checkOut' => '1'
+                        )
+                    )
+                );
                 
                 // Add actions
                 $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'cart-status-actions', implode( chr( 10 ), $actions ) );
@@ -1328,7 +1367,14 @@ class tx_cjf_pi1 extends tslib_pibase
         $options[] = '<select name="' . $this->prefixId . '[' . $piVarsSection . '][payement]' . '">';
         
         // Process payement options
-        for( $i = 1; $i < 2; $i++ ) {
+        for( $i = 0; $i < 2; $i++ ) {
+            
+            // Checks for postal delivery
+            if( $i == 0 && $this->conf[ 'postalDelivery' ] != 1 ) {
+                
+                // Not available
+                continue;
+            }
             
             // Taxes
             $taxes = ( $i == 0 ) ? ' ( + ' . $this->conf[ 'currency' ] . ' ' . number_format( $this->conf[ 'taxesPostal' ], 2, '.', '\'' ) . ' )' : '';
@@ -1343,7 +1389,7 @@ class tx_cjf_pi1 extends tslib_pibase
         // Payement options field
         $fieldOptions = $this->api->fe_makeStyledContent( 'div', 'field', implode( chr( 10 ), $options ) );
         
-        // Add payement options
+        // Add Gt options
         $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'field-payOptions', $labelOptions . $fieldOptions );
         
         // Process each field

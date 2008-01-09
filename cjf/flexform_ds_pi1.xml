@@ -55,6 +55,16 @@
 							</config>
 						</TCEforms>
 					</hide_infos>
+					<postal_delivery>
+						<TCEforms>
+							<exclude>1</exclude>
+							<label>LLL:EXT:cjf/locallang_db.php:tx_cjf_pi1.pi_flexform.s_def.postal_delivery</label>
+							<config>
+								<type>check</type>
+								<default>1</default>
+							</config>
+						</TCEforms>
+					</postal_delivery>
 				</el>
 			</ROOT>
 		</sDEF>
