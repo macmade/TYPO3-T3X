@@ -1414,7 +1414,7 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $book[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'show', $this->extTables[ 'events' ], $event[ 'uid' ] ), 'span' );
                 
                 // Add event tile
-                $book[] = $this->writeHTML( $event[ 'title' ] . ' ' . date( 'd.m.Y', $event[ 'date' ] ), 'span' );
+                $book[] = $this->writeHTML( date( 'd.m.Y', $event[ 'date' ] ) . ' - ' . $event[ 'title' ], 'span' );
                 
                 // Add quantity
                 $book[] = $this->writeHTML( '(' . $this->numberFormat( $row[ 'tickets_booked' ] ) . ')', 'span', 'typo3-red' );
@@ -1427,10 +1427,16 @@ class tx_cjf_module1 extends t3lib_SCbase
                 
                 // Actions
                 $book[] = $this->writeHTML( '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'span' );
-            
+                
+                // Array key
+                $key = $event[ 'date' ] . '-' . $event[ 'title' ];
+                
                 // Add booking
-                $htmlCode[] = $this->writeHTML( implode( chr( 10 ), $book ) );
+                $htmlCode[ $key ] = $this->writeHTML( implode( chr( 10 ), $book ) );
             }
+            
+            // Sort the bookings by event date
+            ksort( $htmlCode );
             
             // Return code
             return implode( chr( 10 ), $htmlCode );
@@ -2532,9 +2538,12 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $row = $this->records[ 'clients' ][ $clientId ];
                 
                 // Client infos
-                $fullName = utf8_decode( $row[ 'name_first' ] ) . ' ' . utf8_decode( $row[ 'name_last' ] );
-                $address  = utf8_decode( $row[ 'address' ] );
-                $city     = utf8_decode( $row[ 'zip' ] . ' - ' . $row[ 'city' ] );
+                #$fullName = utf8_decode( $row[ 'name_first' ] ) . ' ' . utf8_decode( $row[ 'name_last' ] );
+                #$address  = utf8_decode( $row[ 'address' ] );
+                #$city     = utf8_decode( $row[ 'zip' ] . ' - ' . $row[ 'city' ] );
+                $fullName = $row[ 'name_first' ] . ' ' . $row[ 'name_last' ];
+                $address  = $row[ 'address' ];
+                $city     = $row[ 'zip' ] . ' - ' . $row[ 'city' ];
                 
                 // Add label
                 $pdf->Add_PDF_Label( sprintf( '%s' . chr(10) . '%s' . chr(10) . '%s', $fullName, $address, $city ) );
