@@ -91,8 +91,7 @@ plugin.tx_cjf_pi1 {
 			}
 			address {
 				required = 1
-				cols = 48
-				rows = 2
+				size = 50
 				type = input
 				max = 40
 			}

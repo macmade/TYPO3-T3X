@@ -1437,6 +1437,21 @@ class tx_cjf_pi1 extends tslib_pibase
             // Check field type
             if( $value[ 'type' ] == 'input' ) {
                 
+                // Input parameters
+                $inputParams = array(
+                    'type'  => 'text',
+                    'size'  => $value[ 'size' ],
+                    'value' => $fieldValue,
+                    'name'  => $this->prefixId . '[' . $piVarsSection . '][' . $fieldName . ']'
+                );
+                
+                // Checks for a maximum length
+                if( isset( $value[ 'max' ] ) && $value[ 'max' ] ) {
+                    
+                    // Adds the max length
+                    $inputParams[ 'maxlength' ] = $value[ 'max' ];
+                }
+                
                 // Add field
                 $field = $this->api->fe_makeStyledContent(
                     'input',
@@ -1445,12 +1460,7 @@ class tx_cjf_pi1 extends tslib_pibase
                     1,
                     false,
                     false,
-                    array(
-                        'type' => 'text',
-                        'size' => $value[ 'size' ],
-                        'value' => $fieldValue,
-                        'name' => $this->prefixId . '[' . $piVarsSection . '][' . $fieldName . ']'
-                    )
+                    $inputParams
                 );
                 
             } elseif ( $value[ 'type' ] == 'textarea' ) {
