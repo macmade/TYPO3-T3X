@@ -81,27 +81,32 @@ plugin.tx_cjf_pi1 {
 				required = 1
 				size = 50
 				type = input
+				max = 40
 			}
 			name_last {
 				required = 1
 				size = 50
 				type = input
+				max = 40
 			}
 			address {
 				required = 1
 				cols = 48
 				rows = 2
-				type = textarea
+				type = input
+				max = 40
 			}
 			zip {
 				required = 1
 				size = 10
 				type = input
+				max = 10
 			}
 			city {
 				required = 1
 				size = 50
 				type = input
+				max = 40
 			}
 			country {
 				required = 1
@@ -113,6 +118,7 @@ plugin.tx_cjf_pi1 {
 				size = 50
 				type = input
 				eval = email
+				max = 40
 			}
 			phone_professionnal {
 				size = 50
