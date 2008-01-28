@@ -447,6 +447,13 @@ class tx_cjf_pi1 extends tslib_pibase
                         $event[] = $this->api->fe_makeStyledContent( 'div', 'event-add-to-cart', $cartLink );
                     }
                     
+                    // Checks the soldout state
+                    if( $row[ 'soldout' ] ) {
+                        
+                        // Adds soldout message
+                        $event[] = $this->api->fe_makeStyledContent( 'div', 'event-soldout', $this->pi_getLL( 'soldout' ) );
+                    }
+                    
                     // Event hour
                     $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-hour', $this->pi_getLL( 'hour' ) . ' ' . $this->cObj->stdWrap( $row[ 'hour' ] + ( 3600 * $this->conf[ 'hourCorrection' ] ), array( 'strftime' => $this->conf[ 'hourFormat' ] ) ) );
                     
@@ -459,14 +466,14 @@ class tx_cjf_pi1 extends tslib_pibase
                     // Check if infos must be displayed
                     if( !$this->conf[ 'hideInfos' ] ) {
                         
+                        // Event price
+                        $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'price' ) . ' ' . $price );
+                        
                         // Seats
                         $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-seats', $this->pi_getLL( 'seats' ) . ' ' . $seats );
                         
                         // Standing places
                         $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-noseats', $this->pi_getLL( 'no_seats' ) . ' ' . $standing );
-                        
-                        // Event price
-                        $infos[] = $this->api->fe_makeStyledContent( 'div', 'event-price', $this->pi_getLL( 'price' ) . ' ' . $price );
                         
                         // Check for a specific number of tickets
                         #if( $row[ 'tickets' ] ) {
