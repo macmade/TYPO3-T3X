@@ -163,7 +163,7 @@
 		
 		// Types configuration
 		'types' => Array (
-			'0' => Array('showitem' => 'hidden;;1;;1-1-1, name;;;;2-2-2, cat;;;;3-3-3, link;;;;3-3-3, description;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_eespbasedocs/rte/];3-3-3, palmares;;;;3-3-3, advice;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_eespbasedocs/rte/];3-3-3, product;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_eespbasedocs/rte/];3-3-3, picture;;;;3-3-3, thumbnail;;;;3-3-3'),
+			'0' => Array('showitem' => 'hidden;;1;;1-1-1, name;;;;2-2-2, cat;;;;3-3-3, link;;;;3-3-3, description;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_weledasport/rte/];3-3-3, palmares;;;;3-3-3, advice;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_weledasport/rte/];3-3-3, product;;;richtext[cut|copy|paste|bold|italic|underline|unorderedlist|link]:rte_transform[mode=ts_css|imgpath=uploads/tx_weledasport/rte/];3-3-3, picture;;;;3-3-3, thumbnail;;;;3-3-3'),
 		),
 		
 		// Palettes configuration
