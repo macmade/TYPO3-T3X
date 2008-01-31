@@ -116,6 +116,15 @@
 				'1.' => $conf['firstLevel.'],
 			);
 			
+			// Checks for a range
+			if( $this->conf[ 'firstLevel.' ][ 'range' ] ) {
+				
+				// Adds the range
+				$mconf[ 'special.' ] = array(
+					'range' => $this->conf[ 'firstLevel.' ][ 'range' ]
+				);
+			}
+			
 			// Force expAll property
 			$mconf['1.']['expAll'] = 1;
 			
