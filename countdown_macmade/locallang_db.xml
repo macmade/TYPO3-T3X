@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'countdown_macmade'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tt_content.list_type_pi1">CountDown / macmade.net</label>
+            <label index="tt_content.flexform_pi1.LGL.default">Default (set by TS)</label>
+            <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
+            <label index="tt_content.flexform_pi1.LGL.no">No</label>
+            <label index="tt_content.flexform_pi1.s_def">General</label>
+            <label index="tt_content.flexform_pi1.s_def.year">Year</label>
+            <label index="tt_content.flexform_pi1.s_def.month">Month</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.0">January</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.1">February</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.2">March</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.3">April</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.4">May</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.5">June</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.6">July</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.7">August</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.8">September</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.9">October</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.10">November</label>
+            <label index="tt_content.flexform_pi1.s_def.month.I.11">December</label>
+            <label index="tt_content.flexform_pi1.s_def.day">Day</label>
+            <label index="tt_content.flexform_pi1.s_def.hours">Hours</label>
+            <label index="tt_content.flexform_pi1.s_def.minutes">Minutes</label>
+            <label index="tt_content.flexform_pi1.s_def.hide">Hide on date</label>
+            <label index="tt_content.flexform_pi1.s_layout">Layout</label>
+            <label index="tt_content.flexform_pi1.s_layout.back_color">Back color</label>
+            <label index="tt_content.flexform_pi1.s_layout.front_color">Front color</label>
+            <label index="tt_content.flexform_pi1.s_layout.front_color">Text color</label>
+            <label index="tt_content.flexform_pi1.s_layout.image">Image</label>
+        </languageKey>
+    </data>
+</T3locallang>

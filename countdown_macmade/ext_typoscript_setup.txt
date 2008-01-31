@@ -1,0 +1,91 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'CountDown / macmade.net'
+ *
+ * @author      Jean-David Gadina (macmade@gadlab.net)
+ * @version     1.0
+ */
+
+/**
+ * PI1 object - CountDown / macmade.net
+ */
+plugin.tx_countdownmacmade_pi1 {
+    
+    // Back color
+    backColor = #5D161B
+    
+    // Front color
+    frontColor = #AA1A3E
+    
+    // Text color
+    textColor = #FFFFFF
+    
+    // Image parameters
+    image {
+        file.maxW = 130
+        file.maxH = 25
+        params = 
+    }
+    
+    // Default CSS styles
+    _CSS_DEFAULT_STYLE (
+        
+        DIV.tx-countdownmacmade-pi1-counter {
+            width: 190px;
+            height: 70px;
+            margin: 5px;
+            padding-left: 15px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            text-align: center;
+            overflow: hidden;margin: 0px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: normal;
+            text-decoration: none;
+            font-family: Verdana, Helvetica, Arial, Geneva, Swiss, SunSans-Regular, sans-serif;
+        }
+        
+        DIV.tx-countdownmacmade-pi1-box {
+            float: left;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+        
+        DIV.tx-countdownmacmade-pi1-time {
+            color: inherit;
+            padding: 5px;
+            font-size: 15px;
+            text-align: center;
+            width: 30px;
+        }
+        
+        DIV.tx-countdownmacmade-pi1-label {
+            font-size: 8px;
+        }
+    )
+}

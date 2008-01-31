@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_countdownmacmade_pi1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="days">days</label>
+            <label index="hours">hrs</label>
+            <label index="minutes">mins</label>
+            <label index="seconds">secs</label>
+        </languageKey>
+    </data>
+</T3locallang>
