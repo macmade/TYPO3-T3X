@@ -405,6 +405,7 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
         // Mapping array for PI flexform
         $flex2conf = array(
             'pid'            => 'sDEF:pages',
+            'recursive'      => 'sDEF:recursive',
             'forgotpassword' => 'sDEF:forgotpassword',
             'permaLogin'     => 'sDEF:permalogin',
             'redirect'       => 'sDEF:redirect',
@@ -438,8 +439,18 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
             $this->piFlexForm
         );
         
+        // Checks for recursivity - Thanx to Sander van Gelderen
+        if( $this->conf[ 'recursive' ] ) {
+            
+            // Gets the PID list
+            $this->conf[ 'pid' ] = $this->pi_getPidList(
+                $this->conf[ 'pid' ],
+                $this->conf[ 'recursive' ]
+            );
+        }
+        
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug($this->conf);
+        #$this->api->debug( $this->conf );
         return true;
     }
     
@@ -472,8 +483,9 @@ class tx_loginboxmacmade_pi1 extends tslib_pibase
                 // MySQL WHERE clause
                 $whereClause = 'email=\''
                              . addslashes( trim( $this->piVars[ 'email' ] ) )
-                             . '\' AND pid='
-                             . intval( $this->conf[ 'pid' ] )
+                             . '\' AND pid IN ('
+                             . $this->conf[ 'pid' ]
+                             . ') '
                              . $this->cObj->enableFields( 'fe_users' );
                 
                 // MySQL query
