@@ -187,7 +187,9 @@ class tx_redirectionslist_pi1 extends tslib_pibase
             $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
                 '*',
                 $this->extTables[ 'redirects' ],
-                'url_hash'
+                'url_hash',
+                '',
+                'url'
             );
             
             // Checks the DB resource
