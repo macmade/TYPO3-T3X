@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for module &quot;web_txtcatunerM1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">TCA Tuner</label>
+            <label index="noaccess">Sorry, you don't have access to this module.</label>
+            <label index="menu.func.1">Show tables</label>
+            <label index="headers.tables">Available tables</label>
+            <label index="headers.tables.title">Table title</label>
+            <label index="headers.tables.name">Table name</label>
+            <label index="headers.tables.fields">Number of fields</label>
+            <label index="headers.fields.title">Field title</label>
+            <label index="headers.fields.name">Field name</label>
+            <label index="headers.fields.type">Field type</label>
+            <label index="headers.fields.options">Field options</label>
+            <label index="headers.fields.infos">TCA options for "%s"</label>
+            <label index="submit">Save changes</label>
+            <label index="submit.error">Error. Invalid table name.</label>
+            <label index="submit.success">The page TS config was successfully updated.</label>
+            <label index="submit.nochange">No changes were made. The page TS config has not been updated.</label>
+            <label index="noPid">Please select a page in order to use this module.</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="title">TCA Tuner</label>
+            <label index="noaccess">Décolé, vous n'avez pas accès à ce module.</label>
+            <label index="menu.func.1">Voir les tables</label>
+            <label index="headers.tables">Tables disponibles</label>
+            <label index="headers.tables.title">Titre de la table</label>
+            <label index="headers.tables.name">Nom de la table</label>
+            <label index="headers.tables.fields">Nombre de champs</label>
+            <label index="headers.fields.title">Titre du champ</label>
+            <label index="headers.fields.name">Nom du champ</label>
+            <label index="headers.fields.type">Type du champ</label>
+            <label index="headers.fields.options">Options du champ</label>
+            <label index="headers.fields.infos">Options TCA pour "%s"</label>
+            <label index="submit">Sauvegarder les changements</label>
+            <label index="submit.error">Erreur. Nom de table invalide.</label>
+            <label index="submit.success">Le TS config de la page a été mis à jour avec succès.</label>
+            <label index="submit.nochange">Aucun changement n'a été fait. Le TS config de la page n'a pas été mis à jour.</label>
+            <label index="noPid">Veuillez sélectionner une page pour utiliser ce module.</label>
+        </languageKey>
+    </data>
+</T3locallang>
