@@ -38,7 +38,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     4.4
+ * @version     4.5
  */
 
 /**
@@ -155,7 +155,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 4.4;
+    var $version         = 4.5;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
@@ -1839,7 +1839,7 @@ class tx_apimacmade
         $whereClause    = array();
         
         // Add enableFields
-        $whereClause[]  = $this->pObj->enableFields( $table );
+        $whereClause[]  = $this->pObj->cObj->enableFields( $table );
         
         // Process each remaining PID
         foreach( $pages as $pid ) {
@@ -2460,7 +2460,7 @@ class tx_apimacmade
         ) {
             
             // Script should not be loaded from the API
-            $this->scriptaculous = true;
+            $this->prototype = true;
         }
         
         // Check if script has already been included
@@ -2496,7 +2496,7 @@ class tx_apimacmade
         ) {
             
             // Script should not be loaded from the API
-            $this->scriptaculous = true;
+            $this->mootools = true;
         }
         
         // Check if script has already been included
@@ -2574,7 +2574,7 @@ class tx_apimacmade
         ) {
             
             // Script should not be loaded from the API
-            $this->scriptaculous = true;
+            $this->lightbox = true;
         }
         
         // Include Scriptaculous
@@ -2650,7 +2650,7 @@ class tx_apimacmade
         ) {
             
             // Script should not be loaded from the API
-            $this->scriptaculous = true;
+            $this->ufo = true;
         }
         
         // Check if script has already been included
@@ -2686,7 +2686,7 @@ class tx_apimacmade
         ) {
             
             // Script should not be loaded from the API
-            $this->scriptaculous = true;
+            $this->swfObject = true;
         }
         
         // Check if script has already been included

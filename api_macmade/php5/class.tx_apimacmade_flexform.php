@@ -96,7 +96,7 @@ class tx_apimacmade_flexform implements Iterator
     public function __construct( &$xmlData, $itemType = '' )
     {
         // Checks if the SimpleXMLElement class is available
-        if( !class_exists( SimpleXMLElement ) ) {
+        if( !class_exists( 'SimpleXMLElement' ) ) {
             
             // SimpleXMLElement not available
             throw new Exception( 'The SimpleXMLElement class is not available in your PHP installation.' );

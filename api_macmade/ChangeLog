@@ -1,3 +1,9 @@
+2008-02-04  Jean-David Gadina  <info@macmade.net>
+
+	* Increased API internal version number to 4.5.
+	* Fixed a bug in the constructor of class tx_apimacmade_flexform. Thanx to Nux for the report.
+	* Fixed a bug with the JS functions.
+
 2007-12-10  Jean-David Gadina  <info@macmade.net>
 
 	* Increased API internal version number to 4.4.
