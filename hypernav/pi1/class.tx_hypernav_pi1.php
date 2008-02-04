@@ -121,7 +121,7 @@
 				
 				// Adds the range
 				$mconf[ 'special.' ] = array(
-					'range' => $this->conf[ 'firstLevel.' ][ 'range' ]
+					'range' => $conf[ 'firstLevel.' ][ 'range' ]
 				);
 			}
 			
