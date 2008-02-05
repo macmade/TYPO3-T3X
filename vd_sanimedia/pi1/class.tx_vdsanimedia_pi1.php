@@ -145,7 +145,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         $this->pi_loadLL();
         
         // Sets the new line character
-        $this->NL = chr( 10 );
+        $this->NL   = chr( 10 );
         
         // Set class confArray TS from the function
         $this->conf = $conf;
@@ -181,7 +181,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
             $markers[ '###MAIN_OPTIONS###' ] = $this->searchOptions();
             
             // Search results
-            $markers[ '###MAIN_RESULTS###' ] = $this->searchResults();
+            $markers[ '###MAIN_RESULTS###' ] = ( isset( $this->piVars[ 'formSubmit' ] ) ) ? $this->searchResults() : '';
             
             // Builds the full view
             $content = $this->api->fe_renderTemplate( $markers, '###MAIN###' );
@@ -372,127 +372,95 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         $markers[ '###RESULTS_PAGES###' ] = '';
         $markers[ '###RESULTS_TITLE###' ] = '';
         
-        // Checks for submitted values
-        if( isset( $this->piVars[ 'formSubmit' ] ) ) {
+        // Sets the title
+        $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
+        
+        // Checks if the page title must be substituted
+        if( $this->conf[ 'substitutePageTitle' ] ) {
             
-            // Only search if values are not empty
-            if( !$this->piVars[ 'public' ]
-                && !$this->piVars[ 'themes' ]
-                && !$this->piVars[ 'keyword' ]
-            ) {
+            // Sets the page title
+            $GLOBALS[ 'TSFE' ]->page[ 'title' ] = $this->pi_getLL( 'title-page' );
+            $GLOBALS[ 'TSFE' ]->indexedDocTitle = $this->pi_getLL( 'title-page' );
+            $GLOBALS[ 'TSFE' ]->altPageTitle    = $this->pi_getLL( 'title-page' );
+        }
+        
+        // No active page
+        if ( !isset( $this->piVars[ 'pointer' ] ) ) {
+            $this->piVars[ 'pointer' ] = 0;
+        }
+        
+        // Additionnal MySQL WHERE clause for filters
+        $whereClause = $this->buildWhereClause();
+        
+        // Gets the records number
+        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+            'uid',
+            $this->extTables[ 'pages' ],
+            $whereClause
+        );
+        
+        // Checks the DB ressource
+        if( $res ) {
+            
+            // Sets the records number
+            $this->internal[ 'res_count' ] = $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res );
+            
+            // Checks the record number
+            if( $this->internal[ 'res_count' ] > 0 ) {
                 
-                // No values
-                $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
-                    'div',
-                    'error',
-                    $this->pi_getLL( 'error-novalue' )
+                // Values for the LIMIT clause
+                $limitStart = $this->piVars[ 'pointer' ] * $this->conf[ 'maxRecords' ];
+                $limitEnd   = $limitStart + $this->conf[ 'maxRecords' ];
+                
+                // Makes the listing query
+                $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
+                    'uid,title,description,tx_vdsanimedia_public,tx_vdsanimedia_themes',
+                    $this->extTables[ 'pages' ],
+                    $whereClause,
+                    false,
+                    $this->conf[ 'sortBy' ],
+                    $limitStart . ',' . $limitEnd
                 );
                 
-                // Sets the title
-                $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
+                // Sets the current working table
+                $this->internal[ 'currentTable' ] = $this->extTables[ 'pages' ];
                 
-                // Checks if the page title must be substituted
-                if( $this->conf[ 'substitutePageTitle' ] ) {
-                    
-                    // Sets the page title
-                    $GLOBALS[ 'TSFE' ]->page[ 'title' ] = $this->pi_getLL( 'title-page' );
-				    $GLOBALS[ 'TSFE' ]->indexedDocTitle = $this->pi_getLL( 'title-page' );
-                }
+                // Adds the browse box
+                $markers[ '###RESULTS_PAGES###' ] = $this->api->fe_buildBrowseBox();
+                
+                // Label for the result count
+                $resCountLabel = ( $this->internal[ 'res_count' ] > 1 ) ? 'rescount' : 'rescount-single';
+                
+                // Adds the results count
+                $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
+                    'span',
+                    'rescount',
+                    sprintf(
+                        $this->pi_getLL( $resCountLabel ),
+                        $this->internal[ 'res_count' ]
+                    )
+                );
+                
+                // Adds the list
+                $markers[ '###RESULTS_ITEMS###' ] = $this->buildList( $res );
                 
             } else {
                 
-                // Sets the title
-                $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
-                
-                // Checks if the page title must be substituted
-                if( $this->conf[ 'substitutePageTitle' ] ) {
-                    
-                    // Sets the page title
-                    $GLOBALS[ 'TSFE' ]->page[ 'title' ] = $this->pi_getLL( 'title-page' );
-				    $GLOBALS[ 'TSFE' ]->indexedDocTitle = $this->pi_getLL( 'title-page' );
-				    $GLOBALS[ 'TSFE' ]->altPageTitle    = $this->pi_getLL( 'title-page' );
-                }
-                
-                // No active page
-                if ( !isset( $this->piVars[ 'pointer' ] ) ) {
-                    $this->piVars[ 'pointer' ] = 0;
-                }
-                
-                // Additionnal MySQL WHERE clause for filters
-                $whereClause = $this->buildWhereClause();
-                
-                // Gets the records number
-                $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
-                    'uid',
-                    $this->extTables[ 'pages' ],
-                    $whereClause
+                // No result
+                $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
+                    'div',
+                    'error',
+                    $this->pi_getLL( 'error-noresult' )
                 );
-                
-                // Checks the DB ressource
-                if( $res ) {
-                    
-                    // Sets the records number
-                    $this->internal[ 'res_count' ] = $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res );
-                    
-                    // Checks the record number
-                    if( $this->internal[ 'res_count' ] > 0 ) {
-                        
-                        // Values for the LIMIT clause
-                        $limitStart = $this->piVars[ 'pointer' ] * $this->conf[ 'maxRecords' ];
-                        $limitEnd   = $limitStart + $this->conf[ 'maxRecords' ];
-                        
-                        // Makes the listing query
-                        $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
-                            'uid,title,description,tx_vdsanimedia_public,tx_vdsanimedia_themes',
-                            $this->extTables[ 'pages' ],
-                            $whereClause,
-                            false,
-                            $this->conf[ 'sortBy' ],
-                            $limitStart . ',' . $limitEnd
-                        );
-                        
-                        // Sets the current working table
-                        $this->internal[ 'currentTable' ] = $this->extTables[ 'pages' ];
-                        
-                        // Adds the browse box
-                        $markers[ '###RESULTS_PAGES###' ] = $this->api->fe_buildBrowseBox();
-                        
-                        // Label for the result count
-                        $resCountLabel = ( $this->internal[ 'res_count' ] > 1 ) ? 'rescount' : 'rescount-single';
-                        
-                        // Adds the results count
-                        $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
-                            'span',
-                            'rescount',
-                            sprintf(
-                                $this->pi_getLL( $resCountLabel ),
-                                $this->internal[ 'res_count' ]
-                            )
-                        );
-                        
-                        // Adds the list
-                        $markers[ '###RESULTS_ITEMS###' ] = $this->buildList( $res );
-                        
-                    } else {
-                        
-                        // No result
-                        $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
-                            'div',
-                            'error',
-                            $this->pi_getLL( 'error-noresult' )
-                        );
-                    }
-                } else {
-                        
-                    // No result
-                    $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
-                        'div',
-                        'error',
-                        $this->pi_getLL( 'error-noresult' )
-                    );
-                }
             }
-            
+        } else {
+                
+            // No result
+            $markers[ '###RESULTS_COUNT###' ] = $this->api->fe_makeStyledContent(
+                'div',
+                'error',
+                $this->pi_getLL( 'error-noresult' )
+            );
         }
         
         // Returns the result views
