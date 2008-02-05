@@ -89,7 +89,9 @@ class tx_vdsanimedia_tca
         $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
             '*',
             $table,
-            $whereClause
+            $whereClause,
+            false,
+            $title
         );
         
         // Checks DB ressource
