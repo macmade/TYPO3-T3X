@@ -23,13 +23,13 @@
 ***************************************************************/
 
 /** 
- * TCA helper for extension vd_sanimedia
+ * TCA helper for extension vd_multiplesearch
  *
  * @author		Jean-David Gadina <info@macmade.net>
  * @version		1.0
  */
 
-class tx_vdsanimedia_tca
+class tx_vdmultiplesearch_tca
 {
     /**
      * Fills the parameters array with the page fields
@@ -67,7 +67,7 @@ class tx_vdsanimedia_tca
         $table = $params[ 'field' ];
         
         // Title field
-        $title = ( $table == 'tx_vdsanimedia_keywords' ) ? 'keyword' : 'title';
+        $title = ( $table == 'tx_vdmultiplesearch_keywords' ) ? 'keyword' : 'title';
         
         // Current page ID
         $pid   = $params[ 'row' ][ 'uid' ];
@@ -79,10 +79,10 @@ class tx_vdsanimedia_tca
         $whereClause = '';
         
         // Checks for a storage page
-        if( isset( $conf[ 'tx_vdsanimedia.' ][ 'storage' ] ) ) {
+        if( isset( $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ] ) ) {
             
             // Do not select records globally
-            $whereClause = 'pid IN (' . $conf[ 'tx_vdsanimedia.' ][ 'storage' ] . ')';
+            $whereClause = 'pid IN (' . $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ] . ')';
         }
         
         // Select records
@@ -110,6 +110,6 @@ class tx_vdsanimedia_tca
 /**
  * XClass inclusion.
  */
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/class.tx_vdsanimedia_tca.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/class.tx_vdsanimedia_tca.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/class.tx_vdmultiplesearch_tca.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/class.tx_vdmultiplesearch_tca.php']);
 }

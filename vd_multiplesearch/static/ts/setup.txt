@@ -22,7 +22,7 @@
  ***************************************************************/
 
 /**
- * Static TS setup - Extension 'VD / Sanimedia'
+ * Static TS setup - Extension 'VD / Multiple Search'
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
@@ -31,32 +31,32 @@
 /**
  * PI1 object
  */
-plugin.tx_vdsanimedia_pi1 {
+plugin.tx_vdmultiplesearch_pi1 {
     
     // Template file
-    templateFile     = {$plugin.tx_vdsanimedia_pi1.templateFile}
+    templateFile     = {$plugin.tx_vdmultiplesearch_pi1.templateFile}
     
     // Size of the text input for the keywords
-    keywordInputSize = {$plugin.tx_vdsanimedia_pi1.keywordInputSize}
+    keywordInputSize = {$plugin.tx_vdmultiplesearch_pi1.keywordInputSize}
     
     // Sorting field for the pages table
-    sortBy           = {$plugin.tx_vdsanimedia_pi1.sortBy}
+    sortBy           = {$plugin.tx_vdmultiplesearch_pi1.sortBy}
     
     // Maximum number of records to display
-    maxRecords       = {$plugin.tx_vdsanimedia_pi1.maxRecords}
+    maxRecords       = {$plugin.tx_vdmultiplesearch_pi1.maxRecords}
     
     // Maximum number of pages to display in the browse box
-    maxPages         = {$plugin.tx_vdsanimedia_pi1.maxPages}
+    maxPages         = {$plugin.tx_vdmultiplesearch_pi1.maxPages}
     
     // Selection type for the keywords (AND or OR)
-    keywordSelection = {$plugin.tx_vdsanimedia_pi1.keywordSelection}
+    keywordSelection = {$plugin.tx_vdmultiplesearch_pi1.keywordSelection}
     
     // Shows the related public
-    showPublic = {$plugin.tx_vdsanimedia_pi1.showPublic}
+    showPublic = {$plugin.tx_vdmultiplesearch_pi1.showPublic}
     
     // Shows the related themes
-    showThemes = {$plugin.tx_vdsanimedia_pi1.showThemes}
+    showThemes = {$plugin.tx_vdmultiplesearch_pi1.showThemes}
     
     // Substitute the page title
-    substitutePageTitle = {$plugin.tx_vdsanimedia_pi1.substitutePageTitle}
+    substitutePageTitle = {$plugin.tx_vdmultiplesearch_pi1.substitutePageTitle}
 }

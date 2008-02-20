@@ -2,21 +2,21 @@
 <T3locallang>
     <meta type="array">
         <type>database</type>
-        <description>Language labels for database tables/fields belonging to extension 'vd_sanimedia'</description>
+        <description>Language labels for database tables/fields belonging to extension 'vd_multiplesearch'</description>
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="tx_vdsanimedia_public">Sanimedia - Public</label>
-            <label index="tx_vdsanimedia_public.title">Title</label>
-            <label index="tx_vdsanimedia_themes">Sanimedia - Theme</label>
-            <label index="tx_vdsanimedia_themes.title">Title</label>
-            <label index="tx_vdsanimedia_keywords">Sanimedia - Keyword</label>
-            <label index="tx_vdsanimedia_keywords.keyword">Keyword</label>
-            <label index="pages.tx_vdsanimedia_enable">Sanimedia</label>
-            <label index="pages.tx_vdsanimedia_public">Sanimedia - Public</label>
-            <label index="pages.tx_vdsanimedia_themes">Sanimedia - Themes</label>
-            <label index="pages.tx_vdsanimedia_keywords">Sanimedia - Keywords</label>
-            <label index="tt_content.list_type_pi1">VD / Sanimedia</label>
+            <label index="tx_vdmultiplesearch_public">Multiple Search - Public</label>
+            <label index="tx_vdmultiplesearch_public.title">Title</label>
+            <label index="tx_vdmultiplesearch_themes">Multiple Search - Theme</label>
+            <label index="tx_vdmultiplesearch_themes.title">Title</label>
+            <label index="tx_vdmultiplesearch_keywords">Multiple Search - Keyword</label>
+            <label index="tx_vdmultiplesearch_keywords.keyword">Keyword</label>
+            <label index="pages.tx_vdmultiplesearch_enable">Multiple Search</label>
+            <label index="pages.tx_vdmultiplesearch_public">Multiple Search - Public</label>
+            <label index="pages.tx_vdmultiplesearch_themes">Multiple Search - Themes</label>
+            <label index="pages.tx_vdmultiplesearch_keywords">Multiple Search - Keywords</label>
+            <label index="tt_content.list_type_pi1">VD / Multiple Search</label>
             <label index="tt_content.flexform_pi1.LGL.default">Default (set by TS)</label>
             <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
             <label index="tt_content.flexform_pi1.LGL.no">No</label>
@@ -32,17 +32,17 @@
             <label index="tt_content.flexform_pi1.s_display.keyword_select.I.1">AND</label>
         </languageKey>
         <languageKey index="fr" type="array">
-            <label index="tx_vdsanimedia_public">Sanimedia - Public</label>
-            <label index="tx_vdsanimedia_public.title">Titre</label>
-            <label index="tx_vdsanimedia_themes">Sanimedia - Thème</label>
-            <label index="tx_vdsanimedia_themes.title">Titre</label>
-            <label index="tx_vdsanimedia_keywords">Sanimedia - Mot clé</label>
-            <label index="tx_vdsanimedia_keywords.keyword">Mot clé</label>
-            <label index="pages.tx_vdsanimedia_enable">Sanimedia</label>
-            <label index="pages.tx_vdsanimedia_public">Sanimedia - Public</label>
-            <label index="pages.tx_vdsanimedia_themes">Sanimedia - Thèmes</label>
-            <label index="pages.tx_vdsanimedia_keywords">Sanimedia - Mots clés</label>
-            <label index="tt_content.list_type_pi1">VD / Sanimedia</label>
+            <label index="tx_vdmultiplesearch_public">Recherche Multiple - Public</label>
+            <label index="tx_vdmultiplesearch_public.title">Titre</label>
+            <label index="tx_vdmultiplesearch_themes">Recherche Multiple - Thème</label>
+            <label index="tx_vdmultiplesearch_themes.title">Titre</label>
+            <label index="tx_vdmultiplesearch_keywords">Recherche Multiple - Mot clé</label>
+            <label index="tx_vdmultiplesearch_keywords.keyword">Mot clé</label>
+            <label index="pages.tx_vdmultiplesearch_enable">Recherche Multiple</label>
+            <label index="pages.tx_vdmultiplesearch_public">Recherche Multiple - Public</label>
+            <label index="pages.tx_vdmultiplesearch_themes">Recherche Multiple - Thèmes</label>
+            <label index="pages.tx_vdmultiplesearch_keywords">Recherche Multiple - Mots clés</label>
+            <label index="tt_content.list_type_pi1">VD / Recherche Multiple</label>
             <label index="tt_content.flexform_pi1.LGL.default">Par défault (défini via TS)</label>
             <label index="tt_content.flexform_pi1.LGL.yes">Oui</label>
             <label index="tt_content.flexform_pi1.LGL.no">Non</label>

@@ -4,7 +4,7 @@ if( !defined( 'TYPO3_MODE' ) ) {
 }
 
 // Includes the TCA helper class
-require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_vdsanimedia_tca.php' );
+require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_vdmultiplesearch_tca.php' );
 
 // Load content TCA
 t3lib_div::loadTCA( 'tt_content' );
@@ -38,17 +38,17 @@ t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'VD - Sanimedia - CSS Styl
 if ( TYPO3_MODE == 'BE' ) {
     
     // Content wizard
-    $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_vdsanimedia_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_vdsanimedia_pi1_wizicon.php';
+    $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_vdmultiplesearch_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_vdmultiplesearch_pi1_wizicon.php';
 }
 
 // Public table
-$TCA[ 'tx_vdsanimedia_public' ] = array(
+$TCA[ 'tx_vdmultiplesearch_public' ] = array(
 
     // Control section
     'ctrl' => array(
         
         // Table title
-        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdsanimedia_public',
+        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdmultiplesearch_public',
         
         // Table label field
         'label'             => 'title',
@@ -78,7 +78,7 @@ $TCA[ 'tx_vdsanimedia_public' ] = array(
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
         
         // Table icon
-        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdsanimedia_public.gif'
+        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdmultiplesearch_public.gif'
     ),
     
     // Frontend options
@@ -90,13 +90,13 @@ $TCA[ 'tx_vdsanimedia_public' ] = array(
 );
 
 // Themes table
-$TCA[ 'tx_vdsanimedia_themes' ] = array(
+$TCA[ 'tx_vdmultiplesearch_themes' ] = array(
 
     // Control section
     'ctrl' => array(
         
         // Table title
-        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdsanimedia_themes',
+        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdmultiplesearch_themes',
         
         // Table label field
         'label'             => 'title',
@@ -126,7 +126,7 @@ $TCA[ 'tx_vdsanimedia_themes' ] = array(
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
         
         // Table icon
-        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdsanimedia_themes.gif'
+        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdmultiplesearch_themes.gif'
     ),
     
     // Frontend options
@@ -138,13 +138,13 @@ $TCA[ 'tx_vdsanimedia_themes' ] = array(
 );
 
 // Keywords table
-$TCA[ 'tx_vdsanimedia_keywords' ] = array(
+$TCA[ 'tx_vdmultiplesearch_keywords' ] = array(
 
     // Control section
     'ctrl' => array(
         
         // Table title
-        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdsanimedia_keywords',
+        'title'             => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:tx_vdmultiplesearch_keywords',
         
         // Table label field
         'label'             => 'keyword',
@@ -174,7 +174,7 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
         'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
         
         // Table icon
-        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdsanimedia_keywords.gif'
+        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'icon_tx_vdmultiplesearch_keywords.gif'
     ),
     
     // Frontend options
@@ -187,9 +187,9 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
 
 // Temp TCA
 $tempColumns = array (
-    'tx_vdsanimedia_enable' => array (
+    'tx_vdmultiplesearch_enable' => array (
         'exclude' => 1,
-        'label'   => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_enable',
+        'label'   => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdmultiplesearch_enable',
         'config'  => array (
             'type' => 'check'
         )
@@ -197,14 +197,14 @@ $tempColumns = array (
 );
 
 // Public field
-$tempColumns[ 'tx_vdsanimedia_public' ] = array (
+$tempColumns[ 'tx_vdmultiplesearch_public' ] = array (
     'exclude'     => 1,
-    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_public',
-    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdmultiplesearch_public',
+    'displayCond' => 'FIELD:tx_vdmultiplesearch_enable:REQ:true',
     'config'      => array (
         'type'          => 'select',
         'items'         => array(),
-        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'itemsProcFunc' => 'tx_vdmultiplesearch_tca->getRecords',
         'size'          => 10,
         'minitems'      => 0,
         'maxitems'      => 100
@@ -212,14 +212,14 @@ $tempColumns[ 'tx_vdsanimedia_public' ] = array (
 );
 
 // Themes field
-$tempColumns[ 'tx_vdsanimedia_themes' ] = array (
+$tempColumns[ 'tx_vdmultiplesearch_themes' ] = array (
     'exclude'     => 1,
-    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_themes',
-    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdmultiplesearch_themes',
+    'displayCond' => 'FIELD:tx_vdmultiplesearch_enable:REQ:true',
     'config'      => array (
         'type'          => 'select',
         'items'         => array(),
-        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'itemsProcFunc' => 'tx_vdmultiplesearch_tca->getRecords',
         'size'          => 10,
         'minitems'      => 0,
         'maxitems'      => 100
@@ -227,14 +227,14 @@ $tempColumns[ 'tx_vdsanimedia_themes' ] = array (
 );
 
 // Keywords field
-$tempColumns[ 'tx_vdsanimedia_keywords' ] = array (
+$tempColumns[ 'tx_vdmultiplesearch_keywords' ] = array (
     'exclude'     => 1,
-    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdsanimedia_keywords',
-    'displayCond' => 'FIELD:tx_vdsanimedia_enable:REQ:true',
+    'label'       => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:pages.tx_vdmultiplesearch_keywords',
+    'displayCond' => 'FIELD:tx_vdmultiplesearch_enable:REQ:true',
     'config'      => array (
         'type'          => 'select',
         'items'         => array(),
-        'itemsProcFunc' => 'tx_vdsanimedia_tca->getRecords',
+        'itemsProcFunc' => 'tx_vdmultiplesearch_tca->getRecords',
         'size'          => 10,
         'minitems'      => 0,
         'maxitems'      => 100
@@ -242,7 +242,7 @@ $tempColumns[ 'tx_vdsanimedia_keywords' ] = array (
 );
 
 // Field list
-$fieldList = 'tx_vdsanimedia_enable;;;;1-1-1,tx_vdsanimedia_public,tx_vdsanimedia_themes,tx_vdsanimedia_keywords';
+$fieldList = 'tx_vdmultiplesearch_enable;;;;1-1-1,tx_vdmultiplesearch_public,tx_vdmultiplesearch_themes,tx_vdmultiplesearch_keywords';
 
 // Load pages TCA
 t3lib_div::loadTCA( 'pages' );
@@ -251,12 +251,12 @@ t3lib_div::loadTCA( 'pages' );
 if( isset( $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] ) && $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] ) {
     
     // Adds the update action
-    $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] .= ',tx_vdsanimedia_enable';
+    $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] .= ',tx_vdmultiplesearch_enable';
     
 } else {
     
     // Sets the update action
-    $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] = 'tx_vdsanimedia_enable';
+    $TCA[ 'pages' ][ 'ctrl' ][ 'requestUpdate' ] = 'tx_vdmultiplesearch_enable';
 }
 
 // Add fields to the pages TCA

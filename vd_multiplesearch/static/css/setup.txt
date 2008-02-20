@@ -22,7 +22,7 @@
  ***************************************************************/
 
 /**
- * Static TS setup - Extension 'VD / Sanimedia'
+ * Static TS setup - Extension 'VD / Multiple Search'
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
@@ -31,11 +31,11 @@
 /**
  * PI1 object
  */
-plugin.tx_vdsanimedia_pi1 {
+plugin.tx_vdmultiplesearch_pi1 {
     
     // Default CSS styles
     _CSS_DEFAULT_STYLE (
-        .tx-vdsanimedia-pi1-error-ts {
+        .tx-vdmultiplesearch-pi1-error-ts {
             color: #FF0000;
             font-weight: bold;
             border: solid 1px #FF0000;
@@ -45,7 +45,7 @@ plugin.tx_vdsanimedia_pi1 {
             margin-bottom: 10px;
         }
         
-        .tx-vdsanimedia-pi1-search-options, .tx-vdsanimedia-pi1-browsebox {
+        .tx-vdmultiplesearch-pi1-search-options, .tx-vdmultiplesearch-pi1-browsebox {
             background-color: #F6F9FD;
             color: inherit;
             padding: 10px;
@@ -56,31 +56,31 @@ plugin.tx_vdsanimedia_pi1 {
             height: 100%;
         }
         
-        .tx-vdsanimedia-pi1-search-options DIV {
+        .tx-vdmultiplesearch-pi1-search-options DIV {
             margin-top: 5px;
             margin-bottom: 5px;
         }
         
-        .tx-vdsanimedia-pi1-clearer {
+        .tx-vdmultiplesearch-pi1-clearer {
             clear: both;
         }
         
-        .tx-vdsanimedia-pi1-center {
+        .tx-vdmultiplesearch-pi1-center {
             text-align: center;
         }
         
-        .tx-vdsanimedia-pi1-left {
+        .tx-vdmultiplesearch-pi1-left {
             float: left;
             margin-right: 10px;
         }
         
-        .tx-vdsanimedia-pi1-error {
+        .tx-vdmultiplesearch-pi1-error {
             font-weight: bold;
             margin-top: 10px;
             margin-bottom: 10px;
         }
         
-        .tx-vdsanimedia-pi1-browsebox UL {
+        .tx-vdmultiplesearch-pi1-browsebox UL {
             list-style: none;
             margin-left: 0px;
             margin-top: 10px;
@@ -91,7 +91,7 @@ plugin.tx_vdsanimedia_pi1 {
             height: 100%;
         }
         
-        .tx-vdsanimedia-pi1-browsebox LI {
+        .tx-vdmultiplesearch-pi1-browsebox LI {
             float: left;
             margin-left: 0px;
             margin-top: 0px;
@@ -103,51 +103,51 @@ plugin.tx_vdsanimedia_pi1 {
             padding: 5px;
         }
         
-        .tx-vdsanimedia-pi1-browsebox LI A {
+        .tx-vdmultiplesearch-pi1-browsebox LI A {
             color: #336CA6;
             background-color: inherit;
         }
         
-        .tx-vdsanimedia-pi1-results, .tx-vdsanimedia-pi1-rescount {
+        .tx-vdmultiplesearch-pi1-results, .tx-vdmultiplesearch-pi1-rescount {
             font-weight: bold;
         }
         
-        .tx-vdsanimedia-pi1-page {
+        .tx-vdmultiplesearch-pi1-page {
             background-color: #F6F9FD;
             border: solid 1px #A2C3EB;
             margin-top: 10px;
             padding: 5px;
         }
         
-        .tx-vdsanimedia-pi1 H2 {
+        .tx-vdmultiplesearch-pi1 H2 {
             color: #336CA6;
             background-color: inherit;
             font-size: 13px;
         }
         
-        .tx-vdsanimedia-pi1 A, .tx-vdsanimedia-pi1 A:link {
+        .tx-vdmultiplesearch-pi1 A, .tx-vdmultiplesearch-pi1 A:link {
             color: #336CA6;
             background-color: inherit;
         }
         
-        .tx-vdsanimedia-pi1 A:visited {
+        .tx-vdmultiplesearch-pi1 A:visited {
             color: #A2C3EB;
             background-color: inherit;
         }
         
-        .tx-vdsanimedia-pi1 A:hover, .tx-vdsanimedia-pi1 A:active {
+        .tx-vdmultiplesearch-pi1 A:hover, .tx-vdmultiplesearch-pi1 A:active {
             color: #FF9F33;
             background-color: inherit;
         }
         
-        .tx-vdsanimedia-pi1 INPUT, .tx-vdsanimedia-pi1 SELECT {
+        .tx-vdmultiplesearch-pi1 INPUT, .tx-vdmultiplesearch-pi1 SELECT {
             border: solid 1px #A2C3EB;
             padding: 5px;
             background-color: #FFFFFF;
             color: #336CA6;
         }
         
-        #tx_vdsanimedia_pi1_submit {
+        #tx_vdmultiplesearch_pi1_submit {
             border: solid 1px #336CA6;
             padding-left: 20px;
             padding-top: 5px;
@@ -155,12 +155,12 @@ plugin.tx_vdsanimedia_pi1 {
             padding-bottom: 5px;
             background-color: #336CA6;
             color: #FFFFFF;
-            background-image: url( "/typo3conf/ext/vd_sanimedia/res/magnifier.gif" );
+            background-image: url( "/typo3conf/ext/vd_multiplesearch/res/magnifier.gif" );
             background-repeat: no-repeat;
             background-position: 5px 5px;
         }
         
-        #tx_vdsanimedia_pi1_reset {
+        #tx_vdmultiplesearch_pi1_reset {
             border: solid 1px #336CA6;
             padding-left: 20px;
             padding-top: 5px;
@@ -168,12 +168,12 @@ plugin.tx_vdsanimedia_pi1 {
             padding-bottom: 5px;
             background-color: #336CA6;
             color: #FFFFFF;
-            background-image: url( "/typo3conf/ext/vd_sanimedia/res/cancel.gif" );
+            background-image: url( "/typo3conf/ext/vd_multiplesearch/res/cancel.gif" );
             background-repeat: no-repeat;
             background-position: 5px 5px;
         }
         
-        .tx-vdsanimedia-pi1-infos {
+        .tx-vdmultiplesearch-pi1-infos {
             margin-top: 10px;
         }
     )

@@ -4,10 +4,10 @@ if( !defined( 'TYPO3_MODE' ) ) {
 }
 
 // Public TCA
-$TCA[ 'tx_vdsanimedia_public' ] = array(
+$TCA[ 'tx_vdmultiplesearch_public' ] = array(
     
     // Control section
-    'ctrl'      => $TCA[ 'tx_vdsanimedia_public' ][ 'ctrl' ],
+    'ctrl'      => $TCA[ 'tx_vdmultiplesearch_public' ][ 'ctrl' ],
     
     // Backend interface
     'interface' => array(
@@ -17,13 +17,13 @@ $TCA[ 'tx_vdsanimedia_public' ] = array(
     ),
     
     // Frontend interface
-    'feInterface' => $TCA[ 'tx_vdsanimedia_public' ][ 'feInterface' ],
+    'feInterface' => $TCA[ 'tx_vdmultiplesearch_public' ][ 'feInterface' ],
     
     // Fields configuration
     'columns' => array(
         'title' => array(
             'exclude' => 1,
-            'label'   => 'LLL:EXT:vd_sanimedia/locallang_db.xml:tx_vdsanimedia_public.title',
+            'label'   => 'LLL:EXT:vd_multiplesearch/locallang_db.xml:tx_vdmultiplesearch_public.title',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -44,10 +44,10 @@ $TCA[ 'tx_vdsanimedia_public' ] = array(
 );
 
 // Themes TCA
-$TCA[ 'tx_vdsanimedia_themes' ] = array(
+$TCA[ 'tx_vdmultiplesearch_themes' ] = array(
     
     // Control section
-    'ctrl'      => $TCA[ 'tx_vdsanimedia_themes' ][ 'ctrl' ],
+    'ctrl'      => $TCA[ 'tx_vdmultiplesearch_themes' ][ 'ctrl' ],
     
     // Backend interface
     'interface' => array(
@@ -57,13 +57,13 @@ $TCA[ 'tx_vdsanimedia_themes' ] = array(
     ),
     
     // Frontend interface
-    'feInterface' => $TCA[ 'tx_vdsanimedia_themes' ][ 'feInterface' ],
+    'feInterface' => $TCA[ 'tx_vdmultiplesearch_themes' ][ 'feInterface' ],
     
     // Fields configuration
     'columns' => array(
         'title' => array(
             'exclude' => 1,
-            'label'   => 'LLL:EXT:vd_sanimedia/locallang_db.xml:tx_vdsanimedia_themes.title',
+            'label'   => 'LLL:EXT:vd_multiplesearch/locallang_db.xml:tx_vdmultiplesearch_themes.title',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,
@@ -84,10 +84,10 @@ $TCA[ 'tx_vdsanimedia_themes' ] = array(
 );
 
 // Keywords TCA
-$TCA[ 'tx_vdsanimedia_keywords' ] = array(
+$TCA[ 'tx_vdmultiplesearch_keywords' ] = array(
     
     // Control section
-    'ctrl'      => $TCA[ 'tx_vdsanimedia_keywords' ][ 'ctrl' ],
+    'ctrl'      => $TCA[ 'tx_vdmultiplesearch_keywords' ][ 'ctrl' ],
     
     // Backend interface
     'interface' => array(
@@ -97,13 +97,13 @@ $TCA[ 'tx_vdsanimedia_keywords' ] = array(
     ),
     
     // Frontend interface
-    'feInterface' => $TCA[ 'tx_vdsanimedia_keywords' ][ 'feInterface' ],
+    'feInterface' => $TCA[ 'tx_vdmultiplesearch_keywords' ][ 'feInterface' ],
     
     // Fields configuration
     'columns' => array(
         'keyword' => array(
             'exclude' => 1,
-            'label'   => 'LLL:EXT:vd_sanimedia/locallang_db.xml:tx_vdsanimedia_keywords.keyword',
+            'label'   => 'LLL:EXT:vd_multiplesearch/locallang_db.xml:tx_vdmultiplesearch_keywords.keyword',
             'config'  => array(
                 'type' => 'input',
                 'size' => 30,

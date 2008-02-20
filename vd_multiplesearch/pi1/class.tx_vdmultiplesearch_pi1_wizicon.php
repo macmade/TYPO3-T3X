@@ -39,7 +39,7 @@
  *              TOTAL FUNCTIONS: 2
  */
 
-class tx_vdsanimedia_pi1_wizicon
+class tx_vdmultiplesearch_pi1_wizicon
 {
     /**
      * Processing the wizard items array
@@ -55,10 +55,10 @@ class tx_vdsanimedia_pi1_wizicon
         $LL = $this->includeLocalLang();
         
         // Wizard item
-        $wizardItems[ 'plugins_tx_vdsanimedia_pi1' ] = array(
+        $wizardItems[ 'plugins_tx_vdmultiplesearch_pi1' ] = array(
             
             // Icon
-            'icon'        => t3lib_extMgm::extRelPath( 'vd_sanimedia' ) . 'pi1/ce_wiz.gif',
+            'icon'        => t3lib_extMgm::extRelPath( 'vd_multiplesearch' ) . 'pi1/ce_wiz.gif',
             
             // Title
             'title'       => $LANG->getLLL( 'pi1_title', $LL ),
@@ -67,7 +67,7 @@ class tx_vdsanimedia_pi1_wizicon
             'description' => $LANG->getLLL( 'pi1_plus_wiz_description', $LL ),
             
             // Parameters
-            'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=vd_sanimedia_pi1'
+            'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=vd_multiplesearch_pi1'
         );
         
         // Return items
@@ -85,7 +85,7 @@ class tx_vdsanimedia_pi1_wizicon
         global $LANG;
         
         // Include file
-        $LOCAL_LANG = $LANG->includeLLFile( 'EXT:vd_sanimedia/locallang.xml', FALSE );
+        $LOCAL_LANG = $LANG->includeLLFile( 'EXT:vd_multiplesearch/locallang.xml', FALSE );
         
         // Return file content
         return $LOCAL_LANG;
@@ -95,7 +95,7 @@ class tx_vdsanimedia_pi1_wizicon
 /**
  * XCLASS inclusion
  */
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/pi1/class.tx_vdsanimedia_pi1_wizicon.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/pi1/class.tx_vdsanimedia_pi1_wizicon.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1_wizicon.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1_wizicon.php']);
 }
 ?>

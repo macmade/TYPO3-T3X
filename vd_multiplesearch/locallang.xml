@@ -2,12 +2,12 @@
 <T3locallang>
     <meta type="array">
         <type>module</type>
-        <description>Language labels for extension 'vd_sanimedia'</description>
+        <description>Language labels for extension 'vd_multiplesearch'</description>
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="pi1_title">VD / Sanimedia</label>
-            <label index="pi1_plus_wiz_description">Adds the VD / Sanimedia search engine to the page.</label>
+            <label index="pi1_title">VD / Multiple Search</label>
+            <label index="pi1_plus_wiz_description">Adds the VD / Multiple Search search engine to the page.</label>
         </languageKey>
     </data>
 </T3locallang>

@@ -22,7 +22,7 @@
  ***************************************************************/
 
 /**
- * Static TS constants - Extension 'VD / Sanimedia'
+ * Static TS constants - Extension 'VD / Multiple Search'
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
@@ -31,35 +31,35 @@
 /**
  * PI1 object
  */
-plugin.tx_vdsanimedia_pi1 {
+plugin.tx_vdmultiplesearch_pi1 {
     
-    # cat=vd_sanimedia/files/0; type=string; label=Template: The template file to use.
-    templateFile = EXT:vd_sanimedia/res/template_pi1.html
+    # cat=vd_multiplesearch/files/0; type=string; label=Template: The template file to use.
+    templateFile = EXT:vd_multiplesearch/res/template_pi1.html
     
-    # cat=vd_sanimedia/dims/0; type=int+; label=Input: The size of the keyword input.
+    # cat=vd_multiplesearch/dims/0; type=int+; label=Input: The size of the keyword input.
     keywordInputSize = 20
     
-    # cat=vd_sanimedia/enable/0; type=boolean; label=Show public: Shows the related public in the page details.
+    # cat=vd_multiplesearch/enable/0; type=boolean; label=Show public: Shows the related public in the page details.
     showPublic = 1
     
-    # cat=vd_sanimedia/enable/1; type=boolean; label=Show themes: Shows the related themes in the page details.
+    # cat=vd_multiplesearch/enable/1; type=boolean; label=Show themes: Shows the related themes in the page details.
     showThemes = 1
     
-    # cat=vd_sanimedia/enable/2; type=boolean; label=Substitue page title: Substitutes the page title on the results view.
+    # cat=vd_multiplesearch/enable/2; type=boolean; label=Substitue page title: Substitutes the page title on the results view.
     substitutePageTitle = 1
     
-    # cat=vd_sanimedia//0; type=string; label=Sort by: The sorting field for the pages table.
+    # cat=vd_multiplesearch//0; type=string; label=Sort by: The sorting field for the pages table.
     sortBy = title
     
-    # cat=vd_sanimedia//1; type=int+; label=Max records: The maximum number of records in one page.
+    # cat=vd_multiplesearch//1; type=int+; label=Max records: The maximum number of records in one page.
     maxRecords = 10
     
-    # cat=vd_sanimedia//2; type=int+; label=Max pages: The maximum number of pages in the page browser.
+    # cat=vd_multiplesearch//2; type=int+; label=Max pages: The maximum number of pages in the page browser.
     maxPages = 50
     
-    # cat=vd_sanimedia//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
+    # cat=vd_multiplesearch//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
     keywordSelection = OR
     
-    # cat=vd_sanimedia//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
+    # cat=vd_multiplesearch//3; type=options[OR=OR,AND=AND]; label=Keyword selection: The selection type for the keywords.
     substitutePageTitle = 1
 }

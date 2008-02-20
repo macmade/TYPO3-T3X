@@ -6,7 +6,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
+                    <sheetTitle>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_def</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
@@ -31,19 +31,19 @@
         <sDISPLAY>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display</sheetTitle>
+                    <sheetTitle>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <maxitems>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.maxitems</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.maxitems</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
@@ -95,12 +95,12 @@
                     <maxpages>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.maxpages</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.maxpages</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
@@ -152,16 +152,16 @@
                     <sortby>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.sortby</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.sortby</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                 </items>
-                                <itemsProcFunc>tx_vdsanimedia_tca->getPageFields</itemsProcFunc>
+                                <itemsProcFunc>tx_vdmultiplesearch_tca->getPageFields</itemsProcFunc>
                                 <size>1</size>
                                 <maxitems>1</maxitems>
                             </config>
@@ -170,20 +170,20 @@
                     <keyword_select>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select.I.0</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select.I.0</numIndex>
                                         <numIndex index="1">OR</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select.I.1</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.keyword_select.I.1</numIndex>
                                         <numIndex index="1">AND</numIndex>
                                     </numIndex>
                                 </items>
@@ -195,20 +195,20 @@
                     <show_public>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.show_public</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.show_public</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
                                         <numIndex index="1">1</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
                                         <numIndex index="1">0</numIndex>
                                     </numIndex>
                                 </items>
@@ -220,20 +220,20 @@
                     <show_themes>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.s_display.show_themes</label>
+                            <label>LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.s_display.show_themes</label>
                             <config>
                                 <type>select</type>
                                 <items>
                                     <numIndex index="0">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.default</numIndex>
                                         <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.yes</numIndex>
                                         <numIndex index="1">1</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
-                                        <numIndex index="0">LLL:EXT:vd_sanimedia/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
+                                        <numIndex index="0">LLL:EXT:vd_multiplesearch/locallang_db.php:tt_content.flexform_pi1.LGL.no</numIndex>
                                         <numIndex index="1">0</numIndex>
                                     </numIndex>
                                 </items>

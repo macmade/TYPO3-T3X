@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /**
- * Plugin 'VD / Sanimedia' for the 'vd_sanimedia' extension.
+ * Plugin 'VD / Multiple Search' for the 'vd_multiplesearch' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
@@ -44,7 +44,7 @@ require_once( PATH_tslib . 'class.tslib_pibase.php' );
 // Developer API class
 require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
-class tx_vdsanimedia_pi1 extends tslib_pibase
+class tx_vdmultiplesearch_pi1 extends tslib_pibase
 {
     
     /***************************************************************
@@ -54,13 +54,13 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
      ***************************************************************/
     
     // Same as class name
-    var $prefixId           = 'tx_vdsanimedia_pi1';
+    var $prefixId           = 'tx_vdmultiplesearch_pi1';
     
     // Path to this script relative to the extension dir
-    var $scriptRelPath      = 'pi1/class.tx_vdsanimedia_pi1.php';
+    var $scriptRelPath      = 'pi1/class.tx_vdmultiplesearch_pi1.php';
     
     // The extension key
-    var $extKey             = 'vd_sanimedia';
+    var $extKey             = 'vd_multiplesearch';
     
     // Version of the Developer API required
     var $apimacmade_version = 4.2;
@@ -88,9 +88,9 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
     
     // Tables used by the extension
     var $extTables          = array(
-        'public'   => 'tx_vdsanimedia_public',
-        'themes'   => 'tx_vdsanimedia_themes',
-        'keywords' => 'tx_vdsanimedia_keywords',
+        'public'   => 'tx_vdmultiplesearch_public',
+        'themes'   => 'tx_vdmultiplesearch_themes',
+        'keywords' => 'tx_vdmultiplesearch_keywords',
         'pages'    => 'pages'
     );
     
@@ -230,7 +230,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         );
         
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug( $this->conf, 'VD / Sanimedia: configuration array' );
+        #$this->api->debug( $this->conf, 'VD / Multiple Search: configuration array' );
     }
     
     /**
@@ -414,7 +414,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
                 
                 // Makes the listing query
                 $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
-                    'uid,title,description,tx_vdsanimedia_public,tx_vdsanimedia_themes',
+                    'uid,title,description,tx_vdmultiplesearch_public,tx_vdmultiplesearch_themes',
                     $this->extTables[ 'pages' ],
                     $whereClause,
                     false,
@@ -479,15 +479,15 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         // Storage
         $whereClause  = array();
         
-        // Only selects the sanimedia enabled pages
-        $whereClause[] = 'tx_vdsanimedia_enable=1';
+        // Only selects the multiplesearch enabled pages
+        $whereClause[] = 'tx_vdmultiplesearch_enable=1';
         
         // Checks for a public
         if( isset( $this->piVars[ 'public' ] ) && $this->piVars[ 'public' ] ) {
             
             // Selects the public
             $whereClause[] = $GLOBALS[ 'TYPO3_DB' ]->listQuery(
-                'tx_vdsanimedia_public',
+                'tx_vdmultiplesearch_public',
                 $this->piVars[ 'public' ],
                 $this->extTables[ 'pages' ]
             );
@@ -498,7 +498,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
             
             // Checks for a theme
             $whereClause[] = $GLOBALS[ 'TYPO3_DB' ]->listQuery(
-                'tx_vdsanimedia_themes',
+                'tx_vdmultiplesearch_themes',
                 $this->piVars[ 'themes' ],
                 $this->extTables[ 'pages' ]
             );
@@ -534,7 +534,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
                         
                         // Selects the keword
                         $keySelect[] =  $GLOBALS[ 'TYPO3_DB' ]->listQuery(
-                            'tx_vdsanimedia_keywords',
+                            'tx_vdmultiplesearch_keywords',
                             $keywordId,
                             $this->extTables[ 'pages' ]
                         );
@@ -547,7 +547,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         }
         
         // DEBUG ONLY - Output the where array
-        #$this->api->debug( $whereClause, 'VD / Sanimedia: WHERE clause' );
+        #$this->api->debug( $whereClause, 'VD / Multiple Search: WHERE clause' );
         
         // Returns the where clause
         return implode( ' AND ', $whereClause );
@@ -617,7 +617,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         $label = $this->api->fe_makeStyledContent( 'strong', 'label', $this->pi_getLL( 'label-' . $field ) );
         
         // Data in the page array
-        $pageData = explode( ',', $page[ 'tx_vdsanimedia_' . $field ] );
+        $pageData = explode( ',', $page[ 'tx_vdmultiplesearch_' . $field ] );
         
         // Corresponding records
         $data =& $this->$field;
@@ -706,9 +706,9 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
         }
         
         // DEBUG ONLY - Output the table data
-        #$this->api->debug( $this->public,   'VD / Sanimedia: table data' );
-        #$this->api->debug( $this->themes,   'VD / Sanimedia: table data' );
-        #$this->api->debug( $this->keywords, 'VD / Sanimedia: table data' );
+        #$this->api->debug( $this->public,   'VD / Multiple Search: table data' );
+        #$this->api->debug( $this->themes,   'VD / Multiple Search: table data' );
+        #$this->api->debug( $this->keywords, 'VD / Multiple Search: table data' );
     }
     
     /**
@@ -764,7 +764,7 @@ class tx_vdsanimedia_pi1 extends tslib_pibase
 /**
  * XCLASS inclusion
  */
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/pi1/class.tx_vdsanimedia_pi1.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_sanimedia/pi1/class.tx_vdsanimedia_pi1.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1.php']);
 }
 ?>
