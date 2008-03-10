@@ -78,7 +78,7 @@ class tx_dropdownsitemap_pi1_wizicon
             'description' => $LANG->getLLL( 'pi1_plus_wiz_description', $LL ),
             
             // Parameters
-            'params      '=> '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=dropdown_sitemap_pi1'
+            'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=dropdown_sitemap_pi1'
         );
         
         // Return items
