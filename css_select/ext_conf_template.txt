@@ -3,3 +3,6 @@ CSSDIR = fileadmin/css/
 
 # cat=basic//02; type=string; label=Allowed file extensions: The allowed file extensions for CSS files (comma list).
 CSSEXT = css
+
+# cat=basic//03; type=boolean; label=Allow sub-directories: Also get stylesheets from sub-directories.
+ALLOWSUBDIRS = 1
