@@ -32,14 +32,14 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *   43:    class ext_update
- *   65:    public function __construct
- *  120:    protected function _listPages
- *  120:    protected function _updatePages
- *   87:    public function access
- *  120:    public function main
+ *   45:    class ext_update
+ *   70:    public function __construct
+ *  109:    protected function _listPages
+ *  225:    protected function _updatePages
+ *  286:    public function access
+ *  319:    public function main
  * 
- *          TOTAL FUNCTIONS: 3
+ *          TOTAL FUNCTIONS: 5
  */
 
 class ext_update
@@ -98,7 +98,13 @@ class ext_update
     }
     
     /**
+     * List the pages that need an update
      * 
+     * This function will create a list of the pages which contains stylesheets,
+     * which are not prefixed by the CSS directory. Those pages will need an
+     * update, has the extension now stores the relative path of the stylesheet.
+     * 
+     * @return  string  The list of the pages to update
      */
     protected function _listPages()
     {
@@ -208,7 +214,13 @@ class ext_update
     }
     
     /**
+     * Updates the pages
      * 
+     * This function will update all the pages contained in the POST request
+     * and add the CSS directory to each selected stylesheet. The page's
+     * modification time will also be changed.
+     * 
+     * @return  string  A confirmation message
      */
     protected function _updatePages()
     {
