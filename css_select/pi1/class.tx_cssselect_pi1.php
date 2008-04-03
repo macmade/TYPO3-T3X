@@ -26,7 +26,7 @@
  * Plugin 'StyleSheet Selector' for the 'css_select' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
- * @version     3.0
+ * @version     4.0
  */
 
 /**
