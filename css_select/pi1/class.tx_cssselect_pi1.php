@@ -204,7 +204,7 @@ class tx_cssselect_pi1 extends tslib_pibase
      * @see     _buildIndex
      * @see     _buildImports
      */
-    public function main( $content, $conf )
+    public function main( $content, array $conf )
     {
         // Checks for the extension configuration
         if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'css_select' ] ) ) {
