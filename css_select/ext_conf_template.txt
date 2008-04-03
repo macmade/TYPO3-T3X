@@ -1,5 +1,5 @@
-# cat=basic//01; type=string; label=CSS directory: The directory where the stylesheets are located...
+# cat=basic//01; type=string; label=CSS directory: The directory where the stylesheets are located (relative to the TYPO3 site). Multiple directores can be defined (comma list).
 CSSDIR = fileadmin/css/
 
-# cat=basic//02; type=string; label=Allowed extensions: The allowed extensions for CSS files (comma list)...
+# cat=basic//02; type=string; label=Allowed file extensions: The allowed file extensions for CSS files (comma list).
 CSSEXT = css
