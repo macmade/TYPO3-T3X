@@ -32,14 +32,96 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *     :    class tx_cssselect_handleStylesheets
- *     :    public function main( &$params, $pObj )
+ *   42:    class tx_cssselect_handleStylesheets
+ *   60:    protected function _addStyleSheets( $path, $relDir, $recursive = false )
+ *  136:    public function main( array &$params, $pObj )
  * 
- *          TOTAL FUNCTIONS: 1
+ *          TOTAL FUNCTIONS: 2
  */
 
 class tx_cssselect_handleStylesheets
 {
+    // Extensions for CSS files
+    protected $_cssExt = array();
+    
+    // Items for the select menu
+    protected $_items  = array();
+    
+    /**
+     * Adds CSS files to the items array
+     * 
+     * This function will add the names of all the CSS files contained in the
+     * specified directory.
+     * 
+     * @param   string  $path       The absolute path of the directory to read
+     * @param   string  $relDir     The path of the directory, relative to the TYPO3 site
+     * @param   boolean $recursive  If this is set, the CSS files contained in sub-directories will also be added
+     */
+    protected function _addStyleSheets( $path, $relDir, $recursive = false )
+    {
+        // SPL iterator class to use, depending of the recursivity settings
+        $iteratorClass     = ( $recursive ) ? 'RecursiveDirectoryIterator' : 'DirectoryIterator';
+        
+        // New instance of the directory iterator class
+        $directoryIterator = new $iteratorClass( $path );
+        
+        // New instance of the iterator iterator class
+        $iterator          = new RecursiveIteratorIterator( $directoryIterator );
+        
+        // Storage for files
+        $files             = array();
+        
+        // Process each file
+        foreach( $iterator as $file ) {
+            
+            // Checks if the current file is a directory
+            if( $file->isDir() ) {
+                
+                // Do not process directories
+                continue;
+            }
+            
+            // Gets the file name
+            $fileName = $file->getFilename();
+            
+            // Gets the position of the extension
+            $dotPos   = strrpos( $fileName, '.' );
+            
+            // Checks for an extension
+            if( !$dotPos ) {
+                
+                // No extension - Process the next file
+                continue;
+            }
+            
+            // Gets the file extension
+            $ext = substr( $fileName, $dotPos + 1 );
+            
+            // Checks for a valid extension
+            if( !isset( $this->_cssExt[ $ext ] ) ) {
+                
+                // Invalid extension - Process the next file
+                continue;
+            }
+            
+            // Gets the file path relative to the given directory
+            $fileRelPath = str_replace( $path, $relDir, $file->getPath() . '/' );
+            
+            // File ID, used to sort the CSS files in the items array
+            $fileId = $fileName . '-' . $fileRelPath; 
+            
+            // Adds the current CSS file to the parameters array
+            $this->_items[ $fileId ] = array(
+                $fileName . ' (' . $fileRelPath . ')',  // Label
+                $fileRelPath . $fileName,               // Value
+                'EXT:css_select/res/css.gif'            // Icon
+            );
+        }
+        
+        // Returns the CSS files
+        return $files;
+    }
+    
     /**
      * Adds items to the stylesheet selector.
      * 
@@ -49,9 +131,13 @@ class tx_cssselect_handleStylesheets
      * @param   array   &$params    The parameters of the form
      * @param   object  $pObj       The parent object
      * @return  NULL
+     * @see     _addStyleSheets
      */
     public function main( array &$params, $pObj )
     {
+        // Stores a reference to the items array
+        $this->_items =& $params[ 'items' ];
+        
         // Checks for the extension configuration
         if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'css_select' ] ) ) {
             
@@ -73,6 +159,12 @@ class tx_cssselect_handleStylesheets
                 $cssDirs = explode( ',', $extConf[ 'CSSDIR' ] );
             }
             
+            // Stores the CSS extensions
+            $cssExt        = explode( ',', $extConf[ 'CSSEXT' ] );
+            
+            // Stores the list of CSS extensions
+            $this->_cssExt = array_flip( $cssExt );
+            
             // Process each CSS directory
             foreach( $cssDirs as $dir ) {
                 
@@ -87,20 +179,9 @@ class tx_cssselect_handleStylesheets
                 
                 // Checks if the directory exists
                 if( file_exists( $readPath ) && is_dir( $readPath ) ) {
-                                        
-                    // Gets all the CSS files in the current directory
-                    $cssFiles = t3lib_div::getFilesInDir( $readPath, $extConf[ 'CSSEXT' ], 0, 1 );
                     
-                    // Process each CSS file
-                    foreach( $cssFiles as $css ) {
-                        
-                        // Adds the CSS file to the parameters array
-                        $params[ 'items' ][ $css . $dir ] = array(
-                            $css . ' (' . $dir . ')',
-                            $dir . $css,
-                            'EXT:css_select/res/css.gif'
-                        );
-                    }
+                    // Gets all the available CSS files
+                    $cssFiles = $this->_addStyleSheets( $readPath, $dir, ( boolean )$extConf[ 'ALLOWSUBDIRS' ] );
                 }
             }
             
