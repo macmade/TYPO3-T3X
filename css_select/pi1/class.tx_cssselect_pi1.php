@@ -2,7 +2,7 @@
 /***************************************************************
 * Copyright notice
 * 
- * (c) 2008 macmade.net - Jean-David Gadina (info@macmade.net)
+* (c) 2008 macmade.net - Jean-David Gadina (info@macmade.net)
 * All rights reserved
 * 
 * This script is part of the TYPO3 project. The TYPO3 project is 
@@ -33,13 +33,13 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  *   48:    class tx_cssselect_pi1
- *   76:    protected function __construct
- *   87:    protected function _buildIndex
- *  114:    protected function _buildImports
- *  141:    protected function _getCSSFiles
- *  207:    public function main( $content, $conf )
+ *   79:    protected function __construct
+ *   93:    protected function _buildIndex
+ *  127:    protected function _buildImports
+ *  159:    protected function _getCSSFiles
+ *  235:    public function main( $content, $conf )
  * 
- *          TOTAL FUNCTIONS: 4
+ *          TOTAL FUNCTIONS: 5
  */
 
 // Requires the TYPO3 FE plugin base
@@ -59,6 +59,9 @@ class tx_cssselect_pi1 extends tslib_pibase
     // New line character
     protected $_NL        = '';
     
+    // Tabulation character
+    protected $_TAB       = '';
+    
     // Class name
     public $prefixId      = 'tx_cssselect_pi1';
     
@@ -76,7 +79,10 @@ class tx_cssselect_pi1 extends tslib_pibase
     public function __construct()
     {
         // Sets the new line character
-        $this->_NL = chr( 10 );
+        $this->_NL  = chr( 10 );
+        
+        // Sets the tabulation character
+        $this->_TAB = chr( 9 );
     }
     
     /**
@@ -93,10 +99,17 @@ class tx_cssselect_pi1 extends tslib_pibase
         $i     = 1;
         
         // Process each stylesheet
-        foreach( $this->_cssFiles as $stylesheet ) {
+        foreach( $this->_cssFiles as $key => $value ) {
             
             // Adds the stylesheet to the index
-            $index[] = ' * ' . $i . ') ' . $stylesheet;
+            $index[] = $this->_TAB
+                     . ' * '
+                     . $i
+                     . ') '
+                     . $value[ 'file' ]
+                     . ' (page ID: '
+                     . $value[ 'pid' ]
+                     . ')';
             
             // Increments the index counter
             $i++;
@@ -120,10 +133,15 @@ class tx_cssselect_pi1 extends tslib_pibase
         $media   = ( isset( $this->_conf[ 'cssMedia' ] ) && $this->_conf[ 'cssMedia' ] ) ? ' ' . $this->_conf[ 'cssMedia' ] : '';
         
         // Process each stylesheet
-        foreach( $this->_cssFiles as $stylesheet ) {
+        foreach( $this->_cssFiles as $key => $value ) {
             
             // Adds the @import rule
-            $imports[] = '@import url( "' . $stylesheet . '" )' . $media . ';';
+            $imports[] = $this->_TAB
+                       . '@import url( "'
+                       . $value[ 'file' ]
+                       . '" )'
+                       . $media
+                       . ';';
         }
         
         // Returns the import rules
@@ -150,15 +168,22 @@ class tx_cssselect_pi1 extends tslib_pibase
             foreach( $GLOBALS[ 'TSFE' ]->config[ 'rootLine' ] as $topPage ) {
                 
                 // Checks the inheritance mode
-                if( $topPage[ 'tx_cssselect_inheritance' ] == 1 ) {
+                if( $topPage[ 'tx_cssselect_inheritance' ] == 1 && $GLOBALS[ 'TSFE' ]->id != $topPage[ 'uid' ] ) {
                     
                     // Process the next page
                     continue;
                     
                 } elseif( $topPage[ 'tx_cssselect_inheritance' ] == 2 ) {
                     
-                    // Stop processing the pages
-                    break;
+                    // Erase stored styles
+                    $files = array();
+                    
+                    // Checks the current PID
+                    if( $GLOBALS[ 'TSFE' ]->id != $topPage[ 'uid' ] ) {
+                                                
+                        // Process the next page
+                        continue;
+                    }
                 }
                 
                 // Checks if a stylesheet is specified
@@ -172,7 +197,10 @@ class tx_cssselect_pi1 extends tslib_pibase
                     foreach( $pageFiles as $file ) {
                         
                         // Adds the selected stylesheet
-                        $files[ $file ] = $file;
+                        $files[ $file ] = array(
+                            'file' => $file,
+                            'pid'  => $topPage[ 'uid' ]
+                        );
                     }
                 }
             }
@@ -268,16 +296,17 @@ class tx_cssselect_pi1 extends tslib_pibase
                     if( isset( $conf[ 'cssComments' ] ) && $conf[ 'cssComments' ] ) {
                         
                         // Adds the CSS comment
-                        $headerData[] = '/***************************************************************';
-                        $headerData[] = ' * Styles added by plugin "tx_cssselect_pi1"';
-                        $headerData[] = ' * ';
-                        $headerData[] = ' * Index:';
-                        $headerData[] = $this->_buildIndex( $cssArray );
-                        $headerData[] = ' ***************************************************************/';
+                        $headerData[] = $this->_TAB . '/***************************************************************';
+                        $headerData[] = $this->_TAB . ' * Styles added by plugin "tx_cssselect_pi1"';
+                        $headerData[] = $this->_TAB . ' * ';
+                        $headerData[] = $this->_TAB . ' * Index:';
+                        $headerData[] = $this->_buildIndex();
+                        $headerData[] = $this->_TAB . ' ***************************************************************/';
+                        $headerData[] = $this->_TAB;
                     }
                     
                     // Adds the stylesheets
-                    $headerData[] = $this->_buildImports( $cssArray, $confArray );
+                    $headerData[] = $this->_buildImports();
                     $headerData[] = $endComment;
                     $headerData[] = '</style>';
                     
