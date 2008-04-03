@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for database tables/fields belonging to extension 'css_select'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pages.tx_cssselect_stylesheets">Select stylesheet(s)</label>
+            <label index="pages.tx_cssselect_inheritance">Stylesheet inheritance mode</label>
+            <label index="pages.tx_cssselect_inheritance.I.0">Normal</label>
+            <label index="pages.tx_cssselect_inheritance.I.1">Skip (don't herit from this page)</label>
+            <label index="pages.tx_cssselect_inheritance.I.2">Stop (don't herit from this page and the pages above)</label>
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="pages.tx_cssselect_stylesheets">Seleziona foglio/i di stile</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="pages.tx_cssselect_stylesheets">Sélection de feuille(s) de style</label>
+        </languageKey>
+        <languageKey index="fi" type="array">
+            <label index="pages.tx_cssselect_stylesheets">Valitse stylesheet</label>
+        </languageKey>
+    </data>
+</T3locallang>
