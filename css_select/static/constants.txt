@@ -55,5 +55,5 @@ plugin.tx_cssselect_pi1 {
     linkRel     = stylesheet
     
     # cat=css_select//3; type=string; label=Link charset: Only if importRules is not set. The charset parameter of the <link> tag.
-    linkCharset = iso-8859-1
+    linkCharset = utf-8
 }
