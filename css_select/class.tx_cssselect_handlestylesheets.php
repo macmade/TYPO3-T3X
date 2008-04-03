@@ -50,7 +50,7 @@ class tx_cssselect_handleStylesheets
      * @param   object  $pObj       The parent object
      * @return  NULL
      */
-    public function main( &$params, $pObj )
+    public function main( array &$params, $pObj )
     {
         // Checks for the extension configuration
         if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'css_select' ] ) ) {
