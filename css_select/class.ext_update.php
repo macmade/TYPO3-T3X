@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  * 
- * (c) 2004 macmade.net
+ * (c) 2008 macmade.net - Jean-David Gadina (info@macmade.net)
  * All rights reserved
  * 
  * This script is part of the TYPO3 project. The TYPO3 project is 
