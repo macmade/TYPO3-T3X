@@ -33,8 +33,8 @@
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
  *   42:    class tx_cssselect_handleStylesheets
- *   60:    protected function _addStyleSheets( $path, $relDir, $recursive = false )
- *  136:    public function main( array &$params, $pObj )
+ *   61:    protected function _addStyleSheets( $path, $relDir, $recursive = false )
+ *  131:    public function main( array &$params, $pObj )
  * 
  *          TOTAL FUNCTIONS: 2
  */
@@ -56,6 +56,7 @@ class tx_cssselect_handleStylesheets
      * @param   string  $path       The absolute path of the directory to read
      * @param   string  $relDir     The path of the directory, relative to the TYPO3 site
      * @param   boolean $recursive  If this is set, the CSS files contained in sub-directories will also be added
+     * @return  NULL
      */
     protected function _addStyleSheets( $path, $relDir, $recursive = false )
     {
@@ -67,9 +68,6 @@ class tx_cssselect_handleStylesheets
         
         // New instance of the iterator iterator class
         $iterator          = new RecursiveIteratorIterator( $directoryIterator );
-        
-        // Storage for files
-        $files             = array();
         
         // Process each file
         foreach( $iterator as $file ) {
@@ -117,9 +115,6 @@ class tx_cssselect_handleStylesheets
                 'EXT:css_select/res/css.gif'            // Icon
             );
         }
-        
-        // Returns the CSS files
-        return $files;
     }
     
     /**
@@ -181,7 +176,7 @@ class tx_cssselect_handleStylesheets
                 if( file_exists( $readPath ) && is_dir( $readPath ) ) {
                     
                     // Gets all the available CSS files
-                    $cssFiles = $this->_addStyleSheets( $readPath, $dir, ( boolean )$extConf[ 'ALLOWSUBDIRS' ] );
+                    $this->_addStyleSheets( $readPath, $dir, ( boolean )$extConf[ 'ALLOWSUBDIRS' ] );
                 }
             }
             
