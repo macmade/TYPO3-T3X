@@ -1533,12 +1533,68 @@ class tx_cjf_module1 extends t3lib_SCbase
     /**
      * 
      */
+    function csvExport( $eventId )
+    {
+        global $LANG;
+        
+        $orders = $this->indexes[ 'orders' ][ 'events' ][ $eventId ];
+        $event  = $this->records[ 'events' ][ $eventId ];
+        $csv    = array();
+        
+        $headers = array(
+            $LANG->getLL( 'client.name_last' ),
+            $LANG->getLL( 'client.name_first' ),
+            $LANG->getLL( 'client.confirmed' ),
+            $LANG->getLL( 'stats.type' ),
+            $LANG->getLL( 'stats.quantity' ),
+            $LANG->getLL( 'stats.total' )
+        );
+        
+        $csv[] = $event[ 'title' ] . ' - ' . date( $this->dateFormat, $event[ 'date' ] );
+        $csv[] = implode( chr( 9 ), $headers );
+        
+        foreach( $orders as $orderId ) {
+            
+            $row    = $this->records[ 'orders' ][ $orderId ];
+            $client = $this->records[ 'clients' ][ $row[ 'id_client' ] ];
+            $data   = array();
+            
+            $data[] = $client[ 'name_first' ];
+            $data[] = $client[ 'name_last' ];
+            $data[] = ( $row[ 'confirmed' ] ) ? $LANG->getLL( 'yes' ) : $LANG->getLL( 'no' );
+            $data[] = $LANG->getLL( 'stats.type.I.' . $row[ 'type' ] );
+            $data[] = $this->numberFormat( $row[ 'quantity' ] );
+            $data[] = $this->numberFormat( $row[ 'total' ], 2 );
+            
+            $csv[]  = implode( chr( 9 ), $data );
+        }
+        
+        tx_apimacmade::div_output(
+            implode( chr( 10 ), $csv ),
+            'text/csv',
+            'export.csv'
+        );
+    }
+    
+    /**
+     * 
+     */
     function showStats()
     {
         global $LANG;
         
         // Post data
         $POST = t3lib_div::_POST( $GLOBALS['MCONF']['name'] );
+        
+        // Post data
+        $GET  = t3lib_div::_GET( $GLOBALS['MCONF']['name'] );
+        
+        // Checks for a CSV export
+        if( isset( $GET[ 'csvExport' ] ) && isset( $this->indexes[ 'orders' ][ 'events' ][ $GET[ 'csvExport' ] ] ) ) {
+            
+            // Export event as CSV
+            $this->csvExport( $GET[ 'csvExport' ] );
+        }
         
         // Storage
         $htmlCode = array();
@@ -1601,6 +1657,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         // Icons
         $iconOk    = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_ok2.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
         $iconError = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_fatalerror.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
+        $iconCsv   = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/fileicons/csv.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
         
         // Options
         $btns[] = $this->writeHTML( '<input type="checkbox" name="' . $GLOBALS['MCONF']['name'] . '[details][]" value="bookings">&nbsp;' . $LANG->getLL( 'stats.showBookings' ) );
@@ -1656,6 +1713,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $headers[] = $this->writeHTML( $LANG->getLL( 'stats.totalSold' ), 'td', false, $headerStyle );
             $headers[] = $this->writeHTML( $LANG->getLL( 'stats.available' ), 'td', false, $headerStyle );
             $headers[] = $this->writeHTML( '', 'td', false, $headerStyle );
+            $headers[] = $this->writeHTML( '', 'td', false, $headerStyle );
             $headers[] = '</tr>';
             
             // Full headers
@@ -1672,6 +1730,17 @@ class tx_cjf_module1 extends t3lib_SCbase
                 
                 // Event row
                 $row = $this->records[ 'events' ][ $eventId ];
+                
+                // CSV link
+                $csvLink = '<a href="'
+                         . t3lib_div::linkThisScript(
+                            array(
+                                $GLOBALS[ 'MCONF' ][ 'name' ] . '[csvExport]' => $row[ 'uid' ]
+                            )
+                         )
+                         . '">'
+                         . $iconCsv
+                         . '</a>';
                 
                 // Storage
                 $event = array();
@@ -1715,6 +1784,9 @@ class tx_cjf_module1 extends t3lib_SCbase
                 
                 // Event actions
                 $event[] = $this->writeHTML( $editActions, 'td' );
+                
+                // CSV export
+                $event[] = $this->writeHTML( $csvLink, 'td' );
                 
                 // Add row
                 $htmlCode[] = '<tr ' . $tr_params . '>' . implode ( chr( 10 ), $event ) . '</tr>';
