@@ -60,7 +60,7 @@ t3lib_div::loadTCA( 'pages' );
 t3lib_extMgm::addTCAcolumns( 'pages', $tempColumns, 1 );
 
 // Adds the fields to all types of the 'pages' table
-t3lib_extMgm::addToAllTCAtypes( 'pages', 'tx_jssselect_stylesheets;;;;1-1-1, tx_jsselect_inheritance' );
+t3lib_extMgm::addToAllTCAtypes( 'pages', 'tx_jssselect_javascripts;;;;1-1-1, tx_jsselect_inheritance' );
 
 // Adds the static TS template
 t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/', 'Page JavaScript Selector' );
