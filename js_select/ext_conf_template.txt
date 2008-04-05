@@ -1,2 +1,8 @@
-# cat=basic//01; type=string; label=JS directory: The directory where the javascripts are located...
+# cat=basic//01; type=string; label=JS directory: The directory where the JavaScripts are located (relative to the TYPO3 site). Multiple directores can be defined (comma list).
 JSDIR = fileadmin/js/
+
+# cat=basic//02; type=string; label=Allowed file extensions: The allowed file extensions for JS files (comma list).
+JSEXT = js
+
+# cat=basic//03; type=boolean; label=Allow sub-directories: Also get JavaScripts from sub-directories.
+ALLOWSUBDIRS = 1
