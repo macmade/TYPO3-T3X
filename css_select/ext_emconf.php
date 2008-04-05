@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "css_select"
 #
-# Auto generated 05-04-2008 18:17
+# Auto generated 05-04-2008 18:18
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -31,7 +31,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '1.0.0',
+	'version' => '1.0.1',
 	'constraints' => array(
 		'depends' => array(
 			'php' => '5.2.0-0.0.0',
