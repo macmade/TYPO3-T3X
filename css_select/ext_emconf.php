@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "css_select"
 #
-# Auto generated 04-04-2008 15:54
+# Auto generated 05-04-2008 17:47
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
