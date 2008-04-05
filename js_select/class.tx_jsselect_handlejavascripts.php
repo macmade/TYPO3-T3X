@@ -64,7 +64,7 @@ class tx_jsselect_handleJavascripts
         if( $recursive ) {
             
             // New instance of the SPL recursive directory iterator class
-            $directoryIterator = new $RecursiveDirectoryIterator( $path );
+            $directoryIterator = new RecursiveDirectoryIterator( $path );
             
             // New instance of the iterator iterator class
             $iterator          = new RecursiveIteratorIterator( $directoryIterator );
