@@ -6,7 +6,7 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            <label index="pages.tx_jsselect_stylesheets">Select JavaScript(s)</label>
+            <label index="pages.tx_jsselect_javascripts">Select JavaScript(s)</label>
             <label index="pages.tx_jsselect_inheritance">JavaScript inheritance mode</label>
             <label index="pages.tx_jsselect_inheritance.I.0">Normal</label>
             <label index="pages.tx_jsselect_inheritance.I.1">Skip (don't herit from this page)</label>
