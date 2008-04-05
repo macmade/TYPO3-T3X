@@ -34,7 +34,7 @@
  * 
  *   42:    class tx_jsselect_handleJavascripts
  *   61:    protected function _addJavaScripts( $path, $relDir, $recursive = false )
- *  131:    public function main( array &$params, $pObj )
+ *  137:    public function main( array &$params, $pObj )
  * 
  *          TOTAL FUNCTIONS: 2
  */
@@ -60,14 +60,20 @@ class tx_jsselect_handleJavascripts
      */
     protected function _addJavaScripts( $path, $relDir, $recursive = false )
     {
-        // SPL iterator class to use, depending of the recursivity settings
-        $iteratorClass     = ( $recursive ) ? 'RecursiveDirectoryIterator' : 'DirectoryIterator';
-        
-        // New instance of the directory iterator class
-        $directoryIterator = new $iteratorClass( $path );
-        
-        // New instance of the iterator iterator class
-        $iterator          = new RecursiveIteratorIterator( $directoryIterator );
+        // Checks the recursive settings
+        if( $recursive ) {
+            
+            // New instance of the SPL recursive directory iterator class
+            $directoryIterator = new $RecursiveDirectoryIterator( $path );
+            
+            // New instance of the iterator iterator class
+            $iterator          = new RecursiveIteratorIterator( $directoryIterator );
+            
+        } else {
+            
+            // New instance of the SPL directory iterator class
+            $iterator = new DirectoryIterator( $path );
+        }
         
         // Process each file
         foreach( $iterator as $file ) {
