@@ -192,7 +192,7 @@ class tx_eespwsmodules_singleGetter
                     
                     foreach( $this->_xml->sections->attributes() as $name => $value ) {
                         
-                        if( $value[ 0 ] == 1 ) {
+                        if( ( string )$value === '1' ) {
                             
                             $sections[] = strtoupper( $name );
                         }
