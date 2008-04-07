@@ -37,7 +37,7 @@
  *   93:    protected function _buildIndex
  *  127:    protected function _buildImports
  *  159:    protected function _getCSSFiles
- *  235:    public function main( $content, $conf )
+ *  238:    public function main( $content, $conf )
  * 
  *          TOTAL FUNCTIONS: 5
  */
@@ -211,10 +211,13 @@ class tx_cssselect_pi1 extends tslib_pibase
             $pageFiles = explode( ',', $GLOBALS[ 'TSFE' ]->page[ 'tx_cssselect_stylesheets' ] );
             
             // Process each selected file
-            foreach( $pagesFiles as $file ) {
+            foreach( $pageFiles as $file ) {
                 
                 // Adds the selected stylesheet
-                $files[ $file ] = $file;
+                $files[ $file ] = array(
+                    'file' => $file,
+                    'pid'  => $GLOBALS[ 'TSFE' ]->page[ 'uid' ]
+                );
             }
         }
         
@@ -302,7 +305,6 @@ class tx_cssselect_pi1 extends tslib_pibase
                         $headerData[] = $this->_TAB . ' * Index:';
                         $headerData[] = $this->_buildIndex();
                         $headerData[] = $this->_TAB . ' ***************************************************************/';
-                        $headerData[] = $this->_TAB;
                     }
                     
                     // Adds the stylesheets
@@ -312,16 +314,31 @@ class tx_cssselect_pi1 extends tslib_pibase
                     
                 } else {
                     
+                    // Checks if a comment must be included
+                    if( isset( $conf[ 'cssComments' ] ) && $conf[ 'cssComments' ] ) {
+                        
+                        // Adds the CSS comment
+                        $headerData[] = '<!--';
+                        $headerData[] = $this->_TAB . '/***************************************************************';
+                        $headerData[] = $this->_TAB . ' * Styles added by plugin "tx_cssselect_pi1"';
+                        $headerData[] = $this->_TAB . ' * ';
+                        $headerData[] = $this->_TAB . ' * Index:';
+                        $headerData[] = $this->_buildIndex();
+                        $headerData[] = $this->_TAB . ' ***************************************************************/';
+                        $headerData[] = '-->';
+                        
+                    }
+                    
                     // Builds a <link> tag for each stylesheet
                     foreach( $this->_cssFiles as $key => $value ) {
                         
                         // Adds the stylesheet
-                        $headerData[] = '<link' . $rel . ' href="' . $value . '"' . $type . $media . $charset . $endTag . '>';
+                        $headerData[] = '<link' . $rel . ' href="' . $value[ 'file' ] . '"' . $type . $media . $charset . $endTag . '>';
                     }
                 }
                 
                 // Return the header data
-                return implode( $this->_NL, $headerData );
+                return implode( $this->_NL, $headerData ) . $this->_NL;
             }
         }
     }
