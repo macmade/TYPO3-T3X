@@ -31,7 +31,7 @@
 /**
  * PI1 object - JS Select
  */
-plugin.tx_jssselect_pi1 {
+plugin.tx_jsselect_pi1 {
     
     // Recursive option
     recursive  = {$plugin.tx_jsselect_pi1.recursive}
