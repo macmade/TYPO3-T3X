@@ -72,6 +72,8 @@
             <label index="cal-title">Show the calendar...</label>
             <label index="cal-reset">Reset the date...</label>
             <label index="ts-error">TypoScript configuration error. Please check that you have included the static template for this plugin.</label>
+            <label index="am">Morning</label>
+            <label index="pm">Afternoon</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="exception">Désolé, le plugin a généré une exception: %s</label>
@@ -140,6 +142,8 @@
             <label index="cal-title">Voir le calendrier...</label>
             <label index="cal-reset">Effacer la date...</label>
             <label index="ts-error">Erreur de configuration TypoScript. Veuillez vérifier que vous avez inclu le gabarit statique pour ce plugin.</label>
+            <label index="am">Matin</label>
+            <label index="pm">Après-midi</label>
         </languageKey>
     </data>
 </T3locallang>
