@@ -213,6 +213,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             'wsdlUrl'              => 'sWSDL:wsdl_url',
             'soapOperationList'    => 'sWSDL:soap_operation_list',
             'soapOperationSingle'  => 'sWSDL:soap_operation_single',
+            'soapOperationPeople'  => 'sWSDL:soap_operation_people',
             'collapseListItems'    => 'sDISPLAY:collapse_list_items',
             'scriptaculous.'       => array(
                 'appear' => 'sDISPLAY:appear',
