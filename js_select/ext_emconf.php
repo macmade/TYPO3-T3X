@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "js_select"
 #
-# Auto generated 07-04-2008 16:10
+# Auto generated 07-04-2008 16:13
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -31,7 +31,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '0.3.0',
+	'version' => '1.0.0',
 	'constraints' => array(
 		'depends' => array(
 			'php' => '5.2.0-0.0.0',
