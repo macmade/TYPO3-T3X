@@ -931,16 +931,16 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 $htmlCode[] = '<tr>';
                 
                 // Comments for the current date
-                $comment = ( isset( $comments[ $ts ] ) && $comments[ $ts ] ) ? $this->api->fe_makeStyledContent( 'div', 'comment', $comments[ $ts ] ) : '';
+                $comment  = ( isset( $comments[ $ts ] ) && $comments[ $ts ] ) ? $this->api->fe_makeStyledContent( 'div', 'comment', $comments[ $ts ] ) : '';
+                
+                // Full date
+                $fullDate = strftime( $this->conf[ 'dateFormatStrftime' ], $ts ) . ' - ' . $this->pi_getLL( date( 'a', $ts ) );
                 
                 // Current date
                 $date = $this->api->fe_makeStyledContent(
                     'div',
-                    'date', 
-                    strftime(
-                        $this->conf[ 'dateFormatStrftime' ],
-                        $ts
-                    )
+                    'date',
+                    $fullDate
                 );
                 
                 // Writes the date
