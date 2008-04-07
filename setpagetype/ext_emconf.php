@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Set Page Type CSM',
-	'description' => 'This extension adds an item in the Typo3 context sensitive menu which allows you to directly choose a type for each page of the tree.',
+	'description' => 'This extension adds an item in the TYPO3 context sensitive menu which allows you to directly choose a type for each page of the tree.',
 	'category' => 'be',
 	'shy' => 0,
 	'dependencies' => '',
@@ -27,17 +27,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author' => 'Jean-David Gadina',
-	'author_email' => 'macmade@gadlab.net',
+	'author_email' => 'info@macmade.net',
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '3.5.0-0.0.0',
-			'php' => '3.0.0-0.0.0',
-			'cms' => '',
-			'lang' => '',
+			'php' => '5.2.0-',
 		),
 		'conflicts' => array(
 		),
