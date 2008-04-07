@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /** 
- * Plugin 'JavaScript Selector' for the 'css_select' extension.
+ * Plugin 'JavaScript Selector' for the 'js_select' extension.
  *
  * @author      Jean-David Gadina <info@macmade.net>
  * @version     3.0
@@ -98,10 +98,10 @@ class tx_jsselect_pi1 extends tslib_pibase
         // Index counter
         $i     = 1;
         
-        // Process each stylesheet
+        // Process each JavaScript
         foreach( $this->_jsFiles as $key => $value ) {
             
-            // Adds the stylesheet to the index
+            // Adds the JavaScript to the index
             $index[] = $this->_TAB 
                      . ' * '
                      . $i
