@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin &quot;tx_tscobj_pi1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="errors-notfound">TypoScript object not found</label>
+            <label index="errors-invalid">Invalid TypoScript content type</label>
+            <label index="errors-notype">No TypoScript content type</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="errors-notfound">Objet TypoScript introuvable</label>
+            <label index="errors-invalid">Type de contenu TypoScript invalide</label>
+            <label index="errors-notype">Type de contenu TypoScript introuvable</label>
+        </languageKey>
+    </data>
+</T3locallang>
