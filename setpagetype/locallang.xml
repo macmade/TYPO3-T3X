@@ -7,9 +7,13 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="cm1_title">Set page type -></label>
+            <label index="cm1_hideInMenu">Hide for menus</label>
+            <label index="cm1_showInMenu">Show for menus</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="cm1_title">Définir le type</label>
+            <label index="cm1_hideInMenu">Masquer pour les menus</label>
+            <label index="cm1_showInMenu">Afficher pour les menus</label>
         </languageKey>
     </data>
 </T3locallang>
