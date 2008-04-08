@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for module 'tx_tscobj_wiz1'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">TypoScript object selector</label>
+            <label index="backlink">Return to edit form</label>
+            <label index="description">You will find below the hierarchy of the TypoScript objects available in the current TS template.</label>
+            <label index="instructions">Simply click on the plus sign to display a section, and on an object to add it.</label>
+            <label index="showall">Expand / Collapse all sections</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="title">Sélecteur d'objet TypoScript</label>
+            <label index="backlink">Retour au formulaire d'édition</label>
+            <label index="description">Vous trouverez en dessous la hiérarchie des objets TypoScript disponibles dans le gabarit TS.</label>
+            <label index="instructions">Cliquez simplement sur le signe plus pour afficher une section, et sur un objet pour l'ajouter.</label>
+            <label index="showall">Afficher / Masquer toutes les sections</label>
+        </languageKey>
+    </data>
+</T3locallang>
