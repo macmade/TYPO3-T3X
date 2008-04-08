@@ -27,16 +27,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 0,
 	'lockType' => '',
 	'author' => 'Jean-David Gadina',
-	'author_email' => 'macmade@gadlab.net',
+	'author_email' => 'info@macmade.net',
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'version' => '0.1.1',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '3.5.0-0.0.0',
-			'php' => '3.0.0-0.0.0',
-			'cms' => '',
+			'php' => '5.2.0-',
 		),
 		'conflicts' => array(
 		),
