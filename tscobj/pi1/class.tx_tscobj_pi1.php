@@ -32,11 +32,14 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *   44:        class tx_tscobj_pi1 extends tslib_pibase
- *  102:        function main( $content, array $conf )
+ *   47:        class tx_tscobj_pi1 extends tslib_pibase
+ *  105:        function main( $content, array $conf )
  * 
  *              TOTAL FUNCTIONS: 1
  */
+
+// DEBUG ONLY - Sets the error reporting level to the highest possible value
+#error_reporting( E_ALL | E_STRICT );
 
 // TYPO3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
