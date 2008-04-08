@@ -32,10 +32,10 @@
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- *   44:		class tx_tscobj_pi1 extends tslib_pibase
- *  102:		function main( $content, array $conf )
+ *   44:        class tx_tscobj_pi1 extends tslib_pibase
+ *  102:        function main( $content, array $conf )
  * 
- *				TOTAL FUNCTIONS: 1
+ *              TOTAL FUNCTIONS: 1
  */
 
 // TYPO3 FE plugin class
@@ -164,17 +164,17 @@ class tx_tscobj_pi1 extends tslib_pibase
             if ( isset( $error ) ) {
                 
                 // Object not found
-                return '<strong>' . $this->pi_getLL( 'errors_notfound' ) . '</strong> (' . $tsObjPath . ')';
+                return '<strong>' . $this->pi_getLL( 'errors-notfound' ) . '</strong> (' . $tsObjPath . ')';
                 
             } elseif( !$cType ) {
                 
                 // No content type
-                return '<strong>' . $this->pi_getLL( 'errors.notype' ) . '</strong> (' . $cType . ')';
+                return '<strong>' . $this->pi_getLL( 'errors-notype' ) . '</strong> (' . $cType . ')';
                 
             } elseif( !isset( self::$_cTypes[ $cType ] ) ) {
                 
                 // Invalid content type
-                return '<strong>' . $this->pi_getLL( 'errors.invalid' ) . '</strong> (' . $cType . ')';
+                return '<strong>' . $this->pi_getLL( 'errors-invalid' ) . '</strong> (' . $cType . ')';
                 
             } else {
                 
