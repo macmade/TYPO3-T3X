@@ -83,7 +83,7 @@ class tx_tscobj_pi1_wizicon
      */
     protected function _getLabel( $label )
     {
-        return self::$_lang->getLLL( $label, self::$_labels )
+        return self::$_lang->getLLL( $label, self::$_labels );
     }
     
     /**
