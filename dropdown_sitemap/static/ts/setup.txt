@@ -43,7 +43,7 @@ plugin.tx_dropdownsitemap_pi1 {
     includeNotInMenu = {$plugin.tx_dropdownsitemap_pi1.includeNotInMenu}
     
     // Include spacers pages
-    showSpacers = {$plugin.tx_dropdownsitemap_pi1.showSpacers}
+    showSpacers      = {$plugin.tx_dropdownsitemap_pi1.showSpacers}
     
     // Add the expand/collapse all link
     expAllLink       = {$plugin.tx_dropdownsitemap_pi1.expAllLink}
