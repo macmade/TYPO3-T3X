@@ -1,24 +1,24 @@
 <?php
 /***************************************************************
  * Copyright notice
- *
+ * 
  * (c) 2004 macmade.net
  * All rights reserved
- *
+ * 
  * This script is part of the TYPO3 project. The TYPO3 project is 
-  * free software; you can redistribute it and/or modify
+ * free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * 
  * The GNU General Public License can be found at
  * http://www.gnu.org/copyleft/gpl.html.
- *
+ * 
  * This script is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
@@ -26,23 +26,24 @@
  * Plugin 'Drop-Down sitemap' for the 'dropdown_sitemap' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     2.0.0
+ * @version     3.0.0
  */
 
 /**
  * [CLASS/FUNCTION INDEX OF SCRIPT]
  * 
- * SECTION:     1 - MAIN
- *      97:     function main($content,$conf)
- *     222:     function setConfig
- *     267:     function buildMenuConfArray
- *     463:     function buildImageTSConfig($expanded=false)
- *     528:     function buildJSCode
+ *   52:    class tx_dropdownsitemap_pi1 extends tslib_pibase
+ *   86:    public function __construct
+ *  104:    protected function _setConfig
+ *  149:    protected function _buildMenuConfArray
+ *  356:    protected function _buildImageTSConfig( $expanded = false )
+ *  421:    protected function _buildJSCode
+ *  614:    public function main( $content, array $conf )
  * 
- *              TOTAL FUNCTIONS: 5
+ *          TOTAL FUNCTIONS: 6
  */
 
-// Typo3 FE plugin class
+// TYPO3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
 // Developer API class
@@ -50,176 +51,45 @@ require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php'
 
 class tx_dropdownsitemap_pi1 extends tslib_pibase
 {
+    // TypoScript configuration array
+    protected $_conf           = array();
     
+    // Instance of the Developer API
+    protected $_api            = NULL;
     
+    // Plugin flexform data
+    protected $_piFlexForm     = '';
     
+    // New line character
+    protected $_NL             = '';
     
-    
-    /***************************************************************
-     * SECTION 0 - VARIABLES
-     *
-     * Class variables for the plugin.
-     ***************************************************************/
+    // Tabulation character
+    protected $_TAB            = '';
     
     // Same as class name
-    var $prefixId           = 'tx_dropdownsitemap_pi1';
+    public $prefixId           = 'tx_dropdownsitemap_pi1';
     
     // Path to this script relative to the extension dir
-    var $scriptRelPath      = 'pi1/class.tx_dropdownsitemap_pi1.php';
+    public $scriptRelPath      = 'pi1/class.tx_dropdownsitemap_pi1.php';
     
     // The extension key
-    var $extKey             = 'dropdown_sitemap';
+    public $extKey             = 'dropdown_sitemap';
     
     // Version of the Developer API required
-    var $apimacmade_version = 4.3;
-    
-    
-    
-    
-    
-    /***************************************************************
-     * SECTION 1 - MAIN
-     *
-     * Functions for the initialization and the output of the plugin.
-     ***************************************************************/
+    public $apimacmade_version = 4.5;
     
     /**
-     * Returns the content object of the plugin.
+     * Class constructor
      * 
-     * This function initialises the plugin "tx_dropdownsitemap_pi1", and
-     * launches the needed functions to correctly display the plugin.
-     * 
-     * @param       $content            The content object
-     * @param       $conf               The TS setup
-     * @return      The content of the plugin.
-     * @see         buildJSCode
+     * @return  NULL
      */
-    function main( $content, $conf )
+    public function __construct()
     {
-        // New instance of the macmade.net API
-        $this->api  = new tx_apimacmade( $this );
+        // Sets the new line character
+        $this->_NL  = chr( 10 );
         
-        // Placing TS conf array in a class variable
-        $this->conf =& $conf;
-        
-        // Load LOCAL_LANG values
-        $this->pi_loadLL();
-        
-        // Init flexform configuration of the plugin
-        $this->pi_initPIflexForm();
-        
-        // Store flexform informations
-        $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
-        
-        // Checks the configuration array
-        if( !is_array( $this->conf ) || count( $this->conf ) <= 2 ) {
-            
-            // Static template not included
-            return $this->api->fe_makeStyledContent(
-                'strong',
-                'error',
-                $this->pi_getLL( 'error' )
-            );
-        }
-        
-        // Set final configuration (TS or FF)
-        $this->setConfig();
-        
-        // Checks for Scriptaculous
-        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-            && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
-        ) {
-            
-            // Includes Scriptaculous
-            $this->api->fe_includeScriptaculousJs();
-        }
-        
-        // Set final configuration (TS or FF)
-        $this->setConfig();
-        
-        // Checks for Mootools
-        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-            && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
-        ) {
-            
-            // Includes Scriptaculous
-            $this->api->fe_includeMootoolsJs();
-        }
-        
-        // Create the menu configuration array
-        $mconf = $this->buildMenuConfArray();
-        
-        // Add JavaScrip Code
-        $this->buildJSCode();
-        
-        // New instance of the tslib_tmenu class
-        $menu              = t3lib_div::makeInstance( 'tslib_tmenu' );
-        
-        // Set some internal vars
-        $menu->parent_cObj = $this;
-        
-        // Use starting point field
-        // Thanks a lot to Steven Bagshaw for that piece of code
-        $startingPoint     = $this->conf[ 'startingPoint' ];
-        
-        // Class constructor
-        $menu->start(
-            $GLOBALS[ 'TSFE' ]->tmpl,
-            $GLOBALS[ 'TSFE' ]->sys_page,
-            $startingPoint,
-            $mconf,
-            1
-        );
-        
-        // Make the menu
-        $menu->makeMenu();
-        
-        // Storage
-        $content = array();
-        
-        // Display the expAll link
-        if( $this->conf[ 'expAllLink' ] == 1 ) {
-            
-            // Picture TS configuration array
-            $imgTSConfig                        = array();
-            
-            // File reference
-            $imgTSConfig[ 'file' ]              = $this->conf[ 'picture.' ][ 'expOn' ];
-            
-            // File ressource array
-            $imgTSConfig[ 'file.' ]             = array();
-            
-            // Width
-            $imgTSConfig[ 'file.' ][ 'width' ]  = $this->conf[ 'picture.' ][ 'width' ];
-            
-            // Height
-            $imgTSConfig[ 'file.' ][ 'height' ] = $this->conf[ 'picture.' ][ 'height' ];
-            
-            // HTML tag parameters
-            $imgTSConfig[ 'params' ]            = $this->conf[ 'picture.' ][ 'params' ]
-                                                . ' id="'
-                                                . $this->prefixId
-                                                . '_expImg"';
-            
-            // Adds the alt and title text
-            $imgTSConfig[ 'altText' ]           = $this->pi_getLL( 'expall' );
-            $imgTSConfig[ 'titleText' ]         = $this->pi_getLL( 'expall' );
-            
-            $content[] = '<div class="expAll"><a href="javascript:'
-                       . $this->prefixId
-                       . '_expAll();" title="'
-                       . $this->pi_getLL( 'expall' )
-                       . '">'
-                       . $this->cObj->IMAGE( $imgTSConfig )
-                       . $this->pi_getLL( 'expall' )
-                       . '</a></div>';
-        }
-        
-        // Write the full menu with sub-items
-        $content[] = $menu->writeMenu();
-        
-        // Return the full menu
-        return $this->pi_wrapInBaseClass( implode( chr( 10 ), $content ) );
+        // Sets the tabulation character
+        $this->_TAB = chr( 9 );
     }
     
     /**
@@ -229,9 +99,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      * plugin, by providing a mapping array between the TS & the flexform
      * configuration.
      * 
-     * @return      Void
+     * @return  NULL
      */
-    function setConfig()
+    protected function _setConfig()
     {
         // Mapping array for PI flexform
         $flex2conf = array(
@@ -258,14 +128,14 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         );
         
         // Override TS setup with flexform
-        $this->conf = $this->api->fe_mergeTSconfFlex(
+        $this->_conf = $this->_api->fe_mergeTSconfFlex(
             $flex2conf,
-            $this->conf,
-            $this->piFlexForm
+            $this->_conf,
+            $this->_piFlexForm
         );
         
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug( $this->conf, 'Drop-Down Site Map: configuration array' );
+        #$this->_api->debug( $this->_conf, 'Drop-Down Site Map: configuration array' );
     }
     
     /**
@@ -274,9 +144,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      * This function creates the configuration array of the sitemap,
      * which will be used by the start() method of the tslib_tmenu class.
      * 
-     * @return      The configuration array of the menu
+     * @return  array   The configuration array of the menu
      */
-    function buildMenuConfArray()
+    protected function _buildMenuConfArray()
     {
         // PID list storage
         $pidList = array();
@@ -285,48 +155,48 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         $mconf   = array();
         
         // Exclude pages
-        $mconf[ 'excludeUidList' ]   =& $this->conf[ 'excludeList' ];
+        $mconf[ 'excludeUidList' ]   =& $this->_conf[ 'excludeList' ];
         
         // Exclude page types
-        $mconf[ 'excludeDoktypes' ]  =& $this->conf[ 'excludeDoktypes' ];
+        $mconf[ 'excludeDoktypes' ]  =& $this->_conf[ 'excludeDoktypes' ];
         
         // Include not in menu
-        $mconf[ 'includeNotInMenu' ] =& $this->conf[ 'includeNotInMenu' ];
+        $mconf[ 'includeNotInMenu' ] =& $this->_conf[ 'includeNotInMenu' ];
         
         // Include not in menu
         $mconf[ 'insertData' ]       =  '1';
         
         // Creating menu items configuration
-        for( $i = 1; $i < ( $this->conf[ 'showLevels' ] + 1 ); $i++ ) {
+        for( $i = 1; $i < ( $this->_conf[ 'showLevels' ] + 1 ); $i++ ) {
             
             // Create image TS Config
-            $imgTSConfig                                      = ( $i <= $this->conf[ 'expandLevels' ] ) ? $this->buildImageTSConfig( 1 ) : $this->buildImageTSConfig();
+            $imgTSConfig                                      = ( $i <= $this->_conf[ 'expandLevels' ] ) ? $this->_buildImageTSConfig( true ) : $this->_buildImageTSConfig();
             
             // Checks for the effects engine
-            if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-                && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
+            if( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+                && $this->_conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
             ) {
                 
                 // No CSS class
                 $className = '';
                 
                 // CSS styles for expand/collapse
-                $styles    = ( $i - 1 <= $this->conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
+                $styles    = ( $i - 1 <= $this->_conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
                 
-            } elseif( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-                && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
+            } elseif( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+                && $this->_conf[ 'effects.' ][ 'engine' ] == 'mootools'
             ) {
                 
                 // No CSS class
                 $className = '';
                 
                 // CSS styles for expand/collapse
-                $styles    = ( $i - 1 <= $this->conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
+                $styles    = ( $i - 1 <= $this->_conf[ 'expandLevels' ] ) ? ' style="display: block;"' : ' style="display: none;"';
                 
             } else {
                 
                 // CSS class name for expand/collapse
-                $className = ( $i <= $this->conf[ 'expandLevels' ] )     ? ' class="open"'            : ' class="closed"';
+                $className = ( $i <= $this->_conf[ 'expandLevels' ] )     ? ' class="open"'            : ' class="closed"';
                 
                 // No CSS styles
                 $styles    = '';
@@ -337,20 +207,20 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             
             // Wrap in an HTML list element
             $mconf[ $i . '.' ][ 'wrap' ]                      = '<'
-                                                              . $this->conf[ 'list.' ][ 'tag' ]
+                                                              . $this->_conf[ 'list.' ][ 'tag' ]
                                                               . ' type="'
-                                                              . $this->conf[ 'list.' ][ 'type' ]
+                                                              . $this->_conf[ 'list.' ][ 'type' ]
                                                               . '"'
                                                               . $styles
                                                               . '>|</'
-                                                              . $this->conf[ 'list.' ][ 'tag' ]
+                                                              . $this->_conf[ 'list.' ][ 'tag' ]
                                                               . '>';
             
             // Expand all property
             $mconf[ $i . '.' ][ 'expAll' ]                    = '1';
             
             // Target for the links
-            $mconf[ $i . '.' ][ 'target' ]                    = $this->conf[ 'linkTarget' ];
+            $mconf[ $i . '.' ][ 'target' ]                    = $this->_conf[ 'linkTarget' ];
             
             // NO state configuration
             $mconf[ $i . '.' ][ 'NO.' ]                       = array();
@@ -369,30 +239,30 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                               . '<span class="no">|</span>';
             
             // Checks for a specific link text
-            if( $this->conf[ 'linkText' ] ) {
+            if( $this->_conf[ 'linkText' ] ) {
                 
                 // Forces the link text
-                $mconf[ $i . '.' ][ 'NO.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+                $mconf[ $i . '.' ][ 'NO.' ][ 'stdWrap.' ][ 'field' ] = $this->_conf[ 'linkText' ];
             }
             
             // Check if A tag title must be added
-            if( $this->conf[ 'titleFields' ] ) {
+            if( $this->_conf[ 'titleFields' ] ) {
                 
                 // Add fields for A tag
-                $mconf[ $i . '.' ][ 'NO.' ][ 'ATagTitle.' ][ 'field' ] = $this->conf[ 'titleFields' ];
+                $mconf[ $i . '.' ][ 'NO.' ][ 'ATagTitle.' ][ 'field' ] = $this->_conf[ 'titleFields' ];
             }
             
             // Check if a description must be added
-            if( $this->conf[ 'descriptionField' ] && $this->conf[ 'descriptionField' ] != 'none' ) {
+            if( $this->_conf[ 'descriptionField' ] && $this->_conf[ 'descriptionField' ] != 'none' ) {
                 
                 // Add description
                 $mconf[ $i . '.' ][ 'NO.' ][ 'after.' ][ 'dataWrap' ] = '|<span class="description">&nbsp;{field:'
-                                                                      . $this->conf[ 'descriptionField' ]
+                                                                      . $this->_conf[ 'descriptionField' ]
                                                                       . '}</span>';
             }
             
             // Only check for subpages if sublevels must be shown
-            if( $i < $this->conf[ 'showLevels' ] ) {
+            if( $i < $this->_conf[ 'showLevels' ] ) {
                 
                 // IFSUB state configuration
                 $mconf[ $i . '.' ][ 'IFSUB.' ]                       = array();
@@ -422,31 +292,31 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                 $mconf[ $i . '.' ][ 'IFSUB' ]                        = '1';
                 
                 // Checks for a specific link text
-                if( $this->conf[ 'linkText' ] ) {
+                if( $this->_conf[ 'linkText' ] ) {
                     
                     // Forces the link text
-                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'stdWrap.' ][ 'field' ] = $this->_conf[ 'linkText' ];
                 }
                 
                 // Check if A tag title must be added
-                if( $this->conf[ 'titleFields' ] ) {
+                if( $this->_conf[ 'titleFields' ] ) {
                     
                     // Add fields for A tag
-                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'ATagTitle.' ][ 'field' ] = $this->conf[ 'titleFields' ];
+                    $mconf[ $i . '.' ][ 'IFSUB.' ][ 'ATagTitle.' ][ 'field' ] = $this->_conf[ 'titleFields' ];
                 }
                 
                 // Check if a description must be added
-                if( $this->conf[ 'descriptionField' ] && $this->conf[ 'descriptionField' ] != 'none' ) {
+                if( $this->_conf[ 'descriptionField' ] && $this->_conf[ 'descriptionField' ] != 'none' ) {
                     
                     // Add description
                     $mconf[ $i . '.' ][ 'IFSUB.' ][ 'after.' ][ 'dataWrap' ] = '|<span class="description">&nbsp;{field:'
-                                                                             . $this->conf[ 'descriptionField' ]
+                                                                             . $this->_conf[ 'descriptionField' ]
                                                                              . '}</span>';
                 }
             }
             
             // Configuration for spacers
-            if( $this->conf[ 'showSpacers' ] ) {
+            if( $this->_conf[ 'showSpacers' ] ) {
                 
                 // Activate spacers
                 $mconf[ $i . '.' ][ 'SPC' ]                      = '1';
@@ -462,10 +332,10 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
                                                                  . '<span class="spc">|</span>';
                 
                 // Checks for a specific link text
-                if( $this->conf[ 'linkText' ] ) {
+                if( $this->_conf[ 'linkText' ] ) {
                     
                     // Forces the link text
-                    $mconf[ $i . '.' ][ 'SPC.' ][ 'stdWrap.' ][ 'field' ] = $this->conf[ 'linkText' ];
+                    $mconf[ $i . '.' ][ 'SPC.' ][ 'stdWrap.' ][ 'field' ] = $this->_conf[ 'linkText' ];
                 }
             }
         }
@@ -480,43 +350,43 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      * This function creates the configuration array for the expand and
      * collapse pictures. Used by the IMAGE method of the cObj class.
      * 
-     * @param       $expanded           Boolean - True if the menu should be expanded
-     * @return      The configuration arrays for the pictures.
+     * @param   boolean     $expanded   True if the menu should be expanded
+     * @return  array       The configuration arrays for the pictures.
      */
-    function buildImageTSConfig( $expanded = false )
+    protected function _buildImageTSConfig( $expanded = false )
     {
         // Image TS Config array for NO state
         $imgTSConfigNo                        = array();
         
         // File reference
-        $imgTSConfigNo[ 'file' ]              = $this->conf[ 'picture.' ][ 'page' ];
+        $imgTSConfigNo[ 'file' ]              = $this->_conf[ 'picture.' ][ 'page' ];
         
         // File ressource array
         $imgTSConfigNo[ 'file.' ]             = array();
         
         // Width
-        $imgTSConfigNo[ 'file.' ][ 'width' ]  = $this->conf[ 'picture.' ][ 'width' ];
+        $imgTSConfigNo[ 'file.' ][ 'width' ]  = $this->_conf[ 'picture.' ][ 'width' ];
         
         // Height
-        $imgTSConfigNo[ 'file.' ][ 'height' ] = $this->conf[ 'picture.' ][ 'height' ];
+        $imgTSConfigNo[ 'file.' ][ 'height' ] = $this->_conf[ 'picture.' ][ 'height' ];
         
         // HTML tag parameters
-        $imgTSConfigNo[ 'params' ]            = $this->conf[ 'picture.' ][ 'params' ];
+        $imgTSConfigNo[ 'params' ]            = $this->_conf[ 'picture.' ][ 'params' ];
         
         // Image TS Config array for SPC state
         $imgTSConfigSpc                       = $imgTSConfigNo;
         
         // File reference
-        $imgTSConfigSpc[ 'file' ]             = $this->conf[ 'picture.' ][ 'spacer' ];
+        $imgTSConfigSpc[ 'file' ]             = $this->_conf[ 'picture.' ][ 'spacer' ];
         
         // Image TS Config array for IFSUB state
         $imgTSConfigSub                       = $imgTSConfigNo;
         
         // File reference
-        $imgTSConfigSub[ 'file' ]             = ( $expanded ) ? $this->conf[ 'picture.' ][ 'collapse' ] : $this->conf[ 'picture.' ][ 'expand' ];
+        $imgTSConfigSub[ 'file' ]             = ( $expanded ) ? $this->_conf[ 'picture.' ][ 'collapse' ] : $this->_conf[ 'picture.' ][ 'expand' ];
         
         // HTML tag parameters
-        $imgTSConfigSub[ 'params' ]           = $this->conf[ 'picture.' ][ 'params' ]
+        $imgTSConfigSub[ 'params' ]           = $this->_conf[ 'picture.' ][ 'params' ]
                                               . ' id="pic_{elementUid}"';
         
         // Final array
@@ -548,7 +418,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      * 
      * @return      Void.
      */
-    function buildJSCode() 
+    protected function _buildJSCode() 
     {
         // Storage
         $jsCode      = array();
@@ -558,7 +428,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName(
-                $this->conf[ 'picture.' ][ 'expand' ]
+                $this->_conf[ 'picture.' ][ 'expand' ]
             )
         );
         
@@ -567,7 +437,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName(
-                $this->conf[ 'picture.' ][ 'collapse' ]
+                $this->_conf[ 'picture.' ][ 'collapse' ]
             )
         );
         
@@ -576,7 +446,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName(
-                $this->conf[ 'picture.' ][ 'expOn' ]
+                $this->_conf[ 'picture.' ][ 'expOn' ]
             )
         );
         
@@ -585,18 +455,18 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName(
-                $this->conf[ 'picture.' ][ 'expOff' ]
+                $this->_conf[ 'picture.' ][ 'expOff' ]
             )
         );
         
         // Checks for Scriptaculous
-        if( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-            && $this->conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
+        if( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+            && $this->_conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
         ) {
             
             // Effects
-            $appear = $this->conf[ 'effects.' ][ 'appear' ];
-            $fade   = $this->conf[ 'effects.' ][ 'fade' ];
+            $appear = $this->_conf[ 'effects.' ][ 'appear' ];
+            $fade   = $this->_conf[ 'effects.' ][ 'fade' ];
             
             // Function for swapping element class
             $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
@@ -641,14 +511,14 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '    }';
             $jsCode[] = '}';
             
-        } elseif( isset( $this->conf[ 'effects.' ][ 'engine' ] )
-            && $this->conf[ 'effects.' ][ 'engine' ] == 'mootools'
+        } elseif( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+            && $this->_conf[ 'effects.' ][ 'engine' ] == 'mootools'
         ) {
             
             // Function for swapping element class
             $jsCode[] = 'function ' . $this->prefixId . '_swapClasses( element )';
             $jsCode[] = '{';
-            $jsCode[] = '    var list = $E( "' . $this->conf[ 'list.' ][ 'tag' ] . '", "' . $this->prefixId . '_" + element );';
+            $jsCode[] = '    var list = $E( "' . $this->_conf[ 'list.' ][ 'tag' ] . '", "' . $this->prefixId . '_" + element );';
             $jsCode[] = '    var picture     = "pic_" + element;';
             $jsCode[] = '    if( list.getStyle( "display" ) == "block" ) {';
             $jsCode[] = '        var width = list.getStyle( "width" );';
@@ -674,7 +544,7 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
             $jsCode[] = '        var listItems = document.getElementsByTagName( "li" );';
             $jsCode[] = '        for( i = 0; i < listItems.length; i++ ) {';
             $jsCode[] = '            if( listItems[ i ].id.indexOf( "' . $this->prefixId . '" ) != -1 ) {';
-            $jsCode[] = '                var list    = $E( "' . $this->conf[ 'list.' ][ 'tag' ] . '", listItems[ i ].id );';
+            $jsCode[] = '                var list    = $E( "' . $this->_conf[ 'list.' ][ 'tag' ] . '", listItems[ i ].id );';
             $jsCode[] = '                var picture = "pic_" + listItems[ i ].id.replace( "' . $this->prefixId . '_", "" );';
             $jsCode[] = '                if( ' . $this->prefixId . '_expanded && list.getStyle( "display" ) == "block" ) {';
             $jsCode[] = '                    list.setStyle( "display", "none" );';
@@ -726,8 +596,144 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
         // Adds JS code
         $GLOBALS[ 'TSFE' ]->setJS(
             $this->prefixId,
-            implode( chr( 10 ), $jsCode )
+            implode( $this->_NL, $jsCode )
         );
+    }
+    
+    /**
+     * Returns the content object of the plugin.
+     * 
+     * This function initialises the plugin "tx_dropdownsitemap_pi1", and
+     * launches the needed functions to correctly display the plugin.
+     * 
+     * @param   string  $content    The content object
+     * @param   array   $conf       The TS setup
+     * @return  string  The content of the plugin.
+     * @see     buildJSCode
+     */
+    public function main( $content, array $conf )
+    {
+        // New instance of the macmade.net API
+        $this->_api  = new tx_apimacmade( $this );
+        
+        // Placing TS conf array in a class variable
+        $this->_conf =& $conf;
+        
+        // Load LOCAL_LANG values
+        $this->pi_loadLL();
+        
+        // Init flexform configuration of the plugin
+        $this->pi_initPIflexForm();
+        
+        // Store flexform informations
+        $this->_piFlexForm = $this->cObj->data[ 'pi_flexform' ];
+        
+        // Checks the configuration array
+        if( !is_array( $this->_conf ) || count( $this->_conf ) <= 2 ) {
+            
+            // Static template not included
+            return $this->_api->fe_makeStyledContent(
+                'strong',
+                'error',
+                $this->pi_getLL( 'error' )
+            );
+        }
+        
+        // Set final configuration (TS or FF)
+        $this->_setConfig();
+        
+        // Checks for Scriptaculous
+        if( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+            && $this->_conf[ 'effects.' ][ 'engine' ] == 'scriptaculous'
+        ) {
+            
+            // Includes Scriptaculous
+            $this->_api->fe_includeScriptaculousJs();
+        }
+        
+        // Checks for Mootools
+        if( isset( $this->_conf[ 'effects.' ][ 'engine' ] )
+            && $this->_conf[ 'effects.' ][ 'engine' ] == 'mootools'
+        ) {
+            
+            // Includes Scriptaculous
+            $this->_api->fe_includeMootoolsJs();
+        }
+        
+        // Create the menu configuration array
+        $mconf = $this->_buildMenuConfArray();
+        
+        // Add JavaScrip Code
+        $this->_buildJSCode();
+        
+        // New instance of the tslib_tmenu class
+        $menu              = t3lib_div::makeInstance( 'tslib_tmenu' );
+        
+        // Set some internal vars
+        $menu->parent_cObj = $this->cObj;
+        
+        // Use starting point field
+        // Thanks a lot to Steven Bagshaw for that piece of code
+        $startingPoint     = $this->_conf[ 'startingPoint' ];
+        
+        // Class constructor
+        $menu->start(
+            $GLOBALS[ 'TSFE' ]->tmpl,
+            $GLOBALS[ 'TSFE' ]->sys_page,
+            $startingPoint,
+            $mconf,
+            1
+        );
+        
+        // Make the menu
+        $menu->makeMenu();
+        
+        // Storage
+        $content = array();
+        
+        // Display the expAll link
+        if( $this->_conf[ 'expAllLink' ] == 1 ) {
+            
+            // Picture TS configuration array
+            $imgTSConfig                        = array();
+            
+            // File reference
+            $imgTSConfig[ 'file' ]              = $this->_conf[ 'picture.' ][ 'expOn' ];
+            
+            // File ressource array
+            $imgTSConfig[ 'file.' ]             = array();
+            
+            // Width
+            $imgTSConfig[ 'file.' ][ 'width' ]  = $this->_conf[ 'picture.' ][ 'width' ];
+            
+            // Height
+            $imgTSConfig[ 'file.' ][ 'height' ] = $this->_conf[ 'picture.' ][ 'height' ];
+            
+            // HTML tag parameters
+            $imgTSConfig[ 'params' ]            = $this->_conf[ 'picture.' ][ 'params' ]
+                                                . ' id="'
+                                                . $this->prefixId
+                                                . '_expImg"';
+            
+            // Adds the alt and title text
+            $imgTSConfig[ 'altText' ]           = $this->pi_getLL( 'expall' );
+            $imgTSConfig[ 'titleText' ]         = $this->pi_getLL( 'expall' );
+            
+            $content[] = '<div class="expAll"><a href="javascript:'
+                       . $this->prefixId
+                       . '_expAll();" title="'
+                       . $this->pi_getLL( 'expall' )
+                       . '">'
+                       . $this->cObj->IMAGE( $imgTSConfig )
+                       . $this->pi_getLL( 'expall' )
+                       . '</a></div>';
+        }
+        
+        // Write the full menu with sub-items
+        $content[] = $menu->writeMenu();
+        
+        // Return the full menu
+        return $this->pi_wrapInBaseClass( implode( $this->_NL, $content ) );
     }
 }
 
@@ -737,4 +743,3 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
 if (defined("TYPO3_MODE") && $TYPO3_CONF_VARS[TYPO3_MODE]["XCLASS"]["ext/dropdown_sitemap/pi1/class.tx_dropdownsitemap_pi1.php"]) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]["XCLASS"]["ext/dropdown_sitemap/pi1/class.tx_dropdownsitemap_pi1.php"]);
 }
-?>
