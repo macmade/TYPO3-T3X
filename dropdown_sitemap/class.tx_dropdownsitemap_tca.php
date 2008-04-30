@@ -2,7 +2,7 @@
 /***************************************************************
  * Copyright notice
  * 
- * (c) 2004 Jean-David Gadina (info@macmade.net)
+ * (c) 2004 macmade.net
  * All rights reserved
  * 
  * This script is part of the TYPO3 project. The TYPO3 project is 
@@ -20,17 +20,46 @@
  * GNU General Public License for more details.
  * 
  * This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+ ***************************************************************/
 
 /** 
  * TCA helper for extension dropdown_sitemap
  *
- * @author		Jean-David Gadina <info@macmade.net>
- * @version		1.0
+ * @author      Jean-David Gadina <info@macmade.net>
+ * @version     2.0
  */
 
 class tx_dropdownsitemap_tca
 {
+    // Database object
+    protected static $_db   = NULL;
+    
+    // Lang object
+    protected static $_lang = NULL;
+    
+    /**
+     * Class constructor
+     * 
+     * @return  NULL
+     */
+    public function __construct()
+    {
+        // Checks for the database object
+        if( !is_object( self::$_db ) ) {
+            
+            // Gets a reference to the database object
+            self::$_db = $GLOBALS[ 'DB' ];
+        }
+        
+        
+        // Checks for the database object
+        if( !is_object( self::$_lang ) ) {
+            
+            // Gets a reference to the database object
+            self::$_lang = $GLOBALS[ 'LANG' ];
+        }
+    }
+    
     /**
      * Fills the parameters array with the page fields
      * 
@@ -38,10 +67,10 @@ class tx_dropdownsitemap_tca
      * @param   object  &$pObj      A reference to the parent object
      * @return  NULL
      */
-    function getPageFields( &$params, &$pObj )
+    public function getPageFields( array &$params, &$pObj )
     {
         // Get fields
-        $fields = $GLOBALS[ 'TYPO3_DB' ]->admin_get_fields( 'pages' );
+        $fields = self::$_db->admin_get_fields( 'pages' );
         
         // Sorts the fields array
         ksort( $fields );
@@ -50,7 +79,7 @@ class tx_dropdownsitemap_tca
         foreach( $fields as $key => $value ) {
             
             // Lang label
-            $langLabel = $GLOBALS[ 'LANG' ]->sL( 'LLL:EXT:cms/locallang_tca.php:pages.' . $key );
+            $langLabel = self::$_lang->sL( 'LLL:EXT:cms/locallang_tca.php:pages.' . $key );
             
             // Option label
             $label     = ( $langLabel ) ? $langLabel . ' [' . $key . ']': '[' . $key . ']';
