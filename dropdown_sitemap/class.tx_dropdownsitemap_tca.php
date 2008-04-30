@@ -48,7 +48,7 @@ class tx_dropdownsitemap_tca
         if( !is_object( self::$_db ) ) {
             
             // Gets a reference to the database object
-            self::$_db = $GLOBALS[ 'DB' ];
+            self::$_db = $GLOBALS[ 'TYPO3_DB' ];
         }
         
         
