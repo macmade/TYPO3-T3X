@@ -23,38 +23,88 @@
  ***************************************************************/
 
 /**
- * Class/Function for updating the extension from older versions.
+ * Class for updating the extension from older versions.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
- */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - MAIN
- *      54:     function access
- *      72:     function main
- *     267:     function selectOldRecords
- * 
- *              TOTAL FUNCTIONS: 3
+ * @version     2.0
  */
 
 class ext_update
 {
+    // Database object
+    protected static $_db = NULL;
+    
+    // Document object
+    protected $_doc       = NULL;
+    
+    // Back path
+    protected $_backPath  = '';
+    
+    // New line character
+    protected $_NL        = '';
+    
+    // Tabulation character
+    protected $_TAB       = '';
+    
+    /**
+     * Class constructor
+     * 
+     * @return  NULL
+     */
+    public function __construct()
+    {
+        // Checks for the database object
+        if( !is_object( self::$_db ) ) {
+            
+            // Gets a reference to the database object
+            self::$_db = $GLOBALS[ 'TYPO3_DB' ];
+        }
+        
+        // Back path
+        $this->_backPath = $GLOBALS[ 'BACK_PATH' ];
+        
+        // Sets the new line character
+        $this->_NL  = chr( 10 );
+        
+        // Sets the tabulation character
+        $this->_TAB = chr( 9 );
+    }
+    
+    /**
+     * Select old sitemap records
+     * 
+     * This function select all the old instance of the dropdown sitemap plugin
+     * in the tt_content database.
+     * 
+     * @return	ressource   The MySQL pointer
+     */
+    protected function _selectOldRecords()
+    {
+        // Table to use
+        $table       = 'tt_content';
+        
+        // Where clause to select old sitemap records
+        $whereClause = 'CType="menu" AND menu_type="dropdown_sitemap_pi1"';
+        
+        // Select records
+        $res         = self::$_db->exec_SELECTquery( '*', $table, $whereClause );
+        
+        // Return ressource
+        return $res;
+    }
     
     /**
      * Check if an update is needed.
      * 
      * This function check if old sitemap records are present in the database. It is
-     * used to display the update menu in the Typo3 extension manager.
+     * used to display the update menu in the TYPO3 extension manager.
      * 
-     * @return	Boolean
+     * @return	boolean
      */
-    function access()
+    public function access()
     {
         // Check if records need to be updated
-        if( $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $this->selectOldRecords() ) ) {
+        if( self::$_db->sql_num_rows( $this->_selectOldRecords() ) ) {
             
             // Make the update menu available
             return true;
@@ -62,44 +112,51 @@ class ext_update
     }
     
     /**
-     * Update extension
+     * Updates records from the extension
      * 
      * This is the main function for updating the dropdown sitemap extension. It is
      * used to display a list of the old records, and to update them.
      * 
-     * @return	The content of the class
+     * @return	string  The update view
      */
-    function main()
+    public function main()
     {
         // New instance of the document class
-        $this->doc  = t3lib_div::makeInstance( 'bigDoc' );
+        $this->_doc  = t3lib_div::makeInstance( 'bigDoc' );
         
         // Select records
-        $res        = $this->selectOldRecords();
+        $res         = $this->_selectOldRecords();
         
         // Count records
-        $recNum     = $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res );
+        $recNum      = self::$_db->sql_num_rows( $res );
         
         // Counters
-        $colorcount = 0;
+        $colorcount  = 0;
         
         // Storage
-        $htmlCode   = array();
+        $htmlCode    = array();
+        
+        // Start form
+        $htmlCode[]  = '<form action="'
+                     . t3lib_div::linkThisScript()
+                     . '" method="post" enctype="'
+                     . $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ]
+                     . '">';
         
         // Check action
         if ( t3lib_div::_GP( 'update' ) ) {
             
             // Infos
             $htmlCode[] = '<p><img '
-                        . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_note.gif', '' )
+                        . t3lib_iconWorks::skinImg( $this->_backPath, 'gfx/icon_note.gif', '' )
                         . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Here are the results of the update process.</strong><br />If all the records were successfully updated, you won\'t see this page anymore in the extension manager.</p>';
             
             // Divider
-            $htmlCode[] = $this->doc->divider( 5 );
+            $htmlCode[] = $this->_doc->divider( 5 );
             
             // Start table
             $htmlCode[] = '<table id="recList" border="0" width="100%" cellspacing="1" cellpadding="2" align="center" bgcolor="'
-                        . $this->doc->bgColor2
+                        . $this->_doc->bgColor2
                         . '">';
             $htmlCode[] = '<tr>';
             $htmlCode[] = '<td align="left" valign="middle"></td>';
@@ -110,11 +167,11 @@ class ext_update
             $htmlCode[] = '</tr>';
             
             // Process records
-            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+            while( $row = self::$_db->sql_fetch_assoc( $res ) ) {
                 
                 // Change row color
-                $colorcount  = ( $colorcount == 1 ) ? 0                    : 1;
-                $color       = ( $colorcount == 1 ) ? $this->doc->bgColor4 : $this->doc->bgColor5;
+                $colorcount  = ( $colorcount == 1 ) ? 0                     : 1;
+                $color       = ( $colorcount == 1 ) ? $this->_doc->bgColor4 : $this->_doc->bgColor5;
                 
                 // Build row parameters
                 $tr_params   = ' bgcolor="' . $color . '"';
@@ -136,11 +193,11 @@ class ext_update
                 );
                 
                 // Status icon
-                $status = ( $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery( 'tt_content', $whereClause, $update ) ) ? 'gfx/icon_ok2.gif' : 'gfx/icon_warning.gif';
+                $status = ( self::$_db->exec_UPDATEquery( 'tt_content', $whereClause, $update ) ) ? 'gfx/icon_ok2.gif' : 'gfx/icon_warning.gif';
                 
                 // Fields
                 $htmlCode[] = '<td align="left" valign="middle">'
-                            . t3lib_iconWorks::getIconImage( 'tt_content', $row, $GLOBALS[ 'BACK_PATH' ] )
+                            . t3lib_iconWorks::getIconImage( 'tt_content', $row, $this->_backPath )
                             . '</td>';
                 $htmlCode[] = '<td align="left" valign="middle"><strong>'
                             . $row[ 'header' ]
@@ -156,7 +213,7 @@ class ext_update
                             . t3lib_BEfunc::getRecordPath( $row[ 'pid' ], '', 50 )
                             . '</td>';
                 $htmlCode[] = '<td align="left" valign="middle"><img '
-                            . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], $status, '' )
+                            . t3lib_iconWorks::skinImg( $this->_backPath, $status, '' )
                             . ' alt="" hspace="0" vspace="0" border="0" align="middle"></td>';
                 
                 // End row
@@ -170,11 +227,11 @@ class ext_update
             
             // Infos
             $htmlCode[] = '<p><img '
-                        . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/icon_note.gif', '' )
+                        . t3lib_iconWorks::skinImg( $this->_backPath, 'gfx/icon_note.gif', '' )
                         . ' alt="" hspace="0" vspace="0" border="0" align="middle">&nbsp;<strong>Some of the database records need to be updated in order to use the new version of the extension.</strong><br />Please click the button below to update the records listed here.</p>';
             
             // Spacer
-            $htmlCode[] = $this->doc->spacer( 5 );
+            $htmlCode[] = $this->_doc->spacer( 5 );
             
             // Submit
             $htmlCode[] = '<input name="update" type="submit" value="Update database ('
@@ -197,11 +254,11 @@ class ext_update
                         . '">';
             
             // Divider
-            $htmlCode[] = $this->doc->divider( 5 );
+            $htmlCode[] = $this->_doc->divider( 5 );
             
             // Start table
             $htmlCode[] = '<table id="recList" border="0" width="100%" cellspacing="1" cellpadding="2" align="center" bgcolor="'
-                        . $this->doc->bgColor2
+                        . $this->_doc->bgColor2
                         . '">';
             $htmlCode[] = '<tr>';
             $htmlCode[] = '<td align="left" valign="middle"></td>';
@@ -211,11 +268,11 @@ class ext_update
             $htmlCode[] = '</tr>';
             
             // Show records
-            while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+            while( $row = self::$_db->sql_fetch_assoc( $res ) ) {
                 
                 // Change row color
                 $colorcount = ( $colorcount == 1 ) ? 0                    : 1;
-                $color      = ( $colorcount == 1 ) ? $this->doc->bgColor4 : $this->doc->bgColor5;
+                $color      = ( $colorcount == 1 ) ? $this->_doc->bgColor4 : $this->_doc->bgColor5;
                 
                 // Build row parameters
                 $tr_params  = ' bgcolor="' . $color . '"';
@@ -228,7 +285,7 @@ class ext_update
                 
                 // Fields
                 $htmlCode[] = '<td align="left" valign="middle">'
-                            . t3lib_iconWorks::getIconImage( 'tt_content', $row, $GLOBALS[ 'BACK_PATH' ] )
+                            . t3lib_iconWorks::getIconImage( 'tt_content', $row, $this->_backPath )
                             . '</td>';
                 $htmlCode[] = '<td align="left" valign="middle"><strong>'
                             . $row[ 'header' ]
@@ -252,31 +309,11 @@ class ext_update
             $htmlCode[] = '</table>';
         }
         
+        // End form
+        $htmlCode[]  = '</form>';
+        
         // Return content
-        return implode( chr( 10 ), $htmlCode );
-    }
-    
-    /**
-     * Select old sitemap records
-     * 
-     * This function select all the old instance of the dropdown sitemap plugin
-     * in the tt_content database.
-     * 
-     * @return	The MySQL pointer
-     */
-    function selectOldRecords()
-    {
-        // Table to use
-        $table       = 'tt_content';
-        
-        // Where clause to select old sitemap records
-        $whereClause = 'CType="menu" AND menu_type="dropdown_sitemap_pi1"';
-        
-        // Select records
-        $res         = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery( '*', $table, $whereClause );
-        
-        // Return ressource
-        return $res;
+        return implode( $this->_NL, $htmlCode );
     }
 }
 
@@ -284,4 +321,3 @@ class ext_update
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dropdown_sitemap/class.ext_update.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dropdown_sitemap/class.ext_update.php']);
 }
-?>
