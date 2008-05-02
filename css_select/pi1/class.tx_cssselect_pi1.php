@@ -129,9 +129,6 @@ class tx_cssselect_pi1 extends tslib_pibase
         // Storage
         $imports = array();
         
-        // Media parameter
-        $media   = ( isset( $this->_conf[ 'cssMedia' ] ) && $this->_conf[ 'cssMedia' ] ) ? ' ' . $this->_conf[ 'cssMedia' ] : '';
-        
         // Process each stylesheet
         foreach( $this->_cssFiles as $key => $value ) {
             
@@ -139,9 +136,7 @@ class tx_cssselect_pi1 extends tslib_pibase
             $imports[] = $this->_TAB
                        . '@import url( "'
                        . $value[ 'file' ]
-                       . '" )'
-                       . $media
-                       . ';';
+                       . '" );';
         }
         
         // Returns the import rules
