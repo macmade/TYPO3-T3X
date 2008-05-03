@@ -90,6 +90,9 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     // Current date
     protected $_currentDate       = '';
     
+    // Remote address
+    protected $_remoteAddress     = '';
+    
     // Same as class name
     public $prefixId              = 'tx_eespwsmodules_pi1';
     
@@ -135,10 +138,13 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         );
         
         // Gets the current URL
-        $this->_url     = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
+        $this->_url           = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
         
         // Gets the current date
-        $this->_currentDate = time();
+        $this->_currentDate   = time();
+        
+        // Gets the remote address
+        $this->_remoteAddress = t3lib_div::getIndpEnv( 'REMOTE_ADDR' );
         
         // Set default plugin variables
         $this->pi_setPiVarDefaults();
@@ -905,9 +911,19 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                         // Builds the collapse picture
                         $this->_classRoomsPicture = $this->cObj->IMAGE( $this->_conf[ 'classRooms.' ][ 'picture.' ] );
                     }
-                
+                    
+                    // Link for the class rooms
+                    $classRoomsLink                        = ( $this->_remoteAddress == $this->_conf[ 'classRooms.' ][ 'router' ] ) ? $this->_conf[ 'classRooms.' ][ 'internal' ] : $this->_conf[ 'classRooms.' ][ 'external' ];
+                    
+                    // Typolink configuration
+                    $classRoomsTypoLink                    =  array(
+                        'parameter'        => $classRoomsLink . '?w_titre=' . urlencode( $module[ 'common' ][ 'title' ] ),
+                        'useCacheHash'     => 0,
+                        'title'            => $this->pi_getLL( 'classrooms-title' )
+                    );
+                    
                     // Adds the collapse picture with the link
-                    $markers[ '###CLASSROOMS_PICTURE###' ] = $this->_classRoomsPicture;
+                    $markers[ '###CLASSROOMS_PICTURE###' ] = $this->cObj->typoLink( $this->_classRoomsPicture, $classRoomsTypoLink );
                 }
                 
                 // TypoLink for the module view
