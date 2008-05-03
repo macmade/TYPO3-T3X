@@ -33,35 +33,21 @@
  */
 plugin.tx_eespwsmodules_pi1 {
     
-    emptySearchAtStart   = 0
+    wsdlUrl             = 
     
-    endDateNbMonth       =
+    soapOperation       = 
     
-    startWithCurrentDate = 1
+    collapseListItems   = 1
     
-    year                 = 
+    templateFile        = EXT:eesp_ws_modules/res/template_pi1.html
     
-    yearsNumber          = 
+    holidays            = -99
     
-    defaultYear          = 
+    dateFormat          = d.m.Y
     
-    wsdlUrl              = 
+    dateFormatStrftime  = %A, %d %B %G
     
-    soapOperation        = 
-    
-    collapseListItems    = 1
-    
-    templateFile         = EXT:eesp_ws_modules/res/template_pi1.html
-    
-    sections             = TS,AS,ASC,ES
-    
-    modes                = PT,TP,EE
-    
-    holidays             = -99
-    
-    dateFormat           = d.m.Y
-    
-    dateFormatStrftime   = %A, %d %B %G
+    inputSize           = 20
     
     scriptaculous {
         
@@ -75,28 +61,5 @@ plugin.tx_eespwsmodules_pi1 {
         file        = EXT:eesp_ws_modules/res/information.png
         file.width  = 16
         file.height = 16
-    }
-    
-    calendar {
-        
-        inputSize = 10
-        
-        format    = %e.%m.%y
-        
-        align     = Br
-        
-        picture {
-            
-            file        = EXT:eesp_ws_modules/res/calendar/cal2.png
-            file.width  = 16
-            file.height = 16
-        }
-        
-        deletePicture {
-            
-            file        = EXT:eesp_ws_modules/res/calendar/delete.png
-            file.width  = 16
-            file.height = 16
-        }
     }
 }
