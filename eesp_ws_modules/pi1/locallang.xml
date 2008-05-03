@@ -52,8 +52,7 @@
             <label index="label-number">Code:</label>
             <label index="label-credits">ECTS credits:</label>
             <label index="label-domain">Domain:</label>
-            <label index="label-section">Section:</label>
-            <label index="label-section">Section(s):</label>
+            <label index="label-section">Orientation:</label>
             <label index="label-type">Type:</label>
             <label index="label-incharge">Person(s) in charge:</label>
             <label index="label-comments">Comments:</label>
@@ -124,8 +123,7 @@
             <label index="label-number">Code:</label>
             <label index="label-credits">Crédits ECTS:</label>
             <label index="label-domain">Domaine:</label>
-            <label index="label-section">Filière:</label>
-            <label index="label-sections">Filière(s):</label>
+            <label index="label-section">Module d'orientation:</label>
             <label index="label-type">Type:</label>
             <label index="label-incharge">Responsable(s):</label>
             <label index="label-comments">Remarques:</label>
