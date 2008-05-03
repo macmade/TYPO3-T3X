@@ -168,7 +168,7 @@ class tx_eespwsmodules_peopleGetter implements Iterator
     public function valid()
     {
         // Checks the XML structure and the result type
-        if( !is_object( $this->_xml ) || $this->_resultType !== 0 || $this->_resultType !== 3 ) {
+        if( !is_object( $this->_xml ) || ( $this->_resultType !== 0 && $this->_resultType !== 3 ) ) {
             
             return false;
         }
@@ -255,6 +255,24 @@ class tx_eespwsmodules_peopleGetter implements Iterator
     public function getResultType()
     {
         return $this->_resultType;
+    }
+    
+    /**
+     * Gets the number of people
+     * 
+     * @return  int The number of people
+     */
+    public function getNumberOfPeople()
+    {
+        // Checks the result
+        if( isset( $this->_xml ) && ( $this->_resultType === 0 || $this->_resultType === 3 ) ) {
+           
+           // Returns the number of entries
+           return count( $this->_xml->NAMES->NAME );
+        }
+        
+        // No result
+        return 0;
     }
 }
 
