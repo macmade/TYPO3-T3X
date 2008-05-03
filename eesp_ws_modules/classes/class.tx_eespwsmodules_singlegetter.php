@@ -37,7 +37,13 @@
  * 
  * SECTION:     1 - PHP methods
  *              public function __construct( &$xmlData )
- *              public function __get( $fieldName )
+ * 
+ * SECTION:     2 - SPL Iterator methods
+ *              public function rewind
+ *              public function current
+ *              public function key
+ *              public function next
+ *              public function valid
  * 
  * SECTION:     3 - Public class methods
  *              public function soapRequest
@@ -47,22 +53,28 @@
  *              TOTAL FUNCTIONS: 10
  */
 
-class tx_eespwsmodules_singleGetter
+class tx_eespwsmodules_singleGetter implements Iterator
 {
+    // Current position for the iterator methods
+    protected $_iteratorIndex    = 0;
+    
     // SOAP client
-    protected $_soap            = NULL;
+    protected $_soap             = NULL;
     
     // SimpleXML object
-    protected $_xml             = NULL;
+    protected $_xml              = NULL;
+    
+    // SimpleXML object for the current section
+    protected $_currentSection   = NULL;
     
     // WSDL file URL
-    protected $_wsdl            = '';
+    protected $_wsdl             = '';
     
     // Name of the SOAP operation
-    protected $_operation       = '';
+    protected $_operation        = '';
     
     // SOAP arguments
-    protected $_soapArgs        = array();
+    protected $_soapArgs         = array();
     
     /***************************************************************
      * SECTION 1:
@@ -94,123 +106,131 @@ class tx_eespwsmodules_singleGetter
         }
     }
     
-    /**
-     * PHP getter method
+    /***************************************************************
+     * SECTION 2:
      * 
-     * @param   string  $name       The property name
-     * @return  mixed   The requested property
+     * SPL Iterator methods
+     ***************************************************************/
+    
+    /**
+     * Move position to the first element (Iterator method)
+     * 
+     * @return  NULL
      */
-    public function __get( $name )
+    public function rewind()
     {
-        if( is_object( $this->_xml ) ) {
+        $this->_iteratorIndex = 0;
+    }
+    
+    /**
+     * Get current element (Iterator method)
+     * 
+     * @return  SimpleXML   The municipality object
+     */
+    public function current()
+    {
+        // Storage
+        $section = new stdClass();
+        
+        // Section header
+        $section->title   = $this->_currentSection->HEADER;
+        
+        // Section content
+        $section->content = array();
+        
+        // Process each node in the current section
+        foreach( $this->_currentSection->children() as $key => $value ) {
             
-            switch( $name ) {
+            // Do not stores the header here
+            if( $key === 'HEADER' ) {
                 
-                case 'title':
-                    
-                    return ( string )$this->_xml->title;
-                
-                case 'formation':
-                    
-                    return ( string )$this->_xml->pec_06->formation;
-                
-                case 'level':
-                    
-                    return ( string )$this->_xml->pec_06->niveau;
-                
-                case 'organisation':
-                    
-                    return ( string )$this->_xml->pec_06->organisation;
-                
-                case 'language':
-                    
-                    return ( string )$this->_xml->pec_06->langue;
-                
-                case 'prerequisites':
-                    
-                    return ( string )$this->_xml->pec_06->prerequis;
-                
-                case 'goals':
-                    
-                    return ( string )$this->_xml->pec_06->objectifs;
-                
-                case 'content':
-                    
-                    return ( string )$this->_xml->pec_06->contenu;
-                
-                case 'evaluation':
-                    
-                    return ( string )$this->_xml->pec_06->evaluation;
-                
-                case 'remediation':
-                    
-                    return ( string )$this->_xml->pec_06->remediation;
-                
-                case 'comments':
-                    
-                    return ( string )$this->_xml->pec_06->remarques;
-                
-                case 'bibliography':
-                    
-                    return ( string )$this->_xml->pec_06->bibliographie;
-                
-                case 'number':
-                    
-                    return $this->_xml[ 'hes_code' ] . '-' . $this->_xml[ 'code' ];
-                
-                case 'domain':
-                    
-                    return $this->_xml[ 'hes_domain' ];
-                
-                case 'type':
-                    
-                    return $this->_xml[ 'type' ];
-                
-                case 'credits':
-                    
-                    return $this->_xml[ 'credits' ];
-                
-                case 'incharge':
-                    
-                    $inCharge = array();
-                    $xPath    = $this->_xml->xpath( 'responsabilities/person[@resp="pedagogy"]' );
-                    
-                    if( is_array( $xPath ) ) {
-                        
-                        foreach( $xPath as $person ) {
-                            
-                            $inCharge[] = $person->lastname . ' ' . $person->firstname;
-                        }
-                        
-                    }
-                    
-                    return $inCharge;
-                
-                case 'sections':
-                    
-                    $sections = array();
-                    
-                    foreach( $this->_xml->sections->attributes() as $name => $value ) {
-                        
-                        if( ( string )$value === '1' ) {
-                            
-                            $sections[] = strtoupper( $name );
-                        }
-                    }
-                    
-                    return $sections;
-                
-                default:
-                    
-                    return false;
+                // Process the next node
+                continue;
             }
+            
+            if( $key === 'ENSEIGNANT' || $key === 'RESPONSABLE' ) {
+                
+                // Checks if the storage place already exists
+                if( !isset( $section->content[ $key ] ) ) {
+                    
+                    // Creates the storage for people names
+                    $section->content[ $key ] = array();
+                }
+                
+                // Storage for the person
+                $person = array();
+                
+                // Process the current person
+                foreach( $value->children() as $subKey => $subValue ) {
+                    
+                    // Adds the node value
+                    $person[ $subKey ] = ( string )$subValue;
+                }
+                
+                // Adds the person
+                $section->content[ $key ][] = $person;
+                
+            } else {
+                
+                // Stores the value
+                $section->content[ $key ] = ( string )$value;
+            }
+        }
+        
+        // Returns the section
+        return $section;
+    }
+    
+    /**
+     * Get current element's key (Iterator method)
+     * 
+     * @return  int     The municipality ID
+     */
+    public function key()
+    {
+        return $this->_iteratorIndex;
+    }
+    
+    /**
+     * Move position to the next element (Iterator method)
+     * 
+     * @return  NULL
+     */
+    public function next()
+    {
+        $this->_iteratorIndex++;
+    }
+    
+    /**
+     * Checks current element (Iterator method)
+     * 
+     * @return  boolean
+     */
+    public function valid()
+    {
+        // Checks the XML structure
+        if( !is_object( $this->_xml ) ) {
+            
+            return false;
+        }
+        
+        // Section name
+        $section = 'SECTION_' . $this->_iteratorIndex;
+        
+        // Checks the XML structure
+        if( isset( $this->_xml->$section ) ) {
+            
+            // Stores the current section
+            $this->_currentSection = $this->_xml->$section;
+            
+            return true;
         }
         
         return false;
     }
     
     /***************************************************************
-     * SECTION 2:
+     * SECTION 3:
      * 
      * Public class methods
      ***************************************************************/
