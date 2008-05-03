@@ -133,7 +133,7 @@ class tx_eespwsmodules_singleGetter implements Iterator
         $section = new stdClass();
         
         // Section header
-        $section->title   = $this->_currentSection->HEADER;
+        $section->title   = utf8_decode( $this->_currentSection->HEADER );
         
         // Section content
         $section->content = array();
@@ -164,7 +164,7 @@ class tx_eespwsmodules_singleGetter implements Iterator
                 foreach( $value->children() as $subKey => $subValue ) {
                     
                     // Adds the node value
-                    $person[ $subKey ] = ( string )$subValue;
+                    $person[ $subKey ] = utf8_decode( ( string )$subValue );
                 }
                 
                 // Adds the person
@@ -173,7 +173,7 @@ class tx_eespwsmodules_singleGetter implements Iterator
             } else {
                 
                 // Stores the value
-                $section->content[ $key ] = ( string )$value;
+                $section->content[ $key ] = utf8_decode( ( string )$value );
             }
         }
         
