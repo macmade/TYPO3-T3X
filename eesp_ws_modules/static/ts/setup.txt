@@ -49,6 +49,22 @@ plugin.tx_eespwsmodules_pi1 {
     
     inputSize           = 20
     
+    classRooms {
+	
+        router   = 
+        
+        internal = 
+        
+        external = 
+        
+        picture {
+            
+            file        = EXT:eesp_ws_modules/res/classrooms.png
+            file.width  = 16
+            file.height = 16
+        }
+    }
+    
     scriptaculous {
         
         appear = BlindDown
