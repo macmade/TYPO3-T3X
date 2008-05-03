@@ -52,55 +52,58 @@ require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_ees
 class tx_eespwsmodules_pi1 extends tslib_pibase
 {
     // Configuration array
-    protected $_conf            = array();
+    protected $_conf              = array();
     
     // Instance of the Developer API
-    protected $_api             = NULL;
+    protected $_api               = NULL;
     
     // Instance of the module getter
-    protected $_modGetter       = NULL;
+    protected $_modGetter         = NULL;
     
     // Instance of the people getter
-    protected $_peopleGetter    = NULL;
+    protected $_peopleGetter      = NULL;
     
     // Storage for the modules
-    protected $_modules         = array();
+    protected $_modules           = array();
     
     // Storage for the module dates
-    protected $_dates           = array();
+    protected $_dates             = array();
     
     // Total number of modules
-    protected $_modCount        = array();
+    protected $_modCount          = array();
     
     // Modules informations
-    protected $_modInfos        = array();
+    protected $_modInfos          = array();
     
     // New line character
-    protected $_NL              = '';
+    protected $_NL                = '';
     
     // Collapse picture
-    protected $_collapsePicture = '';
+    protected $_collapsePicture   = '';
+    
+    // Classrooms picture
+    protected $_classRoomsPicture = '';
     
     // Current URL
-    protected $_url             = '';
+    protected $_url               = '';
     
     // Current date
-    protected $_currentDate     = '';
+    protected $_currentDate       = '';
     
     // Same as class name
-    public $prefixId            = 'tx_eespwsmodules_pi1';
+    public $prefixId              = 'tx_eespwsmodules_pi1';
     
     // Path to this script relative to the extension dir
-    public $scriptRelPath       = 'pi1/class.tx_eespwsmodules_pi1.php';
+    public $scriptRelPath         = 'pi1/class.tx_eespwsmodules_pi1.php';
     
     // The extension key
-    public $extKey              = 'eesp_ws_modules';
+    public $extKey                = 'eesp_ws_modules';
     
     // Version of the Developer API required
-    public $apimacmade_version  = 4.5;
+    public $apimacmade_version    = 4.5;
     
     // Check plugin hash
-    public $pi_checkCHash       = true;
+    public $pi_checkCHash         = true;
     
     /***************************************************************
      * SECTION 1 - MAIN
@@ -204,6 +207,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             'scriptaculous.'       => array(
                 'appear' => 'sDISPLAY:appear',
                 'fade'   => 'sDISPLAY:fade'
+            ),
+            'classRooms.'          => array(
+                'router'   => 'sCLASSROOMS:router',
+                'internal' => 'sCLASSROOMS:internal',
+                'external' => 'sCLASSROOMS:external'
             )
         );
         
@@ -884,6 +892,23 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                                      . '">'
                                                      . $this->_collapsePicture
                                                      . '</a>';
+                
+                // Checks if we have to add the classrooms infos
+                if( $this->_conf[ 'classRooms.' ][ 'router' ]
+                    && $this->_conf[ 'classRooms.' ][ 'internal' ]
+                    && $this->_conf[ 'classRooms.' ][ 'external' ]
+                ) {
+                    
+                    // Checks if the collapse picture needs to be processed
+                    if( !$this->_classRoomsPicture ) {
+                        
+                        // Builds the collapse picture
+                        $this->_classRoomsPicture = $this->cObj->IMAGE( $this->_conf[ 'classRooms.' ][ 'picture.' ] );
+                    }
+                
+                    // Adds the collapse picture with the link
+                    $markers[ '###CLASSROOMS_PICTURE###' ] = $this->_classRoomsPicture;
+                }
                 
                 // TypoLink for the module view
                 $typoLink = array(
