@@ -10,7 +10,7 @@ if ( TYPO3_MODE == 'BE' ) {
     $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_eespwsmodules_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_eespwsmodules_pi1_wizicon.php';
     
     // Includes the TCA helper class
-    require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'class.tx_eespwsmodules_tca.php' );
+    require_once( t3lib_extMgm::extPath( $_EXTKEY ) . 'classes/class.tx_eespwsmodules_tca.php' );
 }
 
 // Load content TCA

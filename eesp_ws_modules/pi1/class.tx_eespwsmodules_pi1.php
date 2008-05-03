@@ -45,9 +45,9 @@ require_once( PATH_tslib . 'class.tslib_pibase.php' );
 require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
 // Modules getters
-require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_listgetter.php' );
-require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_singlegetter.php' );
-require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_peoplegetter.php' );
+require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_eespwsmodules_listgetter.php' );
+require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_eespwsmodules_singlegetter.php' );
+require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_eespwsmodules_peoplegetter.php' );
 
 class tx_eespwsmodules_pi1 extends tslib_pibase
 {
