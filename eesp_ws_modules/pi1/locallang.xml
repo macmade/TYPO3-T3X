@@ -48,6 +48,7 @@
             <label index="modules-number">Number of modules found: %s</label>
             <label index="no-modules">Sorry, no modules were found</label>
             <label index="label-title">Title:</label>
+            <label index="label-subcode">Subcode:</label>
             <label index="label-number">Code:</label>
             <label index="label-credits">ECTS credits:</label>
             <label index="label-domain">Domain:</label>
@@ -119,6 +120,7 @@
             <label index="modules-number">Nombre de modules trouvés: %s</label>
             <label index="no-modules">Désolé, aucun module n'a été trouvé</label>
             <label index="label-title">Titre:</label>
+            <label index="label-subcode">Sous-code:</label>
             <label index="label-number">Code:</label>
             <label index="label-credits">Crédits ECTS:</label>
             <label index="label-domain">Domaine:</label>

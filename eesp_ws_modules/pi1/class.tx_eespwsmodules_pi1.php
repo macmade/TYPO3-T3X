@@ -689,7 +689,8 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'section'  => $this->_modGetter->section,
                     'type'     => $this->_modGetter->type,
                     'incharge' => $this->_modGetter->incharge,
-                    'title'    => $this->_modGetter->title
+                    'title'    => $this->_modGetter->title,
+                    'subcode'  => $this->_modGetter->subcode
                 );
             }
             
@@ -969,6 +970,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $markers[ '###DOMAIN_VALUE###' ]   = $this->_api->fe_makeStyledContent( 'span', 'module-domain',   $module[ 'common' ][ 'domain' ] );
         $markers[ '###SECTION_VALUE###' ]  = $this->_api->fe_makeStyledContent( 'span', 'module-section',  $module[ 'common' ][ 'section' ] );
         $markers[ '###TYPE_VALUE###' ]     = $this->_api->fe_makeStyledContent( 'span', 'module-type',     $module[ 'common' ][ 'type' ] );
+        $markers[ '###SUBCODE_VALUE###' ]  = $this->_api->fe_makeStyledContent( 'span', 'module-subcode',  $module[ 'common' ][ 'subcode' ] );
         $markers[ '###INCHARGE_VALUE###' ] = $this->_api->fe_makeStyledContent( 'span', 'module-incharge', implode( ', ', $module[ 'common' ][ 'incharge' ] ) );
         
         // Sets the labels
@@ -978,6 +980,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $markers[ '###DOMAIN_LABEL###' ]   = $this->pi_getLL( 'label-domain' );
         $markers[ '###SECTION_LABEL###' ]  = $this->pi_getLL( 'label-section' );
         $markers[ '###TYPE_LABEL###' ]     = $this->pi_getLL( 'label-type' );
+        $markers[ '###SUBCODE_LABEL###' ]  = $this->pi_getLL( 'label-subcode' );
         $markers[ '###INCHARGE_LABEL###' ] = $this->pi_getLL( 'label-incharge' );
         
         // Return the markers
