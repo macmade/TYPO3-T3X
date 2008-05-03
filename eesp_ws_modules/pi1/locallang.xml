@@ -66,6 +66,20 @@
             <label index="label-ORG_TEMPORELLE">Temporal organisation:</label>
             <label index="label-CREDITS_ECTS">ECTS credits:</label>
             <label index="label-LANGUE">Language:</label>
+            <label index="label-title">Title:</label>
+            <label index="label-subcode">Subcode:</label>
+            <label index="label-number">Code:</label>
+            <label index="label-credits">ECTS credits:</label>
+            <label index="label-domain">Domain:</label>
+            <label index="label-section">Orientation:</label>
+            <label index="label-type">Type:</label>
+            <label index="label-incharge">Person(s) in charge:</label>
+            <label index="label-comments">Comments:</label>
+            <label index="label-dates">Dates:</label>
+            <label index="label-formation">Formation type:</label>
+            <label index="label-level">Level:</label>
+            <label index="label-organisation">Organisation temporelle:</label>
+            <label index="label-language">Langue principale d'enseignement:</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="exception">Désolé, le plugin a généré une exception: %s</label>
@@ -127,7 +141,20 @@
             <label index="label-CARACTERISTIQUE">Caractéristiques:</label>
             <label index="label-ORG_TEMPORELLE">Organisation temporelle:</label>
             <label index="label-CREDITS_ECTS">Crédits ECTS:</label>
-            <label index="label-LANGUE">Langue:</label>
+            <label index="label-LANGUE">Langue:</label><label index="label-title">Titre:</label>
+            <label index="label-subcode">Sous-code:</label>
+            <label index="label-number">Code:</label>
+            <label index="label-credits">Crédits ECTS:</label>
+            <label index="label-domain">Domaine:</label>
+            <label index="label-section">Module d'orientation:</label>
+            <label index="label-type">Type:</label>
+            <label index="label-incharge">Responsable(s):</label>
+            <label index="label-comments">Remarques:</label>
+            <label index="label-dates">Dates:</label>
+            <label index="label-formation">Type de formation:</label>
+            <label index="label-level">Niveau:</label>
+            <label index="label-organisation">Organisation temporelle:</label>
+            <label index="label-language">Langue principale d'enseignement:</label>
         </languageKey>
     </data>
 </T3locallang>
