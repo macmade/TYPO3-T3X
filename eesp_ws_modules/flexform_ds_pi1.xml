@@ -227,5 +227,57 @@
                 </el>
             </ROOT>
         </sDISPLAY>
+        <sPDF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_pdf</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <fields>
+                        <type>array</type>
+                        <section>1</section>
+                        <tx_templavoila>
+                            <title>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_pdf.fields</title>
+                        </tx_templavoila>
+                        <el>
+                            <pdf>
+                                <type>array</type>
+                                <tx_templavoila>
+                                    <title>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_pdf.fields.pdf</title>
+                                </tx_templavoila>
+                                <el>
+                                    <title>
+                                        <TCEforms>
+                                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_pdf.fields.pdf.title</label>
+                                            <config>
+                                                <type>input</type>
+                                                <size>30</size>
+                                            </config>
+                                        </TCEforms>
+                                    </title>
+                                    <file>
+                                        <TCEforms>
+                                            <label>LLL:EXT:eesp_ws_modules/locallang_db.php:tt_content.flexform_pi1.s_pdf.fields.pdf.file</label>
+                                            <config>
+                                                <type>group</type>
+                                                <internal_type>file</internal_type>
+                                                <allowed>pdf</allowed>
+                                                <max_size>2000</max_size>
+                                                <uploadfolder>uploads/tx_eespwsmodules</uploadfolder>
+                                                <show_thumbs>1</show_thumbs>
+                                                <size>1</size>
+                                                <maxitems>1</maxitems>
+                                                <minitems>0</minitems>
+                                            </config>
+                                        </TCEforms>
+                                    </file>
+                                </el>
+                            </pdf>
+                        </el>
+                    </fields>
+                </el>
+            </ROOT>
+        </sPDF>
     </sheets>
 </T3DataStructure>

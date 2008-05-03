@@ -36,6 +36,11 @@
             <label index="tt_content.flexform_pi1.s_display.fade.I.6">Squish</label>
             <label index="tt_content.flexform_pi1.s_display.fade.I.7">Fold</label>
             <label index="tt_content.flexform_pi1.s_display.fade.I.8">Shrink</label>
+            <label index="tt_content.flexform_pi1.s_pdf">PDF files</label>
+            <label index="tt_content.flexform_pi1.s_pdf.fields">Files</label>
+            <label index="tt_content.flexform_pi1.s_pdf.fields.pdf">PDF</label>
+            <label index="tt_content.flexform_pi1.s_pdf.fields.pdf.title">Title</label>
+            <label index="tt_content.flexform_pi1.s_pdf.fields.pdf.file">File</label>
         </languageKey>
     </data>
 </T3locallang>
