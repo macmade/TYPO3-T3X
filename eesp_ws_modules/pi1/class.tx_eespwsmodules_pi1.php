@@ -1586,7 +1586,135 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
      */
     protected function _showModule()
     {
+        // Storage
+        $module = array();
         
+        // Process each section
+        foreach( $this->_modGetter as $key => $value ) {
+            
+            // Do not writes sections without content
+            if( !count( $value->content ) ) {
+                
+                // Process the next section
+                continue;
+            }
+            
+            // Storage for the section
+            $section = array();
+            
+            // Adds the section header
+            $section[] = $this->_api->fe_makeStyledContent(
+                'h2',
+                'section-header',
+                $value->title
+            );
+                
+            // Checks if the content is multiple
+            if( count( $value->content ) > 1 ) {
+                
+                // Process each item
+                foreach( $value->content as $subKey => $subValue ) {
+                    
+                    // Do not writes items without content
+                    if( empty( $subValue ) ) {
+                        
+                        // Process the next section
+                        continue;
+                    }
+                    
+                    // Item label
+                    $label     = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'left',
+                        $this->pi_getLL( 'label-' . $subKey, $subKey )
+                    );
+                    
+                    // Item content
+                    $content   = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'right',
+                        $subValue
+                    );
+                    
+                    // Current item
+                    $item = $this->_api->fe_makeStyledContent(
+                        'div',
+                        $subKey,
+                        $label . $content
+                    );
+                    
+                    // Adds the current item
+                    $section[] = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'floatContainer',
+                        $item
+                    );
+                }
+                
+            } else {
+                
+                // Section content
+                $content = array_pop( $value->content );
+                
+                // Checks for a second level
+                // Typically, this will be the case for the teachers
+                if( is_array( $content ) ) {
+                    
+                    // Do not writes the section if there's no content
+                    if( !count( $content ) ) {
+                        
+                        // Process the next section
+                        continue;
+                    }
+                    
+                    // Storage
+                    $subItems = array();
+                    
+                    // Process each sub value
+                    foreach( $content as $subey => $subValue ) {
+                        
+                        $subItems[] = $this->_api->fe_makeStyledContent(
+                            'div',
+                            'person',
+                            implode( ' ', $subValue )
+                        );
+                    }
+                    
+                    // Adds the content
+                    $section[] = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'section-content',
+                        implode( $this->_NL, $subItems )
+                    );
+                    
+                } else {
+                    
+                    // Do not writes sections without content
+                    if( empty( $content ) ) {
+                        
+                        // Process the next section
+                        continue;
+                    }
+                    
+                    // Adds the content
+                    $section[] = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'section-content',
+                        $content
+                    );
+                }
+            }
+            
+            // Adds the current section
+            $module[] = implode( $this->_NL, $section );
+        }
+        
+        // Returns the module details
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'module-details',
+            implode( $this->_NL, $module )
+        );
     }
 }
 
