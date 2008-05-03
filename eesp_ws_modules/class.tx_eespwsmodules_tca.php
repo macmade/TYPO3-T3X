@@ -44,7 +44,7 @@ class tx_eespwsmodules_tca
      * @param   object  &$pObj      A reference to the parent object
      * @return  NULL
      */
-    function getSoapOperations( &$params, &$pObj )
+    public function getSoapOperations( &$params, &$pObj )
     {
         // Checks if the SOAP operations already exists
         if( !count( self::$soapOperations ) ) {
