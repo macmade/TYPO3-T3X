@@ -15,6 +15,10 @@
             <label index="tt_content.flexform_pi1.s_wsdl.soap_operation_list">SOAP operation (list)</label>
             <label index="tt_content.flexform_pi1.s_wsdl.soap_operation_single">SOAP operation (single)</label>
             <label index="tt_content.flexform_pi1.s_wsdl.soap_operation_people">SOAP operation (people)</label>
+            <label index="tt_content.flexform_pi1.s_classrooms">Class rooms</label>
+            <label index="tt_content.flexform_pi1.s_classrooms.router">Router IP address</label>
+            <label index="tt_content.flexform_pi1.s_classrooms.internal">Internal URL</label>
+            <label index="tt_content.flexform_pi1.s_classrooms.external">External URL</label>
             <label index="tt_content.flexform_pi1.s_display">Display</label>
             <label index="tt_content.flexform_pi1.s_display.collapse_list_items">Collapse list items</label>
             <label index="tt_content.flexform_pi1.s_display.appear">Appear effect</label>
