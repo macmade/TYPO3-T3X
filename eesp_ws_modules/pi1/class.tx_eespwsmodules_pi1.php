@@ -380,7 +380,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         try {
             
             // Initialize the SOAP operations
-            $this->_soapListRequest();
             $this->_soapSingleRequest();
             
         } catch( Exception $e ) {
@@ -403,9 +402,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         
         // Shows the details
         $markers[ '###MODULE###' ]         = $this->_showModule();
-        
-        // Shows the dates
-        $markers[ '###DATES###' ]          = $this->_modulesListByDate();
         
         // Return content
         return $this->_api->fe_renderTemplate( $markers, '###SINGLE###' );
@@ -934,7 +930,8 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'additionalParams' => $this->_api->fe_typoLinkParams(
                         array(
                             'showModule' => $id
-                        )
+                        ),
+                        true
                     )
                 );
                 
@@ -1589,53 +1586,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
      */
     protected function _showModule()
     {
-        // Storage for the template markers
-        $markers = array();
         
-        // Module informations
-        $modInfos = array(
-            'title'         => ( $value = $this->_modGetter->title )                         ? $value : '-',
-            'number'        => ( $value = $this->_modGetter->number )                        ? $value : '-',
-            'sections'      => ( $value = implode( ', ', $this->_modGetter->sections ) )     ? $value : '-',
-            'incharge'      => ( $value = implode( '<br />', $this->_modGetter->incharge ) ) ? $value : '-',
-            'domain'        => ( $value = $this->_modGetter->domain )                        ? $value : '-',
-            'type'          => ( $value = $this->_modGetter->type )                          ? $value : '-',
-            'credits'       => ( $value = $this->_modGetter->credits )                       ? $value : '-',
-            'formation'     => ( $value = $this->_modGetter->formation )                     ? $value : '-',
-			'level'         => ( $value = $this->_modGetter->level )                         ? $value : '-',
-			'organisation'  => ( $value = $this->_modGetter->organisation )                  ? $value : '-',
-			'language'      => ( $value = $this->_modGetter->language )                      ? $value : '-',
-			'prerequisites' => ( $value = $this->_modGetter->prerequisites )                 ? $value : '-',
-			'goals'         => ( $value = $this->_modGetter->goals )                         ? $value : '-',
-			'content'       => ( $value = $this->_modGetter->content )                       ? $value : '-',
-			'evaluation'    => ( $value = $this->_modGetter->evaluation )                    ? $value : '-',
-			'remediation'   => ( $value = $this->_modGetter->remediation )                   ? $value : '-',
-			'comments'      => ( $value = $this->_modGetter->comments )                      ? $value : '-',
-			'bibliography'  => ( $value = $this->_modGetter->bibliography )                  ? $value : '-'
-        );
-        
-        foreach( $modInfos as $key => $value ) {
-            
-            $markers[ '###' . strtoupper( $key ) . '_VALUE###' ] = nl2br( $value );
-            $markers[ '###' . strtoupper( $key ) . '_LABEL###' ]  = $this->pi_getLL( 'label-' . $key, $key );
-        }
-        
-        // Process the headers
-        for( $i = 0; $i < 10; $i++ ) {
-            
-            // Add the marker
-            $markers[ '###LABEL_' . ( $i + 1 ) . '###' ] = $this->pi_getLL( 'label-' . ( $i + 1 ) );
-        }
-        
-        // Returns the module details
-        return $this->_api->fe_makeStyledContent(
-            'div',
-            'module-details',
-            $this->_api->fe_renderTemplate( 
-                $markers,
-                '###MODULE_DETAILS###'
-            )
-        );
     }
 }
 
