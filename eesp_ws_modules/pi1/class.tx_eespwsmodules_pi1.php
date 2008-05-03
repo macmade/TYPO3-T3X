@@ -290,7 +290,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                         $this->_soapListRequest( $people->number );
                         
                         // Builds the module list
-                        $content = $this->$listMethod();
+                        $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
                         $count   = $this->_api->fe_makeStyledContent(
                                         'div',
                                         'count',
@@ -320,7 +320,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     $this->_soapListRequest( $this->piVars[ 'peopleId' ] );
                     
                     // Builds the module list
-                    $content = $this->$listMethod();
+                    $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
                     $count   = $this->_api->fe_makeStyledContent(
                                     'div',
                                     'count',
