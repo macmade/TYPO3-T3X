@@ -183,6 +183,11 @@ class tx_eespwsmodules_listGetter implements Iterator
                     
                     return ( string )$this->_currentModule->CARACTERE;
                 
+                // Module's subcode
+                case 'subcode':
+                    
+                    return ( string )$this->_currentModule->MODULE_SUBCODE;
+                
                 // Person(s) in charge
                 case 'incharge':
                     
