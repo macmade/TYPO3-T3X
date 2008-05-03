@@ -241,7 +241,7 @@ class tx_eespwsmodules_singleGetter
         try {
             
             // Parses the XML data
-            $this->_xml         = @new SimpleXMLElement( $result->FourD_arg0 );
+            $this->_xml = @new SimpleXMLElement( $result->FourD_arg0 );
             return true;
             
         } catch( Exception $e ) {
