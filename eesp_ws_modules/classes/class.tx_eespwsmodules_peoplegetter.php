@@ -277,6 +277,6 @@ class tx_eespwsmodules_peopleGetter implements Iterator
 }
 
 // XCLASS inclusion
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/class.tx_eespwsmodules_peoplegetter.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/class.tx_eespwsmodules_peoplegetter.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/classes/class.tx_eespwsmodules_peoplegetter.php']) {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/classes/class.tx_eespwsmodules_peoplegetter.php']);
 }
