@@ -10,13 +10,6 @@
             <label index="tt_content.flexform_pi1.LGL.yes">Yes</label>
             <label index="tt_content.flexform_pi1.LGL.no">No</label>
             <label index="tt_content.list_type_pi1">EESP / Modules Calendar (WS Version)</label>
-            <label index="tt_content.flexform_pi1.s_def">General</label>
-            <label index="tt_content.flexform_pi1.s_def.year">Last available academic year</label>
-            <label index="tt_content.flexform_pi1.s_def.years_number">Number of previous academic years</label>
-            <label index="tt_content.flexform_pi1.s_def.default_year">Default year</label>
-            <label index="tt_content.flexform_pi1.s_def.empty_search">Empty search at start</label>
-            <label index="tt_content.flexform_pi1.s_def.current_date">Start with current date</label>
-            <label index="tt_content.flexform_pi1.s_def.end_date_nbweek">Number of weeks to display by default</label>
             <label index="tt_content.flexform_pi1.s_wsdl">WSDL</label>
             <label index="tt_content.flexform_pi1.s_wsdl.wsdl_url">URL of the WSDL file</label>
             <label index="tt_content.flexform_pi1.s_wsdl.soap_operation_list">SOAP operation (list)</label>
