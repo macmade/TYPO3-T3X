@@ -93,6 +93,12 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     // Remote address
     protected $_remoteAddress     = '';
     
+    // Flexform data
+    protected $_piFlexForm        = '';
+    
+    // Upload directory
+    protected $_uploadDirectory   = '';
+    
     // Same as class name
     public $prefixId              = 'tx_eespwsmodules_pi1';
     
@@ -138,13 +144,20 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         );
         
         // Gets the current URL
-        $this->_url           = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
+        $this->_url             = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
         
         // Gets the current date
-        $this->_currentDate   = time();
+        $this->_currentDate     = time();
         
         // Gets the remote address
-        $this->_remoteAddress = t3lib_div::getIndpEnv( 'REMOTE_ADDR' );
+        $this->_remoteAddress   = t3lib_div::getIndpEnv( 'REMOTE_ADDR' );
+        
+        // Sets the upload directory
+        $this->_uploadDirectory = str_replace(
+            PATH_site,
+            '',
+            t3lib_div::getFileAbsFileName( 'uploads/tx_eespwsmodules' )
+        );
         
         // Set default plugin variables
         $this->pi_setPiVarDefaults();
@@ -162,7 +175,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $this->pi_initPIflexForm();
         
         // Store flexform informations
-        $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
+        $this->_piFlexForm = $this->cObj->data[ 'pi_flexform' ];
         
         // Set final configuration (TS or FF)
         $this->_setConfig();
@@ -225,7 +238,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $this->_conf = $this->_api->fe_mergeTSconfFlex(
             $flex2conf,
             $this->_conf,
-            $this->piFlexForm
+            $this->_piFlexForm
         );
         
         // DEBUG ONLY - Output configuration array
@@ -410,7 +423,83 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     
     protected function _listFiles()
     {
+        // Storage
+        $content      = array();
         
+        // ID of the plugin in the content table
+        $pluginId     = $this->cObj->data[ 'uid' ];
+        
+        // Gets the plugin row
+        $row          = $this->pi_getRecord( 'tt_content', $pluginId );
+        
+        // Gets a flexform iterator
+        $flexIterator = tx_apimacmade::getPhp5Class(
+            'flexform',
+            array(
+                $row[ 'pi_flexform' ]
+            )
+        );
+        
+        // Sets the working sheet
+        $flexIterator->setDefaultSheet( 'sPDF' );
+        
+        // Storage for files
+        $files = array();
+        
+        // Process each field in the sheet
+        foreach( $flexIterator as $key => $value ) {
+            
+            // Process each PDF file
+            foreach( $value as $pdf ) {
+                
+                // Checks if a file is attached
+                if( $pdf->file ) {
+                    
+                    // Title
+                    $title    = ( $pdf->title ) ? $pdf->title : $pdf->file;
+                    
+                    // Typolink configuration
+                    $typoLink = array(
+                        'parameter'        => $this->_uploadDirectory . '/' . $pdf->file,
+                        'useCacheHash'     => 0,
+                        'title'            => $title
+                    );
+                    
+                    // Adds the link
+                    $files[] = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'pdf',
+                        $this->cObj->typoLink( $title, $typoLink )
+                    );
+                }
+            }
+        }
+        
+        // Checks if files were found
+        if( count( $files ) ) {
+            
+            // Adds the header
+            $content[] = $this->_api->fe_makeStyledContent(
+                'h2',
+                'files',
+                $this->pi_getLL( 'headers-files' )
+            );
+            
+            // Adds the files
+            $content[] = implode( $this->_NL, $files );
+        
+            // Returns the files list
+            return $this->_api->fe_makeStyledContent(
+                'div',
+                'files',
+                implode( $this->_NL, $content )
+            );
+            
+        } else {
+            
+            // No file
+            return '';
+        }
     }
     
     protected function _showPeople()

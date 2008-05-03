@@ -12,6 +12,7 @@
             <label index="headers-day">Day</label>
             <label index="headers-meridiem">AM / PM</label>
             <label index="headers-modules">Modules</label>
+            <label index="headers-files">Files to download</label>
             <label index="month-1">January</label>
             <label index="month-2">February</label>
             <label index="month-3">March</label>
@@ -88,6 +89,7 @@
             <label index="headers-day">Jour</label>
             <label index="headers-meridiem">AM / PM</label>
             <label index="headers-modules">Modules</label>
+            <label index="headers-files">Fichiers à télécharger</label>
             <label index="month-1">Janvier</label>
             <label index="month-2">Février</label>
             <label index="month-3">Mars</label>
