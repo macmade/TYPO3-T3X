@@ -47,66 +47,60 @@ require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php'
 // Modules getters
 require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_listgetter.php' );
 require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_singlegetter.php' );
+require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'class.tx_eespwsmodules_peoplegetter.php' );
 
 class tx_eespwsmodules_pi1 extends tslib_pibase
 {
-    
-    /***************************************************************
-     * SECTION 0 - VARIABLES
-     *
-     * Class variables for the plugin.
-     ***************************************************************/
-    
-    // Same as class name
-    var $prefixId           = 'tx_eespwsmodules_pi1';
-    
-    // Path to this script relative to the extension dir
-    var $scriptRelPath      = 'pi1/class.tx_eespwsmodules_pi1.php';
-    
-    // The extension key
-    var $extKey             = 'eesp_ws_modules';
-    
-    // Version of the Developer API required
-    var $apimacmade_version = 4.0;
-    
-    // Check plugin hash
-    var $pi_checkCHash      = true;
-    
     // Configuration array
-    var $conf               = array();
-    
-    // Plugin variables
-    var $piVars             = array();
+    protected $_conf            = array();
     
     // Instance of the Developer API
-    var $api                = NULL;
+    protected $_api             = NULL;
     
     // Instance of the module getter
-    var $modGetter          = NULL;
+    protected $_modGetter       = NULL;
+    
+    // Instance of the people getter
+    protected $_peopleGetter    = NULL;
     
     // Storage for the modules
-    var $modules            = array();
+    protected $_modules         = array();
     
     // Storage for the module dates
-    var $dates              = array();
+    protected $_dates           = array();
     
     // Total number of modules
-    var $modCount           = array();
+    protected $_modCount        = array();
     
     // Modules informations
-    var $modInfos           = array();
+    protected $_modInfos        = array();
     
     // New line character
-    var $NL                 = '';
+    protected $_NL              = '';
     
     // Collapse picture
-    var $collapsePicture    = '';
+    protected $_collapsePicture = '';
     
     // Current URL
-    var $url                = '';
+    protected $_url             = '';
     
     // Current date
-    var $curDate            = '';
+    protected $_currentDate     = '';
+    
+    // Same as class name
+    public $prefixId            = 'tx_eespwsmodules_pi1';
+    
+    // Path to this script relative to the extension dir
+    public $scriptRelPath       = 'pi1/class.tx_eespwsmodules_pi1.php';
+    
+    // The extension key
+    public $extKey              = 'eesp_ws_modules';
+    
+    // Version of the Developer API required
+    public $apimacmade_version  = 4.5;
+    
+    // Check plugin hash
+    public $pi_checkCHash       = true;
     
     /***************************************************************
      * SECTION 1 - MAIN
@@ -120,14 +114,17 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
      * This function initialises the plugin "tx_mozsearch_pi1", and
      * launches the needed functions to correctly display the plugin.
      * 
-     * @param       $content            The content object
-     * @param       $conf               The TS setup
-     * @return      The content of the plugin.
+     * @param   string  $content    The content object
+     * @param   array   $conf       The TS setup
+     * @return  string  The content of the plugin.
      */
-    function main( &$content, &$conf )
+    public function main( &$content, array &$conf )
     {
+        // DEBUG ONLY - Sets the error reporting to the highest possible level
+        #error_reporting( E_ALL | E_STRICT );
+        
         // New instance of the macmade.net API
-        $this->api =& tx_apimacmade::newInstance(
+        $this->_api =& tx_apimacmade::newInstance(
             'tx_apimacmade',
             array(
                 &$this
@@ -135,10 +132,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         );
         
         // Gets the current URL
-        $this->url     = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
+        $this->_url     = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
         
         // Gets the current date
-        $this->curDate = time();
+        $this->_currentDate = time();
         
         // Set default plugin variables
         $this->pi_setPiVarDefaults();
@@ -147,10 +144,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $this->pi_loadLL();
         
         // Sets the new line character
-        $this->NL = chr( 10 );
+        $this->_NL = chr( 10 );
         
         // Set class confArray TS from the function
-        $this->conf = $conf;
+        $this->_conf = $conf;
         
         // Init flexform configuration of the plugin
         $this->pi_initPIflexForm();
@@ -159,28 +156,23 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $this->piFlexForm = $this->cObj->data[ 'pi_flexform' ];
         
         // Set final configuration (TS or FF)
-        $this->setConfig();
+        $this->_setConfig();
         
         // Checks some values from the configuration
-        if( isset( $this->conf[ 'year' ] )
-            && isset( $this->conf[ 'yearsNumber' ] )
-            && isset( $this->conf[ 'defaultYear' ] )
-            && isset( $this->conf[ 'wsdlUrl' ] )
-            && isset( $this->conf[ 'soapOperationList' ] )
-            && isset( $this->conf[ 'soapOperationSingle' ] )
-            && isset( $this->conf[ 'templateFile' ] )
-            && isset( $this->conf[ 'sections' ] )
-            && isset( $this->conf[ 'modes' ] )
-            && isset( $this->conf[ 'holidays' ] )
+        if( isset( $this->_conf[ 'wsdlUrl' ] )
+            && isset( $this->_conf[ 'soapOperationList' ] )
+            && isset( $this->_conf[ 'soapOperationSingle' ] )
+            && isset( $this->_conf[ 'templateFile' ] )
+            && isset( $this->_conf[ 'holidays' ] )
         ) {
             
             // Builds the view (single or list)
-            $content = ( isset( $this->piVars[ 'showModule' ] ) ) ? $this->singleView() : $this->listView();
+            $content = ( isset( $this->piVars[ 'showModule' ] ) ) ? $this->_singleView() : $this->_listView();
             
         } else {
             
             // Displays the error message
-            $content = $this->api->fe_makeStyledContent(
+            $content = $this->_api->fe_makeStyledContent(
                 'div',
                 'exception',
                 $this->pi_getLL( 'ts-error' )
@@ -198,18 +190,12 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
      * plugin, by providing a mapping array between the TS & the flexform
      * configuration.
      * 
-     * @return      Void
+     * @return  NULL
      */
-    function setConfig()
+    protected function _setConfig()
     {
         // Mapping array for PI flexform
         $flex2conf = array(
-            'year'                 => 'sDEF:year',
-            'yearsNumber'          => 'sDEF:years_number',
-            'defaultYear'          => 'sDEF:default_year',
-            'emptySearchAtStart'   => 'sDEF:empty_search',
-            'endDateNbWeek'        => 'sDEF:end_date_nbweek',
-            'startWithCurrentDate' => 'sDEF:current_date',
             'wsdlUrl'              => 'sWSDL:wsdl_url',
             'soapOperationList'    => 'sWSDL:soap_operation_list',
             'soapOperationSingle'  => 'sWSDL:soap_operation_single',
@@ -222,69 +208,116 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         );
         
         // Ovverride TS setup with flexform
-        $this->conf = $this->api->fe_mergeTSconfFlex(
+        $this->_conf = $this->_api->fe_mergeTSconfFlex(
             $flex2conf,
-            $this->conf,
+            $this->_conf,
             $this->piFlexForm
         );
         
         // DEBUG ONLY - Output configuration array
-        #$this->api->debug($this->conf,'EESP / Modules (WSDL): configuration array');
+        #$this->_api->debug($this->_conf,'EESP / Modules (WSDL): configuration array');
     }
     
     /**
      * 
      */
-    function listView()
+    protected function _listView()
     {
         // Initialize the template object
-        $this->api->fe_initTemplate( $this->conf[ 'templateFile' ] );
+        $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
         // Storage for the template markers
         $markers = array();
         
-        // Includes the calendar script
-        $this->includeCalendarScript();
-        
         // Checks for the collapse option
-        if( $this->conf[ 'collapseListItems' ] ) {
+        if( $this->_conf[ 'collapseListItems' ] ) {
             
             // Include Scriptaculous
-            $this->api->fe_includeScriptaculousJs();
+            $this->_api->fe_includeScriptaculousJs();
             
             // Builds the appear scripts
-            $this->buildAppearScript();
+            $this->_buildAppearScript();
         }
-        
-        // Builds the option form
-        $markers[ '###LIST_OPTIONS###' ] = $this->optionsForm();
         
         // Checks the display type
         if( isset( $this->piVars[ 'display' ] ) && $this->piVars[ 'display' ] == 1 ) {
             
             // Display modules by modules
-            $listMethod     = 'modulesListByModule';
+            $listMethod     = '_modulesListByModule';
             
         } else {
             
             // Display modules by dates
-            $listMethod     = 'modulesListByDate';
+            $listMethod     = '_modulesListByDate';
         }
+                
+        // Do not display the module list at first time
+        $modulesList = '';
+        $count       = '';
         
         // Checks if the module list must be displayed
-        if( $this->conf[ 'emptySearchAtStart' ]
-            || isset( $this->piVars[ 'submit' ] )
-        ) {
+        if( isset( $this->piVars[ 'submit' ] ) ) {
             
             try {
                 
-                // Initialize the SOAP operations
-                $this->soapListRequest();
+                if( !isset( $this->piVars[ 'peopleId' ] )) {
+                    
+                    // Initialize the SOAP operations
+                    $this->_soapPeopleRequest();
+                    
+                    // Gets the result type
+                    $result = $this->_peopleGetter->getResultType();
+                    
+                     // Checks the result type
+                    if( $result === 0 ) {
+                        
+                        $people = $this->_peopleGetter->current();
+                        
+                        $this->_soapListRequest( $people->number );
+                        
+                        // Builds the module list
+                        $content = $this->$listMethod();
+                        $count   = $this->_api->fe_makeStyledContent(
+                                        'div',
+                                        'count',
+                                        sprintf( $this->pi_getLL( 'modules-number' ), count( $this->_modCount ) )
+                                   );
+                        
+                    } elseif( $result === 3 ) {
+                        
+                        $content = $this->_showPeople();
+                        $count   = $this->_api->fe_makeStyledContent(
+                                        'div',
+                                        'count',
+                                        sprintf( $this->pi_getLL( 'people-number' ), $this->_peopleGetter->getNumberOfPeople() )
+                                   );
+                        
+                    } else {
+                        
+                        $content = $this->_api->fe_makeStyledContent(
+                                        'div',
+                                        'noResult',
+                                        $this->pi_getLL( 'no-people' )
+                                   );
+                    }
+                    
+                } else {
+                    
+                    $this->_soapListRequest( $this->piVars[ 'peopleId' ] );
+                    
+                    // Builds the module list
+                    $content = $this->$listMethod();
+                    $count   = $this->_api->fe_makeStyledContent(
+                                    'div',
+                                    'count',
+                                    sprintf( $this->pi_getLL( 'modules-number' ), count( $this->_modCount ) )
+                               );
+                }
                 
             } catch( Exception $e ) {
                 
                 // Displays the error message
-                $content = $this->api->fe_makeStyledContent(
+                $content = $this->_api->fe_makeStyledContent(
                     'div',
                     'exception',
                     sprintf(
@@ -296,75 +329,50 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 return $content;
             }
             
-            // Builds the module list
-            $modulesList = $this->$listMethod();
-            $modCount    = $this->api->fe_makeStyledContent(
-                                'div',
-                                'modCount',
-                                sprintf( $this->pi_getLL( 'modules-number' ), count( $this->modCount ) )
-                           );
-            
-        } else {
-            
-            // Do not display the module list at first time
-            $modulesList = '';
-            $modCount    = '';
         }
         
-        // Checks for modules
-        if( count( $this->modCount ) > 0 ) {
-            
-            // Display the list of the modules
-            $markers[ '###MODCOUNT###' ]    = $modCount;
-            
-            // Display the list of the modules
-            $markers[ '###LIST_RESULT###' ] = $modulesList;
-            
-        } else {
-            
-            // No modules were found
-            $markers[ '###MODCOUNT###' ]    = '';
-            $markers[ '###LIST_RESULT###' ] = $modCount;
-        }
+        // No modules were found
+        $markers[ '###COUNT###' ]  = $count;
+        $markers[ '###RESULT###' ] = $content;
+        
+        // Builds the option form
+        $markers[ '###LIST_OPTIONS###' ] = $this->_optionsForm();
         
         // Return content
-        return $this->api->fe_renderTemplate( $markers, '###LIST###' );
+        return $this->_api->fe_renderTemplate( $markers, '###LIST###' );
     }
     
     /**
      * 
      */
-    function singleView()
+    protected function _singleView()
     {
          // Initialize the template object
-        $this->api->fe_initTemplate( $this->conf[ 'templateFile' ] );
+        $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
         // Storage for the template markers
         $markers = array();
         
-        // Includes the calendar script
-        $this->includeCalendarScript();
-        
         // Checks for the collapse option
-        if( $this->conf[ 'collapseListItems' ] ) {
+        if( $this->_conf[ 'collapseListItems' ] ) {
             
             // Include Scriptaculous
-            $this->api->fe_includeScriptaculousJs();
+            $this->_api->fe_includeScriptaculousJs();
             
             // Builds the appear scripts
-            $this->buildAppearScript();
+            $this->_buildAppearScript();
         }
             
         try {
             
             // Initialize the SOAP operations
-            $this->soapListRequest();
-            $this->soapSingleRequest();
+            $this->_soapListRequest();
+            $this->_soapSingleRequest();
             
         } catch( Exception $e ) {
             
             // Displays the error message
-            $content = $this->api->fe_makeStyledContent(
+            $content = $this->_api->fe_makeStyledContent(
                 'div',
                 'exception',
                 sprintf(
@@ -377,28 +385,122 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         }
         
         // Builds the option form
-        $markers[ '###SINGLE_OPTIONS###' ] = $this->optionsForm();
+        $markers[ '###SINGLE_OPTIONS###' ] = $this->_optionsForm();
         
         // Shows the details
-        $markers[ '###MODULE###' ]         = $this->showModule();
+        $markers[ '###MODULE###' ]         = $this->_showModule();
         
         // Shows the dates
-        $markers[ '###DATES###' ]          = $this->modulesListByDate();
+        $markers[ '###DATES###' ]          = $this->_modulesListByDate();
         
         // Return content
-        return $this->api->fe_renderTemplate( $markers, '###SINGLE###' );
+        return $this->_api->fe_renderTemplate( $markers, '###SINGLE###' );
+    }
+    
+    protected function _showPeople()
+    {
+        // Storage
+        $people = array();
+        
+        // Process each people
+        foreach( $this->_peopleGetter as $key => $value ) {
+            
+            // First name
+            $firstName = $this->_api->fe_makeStyledContent(
+                'span',
+                'firstName',
+                $value->firstName
+            );
+            
+            // Last name
+            $lastName = $this->_api->fe_makeStyledContent(
+                'span',
+                'lastName',
+                $value->lastName
+            );
+            
+            // TypoLink configuration
+            $typoLink = array(
+                'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                'useCacheHash'     => 1,
+                'title'            => $value->number,
+                'additionalParams' => $this->_api->fe_typoLinkParams(
+                    array(
+                        'peopleId' => $value->number
+                    ),
+                    true
+                )
+            );
+            
+            // Adds the link
+            $link     = $this->cObj->typoLink(
+                $firstName . ' ' . $lastName,
+                $typoLink
+            );
+            
+            // Class name
+            $className = ( $this->piVars[ 'mode' ] == 2 ) ? 'people-student' : 'people-collaborator';
+            
+            // Adds the people
+            $people[] = $this->_api->fe_makeStyledContent(
+                'div',
+                $className,
+                $link
+            );
+        }
+        
+        // Returns the people list
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'peopleList',
+            implode( $this->_NL, $people )
+        );
     }
     
     /**
      * 
      */
-    function soapListRequest()
+    protected function _soapPeopleRequest()
+    {
+        try {
+            
+            // Gets an instance of the module getter
+            $this->_peopleGetter = $this->_api->newInstance(
+                'tx_eespwsmodules_peopleGetter',
+                array(
+                    $this->_conf[ 'wsdlUrl' ],
+                    $this->_conf[ 'soapOperationPeople' ]
+                )
+            );
+            
+            // Sets the SOAP parameters
+            $this->_peopleGetter->setSoapArg( 'FourD_arg1', $this->piVars[ 'lastname' ] );
+            $this->_peopleGetter->setSoapArg( 'FourD_arg2', $this->piVars[ 'firstname' ] );
+            $this->_peopleGetter->setSoapArg( 'FourD_arg3', '' );
+            $this->_peopleGetter->setSoapArg( 'FourD_arg4', $this->piVars[ 'mode' ] );
+            
+            // Initialization of the SOAP request
+            $this->_peopleGetter->soapRequest();
+        
+            // Removes the modules getter to free some memory, as it's not needed anymore
+            unset( $this->_modGetter );
+            
+        } catch( Exception $e ) {
+            
+            throw $e;
+        }
+    }
+    
+    /**
+     * 
+     */
+    protected function _soapListRequest( $peopleId )
     {
         // Checks the display mode
         if( isset( $this->piVars[ 'display' ] ) && $this->piVars[ 'display' ] == 1 ) {
             
             // Method to use to get the modules
-            $getModulesMethod      = 'getModulesByModule';
+            $getModulesMethod      = '_getModulesByModule';
             
             // Argument to pass to the helper class
             $helperClassDisplayArg = true;
@@ -406,7 +508,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         } else {
             
             // Method to use to get the modules
-            $getModulesMethod      = 'getModulesByDate';
+            $getModulesMethod      = '_getModulesByDate';
             
             // Argument to pass to the helper class
             $helperClassDisplayArg = false;
@@ -415,57 +517,31 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         try {
             
             // Gets an instance of the module getter
-            $this->modGetter =& $this->api->newInstance(
+            $this->_modGetter = $this->_api->newInstance(
                 'tx_eespwsmodules_listGetter',
                 array(
-                    $this->conf[ 'wsdlUrl' ],
-                    $this->conf[ 'soapOperationList' ],
+                    $this->_conf[ 'wsdlUrl' ],
+                    $this->_conf[ 'soapOperationList' ],
                     $helperClassDisplayArg
                 )
             );
             
-            $startDate = '';
-            $endDate   = '';
-            
-            if( $this->conf[ 'startWithCurrentDate' ] ) {
-                
-                // Start date
-                $startDate = date( $this->conf[ 'dateFormat' ], $this->curDate );
-                
-                if( $this->conf[ 'endDateNbWeek' ] ) {
-                    
-                    // End date
-                    $endDate = date(
-                        $this->conf[ 'dateFormat' ],
-                        $this->curDate + ( $this->conf[ 'endDateNbWeek' ] * ( 3600 * 24 * 7 ) )
-                    );
-                }
-            }
-            
-            // Gets values from the option form
-            $year    = ( isset( $this->piVars[ 'year' ] ) )       ? $this->piVars[ 'year' ]       : $this->conf[ 'defaultYear' ];
-            $section = ( isset( $this->piVars[ 'section' ] ) )    ? $this->piVars[ 'section' ]    : '';
-            $mode    = ( isset( $this->piVars[ 'mode' ] ) )       ? $this->piVars[ 'mode' ]       : '';
-            $module  = ( isset( $this->piVars[ 'showModule' ] ) ) ? $this->piVars[ 'showModule' ] : '';
-            $start   = ( isset( $this->piVars[ 'start' ] ) )      ? $this->piVars[ 'start' ]      : $startDate;
-            $end     = ( isset( $this->piVars[ 'end' ] ) )        ? $this->piVars[ 'end' ]        : $endDate;
+            // Only show future modules, or not
+            $passed = ( isset( $this->piVars[ 'passed' ] ) ) ? 1 : 0;
             
             // Sets the SOAP parameters
-            $this->modGetter->setSoapArg( 'FourD_arg1', $year );
-            $this->modGetter->setSoapArg( 'FourD_arg2', $section );
-            $this->modGetter->setSoapArg( 'FourD_arg3', $mode );
-            $this->modGetter->setSoapArg( 'FourD_arg4', $module );
-            $this->modGetter->setSoapArg( 'FourD_arg5', $start );
-            $this->modGetter->setSoapArg( 'FourD_arg6', $end );
+            $this->_modGetter->setSoapArg( 'FourD_arg1', $peopleId );
+            $this->_modGetter->setSoapArg( 'FourD_arg2', $this->piVars[ 'mode' ] );
+            $this->_modGetter->setSoapArg( 'FourD_arg3', $passed );
             
             // Initialization of the SOAP request
-            $this->modGetter->soapRequest();
+            $this->_modGetter->soapRequest();
             
             // Gets the modules
             $this->$getModulesMethod();
         
             // Removes the modules getter to free some memory, as it's not needed anymore
-            unset( $this->modGetter );
+            unset( $this->_modGetter );
             
         } catch( Exception $e ) {
             
@@ -476,25 +552,25 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     /**
      * 
      */
-    function soapSingleRequest()
+    protected function _soapSingleRequest()
     {
         try {
             
             // Gets an instance of the module getter
-            $this->modGetter =& $this->api->newInstance(
+            $this->_modGetter = $this->_api->newInstance(
                 'tx_eespwsmodules_singleGetter',
                 array(
-                    $this->conf[ 'wsdlUrl' ],
-                    $this->conf[ 'soapOperationSingle' ]
+                    $this->_conf[ 'wsdlUrl' ],
+                    $this->_conf[ 'soapOperationSingle' ]
                 )
             );
             
             // Sets the SOAP parameters
-            $this->modGetter->setSoapArg( 'FourD_arg1', $this->piVars[ 'showModule' ] );
-            $this->modGetter->setSoapArg( 'FourD_arg2', '' );
+            $this->_modGetter->setSoapArg( 'FourD_arg1', $this->piVars[ 'showModule' ] );
+            $this->_modGetter->setSoapArg( 'FourD_arg2', '' );
             
             // Initialization of the SOAP request
-            $this->modGetter->soapRequest();
+            $this->_modGetter->soapRequest();
             
         } catch( Exception $e ) {
             
@@ -505,10 +581,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     /**
      * 
      */
-    function getModulesByDate()
+    protected function _getModulesByDate()
     {
         // Process each module returned by the module getter
-        foreach( $this->modGetter as $id => $date ) {
+        foreach( $this->_modGetter as $id => $date ) {
             
             // Gets the date informations
             $year     = date( 'Y', $date );
@@ -518,17 +594,21 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             $meridiem = date( 'a', $date );
             
             // Checks the storage place for the current year
-            if( !isset( $this->dates[ $year ] ) ) {
+            if( !isset( $this->_dates[ $year ] ) ) {
                 
                 // Creates the storage place
-                $this->dates[ $year ] = array(
+                $this->_dates[ $year ] = array(
                     'entries' => array(),
                     'count'   => 0
                 );
                 
-                // Gets a reference to the entries
-                $yearArray =& $this->dates[ $year ][ 'entries' ];
+                // Sorts the array
+                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
+                ksort( $this->_dates );
             }
+            
+            // Gets a reference to the entries
+            $yearArray =& $this->_dates[ $year ][ 'entries' ];
             
             // Checks the storage place for the current month
             if( !isset( $yearArray[ $month ] ) ) {
@@ -539,9 +619,13 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'count'   => 0
                 );
                 
-                // Gets a reference to the entries
-                $monthArray =& $yearArray[ $month ][ 'entries' ];
+                // Sorts the array
+                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
+                ksort( $yearArray );
             }
+            
+            // Gets a reference to the entries
+            $monthArray =& $yearArray[ $month ][ 'entries' ];
             
             // Checks the storage place for the current week
             if( !isset( $monthArray[ $week ] ) ) {
@@ -552,9 +636,13 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'count'   => 0
                 );
                 
-                // Gets a reference to the entries
-                $weekArray =& $monthArray[ $week ][ 'entries' ];
+                // Sorts the array
+                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
+                ksort( $monthArray );
             }
+            
+            // Gets a reference to the entries
+            $weekArray =& $monthArray[ $week ][ 'entries' ];
             
             // Checks the storage place for the current day
             if( !isset( $weekArray[ $day ] ) ) {
@@ -565,9 +653,13 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'count'   => 0
                 );
                 
-                // Gets a reference to the entries
-                $dayArray =& $weekArray[ $day ][ 'entries' ];
+                // Sorts the array
+                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
+                ksort( $weekArray );
             }
+            
+            // Gets a reference to the entries
+            $dayArray =& $weekArray[ $day ][ 'entries' ];
             
             // Checks the storage place for the current meridiem
             if( !isset( $dayArray[ $meridiem ] ) ) {
@@ -578,68 +670,77 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'count'   => 0
                 );
                 
-                // Gets a reference to the entries
-                $meridiemArray =& $dayArray[ $meridiem ][ 'entries' ];
+                // Sorts the array
+                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
+                ksort( $dayArray );
             }
             
+            // Gets a reference to the entries
+            $meridiemArray =& $dayArray[ $meridiem ][ 'entries' ];
+            
             // Checks if the module already exists
-            if( !isset( $this->modules[ $id ] ) ) {
+            if( !isset( $this->_modules[ $id ] ) ) {
                 
                 // Stores the module informations
-                $this->modules[ $id ] = array(
-                    'number'   => $this->modGetter->number,
-                    'credits'  => $this->modGetter->credits,
-                    'domain'   => $this->modGetter->domain,
-                    'section'  => $this->modGetter->section,
-                    'type'     => $this->modGetter->type,
-                    'incharge' => $this->modGetter->incharge,
-                    'title'    => $this->modGetter->title
+                $this->_modules[ $id ] = array(
+                    'number'   => $this->_modGetter->number,
+                    'credits'  => $this->_modGetter->credits,
+                    'domain'   => $this->_modGetter->domain,
+                    'section'  => $this->_modGetter->section,
+                    'type'     => $this->_modGetter->type,
+                    'incharge' => $this->_modGetter->incharge,
+                    'title'    => $this->_modGetter->title
                 );
             }
             
-            // Store the date's specific informations
-            $meridiemArray[ $id ] =  array(
-                'comments' => $this->modGetter->comments,
-                'date'     => $date
-            );
-            
-            // Adds a reference to the common module informations
-            $meridiemArray[ $id ][ 'common' ] =& $this->modules[ $id ];
-            
-            // Increase all counters
-            $this->modCount[ $id ] = true;
-            $this->dates[ $year ][ 'count' ]++;
-            $this->dates[ $year ][ 'entries' ][ $month ][ 'count' ]++;
-            $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'count' ]++;
-            $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'count' ]++;
-            $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ][ 'count' ]++;
+            // Checks if the module has already been stored
+            // This shouldn't be the case, except for the holiday (bug in 4D?)
+            if( !isset( $meridiemArray[ $id ] ) ) {
+                
+                // Stores the date's specific informations
+                $meridiemArray[ $id ] =  array(
+                    'comments' => $this->_modGetter->comments,
+                    'date'     => $date
+                );
+                
+                // Adds a reference to the common module informations
+                $meridiemArray[ $id ][ 'common' ] =& $this->_modules[ $id ];
+                
+                // Increase all counters
+                $this->_modCount[ $id ] = true;
+                $this->_dates[ $year ][ 'count' ]++;
+                $this->_dates[ $year ][ 'entries' ][ $month ][ 'count' ]++;
+                $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'count' ]++;
+                $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'count' ]++;
+                $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ][ 'count' ]++;
+            }
         }
         
         return true;
     }
     
-    function getModulesByModule()
+    protected function _getModulesByModule()
     {
         // Process each module returned by the module getter
-        foreach( $this->modGetter as $id => $date ) {
+        foreach( $this->_modGetter as $id => $date ) {
             
             // Stores the module informations
-            $this->modules[ $id ] = array(
+            $this->_modules[ $id ] = array(
                 'common' => array(
-                    'number'   => $this->modGetter->number,
-                    'credits'  => $this->modGetter->credits,
-                    'domain'   => $this->modGetter->domain,
-                    'section'  => $this->modGetter->section,
-                    'type'     => $this->modGetter->type,
-                    'incharge' => $this->modGetter->incharge,
-                    'title'    => $this->modGetter->title
+                    'number'   => $this->_modGetter->number,
+                    'credits'  => $this->_modGetter->credits,
+                    'domain'   => $this->_modGetter->domain,
+                    'section'  => $this->_modGetter->section,
+                    'type'     => $this->_modGetter->type,
+                    'incharge' => $this->_modGetter->incharge,
+                    'title'    => $this->_modGetter->title
                 ),                
                 'dates'    => $date,
-                'comments' => $this->modGetter->comments
+                'comments' => $this->_modGetter->comments
             );
             
             // Counter for modules
-            $this->modCount[ $id ] = true;
+            $this->_modCount[ $id ] = true;
         }
         
         return true;
@@ -648,7 +749,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     /**
      * 
      */
-    function buildAppearScript()
+    protected function _buildAppearScript()
     {
         // Storage
         $script = array();
@@ -675,7 +776,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $script[] = '       if( tx_eexpwsmodules_pi1_infosDivs[ id ] ) {';
         $script[] = '           ';
         $script[] = '           // Fade effect';
-        $script[] = '           Effect.' . $this->conf[ 'scriptaculous.' ][ 'fade' ] . '( elementId );';
+        $script[] = '           Effect.' . $this->_conf[ 'scriptaculous.' ][ 'fade' ] . '( elementId );';
         $script[] = '           ';
         $script[] = '           // Sets the display flag';
         $script[] = '           tx_eexpwsmodules_pi1_infosDivs[ id ] = false;';
@@ -683,7 +784,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $script[] = '       } else {';
         $script[] = '           ';
         $script[] = '           // Appear effect';
-        $script[] = '           Effect.' . $this->conf[ 'scriptaculous.' ][ 'appear' ] . '( elementId );';
+        $script[] = '           Effect.' . $this->_conf[ 'scriptaculous.' ][ 'appear' ] . '( elementId );';
         $script[] = '           ';
         $script[] = '           // Sets the display flag';
         $script[] = '           tx_eexpwsmodules_pi1_infosDivs[ id ] = true;';
@@ -693,7 +794,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $script[] = '</script>';
         
         // Adds the script to the TYPO3 headers
-        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_eespwsmodules_pi1_appearScript' ] = implode( $this->NL, $script );
+        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_eespwsmodules_pi1_appearScript' ] = implode( $this->_NL, $script );
         
         return true;
     }
@@ -701,7 +802,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     /**
      * 
      */
-    function moduleInfos( $id, &$module, $byModule = false )
+    protected function _moduleInfos( $id, array &$module, $byModule = false )
     {
         // Suffix for the template sections
         $tmplSuffix = ( $byModule ) ? '_BYMOD' : '_BYDATE';
@@ -710,11 +811,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $markers    = array();
         
         // Checks if the module is an holiday module
-        if( ( int )$module[ 'common' ][ 'number' ] === ( int )$this->conf[ 'holidays' ] ) {
+        if( ( int )$module[ 'common' ][ 'number' ] === ( int )$this->_conf[ 'holidays' ] ) {
             
             // Sets the markers
             $markers[ '###TITLE_LABEL###' ] = $this->pi_getLL( 'label-title' );
-            $markers[ '###TITLE_VALUE###' ] = $this->api->fe_makeStyledContent(
+            $markers[ '###TITLE_VALUE###' ] = $this->_api->fe_makeStyledContent(
                 'span',
                 'module-title',
                 $module[ 'common' ][ 'title' ]
@@ -726,14 +827,14 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         } else {
             
             // Checks if the infos for the current module already exists
-            if( !isset( $this->modInfos[ $id ] ) ) {
+            if( !isset( $this->_modInfos[ $id ] ) ) {
                 
                 // Gets the common markers
-                $this->modInfos[ $id ] = $this->moduleInfosMarkers( $id, $module );
+                $this->_modInfos[ $id ] = $this->_moduleInfosMarkers( $id, $module );
             }
             
             // Gets a reference to the markers
-            $markers = $this->modInfos[ $id ];
+            $markers = $this->_modInfos[ $id ];
             
             // Specific markers for the view by date
             if( !$byModule ) {
@@ -742,7 +843,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 if( $module[ 'comments' ] && !is_array( $module[ 'comments' ] ) ) {
                     
                     // Adds the comments for the current date
-                    $markers[ '###COMMENTS_VALUE###' ] = $this->api->fe_makeStyledContent( 'span', 'module-comments', $module[ 'comments' ] );
+                    $markers[ '###COMMENTS_VALUE###' ] = $this->_api->fe_makeStyledContent( 'span', 'module-comments', $module[ 'comments' ] );
                     $markers[ '###COMMENTS_LABEL###' ] = $this->pi_getLL( 'label-comments' );
                     
                 } else {
@@ -758,17 +859,17 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 
                 // Adds the dates for the current module
                 $markers[ '###DATES_LABEL###' ] = $this->pi_getLL( 'label-dates' );
-                $markers[ '###DATES_VALUE###' ] = $this->moduleInfosDateTable( $module[ 'dates' ], $module[ 'comments' ] );
+                $markers[ '###DATES_VALUE###' ] = $this->_moduleInfosDateTable( $module[ 'dates' ], $module[ 'comments' ] );
             }
             
             // Checks if the collapse option is set
-            if( $this->conf[ 'collapseListItems' ] ) {
+            if( $this->_conf[ 'collapseListItems' ] ) {
                 
                 // Checks if the collapse picture needs to be processed
-                if( !$this->collapsePicture ) {
+                if( !$this->_collapsePicture ) {
                     
                     // Builds the collapse picture
-                    $this->collapsePicture = $this->cObj->IMAGE( $this->conf[ 'collapsePicture.' ] );
+                    $this->_collapsePicture = $this->cObj->IMAGE( $this->_conf[ 'collapsePicture.' ] );
                 }
                 
                 // ID for the info DIV
@@ -780,7 +881,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                                      . ' );" title="'
                                                      . $this->pi_getLL( 'collapse-title' )
                                                      . '">'
-                                                     . $this->collapsePicture
+                                                     . $this->_collapsePicture
                                                      . '</a>';
                 
                 // TypoLink for the module view
@@ -788,7 +889,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'parameter'        => $GLOBALS[ 'TSFE' ]->id,
                     'useCacheHash'     => 1,
                     'title'            => $module[ 'common' ][ 'number' ],
-                    'additionalParams' => $this->api->fe_typoLinkParams(
+                    'additionalParams' => $this->_api->fe_typoLinkParams(
                         array(
                             'showModule' => $id
                         )
@@ -797,7 +898,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 
                 // Adds the link
                 $markers[ '###LINK###' ] = $this->cObj->typoLink(
-                    $this->api->fe_renderTemplate(
+                    $this->_api->fe_renderTemplate(
                         $markers,
                         '###LIST_MODINFOS_COLLAPSE_LINK' . $tmplSuffix . '###'
                     ),
@@ -805,10 +906,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 );
                 
                 // Adds the collapsed content
-                $markers[ '###COLLAPSE_CONTENT###' ] = $this->api->fe_makeStyledContent(
+                $markers[ '###COLLAPSE_CONTENT###' ] = $this->_api->fe_makeStyledContent(
                     'div',
                     'module-infoDiv',
-                    $this->api->fe_renderTemplate(
+                    $this->_api->fe_renderTemplate(
                         $markers,
                         '###LIST_MODINFOS_COLLAPSE_CONTENT' . $tmplSuffix . '###'
                     ),
@@ -831,7 +932,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'parameter'        => $GLOBALS[ 'TSFE' ]->id,
                     'useCacheHash'     => 1,
                     'title'            => $module[ 'common' ][ 'number' ],
-                    'additionalParams' => $this->api->fe_typoLinkParams(
+                    'additionalParams' => $this->_api->fe_typoLinkParams(
                         array(
                             'showModule' => $id
                         )
@@ -840,7 +941,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 
                 // Adds the link
                 $markers[ '###LINK###' ] = $this->cObj->typoLink(
-                    $this->api->fe_renderTemplate( $markers, '###LIST_MODINFOS_LINK' . $tmplSuffix . '###' ),
+                    $this->_api->fe_renderTemplate( $markers, '###LIST_MODINFOS_LINK' . $tmplSuffix . '###' ),
                     $typoLink
                 );
                 
@@ -850,25 +951,25 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         }
         
         // Returns the info div
-        return $this->api->fe_makeStyledContent( 'div', 'module-infos', $this->api->fe_renderTemplate( $markers, $templateSection ) );
+        return $this->_api->fe_makeStyledContent( 'div', 'module-infos', $this->_api->fe_renderTemplate( $markers, $templateSection ) );
     }
     
     /**
      * 
      */
-    function moduleInfosMarkers( $id, &$module )
+    protected function _moduleInfosMarkers( $id, array &$module )
     {
         // Storage for the template markers
         $markers = array();
         
         // Sets the values
-        $markers[ '###TITLE_VALUE###' ]    = $this->api->fe_makeStyledContent( 'span', 'module-title',    $module[ 'common' ][ 'title' ] );
-        $markers[ '###NUMBER_VALUE###' ]   = $this->api->fe_makeStyledContent( 'span', 'module-number',   $module[ 'common' ][ 'number' ] );
-        $markers[ '###CREDITS_VALUE###' ]  = $this->api->fe_makeStyledContent( 'span', 'module-credits',  $module[ 'common' ][ 'credits' ] );
-        $markers[ '###DOMAIN_VALUE###' ]   = $this->api->fe_makeStyledContent( 'span', 'module-domain',   $module[ 'common' ][ 'domain' ] );
-        $markers[ '###SECTION_VALUE###' ]  = $this->api->fe_makeStyledContent( 'span', 'module-section',  $module[ 'common' ][ 'section' ] );
-        $markers[ '###TYPE_VALUE###' ]     = $this->api->fe_makeStyledContent( 'span', 'module-type',     $module[ 'common' ][ 'type' ] );
-        $markers[ '###INCHARGE_VALUE###' ] = $this->api->fe_makeStyledContent( 'span', 'module-incharge', implode( ', ', $module[ 'common' ][ 'incharge' ] ) );
+        $markers[ '###TITLE_VALUE###' ]    = $this->_api->fe_makeStyledContent( 'span', 'module-title',    $module[ 'common' ][ 'title' ] );
+        $markers[ '###NUMBER_VALUE###' ]   = $this->_api->fe_makeStyledContent( 'span', 'module-number',   $module[ 'common' ][ 'number' ] );
+        $markers[ '###CREDITS_VALUE###' ]  = $this->_api->fe_makeStyledContent( 'span', 'module-credits',  $module[ 'common' ][ 'credits' ] );
+        $markers[ '###DOMAIN_VALUE###' ]   = $this->_api->fe_makeStyledContent( 'span', 'module-domain',   $module[ 'common' ][ 'domain' ] );
+        $markers[ '###SECTION_VALUE###' ]  = $this->_api->fe_makeStyledContent( 'span', 'module-section',  $module[ 'common' ][ 'section' ] );
+        $markers[ '###TYPE_VALUE###' ]     = $this->_api->fe_makeStyledContent( 'span', 'module-type',     $module[ 'common' ][ 'type' ] );
+        $markers[ '###INCHARGE_VALUE###' ] = $this->_api->fe_makeStyledContent( 'span', 'module-incharge', implode( ', ', $module[ 'common' ][ 'incharge' ] ) );
         
         // Sets the labels
         $markers[ '###TITLE_LABEL###' ]    = $this->pi_getLL( 'label-title' );
@@ -886,7 +987,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
     /**
      * 
      */
-    function moduleInfosDateTable( &$dates, &$comments )
+    protected function _moduleInfosDateTable( &$dates, &$comments )
     {
         // Checks the input arrays
         if( is_array( $dates ) && is_array( $comments ) && count( $dates ) ) {
@@ -895,7 +996,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             $htmlCode = array();
             
             // Starts the table
-            $htmlCode[] = $this->api->fe_makeStyledContent(
+            $htmlCode[] = $this->_api->fe_makeStyledContent(
                 'table',
                 'calendar-table',
                 false,
@@ -916,7 +1017,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             $htmlCode[] = '<tr>';
             
             // Writes the headers
-            $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'date', $this->pi_getLL( 'label-dates' ) );
+            $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'date', $this->pi_getLL( 'label-dates' ) );
             
             // Ends the table headers
             $htmlCode[] = '</tr>';
@@ -932,20 +1033,20 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 $htmlCode[] = '<tr>';
                 
                 // Comments for the current date
-                $comment  = ( isset( $comments[ $ts ] ) && $comments[ $ts ] ) ? $this->api->fe_makeStyledContent( 'div', 'comment', $comments[ $ts ] ) : '';
+                $comment  = ( isset( $comments[ $ts ] ) && $comments[ $ts ] ) ? $this->_api->fe_makeStyledContent( 'div', 'comment', $comments[ $ts ] ) : '';
                 
                 // Full date
-                $fullDate = strftime( $this->conf[ 'dateFormatStrftime' ], $ts ) . ' - ' . $this->pi_getLL( date( 'a', $ts ) );
+                $fullDate = strftime( $this->_conf[ 'dateFormatStrftime' ], $ts ) . ' - ' . $this->pi_getLL( date( 'a', $ts ) );
                 
                 // Current date
-                $date = $this->api->fe_makeStyledContent(
+                $date = $this->_api->fe_makeStyledContent(
                     'div',
                     'date',
                     $fullDate
                 );
                 
                 // Writes the date
-                $htmlCode[] = $this->api->fe_makeStyledContent(
+                $htmlCode[] = $this->_api->fe_makeStyledContent(
                     'td',
                     'date',
                     $date . $comment
@@ -960,219 +1061,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             $htmlCode[] = '</table>';
             
             // Returns the date table
-            return $this->api->fe_makeStyledContent( 'div', 'module-infos-dates', implode( $this->NL, $htmlCode ) );
+            return $this->_api->fe_makeStyledContent( 'div', 'module-infos-dates', implode( $this->_NL, $htmlCode ) );
         }
     }
     
-    /**
-     * 
-     */
-    function includeCalendarScript()
-    {
-        // Container for the calendar scripts
-        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_eespwsmodules_pi1_calendar' ] = '';
-        
-        // Gets a reference to the container
-        $js =& $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_eespwsmodules_pi1_calendar' ]; 
-        
-        // Adds the calendar script
-        $js .= '<script src="'
-            .  t3lib_extMgm::siteRelPath( $this->extKey )
-            .  'res/calendar/calendar.js'
-            .  '" type="text/javascript"></script>';
-        
-        // Default language
-        $siteLang = 'en';
-        
-        // Checks for a TS defined language
-        if( isset( $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'config.' ][ 'language' ] ) ) {
-            
-            // Gets the website language
-            $siteLang = $GLOBALS[ 'TSFE' ]->tmpl->setup[ 'config.' ][ 'language' ];
-        }
-        
-        // Gets the path of the lang file
-        $langFile = t3lib_extMgm::extPath( $this->extKey )
-                  . 'res/calendar/calendar-'
-                  . $siteLang
-                  . '.js';
-        
-        // Checks if the language file exists
-        if( @file_exists( $langFile ) ) {
-            
-            // Adds the language file
-            $js .= $this->NL
-                .  '<script src="'
-                .  t3lib_extMgm::siteRelPath( $this->extKey )
-                .  'res/calendar/calendar-'
-                .  $siteLang
-                .  '.js'
-                .  '" type="text/javascript"></script>';
-            
-        } else {
-            
-            // Adds the language file
-            $js .= $this->NL
-                .  '<script src="'
-                .  t3lib_extMgm::siteRelPath( $this->extKey )
-                .  'res/calendar/calendar-en.js'
-                .  '" type="text/javascript"></script>';
-        }
-        
-        // Adds the setup file
-        $js .= $this->NL
-            .  '<script src="'
-            .  t3lib_extMgm::siteRelPath( $this->extKey )
-            .  'res/calendar/calendar-setup.js'
-            .  '" type="text/javascript"></script>';
-        
-        return true;
-    }
-    
-    /**
-     * 
-     */
-    function calendarField( $name, $defaultValue = '' )
-    {
-        // ID of the input field
-        $inputId = $this->prefixId . '_' . $name;
-        
-        // ID of the picture
-        $picId   = $this->prefixId . '_' . $name . '_pic';
-        
-        // Input value
-        $value   = ( isset( $this->piVars[ $name ] ) ) ? $this->piVars[ $name ] : $defaultValue;
-        
-        // Input tag
-        $input   = '<input name="'
-                 . $this->prefixId
-                 . '['
-                 . $name
-                 . ']" id="'
-                 . $inputId
-                 . '" type="text" size="'
-                 . $this->conf[ 'calendar.' ][ 'inputSize' ]
-                 . '" readonly="readonly" value="'
-                 . $value
-                 . '"/>';
-        
-        // Parameters for the picture
-        $this->conf[ 'calendar.' ][ 'picture.' ][ 'titleText' ] = $this->pi_getLL( 'cal-title' );
-        $this->conf[ 'calendar.' ][ 'picture.' ][ 'params' ]    = 'style="cursor: pointer;" id="'
-                                                                . $picId
-                                                                . '"';
-        
-        // Builds the picture
-        $picture = $this->cObj->IMAGE( $this->conf[ 'calendar.' ][ 'picture.' ] );
-        
-        // Builds the delete picture
-        $delete  = '<a href="'
-                 . $this->url
-                 . '#" onclick="javascript:document.getElementById(\''
-                 . $inputId
-                 . '\').value=\'\'; return true;">'
-                 . $this->cObj->IMAGE( $this->conf[ 'calendar.' ][ 'deletePicture.' ] )
-                 . '</a>';
-        
-        // Builds the script for the current field
-        $script  = '<script type="text/javascript" charset="utf-8">'
-                 . $this->NL
-                 . '// <![CDATA['
-                 . $this->NL
-                 . 'Calendar.setup('
-                 . $this->NL
-                 . '{'
-                 . $this->NL
-                 . 'inputField  : "'
-                 . $inputId
-                 . '",'
-                 . $this->NL
-                 . 'ifFormat    : "'
-                 . $this->conf[ 'calendar.' ][ 'format' ]
-                 . '",'
-                 . $this->NL
-                 . 'button      : "'
-                 . $picId
-                 . '",'
-                 . $this->NL
-                 . 'align       : "'
-                 . $this->conf[ 'calendar.' ][ 'align' ]
-                 . '",'
-                 . $this->NL
-                 . 'singleClick : true'
-                 . $this->NL
-                 . '}'
-                 . $this->NL
-                 . ');'
-                 . $this->NL
-                 . '// ]]>'
-                 . $this->NL
-                 . '</script>';
-        
-        // Returns the input
-        return $input
-             . $this->NL
-             . $picture
-             . $this->NL
-             . $delete
-             . $this->NL
-             . $script;
-    }
-    
-    /**
-     * 
-     */
-    function yearSelect()
-    {
-        // Storage
-        $select = array();
-        
-        // Starts the select tag
-        $select[] = '<select name="'
-                  . $this->prefixId
-                  . '[year]" size="1">';
-        
-        // Gets the start and end years
-        $startYear = ( int )$this->conf[ 'year' ] - ( int )$this->conf[ 'yearsNumber' ];
-        $endYear   = ( int )$this->conf[ 'year' ];
-        
-        // Process each year
-        for( $i = $startYear; $i <= $endYear; $i++ ) {
-            
-            // Checks for incoming value from the plugin variables
-            if( isset( $this->piVars[ 'year' ] ) ) {
-                
-                // Selected item state
-                $selected = ( $i === ( int )$this->piVars[ 'year' ] ) ? ' selected="selected"' : '';
-                
-            } else {
-                
-                // Selected item state
-                $selected = ( $i === ( int )$this->conf[ 'defaultYear' ] ) ? ' selected="selected"' : '';
-                
-            }
-            
-            // Adds the option tag
-            $select[] = '<option value="'
-                      . $i
-                      . '"'
-                      . $selected
-                      . '>'
-                      . $i
-                      . '</option>';
-        }
-        
-        // Ends the select tag
-        $select[] = '</select>';
-        
-        // Returns the full select
-        return implode( chr( 10 ), $select );
-    }
-    
-    /**
-     * 
-     */
-    function displaySelect()
+    protected function _displaySelect()
     {
         // Storage
         $select = array();
@@ -1184,6 +1077,9 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         
         // Process each display options
         for( $i = 0; $i < 2; $i++ ) {
+            
+            // Selected state
+            $selected = '';
             
             // Checks for incoming value from the plugin variables
             if( isset( $this->piVars[ 'display' ] ) ) {
@@ -1210,57 +1106,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         return implode( chr( 10 ), $select );
     }
     
-    /**
-     * 
-     */
-    function sectionSelect()
-    {
-        // Storage
-        $select = array();
-        
-        // Starts the select tag
-        $select[] = '<select name="'
-                  . $this->prefixId
-                  . '[section]" size="1">';
-        
-        // Gets the available sections
-        $sections = explode( ',', $this->conf[ 'sections' ] );
-        
-        // Adds a blank option
-        $select[] = '<option value=""></option>';
-        
-        // Process each display options
-        foreach( $sections as $section ) {
-            
-            // Checks for incoming value from the plugin variables
-            if( isset( $this->piVars[ 'section' ] ) ) {
-                
-                // Selected item state
-                $selected = ( $section === $this->piVars[ 'section' ] ) ? ' selected="selected"' : '';
-                
-            }
-            
-            // Adds the option tag
-            $select[] = '<option value="'
-                      . $section
-                      . '"'
-                      . $selected
-                      . '>'
-                      . $section
-                      . '</option>';
-        }
-        
-        // Ends the select tag
-        $select[] = '</select>';
-        
-        // Returns the full select
-        return implode( chr( 10 ), $select );
-    }
-    
-    /**
-     * 
-     */
-    function modeSelect()
+    protected function _modeSelect()
     {
         // Storage
         $select = array();
@@ -1270,51 +1116,109 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                   . $this->prefixId
                   . '[mode]" size="1">';
         
-        // Gets the available modes
-        $modes = explode( ',', $this->conf[ 'modes' ] );
-        
-        // Adds a blank option
-        $select[] = '<option value=""></option>';
-        
         // Process each display options
-        foreach( $modes as $mode ) {
+        for( $i = 2; $i > 0; $i-- ) {
+            
+            // Selected state
+            $selected = '';
             
             // Checks for incoming value from the plugin variables
             if( isset( $this->piVars[ 'mode' ] ) ) {
                 
                 // Selected item state
-                $selected = ( $mode === $this->piVars[ 'mode' ] ) ? ' selected="selected"' : '';
+                $selected = ( $i === ( int )$this->piVars[ 'mode' ] ) ? ' selected="selected"' : '';
                 
             }
             
             // Adds the option tag
             $select[] = '<option value="'
-                      . $mode
+                      . $i
                       . '"'
                       . $selected
                       . '>'
-                      . $mode
+                      . $this->pi_getLL( 'options-mode-' . $i )
                       . '</option>';
         }
-        
-        // Cleanup
-        unset( $i );
         
         // Ends the select tag
         $select[] = '</select>';
         
         // Returns the full select
         return implode( chr( 10 ), $select );
+    }
+    
+    protected function _createInput( $name )
+    {
+        // Default value
+        $value = ( isset( $this->piVars[ $name ] ) ) ? $this->piVars[ $name ] : '';
         
-        // Cleanup
-        unset( $key );
-        unset( $value );
+        // Label
+        $label = '<label for="'
+               . $this->prefixId
+               . '_'
+               . $name
+               . '">'
+               . $this->pi_getLL( 'options-' . $name )
+               . '</label>';
+        
+        // Text input
+        $input = '<input name="'
+               . $this->prefixId
+               . '['
+               . $name
+               . ']'
+               . '" id="'
+               . $this->prefixId
+               . '_'
+               . $name
+               . '" type="text" size="'
+               . $this->_conf[ 'inputSize' ]
+               . '" value="'
+               . $value
+               . '" />';
+        
+        // Return the input
+        return $label . $input;
+    }
+    
+    protected function _createCheckBox( $name )
+    {
+        // Default value
+        $checked = ( isset( $this->piVars[ $name ] ) ) ? ' checked' : '';
+        
+        // Label
+        $label   = '<label for="'
+                 . $this->prefixId
+                 . '_'
+                 . $name
+                 . '">'
+                 . $this->pi_getLL( 'options-' . $name )
+                 . '</label>';
+        
+        // Text input
+        $input   = '<input name="'
+                 . $this->prefixId
+                 . '['
+                 . $name
+                 . ']'
+                 . '" id="'
+                 . $this->prefixId
+                 . '_'
+                 . $name
+                 . '" type="checkbox" size="'
+                 . $this->_conf[ 'inputSize' ]
+                 . '"'
+                 . $checked
+                 . '" />';
+        
+        // Return the input
+        return $label . $input;
     }
     
     /**
      * 
      */
-    function optionsForm()
+    protected function _optionsForm()
     {
         // Storage
         $htmlCode = array();
@@ -1325,24 +1229,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             'parameter'    => $GLOBALS[ 'TSFE' ]->id,
             'useCacheHash' => 1
         );
-            
-        $startDate = '';
-        $endDate   = '';
-        
-        if( $this->conf[ 'startWithCurrentDate' ] ) {
-            
-            // Start date
-            $startDate = date( $this->conf[ 'dateFormat' ], $this->curDate );
-            
-            if( $this->conf[ 'endDateNbWeek' ] ) {
-                
-                // End date
-                $endDate = date(
-                    $this->conf[ 'dateFormat' ], 
-                    $this->curDate + ( $this->conf[ 'endDateNbWeek' ] * ( 3600 * 24 * 7 ) )
-                );
-            }
-        }
         
         // Gets the form action URL
         $formAction = $this->cObj->typoLink_URL( $typoLink );
@@ -1360,76 +1246,69 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     . '_optionsForm'
                     . '">';
         
-        // Adds the year select
-        $markers[ '###YEAR###' ] = $this->api->fe_makeStyledContent(
+        // Adds the first name input
+        $markers[ '###FIRSTNAME###' ] = $this->_api->fe_makeStyledContent(
             'div',
-            'years',
-            '<label>' . $this->pi_getLL( 'options-year' ) . '</label> ' . $this->yearSelect()
+            'firstName',
+            $this->_createInput( 'firstname' )
+        );
+        
+        // Adds the last name input
+        $markers[ '###LASTNAME###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'lastName',
+            $this->_createInput( 'lastname' )
         );
         
         // Adds the display select
-        $markers[ '###DISPLAY###' ] = $this->api->fe_makeStyledContent(
+        $markers[ '###DISPLAY###' ] = $this->_api->fe_makeStyledContent(
             'div',
             'display',
-            '<label>' . $this->pi_getLL( 'options-display' ) . '</label> ' . $this->displaySelect()
-        );
-        
-        // Adds the section select
-        $markers[ '###SECTION###' ] = $this->api->fe_makeStyledContent(
-            'div',
-            'sections',
-            '<label>' . $this->pi_getLL( 'options-sections' ) . '</label> ' . $this->sectionSelect()
+            '<label>' . $this->pi_getLL( 'options-display' ) . '</label> ' . $this->_displaySelect()
         );
         
         // Adds the mode select
-        $markers[ '###MODE###' ] = $this->api->fe_makeStyledContent(
+        $markers[ '###MODE###' ] = $this->_api->fe_makeStyledContent(
             'div',
-            'modes',
-            '<label>' . $this->pi_getLL( 'options-modes' ) . '</label> ' . $this->modeSelect()
+            'mode',
+            '<label>' . $this->pi_getLL( 'options-mode' ) . '</label> ' . $this->_modeSelect()
         );
         
-        // Adds the start calendar field
-        $markers[ '###START###' ] = $this->api->fe_makeStyledContent(
+        // Adds the future only checkbox
+        $markers[ '###PASSED###' ] = $this->_api->fe_makeStyledContent(
             'div',
-            'startDate',
-            '<label>' . $this->pi_getLL( 'options-start' ) . '</label> ' . $this->calendarField( 'start', $startDate )
-        );
-        
-        // Adds the end calendar field
-        $markers[ '###END###' ] = $this->api->fe_makeStyledContent(
-            'div',
-            'endDate',
-            '<label>' . $this->pi_getLL( 'options-end' ) . '</label> ' . $this->calendarField( 'end', $endDate )
+            'passed',
+            $this->_createCheckBox( 'passed' )
         );
         
         // Adds the form submit input
-        $markers[ '###SUBMIT###' ] = $this->api->fe_makeStyledContent(
+        $markers[ '###SUBMIT###' ] = $this->_api->fe_makeStyledContent(
             'div',
             'submit',
             '<input name="' . $this->prefixId . '[submit]" type="submit" value="' . $this->pi_getLL( 'options-submit' ) . '" />'
         );
         
         // Adds the form fields
-        $htmlCode[] = $this->api->fe_renderTemplate( $markers, '###OPTIONS###' );
+        $htmlCode[] = $this->_api->fe_renderTemplate( $markers, '###OPTIONS###' );
         
         // Close the form tag
         $htmlCode[] = '</form>';
         
         // Returns the form
-        return $this->api->fe_makeStyledContent(
+        return $this->_api->fe_makeStyledContent(
             'div',
             'options',
-            implode( $this->NL, $htmlCode )
+            implode( $this->_NL, $htmlCode )
         );
     }
     
-    function modulesListByDate()
+    protected function _modulesListByDate()
     {
         // Storage
         $htmlCode = array();
         
         // Starts the table
-        $htmlCode[] = $this->api->fe_makeStyledContent(
+        $htmlCode[] = $this->_api->fe_makeStyledContent(
             'table',
             'calendar-table',
             false,
@@ -1450,11 +1329,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $htmlCode[] = '<tr>';
         
         // Writes the headers
-        $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'month',    $this->pi_getLL( 'headers-month' ) );
-        $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'week',     $this->pi_getLL( 'headers-week' ) );
-        $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'day',      $this->pi_getLL( 'headers-day' ) );
-        $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'meridiem', $this->pi_getLL( 'headers-meridiem' ) );
-        $htmlCode[] = $this->api->fe_makeStyledContent( 'th', 'modules',  $this->pi_getLL( 'headers-modules' ) );
+        $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'month',    $this->pi_getLL( 'headers-month' ) );
+        $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'week',     $this->pi_getLL( 'headers-week' ) );
+        $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'day',      $this->pi_getLL( 'headers-day' ) );
+        $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'meridiem', $this->pi_getLL( 'headers-meridiem' ) );
+        $htmlCode[] = $this->_api->fe_makeStyledContent( 'th', 'modules',  $this->pi_getLL( 'headers-modules' ) );
         
         // Ends the table headers
         $htmlCode[] = '</tr>';
@@ -1464,11 +1343,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $htmlCode[] = '<tbody>';
         
         // Process each year in the module array
-        foreach( $this->dates as $year => &$monthArray ) {
+        foreach( $this->_dates as $year => &$monthArray ) {
             
             // Adds the year separation
             $htmlCode[] = '<tr>'
-                        . $this->api->fe_makeStyledContent(
+                        . $this->_api->fe_makeStyledContent(
                             'td',
                             'year-separation',
                             $year,
@@ -1524,7 +1403,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                 if( $newMonth ) {
                                     
                                     // Adds the month column
-                                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                                    $htmlCode[] = $this->_api->fe_makeStyledContent(
                                         'td',
                                         'month',
                                         $monthLabel,
@@ -1544,7 +1423,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                 if( $newWeek ) {
                                     
                                     // Adds the week column
-                                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                                    $htmlCode[] = $this->_api->fe_makeStyledContent(
                                         'td',
                                         'week',
                                         $week,
@@ -1564,10 +1443,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                 if( $newDay ) {
                                     
                                     // Adds the day column
-                                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                                    $htmlCode[] = $this->_api->fe_makeStyledContent(
                                         'td',
                                         'day',
-                                        $anchor . $dayLabel . '<br />' . date( $this->conf[ 'dateFormat' ], $module[ 'date' ] ),
+                                        $anchor . $dayLabel . '<br />' . date( $this->_conf[ 'dateFormat' ], $module[ 'date' ] ),
                                         1,
                                         false,
                                         false,
@@ -1584,7 +1463,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                 if( $newMeridiem ) {
                                     
                                     // Adds the meridiem column
-                                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                                    $htmlCode[] = $this->_api->fe_makeStyledContent(
                                         'td',
                                         'meridiem-' . $meridiem,
                                         $meridiemLabel,
@@ -1601,40 +1480,40 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                 }
                                 
                                 // CSS class name for the module
-                                $class = ( ( string )$module[ 'common' ][ 'domain' ] === ( string )$this->conf[ 'holiday' ] ) ? 'holiday' : 'domain-' . $module[ 'common' ][ 'domain' ];
+                                $class = ( ( string )$module[ 'common' ][ 'domain' ] === ( string )$this->_conf[ 'holiday' ] ) ? 'holiday' : 'domain-' . $module[ 'common' ][ 'domain' ];
                                 
                                 // Adds the module
-                                $htmlCode[] = $this->api->fe_makeStyledContent(
+                                $htmlCode[] = $this->_api->fe_makeStyledContent(
                                     'td',
                                     $class,
-                                    $this->moduleInfos( $id, $module )
+                                    $this->_moduleInfos( $id, $module )
                                 );
                                 
                                 // Ends the row
                                 $htmlCode[] = '</tr>';
                                 
                                 // Removes the module to free some memory
-                                unset( $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ][ 'entries' ][ $id ] );
+                                unset( $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ][ 'entries' ][ $id ] );
                             }
                             
                             // Removes the meridiem to free some memory
-                            unset( $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ] );
+                            unset( $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ] );
                         }
                         
                         // Removes the day to free some memory
-                        unset( $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ] );
+                        unset( $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ] );
                     }
                     
                     // Removes the week to free some memory
-                    unset( $this->dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ] );
+                    unset( $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ] );
                 }
                 
                 // Removes the month to free some memory
-                unset( $this->dates[ $year ][ 'entries' ][ $month ] );
+                unset( $this->_dates[ $year ][ 'entries' ][ $month ] );
             }
             
             // Removes the year to free some memory
-            unset( $this->dates[ $year ] );
+            unset( $this->_dates[ $year ] );
         }
         
         // Ends the table
@@ -1642,49 +1521,53 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $htmlCode[] = '</table>';
         
         // Returns the table
-        return $this->api->fe_makeStyledContent( 'div', 'calendar', implode( $this->NL, $htmlCode ) );
+        return $this->_api->fe_makeStyledContent( 'div', 'calendar', implode( $this->_NL, $htmlCode ) );
     }
     
-    function modulesListByModule()
+    protected function _modulesListByModule()
     {
+        // Storage
         $htmlCode = array();
         
-        foreach( $this->modules as $id => $module ) {
+        // Process each module
+        foreach( $this->_modules as $id => $module ) {
             
-            $htmlCode[] = $this->moduleInfos( $id, $module, true );
+            // Adds the module informations
+            $htmlCode[] = $this->_moduleInfos( $id, $module, true );
         }
         
-        return $this->api->fe_makeStyledContent( 'div', 'modules', implode( $this->NL, $htmlCode ) );
+        // Returns the list
+        return $this->_api->fe_makeStyledContent( 'div', 'modules', implode( $this->_NL, $htmlCode ) );
     }
     
     /**
      * 
      */
-    function showModule()
+    protected function _showModule()
     {
         // Storage for the template markers
         $markers = array();
         
         // Module informations
         $modInfos = array(
-            'title'         => ( $value = $this->modGetter->title )                         ? $value : '-',
-            'number'        => ( $value = $this->modGetter->number )                        ? $value : '-',
-            'sections'      => ( $value = implode( ', ', $this->modGetter->sections ) )     ? $value : '-',
-            'incharge'      => ( $value = implode( '<br />', $this->modGetter->incharge ) ) ? $value : '-',
-            'domain'        => ( $value = $this->modGetter->domain )                        ? $value : '-',
-            'type'          => ( $value = $this->modGetter->type )                          ? $value : '-',
-            'credits'       => ( $value = $this->modGetter->credits )                       ? $value : '-',
-            'formation'     => ( $value = $this->modGetter->formation )                     ? $value : '-',
-			'level'         => ( $value = $this->modGetter->level )                         ? $value : '-',
-			'organisation'  => ( $value = $this->modGetter->organisation )                  ? $value : '-',
-			'language'      => ( $value = $this->modGetter->language )                      ? $value : '-',
-			'prerequisites' => ( $value = $this->modGetter->prerequisites )                 ? $value : '-',
-			'goals'         => ( $value = $this->modGetter->goals )                         ? $value : '-',
-			'content'       => ( $value = $this->modGetter->content )                       ? $value : '-',
-			'evaluation'    => ( $value = $this->modGetter->evaluation )                    ? $value : '-',
-			'remediation'   => ( $value = $this->modGetter->remediation )                   ? $value : '-',
-			'comments'      => ( $value = $this->modGetter->comments )                      ? $value : '-',
-			'bibliography'  => ( $value = $this->modGetter->bibliography )                  ? $value : '-'
+            'title'         => ( $value = $this->_modGetter->title )                         ? $value : '-',
+            'number'        => ( $value = $this->_modGetter->number )                        ? $value : '-',
+            'sections'      => ( $value = implode( ', ', $this->_modGetter->sections ) )     ? $value : '-',
+            'incharge'      => ( $value = implode( '<br />', $this->_modGetter->incharge ) ) ? $value : '-',
+            'domain'        => ( $value = $this->_modGetter->domain )                        ? $value : '-',
+            'type'          => ( $value = $this->_modGetter->type )                          ? $value : '-',
+            'credits'       => ( $value = $this->_modGetter->credits )                       ? $value : '-',
+            'formation'     => ( $value = $this->_modGetter->formation )                     ? $value : '-',
+			'level'         => ( $value = $this->_modGetter->level )                         ? $value : '-',
+			'organisation'  => ( $value = $this->_modGetter->organisation )                  ? $value : '-',
+			'language'      => ( $value = $this->_modGetter->language )                      ? $value : '-',
+			'prerequisites' => ( $value = $this->_modGetter->prerequisites )                 ? $value : '-',
+			'goals'         => ( $value = $this->_modGetter->goals )                         ? $value : '-',
+			'content'       => ( $value = $this->_modGetter->content )                       ? $value : '-',
+			'evaluation'    => ( $value = $this->_modGetter->evaluation )                    ? $value : '-',
+			'remediation'   => ( $value = $this->_modGetter->remediation )                   ? $value : '-',
+			'comments'      => ( $value = $this->_modGetter->comments )                      ? $value : '-',
+			'bibliography'  => ( $value = $this->_modGetter->bibliography )                  ? $value : '-'
         );
         
         foreach( $modInfos as $key => $value ) {
@@ -1701,10 +1584,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         }
         
         // Returns the module details
-        return $this->api->fe_makeStyledContent(
+        return $this->_api->fe_makeStyledContent(
             'div',
             'module-details',
-            $this->api->fe_renderTemplate( 
+            $this->_api->fe_renderTemplate( 
                 $markers,
                 '###MODULE_DETAILS###'
             )
@@ -1718,4 +1601,3 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/pi1/class.tx_eespwsmodules_pi1.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/eesp_ws_modules/pi1/class.tx_eespwsmodules_pi1.php']);
 }
-?>
