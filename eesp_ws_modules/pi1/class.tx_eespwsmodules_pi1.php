@@ -345,9 +345,10 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             
         }
         
-        // No modules were found
+        // Replace markers
         $markers[ '###COUNT###' ]  = $count;
         $markers[ '###RESULT###' ] = $content;
+        $markers[ '###FILES###' ]  = $this->_listFiles();
         
         // Builds the option form
         $markers[ '###LIST_OPTIONS###' ] = $this->_optionsForm();
@@ -405,6 +406,11 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         
         // Return content
         return $this->_api->fe_renderTemplate( $markers, '###SINGLE###' );
+    }
+    
+    protected function _listFiles()
+    {
+        
     }
     
     protected function _showPeople()
