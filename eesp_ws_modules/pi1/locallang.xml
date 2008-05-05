@@ -126,7 +126,7 @@
             <label index="no-people">Désolé, aucune personne n'a été trouvée</label>
             <label index="modules-number">Nombre de modules trouvés: %s</label>
             <label index="no-modules">Désolé, aucun module n'a été trouvé</label>
-            <label index="person">Modules for: %s</label>
+            <label index="person">Modules pour: %s</label>
             <label index="collapse-title">Plus d'informations...</label>
             <label index="classrooms-title">Gestion des salles</label>
             <label index="ts-error">Erreur de configuration TypoScript. Veuillez vérifier que vous avez inclu le gabarit statique pour ce plugin.</label>
