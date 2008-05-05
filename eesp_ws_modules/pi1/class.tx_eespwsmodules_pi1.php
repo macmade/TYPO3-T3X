@@ -1758,7 +1758,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     $content   = $this->_api->fe_makeStyledContent(
                         'div',
                         'right',
-                        $subValue
+                        nl2br( $subValue )
                     );
                     
                     // Current item
@@ -1825,7 +1825,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     $section[] = $this->_api->fe_makeStyledContent(
                         'div',
                         'section-content',
-                        $content
+                        nl2br( $content )
                     );
                 }
             }
