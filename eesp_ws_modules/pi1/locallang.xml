@@ -48,6 +48,7 @@
             <label index="no-people">Sorry, nobody was found</label>
             <label index="modules-number">Number of modules found: %s</label>
             <label index="no-modules">Sorry, no modules were found</label>
+            <label index="person">Modules for: %s</label>
             <label index="collapse-title">Show more infos...</label>
             <label index="classrooms-title">Classrooms</label>
             <label index="ts-error">TypoScript configuration error. Please check that you have included the static template for this plugin.</label>
@@ -125,6 +126,7 @@
             <label index="no-people">Désolé, aucune personne n'a été trouvée</label>
             <label index="modules-number">Nombre de modules trouvés: %s</label>
             <label index="no-modules">Désolé, aucun module n'a été trouvé</label>
+            <label index="person">Modules for: %s</label>
             <label index="collapse-title">Plus d'informations...</label>
             <label index="classrooms-title">Gestion des salles</label>
             <label index="ts-error">Erreur de configuration TypoScript. Veuillez vérifier que vous avez inclu le gabarit statique pour ce plugin.</label>

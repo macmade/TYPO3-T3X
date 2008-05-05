@@ -278,8 +278,9 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
             $listMethod     = '_modulesListByDate';
         }
                 
-        // Do not display the module list at first time
+        // Initial values
         $modulesList = '';
+        $person      = '';
         $count       = '';
         
         // Checks if the module list must be displayed
@@ -302,8 +303,21 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                         
                         $this->_soapListRequest( $people->number );
                         
+                        $peopleClass = ( $this->piVars[ 'mode' ] == 2 ) ? 'name-student' : 'name-collaborator';
+                        
+                        $peopleName  = $this->_api->fe_makeStyledContent(
+                                        'span',
+                                        $peopleClass,
+                                        $people->firstName . ' ' . $people->lastName
+                                      );
+                        
                         // Builds the module list
                         $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
+                        $person  = $this->_api->fe_makeStyledContent(
+                                        'div',
+                                        'person',
+                                        sprintf( $this->pi_getLL( 'person' ), $peopleName )
+                                   );
                         $count   = $this->_api->fe_makeStyledContent(
                                         'div',
                                         'count',
@@ -332,8 +346,21 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     
                     $this->_soapListRequest( $this->piVars[ 'peopleId' ] );
                     
+                    $peopleClass = ( $this->piVars[ 'mode' ] == 2 ) ? 'name-student' : 'name-collaborator';
+                    
+                    $peopleName  = $this->_api->fe_makeStyledContent(
+                                        'span',
+                                        $peopleClass,
+                                        $this->piVars[ 'firstname' ] . ' ' . $this->piVars[ 'lastname' ]
+                                   );
+                    
                     // Builds the module list
                     $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
+                    $person  = $this->_api->fe_makeStyledContent(
+                                    'div',
+                                    'person',
+                                    sprintf( $this->pi_getLL( 'person' ), $peopleName )
+                               );
                     $count   = $this->_api->fe_makeStyledContent(
                                     'div',
                                     'count',
@@ -360,6 +387,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         
         // Replace markers
         $markers[ '###COUNT###' ]  = $count;
+        $markers[ '###PERSON###' ] = $person;
         $markers[ '###RESULT###' ] = $content;
         $markers[ '###FILES###' ]  = $this->_listFiles();
         
@@ -531,7 +559,9 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 'title'            => $value->number,
                 'additionalParams' => $this->_api->fe_typoLinkParams(
                     array(
-                        'peopleId' => $value->number
+                        'peopleId'  => $value->number,
+                        'firstname' => $value->firstName,
+                        'lastname'  => $value->lastName
                     ),
                     true
                 )
