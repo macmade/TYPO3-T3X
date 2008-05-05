@@ -315,7 +315,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                         $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
                         $person  = $this->_api->fe_makeStyledContent(
                                         'div',
-                                        'person',
+                                        'program-for',
                                         sprintf( $this->pi_getLL( 'person' ), $peopleName )
                                    );
                         $count   = $this->_api->fe_makeStyledContent(
@@ -358,7 +358,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     $content = ( count( $this->_modCount ) ) ? $this->$listMethod() : '';
                     $person  = $this->_api->fe_makeStyledContent(
                                     'div',
-                                    'person',
+                                    'program-for',
                                     sprintf( $this->pi_getLL( 'person' ), $peopleName )
                                );
                     $count   = $this->_api->fe_makeStyledContent(
