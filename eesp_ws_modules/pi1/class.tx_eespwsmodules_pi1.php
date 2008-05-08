@@ -736,10 +736,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'entries' => array(),
                     'count'   => 0
                 );
-                
-                // Sorts the array
-                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
-                ksort( $this->_dates );
             }
             
             // Gets a reference to the entries
@@ -753,10 +749,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'entries' => array(),
                     'count'   => 0
                 );
-                
-                // Sorts the array
-                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
-                ksort( $yearArray );
             }
             
             // Gets a reference to the entries
@@ -770,10 +762,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'entries' => array(),
                     'count'   => 0
                 );
-                
-                // Sorts the array
-                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
-                ksort( $monthArray );
             }
             
             // Gets a reference to the entries
@@ -787,10 +775,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'entries' => array(),
                     'count'   => 0
                 );
-                
-                // Sorts the array
-                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
-                ksort( $weekArray );
             }
             
             // Gets a reference to the entries
@@ -804,10 +788,6 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'entries' => array(),
                     'count'   => 0
                 );
-                
-                // Sorts the array
-                // This should not be useful, but some modules (holiday for instance) didn't seems to be sorted correctly in 4D!
-                ksort( $dayArray );
             }
             
             // Gets a reference to the entries
