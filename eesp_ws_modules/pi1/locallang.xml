@@ -64,7 +64,7 @@
             <label index="label-NIVEAU">Level:</label>
             <label index="label-CARACTERE">Character:</label>
             <label index="label-TYPE_MODULE">Module type:</label>
-            <label index="label-CARACTERISTIQUE">Characteristics:</label>
+            <label index="label-CARACTERISTIQUE">Characteristic:</label>
             <label index="label-ORG_TEMPORELLE">Temporal organisation:</label>
             <label index="label-CREDITS_ECTS">ECTS credits:</label>
             <label index="label-LANGUE">Language:</label>
@@ -142,7 +142,7 @@
             <label index="label-NIVEAU">Niveau:</label>
             <label index="label-CARACTERE">Caractère:</label>
             <label index="label-TYPE_MODULE">Type de module:</label>
-            <label index="label-CARACTERISTIQUE">Caractéristiques:</label>
+            <label index="label-CARACTERISTIQUE">Caractéristique:</label>
             <label index="label-ORG_TEMPORELLE">Organisation temporelle:</label>
             <label index="label-CREDITS_ECTS">Crédits ECTS:</label>
             <label index="label-LANGUE">Langue:</label><label index="label-title">Titre:</label>
