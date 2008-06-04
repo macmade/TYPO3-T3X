@@ -849,7 +849,8 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     'section'  => $this->_modGetter->section,
                     'type'     => $this->_modGetter->type,
                     'incharge' => $this->_modGetter->incharge,
-                    'title'    => $this->_modGetter->title
+                    'title'    => $this->_modGetter->title,
+                    'subcode'  => $this->_modGetter->subcode
                 ),                
                 'dates'    => $date,
                 'comments' => $this->_modGetter->comments
