@@ -77,7 +77,7 @@
             <label index="label-type">Type:</label>
             <label index="label-incharge">Person(s) in charge:</label>
             <label index="label-comments">Comments:</label>
-            <label index="label-dates">Dates:</label>
+            <label index="label-dates">Module's dates:</label>
             <label index="label-formation">Formation type:</label>
             <label index="label-level">Level:</label>
             <label index="label-organisation">Organisation temporelle:</label>
@@ -154,7 +154,7 @@
             <label index="label-type">Type:</label>
             <label index="label-incharge">Responsable(s):</label>
             <label index="label-comments">Remarques:</label>
-            <label index="label-dates">Dates:</label>
+            <label index="label-dates">Dates du module:</label>
             <label index="label-formation">Type de formation:</label>
             <label index="label-level">Niveau:</label>
             <label index="label-organisation">Organisation temporelle:</label>
