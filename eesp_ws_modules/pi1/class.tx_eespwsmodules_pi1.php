@@ -391,8 +391,8 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         $markers[ '###RESULT###' ] = $content;
         $markers[ '###FILES###' ]  = $this->_listFiles();
         
-        // Builds the option form
-        $markers[ '###LIST_OPTIONS###' ] = $this->_optionsForm();
+        // Builds the option form (not in the print view)
+        $markers[ '###LIST_OPTIONS###' ] = ( t3lib_div::_GET( 'print' ) ) ? '' : $this->_optionsForm();
         
         // Return content
         return $this->_api->fe_renderTemplate( $markers, '###LIST###' );
