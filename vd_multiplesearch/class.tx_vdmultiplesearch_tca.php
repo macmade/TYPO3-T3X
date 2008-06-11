@@ -85,6 +85,9 @@ class tx_vdmultiplesearch_tca
             $whereClause = 'pid IN (' . $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ] . ')';
         }
         
+        // Delete clause
+        $whereClause .= t3lib_BEfunc::deleteClause( $table );
+        
         // Select records
         $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
             '*',

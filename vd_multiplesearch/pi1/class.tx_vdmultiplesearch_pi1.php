@@ -667,7 +667,7 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
             $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
                 '*',
                 $this->extTables[ $tableName ],
-                $whereClause
+                $whereClause . $this->cObj->enableFields( $this->extTables[ $tableName ] )
             );
             
             // Check DB ressource
