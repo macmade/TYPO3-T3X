@@ -85,6 +85,9 @@ class tx_dropdownsitemap_pi1 extends tslib_pibase
      */
     public function __construct()
     {
+        // Calls the parent constructor
+        parent::__construct();
+        
         // Sets the new line character
         $this->_NL  = chr( 10 );
         
