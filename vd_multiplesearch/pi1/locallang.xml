@@ -15,7 +15,7 @@
             <label index="label-submit">Search</label>
             <label index="label-reset">Reset</label>
             <label index="error-novalue">Please enter your search criterias in order to find the institution</label>
-            <label index="error-noresult">No page found</label>
+            <label index="error-noresult">No result for this search</label>
             <label index="browsebox.previous">Previous page</label>
             <label index="browsebox.next">Next page</label>
             <label index="browsebox.page">Page %s</label>
@@ -35,7 +35,7 @@
             <label index="label-submit">Chercher</label>
             <label index="label-reset">Recommencer</label>
             <label index="error-novalue">Veuillez entrer vos critères de recherche pour trouver l'institution</label>
-            <label index="error-noresult">Aucune page trouvée</label>
+            <label index="error-noresult">Aucun résultat ne correspond à votre recherche</label>
             <label index="browsebox.previous">Page précédente</label>
             <label index="browsebox.next">Page suivante</label>
             <label index="browsebox.page">Page %s</label>
