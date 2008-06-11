@@ -264,7 +264,7 @@ t3lib_extMgm::addTCAcolumns( 'pages', $tempColumns, 1 );
 t3lib_extMgm::addToAllTCAtypes(
     'pages',
     $fieldList,
-    '1,2,5',
+    '1,2,4,5',
     'after:subtitle'
 );
 
