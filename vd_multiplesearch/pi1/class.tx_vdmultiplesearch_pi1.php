@@ -364,10 +364,11 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
         $markers = array();
         
         // Clears the content of the markers
-        $markers[ '###RESULTS_COUNT###' ] = '';
-        $markers[ '###RESULTS_ITEMS###' ] = '';
-        $markers[ '###RESULTS_PAGES###' ] = '';
-        $markers[ '###RESULTS_TITLE###' ] = '';
+        $markers[ '###RESULTS_COUNT###' ]        = '';
+        $markers[ '###RESULTS_ITEMS###' ]        = '';
+        $markers[ '###RESULTS_PAGES_TOP###' ]    = '';
+        $markers[ '###RESULTS_PAGES_BOTTOM###' ] = '';
+        $markers[ '###RESULTS_TITLE###' ]        = '';
         
         // Sets the title
         $markers[ '###RESULTS_TITLE###' ] = $this->pi_getLL( 'title-results' );
@@ -422,8 +423,9 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                 // Sets the current working table
                 $this->internal[ 'currentTable' ] = $this->extTables[ 'pages' ];
                 
-                // Adds the browse box
-                $markers[ '###RESULTS_PAGES###' ] = $this->api->fe_buildBrowseBox();
+                // Adds the browse boxes
+                $markers[ '###RESULTS_PAGES_TOP###' ]    = $this->api->fe_buildBrowseBox();
+                $markers[ '###RESULTS_PAGES_BOTTOM###' ] = $this->api->fe_buildBrowseBox();
                 
                 // Label for the result count
                 $resCountLabel = ( $this->internal[ 'res_count' ] > 1 ) ? 'rescount' : 'rescount-single';
