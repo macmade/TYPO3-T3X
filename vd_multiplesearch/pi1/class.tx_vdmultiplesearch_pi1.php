@@ -490,6 +490,11 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                 $this->piVars[ 'public' ],
                 $this->extTables[ 'pages' ]
             );
+            
+        } else {
+            
+            // Do not select pages without a public
+            $whereClause[] = 'tx_vdmultiplesearch_public';
         }
         
         // Checks for a theme
@@ -501,6 +506,11 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                 $this->piVars[ 'themes' ],
                 $this->extTables[ 'pages' ]
             );
+            
+        } else {
+            
+            // Do not select pages without a public
+            $whereClause[] = 'tx_vdmultiplesearch_themes';
         }
         
         // Checks for a keyword
@@ -543,6 +553,11 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
             
             // Selects the keywords
             $whereClause[] = '(' . implode( ' ' . $this->conf[ 'keywordSelection' ] . ' ', $keySelect ) . ')';
+            
+        } else {
+            
+            // Do not select pages without a public
+            $whereClause[] = 'tx_vdmultiplesearch_keywords';
         }
         
         // DEBUG ONLY - Output the where array
