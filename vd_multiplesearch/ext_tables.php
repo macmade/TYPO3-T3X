@@ -31,8 +31,8 @@ t3lib_extMgm::addPlugin(
 );
 
 // Static templates
-t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'VD - Sanimedia' );
-t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'VD - Sanimedia - CSS Styles' );
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'VD - Multiple Search' );
+t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'VD - Multiple Search - CSS Styles' );
 
 // Backend options
 if ( TYPO3_MODE == 'BE' ) {
