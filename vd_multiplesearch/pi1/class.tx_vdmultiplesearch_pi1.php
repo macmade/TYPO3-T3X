@@ -258,10 +258,19 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
     function searchOptions()
     {
         // Storage for the template markers
-        $markers = array();
+        $markers          = array();
+        
+        // Default value for the keyword field
+        $keywordDefault   = $this->pi_getLL( 'keyword-default' );
         
         // Value for the search input
-        $searchInputValue = ( isset( $this->piVars[ 'keyword' ] ) ) ? $this->piVars[ 'keyword' ] : '';
+        $searchInputValue = ( isset( $this->piVars[ 'keyword' ] ) ) ? $this->piVars[ 'keyword' ] : $keywordDefault;
+        
+        // On focus action
+        $onFocus          = 'this.value = (this.value == \'' . $keywordDefault . '\') ? \'\' : this.value;';
+        
+        // On blur action
+        $onBlur           = 'this.value = ( this.value.length ) ? this.value : \'' . $keywordDefault . '\';';
         
         // Adds the labels
         $markers[ '###OPTIONS_PUBLIC_LABEL###' ]   = '<label for="'
@@ -295,7 +304,11 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                                                    . $this->conf[ 'keywordInputSize' ]
                                                    . '" value="'
                                                    . $searchInputValue
-                                                   . '" />';
+                                                   . '" onfocus="'
+                                                   . $onFocus
+                                                   . '" onblur="'
+                                                   . $onBlur
+                                                   . '"/>';
         
         // Adds the submit input
         $markers[ '###OPTIONS_SUBMIT###' ]         = '<input name="'
