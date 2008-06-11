@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "dropdown_sitemap"
 #
-# Auto generated 30-04-2008 08:13
+# Auto generated 11-06-2008 14:39
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -32,8 +32,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'macmade.net',
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
-	'version' => '3.0.0',
-	'_md5_values_when_last_written' => 'a:21:{s:20:"class.ext_update.php";s:4:"c5db";s:32:"class.tx_dropdownsitemap_tca.php";s:4:"901d";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"a2f3";s:14:"ext_tables.php";s:4:"65f4";s:19:"flexform_ds_pi1.xml";s:4:"374c";s:13:"locallang.xml";s:4:"3723";s:16:"locallang_db.xml";s:4:"974e";s:14:"doc/manual.sxw";s:4:"5a6a";s:14:"pi1/ce_wiz.gif";s:4:"1ea2";s:36:"pi1/class.tx_dropdownsitemap_pi1.php";s:4:"2b8d";s:44:"pi1/class.tx_dropdownsitemap_pi1_wizicon.php";s:4:"a6a1";s:17:"pi1/locallang.xml";s:4:"9150";s:15:"res/exp-off.gif";s:4:"8587";s:14:"res/exp-on.gif";s:4:"6def";s:18:"res/folder-off.gif";s:4:"8c47";s:17:"res/folder-on.gif";s:4:"4431";s:12:"res/page.gif";s:4:"a659";s:14:"res/spacer.gif";s:4:"2a7d";s:23:"static/ts/constants.txt";s:4:"118d";s:19:"static/ts/setup.txt";s:4:"91b3";}',
+	'version' => '3.0.1',
+	'_md5_values_when_last_written' => 'a:21:{s:20:"class.ext_update.php";s:4:"c5db";s:32:"class.tx_dropdownsitemap_tca.php";s:4:"901d";s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"a2f3";s:14:"ext_tables.php";s:4:"65f4";s:19:"flexform_ds_pi1.xml";s:4:"374c";s:13:"locallang.xml";s:4:"3723";s:16:"locallang_db.xml";s:4:"974e";s:14:"doc/manual.sxw";s:4:"7a9b";s:14:"pi1/ce_wiz.gif";s:4:"1ea2";s:36:"pi1/class.tx_dropdownsitemap_pi1.php";s:4:"1cc0";s:44:"pi1/class.tx_dropdownsitemap_pi1_wizicon.php";s:4:"a6a1";s:17:"pi1/locallang.xml";s:4:"9150";s:15:"res/exp-off.gif";s:4:"8587";s:14:"res/exp-on.gif";s:4:"6def";s:18:"res/folder-off.gif";s:4:"8c47";s:17:"res/folder-on.gif";s:4:"4431";s:12:"res/page.gif";s:4:"a659";s:14:"res/spacer.gif";s:4:"2a7d";s:23:"static/ts/constants.txt";s:4:"118d";s:19:"static/ts/setup.txt";s:4:"91b3";}',
 	'constraints' => array(
 		'depends' => array(
 			'api_macmade' => '0.4.4-',
