@@ -22,7 +22,6 @@
             <label index="browsebox.results">Displaying results %s to %s from %s</label>
             <label index="rescount">%s results were found:</label>
             <label index="rescount-single">%s result was found:</label>
-            <label index="title">Search engine</label>
             <label index="title-results">Search results</label>
             <label index="title-page">Institutions: search results</label>
         </languageKey>
@@ -43,7 +42,6 @@
             <label index="browsebox.results">Affichage des résultats %s à %s de %s</label>
             <label index="rescount">%s résultats ont été trouvés:</label>
             <label index="rescount-single">%s résultat a été trouvé:</label>
-            <label index="title">Moteur de recherche</label>
             <label index="title-results">Résultats de la recherche</label>
             <label index="title-page">Institutions de prévention: résultat de votre recherche</label>
         </languageKey>

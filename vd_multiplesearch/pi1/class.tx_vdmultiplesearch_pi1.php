@@ -174,9 +174,6 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
             // Storage for the template markers
             $markers = array();
             
-            // Title
-            $markers[ '###TITLE###' ]        = $this->pi_getLL( 'title' );
-            
             // Search options
             $markers[ '###MAIN_OPTIONS###' ] = $this->searchOptions();
             
@@ -767,4 +764,3 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1.php']) {
     include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/vd_multiplesearch/pi1/class.tx_vdmultiplesearch_pi1.php']);
 }
-?>
