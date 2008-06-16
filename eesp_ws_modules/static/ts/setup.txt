@@ -51,11 +51,15 @@ plugin.tx_eespwsmodules_pi1 {
     
     classRooms {
 	
-        router   = 
+        router    = 
         
-        internal = 
+        internal  = 
         
-        external = 
+        external  = 
+        
+        dateParam = w_date
+        
+        idParam   = w_moduleid
         
         picture {
             
