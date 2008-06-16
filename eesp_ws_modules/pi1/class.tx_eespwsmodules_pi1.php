@@ -1005,6 +1005,8 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 if( $this->_conf[ 'classRooms.' ][ 'router' ]
                     && $this->_conf[ 'classRooms.' ][ 'internal' ]
                     && $this->_conf[ 'classRooms.' ][ 'external' ]
+                    && $this->_conf[ 'classRooms.' ][ 'dateParam' ]
+                    && $this->_conf[ 'classRooms.' ][ 'idParam' ]
                 ) {
                     
                     // Checks if the collapse picture needs to be processed
@@ -1017,9 +1019,15 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     // Link for the class rooms
                     $classRoomsLink                        = ( $this->_remoteAddress == $this->_conf[ 'classRooms.' ][ 'router' ] ) ? $this->_conf[ 'classRooms.' ][ 'internal' ] : $this->_conf[ 'classRooms.' ][ 'external' ];
                     
+                    // Parameters for the classrooms
+                    $classRoomsParams                      = '?'
+                                                           . $this->_conf[ 'classRooms.' ][ 'idParam' ]
+                                                           . '='
+                                                           . $id;
+                    
                     // Typolink configuration
                     $classRoomsTypoLink                    =  array(
-                        'parameter'        => $classRoomsLink . '?w_titre=' . urlencode( $module[ 'common' ][ 'title' ] ),
+                        'parameter'        => $classRoomsLink . $classRoomsParams,
                         'useCacheHash'     => 0,
                         'title'            => $this->pi_getLL( 'classrooms-title' )
                     );
