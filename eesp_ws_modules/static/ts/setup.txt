@@ -61,7 +61,7 @@ plugin.tx_eespwsmodules_pi1 {
         
         idParam         = w_moduleid
         
-        dateParamFormat = d.M.y
+        dateParamFormat = d.m.y
         
         picture {
             

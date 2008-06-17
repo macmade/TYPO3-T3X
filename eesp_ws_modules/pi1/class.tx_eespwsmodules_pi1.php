@@ -1030,7 +1030,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                         
                         // Adds the date parameter
                         $classRoomsParams .= '&w_date='
-                                          .  date( $this->_conf[ 'classRooms.' ][ 'dateParamFormat' ] $module[ 'date' ] );
+                                          .  date( $this->_conf[ 'classRooms.' ][ 'dateParamFormat' ], $module[ 'date' ] );
                     }
                     
                     // Typolink configuration
