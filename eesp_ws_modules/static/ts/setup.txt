@@ -33,21 +33,23 @@
  */
 plugin.tx_eespwsmodules_pi1 {
     
-    wsdlUrl             = 
+    wsdlUrl            = 
     
-    soapOperation       = 
+    soapOperation      = 
     
-    collapseListItems   = 1
+    collapseListItems  = 1
     
-    templateFile        = EXT:eesp_ws_modules/res/template_pi1.html
+    templateFile       = EXT:eesp_ws_modules/res/template_pi1.html
     
-    holidays            = -99
+    holidays           = -99
     
-    dateFormat          = d.m.Y
+    dateFormat         = d.m.Y
     
-    dateFormatStrftime  = %A, %d %B %G
+    dateFormatStrftime = %A, %d %B %G
     
-    inputSize           = 20
+    inputSize          = 20
+    
+    formMethod         = get
     
     classRooms {
 	
@@ -66,7 +68,9 @@ plugin.tx_eespwsmodules_pi1 {
         picture {
             
             file        = EXT:eesp_ws_modules/res/classrooms.png
+            
             file.width  = 16
+            
             file.height = 16
         }
     }
@@ -81,7 +85,9 @@ plugin.tx_eespwsmodules_pi1 {
     collapsePicture {
         
         file        = EXT:eesp_ws_modules/res/information.png
+        
         file.width  = 16
+        
         file.height = 16
     }
 }
