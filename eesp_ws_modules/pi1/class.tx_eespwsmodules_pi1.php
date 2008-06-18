@@ -990,12 +990,12 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 }
                 
                 // ID for the info DIV
-                $infosDivId = microtime( true ) * 10000;
+                $infosDivId = uniqid( '', true );
                 
                 // Adds the collapse picture with the link
-                $markers[ '###COLLAPSE_PICTURE###' ] = '<a href="javascript:tx_eespwsmodules_pi1_showInfoDiv( '
+                $markers[ '###COLLAPSE_PICTURE###' ] = '<a href="javascript:tx_eespwsmodules_pi1_showInfoDiv( \''
                                                      . $infosDivId
-                                                     . ' );" title="'
+                                                     . '\' );" title="'
                                                      . $this->pi_getLL( 'collapse-title' )
                                                      . '">'
                                                      . $this->_collapsePicture
@@ -1399,7 +1399,9 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
         // Starts the form tag
         $htmlCode[] = '<form action="'
                     . $formAction
-                    . '" method="post" enctype="'
+                    . '" method="'
+                    . $this->_conf[ 'formMethod' ]
+                    . '" enctype="'
                     . $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ]
                     . '" id="'
                     . $this->prefixId
