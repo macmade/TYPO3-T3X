@@ -522,7 +522,10 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
         }
         
         // Checks for a keyword
-        if( isset( $this->piVars[ 'keyword' ] ) && $this->piVars[ 'keyword' ] ) {
+        if( isset( $this->piVars[ 'keyword' ] )
+            && $this->piVars[ 'keyword' ]
+            && $this->piVars[ 'keyword' ] != $this->pi_getLL( 'keyword-default' )
+        ) {
             
             // Storage
             $keySelect = array();
