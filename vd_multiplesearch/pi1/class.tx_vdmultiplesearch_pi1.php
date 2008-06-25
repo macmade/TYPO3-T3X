@@ -494,6 +494,9 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
         // Only selects the multiplesearch enabled pages
         $whereClause[] = 'tx_vdmultiplesearch_enable=1';
         
+        // Do not select pages with empty public, theme and keyword
+        $whereClause[] = '( tx_vdmultiplesearch_public OR tx_vdmultiplesearch_themes OR tx_vdmultiplesearch_keywords)';
+        
         // Checks for a public
         if( isset( $this->piVars[ 'public' ] ) && $this->piVars[ 'public' ] ) {
             
@@ -504,10 +507,6 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                 $this->extTables[ 'pages' ]
             );
             
-        } else {
-            
-            // Do not select pages without a public
-            $whereClause[] = 'tx_vdmultiplesearch_public';
         }
         
         // Checks for a theme
@@ -520,10 +519,6 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
                 $this->extTables[ 'pages' ]
             );
             
-        } else {
-            
-            // Do not select pages without a public
-            $whereClause[] = 'tx_vdmultiplesearch_themes';
         }
         
         // Checks for a keyword
@@ -567,10 +562,6 @@ class tx_vdmultiplesearch_pi1 extends tslib_pibase
             // Selects the keywords
             $whereClause[] = '(' . implode( ' ' . $this->conf[ 'keywordSelection' ] . ' ', $keySelect ) . ')';
             
-        } else {
-            
-            // Do not select pages without a public
-            $whereClause[] = 'tx_vdmultiplesearch_keywords';
         }
         
         // DEBUG ONLY - Output the where array
