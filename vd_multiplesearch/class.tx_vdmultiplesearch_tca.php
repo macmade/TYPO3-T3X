@@ -75,18 +75,19 @@ class tx_vdmultiplesearch_tca
         // Gets the page TSConfig
         $conf  = t3lib_BEfunc::getPagesTSconfig( $pid );
         
-        // Where clause to select records
-        $whereClause = '';
-        
         // Checks for a storage page
         if( isset( $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ] ) ) {
             
             // Do not select records globally
-            $whereClause = 'pid IN (' . $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ] . ')';
+            $whereClause = 'pid IN ('
+                         . $conf[ 'tx_vdmultiplesearch.' ][ 'storage' ]
+                         . ')'
+                         . t3lib_BEfunc::deleteClause( $table );
+        } else {
+            
+            // Delete clause
+            $whereClause = substr( t3lib_BEfunc::deleteClause( $table ), 5 );
         }
-        
-        // Delete clause
-        $whereClause .= t3lib_BEfunc::deleteClause( $table );
         
         // Select records
         $res = $GLOBALS[ 'TYPO3_DB' ]->exec_SELECTquery(
