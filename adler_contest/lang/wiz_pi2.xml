@@ -2,7 +2,7 @@
 <T3locallang>
     <meta type="array">
         <type>module</type>
-        <description>Language labels for extension 'adler_contest'</description>
+        <description>Language labels for the PI2 wizard of extension 'adler_contest'</description>
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
