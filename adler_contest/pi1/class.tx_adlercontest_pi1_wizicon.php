@@ -84,7 +84,7 @@ class tx_adlercontest_pi1_wizicon
             
             // Gets the language labels
             self::$_labels = self::$_lang->includeLLFile(
-                'EXT:' . self::$_extKey . '/lang/ce_wiz.xml',
+                'EXT:' . self::$_extKey . '/lang/wiz_' . self::$_piNum . '.xml',
                 false
             );
         }
@@ -113,13 +113,13 @@ class tx_adlercontest_pi1_wizicon
         $wizardItems[ 'plugins_' . self::$_piName . '_' . self::$_piNum ] = array(
             
             // Icon
-            'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . 'res/ce_wiz_' . self::$_piNum . '.gif',
+            'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . 'res/wiz_' . self::$_piNum . '.gif',
             
             // Title
-            'title'       => $this->_getLabel( self::$_piNum . '_title' ),
+            'title'       => $this->_getLabel( 'pi_title' ),
             
             // Description
-            'description' => $this->_getLabel( self::$_piNum . '_plus_wiz_description' ),
+            'description' => $this->_getLabel( 'pi_plus_wiz_description' ),
             
             // Parameters
             'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=' . self::$_extKey . '_' . self::$_piNum

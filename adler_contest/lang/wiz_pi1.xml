@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'adler_contest'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="pi_title">Adler / Contest - Registration</label>
+            <label index="pi_plus_wiz_description">Allows users to register to the Adler contest.</label>
+        </languageKey>
+    </data>
+</T3locallang>
