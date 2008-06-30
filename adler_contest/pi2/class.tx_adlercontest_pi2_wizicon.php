@@ -113,7 +113,7 @@ class tx_adlercontest_pi2_wizicon
         $wizardItems[ 'plugins_' . self::$_piName . '_' . self::$_piNum ] = array(
             
             // Icon
-            'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . self::$_piNum . '/ce_wiz.gif',
+            'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . 'res/ce_wiz_' . self::$_piNum . '.gif',
             
             // Title
             'title'       => $this->_getLabel( self::$_piNum . '_title' ),
