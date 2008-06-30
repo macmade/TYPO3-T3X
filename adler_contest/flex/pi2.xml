@@ -7,7 +7,7 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi2.xml</sheetTitle>
+                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi2.xml:sDEF</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
