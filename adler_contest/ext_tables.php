@@ -31,7 +31,7 @@ $TCA[ 'tx_adlercontest_users' ] = array(
         'cruser_id'         => 'cruser_id',
         
         // Sorty by
-        'default_sortby'    => 'ORDER BY lastname, firstname',
+        'default_sortby'    => 'ORDER BY lastname,firstname',
         
         // Use tabs
         "dividers2tabs"     => 1,
@@ -71,7 +71,7 @@ $TCA[ 'tx_adlercontest_votes' ] = array(
         'title'             => 'LLL:EXT:adler_contest/lang/tx_adlercontest_votes.xml:tx_adlercontest_votes',
         
         // Label field
-        'label'             => 'id_user',
+        'label'             => 'note',
         
         // Modification date
         'tstamp'            => 'tstamp',
@@ -83,7 +83,7 @@ $TCA[ 'tx_adlercontest_votes' ] = array(
         'cruser_id'         => 'cruser_id',
         
         // Sorty by
-        'default_sortby'    => 'ORDER BY id_user',
+        'default_sortby'    => 'ORDER BY note,uid',
         
         // Use tabs
         "dividers2tabs"     => 1,
