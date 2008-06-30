@@ -87,7 +87,7 @@ class tx_httpsmacmade_pi1 extends tslib_pibase {
         $g = (int)$conf[ 'mode' ];
         
         // Local SSL enforce mode (set on page)
-        $l = (int)$GLOBALS[ 'TSFE' ]->page[ 'tx_httpsmacmade_enforcemode '];
+        $l = (int)$GLOBALS[ 'TSFE' ]->page[ 'tx_httpsmacmade_enforcemode'];
         
         // Current mode
         $c = ( $scheme == 'https' ) ? 1 : 2;
