@@ -3,168 +3,202 @@ if( !defined( 'TYPO3_MODE' ) ) {
     die( 'Access denied.' );
 }
 
-// TCA - Users profiles
-$TCA[ 'tx_adlercontest_users' ] = array(
-        
-    // Control section
-    'ctrl' => array(
-        
-        // Table title
-        'title'             => 'LLL:EXT:adler_contest/lang/tx_adlercontest_users.xml:tx_adlercontest_users',
-        
-        // Label field
-        'label'             => 'lastname',
-        
-        // Alternative label field
-        'label_alt'         => 'firstname',
-        
-        // Label field
-        'label_alt_force'   => true,
-        
-        // Modification date
-        'tstamp'            => 'tstamp',
-        
-        // Creation date
-        'crdate'            => 'crdate',
-        
-        // Creation user
-        'cruser_id'         => 'cruser_id',
-        
-        // Sorty by
-        'default_sortby'    => 'ORDER BY lastname,firstname',
-        
-        // Use tabs
-        "dividers2tabs"     => 1,
-        
-        // Delete flag
-        'delete'            => 'deleted',
-        
-        // External configuration file
-        'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/tx_adlercontest_users.php',
-        
-        // Icon
-        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/tx_adlercontest_users.gif',
-        
-        // Special fields
-        'enablecolumns'   => array(
-            
-            // Hide flag
-            'disabled' => 'hidden'
-        )
+// Prefix for the frontend plugins
+$tempPiPrefix = str_replace( '_', '', $_EXTKEY );
+
+// Frontend plugins
+$tempFePlugins = array(
+    'pi1' => array(
+        'flex'      => true,
+        'wiz'       => true,
+        'cached'    => true,
+        'staticTs'  => true,
+        'staticCss' => true
     ),
-    
-    // FE settings
-    'feInterface' => array(
-        
-        // Available fields
-        'fe_admin_fieldList' => ''
+    'pi2' => array(
+        'flex'      => true,
+        'wiz'       => true,
+        'staticTs'  => true,
+        'staticCss' => true
+    ),
+    'pi3' => array(
+        'flex'      => true,
+        'wiz'       => true,
+        'staticTs'  => true,
+        'staticCss' => true
     )
 );
 
-// TCA - Votes
-$TCA[ 'tx_adlercontest_votes' ] = array(
+// Tables used in this extension
+$tempExtTables = array(
+    
+    // Users profiles
+    'tx_adlercontest_users' => array(
         
-    // Control section
-    'ctrl' => array(
+        // Localization enabled
+        'l10n'           => false,
         
-        // Table title
-        'title'             => 'LLL:EXT:adler_contest/lang/tx_adlercontest_votes.xml:tx_adlercontest_votes',
+        // Versionning enabled
+        'versionning'    => false,
         
-        // Label field
-        'label'             => 'note',
+        // Deleted field enabled
+        'deletedField'   => true,
         
-        // Modification date
-        'tstamp'            => 'tstamp',
+        // Hidden field enabled
+        'hiddenField'    => true,
         
-        // Creation date
-        'crdate'            => 'crdate',
+        // Start time field enabled
+        'startTimeField' => false,
         
-        // Creation user
-        'cruser_id'         => 'cruser_id',
+        // End time field enabled
+        'endTimeField'   => false,
         
-        // Sorty by
-        'default_sortby'    => 'ORDER BY note,uid',
+        // Default ORDER BY instruction
+        'orderBy'        => 'lastname,firstname',
         
-        // Use tabs
-        "dividers2tabs"     => 1,
-        
-        // Delete flag
-        'delete'            => 'deleted',
-        
-        // External configuration file
-        'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/tx_adlercontest_votes.php',
-        
-        // Icon
-        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/tx_adlercontest_votes.gif'
+        // Label
+        'label'          => 'lastname'
     ),
     
-    // FE settings
-    'feInterface' => array(
+    // Votes
+    'tx_adlercontest_votes' => array(
         
-        // Available fields
-        'fe_admin_fieldList' => ''
+        // Localization enabled
+        'l10n'           => false,
+        
+        // Versionning enabled
+        'versionning'    => false,
+        
+        // Deleted field enabled
+        'deletedField'   => true,
+        
+        // Hidden field enabled
+        'hiddenField'    => false,
+        
+        // Start time field enabled
+        'startTimeField' => false,
+        
+        // End time field enabled
+        'endTimeField'   => false,
+        
+        // Default ORDER BY instruction
+        'orderBy'        => 'note,uid',
+        
+        // Label
+        'label'          => 'note'
     )
 );
 
 // Load content TCA
 t3lib_div::loadTCA( 'tt_content' );
 
-// Plugin options
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . '_pi1' ] = 'layout,select_key,pages,recursive';
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . '_pi2' ] = 'layout,select_key,pages,recursive';
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . '_pi3' ] = 'layout,select_key,pages,recursive';
-
-// Add flexform field to plugin options
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . '_pi1' ]     = 'pi_flexform';
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . '_pi2' ]     = 'pi_flexform';
-$TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . '_pi3' ]     = 'pi_flexform';
-
-// Add flexform DataStructure
-t3lib_extMgm::addPiFlexFormValue(
-    $_EXTKEY . '_pi1',
-    'FILE:EXT:' . $_EXTKEY . '/ds_pi1.xml'
-);
-t3lib_extMgm::addPiFlexFormValue(
-    $_EXTKEY . '_pi2',
-    'FILE:EXT:' . $_EXTKEY . '/ds_pi2.xml'
-);
-t3lib_extMgm::addPiFlexFormValue(
-    $_EXTKEY . '_pi3',
-    'FILE:EXT:' . $_EXTKEY . '/ds_pi3.xml'
-);
-
-// Add plugins
-t3lib_extMgm::addPlugin(
-    array(
-        'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:tt_content.list_type_pi1',
-        $_EXTKEY . '_pi1'
-    ),
-    'list_type'
-);
-t3lib_extMgm::addPlugin(
-    array(
-        'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:tt_content.list_type_pi2',
-        $_EXTKEY . '_pi2'
-    ),
-    'list_type'
-);
-t3lib_extMgm::addPlugin(
-    array(
-        'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:tt_content.list_type_pi3',
-        $_EXTKEY . '_pi3'
-    ),
-    'list_type'
-);
-
-// Static templates
-t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/', 'Adler / Contest' );
-t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/', 'Adler / Contest - CSS Styles' );
-
-// Wizard icons
-if( TYPO3_MODE == 'BE' ) {
+// Process each FE plugin
+foreach( $tempFePlugins as $tempPiNum => $tempPiOptions ) {
     
-    $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_adlercontest_pi1_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi1/class.tx_adlercontest_pi1_wizicon.php';
-    $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_adlercontest_pi2_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi2/class.tx_adlercontest_pi2_wizicon.php';
-    $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_adlercontest_pi3_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . 'pi3/class.tx_adlercontest_pi3_wizicon.php';
+    // Plugin options
+    $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . $tempPiNum ] = 'layout,select_key,pages,recursive';
+    
+    // Checks if the plugin has a flexform
+    if( $tempPiOptions[ 'flex' ] === true ) {
+        
+        // Adds the flexform field to plugin options
+        $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . $tempPiNum ] = 'pi_flexform';
+        
+        // Add flexform DataStructure
+        t3lib_extMgm::addPiFlexFormValue(
+            $_EXTKEY . $tempPiNum,
+            'FILE:EXT:' . $_EXTKEY . '/flex/' . $tempPiNum . '.xml'
+        );
+    }
+    
+    // Adds the plugin
+    t3lib_extMgm::addPlugin(
+        array(
+            'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:tt_content.list_type_' . $tempPiNum,
+            $_EXTKEY . $tempPiNum
+        ),
+        'list_type'
+    );
+    
+    // Checks if the plugin has a static TS setup
+    if( $tempPiOptions[ 'staticTs' ] === true ) {
+        
+        // TS setup for the frontend plugins
+        t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/' . $tempPiNum . '/', 'LLL:EXT:' . $_EXTKEY . '/lang/' . $tempTableName . '.xml:typo3-staticTs' );
+    }
+    
+    // Checks if the plugin has static CSS styles
+    if( $tempPiOptions[ 'staticCss' ] === true ) {
+        
+        // CSS styles for the frontend plugins
+        t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/' . $tempPiNum . '/', 'LLL:EXT:' . $_EXTKEY . '/lang/' . $tempTableName . '.xml:typo3-staticCss' );
+    }
+    
+    // Checks if the plugin has a wizard
+    if( $tempPiOptions[ 'wiz' ] === true && TYPO3_MODE === 'BE' ) {
+        
+        $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ 'tx_' . $tempPiPrefix . '_' . $tempPiNum . '_wizicon' ] = t3lib_extMgm::extPath( $_EXTKEY ) . $tempPiNum . '/class.tx_' . $tempPiPrefix . '_' . $tempPiNum . '_wizicon.php';
+    }
 }
+
+// Process each table
+foreach( $tempExtTables as $tempTableName => $tempTableOptions ) {
+   
+    // Creates the default TCA entry
+    $TCA[ $tempTableName ] = array(
+            
+        // Control section
+        'ctrl' => array(
+            
+            // Table title
+            'title'             => 'LLL:EXT:' . $_EXTKEY . '/lang/' . $tempTableName . '.xml:typo3-tableName',
+            
+            // Label field
+            'label'             => $tempTableOptions[ 'label' ],
+            
+            // Modification date
+            'tstamp'            => 'tstamp',
+            
+            // Creation date
+            'crdate'            => 'crdate',
+            
+            // Creation user
+            'cruser_id'         => 'cruser_id',
+            
+            // Sorty by
+            'default_sortby'    => 'ORDER BY ' . $tempTableOptions[ 'orderBy' ],
+            
+            // Use tabs
+            "dividers2tabs"     => 1,
+            
+            // External configuration file
+            'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/' . $tempTableName . '.php',
+            
+            // Icon
+            'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/' . $tempTableName . '.gif',
+            
+            // Special fields
+            'enablecolumns'   => array()
+        ),
+        
+        // FE settings
+        'feInterface' => array(
+            
+            // Available fields
+            'fe_admin_fieldList' => ''
+        )
+    );
+}
+
+// TCA specific options - Users
+$TCA[ 'tx_adlercontest_users' ][ 'ctrl' ][ 'label_alt' ]       = 'firstname';
+$TCA[ 'tx_adlercontest_users' ][ 'ctrl' ][ 'label_alt_force' ] = true;
+
+// Cleanup - Unset unused variables
+unset( $tempPiPrefix );
+unset( $tempPiNum );
+unset( $tempPiOptions );
+unset( $tempExtTables );
+unset( $tempTableName );
+unset( $tempTableOptions );
 ?>
