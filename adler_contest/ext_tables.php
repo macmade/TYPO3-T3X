@@ -122,15 +122,15 @@ $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . '_pi
 // Add flexform DataStructure
 t3lib_extMgm::addPiFlexFormValue(
     $_EXTKEY . '_pi1',
-    'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi1.xml'
+    'FILE:EXT:' . $_EXTKEY . '/ds_pi1.xml'
 );
 t3lib_extMgm::addPiFlexFormValue(
     $_EXTKEY . '_pi2',
-    'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi2.xml'
+    'FILE:EXT:' . $_EXTKEY . '/ds_pi2.xml'
 );
 t3lib_extMgm::addPiFlexFormValue(
     $_EXTKEY . '_pi3',
-    'FILE:EXT:' . $_EXTKEY . '/flexform_ds_pi3.xml'
+    'FILE:EXT:' . $_EXTKEY . '/ds_pi3.xml'
 );
 
 // Add plugins
