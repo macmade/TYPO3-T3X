@@ -84,7 +84,7 @@ class tx_adlercontest_pi2_wizicon
             
             // Gets the language labels
             self::$_labels = self::$_lang->includeLLFile(
-                'EXT:' . self::$_extKey . '/locallang.xml',
+                'EXT:' . self::$_extKey . '/lang/ce_wiz.xml',
                 false
             );
         }
