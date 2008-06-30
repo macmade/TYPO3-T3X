@@ -2,6 +2,110 @@
 if( !defined( 'TYPO3_MODE' ) ) {
     die( 'Access denied.' );
 }
+
+// TCA - Users profiles
+$TCA[ 'tx_adlercontest_users' ] = array(
+        
+    // Control section
+    'ctrl' => array(
+        
+        // Table title
+        'title'             => 'LLL:EXT:adler_contest/lang/tx_adlercontest_users.xml:tx_adlercontest_users',
+        
+        // Label field
+        'label'             => 'lastname',
+        
+        // Alternative label field
+        'label_alt'         => 'firstname',
+        
+        // Label field
+        'label_alt_force'   => true,
+        
+        // Modification date
+        'tstamp'            => 'tstamp',
+        
+        // Creation date
+        'crdate'            => 'crdate',
+        
+        // Creation user
+        'cruser_id'         => 'cruser_id',
+        
+        // Sorty by
+        'default_sortby'    => 'ORDER BY lastname, firstname',
+        
+        // Use tabs
+        "dividers2tabs"     => 1,
+        
+        // Delete flag
+        'delete'            => 'deleted',
+        
+        // External configuration file
+        'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/tx_adlercontest_users.php',
+        
+        // Icon
+        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/tx_adlercontest_users.gif',
+        
+        // Special fields
+        'enablecolumns'   => array(
+            
+            // Hide flag
+            'disabled' => 'hidden'
+        )
+    ),
+    
+    // FE settings
+    'feInterface' => array(
+        
+        // Available fields
+        'fe_admin_fieldList' => ''
+    )
+);
+
+// TCA - Votes
+$TCA[ 'tx_adlercontest_votes' ] = array(
+        
+    // Control section
+    'ctrl' => array(
+        
+        // Table title
+        'title'             => 'LLL:EXT:adler_contest/lang/tx_adlercontest_votes.xml:tx_adlercontest_votes',
+        
+        // Label field
+        'label'             => 'id_user',
+        
+        // Modification date
+        'tstamp'            => 'tstamp',
+        
+        // Creation date
+        'crdate'            => 'crdate',
+        
+        // Creation user
+        'cruser_id'         => 'cruser_id',
+        
+        // Sorty by
+        'default_sortby'    => 'ORDER BY id_user',
+        
+        // Use tabs
+        "dividers2tabs"     => 1,
+        
+        // Delete flag
+        'delete'            => 'deleted',
+        
+        // External configuration file
+        'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/tx_adlercontest_votes.php',
+        
+        // Icon
+        'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/tx_adlercontest_votes.gif'
+    ),
+    
+    // FE settings
+    'feInterface' => array(
+        
+        // Available fields
+        'fe_admin_fieldList' => ''
+    )
+);
+
 // Load content TCA
 t3lib_div::loadTCA( 'tt_content' );
 
