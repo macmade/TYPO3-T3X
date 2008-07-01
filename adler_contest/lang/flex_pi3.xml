@@ -8,5 +8,8 @@
         <languageKey index="default" type="array">
             <label index="sDEF">Main</label>
         </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="sDEF">Général</label>
+        </languageKey>
     </data>
 </T3locallang>

@@ -9,5 +9,9 @@
             <label index="pi_title">Adler / Contest - Registration</label>
             <label index="pi_plus_wiz_description">Allows users to register to the Adler contest.</label>
         </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="pi_title">Adler / Concours - Inscription</label>
+            <label index="pi_plus_wiz_description">Permet aux utilisateurs de s'inscrire au concours Adler.</label>
+        </languageKey>
     </data>
 </T3locallang>
