@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for the database table 'tx_adlercontest_votes' of extension 'adler_contest'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="typo3-tableName">Adler / Contest - Vote</label>
+            <label index="criteria_1">Criteria 1</label>
+            <label index="criteria_2">Criteria 2</label>
+            <label index="criteria_3">Criteria 3</label>
+            <label index="criteria_4">Criteria 4</label>
+            <label index="criteria_5">Criteria 5</label>
+            <label index="note">Note</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="typo3-tableName">Adler / Concours - Vote</label>
+            <label index="criteria_1">Critère 1</label>
+            <label index="criteria_2">Critère 2</label>
+            <label index="criteria_3">Critère 3</label>
+            <label index="criteria_4">Critère 4</label>
+            <label index="criteria_5">Critère 5</label>
+            <label index="note">Note</label>
+        </languageKey>
+    </data>
+</T3locallang>
