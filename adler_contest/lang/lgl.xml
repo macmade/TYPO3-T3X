@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>General language labels of extension 'adler_contest'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="wizard-add">Add a new record</label>
+            <label index="wizard-edit">Edit the selected record</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="wizard-add">Ajouter un nouvel enregistrement</label>
+            <label index="wizard-edit">Editer l'enregistrement sélectionné</label>
+        </languageKey>
+    </data>
+</T3locallang>
