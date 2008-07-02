@@ -124,14 +124,22 @@ foreach( $tempFePlugins as $tempPiNum => $tempPiOptions ) {
     if( $tempPiOptions[ 'staticTs' ] === true ) {
         
         // TS setup for the frontend plugins
-        t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/ts/' . $tempPiNum . '/', 'LLL:EXT:' . $_EXTKEY . '/lang/' . $tempTableName . '.xml:typo3-staticTs' );
+        t3lib_extMgm::addStaticFile(
+            $_EXTKEY,
+            'static/ts/' . $tempPiNum . '/',
+            'TS setup - ' . strtoupper( $tempPiNum )
+        );
     }
     
     // Checks if the plugin has static CSS styles
     if( $tempPiOptions[ 'staticCss' ] === true ) {
         
         // CSS styles for the frontend plugins
-        t3lib_extMgm::addStaticFile( $_EXTKEY, 'static/css/' . $tempPiNum . '/', 'LLL:EXT:' . $_EXTKEY . '/lang/' . $tempTableName . '.xml:typo3-staticCss' );
+        t3lib_extMgm::addStaticFile(
+            $_EXTKEY,
+            'static/css/' . $tempPiNum . '/',
+            'CSS styles - ' . strtoupper( $tempPiNum ) 
+        );
     }
     
     // Checks if the plugin has a wizard
