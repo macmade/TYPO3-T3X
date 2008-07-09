@@ -8,12 +8,14 @@
         <languageKey index="default" type="array">
             <label index="typo3-tableName">Adler / Contest - User</label>
             <label index="id_fe_users">Related FE user</label>
+            <label index="votes">Votes</label>
             <label index="lastname">Last name</label>
             <label index="firstname">First name</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="typo3-tableName">Adler / Concours - Utilisateur</label>
             <label index="id_fe_users">Utilisateur FE associé</label>
+            <label index="votes">Votes</label>
             <label index="lastname">Nom</label>
             <label index="firstname">Prénom</label>
         </languageKey>
