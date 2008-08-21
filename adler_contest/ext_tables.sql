@@ -21,6 +21,15 @@ CREATE TABLE tx_adlercontest_users (
     votes int(11) unsigned DEFAULT '0' NOT NULL,
     lastname tinytext NOT NULL,
     firstname tinytext NOT NULL,
+    gender char(1) DEFAULT '' NOT NULL,
+    address tinytext NOT NULL,
+    address2 tinytext NOT NULL,
+    country int(11) unsigned DEFAULT '0' NOT NULL,
+    nationality tinytext NOT NULL,
+    birthdate int(11) DEFAULT '0' NOT NULL,
+    school_address tinytext NOT NULL,
+    school_country int(11) unsigned DEFAULT '0' NOT NULL,
+    confirm_token tinytext NOT NULL,
     
     #
     # Database options
