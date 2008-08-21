@@ -40,7 +40,14 @@ $TCA[ $tempTableName ] = array(
     
     // Types configuration
     'types'       => array(
-        '0' => array( 'showitem' => 'note;;;;1-1-1;criteria_1;;;;1-1-1,criteria_2,criteria_3,criteria_4,criteria_5' )
+        '0' => array(
+            'showitem' => 'note;;;;1-1-1,'
+                       .  'criteria_1;;;;1-1-1,'
+                       .  'criteria_2,'
+                       .  'criteria_3,'
+                       .  'criteria_4,'
+                       .  'criteria_5'
+        )
     ),
     
     // Palettes configuration
