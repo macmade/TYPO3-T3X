@@ -1,0 +1,93 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI object
+ */
+plugin.tx_adlercontest_pi1 {
+    
+    // The template file
+    templateFile  = EXT:adler_contest/res/template_pi1.html
+    
+    // The method for the registration form
+    formMethod    = post
+    
+    // Size of the input tags
+    inputSize     = 30
+    
+    // Minimum length for the password
+    passMinLength = 6
+    
+    // Registration settings
+    registration {
+        
+        // Title text
+        header       =
+        
+        // Description text
+        description  =
+        
+        // Confirmation text
+        confirmation =
+        
+        // The PDF file with the conditions
+        conditions   =
+        
+    }
+    
+    // Mailer settings
+    mailer {
+        
+        // Reply to email address
+        replyTo  =
+        
+        // From email address
+        from     =
+        
+        // From name
+        fromName =
+        
+        // Mail subject
+        subject  =
+        
+        // Mail message
+        message  =
+    }
+    
+    // Profile settings
+    profile {
+        
+        // Title text
+        header       =
+        
+        // Description text
+        description  =
+    }
+}
