@@ -43,7 +43,25 @@ $TCA[ $tempTableName ] = array(
     
     // Types configuration
     'types'       => array(
-        '0' => array( 'showitem' => 'id_fe_users;;;;1-1-1,id_tx_adlercontest_votes;;;;1-1-1,lastname;;;;1-1-1,firstname' )
+        '0' => array(
+            'showitem' => '--div--;' . $tempLangPath . 'tab-profile,'
+                       .  'lastname;;;;1-1-1,'
+                       .  'firstname,'
+                       .  'gender;;;;1-1-1,'
+                       .  'address;;;;1-1-1,'
+                       .  'address2,'
+                       .  'country,'
+                       .  'nationality;;;;1-1-1,'
+                       .  'birthdate;;;;1-1-1,'
+                       .  'school_address;;;;1-1-1,'
+                       .  'school_country,'
+                       .  '--div--;' . $tempLangPath . 'tab-relations,'
+                       .  'id_fe_users;;;;1-1-1,'
+                       .  'votes;;;;1-1-1,'
+                       .  '--div--;' . $tempLangPath . 'tab-documents,'
+                       .  '--div--;' . $tempLangPath . 'tab-misc,'
+                       .  'confirm_token;;;;1-1-1'
+        )
     ),
     
     // Palettes configuration
@@ -89,7 +107,7 @@ $TCA[ $tempTableName ] = array(
             )
         ),
         
-        'id_tx_adlercontest_votes' => array(
+        'votes' => array(
             'config' => array(
                 'type'          => 'inline',
                 'foreign_table' => 'tx_adlercontest_votes',
@@ -118,6 +136,78 @@ $TCA[ $tempTableName ] = array(
                 'type' => 'input',
                 'size' => '20',
                 'eval' => 'required'
+            )
+        ),
+        
+        'gender' => array(
+            'config' => array(
+                'type'  => 'radio',
+                'items' => array(
+                    array( $tempLangPath . 'gender.m', 'M' ),
+                    array( $tempLangPath . 'gender.f', 'F' ),
+                )
+            )
+        ),
+    
+        'address' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
+            )
+        ),
+        
+        'address2' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
+            )
+        ),
+        
+        'country' => array(
+            'config' => array(
+                'type'                => 'select',
+                'foreign_table'       => 'static_countries',
+                'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
+            )
+        ),
+        
+        'nationality' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
+            )
+        ),
+        
+        'birthdate' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'date'
+            )
+        ),
+    
+        'school_address' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
+            )
+        ),
+        
+        'school_country' => array(
+            'config' => array(
+                'type'                => 'select',
+                'foreign_table'       => 'static_countries',
+                'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
+            )
+        ),
+        
+        'confirm_token' => array(
+            'config' => array(
+                'type' => 'none'
             )
         )
     )
