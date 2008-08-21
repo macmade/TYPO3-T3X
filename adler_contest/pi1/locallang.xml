@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for the PI1 of extension 'adler_contest'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="conditions-link">Download the terms of the competition</label>
+            <label index="field-infos">Please fill out the form (all fields are required)</label>
+            <label index="submit">Submit</label>
+            <label index="label-lastname">Last name</label>
+            <label index="label-firstname">First name</label>
+            <label index="label-email">Email</label>
+            <label index="label-username">Login</label>
+            <label index="label-password">Password</label>
+            <label index="label-password2">Confirm password</label>
+            <label index="label-agree">I have read and I agree to the terms and conditions of the competition</label>
+            <label index="error-required">Error: this field is required</label>
+            <label index="error-email">Error: please enter a valid email address</label>
+            <label index="error-email-exists">Error: that email address already exists</label>
+            <label index="error-agree">Error: you must agree to the terms and conditions</label>
+            <label index="error-password-length">Error: the password is too short (%s characters minimum)</label>
+            <label index="error-password2-nomatch">Error: the password does not match</label>
+            <label index="error-username-exists">Error: that login already exists</label>
+            <label index="confirm-error">Error: invalid confirmation token. The user may already be confirmed, or does not exist.</label>
+        </languageKey>
+    </data>
+</T3locallang>
