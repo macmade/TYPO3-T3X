@@ -29,32 +29,31 @@
  * @version		3.0
  */
 
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- *   43:		class tx_dropdownsitemap_pi2_wizicon
- *   65:		public function __construct
- *   99:		protected function _getLabel( $label )
- *  110:		public function proc( array $wizardItems )
- * 
- *				TOTAL FUNCTIONS: 3
- */
-
 class tx_adlercontest_pi2_wizicon
 {
-    // Extension key
+    /**
+     * The extension key
+     */
     protected static $_extKey = '';
     
-    // Plugin name
+    /**
+     * The plugin name
+     */
     protected static $_piName = '';
     
-    // Plugin number
+    /**
+     * The plugin number
+     */
     protected static $_piNum  = '';
     
-    // Language object
+    /**
+     * The language object
+     */
     protected static $_lang   = NULL;
     
-    // Language labels
+    /**
+     * The language labels
+     */
     protected static $_labels = array();
     
     /**
@@ -110,7 +109,7 @@ class tx_adlercontest_pi2_wizicon
     public function proc( array $wizardItems )
     {
         // Wizard item
-        $wizardItems[ 'plugins_' . self::$_piName . '_' . self::$_piNum ] = array(
+        $wizardItems[ 'plugins_tx_' . self::$_piName . '_' . self::$_piNum ] = array(
             
             // Icon
             'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . 'res/wiz_' . self::$_piNum . '.gif',
