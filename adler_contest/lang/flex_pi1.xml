@@ -9,6 +9,7 @@
             <label index="sDEF">Main</label>
             <label index="sDEF.pages">Storage page</label>
             <label index="sDEF.group">FE user group</label>
+            <label index="sDEF.info_page">Information page</label>
             <label index="sREGISTER">Registration</label>
             <label index="sREGISTER.header">Header</label>
             <label index="sREGISTER.description">Description</label>
