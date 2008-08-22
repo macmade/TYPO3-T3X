@@ -23,6 +23,8 @@
             <label index="error-password-length">Error: the password is too short (%s characters minimum)</label>
             <label index="error-password2-nomatch">Error: the password does not match</label>
             <label index="error-username-exists">Error: that login already exists</label>
+            <label index="error-file-ext">Error: wrong file type</label>
+            <label index="error-file-size">Error: file size is too big</label>
             <label index="confirm-error">Error: invalid confirmation token. The user may already be confirmed, or does not exist.</label>
             <label index="label-gender">Gender</label>
             <label index="label-gender-f">Female</label>
@@ -35,6 +37,9 @@
             <label index="label-school_name">Name of the school currently attended, OR school which granted diploma</label>
             <label index="label-school_address">Address of school</label>
             <label index="label-school_country">Country</label>
+            <label index="label-age_proof">Official document showing proof of age</label>
+            <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
+            <label index="label-later">I will upload my documents later</label>
         </languageKey>
     </data>
 </T3locallang>

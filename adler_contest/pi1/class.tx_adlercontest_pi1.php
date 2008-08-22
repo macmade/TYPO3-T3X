@@ -62,7 +62,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
      * Form fields for the registration
      */
     protected static $_registrationFields = array(
-        'lastname'   => array( 'type' => 'text' ),
+        'lastname'   => array( 'type' => 'text', ),
         'firstname'  => array( 'type' => 'text' ),
         'email'      => array( 'type' => 'text' ),
         'username'   => array( 'type' => 'text' ),
@@ -84,6 +84,15 @@ class tx_adlercontest_pi1 extends tslib_pibase
         'school_name'    => array( 'type' => 'text' ),
         'school_address' => array( 'type' => 'text' ),
         'school_country' => array( 'type' => 'country' )
+    );
+    
+    /**
+     * Form fields for the profile
+     */
+    protected static $_uploadFields       = array(
+        'age_proof'    => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
+        'school_proof' => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
+        'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
     );
     
     /**
@@ -281,6 +290,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
         $flex2conf = array(
             'pid'           => 'sDEF:pages',
             'userGroup'     => 'sDEF:group',
+            'infoPage'      => 'sDEF:info_page',
             'registration.' => array(
                 'header'       => 'sREGISTER:header',
                 'description'  => 'sREGISTER:description',
@@ -297,6 +307,10 @@ class tx_adlercontest_pi1 extends tslib_pibase
             'profile.' => array(
                 'header'       => 'sPROFILE:header',
                 'description'  => 'sPROFILE:description'
+            ),
+            'upload.' => array(
+                'header'       => 'sUPLOAD:header',
+                'description'  => 'sUPLOAD:description'
             ),
         );
         
@@ -524,19 +538,39 @@ class tx_adlercontest_pi1 extends tslib_pibase
         // Process each field
         foreach( $fields as $fieldName => $fieldOptions ) {
             
+            // Checks if the field is optionnal
+            if( isset( $fieldOptions[ 'optionnal' ] ) && $fieldOptions[ 'optionnal' ] ) {
+                
+                // Next field
+                continue;
+            }
+            
             // Field specific error
             $fieldError = $this->pi_getLL( 'error-' . $fieldName );
             
             // Error message for the current field
             $error      = ( $fieldError ) ? $fieldError : $defaultError;
             
-            // Checks if the field is empty
-            if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) ) {
+            // Special processing for the file inputs
+            if( $fieldOptions[ 'type' ] === 'file' ) {
                 
-                // Stores the error message
-                $this->_errors[ $fieldName ] = $error;
+                // Checks if the field is empty
+                if( !isset( $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ] ) || empty( $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ] ) ) {
+                    
+                    // Stores the error message
+                    $this->_errors[ $fieldName ] = $error;
+                }
+                
+            } else {
+                
+                // Checks if the field is empty
+                if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) ) {
+                    
+                    // Stores the error message
+                    $this->_errors[ $fieldName ] = $error;
+                }
             }
-            
+                
             // Checks if an error is already set
             if( isset( $this->_errors[ $fieldName ] ) ) {
                 
@@ -548,7 +582,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
             if( isset( $callbacks[ $fieldName ] ) ) {
                 
                 // Calls the callback function
-                if( $error = $this->$callbacks[ $fieldName ]( $fieldName ) ) {
+                if( $error = $this->$callbacks[ $fieldName ]( $fieldName, $fieldOptions ) ) {
                     
                     // Stores the error
                     $this->_errors[ $fieldName ] = $error;
@@ -677,7 +711,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
-    protected function _checkPassword( $fieldName )
+    protected function _checkPassword( $fieldName, array $fieldOptions )
     {
         // Checks the length
         if( strlen( $this->piVars[ $fieldName ] ) < $this->_conf[ 'passMinLength' ] ) {
@@ -691,7 +725,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
-    protected function _checkPassword2( $fieldName )
+    protected function _checkPassword2( $fieldName, array $fieldOptions )
     {
         // Checks the two passwords
         if( $this->piVars[ 'password' ] !== $this->piVars[ $fieldName ] ) {
@@ -706,7 +740,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
-    protected function _checkEmail( $fieldName )
+    protected function _checkEmail( $fieldName, array $fieldOptions )
     {
         // Checks for a valid email
         if( !t3lib_div::validEmail( $this->piVars[ $fieldName ] ) ) {
@@ -728,7 +762,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
-    protected function _checkUsername( $fieldName )
+    protected function _checkUsername( $fieldName, array $fieldOptions )
     {
         // Checks that the username is unique
         if( !$this->_isUnique( $this->piVars[ $fieldName ], 'username', self::$_dbTables[ 'users' ], $this->_conf[ 'pid' ] ) ) {
@@ -786,8 +820,8 @@ class tx_adlercontest_pi1 extends tslib_pibase
         $user[ 'tstamp' ]    = $time;
         $user[ 'disable' ]   = 1;
         $user[ 'username' ]  = $this->piVars[ 'username' ];
-        $user[ 'password' ]  = $this->piVars[ 'password' ];
-        $user[ 'email' ]     = $this->piVars[ 'email' ];
+        $user[ 'password' ]  = trim( $this->piVars[ 'password' ] );
+        $user[ 'email' ]     = trim( $this->piVars[ 'email' ] );
         $user[ 'usergroup' ] = $this->_conf[ 'userGroup' ];
         
         // Inserts the user
@@ -1050,6 +1084,188 @@ class tx_adlercontest_pi1 extends tslib_pibase
         return true;
     }
     
+    ############################################################################
+    # Upload
+    ############################################################################
+    
+    protected function _uploadDocuments()
+    {
+        // Where clause
+        $where = 'pid='
+               . $this->_conf[ 'pid' ]
+               . ' AND confirm_token='
+               . self::$_db->fullQuoteStr( $this->piVars[ 'upload' ], self::$_dbTables[ 'profiles' ] )
+               . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ], true );
+        
+        // Try to select the user
+        $res = self::$_db->exec_SELECTquery( '*', self::$_dbTables[ 'profiles' ], $where );
+        
+        // Checks the token
+        if( $res && $profile = self::$_db->sql_fetch_assoc( $res ) ) {
+            
+            // Stores the profile
+            $this->_profile = $profile;
+            
+            // Gets and stores the user
+            $this->_user = self::$_db->sql_fetch_assoc(
+                self::$_db->exec_SELECTquery(
+                    '*',
+                    self::$_dbTables[ 'users' ],
+                    'uid=' . $this->_profile[ 'id_fe_users' ]
+                )
+            );
+            
+            // Checks if the documents will be uploaded later
+            if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
+                
+                // Activates the user
+                $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
+                
+                // Connect the user
+                $this->_feLogin();
+            
+                // Next step URL
+                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $this->_conf[ 'infoPage' ],
+                        'useCacheHash'     => 1
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $nextLink );
+            }
+            
+            // Validation callbacks
+            $validCallbacks = array(
+                'age_proof'    => '_checkPdfUpload',
+                'school_proof' => '_checkPdfUpload'
+            );
+            
+            // Checks the submission, if any
+            if( $this->_formValid( self::$_uploadFields, $validCallbacks ) ) {
+                
+                // Activates the user
+                $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
+                
+                // Connect the user
+                $this->_feLogin();
+                
+                // Process the files
+                $this->_processFiles();
+            
+                // Next step URL
+                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $this->_conf[ 'infoPage' ],
+                        'useCacheHash'     => 1
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $nextLink );
+            }
+            
+            // Template markers
+            $markers                         = array();
+            
+            // Sets the header
+            $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
+                'h2',
+                'header',
+                $this->pi_RTEcssText( $this->_conf[ 'upload.' ][ 'header' ] )
+            );
+            
+            // Sets the description
+            $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
+                'div',
+                'description',
+                $this->pi_RTEcssText( $this->_conf[ 'upload.' ][ 'description' ] )
+            );
+            
+            // Creates the fields
+            $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'fields',
+                $this->_formFields( self::$_uploadFields, '###UPLOAD_FIELDS###' )
+            );
+            
+            // Sets the submit button
+            $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
+                'div',
+                'submit',
+                '<input name="'
+              . $this->prefixId
+              . '[submit]" id="'
+              . $this->prefixId
+              . '_submit" type="submit" value="'
+              . $this->pi_getLL( 'submit' )
+              . '" />'
+            );
+            
+            // Full form
+            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###UPLOAD_MAIN###' ), array( 'upload' ) );
+            
+            // Returns the form
+            return $form;
+        }
+        
+        // Invalid token
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'error',
+            $this->pi_getLL( 'confirm-error' )
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _checkPdfUpload( $fieldName, array $fieldOptions )
+    {
+        // Checks the file extension
+        if( !strstr( $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ], '.' . $fieldOptions[ 'ext' ] ) ) {
+            
+            // Wrong extension
+            return $this->pi_getLL( 'error-file-ext' );
+        }
+        
+        // Checks the file size
+        if( $_FILES[ $this->prefixId ][ 'size' ][ $fieldName ] > ( $fieldOptions[ 'size' ] * 1024 ) ) {
+            
+            // File to large
+            return $this->pi_getLL( 'error-file-size' );
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _processFiles()
+    {
+        // Absolute path to the upload directory
+        $uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
+        
+        // Prefix for the files
+        $filePrefix = md5( uniqid( rand(), true) );
+        
+        // Move the files to the upload directory
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.pdf' );
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.pdf' );
+        
+        // Updates the profile
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            'uid=' . $this->_profile[ 'uid' ],
+            array(
+                'age_proof'    => $filePrefix . '-age.pdf',
+                'school_proof' => $filePrefix . '-school.pdf'
+            )
+        );
+    }
+    
     /**
      * 
      */
@@ -1065,24 +1281,36 @@ class tx_adlercontest_pi1 extends tslib_pibase
         );
         
         // Removes the token
-        #self::$_db->exec_UPDATEquery(
-        #    self::$_dbTables[ 'profiles' ],
-        #    'uid=' . $profileId,
-        #    array(
-        #        'confirm_token' => ''
-        #    )
-        #);
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            'uid=' . $profileId,
+            array(
+                'confirm_token' => ''
+            )
+        );
         
         return true;
     }
     
-    ############################################################################
-    # Upload
-    ############################################################################
-    
-    protected function _uploadDocuments()
+    /**
+     * 
+     */
+    protected function _feLogin()
     {
-        return 'Upload...';
+        // Fills POST variables with login infos
+        $_POST[ 'logintype' ] = 'login';
+        $_POST[ 'user' ]      = $this->_user[ 'username' ];
+        $_POST[ 'pass' ]      = $this->_user[ 'password' ];
+        $_POST[ 'pid' ]       = $this->_conf[ 'pid' ];
+        
+        // Initializes the FE user
+        $GLOBALS[ 'TSFE' ]->initFEuser();
+        
+        // Cleans up the POST variables
+        unset( $_POST[ 'logintype' ] );
+        unset( $_POST[ 'user' ] );
+        unset( $_POST[ 'pass' ] );
+        unset( $_POST[ 'pid' ] );
     }
 }
 

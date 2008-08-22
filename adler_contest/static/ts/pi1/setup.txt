@@ -90,4 +90,14 @@ plugin.tx_adlercontest_pi1 {
         // Description text
         description  =
     }
+    
+    // Upload settings
+    upload {
+        
+        // Title text
+        header       =
+        
+        // Description text
+        description  =
+    }
 }
