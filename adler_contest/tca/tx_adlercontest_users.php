@@ -60,6 +60,8 @@ $TCA[ $tempTableName ] = array(
                        .  'id_fe_users;;;;1-1-1,'
                        .  'votes;;;;1-1-1,'
                        .  '--div--;' . $tempLangPath . 'tab-documents,'
+                       .  'age_proof;;;;1-1-1,'
+                       .  'school_proof,'
                        .  '--div--;' . $tempLangPath . 'tab-misc,'
                        .  'confirm_token;;;;1-1-1'
         )
@@ -211,6 +213,34 @@ $TCA[ $tempTableName ] = array(
                 'type'                => 'select',
                 'foreign_table'       => 'static_countries',
                 'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
+            )
+        ),
+        
+        'age_proof' => array(
+            'config' => array(
+                'type'          => 'group',
+                'internal_type' => 'file',
+                'allowed'       => 'jpeg,jpg',
+                'max_size'      => 2048,
+                'uploadfolder'  => 'uploads/tx_adlercontest',
+                'show_thumbs'   => 1,
+                'size'          => 1,
+                'minitems'      => 1,
+                'maxitems'      => 1
+            )
+        ),
+        
+        'school_proof' => array(
+            'config' => array(
+                'type'          => 'group',
+                'internal_type' => 'file',
+                'allowed'       => 'jpeg,jpg',
+                'max_size'      => 2048,
+                'uploadfolder'  => 'uploads/tx_adlercontest',
+                'show_thumbs'   => 1,
+                'size'          => 1,
+                'minitems'      => 1,
+                'maxitems'      => 1
             )
         ),
         
