@@ -205,5 +205,38 @@
                 </el>
             </ROOT>
         </sPROFILE>
+        <sUPLOAD>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <header>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD.header</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </header>
+                    <description>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD.description</label>
+                            <config>
+                                <type>text</type>
+                                <rows>5</rows>
+                                <cols>30</cols>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </description>
+                </el>
+            </ROOT>
+        </sUPLOAD>
     </sheets>
 </T3DataStructure>
