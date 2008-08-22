@@ -7,9 +7,22 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="sDEF">Main</label>
-        </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="sDEF">Général</label>
+            <label index="sDEF.pages">Storage page</label>
+            <label index="sDEF.group">FE user group</label>
+            <label index="sREGISTER">Registration</label>
+            <label index="sREGISTER.header">Header</label>
+            <label index="sREGISTER.description">Description</label>
+            <label index="sREGISTER.conditions">Conditions</label>
+            <label index="sREGISTER.confirmation">Confirmation</label>
+            <label index="sMAILER">Mailer</label>
+            <label index="sMAILER.reply_email">Reply-to email address</label>
+            <label index="sMAILER.from_email">From email address</label>
+            <label index="sMAILER.from_name">From name</label>
+            <label index="sMAILER.subject">Subject</label>
+            <label index="sMAILER.message">Message</label>
+            <label index="sPROFILE">Profile</label>
+            <label index="sPROFILE.header">Header</label>
+            <label index="sPROFILE.description">Description</label>
         </languageKey>
     </data>
 </T3locallang>
