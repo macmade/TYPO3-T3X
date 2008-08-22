@@ -53,7 +53,8 @@ $TCA[ $tempTableName ] = array(
                        .  'country,'
                        .  'nationality;;;;1-1-1,'
                        .  'birthdate;;;;1-1-1,'
-                       .  'school_address;;;;1-1-1,'
+                       .  'school_name;;;;1-1-1,'
+                       .  'school_address,'
                        .  'school_country,'
                        .  '--div--;' . $tempLangPath . 'tab-relations,'
                        .  'id_fe_users;;;;1-1-1,'
@@ -143,8 +144,8 @@ $TCA[ $tempTableName ] = array(
             'config' => array(
                 'type'  => 'radio',
                 'items' => array(
-                    array( $tempLangPath . 'gender.m', 'M' ),
-                    array( $tempLangPath . 'gender.f', 'F' ),
+                    array( $tempLangPath . 'gender.f', 'f' ),
+                    array( $tempLangPath . 'gender.m', 'm' ),
                 )
             )
         ),
@@ -186,6 +187,14 @@ $TCA[ $tempTableName ] = array(
                 'type' => 'input',
                 'size' => '20',
                 'eval' => 'date'
+            )
+        ),
+    
+        'school_name' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
             )
         ),
     

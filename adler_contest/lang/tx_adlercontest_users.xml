@@ -19,6 +19,7 @@
             <label index="country">Country</label>
             <label index="nationality">Nationality</label>
             <label index="birthdate">Birth date</label>
+            <label index="school_name">School name</label>
             <label index="school_address">School address</label>
             <label index="school_country">School country</label>
             <label index="confirm_token">Confirmation token</label>
