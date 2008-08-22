@@ -35,12 +35,6 @@ $tempExtTables = array(
     // Users profiles
     'tx_adlercontest_users' => array(
         
-        // Localization enabled
-        'l10n'           => false,
-        
-        // Versionning enabled
-        'versionning'    => false,
-        
         // Deleted field enabled
         'deletedField'   => true,
         
@@ -62,12 +56,6 @@ $tempExtTables = array(
     
     // Votes
     'tx_adlercontest_votes' => array(
-        
-        // Localization enabled
-        'l10n'           => false,
-        
-        // Versionning enabled
-        'versionning'    => false,
         
         // Deleted field enabled
         'deletedField'   => true,
@@ -96,17 +84,17 @@ t3lib_div::loadTCA( 'tt_content' );
 foreach( $tempFePlugins as $tempPiNum => $tempPiOptions ) {
     
     // Plugin options
-    $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . $tempPiNum ] = 'layout,select_key,pages,recursive';
+    $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $_EXTKEY . '_' . $tempPiNum ] = 'layout,select_key,pages,recursive';
     
     // Checks if the plugin has a flexform
     if( $tempPiOptions[ 'flex' ] === true ) {
         
         // Adds the flexform field to plugin options
-        $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . $tempPiNum ] = 'pi_flexform';
+        $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $_EXTKEY . '_' . $tempPiNum ] = 'pi_flexform';
         
         // Add flexform DataStructure
         t3lib_extMgm::addPiFlexFormValue(
-            $_EXTKEY . $tempPiNum,
+            $_EXTKEY . '_' . $tempPiNum,
             'FILE:EXT:' . $_EXTKEY . '/flex/' . $tempPiNum . '.xml'
         );
     }
@@ -114,8 +102,8 @@ foreach( $tempFePlugins as $tempPiNum => $tempPiOptions ) {
     // Adds the plugin
     t3lib_extMgm::addPlugin(
         array(
-            'LLL:EXT:' . $_EXTKEY . '/locallang_db.php:tt_content.list_type_' . $tempPiNum,
-            $_EXTKEY . $tempPiNum
+            'LLL:EXT:' . $_EXTKEY . '/lang/wiz_'. $tempPiNum . '.xml:pi_title',
+            $_EXTKEY . '_' . $tempPiNum
         ),
         'list_type'
     );
@@ -196,6 +184,34 @@ foreach( $tempExtTables as $tempTableName => $tempTableOptions ) {
             'fe_admin_fieldList' => ''
         )
     );
+    
+    // Checks if the delete field is available
+    if( $tempTableOptions[ 'deletedField' ] ) {
+        
+        // Delete field available
+        $TCA[ $tempTableName ][ 'ctrl' ][ 'delete' ] = 'deleted';
+    }
+    
+    // Checks if the hidden field is available
+    if( $tempTableOptions[ 'hiddenField' ] ) {
+        
+        // Hidden field available
+        $TCA[ $tempTableName ][ 'ctrl' ][ 'enablecolumns' ][ 'disabled' ] = 'hidden';
+    }
+    
+    // Checks if the start time field is available
+    if( $tempTableOptions[ 'startTimeField' ] ) {
+        
+        // Start time field available
+        $TCA[ $tempTableName ][ 'ctrl' ][ 'enablecolumns' ][ 'starttime' ]  = 'starttime';
+    }
+    
+    // Checks if the end time field is available
+    if( $tempTableOptions[ 'endTimeField' ] ) {
+        
+        // End time field available
+        $TCA[ $tempTableName ][ 'ctrl' ][ 'enablecolumns' ][ 'endttime' ]  = 'endttime';
+    }
 }
 
 // TCA specific options - Users
