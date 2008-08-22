@@ -62,19 +62,39 @@ class tx_adlercontest_pi1 extends tslib_pibase
      * Form fields for the registration
      */
     protected static $_registrationFields = array(
-        'lastname'   => 'text',
-        'firstname'  => 'text',
-        'email'      => 'text',
-        'username'   => 'text',
-        'password'   => 'password',
-        'password2'  => 'password',
-        'agree'      => 'checkbox'
+        'lastname'   => array( 'type' => 'text' ),
+        'firstname'  => array( 'type' => 'text' ),
+        'email'      => array( 'type' => 'text' ),
+        'username'   => array( 'type' => 'text' ),
+        'password'   => array( 'type' => 'password' ),
+        'password2'  => array( 'type' => 'password' ),
+        'agree'      => array( 'type' => 'checkbox' )
+    );
+    
+    /**
+     * Form fields for the profile
+     */
+    protected static $_profileFields      = array(
+        'gender'         => array( 'type' => 'radio', 'items' => array( 'f', 'm' ) ),
+        'address'        => array( 'type' => 'text' ),
+        'address2'       => array( 'type' => 'text' ),
+        'country'        => array( 'type' => 'country' ),
+        'nationality'    => array( 'type' => 'text' ),
+        'birthdate'      => array( 'type' => 'date' ),
+        'school_name'    => array( 'type' => 'text' ),
+        'school_address' => array( 'type' => 'text' ),
+        'school_country' => array( 'type' => 'country' )
     );
     
     /**
      * The new line character
      */
     protected static $_NL                 = '';
+    
+    /**
+     * The TYPO3 site URL
+     */
+    protected static $_typo3Url           = '';
     
     /**
      * The instance of the Developer API
@@ -165,6 +185,13 @@ class tx_adlercontest_pi1 extends tslib_pibase
             self::$_NL = chr( 10 );
         }
         
+        // Checks if the site URL is already set
+        if( !self::$_typo3Url ) {
+            
+            // Sets the site URL
+            self::$_typo3Url = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
+        }
+        
         // Checks if the DB object already exists
         if( !is_object( self::$_db ) ) {
             
@@ -221,10 +248,16 @@ class tx_adlercontest_pi1 extends tslib_pibase
         // Initialize the template object
         $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
-        // Checks for a confirmation
+        // Checks the view type
         if( isset( $this->piVars[ 'confirm' ] ) && $this->piVars[ 'confirm' ] ) {
             
-            return $this->_userConfirmation();
+            // Confirm user
+            return $this->_userProfile();
+            
+        } elseif( isset( $this->piVars[ 'upload' ] ) && $this->piVars[ 'upload' ] ) {
+            
+            // Upload documents
+            return $this->_uploadDocuments();
             
         } else {
             
@@ -260,7 +293,11 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 'fromName' => 'sMAILER:from_name',
                 'subject'  => 'sMAILER:subject',
                 'message'  => 'sMAILER:message'
-            )
+            ),
+            'profile.' => array(
+                'header'       => 'sPROFILE:header',
+                'description'  => 'sPROFILE:description'
+            ),
         );
         
         // Ovverride TS setup with flexform
@@ -274,6 +311,255 @@ class tx_adlercontest_pi1 extends tslib_pibase
         #$this->_api->debug( $this->_conf, $this->prefixId . ': configuration array' );
     }
     
+    /**
+     * 
+     */
+    protected function _formTag( $content, array $keepPiVars = array(), $cache = false, $name = 'form', $class = 'form' )
+    {
+        // Storage for additional parameters
+        $addParams = array();
+        
+        // Checks for plugin variables to keep
+        if( count( $keepPiVars ) ) {
+            
+            // Process each variable
+            foreach( $keepPiVars as $piVar ) {
+                
+                // Checks for a value
+                if( !isset( $this->piVars[ $piVar ] ) ) {
+                    
+                    // No value
+                    continue;
+                }
+                
+                // Adds the variable to the additionnal parameters
+                $addParams[] = '&' . $this->prefixId . '[' . $piVar . ']=' . $this->piVars[ $piVar ];
+            }
+        }
+        
+        // TypoLink parameters for the form action
+        $typoLink = array(
+            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+            'useCacheHash'     => 1,
+            'additionalParams' => implode( '', $addParams )
+        );
+        
+        // Checks if the form must be uncached
+        if( !$cache ) {
+            
+            // No cache
+            $typoLink[ 'useCacheHash' ] = 0;
+            $typoLink[ 'no_cache' ]     = 1;
+        }
+        
+        // Returns the form tag
+        return $this->_api->fe_makeStyledContent(
+            'form',
+            $class,
+            $content,
+            true,
+            false,
+            false,
+            array(
+                'method'  => $this->_conf[ 'formMethod' ],
+                'enctype' => $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ],
+                'id'      => $this->prefixId . '_' . $name,
+                'name'    => $this->prefixId . '_' . $name,
+                'action'  => $this->cObj->typoLink_URL( $typoLink )
+            )
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _formFields( array $fields, $templateSection )
+    {
+        // Template markers
+        $markers = array();
+        
+        // Process each field
+        foreach( $fields as $fieldName => $fieldOptions ) {
+            
+            // Error message, if any
+            $error              = ( isset( $this->_errors[ $fieldName ] ) ) ? $this->_api->fe_makeStyledContent( 'div', 'form-error', $this->_errors[ $fieldName ] ) : '';
+            
+            // Marker for the template
+            $marker             = '###' . strtoupper( $fieldName ) . '###';
+            
+            // ID of the input
+            $inputId            = $this->prefixId . '_' . $fieldName;
+            
+            // Field label
+            $label              = $this->_api->fe_makeStyledContent(
+                'div',
+                'label',
+                '<label for="' . $inputId . '">' . $this->pi_getLL( 'label-' . $fieldName ) . '</label>'
+            );
+            
+            // Checks the input type
+            switch( $fieldOptions[ 'type' ] ) {
+                
+                // Country select
+                case 'country':
+                    
+                    // Input tag
+                    $input = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'input',
+                        self::$_mp->countrySelect( $this->prefixId . '[' . $fieldName . ']' )
+                    );
+                    break;
+                
+                // Date select
+                case 'date':
+                    
+                    // Input tag
+                    $input = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'input',
+                        self::$_mp->dateSelect( $this->prefixId . '[' . $fieldName . ']' )
+                    );
+                    break;
+                
+                // Radio buttons
+                case 'radio':
+                    
+                    // Storage
+                    $radios = array();
+                    
+                    // Checks for items
+                    if( isset( $fieldOptions[ 'items' ] ) && is_array( $fieldOptions[ 'items' ] ) ) {
+                        
+                        // Process each item
+                        foreach( $fieldOptions[ 'items' ] as $radioValue ) {
+                            
+                            // Label for the radio item
+                            $radioLabel = $this->_api->fe_makeStyledContent(
+                                'span',
+                                'radio-label',
+                                $this->pi_getLL( 'label-' . $fieldName . '-' . $radioValue, $radioValue )
+                            );
+                            
+                            // Radio item
+                            $radioItem  = $this->_api->fe_makeStyledContent(
+                                'span',
+                                'radio-item',
+                                '<input type="radio" name="'
+                              . $this->prefixId . '[' . $fieldName . ']'
+                              . '" value="'
+                              . $radioValue
+                              . '" id="'
+                              . $inputId
+                              . '" />'
+                            );
+                            
+                            // Adds the full radio item
+                            $radios[]   = $radioLabel . ' ' . $radioItem;
+                        }
+                    }
+                    
+                    // Input tag
+                    $input = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'input',
+                        implode( self::$_NL, $radios )
+                    );
+                    break;
+                
+                // Default processing
+                default:
+                    
+                    // Input value
+                    $value = ( isset( $this->piVars[ $fieldName ] ) && $fieldOptions[ 'type' ] === 'text' ) ? ' value="' . $this->piVars[ $fieldName ] . '"' : '';
+                    
+                    // Input tag
+                    $input = $this->_api->fe_makeStyledContent(
+                        'div',
+                        'input',
+                        '<input type="'
+                      . $fieldOptions[ 'type' ]
+                      . '" name="'
+                      . $this->prefixId . '[' . $fieldName . ']'
+                      . '" id="'
+                      . $inputId
+                      . '"'
+                      . ( ( $fieldOptions[ 'type' ] === 'text' || $fieldOptions[ 'type' ] === 'password' ) ? ' size="' . $this->_conf[ 'inputSize' ] . '"' : '' )
+                      . $value
+                      . ' />'
+                    );
+                    break;
+            }
+            
+            // Field with label
+            $field              = $this->_api->fe_makeStyledContent(
+                'div',
+                'field',
+                $label . $input
+            );
+            
+            // Sets the template marker
+            $markers[ $marker ] = $error . $field;
+        }
+        
+        // Renders the template markers and returns the result
+        return $this->_api->fe_renderTemplate( $markers, $templateSection );
+    }
+    
+    /**
+     * 
+     */
+    protected function _formValid( array $fields, array $callbacks = array() )
+    {
+        // Checks if the form has been submitted
+        if( !isset( $this->piVars[ 'submit' ] ) ) {
+            
+            // Form has not been submitted
+            return false;
+        }
+        
+        // Default error
+        $defaultError = $this->pi_getLL( 'error-required' );
+        
+        // Process each field
+        foreach( $fields as $fieldName => $fieldOptions ) {
+            
+            // Field specific error
+            $fieldError = $this->pi_getLL( 'error-' . $fieldName );
+            
+            // Error message for the current field
+            $error      = ( $fieldError ) ? $fieldError : $defaultError;
+            
+            // Checks if the field is empty
+            if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) ) {
+                
+                // Stores the error message
+                $this->_errors[ $fieldName ] = $error;
+            }
+            
+            // Checks if an error is already set
+            if( isset( $this->_errors[ $fieldName ] ) ) {
+                
+                // Next field
+                continue;
+            }
+            
+            // Checks for a specific callback
+            if( isset( $callbacks[ $fieldName ] ) ) {
+                
+                // Calls the callback function
+                if( $error = $this->$callbacks[ $fieldName ]( $fieldName ) ) {
+                    
+                    // Stores the error
+                    $this->_errors[ $fieldName ] = $error;
+                }
+            }
+        }
+        
+        // Returns the check state
+        return ( count( $this->_errors ) ) ? false : true;
+    }
+    
     ############################################################################
     # Registration
     ############################################################################
@@ -283,8 +569,16 @@ class tx_adlercontest_pi1 extends tslib_pibase
      */
     protected function _registrationForm()
     {
+        // Validation callbacks
+        $validCallbacks = array(
+            'password'  => '_checkPassword',
+            'password2' => '_checkPassword2',
+            'email'     => '_checkEmail',
+            'username'  => '_checkUsername',
+        );
+        
         // Checks the submission, if any
-        if( $this->_checkRegistration() ) {
+        if( $this->_formValid( self::$_registrationFields, $validCallbacks ) ) {
             
             // Register the user
             $this->_registerUser();
@@ -357,7 +651,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
         $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
             'div',
             'fields',
-            $this->_registrationFields()
+            $this->_formFields( self::$_registrationFields, '###REGISTER_FIELDS###' )
         );
         
         // Sets the submit button
@@ -374,26 +668,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
         );
         
         // Full form
-        $form                            = $this->_api->fe_makeStyledContent(
-            'form',
-            'form',
-            $this->_api->fe_renderTemplate( $markers, '###REGISTER_MAIN###' ),
-            true,
-            false,
-            false,
-            array(
-                'method'  => $this->_conf[ 'formMethod' ],
-                'enctype' => $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ],
-                'id'      => $this->prefixId . '_form',
-                'name'    => $this->prefixId . '_form',
-                'action'  => $this->cObj->typoLink_URL(
-                    array(
-                        'parameter'    => $GLOBALS[ 'TSFE' ]->id,
-                        'useCacheHash' => 1
-                    )
-                )
-            )
-        );
+        $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###REGISTER_MAIN###' ) );
         
         // Returns the form
         return $form;
@@ -402,102 +677,67 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
-    protected function _checkRegistration()
+    protected function _checkPassword( $fieldName )
     {
-        // Checks if the form has been submitted
-        if( !isset( $this->piVars[ 'submit' ] ) ) {
+        // Checks the length
+        if( strlen( $this->piVars[ $fieldName ] ) < $this->_conf[ 'passMinLength' ] ) {
             
-            // Form has not been submitted
-            return false;
+            // Password too short
+            return sprintf( $this->pi_getLL( 'error-password-length' ), $this->_conf[ 'passMinLength' ] );
         }
         
-        // Default error
-        $defaultError = $this->pi_getLL( 'error-required' );
-        
-        // Process each field
-        foreach( self::$_registrationFields as $fieldName => $fieldType ) {
+        return false;
+    }
+    /**
+     * 
+     */
+    protected function _checkPassword2( $fieldName )
+    {
+        // Checks the two passwords
+        if( $this->piVars[ 'password' ] !== $this->piVars[ $fieldName ] ) {
             
-            // Do not check password confirmation if errors were found in first password
-            if( $fieldName === 'password2' && isset( $this->_errors[ 'password' ] ) ) {
-                
-                // Next field
-                continue;
-            }
-            
-            // Field specific error
-            $fieldError   = $this->pi_getLL( 'error-' . $fieldName );
-            
-            // Error message for the current field
-            $error = ( $fieldError ) ? $fieldError : $defaultError;
-            
-            // Checks if the field is empty
-            if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) ) {
-                
-                // Stores the error message
-                $this->_errors[ $fieldName ] = $error;
-            }
-            
-            // Checks if an error is already set
-            if( isset( $this->_errors[ $fieldName ] ) ) {
-                
-                // Next field
-                continue;
-            }
-            
-            // Password specific check
-            if( $fieldName === 'password' ) {
-                
-                // Checks the length
-                if( strlen( $this->piVars[ $fieldName ] ) < $this->_conf[ 'passMinLength' ] ) {
-                    
-                    // Password too short
-                    $this->_errors[ $fieldName ] = sprintf( $this->pi_getLL( 'error-password-length' ), $this->_conf[ 'passMinLength' ] );
-                }
-            }
-            
-            // Password confirmation specific check
-            if( $fieldName === 'password2' ) {
-                
-                // Checks the two passwords
-                if( $this->piVars[ 'password' ] !== $this->piVars[ $fieldName ] ) {
-                    
-                    // Password does not match
-                    $this->_errors[ $fieldName ] = $this->pi_getLL( 'error-password2-nomatch' );
-                }
-            }
-            
-            // Email specific check
-            if( $fieldName === 'email' ) {
-                
-                // Checks for a valid email
-                if( !t3lib_div::validEmail( $this->piVars[ $fieldName ] ) ) {
-                    
-                    // Invalid email
-                    $this->_errors[ $fieldName ] = $error;
-                }
-                
-                // Checks that the email is unique
-                if( !$this->_isUnique( $this->piVars[ $fieldName ], 'email', self::$_dbTables[ 'users' ], $this->_conf[ 'pid' ] ) ) {
-                    
-                    // Email is not unique
-                    $this->_errors[ $fieldName ] = $this->pi_getLL( 'error-email-exists' );
-                }
-            }
-            
-            // Login specific check
-            if( $fieldName === 'username' ) {
-                
-                // Checks that the email is unique
-                if( !$this->_isUnique( $this->piVars[ $fieldName ], 'username', self::$_dbTables[ 'users' ], $this->_conf[ 'pid' ] ) ) {
-                    
-                    // Email is not unique
-                    $this->_errors[ $fieldName ] = $this->pi_getLL( 'error-username-exists' );
-                }
-            }
+            // Password does not match
+            return $this->pi_getLL( 'error-password2-nomatch' );
         }
         
-        // Returns the check state
-        return ( count( $this->_errors ) ) ? false : true;
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _checkEmail( $fieldName )
+    {
+        // Checks for a valid email
+        if( !t3lib_div::validEmail( $this->piVars[ $fieldName ] ) ) {
+            
+            // Invalid email
+            return $this->pi_getLL( 'error-email' );
+        }
+        
+        // Checks that the email is unique
+        if( !$this->_isUnique( $this->piVars[ $fieldName ], 'email', self::$_dbTables[ 'users' ], $this->_conf[ 'pid' ] ) ) {
+            
+            // Email is not unique
+            return $this->pi_getLL( 'error-email-exists' );
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _checkUsername( $fieldName )
+    {
+        // Checks that the username is unique
+        if( !$this->_isUnique( $this->piVars[ $fieldName ], 'username', self::$_dbTables[ 'users' ], $this->_conf[ 'pid' ] ) ) {
+            
+            // Username is not unique
+            return $this->pi_getLL( 'error-username-exists' );
+        }
+        
+        return false;
     }
     
     /**
@@ -512,7 +752,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                . $fieldName
                . '='
                . self::$_db->fullQuoteStr( $value, $tableName )
-               . $this->cObj->enableFields( $tableName, $checkHidden );
+               . $this->cObj->enableFields( $tableName, 1 );
         
         // Record selection
         $res = self::$_db->exec_SELECTquery( $fieldName, $tableName, $where );
@@ -526,67 +766,6 @@ class tx_adlercontest_pi1 extends tslib_pibase
         
         // Field is unique
         return true;
-    }
-    
-    /**
-     * 
-     */
-    protected function _registrationFields()
-    {
-        // Template markers
-        $markers = array();
-        
-        // Process each field
-        foreach( self::$_registrationFields as $fieldName => $fieldType ) {
-            
-            // Error message, if any
-            $error              = ( isset( $this->_errors[ $fieldName ] ) ) ? $this->_api->fe_makeStyledContent( 'div', 'form-error', $this->_errors[ $fieldName ] ) : '';
-            
-            // Marker for the template
-            $marker             = '###' . strtoupper( $fieldName ) . '###';
-            
-            // ID of the input
-            $inputId            = $this->prefixId . '_' . $fieldName;
-            
-            // Field label
-            $label              = $this->_api->fe_makeStyledContent(
-                'div',
-                'label',
-                '<label for="' . $inputId . '">' . $this->pi_getLL( 'label-' . $fieldName ) . '</label>'
-            );
-            
-            // Input value
-            $value              = ( isset( $this->piVars[ $fieldName ] ) && $fieldType === 'text' ) ? ' value="' . $this->piVars[ $fieldName ] . '"' : '';
-            
-            // Iput tag
-            $input              = $this->_api->fe_makeStyledContent(
-                'div',
-                'input',
-                '<input type="'
-              . $fieldType
-              . '" name="'
-              . $this->prefixId . '[' . $fieldName . ']'
-              . '" id="'
-              . $inputId
-              . '"'
-              . ( ( $fieldType === 'text' || $fieldType === 'password' ) ? ' size="' . $this->_conf[ 'inputSize' ] . '"' : '' )
-              . $value
-              . ' />'
-            );
-            
-            // Field with label
-            $field              = $this->_api->fe_makeStyledContent(
-                'div',
-                'field',
-                $label . $input
-            );
-            
-            // Sets the template marker
-            $markers[ $marker ] = $error . $field;
-        }
-        
-        // Renders the template markers and returns the result
-        return $this->_api->fe_renderTemplate( $markers, '###REGISTER_FIELDS###' );
     }
     
     /**
@@ -654,11 +833,8 @@ class tx_adlercontest_pi1 extends tslib_pibase
      */
     protected function _sendConfirmation()
     {
-        // TYPO3 site URL
-        $typo3Url    = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
-        
         // Confirmation link
-        $confirmLink = $typo3Url . $this->cObj->typoLink_URL(
+        $confirmLink = self::$_typo3Url . $this->cObj->typoLink_URL(
             array(
                 'parameter'        => $GLOBALS[ 'TSFE' ]->id,
                 'useCacheHash'     => 0,
@@ -705,13 +881,13 @@ class tx_adlercontest_pi1 extends tslib_pibase
     }
     
     ############################################################################
-    # Confirmation
+    # Profile
     ############################################################################
     
     /**
      * 
      */
-    protected function _userConfirmation()
+    protected function _userProfile()
     {
         // Where clause
         $where = 'pid='
@@ -729,6 +905,40 @@ class tx_adlercontest_pi1 extends tslib_pibase
             // Stores the profile
             $this->_profile = $profile;
             
+            // Gets and stores the user
+            $this->_user = self::$_db->sql_fetch_assoc(
+                self::$_db->exec_SELECTquery(
+                    '*',
+                    self::$_dbTables[ 'users' ],
+                    'uid=' . $this->_profile[ 'id_fe_users' ]
+                )
+            );
+            
+            // Checks the submission, if any
+            if( $this->_formValid( self::$_profileFields ) ) {
+                
+                // Updates the profile
+                $this->_updateProfile();
+                
+                // Next step URL
+                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'useCacheHash'     => 0,
+                        'no_cache'         => 1,
+                        'additionalParams' => $this->_api->fe_typoLinkParams(
+                            array(
+                                'upload' => $this->_profile[ 'confirm_token' ],
+                            ),
+                            false
+                        )
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $nextLink );
+            }
+            
             // Template markers
             $markers                         = array();
             
@@ -736,14 +946,14 @@ class tx_adlercontest_pi1 extends tslib_pibase
             $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'registration.' ][ 'header' ] )
+                $this->pi_RTEcssText( $this->_conf[ 'profile.' ][ 'header' ] )
             );
             
             // Sets the description
             $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
                 'div',
                 'description',
-                $this->pi_RTEcssText( $this->_conf[ 'registration.' ][ 'description' ] )
+                $this->pi_RTEcssText( $this->_conf[ 'profile.' ][ 'description' ] )
             );
             
             // Sets the field infos
@@ -753,11 +963,25 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 $this->pi_getLL( 'field-infos' )
             );
             
+            // Sets the user name
+            $markers[ '###USER_FULLNAME###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'user-fullname',
+                $this->_profile[ 'firstname' ] . ' ' . $this->_profile[ 'lastname' ]
+            );
+            
+            // Sets the user email
+            $markers[ '###USER_EMAIL###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'user-email',
+                $this->_user[ 'email' ]
+            );
+            
             // Creates the fields
             $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
                 'div',
                 'fields',
-                $this->_registrationFields()
+                $this->_formFields( self::$_profileFields, '###PROFILE_FIELDS###' )
             );
             
             // Sets the submit button
@@ -774,26 +998,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
             );
             
             // Full form
-            $form                            = $this->_api->fe_makeStyledContent(
-                'form',
-                'form',
-                $this->_api->fe_renderTemplate( $markers, '###PROFILE_MAIN###' ),
-                true,
-                false,
-                false,
-                array(
-                    'method'  => $this->_conf[ 'formMethod' ],
-                    'enctype' => $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ],
-                    'id'      => $this->prefixId . '_form',
-                    'name'    => $this->prefixId . '_form',
-                    'action'  => $this->cObj->typoLink_URL(
-                        array(
-                            'parameter'    => $GLOBALS[ 'TSFE' ]->id,
-                            'useCacheHash' => 1
-                        )
-                    )
-                )
-            );
+            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROFILE_MAIN###' ), array( 'confirm' ) );
             
             // Returns the form
             return $form;
@@ -810,27 +1015,74 @@ class tx_adlercontest_pi1 extends tslib_pibase
     /**
      * 
      */
+    protected function _updateProfile()
+    {
+        // Storage for the database
+        $profile                     = array();
+        
+        // Current time
+        $time                        = time();
+        
+        // Birthdate
+        $birthdate                   = strtotime(
+            $this->piVars[ 'birthdate' ][ 'year' ]
+          . '-'
+          . $this->piVars[ 'birthdate' ][ 'month' ]
+          . '-'
+          . $this->piVars[ 'birthdate' ][ 'day' ]
+        );
+        
+        // Sets the profile fields
+        $profile[ 'tstamp' ]         = $time;
+        $profile[ 'gender' ]         = $this->piVars[ 'gender' ];
+        $profile[ 'address' ]        = $this->piVars[ 'address' ];
+        $profile[ 'address2' ]       = $this->piVars[ 'address2' ];
+        $profile[ 'country' ]        = $this->piVars[ 'country' ];
+        $profile[ 'nationality' ]    = $this->piVars[ 'nationality' ];
+        $profile[ 'birthdate' ]      = $birthdate;
+        $profile[ 'school_name' ]    = $this->piVars[ 'school_name' ];
+        $profile[ 'school_address' ] = $this->piVars[ 'school_address' ];
+        $profile[ 'school_country' ] = $this->piVars[ 'school_country' ];
+        
+        // Inserts the user
+        self::$_db->exec_UPDATEquery( self::$_dbTables[ 'profiles' ], $this->_profile[ 'uid' ], $profile );
+        
+        return true;
+    }
+    
+    /**
+     * 
+     */
     protected function _activateUser( $userId, $profileId )
     {
         // Activates the user
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'users' ],
-            'uid=' . $id,
+            'uid=' . $userId,
             array(
                 'disable' => 0
             )
         );
         
         // Removes the token
-        self::$_db->exec_UPDATEquery(
-            self::$_dbTables[ 'profiles' ],
-            'uid=' . $profileId,
-            array(
-                'confirm_token' => ''
-            )
-        );
+        #self::$_db->exec_UPDATEquery(
+        #    self::$_dbTables[ 'profiles' ],
+        #    'uid=' . $profileId,
+        #    array(
+        #        'confirm_token' => ''
+        #    )
+        #);
         
         return true;
+    }
+    
+    ############################################################################
+    # Upload
+    ############################################################################
+    
+    protected function _uploadDocuments()
+    {
+        return 'Upload...';
     }
 }
 
