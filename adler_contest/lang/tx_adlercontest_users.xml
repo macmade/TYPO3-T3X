@@ -11,13 +11,21 @@
             <label index="votes">Votes</label>
             <label index="lastname">Last name</label>
             <label index="firstname">First name</label>
-        </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="typo3-tableName">Adler / Concours - Utilisateur</label>
-            <label index="id_fe_users">Utilisateur FE associé</label>
-            <label index="votes">Votes</label>
-            <label index="lastname">Nom</label>
-            <label index="firstname">Prénom</label>
+            <label index="gender">Gender</label>
+            <label index="gender.m">Male</label>
+            <label index="gender.f">Female</label>
+            <label index="address">Address</label>
+            <label index="address2">Address 2</label>
+            <label index="country">Country</label>
+            <label index="nationality">Nationality</label>
+            <label index="birthdate">Birth date</label>
+            <label index="school_address">School address</label>
+            <label index="school_country">School country</label>
+            <label index="confirm_token">Confirmation token</label>
+            <label index="tab-profile">Profile</label>
+            <label index="tab-relations">Relations</label>
+            <label index="tab-documents">Documents</label>
+            <label index="tab-misc">Miscellaneous</label>
         </languageKey>
     </data>
 </T3locallang>
