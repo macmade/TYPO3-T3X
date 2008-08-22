@@ -9,9 +9,5 @@
             <label index="pi_title">Adler / Contest - Vote system</label>
             <label index="pi_plus_wiz_description">Vote system for the Adler contest.</label>
         </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="pi_title">Adler / Concours - Système de vote</label>
-            <label index="pi_plus_wiz_description">Système de vote pour le concours Adler.</label>
-        </languageKey>
     </data>
 </T3locallang>

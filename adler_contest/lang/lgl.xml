@@ -9,9 +9,5 @@
             <label index="wizard-add">Add a new record</label>
             <label index="wizard-edit">Edit the selected record</label>
         </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="wizard-add">Ajouter un nouvel enregistrement</label>
-            <label index="wizard-edit">Editer l'enregistrement sélectionné</label>
-        </languageKey>
     </data>
 </T3locallang>

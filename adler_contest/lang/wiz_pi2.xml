@@ -9,9 +9,5 @@
             <label index="pi_title">Adler / Contest - Profile</label>
             <label index="pi_plus_wiz_description">Allows registered users to edit their profile.</label>
         </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="pi_title">Adler / Concours - Profil</label>
-            <label index="pi_plus_wiz_description">Permet aux utilisateurs enregistrés de modifier leurs profils.</label>
-        </languageKey>
     </data>
 </T3locallang>

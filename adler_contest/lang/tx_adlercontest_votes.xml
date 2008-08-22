@@ -14,14 +14,5 @@
             <label index="criteria_5">Criteria 5</label>
             <label index="note">Note</label>
         </languageKey>
-        <languageKey index="fr" type="array">
-            <label index="typo3-tableName">Adler / Concours - Vote</label>
-            <label index="criteria_1">Critère 1</label>
-            <label index="criteria_2">Critère 2</label>
-            <label index="criteria_3">Critère 3</label>
-            <label index="criteria_4">Critère 4</label>
-            <label index="criteria_5">Critère 5</label>
-            <label index="note">Note</label>
-        </languageKey>
     </data>
 </T3locallang>
