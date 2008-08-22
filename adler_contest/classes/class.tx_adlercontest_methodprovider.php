@@ -293,6 +293,32 @@ class tx_adlercontest_methodProvider
         // Returns the select box
         return $selectDays . ' ' . $selectMonthes . ' ' . $selectYears;
     }
+    
+    /**
+     * 
+     */
+    
+    
+    /**
+     * 
+     */
+    public function feLogin( array $user )
+    {
+        // Fills POST variables with login infos
+        $_POST[ 'logintype' ] = 'login';
+        $_POST[ 'user' ]      = $user[ 'username' ];
+        $_POST[ 'pass' ]      = $user[ 'password' ];
+        $_POST[ 'pid' ]       = $user[ 'pid' ];
+        
+        // Initializes the FE user
+        $GLOBALS[ 'TSFE' ]->initFEuser();
+        
+        // Cleans up the POST variables
+        unset( $_POST[ 'logintype' ] );
+        unset( $_POST[ 'user' ] );
+        unset( $_POST[ 'pass' ] );
+        unset( $_POST[ 'pid' ] );
+    }
 }
 
 // XClass inclusion

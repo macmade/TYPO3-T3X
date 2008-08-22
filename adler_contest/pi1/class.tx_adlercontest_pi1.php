@@ -1121,8 +1121,8 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 // Activates the user
                 $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
                 
-                // Connect the user
-                $this->_feLogin();
+                // Connects the user
+                self::$_mp->feLogin( $this->_user );
             
                 // Next step URL
                 $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
@@ -1290,27 +1290,6 @@ class tx_adlercontest_pi1 extends tslib_pibase
         );
         
         return true;
-    }
-    
-    /**
-     * 
-     */
-    protected function _feLogin()
-    {
-        // Fills POST variables with login infos
-        $_POST[ 'logintype' ] = 'login';
-        $_POST[ 'user' ]      = $this->_user[ 'username' ];
-        $_POST[ 'pass' ]      = $this->_user[ 'password' ];
-        $_POST[ 'pid' ]       = $this->_conf[ 'pid' ];
-        
-        // Initializes the FE user
-        $GLOBALS[ 'TSFE' ]->initFEuser();
-        
-        // Cleans up the POST variables
-        unset( $_POST[ 'logintype' ] );
-        unset( $_POST[ 'user' ] );
-        unset( $_POST[ 'pass' ] );
-        unset( $_POST[ 'pid' ] );
     }
 }
 
