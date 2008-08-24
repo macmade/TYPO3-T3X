@@ -211,7 +211,7 @@ class tx_adlercontest_pi3 extends tslib_pibase
         // Initialize the template object
         $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
-        return __CLASS__
+        return __CLASS__;
     }
     
     /**
