@@ -75,3 +75,35 @@ CREATE TABLE tx_adlercontest_votes (
     PRIMARY KEY (uid),
     KEY parent (pid)
 );
+
+#
+# Table structure for table 'tx_adlercontest_emails'
+#
+CREATE TABLE tx_adlercontest_emails (
+    
+    #
+    # TYPO3 fields
+    #
+    uid int(11) unsigned NOT NULL auto_increment,
+    pid int(11) unsigned DEFAULT '0' NOT NULL,
+    tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+    crdate int(11) unsigned DEFAULT '0' NOT NULL,
+    cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+    deleted tinyint(1) unsigned DEFAULT '0' NOT NULL,
+    
+    #
+    # User fields
+    #
+    type int(11) unsigned DEFAULT '0' NOT NULL,
+    subject tinytext NOT NULL,
+    from_email tinytext NOT NULL,
+    from_name tinytext NOT NULL,
+    reply_to tinytext NOT NULL,
+    message text NOT NULL,
+    
+    #
+    # Database options
+    #
+    PRIMARY KEY (uid),
+    KEY parent (pid)
+);

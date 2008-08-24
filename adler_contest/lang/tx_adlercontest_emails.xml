@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>database</type>
+        <description>Language labels for the database table 'tx_adlercontest_users' of extension 'adler_contest'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="typo3-tableName">Adler / Contest - Email</label>
+            <label index="type">Type</label>
+            <label index="type.0">Validation</label>
+            <label index="type.1">Rejection</label>
+            <label index="subject">Suject</label>
+            <label index="from_email">From (email)</label>
+            <label index="from_name">From (name)</label>
+            <label index="reply_to">Reply to</label>
+            <label index="message">Message</label>
+        </languageKey>
+    </data>
+</T3locallang>

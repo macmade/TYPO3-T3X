@@ -86,6 +86,28 @@ $tempExtTables = array(
         
         // Label
         'label'          => 'note'
+    ),
+    
+    // Votes
+    'tx_adlercontest_emails' => array(
+        
+        // Deleted field enabled
+        'deletedField'   => true,
+        
+        // Hidden field enabled
+        'hiddenField'    => false,
+        
+        // Start time field enabled
+        'startTimeField' => false,
+        
+        // End time field enabled
+        'endTimeField'   => false,
+        
+        // Default ORDER BY instruction
+        'orderBy'        => 'subject',
+        
+        // Label
+        'label'          => 'subject'
     )
 );
 
