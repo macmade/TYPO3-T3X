@@ -9,6 +9,16 @@
             <label index="mlang_tabs_tab">Adler / Contest</label>
             <label index="mlang_labels_tabdescr">Administration module for the Adler contest.</label>
             <label index="mlang_labels_tablabel">Administration module</label>
+            <label index="error.no-access">Sorry, you don't have access to this module. Please contact your administrator.</label>
+            <label index="error.no-content">Sorry, there's actually no content to display on the current page.</label>
+            <label index="title">Adler / Contest</label>
+            <label index="menu.func.1">Show the registered users (by date)</label>
+            <label index="menu.func.2">Show the registered users (by name)</label>
+            <label index="headers.registration">Registration date</label>
+            <label index="headers.confirmed">Confirmed</label>
+            <label index="headers.proof">Has proof documents</label>
+            <label index="no">No</label>
+            <label index="yes">Yes</label>
         </languageKey>
     </data>
 </T3locallang>
