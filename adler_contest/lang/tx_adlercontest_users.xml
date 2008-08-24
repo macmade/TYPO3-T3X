@@ -24,11 +24,13 @@
             <label index="school_country">School country</label>
             <label index="age_proof">Age proof</label>
             <label index="school_proof">School proof</label>
-            <label index="confirm_token">Confirmation token</label>
             <label index="tab-profile">Profile</label>
             <label index="tab-relations">Relations</label>
             <label index="tab-documents">Documents</label>
             <label index="tab-misc">Miscellaneous</label>
+            <label index="hidden">Hidden</label>
+            <label index="validated">Validated</label>
+            <label index="confirm_token">Confirmation token</label>
         </languageKey>
     </data>
 </T3locallang>

@@ -62,7 +62,10 @@ $TCA[ $tempTableName ] = array(
                        .  '--div--;' . $tempLangPath . 'tab-documents,'
                        .  'age_proof;;;;1-1-1,'
                        .  'school_proof,'
+                       .  'project;;;;1-1-1,'
                        .  '--div--;' . $tempLangPath . 'tab-misc,'
+                       .  'hidden;;;;1-1-1,'
+                       .  'validated;;;;1-1-1,'
                        .  'confirm_token;;;;1-1-1'
         )
     ),
@@ -74,6 +77,12 @@ $TCA[ $tempTableName ] = array(
     
     // Fields configuration
     'columns' => array(
+        
+        'hidden' => array(
+            'config'  => array(
+                'type' => 'check',
+            )
+        ),
         
         'id_fe_users' => array(
             'config' => array(
@@ -225,7 +234,7 @@ $TCA[ $tempTableName ] = array(
                 'uploadfolder'  => 'uploads/tx_adlercontest',
                 'show_thumbs'   => 1,
                 'size'          => 1,
-                'minitems'      => 1,
+                'minitems'      => 0,
                 'maxitems'      => 1
             )
         ),
@@ -239,8 +248,28 @@ $TCA[ $tempTableName ] = array(
                 'uploadfolder'  => 'uploads/tx_adlercontest',
                 'show_thumbs'   => 1,
                 'size'          => 1,
-                'minitems'      => 1,
+                'minitems'      => 0,
                 'maxitems'      => 1
+            )
+        ),
+        
+        'project' => array(
+            'config' => array(
+                'type'          => 'group',
+                'internal_type' => 'file',
+                'allowed'       => 'pdf',
+                'max_size'      => 2048,
+                'uploadfolder'  => 'uploads/tx_adlercontest',
+                'show_thumbs'   => 1,
+                'size'          => 1,
+                'minitems'      => 0,
+                'maxitems'      => 1
+            )
+        ),
+        
+        'validated' => array(
+            'config'  => array(
+                'type' => 'check',
             )
         ),
         
