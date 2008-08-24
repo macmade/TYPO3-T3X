@@ -7,6 +7,7 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="sDEF">Main</label>
+            <label index="sDEF.pages">Storage page</label>
         </languageKey>
     </data>
 </T3locallang>
