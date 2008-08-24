@@ -32,11 +32,14 @@
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
-// TYPO3 FE plugin class
+// Includes the TYPO3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
-// Method provider
+// Includes the method provider class
 require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_methodprovider.php' );
+
+// Includes the macmade.net API class
+require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
 class tx_adlercontest_pi1 extends tslib_pibase
 {
@@ -184,6 +187,9 @@ class tx_adlercontest_pi1 extends tslib_pibase
      * @param   string  $content    The plugin content
      * @param   array   $conf       The TS setup
      * @return  string  The content of the plugin
+     * @see     _userProfile
+     * @see     _uploadDocuments
+     * @see     _registrationForm
      */
     public function main( $content, array $conf )
     {
@@ -261,12 +267,12 @@ class tx_adlercontest_pi1 extends tslib_pibase
         if( isset( $this->piVars[ 'confirm' ] ) && $this->piVars[ 'confirm' ] ) {
             
             // Confirm user
-            return $this->_userProfile();
+            return $this->pi_wrapInBaseClass( $this->_userProfile() );
             
         } elseif( isset( $this->piVars[ 'upload' ] ) && $this->piVars[ 'upload' ] ) {
             
             // Upload documents
-            return $this->_uploadDocuments();
+            return $this->pi_wrapInBaseClass( $this->_uploadDocuments() );
             
         } else {
             
@@ -326,7 +332,14 @@ class tx_adlercontest_pi1 extends tslib_pibase
     }
     
     /**
+     * Creates an HTML form tag
      * 
+     * @param   string  $content    The content to put in the form tag (the fields)
+     * @param   array   $keepPiVars An array with the name of the plugin variables to keep
+     * @param   boolean $cache      If sets, the action URL will be cached
+     * @param   string  $name       The name parameter of the form
+     * @param   string  $class      The CSS class of the form
+     * @return  string  The form tag
      */
     protected function _formTag( $content, array $keepPiVars = array(), $cache = false, $name = 'form', $class = 'form' )
     {
@@ -385,7 +398,11 @@ class tx_adlercontest_pi1 extends tslib_pibase
     }
     
     /**
+     * Creates form fields
      * 
+     * @param   array   $fields             An array with the fields to create
+     * @param   string  $templateSection    The template section to render
+     * @return  string  The form fields
      */
     protected function _formFields( array $fields, $templateSection )
     {
@@ -521,7 +538,11 @@ class tx_adlercontest_pi1 extends tslib_pibase
     }
     
     /**
+     * Validates a form
      * 
+     * @param   array   $fields     The fields to validate
+     * @param   array   $callbacks  An array with the callbacks for specific field checks
+     * @return  boolean True if the form is valid, otherwise false
      */
     protected function _formValid( array $fields, array $callbacks = array() )
     {
@@ -599,7 +620,17 @@ class tx_adlercontest_pi1 extends tslib_pibase
     ############################################################################
     
     /**
+     * Creates the registration form
      * 
+     * @return  string  The registration form
+     * @see _checkPassword
+     * @see _checkPassword2
+     * @see _checkEmail
+     * @see _checkUsername
+     * @see _formValid
+     * @see _registerUser
+     * @see _sendConfirmation
+     * @see _formTag
      */
     protected function _registrationForm()
     {

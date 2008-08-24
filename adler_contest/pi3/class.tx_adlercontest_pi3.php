@@ -104,12 +104,12 @@ class tx_adlercontest_pi3 extends tslib_pibase
     /**
      * The class name
      */
-    public $prefixId            = __CLASS__;
+    public $prefixId            = 'tx_adlercontest_pi3';
     
     /**
      * The path to this script relative to the extension directory
      */
-    public $scriptRelPath       = 'pi3/class.' . __CLASS__ . '.php';
+    public $scriptRelPath       = 'pi3/class.tx_adlercontest_pi3.php';
     
     /**
      * The extension key

@@ -104,12 +104,12 @@ class tx_adlercontest_pi2 extends tslib_pibase
     /**
      * The class name
      */
-    public $prefixId            = __CLASS__;
+    public $prefixId            = 'tx_adlercontest_pi2';
     
     /**
      * The path to this script relative to the extension directory
      */
-    public $scriptRelPath       = 'pi2/class.' . __CLASS__ . '.php';
+    public $scriptRelPath       = 'pi2/class.tx_adlercontest_pi2.php';
     
     /**
      * The extension key
