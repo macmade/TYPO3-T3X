@@ -541,7 +541,7 @@ class tx_adlercontest_module1 extends t3lib_SCbase
                 'input',
                 '',
                 array(
-                    'type' => 'checkbox'
+                    'type' => 'checkbox',
                     'name' => __CLASS__ . '[users][' . $uid . ']'
                 )
             );
