@@ -129,22 +129,27 @@ class tx_adlercontest_module1 extends t3lib_SCbase
     protected $_content              = array();
     
     /**
-     * 
+     * The frontend users stored on the current page
      */
     protected $_users                = array();
     
     /**
-     * 
+     * The user profiles stored on the current page
      */
     protected $_profiles             = array();
     
     /**
-     * 
+     * Storage for the started HTML tags
      */
     protected $_startedTags          = array();
     
     /**
-     * 
+     * The GET/POST variables from this module
+     */
+    protected $_modVars              = array();
+    
+    /**
+     * The TYPO3 document object
      */
     public $doc                      = NULL;
     
@@ -238,6 +243,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
         
         // Sets the back path
         $this->doc->backPath      = self::$_backPath;
+        
+        // Gets the module variables
+        $this->_modVars           = t3lib_div::_GP( __CLASS__ );
     }
     
     /**
@@ -534,6 +542,7 @@ class tx_adlercontest_module1 extends t3lib_SCbase
                 '',
                 array(
                     'type' => 'checkbox'
+                    'name' => __CLASS__ . '[users][' . $uid . ']'
                 )
             );
             
