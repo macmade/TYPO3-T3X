@@ -17,7 +17,7 @@
             <label index="headers.registration">Registration date</label>
             <label index="headers.confirmed">Confirmed</label>
             <label index="headers.validated">Validated</label>
-            <label index="headers.proof">Has proof documents</label>
+            <label index="headers.proof">Proof documents</label>
             <label index="no">No</label>
             <label index="yes">Yes</label>
         </languageKey>
