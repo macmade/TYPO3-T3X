@@ -300,7 +300,10 @@ class tx_adlercontest_methodProvider
     
     
     /**
+     * Establish a FE user session
      * 
+     * @param   array   $user   The FE user row from the database
+     * @return  NULL
      */
     public function feLogin( array $user )
     {
