@@ -16,6 +16,7 @@
             <label index="menu.func.2">Show the registered users (by name)</label>
             <label index="headers.registration">Registration date</label>
             <label index="headers.confirmed">Confirmed</label>
+            <label index="headers.validated">Validated</label>
             <label index="headers.proof">Has proof documents</label>
             <label index="no">No</label>
             <label index="yes">Yes</label>

@@ -520,6 +520,7 @@ class tx_adlercontest_module1 extends t3lib_SCbase
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'lastname' ),  $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'firstname' ), $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.confirmed' ),                           $trParams, $headerStyles );
+        $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.validated' ),                           $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.proof' ),                               $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.registration' ),                        $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'birthdate' ), $trParams, $headerStyles );
@@ -532,6 +533,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             
             // Confirmation state
             $confirmed        = ( $profile[ 'confirm_token' ] )                           ? self::$_lang->getLL( 'no' )  : self::$_lang->getLL( 'yes' );
+            
+            // Validation state
+            $validated        = ( $profile[ 'validated' ] )                               ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
             
             // Proof documents state
             $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
@@ -561,6 +565,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             
             // Adds the confirmation state
             $this->_content[] = $this->_tag( 'td', $confirmed, $trParams );
+            
+            // Adds the validation state
+            $this->_content[] = $this->_tag( 'td', $validated, $trParams );
             
             // Adds the proof documents state
             $this->_content[] = $this->_tag( 'td', $proof, $trParams );
