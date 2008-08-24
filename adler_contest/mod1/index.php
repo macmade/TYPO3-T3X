@@ -486,9 +486,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
         $alternateRows    = array(
             array(
                 'params' => array(
-                    'onmouseover' => '',
-                    'onmouseout'  => '',
-                    'onclick'     => ''
+                    'onmouseover' => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor3 . '\' );',
+                    'onmouseout'  => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor4 . '\' );',
+                    'onclick'     => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor3 . '\' ); SOBE.setCheck( this );'
                 ),
                 'styles' => array(
                     'background-color' => $this->doc->bgColor4
@@ -496,9 +496,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             ),
             array(
                 'params' => array(
-                    'onmouseover' => '',
-                    'onmouseout'  => '',
-                    'onclick'     => ''
+                    'onmouseover' => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor3 . '\' );',
+                    'onmouseout'  => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor5 . '\' );',
+                    'onclick'     => 'SOBE.changeBgColor( this, \'' . $this->doc->bgColor3 . '\' ); SOBE.setCheck( this );'
                 ),
                 'styles' => array(
                     'background-color' => $this->doc->bgColor5

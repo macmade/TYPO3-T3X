@@ -37,7 +37,7 @@ script_ended = 0;
  * TYPO3 jump to URL function
  * 
  * @param   string  url The new location
- * @return  Void
+ * @return  void
  */
 function jumpToUrl( url )
 {
@@ -48,7 +48,7 @@ function jumpToUrl( url )
 /**
  * Module class
  * 
- * @return  Void
+ * @return  void
  */
 function tx_adlercontest_module1()
 {
@@ -61,7 +61,7 @@ function tx_adlercontest_module1()
     /**
      * Class constructor
      * 
-     * @return  Void
+     * @return  void
      */
     function __construct()
     {
@@ -92,6 +92,64 @@ function tx_adlercontest_module1()
     {
         // Returns the requested variable
         return _getVars[ varName ];
+    }
+    
+    /**
+     * Changes the background color of an HTML element
+     * 
+     * @param   object  o       The HTML element
+     * @param   string  color   The new color
+     * @return  void
+     */
+    this.changeBgColor = function( o, color )
+    {
+        // Sets the new background color
+        o.style.backgroundColor = color;
+    }
+    
+    /**
+     * Checks or unchecks a checkbox
+     * 
+     * This method will look for a checkbox inside the passed HTML element and
+     * check or uncheck it, depeding on it's value.
+     * 
+     * @param   o   The HTML object containing the checkbox
+     * @return  void
+     */
+    this.setCheck = function( o )
+    {
+        // Storage for the checkbox
+        var checkBox;
+        
+        // Process each child of the HTML element
+        for( var i = 0; i < o.childNodes.length; i++ ) {
+            
+            // Checks for a TD element
+            if( o.childNodes[ i ].tagName == 'TD' ) {
+                
+                // Process each child of the TD element
+                for( var j = 0; j < o.childNodes[ i ].childNodes.length; j++ ) {
+                    
+                    // Checks for a checkbox input tag
+                    if( o.childNodes[ i ].childNodes[ j ].tagName == "INPUT"
+                        && o.childNodes[ i ].childNodes[ j ].type == "checkbox" ) {
+                        
+                        // Stores the checkbox object
+                        var checkBox = o.childNodes[ i ].childNodes[ j ];
+                        
+                        // Do not process other elements
+                        break;
+                    }
+                }
+            }
+        }
+        
+        // Checks if a checkbox was found
+        if( checkBox ) {
+            
+            // Checks or unchecks the checkbox
+            checkBox.checked = ( checkBox.checked ) ? false : true;
+        }
     }
 }
 
