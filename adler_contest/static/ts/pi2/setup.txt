@@ -42,6 +42,16 @@ plugin.tx_adlercontest_pi2 {
     // Size of the input tags
     inputSize    = 30
     
+    // Home settings
+    home {
+        
+        // Title text
+        header      =
+        
+        // Description text
+        description =
+    }
+    
     // Proof documents settings
     proof {
         

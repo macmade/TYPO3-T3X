@@ -153,7 +153,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             } else {
                 
                 // Default content
-                $markers[ '###CONTENT###' ] = '';
+                $markers[ '###CONTENT###' ] = $this->_home();
             }
             
             // Returns the plugin content
@@ -179,6 +179,10 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         // Mapping array for PI flexform
         $flex2conf = array(
             'pid'    => 'sDEF:pages',
+            'home.'  => array(
+                'header'      => 'sHOME:header',
+                'description' => 'sHOME:description'
+            ),
             'proof.' => array(
                 'header'      => 'sPROOF:header',
                 'description' => 'sPROOF:description'
@@ -281,6 +285,33 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         
         // Returns the menu
         return $this->_api->fe_makeStyledContent( 'ul', 'menu', implode( self::$_NL, $items ) );
+    }
+    
+    ############################################################################
+    # Home
+    ############################################################################
+    
+    protected function _home()
+    {
+        // Template markers
+        $markers                        = array();
+        
+        // Sets the header
+        $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
+            'h2',
+            'header',
+            $this->pi_RTEcssText( $this->_conf[ 'home.' ][ 'header' ] )
+        );
+        
+        // Sets the description
+        $markers[ '###DESCRIPTION###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'description',
+            $this->pi_RTEcssText( $this->_conf[ 'home.' ][ 'description' ] )
+        );
+        
+        // Returns the section
+        return $this->_api->fe_renderTemplate( $markers, '###HOME_MAIN###' );
     }
     
     ############################################################################
