@@ -784,7 +784,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
                 self::$_mp->feLogin( $this->_user );
                 
                 // Process the files
-                $this->_processFiles();
+                $this->_processProofFiles();
             
                 // Next step URL
                 $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
@@ -854,7 +854,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
     /**
      * 
      */
-    protected function _processFiles()
+    protected function _processProofFiles()
     {
         // Absolute path to the upload directory
         $uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
