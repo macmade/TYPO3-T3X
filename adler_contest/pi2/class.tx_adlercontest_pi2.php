@@ -320,122 +320,89 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     
     protected function _proofDocuments()
     {
-        // Where clause
-        $where = 'pid='
-               . $this->_conf[ 'pid' ]
-               . ' AND confirm_token='
-               . self::$_db->fullQuoteStr( $this->piVars[ 'proof' ], self::$_dbTables[ 'profiles' ] )
-               . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ], true );
+        // Checks if the documents will be uploaded later
+        if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
         
-        // Try to select the user
-        $res = self::$_db->exec_SELECTquery( '*', self::$_dbTables[ 'profiles' ], $where );
-        
-        // Checks the token
-        if( $res && $profile = self::$_db->sql_fetch_assoc( $res ) ) {
-            
-            // Stores the profile
-            $this->_profile = $profile;
-            
-            // Gets and stores the user
-            $this->_user = self::$_db->sql_fetch_assoc(
-                self::$_db->exec_SELECTquery(
-                    '*',
-                    self::$_dbTables[ 'users' ],
-                    'uid=' . $this->_profile[ 'id_fe_users' ]
+            // Next step URL
+            $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                array(
+                    'parameter'    => self::$_tsfe->id,
+                    'useCacheHash' => 1
                 )
             );
             
-            // Checks if the documents will be uploaded later
-            if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
-            
-                // Next step URL
-                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
-                    array(
-                        'parameter'    => self::$_tsfe->id,
-                        'useCacheHash' => 1
-                    )
-                );
-                
-                // Go to the next step
-                header( 'Location: ' . $nextLink );
-                exit();
-            }
-            
-            // Validation callbacks
-            $validCallbacks = array(
-                'age_proof'    => '_checkPdfUpload',
-                'school_proof' => '_checkPdfUpload'
-            );
-            
-            // Checks the submission, if any
-            if( $this->_formValid( self::$_proofFields, $validCallbacks ) ) {
-                
-                // Process the files
-                $this->_processFiles();
-            
-                // Next step URL
-                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
-                    array(
-                        'parameter'    => self::$_tsfe->id,
-                        'useCacheHash' => 1
-                    )
-                );
-                
-                // Go to the next step
-                header( 'Location: ' . $nextLink );
-                exit();
-            }
-            
-            // Template markers
-            $markers                         = array();
-            
-            // Sets the header
-            $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
-                'h2',
-                'header',
-                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
-            );
-            
-            // Sets the description
-            $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
-                'div',
-                'description',
-                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'description' ] )
-            );
-            
-            // Creates the fields
-            $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
-                'div',
-                'fields',
-                $this->_formFields( self::$_proofFields, '###PROOF_FIELDS###' )
-            );
-            
-            // Sets the submit button
-            $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
-                'div',
-                'submit',
-                '<input name="'
-              . $this->prefixId
-              . '[submit]" id="'
-              . $this->prefixId
-              . '_submit" type="submit" value="'
-              . $this->pi_getLL( 'submit' )
-              . '" />'
-            );
-            
-            // Full form
-            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
-            
-            // Returns the form
-            return $form;
+            // Go to the next step
+            header( 'Location: ' . $nextLink );
+            exit();
         }
         
-        // Invalid token
-        return $this->_api->fe_makeStyledContent(
-            'div',
-            'error',
-            $this->pi_getLL( 'confirm-error' )
+        // Validation callbacks
+        $validCallbacks = array(
+            'age_proof'    => '_checkPdfUpload',
+            'school_proof' => '_checkPdfUpload'
         );
+        
+        // Checks the submission, if any
+        if( $this->_formValid( self::$_proofFields, $validCallbacks ) ) {
+            
+            // Process the files
+            $this->_processFiles();
+        
+            // Next step URL
+            $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                array(
+                    'parameter'    => self::$_tsfe->id,
+                    'useCacheHash' => 1
+                )
+            );
+            
+            // Go to the next step
+            header( 'Location: ' . $nextLink );
+            exit();
+        }
+        
+        // Template markers
+        $markers                         = array();
+        
+        // Sets the header
+        $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
+            'h2',
+            'header',
+            $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
+        );
+        
+        // Sets the description
+        $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
+            'div',
+            'description',
+            $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'description' ] )
+        );
+        
+        // Creates the fields
+        $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'fields',
+            $this->_formFields( self::$_proofFields, '###PROOF_FIELDS###' )
+        );
+        
+        // Sets the submit button
+        $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
+            'div',
+            'submit',
+            '<input name="'
+          . $this->prefixId
+          . '[submit]" id="'
+          . $this->prefixId
+          . '_submit" type="submit" value="'
+          . $this->pi_getLL( 'submit' )
+          . '" />'
+        );
+        
+        // Full form
+        $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
+        
+        // Returns the form
+        return $form;
     }
     
     /**
