@@ -456,6 +456,37 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         // Returns the check state
         return ( count( $this->_errors ) ) ? false : true;
     }
+    
+    /**
+     * 
+     */
+    protected function _checkUploadType( $fieldName, array $fieldOptions )
+    {
+        // List of allowed extensions
+        $allowedExt = explode( ',', $fieldOptions[ 'ext' ] );
+        
+        // File name
+        $fileName   = $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ];
+        
+        // File extension
+        $fileExt    = substr( $fileName, strrpos( $fileName, '.' ) + 1 );
+        
+        // Checks the file extension
+        if( !in_array( $fileExt, $allowedExt ) ) {
+            
+            // Wrong extension
+            return $this->pi_getLL( 'error-file-ext' );
+        }
+        
+        // Checks the file size
+        if( $_FILES[ $this->prefixId ][ 'size' ][ $fieldName ] > ( $fieldOptions[ 'size' ] * 1024 ) ) {
+            
+            // File to large
+            return $this->pi_getLL( 'error-file-size' );
+        }
+        
+        return false;
+    }
 }
 
 // XClass inclusion

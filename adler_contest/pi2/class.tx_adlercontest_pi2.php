@@ -338,8 +338,8 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         
         // Validation callbacks
         $validCallbacks = array(
-            'age_proof'    => '_checkPdfUpload',
-            'school_proof' => '_checkPdfUpload'
+            'age_proof'    => '_checkUploadType',
+            'school_proof' => '_checkUploadType'
         );
         
         // Checks the submission, if any
@@ -408,28 +408,6 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     /**
      * 
      */
-    protected function _checkPdfUpload( $fieldName, array $fieldOptions )
-    {
-        // Checks the file extension
-        if( !strstr( $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ], '.' . $fieldOptions[ 'ext' ] ) ) {
-            
-            // Wrong extension
-            return $this->pi_getLL( 'error-file-ext' );
-        }
-        
-        // Checks the file size
-        if( $_FILES[ $this->prefixId ][ 'size' ][ $fieldName ] > ( $fieldOptions[ 'size' ] * 1024 ) ) {
-            
-            // File to large
-            return $this->pi_getLL( 'error-file-size' );
-        }
-        
-        return false;
-    }
-    
-    /**
-     * 
-     */
     protected function _processFiles()
     {
         // Absolute path to the upload directory
@@ -439,16 +417,16 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $filePrefix = md5( uniqid( rand(), true) );
         
         // Move the files to the upload directory
-        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.pdf' );
-        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.pdf' );
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.jpg' );
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.jpg' );
         
         // Updates the profile
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'profiles' ],
             'uid=' . $this->_profile[ 'uid' ],
             array(
-                'age_proof'    => $filePrefix . '-age.pdf',
-                'school_proof' => $filePrefix . '-school.pdf'
+                'age_proof'    => $filePrefix . '-age.jpg',
+                'school_proof' => $filePrefix . '-school.jpg'
             )
         );
     }
