@@ -282,6 +282,178 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         // Returns the menu
         return $this->_api->fe_makeStyledContent( 'ul', 'menu', implode( self::$_NL, $items ) );
     }
+    
+    ############################################################################
+    # Proof documents
+    ############################################################################
+    
+    protected function _proofDocuments()
+    {
+        // Where clause
+        $where = 'pid='
+               . $this->_conf[ 'pid' ]
+               . ' AND confirm_token='
+               . self::$_db->fullQuoteStr( $this->piVars[ 'proof' ], self::$_dbTables[ 'profiles' ] )
+               . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ], true );
+        
+        // Try to select the user
+        $res = self::$_db->exec_SELECTquery( '*', self::$_dbTables[ 'profiles' ], $where );
+        
+        // Checks the token
+        if( $res && $profile = self::$_db->sql_fetch_assoc( $res ) ) {
+            
+            // Stores the profile
+            $this->_profile = $profile;
+            
+            // Gets and stores the user
+            $this->_user = self::$_db->sql_fetch_assoc(
+                self::$_db->exec_SELECTquery(
+                    '*',
+                    self::$_dbTables[ 'users' ],
+                    'uid=' . $this->_profile[ 'id_fe_users' ]
+                )
+            );
+            
+            // Checks if the documents will be uploaded later
+            if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
+            
+                // Next step URL
+                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'    => self::$_tsfe->id,
+                        'useCacheHash' => 1
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $nextLink );
+                exit();
+            }
+            
+            // Validation callbacks
+            $validCallbacks = array(
+                'age_proof'    => '_checkPdfUpload',
+                'school_proof' => '_checkPdfUpload'
+            );
+            
+            // Checks the submission, if any
+            if( $this->_formValid( self::$_proofFields, $validCallbacks ) ) {
+                
+                // Process the files
+                $this->_processFiles();
+            
+                // Next step URL
+                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'    => self::$_tsfe->id,
+                        'useCacheHash' => 1
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $nextLink );
+                exit();
+            }
+            
+            // Template markers
+            $markers                         = array();
+            
+            // Sets the header
+            $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
+                'h2',
+                'header',
+                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
+            );
+            
+            // Sets the description
+            $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
+                'div',
+                'description',
+                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'description' ] )
+            );
+            
+            // Creates the fields
+            $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'fields',
+                $this->_formFields( self::$_proofFields, '###PROOF_FIELDS###' )
+            );
+            
+            // Sets the submit button
+            $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
+                'div',
+                'submit',
+                '<input name="'
+              . $this->prefixId
+              . '[submit]" id="'
+              . $this->prefixId
+              . '_submit" type="submit" value="'
+              . $this->pi_getLL( 'submit' )
+              . '" />'
+            );
+            
+            // Full form
+            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
+            
+            // Returns the form
+            return $form;
+        }
+        
+        // Invalid token
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'error',
+            $this->pi_getLL( 'confirm-error' )
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _checkPdfUpload( $fieldName, array $fieldOptions )
+    {
+        // Checks the file extension
+        if( !strstr( $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ], '.' . $fieldOptions[ 'ext' ] ) ) {
+            
+            // Wrong extension
+            return $this->pi_getLL( 'error-file-ext' );
+        }
+        
+        // Checks the file size
+        if( $_FILES[ $this->prefixId ][ 'size' ][ $fieldName ] > ( $fieldOptions[ 'size' ] * 1024 ) ) {
+            
+            // File to large
+            return $this->pi_getLL( 'error-file-size' );
+        }
+        
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _processFiles()
+    {
+        // Absolute path to the upload directory
+        $uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
+        
+        // Prefix for the files
+        $filePrefix = md5( uniqid( rand(), true) );
+        
+        // Move the files to the upload directory
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.pdf' );
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.pdf' );
+        
+        // Updates the profile
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            'uid=' . $this->_profile[ 'uid' ],
+            array(
+                'age_proof'    => $filePrefix . '-age.pdf',
+                'school_proof' => $filePrefix . '-school.pdf'
+            )
+        );
+    }
 }
 
 // XClass inclusion
