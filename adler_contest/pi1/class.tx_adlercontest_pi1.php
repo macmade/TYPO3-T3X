@@ -54,6 +54,11 @@ class tx_adlercontest_pi1 extends tslib_pibase
     protected static $_mp                 = NULL;
     
     /**
+     * The TypoScript frontend object
+     */
+    protected static $_tsfe               = NULL;
+    
+    /**
      * Database tables
      */
     protected static $_dbTables           = array(
@@ -214,11 +219,18 @@ class tx_adlercontest_pi1 extends tslib_pibase
             self::$_db = $GLOBALS[ 'TYPO3_DB' ];
         }
         
-        // Checks if the DB object already exists
+        // Checks if the method provider object already exists
         if( !is_object( self::$_mp ) ) {
             
-            // Gets a reference to the database object
+            // Gets a reference to the method provider object
             self::$_mp = tx_adlercontest_methodProvider::getInstance();
+        }
+        
+        // Checks if the TypoScript frontend object already exists
+        if( !is_object( self::$_tsfe ) ) {
+            
+            // Gets a reference to the TypoScript frontend object
+            self::$_tsfe = $GLOBALS[ 'TSFE' ];
         }
         
         // Stores the TypoScript configuration
@@ -366,7 +378,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
         
         // TypoLink parameters for the form action
         $typoLink = array(
-            'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+            'parameter'        => self::$_tsfe->id,
             'useCacheHash'     => 1,
             'additionalParams' => implode( '', $addParams )
         );
@@ -901,7 +913,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
         // Confirmation link
         $confirmLink = self::$_typo3Url . $this->cObj->typoLink_URL(
             array(
-                'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                'parameter'        => self::$_tsfe->id,
                 'useCacheHash'     => 0,
                 'no_cache'         => 1,
                 'additionalParams' => $this->_api->fe_typoLinkParams(
@@ -988,7 +1000,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 // Next step URL
                 $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
                     array(
-                        'parameter'        => $GLOBALS[ 'TSFE' ]->id,
+                        'parameter'        => self::$_tsfe->id,
                         'useCacheHash'     => 0,
                         'no_cache'         => 1,
                         'additionalParams' => $this->_api->fe_typoLinkParams(
