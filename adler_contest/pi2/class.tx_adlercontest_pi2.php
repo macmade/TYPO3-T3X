@@ -43,51 +43,58 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     /**
      * Form fields for the proof documents
      */
-    protected static $_proofFields = array(
+    protected static $_proofFields   = array(
         'age_proof'    => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
         'school_proof' => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
         'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
     );
     
     /**
+     * Form fields for the project
+     */
+    protected static $_projectFields = array(
+        'project' => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
+    );
+    
+    /**
      * The TypoScript configuration array
      */
-    protected $_conf               = array();
+    protected $_conf                 = array();
     
     /**
      * The user row
      */
-    protected $_user               = array();
+    protected $_user                 = array();
     
     /**
      * The profile row
      */
-    protected $_profile            = array();
+    protected $_profile              = array();
     
     /**
      * The flexform data
      */
-    protected $_piFlexForm         = '';
+    protected $_piFlexForm           = '';
     
     /**
      * The class name
      */
-    public $prefixId               = 'tx_adlercontest_pi2';
+    public $prefixId                 = 'tx_adlercontest_pi2';
     
     /**
      * The path to this script relative to the extension directory
      */
-    public $scriptRelPath          = 'pi2/class.tx_adlercontest_pi2.php';
+    public $scriptRelPath            = 'pi2/class.tx_adlercontest_pi2.php';
     
     /**
      * The extension key
      */
-    public $extKey                 = 'adler_contest';
+    public $extKey                   = 'adler_contest';
     
     /**
      * Wether to check plugin hash
      */
-    public $pi_checkCHash          = true;
+    public $pi_checkCHash            = true;
     
     /**
      * Returns the content object of the plugin.
@@ -143,7 +150,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 2 ) {
                 
                 // Project submission
-                $markers[ '###CONTENT###' ] = '2';
+                $markers[ '###CONTENT###' ] = $this->_uploadProject();
                 
             } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
                 
@@ -178,14 +185,18 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     {
         // Mapping array for PI flexform
         $flex2conf = array(
-            'pid'    => 'sDEF:pages',
-            'home.'  => array(
+            'pid'            => 'sDEF:pages',
+            'home.'          => array(
                 'header'      => 'sHOME:header',
                 'description' => 'sHOME:description'
             ),
-            'proof.' => array(
+            'proof.'         => array(
                 'header'      => 'sPROOF:header',
                 'description' => 'sPROOF:description'
+            ),
+            'projectUpload.' => array(
+                'header'      => 'sPROJECT:header',
+                'description' => 'sPROJECT:description'
             )
         );
         
@@ -430,6 +441,110 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             array(
                 'age_proof'    => $filePrefix . '-age.jpg',
                 'school_proof' => $filePrefix . '-school.jpg'
+            )
+        );
+    }
+    
+    ############################################################################
+    # Upload project
+    ############################################################################
+    
+    protected function _uploadProject()
+    {
+        // Validation callbacks
+        $validCallbacks = array(
+            'project' => '_checkUploadType',
+        );
+        
+        // Checks the submission, if any
+        if( $this->_formValid( self::$_projectFields, $validCallbacks ) ) {
+            
+            // Process the files
+            $this->_processProjectFile();
+        
+            // Next step URL
+            $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                array(
+                    'parameter'    => self::$_tsfe->id,
+                    'useCacheHash' => 1,
+                    'additionalParams' => $this->_api->fe_typoLinkParams(
+                        array(
+                            'menu' => 3
+                        ),
+                        false
+                    )
+                )
+            );
+            
+            // Go to the next step
+            header( 'Location: ' . $nextLink );
+            exit();
+        }
+        
+        // Template markers
+        $markers                         = array();
+        
+        // Sets the header
+        $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
+            'h2',
+            'header',
+            $this->pi_RTEcssText( $this->_conf[ 'projectUpload.' ][ 'header' ] )
+        );
+        
+        // Sets the description
+        $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
+            'div',
+            'description',
+            $this->pi_RTEcssText( $this->_conf[ 'projectUpload.' ][ 'description' ] )
+        );
+        
+        // Creates the fields
+        $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'fields',
+            $this->_formFields( self::$_projectFields, '###PROJECT_FIELDS###' )
+        );
+        
+        // Sets the submit button
+        $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
+            'div',
+            'submit',
+            '<input name="'
+          . $this->prefixId
+          . '[submit]" id="'
+          . $this->prefixId
+          . '_submit" type="submit" value="'
+          . $this->pi_getLL( 'submit' )
+          . '" />'
+        );
+        
+        // Full form
+        $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROJECT_MAIN###' ), array( 'menu' ) );
+        
+        // Returns the form
+        return $form;
+    }
+    
+    /**
+     * 
+     */
+    protected function _processProjectFile()
+    {
+        // Absolute path to the upload directory
+        $uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
+        
+        // Prefix for the files
+        $filePrefix = md5( uniqid( rand(), true) );
+        
+        // Move the files to the upload directory
+        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'project' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-project.jpg' );
+        
+        // Updates the profile
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            'uid=' . $this->_profile[ 'uid' ],
+            array(
+                'project'    => $filePrefix . '-project.jpg',
             )
         );
     }

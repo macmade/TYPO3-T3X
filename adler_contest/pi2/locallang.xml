@@ -12,6 +12,7 @@
             <label index="label-age_proof">Official document showing proof of age</label>
             <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
             <label index="label-later">I will upload my documents later</label>
+            <label index="label-project">Click here to upload your project</label>
             <label index="submit">Submit</label>
             <label index="error-required">Error: this field is required</label>
             <label index="error-file-ext">Error: wrong file type</label>

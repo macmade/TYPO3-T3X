@@ -61,4 +61,14 @@ plugin.tx_adlercontest_pi2 {
         // Description text
         description =
     }
+    
+    // Project upload settings
+    projectUpload {
+        
+        // Title text
+        header      =
+        
+        // Description text
+        description =
+    }
 }
