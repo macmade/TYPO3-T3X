@@ -6,7 +6,9 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            
+            <label index="menu-1">Documents upload</label>
+            <label index="menu-2">Project submission</label>
+            <label index="menu-3">Review of application</label>
         </languageKey>
     </data>
 </T3locallang>

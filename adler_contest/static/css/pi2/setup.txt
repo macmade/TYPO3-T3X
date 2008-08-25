@@ -65,5 +65,21 @@ plugin.tx_adlercontest_pi2 {
             font-weight: bold;
             color: #FF0000;
         }
+        .tx-adlercontest-pi2-menu {
+            overflow: hidden;
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+        .tx-adlercontest-pi2-menu LI {
+            float: left;
+            padding: 5px;
+            margin-right: 5px;
+            border: solid 1px #666666;
+            list-style-type: none;
+        }
+        .tx-adlercontest-pi2-menu LI.tx-adlercontest-pi2-menu-item-act {
+            font-weight: bold;
+        }
     )
 }

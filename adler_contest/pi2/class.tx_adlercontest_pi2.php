@@ -327,7 +327,39 @@ class tx_adlercontest_pi2 extends tslib_pibase
      */
     protected function _createMenu()
     {
+        // Number of menu items (depends on the existence of the proof documents)
+        $itemsStart = ( $this->_profile[ 'age_proof' ] && $this->_profile[ 'school_proof' ] ) ? 2 : 1;
         
+        // Storage for the menu items
+        $items      = array();
+        
+        // Process the menu items
+        for( $i = $itemsStart; $i < 4 ; $i++ ) {
+            
+            // Item CSS class
+            $itemClass = ( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == $i ) ? 'menu-item-act' : 'menu-item';
+            
+            // Creates the link for the current item
+            $itemLink  = $this->cObj->typoLink(
+                $this->pi_getLL( 'menu-' . $i ),
+                array(
+                    'parameter'        => self::$_tsfe->id,
+                    'useCacheHash'     => 1,
+                    'additionalParams' => $this->_api->fe_typoLinkParams(
+                        array(
+                            'menu' => $i
+                        ),
+                        false
+                    )
+                )
+            );
+            
+            // Adds the item
+            $items[]   = $this->_api->fe_makeStyledContent( 'li', $itemClass, $itemLink );
+        }
+        
+        // Returns the menu
+        return $this->_api->fe_makeStyledContent( 'ul', 'menu', implode( self::$_NL, $items ) );
     }
 }
 
