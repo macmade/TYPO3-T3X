@@ -487,6 +487,24 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         
         return false;
     }
+    
+    /**
+     * 
+     */
+    protected function _submitButton()
+    {
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'submit',
+            '<input name="'
+          . $this->prefixId
+          . '[submit]" id="'
+          . $this->prefixId
+          . '_submit" type="submit" value="'
+          . $this->pi_getLL( 'submit', 'submit' )
+          . '" />'
+        );
+    }
 }
 
 // XClass inclusion

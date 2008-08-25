@@ -315,17 +315,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         );
         
         // Sets the submit button
-        $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
-            'div',
-            'submit',
-            '<input name="'
-          . $this->prefixId
-          . '[submit]" id="'
-          . $this->prefixId
-          . '_submit" type="submit" value="'
-          . $this->pi_getLL( 'submit' )
-          . '" />'
-        );
+        $markers[ '###SUBMIT###' ]       = $this->_submitButton();
         
         // Full form
         $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###REGISTER_MAIN###' ) );
@@ -646,17 +636,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             );
             
             // Sets the submit button
-            $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
-                'div',
-                'submit',
-                '<input name="'
-              . $this->prefixId
-              . '[submit]" id="'
-              . $this->prefixId
-              . '_submit" type="submit" value="'
-              . $this->pi_getLL( 'submit' )
-              . '" />'
-            );
+            $markers[ '###SUBMIT###' ]       = $this->_submitButton();
             
             // Full form
             $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROFILE_MAIN###' ), array( 'confirm' ) );
@@ -824,17 +804,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             );
             
             // Sets the submit button
-            $markers[ '###SUBMIT###' ]       = $this->_api->fe_makeStyledContent(
-                'div',
-                'submit',
-                '<input name="'
-              . $this->prefixId
-              . '[submit]" id="'
-              . $this->prefixId
-              . '_submit" type="submit" value="'
-              . $this->pi_getLL( 'submit' )
-              . '" />'
-            );
+            $markers[ '###SUBMIT###' ]       = $this->_submitButton();
             
             // Full form
             $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
