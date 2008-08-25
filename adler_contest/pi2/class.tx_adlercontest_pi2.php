@@ -54,6 +54,11 @@ class tx_adlercontest_pi2 extends tslib_pibase
     protected static $_mp       = NULL;
     
     /**
+     * The TypoScript frontend object
+     */
+    protected static $_tsfe               = NULL;
+    
+    /**
      * Database tables
      */
     protected static $_dbTables = array(
@@ -80,6 +85,16 @@ class tx_adlercontest_pi2 extends tslib_pibase
      * The TypoScript configuration array
      */
     protected $_conf            = array();
+    
+    /**
+     * The user row
+     */
+    protected $_user            = array();
+    
+    /**
+     * The profile row
+     */
+    protected $_profile         = array();
     
     /**
      * The flexform data
@@ -162,11 +177,18 @@ class tx_adlercontest_pi2 extends tslib_pibase
             self::$_db = $GLOBALS[ 'TYPO3_DB' ];
         }
         
-        // Checks if the DB object already exists
+        // Checks if the method provider object already exists
         if( !is_object( self::$_mp ) ) {
             
-            // Gets a reference to the database object
+            // Gets a reference to the method provider object
             self::$_mp = tx_adlercontest_methodProvider::getInstance();
+        }
+        
+        // Checks if the TypoScript frontend object already exists
+        if( !is_object( self::$_tsfe ) ) {
+            
+            // Gets a reference to the TypoScript frontend object
+            self::$_tsfe = $GLOBALS[ 'TSFE' ];
         }
         
         // Stores the TypoScript configuration
@@ -211,7 +233,22 @@ class tx_adlercontest_pi2 extends tslib_pibase
         // Initialize the template object
         $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
-        return __CLASS__;
+        // Tries to get the user
+        if( $this->_getUser() ) {
+            
+            // Template markers
+            $markers                 = array();
+            
+            // Creates the menu
+            $markers[ '###MENU###' ] = $this->_createMenu();
+            
+            // Returns the plugin content
+            return $this->pi_wrapInBaseClass( $this->_api->fe_renderTemplate( $markers, '###PROFILE_MAIN###' ) );
+            
+        }
+        
+        // No content
+        return '';
     }
     
     /**
@@ -239,6 +276,58 @@ class tx_adlercontest_pi2 extends tslib_pibase
         
         // DEBUG ONLY - Output configuration array
         #$this->_api->debug( $this->_conf, $this->prefixId . ': configuration array' );
+    }
+    
+    /**
+     * 
+     */
+    protected function _getUser()
+    {
+        // Checks for a connected user
+        if( !self::$_tsfe->loginUser ) {
+            
+            // No access
+            return false;
+        }
+        
+        // Checks the storage page
+        if( self::$_tsfe->fe_user->user[ 'pid' ] != $this->_conf[ 'pid' ] ) {
+            
+            // No access
+            return false;
+        }
+        
+        // Tries to select a profile
+        $res = self::$_db->exec_SELECTquery(
+            '*',
+            self::$_dbTables[ 'profiles' ],
+            'id_fe_users='
+          . self::$_tsfe->fe_user->user[ 'uid' ]
+          . ' AND pid='
+          . $this->_conf[ 'pid' ]
+        );
+        
+        // Checks if a profile exists
+        if( $res && $profile = self::$_db->sql_fetch_assoc( $res ) ) {
+            
+            // Stores the user and it's profile
+            $this->_user    = self::$_tsfe->fe_user->user;
+            $this->_profile = $profile;
+            
+            // Access granted
+            return true;
+        }
+        
+        // No access
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _createMenu()
+    {
+        
     }
 }
 
