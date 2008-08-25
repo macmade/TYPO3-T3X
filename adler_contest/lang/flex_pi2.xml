@@ -17,6 +17,9 @@
             <label index="sPROJECT">Project upload</label>
             <label index="sPROJECT.header">Header</label>
             <label index="sPROJECT.description">Description</label>
+            <label index="sVIEW">Project view</label>
+            <label index="sVIEW.header">Header</label>
+            <label index="sVIEW.description">Description</label>
         </languageKey>
     </data>
 </T3locallang>
