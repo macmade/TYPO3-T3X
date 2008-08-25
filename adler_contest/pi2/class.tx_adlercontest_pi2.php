@@ -155,7 +155,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
                 
                 // Review
-                $markers[ '###CONTENT###' ] = '3';
+                $markers[ '###CONTENT###' ] = $this->_projectView();
                 
             } else {
                 
@@ -197,6 +197,10 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             'projectUpload.' => array(
                 'header'      => 'sPROJECT:header',
                 'description' => 'sPROJECT:description'
+            ),
+            'projectView.' => array(
+                'header'      => 'sVIEW:header',
+                'description' => 'sVIEW:description'
             )
         );
         
@@ -527,6 +531,59 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
                 'project'    => $filePrefix . '-project.jpg',
             )
         );
+    }
+    
+    ############################################################################
+    # Project view
+    ############################################################################
+    
+    protected function _projectView()
+    {
+        // Includes lightbox
+        $this->_api->fe_includeLightBoxJs();
+        
+        // Template markers
+        $markers                        = array();
+        
+        // Sets the header
+        $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
+            'h2',
+            'header',
+            $this->pi_RTEcssText( $this->_conf[ 'projectView.' ][ 'header' ] )
+        );
+        
+        // Sets the description
+        $markers[ '###DESCRIPTION###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'description',
+            $this->pi_RTEcssText( $this->_conf[ 'projectView.' ][ 'description' ] )
+        );
+        
+        // Creates the picture
+        $picture                        = $this->_api->fe_createImageObjects(
+            $this->_profile[ 'project' ],
+            $this->_conf[ 'projectView.' ][ 'picture.' ],
+            $this->_uploadDirectory . '/'
+        );
+        
+        // Creates the lightbox link
+        $pictureLink                    = '<a href="'
+                                        . $this->_uploadDirectory . '/' . $this->_profile[ 'project' ]
+                                        . '" title="'
+                                        . $this->pi_getLL( 'enlarge' )
+                                        . '" rel="lightbox">'
+                                        . $picture
+                                        . '</a>';
+        
+        // Sets the picture
+        $markers[ '###PROJECT###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'project',
+            $pictureLink
+        );
+        
+        // Returns the section
+        return $this->_api->fe_renderTemplate( $markers, '###VIEW_MAIN###' );
     }
 }
 

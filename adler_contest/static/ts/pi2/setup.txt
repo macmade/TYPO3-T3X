@@ -71,4 +71,22 @@ plugin.tx_adlercontest_pi2 {
         // Description text
         description =
     }
+    
+    // Project view settings
+    projectView {
+        
+        // Title text
+        header      =
+        
+        // Description text
+        description =
+        
+        // Picture configuration
+        picture {
+            
+            // Picture size
+            file.maxW = 400
+            file.maxH = 400
+        }
+    }
 }

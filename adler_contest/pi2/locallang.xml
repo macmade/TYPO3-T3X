@@ -17,6 +17,7 @@
             <label index="error-required">Error: this field is required</label>
             <label index="error-file-ext">Error: wrong file type</label>
             <label index="error-file-size">Error: file size is too big</label>
+            <label index="enlarge">Click here to enlarge</label>
         </languageKey>
     </data>
 </T3locallang>
