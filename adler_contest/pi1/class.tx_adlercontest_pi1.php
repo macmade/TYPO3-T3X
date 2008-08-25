@@ -72,8 +72,8 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
      * Form fields for the proof documents
      */
     protected static $_proofFields       = array(
-        'age_proof'    => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
-        'school_proof' => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
+        'age_proof'    => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
+        'school_proof' => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
         'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
     );
     
