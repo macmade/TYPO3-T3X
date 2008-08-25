@@ -35,111 +35,59 @@
 // Includes the TYPO3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
-// Includes the method provider class
-require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_methodprovider.php' );
+// Includes the frontend plugin base class
+require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_pibase.php' );
 
-// Includes the macmade.net API class
-require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
-
-class tx_adlercontest_pi2 extends tslib_pibase
+class tx_adlercontest_pi2 extends tx_adlercontest_piBase
 {
     /**
-     * The database object
+     * Form fields for the proof documents
      */
-    protected static $_db       = NULL;
-    
-    /**
-     * The method provider object
-     */
-    protected static $_mp       = NULL;
-    
-    /**
-     * The TypoScript frontend object
-     */
-    protected static $_tsfe               = NULL;
-    
-    /**
-     * Database tables
-     */
-    protected static $_dbTables = array(
-        'users'     => 'fe_users',
-        'profiles'  => 'tx_adlercontest_users',
+    protected static $_proofFields = array(
+        'age_proof'    => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
+        'school_proof' => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
+        'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
     );
-    
-    /**
-     * The new line character
-     */
-    protected static $_NL       = '';
-    
-    /**
-     * The TYPO3 site URL
-     */
-    protected static $_typo3Url = '';
-    
-    /**
-     * The instance of the Developer API
-     */
-    protected $_api             = NULL;
     
     /**
      * The TypoScript configuration array
      */
-    protected $_conf            = array();
+    protected $_conf               = array();
     
     /**
      * The user row
      */
-    protected $_user            = array();
+    protected $_user               = array();
     
     /**
      * The profile row
      */
-    protected $_profile         = array();
+    protected $_profile            = array();
     
     /**
      * The flexform data
      */
-    protected $_piFlexForm      = '';
-    
-    /**
-     * The upload directory
-     */
-    protected $_uploadDirectory = '';
-    
-    /**
-     * Current URL
-     */
-    protected $_url             = '';
-    
-    /**
-     * The current date
-     */
-    protected $_currentDate     = '';
+    protected $_piFlexForm         = '';
     
     /**
      * The class name
      */
-    public $prefixId            = 'tx_adlercontest_pi2';
+    public $prefixId               = 'tx_adlercontest_pi2';
     
     /**
      * The path to this script relative to the extension directory
      */
-    public $scriptRelPath       = 'pi2/class.tx_adlercontest_pi2.php';
+    public $scriptRelPath          = 'pi2/class.tx_adlercontest_pi2.php';
     
     /**
      * The extension key
      */
-    public $extKey              = 'adler_contest';
+    public $extKey                 = 'adler_contest';
     
     /**
      * Wether to check plugin hash
      */
-    public $pi_checkCHash       = true;
-    
-    /**
-     * The required version of the macmade.net API
-     */
-    public $apimacmade_version  = 4.5;
+    public $pi_checkCHash          = true;
     
     /**
      * Returns the content object of the plugin.
@@ -156,64 +104,8 @@ class tx_adlercontest_pi2 extends tslib_pibase
      */
     public function main( $content, array $conf )
     {
-        // Checks if the new line character is already set
-        if( !self::$_NL ) {
-            
-            // Sets the new line character
-            self::$_NL = chr( 10 );
-        }
-        
-        // Checks if the site URL is already set
-        if( !self::$_typo3Url ) {
-            
-            // Sets the site URL
-            self::$_typo3Url = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
-        }
-        
-        // Checks if the DB object already exists
-        if( !is_object( self::$_db ) ) {
-            
-            // Gets a reference to the database object
-            self::$_db = $GLOBALS[ 'TYPO3_DB' ];
-        }
-        
-        // Checks if the method provider object already exists
-        if( !is_object( self::$_mp ) ) {
-            
-            // Gets a reference to the method provider object
-            self::$_mp = tx_adlercontest_methodProvider::getInstance();
-        }
-        
-        // Checks if the TypoScript frontend object already exists
-        if( !is_object( self::$_tsfe ) ) {
-            
-            // Gets a reference to the TypoScript frontend object
-            self::$_tsfe = $GLOBALS[ 'TSFE' ];
-        }
-        
         // Stores the TypoScript configuration
-        $this->_conf            = $conf;
-        
-        // Gets the current URL
-        $this->_url             = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
-        
-        // Gets the current date
-        $this->_currentDate     = time();
-        
-        // Sets the upload directory
-        $this->_uploadDirectory = str_replace(
-            PATH_site,
-            '',
-            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) )
-        );
-        
-        // Gets a new instance of the macmade.net API
-        $this->_api             = tx_apimacmade::newInstance(
-            'tx_apimacmade',
-            array(
-                $this
-            )
-        );
+        $this->_conf = $conf;
         
         // Sets the default plugin variables
         $this->pi_setPiVarDefaults();
@@ -237,10 +129,32 @@ class tx_adlercontest_pi2 extends tslib_pibase
         if( $this->_getUser() ) {
             
             // Template markers
-            $markers                 = array();
+            $markers                    = array();
             
             // Creates the menu
-            $markers[ '###MENU###' ] = $this->_createMenu();
+            $markers[ '###MENU###' ]    = $this->_createMenu();
+            
+            // Checks the view type
+            if( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 1 ) {
+                
+                // Proof documents
+                $markers[ '###CONTENT###' ] = $this->_proofDocuments();
+                
+            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 2 ) {
+                
+                // Project submission
+                $markers[ '###CONTENT###' ] = '2';
+                
+            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
+                
+                // Review
+                $markers[ '###CONTENT###' ] = '3';
+                
+            } else {
+                
+                // Default content
+                $markers[ '###CONTENT###' ] = '';
+            }
             
             // Returns the plugin content
             return $this->pi_wrapInBaseClass( $this->_api->fe_renderTemplate( $markers, '###PROFILE_MAIN###' ) );
@@ -264,7 +178,11 @@ class tx_adlercontest_pi2 extends tslib_pibase
     {
         // Mapping array for PI flexform
         $flex2conf = array(
-            'pid' => 'sDEF:pages'
+            'pid'    => 'sDEF:pages',
+            'proof.' => array(
+                'header'      => 'sPROOF:header',
+                'description' => 'sPROOF:description'
+            )
         );
         
         // Ovverride TS setup with flexform
@@ -327,14 +245,17 @@ class tx_adlercontest_pi2 extends tslib_pibase
      */
     protected function _createMenu()
     {
-        // Number of menu items (depends on the existence of the proof documents)
+        // Start index for the menu items (depends on the existence of the proof documents)
         $itemsStart = ( $this->_profile[ 'age_proof' ] && $this->_profile[ 'school_proof' ] ) ? 2 : 1;
+        
+        // Number of menu items (depends on the existence of the project)
+        $itemsNum   = ( $this->_profile[ 'project' ] ) ? 3 : 2;
         
         // Storage for the menu items
         $items      = array();
         
         // Process the menu items
-        for( $i = $itemsStart; $i < 4 ; $i++ ) {
+        for( $i = $itemsStart; $i < $itemsNum + 1 ; $i++ ) {
             
             // Item CSS class
             $itemClass = ( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == $i ) ? 'menu-item-act' : 'menu-item';

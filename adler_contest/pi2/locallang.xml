@@ -9,6 +9,13 @@
             <label index="menu-1">Documents upload</label>
             <label index="menu-2">Project submission</label>
             <label index="menu-3">Review of application</label>
+            <label index="label-age_proof">Official document showing proof of age</label>
+            <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
+            <label index="label-later">I will upload my documents later</label>
+            <label index="submit">Submit</label>
+            <label index="error-required">Error: this field is required</label>
+            <label index="error-file-ext">Error: wrong file type</label>
+            <label index="error-file-size">Error: file size is too big</label>
         </languageKey>
     </data>
 </T3locallang>

@@ -42,7 +42,7 @@ plugin.tx_adlercontest_pi2 {
     // Size of the input tags
     inputSize    = 30
     
-    // Upload settings
+    // Proof documents settings
     proof {
         
         // Title text

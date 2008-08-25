@@ -68,7 +68,10 @@ plugin.tx_adlercontest_pi2 {
         .tx-adlercontest-pi2-menu {
             overflow: hidden;
             height: 100%;
-            margin: 0px;
+            margin-left: 0px;
+            margin-top: 10px;
+            margin-right: 0px;
+            margin-bottom: 10px;
             padding: 0px;
         }
         .tx-adlercontest-pi2-menu LI {
