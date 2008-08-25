@@ -24,6 +24,7 @@
             <label index="school_country">School country</label>
             <label index="age_proof">Age proof</label>
             <label index="school_proof">School proof</label>
+            <label index="project">Project</label>
             <label index="tab-profile">Profile</label>
             <label index="tab-relations">Relations</label>
             <label index="tab-documents">Documents</label>
