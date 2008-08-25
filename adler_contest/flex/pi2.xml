@@ -95,5 +95,38 @@
                 </el>
             </ROOT>
         </sPROOF>
+        <sPROJECT>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi2.xml:sPROJECT</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <header>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi2.xml:sPROJECT.header</label>
+                            <config>
+                                <type>input</type>
+                                <size>30</size>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </header>
+                    <description>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi2.xml:sPROJECT.description</label>
+                            <config>
+                                <type>text</type>
+                                <rows>5</rows>
+                                <cols>30</cols>
+                                <eval>required</eval>
+                            </config>
+                        </TCEforms>
+                    </description>
+                </el>
+            </ROOT>
+        </sPROJECT>
     </sheets>
 </T3DataStructure>
