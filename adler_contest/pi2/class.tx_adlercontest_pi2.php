@@ -399,7 +399,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         );
         
         // Full form
-        $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
+        $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'menu' ) );
         
         // Returns the form
         return $form;
