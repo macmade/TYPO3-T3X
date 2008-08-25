@@ -220,17 +220,17 @@
                 </el>
             </ROOT>
         </sPROFILE>
-        <sUPLOAD>
+        <sPROOF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD</sheetTitle>
+                    <sheetTitle>LLL:EXT:adler_contest/lang/flex_pi1.xml:sPROOF</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
                     <header>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD.header</label>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sPROOF.header</label>
                             <config>
                                 <type>input</type>
                                 <size>30</size>
@@ -241,7 +241,7 @@
                     <description>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sUPLOAD.description</label>
+                            <label>LLL:EXT:adler_contest/lang/flex_pi1.xml:sPROOF.description</label>
                             <config>
                                 <type>text</type>
                                 <rows>5</rows>
@@ -252,6 +252,6 @@
                     </description>
                 </el>
             </ROOT>
-        </sUPLOAD>
+        </sPROOF>
     </sheets>
 </T3DataStructure>

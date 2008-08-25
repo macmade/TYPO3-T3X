@@ -95,9 +95,9 @@ class tx_adlercontest_pi1 extends tslib_pibase
     );
     
     /**
-     * Form fields for the profile
+     * Form fields for the proof documents
      */
-    protected static $_uploadFields       = array(
+    protected static $_proofFields       = array(
         'age_proof'    => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
         'school_proof' => array( 'type' => 'file', 'ext' => 'pdf', 'size' => 2048 ),
         'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
@@ -281,10 +281,10 @@ class tx_adlercontest_pi1 extends tslib_pibase
             // Confirm user
             return $this->pi_wrapInBaseClass( $this->_userProfile() );
             
-        } elseif( isset( $this->piVars[ 'upload' ] ) && $this->piVars[ 'upload' ] ) {
+        } elseif( isset( $this->piVars[ 'proof' ] ) && $this->piVars[ 'proof' ] ) {
             
-            // Upload documents
-            return $this->pi_wrapInBaseClass( $this->_uploadDocuments() );
+            // Upload proof documents
+            return $this->pi_wrapInBaseClass( $this->_proofDocuments() );
             
         } else {
             
@@ -326,10 +326,10 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 'header'       => 'sPROFILE:header',
                 'description'  => 'sPROFILE:description'
             ),
-            'upload.' => array(
-                'header'       => 'sUPLOAD:header',
-                'description'  => 'sUPLOAD:description'
-            ),
+            'proof.' => array(
+                'header'       => 'sPROOF:header',
+                'description'  => 'sPROOF:description'
+            )
         );
         
         // Ovverride TS setup with flexform
@@ -1005,7 +1005,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                         'no_cache'         => 1,
                         'additionalParams' => $this->_api->fe_typoLinkParams(
                             array(
-                                'upload' => $this->_profile[ 'confirm_token' ],
+                                'proof' => $this->_profile[ 'confirm_token' ],
                             ),
                             false
                         )
@@ -1014,6 +1014,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 
                 // Go to the next step
                 header( 'Location: ' . $nextLink );
+                exit();
             }
             
             // Template markers
@@ -1122,22 +1123,26 @@ class tx_adlercontest_pi1 extends tslib_pibase
         $profile[ 'school_country' ] = $this->piVars[ 'school_country' ];
         
         // Inserts the user
-        self::$_db->exec_UPDATEquery( self::$_dbTables[ 'profiles' ], $this->_profile[ 'uid' ], $profile );
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            'uid=' . $this->_profile[ 'uid' ],
+            $profile
+        );
         
         return true;
     }
     
     ############################################################################
-    # Upload
+    # Proof documents
     ############################################################################
     
-    protected function _uploadDocuments()
+    protected function _proofDocuments()
     {
         // Where clause
         $where = 'pid='
                . $this->_conf[ 'pid' ]
                . ' AND confirm_token='
-               . self::$_db->fullQuoteStr( $this->piVars[ 'upload' ], self::$_dbTables[ 'profiles' ] )
+               . self::$_db->fullQuoteStr( $this->piVars[ 'proof' ], self::$_dbTables[ 'profiles' ] )
                . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ], true );
         
         // Try to select the user
@@ -1177,6 +1182,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 
                 // Go to the next step
                 header( 'Location: ' . $nextLink );
+                exit();
             }
             
             // Validation callbacks
@@ -1186,13 +1192,13 @@ class tx_adlercontest_pi1 extends tslib_pibase
             );
             
             // Checks the submission, if any
-            if( $this->_formValid( self::$_uploadFields, $validCallbacks ) ) {
+            if( $this->_formValid( self::$_proofFields, $validCallbacks ) ) {
                 
                 // Activates the user
                 $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
                 
                 // Connect the user
-                $this->_feLogin();
+                self::$_mp->feLogin( $this->_user );
                 
                 // Process the files
                 $this->_processFiles();
@@ -1207,6 +1213,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
                 
                 // Go to the next step
                 header( 'Location: ' . $nextLink );
+                exit();
             }
             
             // Template markers
@@ -1216,21 +1223,21 @@ class tx_adlercontest_pi1 extends tslib_pibase
             $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'upload.' ][ 'header' ] )
+                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
             );
             
             // Sets the description
             $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
                 'div',
                 'description',
-                $this->pi_RTEcssText( $this->_conf[ 'upload.' ][ 'description' ] )
+                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'description' ] )
             );
             
             // Creates the fields
             $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
                 'div',
                 'fields',
-                $this->_formFields( self::$_uploadFields, '###UPLOAD_FIELDS###' )
+                $this->_formFields( self::$_proofFields, '###PROOF_FIELDS###' )
             );
             
             // Sets the submit button
@@ -1247,7 +1254,7 @@ class tx_adlercontest_pi1 extends tslib_pibase
             );
             
             // Full form
-            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###UPLOAD_MAIN###' ), array( 'upload' ) );
+            $form                            = $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROOF_MAIN###' ), array( 'proof' ) );
             
             // Returns the form
             return $form;

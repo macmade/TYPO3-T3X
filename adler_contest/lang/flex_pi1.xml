@@ -24,9 +24,9 @@
             <label index="sPROFILE">Profile</label>
             <label index="sPROFILE.header">Header</label>
             <label index="sPROFILE.description">Description</label>
-            <label index="sUPLOAD">Upload</label>
-            <label index="sUPLOAD.header">Header</label>
-            <label index="sUPLOAD.description">Description</label>
+            <label index="sPROOF">Proof documents</label>
+            <label index="sPROOF.header">Header</label>
+            <label index="sPROOF.description">Description</label>
         </languageKey>
     </data>
 </T3locallang>
