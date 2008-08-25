@@ -106,7 +106,12 @@ class tx_adlercontest_module1 extends t3lib_SCbase
     /**
      * The date format
      */
-    protected static $_dateFormat    = 'd.m.Y / H:i';
+    protected static $_dateFormat    = 'd.m.Y';
+    
+    /**
+     * The hour format
+     */
+    protected static $_hourFormat    = 'H:i';
     
     /**
      * The instance of the Developer API
@@ -540,6 +545,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             // Proof documents state
             $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
             
+            // Birthdate
+            $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''                           : date( self::$_dateFormat, $profile[ 'birthdate' ] );
+            
             // Checkbox
             $check            = $this->_tag(
                 'input',
@@ -573,10 +581,10 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             $this->_content[] = $this->_tag( 'td', $proof, $trParams );
             
             // Adds the registration date
-            $this->_content[] = $this->_tag( 'td', date( self::$_dateFormat, $profile[ 'crdate' ] ), $trParams );
+            $this->_content[] = $this->_tag( 'td', date( self::$_dateFormat . ' / ' . self::$_hourFormat, $profile[ 'crdate' ] ), $trParams );
             
             // Adds the user birth date
-            $this->_content[] = $this->_tag( 'td', date( self::$_dateFormat, $profile[ 'birthdate' ] ), $trParams );
+            $this->_content[] = $this->_tag( 'td', $birthDate, $trParams );
             
             // Ends the row
             $this->_content[] = $this->_endTag();
