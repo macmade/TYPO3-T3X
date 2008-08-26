@@ -527,11 +527,18 @@ class tx_adlercontest_module1 extends t3lib_SCbase
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.confirmed' ),                           $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.validated' ),                           $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.proof' ),                               $trParams, $headerStyles );
+        $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.project' ),                             $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.registration' ),                        $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'birthdate' ), $trParams, $headerStyles );
+        $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         
         // Counter for rows
         $rowCount         = 0;
+        
+        // View icon
+        $viewIcon         = '<img '
+                          . t3lib_iconWorks::skinImg( self::$_backPath, 'gfx/zoom.gif', '' )
+                          . ' alt="" hspace="0" vspace="0" border="0" align="middle" />';
         
         // Process each profile
         foreach( $this->_profiles as $uid => $profile ) {
@@ -544,6 +551,9 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             
             // Proof documents state
             $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
+            
+            // Project state
+            $project          = ( $profile[ 'project' ] )                                 ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
             
             // Birthdate
             $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''                           : date( self::$_dateFormat, $profile[ 'birthdate' ] );
@@ -580,11 +590,17 @@ class tx_adlercontest_module1 extends t3lib_SCbase
             // Adds the proof documents state
             $this->_content[] = $this->_tag( 'td', $proof, $trParams );
             
+            // Adds the project state
+            $this->_content[] = $this->_tag( 'td', $project, $trParams );
+            
             // Adds the registration date
             $this->_content[] = $this->_tag( 'td', date( self::$_dateFormat . ' / ' . self::$_hourFormat, $profile[ 'crdate' ] ), $trParams );
             
             // Adds the user birth date
             $this->_content[] = $this->_tag( 'td', $birthDate, $trParams );
+            
+            // Adds the view link
+            $this->_content[] = $this->_tag( 'td', $viewIcon, $trParams );
             
             // Ends the row
             $this->_content[] = $this->_endTag();
