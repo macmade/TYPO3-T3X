@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /** 
- * Plugin 'Registration' for the 'adler_contest' extension.
+ * Plugin 'Vote' for the 'adler_contest' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
@@ -35,96 +35,45 @@
 // Includes the TYPO3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
-// Includes the method provider class
-require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_methodprovider.php' );
+// Includes the frontend plugin base class
+require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_pibase.php' );
 
-// Includes the macmade.net API class
-require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
-
-class tx_adlercontest_pi3 extends tslib_pibase
+class tx_adlercontest_pi3 extends tx_adlercontest_piBase
 {
-    /**
-     * The database object
-     */
-    protected static $_db       = NULL;
-    
-    /**
-     * The method provider object
-     */
-    protected static $_mp       = NULL;
-    
-    /**
-     * Database tables
-     */
-    protected static $_dbTables = array(
-        'users'     => 'fe_users',
-        'profiles'  => 'tx_adlercontest_users',
-    );
-    
-    /**
-     * The new line character
-     */
-    protected static $_NL       = '';
-    
-    /**
-     * The TYPO3 site URL
-     */
-    protected static $_typo3Url = '';
-    
-    /**
-     * The instance of the Developer API
-     */
-    protected $_api             = NULL;
-    
     /**
      * The TypoScript configuration array
      */
-    protected $_conf            = array();
+    protected $_conf                 = array();
+    
+    /**
+     * The user row
+     */
+    protected $_user                 = array();
     
     /**
      * The flexform data
      */
-    protected $_piFlexForm      = '';
-    
-    /**
-     * The upload directory
-     */
-    protected $_uploadDirectory = '';
-    
-    /**
-     * Current URL
-     */
-    protected $_url             = '';
-    
-    /**
-     * The current date
-     */
-    protected $_currentDate     = '';
+    protected $_piFlexForm           = '';
     
     /**
      * The class name
      */
-    public $prefixId            = 'tx_adlercontest_pi3';
+    public $prefixId                 = 'tx_adlercontest_pi3';
     
     /**
      * The path to this script relative to the extension directory
      */
-    public $scriptRelPath       = 'pi3/class.tx_adlercontest_pi3.php';
+    public $scriptRelPath            = 'pi3/class.tx_adlercontest_pi3.php';
     
     /**
      * The extension key
      */
-    public $extKey              = 'adler_contest';
+    public $extKey                   = 'adler_contest';
     
     /**
      * Wether to check plugin hash
      */
-    public $pi_checkCHash       = true;
-    
-    /**
-     * The required version of the macmade.net API
-     */
-    public $apimacmade_version  = 4.5;
+    public $pi_checkCHash            = true;
     
     /**
      * Returns the content object of the plugin.
@@ -141,57 +90,8 @@ class tx_adlercontest_pi3 extends tslib_pibase
      */
     public function main( $content, array $conf )
     {
-        // Checks if the new line character is already set
-        if( !self::$_NL ) {
-            
-            // Sets the new line character
-            self::$_NL = chr( 10 );
-        }
-        
-        // Checks if the site URL is already set
-        if( !self::$_typo3Url ) {
-            
-            // Sets the site URL
-            self::$_typo3Url = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
-        }
-        
-        // Checks if the DB object already exists
-        if( !is_object( self::$_db ) ) {
-            
-            // Gets a reference to the database object
-            self::$_db = $GLOBALS[ 'TYPO3_DB' ];
-        }
-        
-        // Checks if the DB object already exists
-        if( !is_object( self::$_mp ) ) {
-            
-            // Gets a reference to the database object
-            self::$_mp = tx_adlercontest_methodProvider::getInstance();
-        }
-        
         // Stores the TypoScript configuration
-        $this->_conf            = $conf;
-        
-        // Gets the current URL
-        $this->_url             = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
-        
-        // Gets the current date
-        $this->_currentDate     = time();
-        
-        // Sets the upload directory
-        $this->_uploadDirectory = str_replace(
-            PATH_site,
-            '',
-            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) )
-        );
-        
-        // Gets a new instance of the macmade.net API
-        $this->_api             = tx_apimacmade::newInstance(
-            'tx_apimacmade',
-            array(
-                $this
-            )
-        );
+        $this->_conf = $conf;
         
         // Sets the default plugin variables
         $this->pi_setPiVarDefaults();
@@ -211,7 +111,14 @@ class tx_adlercontest_pi3 extends tslib_pibase
         // Initialize the template object
         $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
-        return __CLASS__;
+        // Tries to get the user
+        if( $this->_getUser() ) {
+            
+            
+        }
+        
+        // No content
+        return '';
     }
     
     /**
@@ -227,7 +134,19 @@ class tx_adlercontest_pi3 extends tslib_pibase
     {
         // Mapping array for PI flexform
         $flex2conf = array(
-            'pid' => 'sDEF:pages'
+            'pid'        => 'sDEF:pages',
+            'group'      => 'sDEF:group',
+            'criterias.' => array(
+                '1' => 'sCRITERIAS:criteria_1',
+                '2' => 'sCRITERIAS:criteria_2',
+                '3' => 'sCRITERIAS:criteria_3',
+                '4' => 'sCRITERIAS:criteria_4',
+                '5' => 'sCRITERIAS:criteria_5'
+            ),
+            'texts.'     => array(
+                'header'      => 'sTEXTS:header',
+                'description' => 'sTEXTS:description'
+            )
         );
         
         // Ovverride TS setup with flexform
@@ -239,6 +158,29 @@ class tx_adlercontest_pi3 extends tslib_pibase
         
         // DEBUG ONLY - Output configuration array
         #$this->_api->debug( $this->_conf, $this->prefixId . ': configuration array' );
+    }
+    
+    /**
+     * 
+     */
+    protected function _getUser()
+    {
+        // Checks for a connected user
+        if( !self::$_tsfe->loginUser ) {
+            
+            // No access
+            return false;
+        }
+        
+        // Checks the storage page
+        if( self::$_tsfe->fe_user->user[ 'pid' ] != $this->_conf[ 'pid' ] ) {
+            
+            // No access
+            return false;
+        }
+        
+        // No access
+        return false;
     }
 }
 

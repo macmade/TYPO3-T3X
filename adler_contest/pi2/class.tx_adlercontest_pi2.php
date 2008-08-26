@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /** 
- * Plugin 'Registration' for the 'adler_contest' extension.
+ * Plugin 'Profile' for the 'adler_contest' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
