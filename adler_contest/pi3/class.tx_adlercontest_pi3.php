@@ -114,7 +114,36 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Tries to get the user
         if( $this->_getUser() ) {
             
+            // Template markers
+            $markers                        = array();
             
+            // Sets the header
+            $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
+                'h2',
+                'header',
+                $this->pi_RTEcssText( $this->_conf[ 'texts.' ][ 'header' ] )
+            );
+            
+            // Final description, with tags replaced
+            $description = preg_replace(
+                array(
+                    '/\${name}/'
+                ),
+                array(
+                    $this->_user[ 'name' ],
+                ),
+                $this->_conf[ 'texts.' ][ 'description' ]
+            );
+            
+            // Sets the description
+            $markers[ '###DESCRIPTION###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'description',
+                $this->pi_RTEcssText( $description )
+            );
+            
+            // Returns the vote view
+            return $this->pi_wrapInBaseClass( $this->_api->fe_renderTemplate( $markers, '###VOTE_MAIN###' ) );
         }
         
         // No content
@@ -173,14 +202,19 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         }
         
         // Checks the storage page
-        if( self::$_tsfe->fe_user->user[ 'pid' ] != $this->_conf[ 'pid' ] ) {
+        if( self::$_tsfe->fe_user->user[ 'pid' ]          != $this->_conf[ 'pid' ]
+            && self::$_tsfe->fe_user->user[ 'usergroup' ] != $this->_conf[ 'group' ]
+        ) {
             
             // No access
             return false;
         }
         
-        // No access
-        return false;
+        // Stores the frontend user
+        $this->_user = self::$_tsfe->fe_user->user;
+        
+        // Access granted
+        return true;
     }
 }
 
