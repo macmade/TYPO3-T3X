@@ -2,12 +2,22 @@
 <T3locallang>
     <meta type="array">
         <type>database</type>
-        <description>Language labels for the PI3 flexform of extension 'adler_contest'</description>
+        <description>Language labels for the PI1 flexform of extension 'adler_contest'</description>
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
             <label index="sDEF">Main</label>
             <label index="sDEF.pages">Storage page</label>
+            <label index="sDEF.group">FE user group</label>
+            <label index="sCRITERIAS">Criterias</label>
+            <label index="sCRITERIAS.criteria_1">Criteria 1</label>
+            <label index="sCRITERIAS.criteria_2">Criteria 2</label>
+            <label index="sCRITERIAS.criteria_3">Criteria 3</label>
+            <label index="sCRITERIAS.criteria_4">Criteria 4</label>
+            <label index="sCRITERIAS.criteria_5">Criteria 5</label>
+            <label index="sTEXTS">Texts</label>
+            <label index="sTEXTS.header">Header</label>
+            <label index="sTEXTS.description">Description</label>
         </languageKey>
     </data>
 </T3locallang>
