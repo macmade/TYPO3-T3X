@@ -1,0 +1,74 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+  * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
+
+/**
+ * PI object
+ */
+plugin.tx_adlercontest_pi3 {
+    
+    // The template file
+    templateFile = EXT:adler_contest/res/template_pi3.html
+    
+    // The method for the registration form
+    formMethod   = post
+    
+    // Criterias settings
+    criterias {
+        
+        // Notation criterias
+        1 =
+        2 =
+        3 =
+        4 =
+        5 =
+    }
+    
+    // Texts settings
+    texts {
+        
+        // Title text
+        header      =
+        
+        // Description text
+        description =
+    }
+    
+    // Project view settings
+    projectView {
+        
+        // Picture configuration
+        picture {
+            
+            // Picture size
+            file.maxW = 400
+            file.maxH = 400
+        }
+    }
+}
