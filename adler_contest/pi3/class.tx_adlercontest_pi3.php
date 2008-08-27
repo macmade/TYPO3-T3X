@@ -428,7 +428,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
                       . $this->prefixId
                       . '.setCriteriaValue( ' . $i . ', ' . $index . ', \'' . $this->_criteriaOn . '\', \'' . $this->_criteriaOff . '\' );" id="'
                       . $this->prefixId . '-criteria-' . $index . '-' . $i
-                      . '">'
+                      . '" title="' . $i . '">'
                       . $this->_criteriaPicture
                       . '</a>';
         }
