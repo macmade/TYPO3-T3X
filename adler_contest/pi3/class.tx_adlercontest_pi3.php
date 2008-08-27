@@ -281,8 +281,8 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             self::$_dbTables[ 'profiles' ],
             'pid='
           . $this->_conf[ 'pid' ]
-          . ' AND validated AND project AND NOT votes',
-          'rand()'
+          . ' AND validated AND project',
+          'votes,rand()'
         );
         
         // Checks the results
