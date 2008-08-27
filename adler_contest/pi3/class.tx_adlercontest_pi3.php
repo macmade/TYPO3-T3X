@@ -358,7 +358,11 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
                                                     . $this->prefixId
                                                     . '[criteria_'
                                                     . $i
-                                                    . ']">';
+                                                    . ']" id="'
+                                                    . $this->prefixId
+                                                    . '-criteria-'
+                                                    . $i
+                                                    . '-hidden">';
         }
         
         // Adds the hidden fields
