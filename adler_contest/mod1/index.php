@@ -650,7 +650,7 @@ class tx_adlercontest_module1 extends t3lib_SCbase
                 'script',
                 '',
                 array(
-                    'src'     => 'mod.js',
+                    'src'     => '../res/js/mod1.js',
                     'type'    => 'text/javascript',
                     'charset' => 'utf-8',
                 )
@@ -659,7 +659,7 @@ class tx_adlercontest_module1 extends t3lib_SCbase
                 'script',
                 '',
                 array(
-                    'src'     => 'mod-postcode.js',
+                    'src'     => '../res/js/mod1-postcode.js',
                     'type'    => 'text/javascript',
                     'charset' => 'utf-8',
                 )
