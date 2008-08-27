@@ -6,7 +6,8 @@
     </meta>
     <data type="array">
         <languageKey index="default" type="array">
-            
+            <label index="no-project">Sorry, there is currently no available project</label>
+            <label index="enlarge">Click here to enlarge</label>
         </languageKey>
     </data>
 </T3locallang>

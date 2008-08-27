@@ -51,9 +51,39 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
     protected $_user                 = array();
     
     /**
+     * The project row
+     */
+    protected $_project              = array();
+    
+    /**
+     * The number of available users
+     */
+    protected $_usersNum             = 0;
+    
+    /**
+     * The number of available projects
+     */
+    protected $_projectsNum          = 0;
+    
+    /**
      * The flexform data
      */
     protected $_piFlexForm           = '';
+    
+    /**
+     * The picture for the criterias values
+     */
+    protected $_criteriaPicture      = '';
+    
+    /**
+     * The source for the 'on' criteria value picture
+     */
+    protected $_criteriaOn           = '';
+    
+    /**
+     * The source for the 'off' criteria value picture
+     */
+    protected $_criteriaff           = '';
     
     /**
      * The class name
@@ -115,7 +145,19 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         if( $this->_getUser() ) {
             
             // Template markers
-            $markers                        = array();
+            $markers = array();
+            
+            // Try to select a project
+            if( $this->_selectProject() ) {
+                
+                // Project vote view
+                $markers[ '###PROJECT###' ] = $this->_voteView();
+                
+            } else {
+                
+                // No project available
+                $markers[ '###PROJECT###' ] = $this->pi_getLL( 'no-project' );
+            }
             
             // Sets the header
             $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
@@ -215,6 +257,183 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         
         // Access granted
         return true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _selectProject()
+    {
+        // Selects the available users
+        $resUsers    = self::$_db->exec_SELECTquery(
+            'uid',
+            self::$_dbTables[ 'users' ],
+            'pid='
+          . $this->_conf[ 'pid' ]
+          . ' AND usergroup IN ('
+          . $this->_conf[ 'group' ]
+          . ')'
+        );
+        
+        // Counts the available users
+        $resProjects = self::$_db->exec_SELECTquery(
+            '*',
+            self::$_dbTables[ 'profiles' ],
+            'pid='
+          . $this->_conf[ 'pid' ]
+          . ' AND validated AND project AND NOT votes',
+          'rand()'
+        );
+        
+        // Checks the results
+        if( $resUsers && $resProjects ) {
+            
+            // Counts the results
+            $this->_usersNum    = ( int )self::$_db->sql_num_rows( $resUsers );
+            $this->_projectsNum = ( int )self::$_db->sql_num_rows( $resProjects );
+            
+            // Number of available projects for this user
+            $availableProjects  = ( int )( $this->_projectsNum / $this->_usersNum );
+            
+            // Checks for available projects
+            if( $availableProjects > 0 ) {
+                
+                // Gets and stores a project
+                $this->_project = self::$_db->sql_fetch_assoc( $resProjects );
+                
+                // Projects are available
+                return true;
+            }
+            
+            // No available project
+            return false;
+        }
+        
+        // No available project
+        return false;
+    }
+    
+    /**
+     * 
+     */
+    protected function _voteView()
+    {
+        // Includes the prototype script
+        $this->_api->fe_includePrototypeJs();
+        
+        // Includes the lightbox script
+        $this->_api->fe_includeLightBoxJs();
+        
+        // Includes the plugin script
+        $this->_includePluginJs();
+        
+        // Sets the picture sources for the criteria values
+        $this->_criteriaOn           = $this->_processPath( $this->_conf[ 'projectView.' ][ 'criteriaOn' ] );
+        $this->_criteriaOff          = $this->_processPath( $this->_conf[ 'projectView.' ][ 'criteriaOff' ] );
+        
+        // Template markers
+        $markers                     = array();
+        
+        // Creates the criteria picture
+        $this->_criteriaPicture      = $this->_api->fe_createImageObjects(
+            $this->_conf[ 'projectView.' ][ 'criteriaOff' ],
+            $this->_conf[ 'projectView.' ][ 'criteriaPicture.' ]
+        );
+        
+        // Process each criterias
+        for( $i = 1; $i < 6; $i++ ) {
+            
+            $markers[ '###CRITERIA_' . $i . '###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'criteria',
+                $this->_buildCriteria( $i )
+            );
+        }
+        
+        // Creates the project picture
+        $picture                    = $this->_api->fe_createImageObjects(
+            $this->_project[ 'project' ],
+            $this->_conf[ 'projectView.' ][ 'projectPicture.' ],
+            $this->_uploadDirectory . '/'
+        );
+        
+        // Creates the lightbox link
+        $pictureLink                = '<a href="'
+                                    . $this->_uploadDirectory . '/' . $this->_project[ 'project' ]
+                                    . '" title="'
+                                    . $this->pi_getLL( 'enlarge' )
+                                    . '" rel="lightbox">'
+                                    . $picture
+                                    . '</a>';
+        
+        // Sets the picture
+        $markers[ '###PICTURE###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'picture',
+            $pictureLink
+        );
+        
+        // Returns the vote view
+        return $this->_api->fe_makeStyledContent(
+            'div',
+            'project',
+            $this->_api->fe_renderTemplate( $markers, '###PROJECT_MAIN###' )
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _buildCriteria( $index )
+    {
+        // Template markers
+        $markers = array();
+        
+        // Criteria label
+        $markers[ '###LABEL###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'criteria-label',
+            $this->_conf[ 'criterias.' ][ $index ]
+        );
+        
+        // Adds the criteria values
+        $markers[ '###VALUES###' ] = $this->_api->fe_makeStyledContent(
+            'div',
+            'criteria-values',
+            $this->_buildCriteriaValues( $index ),
+            true,
+            false,
+            false,
+            array(
+                'id' => $this->prefixId . '-criteria-' . $index
+            )
+        );
+        
+        // Returns the criteria
+        return $this->_api->fe_renderTemplate( $markers, '###CRITERIA_MAIN###' );
+    }
+    
+    /**
+     * 
+     */
+    protected function _buildCriteriaValues( $index )
+    {
+        // Storage
+        $values = array();
+        
+        // Process each note
+        for( $i = 1; $i < 11; $i++ ) {
+            
+            $values[] = '<a href="javascript:'
+                      . $this->prefixId
+                      . '.setCriteriaValue( ' . $i . ', ' . $index . ', \'' . $this->_criteriaOn . '\', \'' . $this->_criteriaOff . '\' );" id="'
+                      . $this->prefixId . '-criteria-' . $index . '-' . $i
+                      . '">'
+                      . $this->_criteriaPicture
+                      . '</a>';
+        }
+        
+        return implode( self::$_NL, $values );
     }
 }
 
