@@ -44,24 +44,29 @@ require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php
 abstract class tx_adlercontest_piBase extends tslib_pibase
 {
     /**
+     * Wether the plugin script has been included or not
+     */
+    private static $_scriptIncluded = false;
+    
+    /**
      * The database object
      */
-    protected static $_db       = NULL;
+    protected static $_db           = NULL;
     
     /**
      * The method provider object
      */
-    protected static $_mp       = NULL;
+    protected static $_mp           = NULL;
     
     /**
      * The TypoScript frontend object
      */
-    protected static $_tsfe     = NULL;
+    protected static $_tsfe         = NULL;
     
     /**
      * Database tables
      */
-    protected static $_dbTables = array(
+    protected static $_dbTables     = array(
         'users'     => 'fe_users',
         'profiles'  => 'tx_adlercontest_users',
     );
@@ -69,42 +74,42 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     /**
      * The new line character
      */
-    protected static $_NL       = '';
+    protected static $_NL           = '';
     
     /**
      * The TYPO3 site URL
      */
-    protected static $_typo3Url = '';
+    protected static $_typo3Url     = '';
     
     /**
      * The instance of the Developer API
      */
-    protected $_api             = NULL;
+    protected $_api                 = NULL;
     
     /**
      * Storage for the form errors
      */
-    protected $_errors          = array();
+    protected $_errors              = array(); 
     
     /**
      * The upload directory
      */
-    protected $_uploadDirectory = '';
+    protected $_uploadDirectory     = '';
     
     /**
      * Current URL
      */
-    protected $_url             = '';
+    protected $_url                 = '';
     
     /**
      * The current date
      */
-    protected $_currentDate     = '';
+    protected $_currentDate         = '';
     
     /**
      * The required version of the macmade.net API
      */
-    public $apimacmade_version  = 4.5;
+    public $apimacmade_version      = 4.5;
     
     /**
      * Class constructor
@@ -504,6 +509,60 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
           . $this->pi_getLL( 'submit', 'submit' )
           . '" />'
         );
+    }
+    
+    /**
+     * 
+     */
+    protected function _includePluginJs()
+    {
+        // Checks if the script has already been included
+        if( self::$_scriptIncluded ) {
+            
+            // Script has already been included
+            return true;
+        }
+        
+        // Extension path
+        $extPath    = t3lib_extMgm::siteRelPath( $this->extKey );
+        
+        // Plugin number
+        $piNum      = substr( $this->prefixId, strrpos( $this->prefixId, '_' ) + 1 );
+        
+        // Script path
+        $scriptPath = $extPath . 'res/js/' . $piNum . '.js';
+        
+        // Adds the plugin script
+        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ $this->prefixId . '-piScript' ] = '<script src="'
+                                                                                  . $scriptPath
+                                                                                  . '" type="text/javascript" charset="utf-8"></script>';
+        
+        return true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _processPath( $path )
+    {
+        // Matches array for the preg_match function
+        $matches = array();
+        
+        // Checks if the path is relative to an extension
+        preg_match( '/^EXT:([^\/]+)/', $path, $matches );
+        
+        // Checks if an extension was found
+        if( isset( $matches[ 1 ] ) ) {
+            
+            // Gets the extension path
+            $extPath = t3lib_extMgm::siteRelPath( $matches[ 1 ] );
+            
+            // Replaces the extension path
+            $path    = str_replace( 'EXT:' . $matches[ 1 ] . '/', $extPath, $path );
+        }
+        
+        // Returns the processed path
+        return $path;
     }
 }
 
