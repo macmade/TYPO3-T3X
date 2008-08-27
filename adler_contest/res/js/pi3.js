@@ -96,6 +96,12 @@ function tx_adlercontest_pi3()
             // Sets the picture
             criteriaPic.src = ( i > value ) ? offPic : onPic;
         }
+        
+        // Gets the hidden field
+        var hidden   = $( 'tx_adlercontest_pi3-criteria-' + criteria + '-hidden' );
+        
+        // Sets the hidden value
+        hidden.value = value;
     }
 }
 
