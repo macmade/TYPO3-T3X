@@ -242,6 +242,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
           . self::$_tsfe->fe_user->user[ 'uid' ]
           . ' AND pid='
           . $this->_conf[ 'pid' ]
+          . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] )
         );
         
         // Checks if a profile exists
