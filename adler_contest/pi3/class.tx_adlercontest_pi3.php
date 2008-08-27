@@ -334,6 +334,9 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Template markers
         $markers                     = array();
         
+        // Storage for hidden fields
+        $hidden                      = array();
+        
         // Creates the criteria picture
         $this->_criteriaPicture      = $this->_api->fe_createImageObjects(
             $this->_conf[ 'projectView.' ][ 'criteriaOff' ],
@@ -343,12 +346,23 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Process each criterias
         for( $i = 1; $i < 6; $i++ ) {
             
+            // Adds the notes for the current criteria
             $markers[ '###CRITERIA_' . $i . '###' ] = $this->_api->fe_makeStyledContent(
                 'div',
                 'criteria',
                 $this->_buildCriteria( $i )
             );
+            
+            // Adds the hidden field for the current criteria
+            $hidden[]                               = '<input type="hidden" value="0" name="'
+                                                    . $this->prefixId
+                                                    . '[criteria_'
+                                                    . $i
+                                                    . ']">';
         }
+        
+        // Adds the hidden fields
+        $markers[ '###HIDDEN###' ]  = implode( self::$_NL, $hidden );
         
         // Creates the project picture
         $picture                    = $this->_api->fe_createImageObjects(
@@ -420,9 +434,10 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Storage
         $values = array();
         
-        // Process each note
+        // Process each value
         for( $i = 1; $i < 11; $i++ ) {
             
+            // Adds the picture
             $values[] = '<a href="javascript:'
                       . $this->prefixId
                       . '.setCriteriaValue( ' . $i . ', ' . $index . ', \'' . $this->_criteriaOn . '\', \'' . $this->_criteriaOff . '\' );" id="'
@@ -430,8 +445,10 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
                       . '" title="' . $i . '">'
                       . $this->_criteriaPicture
                       . '</a>';
+            
         }
         
+        // Returns the pictures
         return implode( self::$_NL, $values );
     }
 }
