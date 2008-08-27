@@ -366,19 +366,18 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
                                     . $picture
                                     . '</a>';
         
-        // Sets the picture
+        // Adds the picture
         $markers[ '###PICTURE###' ] = $this->_api->fe_makeStyledContent(
             'div',
             'picture',
             $pictureLink
         );
         
+        // Adds the submit button
+        $markers[ '###SUBMIT###' ]  = $this->_submitButton();
+        
         // Returns the vote view
-        return $this->_api->fe_makeStyledContent(
-            'div',
-            'project',
-            $this->_api->fe_renderTemplate( $markers, '###PROJECT_MAIN###' )
-        );
+        return $this->_formTag( $this->_api->fe_renderTemplate( $markers, '###PROJECT_MAIN###' ) );
     }
     
     /**

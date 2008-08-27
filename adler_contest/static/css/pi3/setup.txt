@@ -35,7 +35,7 @@ plugin.tx_adlercontest_pi3 {
     
     // CSS styles
     _CSS_DEFAULT_STYLE (
-        .tx-adlercontest-pi3-project {
+        .tx-adlercontest-pi3-form {
             margin-top: 20px;
             padding-top: 20px;
             border-top: dotted 1px #666666;
@@ -55,6 +55,10 @@ plugin.tx_adlercontest_pi3 {
         }
         .tx-adlercontest-pi3-picture {
             float: right;
+        }
+        .tx-adlercontest-pi3-submit {
+            margin-left: 300px;
+            margin-top: 20px;
         }
     )
 }

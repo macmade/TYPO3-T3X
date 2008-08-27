@@ -8,6 +8,7 @@
         <languageKey index="default" type="array">
             <label index="no-project">Sorry, there is currently no available project</label>
             <label index="enlarge">Click here to enlarge</label>
+            <label index="submit">Submit</label>
         </languageKey>
     </data>
 </T3locallang>
