@@ -35,6 +35,26 @@ plugin.tx_adlercontest_pi3 {
     
     // CSS styles
     _CSS_DEFAULT_STYLE (
-        
+        .tx-adlercontest-pi3-project {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: dotted 1px #666666;
+        }
+        .tx-adlercontest-pi3-criteria {
+            overflow: hidden;
+            height: 100%;
+            margin-bottom: 10px;
+        }
+        .tx-adlercontest-pi3-criteria-label {
+            float: left;
+            width: 300px;
+            font-weight: bold;
+        }
+        .tx-adlercontest-pi3-criteria-values {
+            float: left;
+        }
+        .tx-adlercontest-pi3-picture {
+            float: right;
+        }
     )
 }
