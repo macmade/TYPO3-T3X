@@ -34,7 +34,7 @@
 plugin.tx_adlercontest_pi2 {
     
     // The template file
-    templateFile = EXT:adler_contest/res/template_pi2.html
+    templateFile = EXT:adler_contest/res/html/template_pi2.html
     
     // The method for the registration form
     formMethod   = post
