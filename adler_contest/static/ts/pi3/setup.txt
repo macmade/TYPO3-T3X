@@ -80,7 +80,7 @@ plugin.tx_adlercontest_pi3 {
         }
         
         // Criteria pictures
-        criteriaOn  = EXT:adler_contest/res/star-on.gif
-        criteriaOff = EXT:adler_contest/res/star-off.gif
+        criteriaOn  = EXT:adler_contest/res/img/star-on.gif
+        criteriaOff = EXT:adler_contest/res/img/star-off.gif
     }
 }
