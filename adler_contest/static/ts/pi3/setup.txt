@@ -34,7 +34,7 @@
 plugin.tx_adlercontest_pi3 {
     
     // The template file
-    templateFile = EXT:adler_contest/res/template_pi3.html
+    templateFile = EXT:adler_contest/res/html/template_pi3.html
     
     // The method for the registration form
     formMethod   = post
@@ -63,12 +63,24 @@ plugin.tx_adlercontest_pi3 {
     // Project view settings
     projectView {
         
-        // Picture configuration
-        picture {
+        // Project picture configuration
+        projectPicture {
             
             // Picture size
-            file.maxW = 400
-            file.maxH = 400
+            file.maxW = 200
+            file.maxH = 200
         }
+        
+        // Criteria picture configuration
+        criteriaPicture {
+        
+            // Picture size
+            file.maxW = 16
+            file.maxH = 16
+        }
+        
+        // Criteria pictures
+        criteriaOn  = EXT:adler_contest/res/star-on.gif
+        criteriaOff = EXT:adler_contest/res/star-off.gif
     }
 }
