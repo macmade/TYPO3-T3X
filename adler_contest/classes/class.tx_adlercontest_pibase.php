@@ -49,6 +49,11 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     abstract protected function _getContent();
     
     /**
+     * Wether the static variables are set or not
+     */
+    private static $_hasStatic      = false;
+    
+    /**
      * Wether the plugin script has been included or not
      */
     private static $_scriptIncluded = false;
@@ -132,39 +137,11 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         // Calls the parent constructor
         parent::__construct();
         
-        // Checks if the new line character is already set
-        if( !self::$_NL ) {
+        // Checks if the static variables are set
+        if( !self::$_hasStatic ) {
             
-            // Sets the new line character
-            self::$_NL = chr( 10 );
-        }
-        
-        // Checks if the site URL is already set
-        if( !self::$_typo3Url ) {
-            
-            // Sets the site URL
-            self::$_typo3Url = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
-        }
-        
-        // Checks if the DB object already exists
-        if( !is_object( self::$_db ) ) {
-            
-            // Gets a reference to the database object
-            self::$_db = $GLOBALS[ 'TYPO3_DB' ];
-        }
-        
-        // Checks if the method provider object already exists
-        if( !is_object( self::$_mp ) ) {
-            
-            // Gets a reference to the method provider object
-            self::$_mp = tx_adlercontest_methodProvider::getInstance();
-        }
-        
-        // Checks if the TypoScript frontend object already exists
-        if( !is_object( self::$_tsfe ) ) {
-            
-            // Gets a reference to the TypoScript frontend object
-            self::$_tsfe = $GLOBALS[ 'TSFE' ];
+            // Sets the static variables
+            self::_setStaticVars();
         }
         
         // Gets the current URL
@@ -187,6 +164,30 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
                 $this
             )
         );
+    }
+    
+    /**
+     * 
+     */
+    private static function _setStaticVars()
+    {
+        // Sets the new line character
+        self::$_NL        = chr( 10 );
+        
+        // Sets the site URL
+        self::$_typo3Url  = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' );
+        
+        // Gets a reference to the database object
+        self::$_db        = $GLOBALS[ 'TYPO3_DB' ];
+        
+        // Gets a reference to the method provider object
+        self::$_mp        = tx_adlercontest_methodProvider::getInstance();
+        
+        // Gets a reference to the TypoScript frontend object
+        self::$_tsfe      = $GLOBALS[ 'TSFE' ];
+        
+        // Static variables are set
+        self::$_hasStatic = true;
     }
     
     /**
