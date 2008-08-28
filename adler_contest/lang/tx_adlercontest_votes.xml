@@ -13,6 +13,7 @@
             <label index="criteria_4">Criteria 4</label>
             <label index="criteria_5">Criteria 5</label>
             <label index="note">Note</label>
+            <label index="id_fe_users">Related FE user</label>
         </languageKey>
     </data>
 </T3locallang>

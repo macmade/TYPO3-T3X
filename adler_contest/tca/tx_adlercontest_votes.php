@@ -46,7 +46,8 @@ $TCA[ $tempTableName ] = array(
                        .  'criteria_2,'
                        .  'criteria_3,'
                        .  'criteria_4,'
-                       .  'criteria_5'
+                       .  'criteria_5,'
+                       .  'id_fe_users;;;;1-1-1'
         )
     ),
     
@@ -98,7 +99,42 @@ $TCA[ $tempTableName ] = array(
                 'type' => 'input',
                 'size' => '10'
             )
-        )
+        ),
+        
+        'id_fe_users' => array(
+            'config' => array(
+                'type'          => 'group',
+                'internal_type' => 'db',
+                'allowed'       => 'fe_users',
+                'minitems'      => 1,
+                'maxitems'      => 1,
+                'size'          => 1,
+                'show_thumbs'   => true,
+                'wizards'       => array(
+                    '_PADDING'  => 2,
+                    '_VERTICAL' => 1,
+                    'add'       => array(
+                        'type'   => 'script',
+                        'title'  => $tempLglPath . 'wizard-add',
+                        'icon'   => 'add.gif',
+                        'script' => 'wizard_add.php',
+                        'params' => array(
+                            'table'    => 'pages',
+                            'pid'      => '###CURRENT_PID###',
+                            'setValue' => 'prepend'
+                        )
+                    ),
+                    'edit'      => array(
+                        'type'                     => 'popup',
+                        'title'                    => $tempLglPath . 'wizard-add',
+                        'script'                   => 'wizard_edit.php',
+                        'popup_onlyOpenIfSelected' => 1,
+                        'icon'                     => 'edit2.gif',
+                        'JSopenParams'             => 'height=500,width=600,status=0,menubar=0,scrollbars=1'
+                    )
+                )
+            )
+        ),
     )
 );
 

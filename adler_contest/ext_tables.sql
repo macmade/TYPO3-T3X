@@ -66,8 +66,9 @@ CREATE TABLE tx_adlercontest_votes (
     criteria_3 int(2) DEFAULT '0' NOT NULL,
     criteria_4 int(2) DEFAULT '0' NOT NULL,
     criteria_5 int(2) DEFAULT '0' NOT NULL,
-    note int(2) DEFAULT '0' NOT NULL,
+    note tinytext NOT NULL,
     id_tx_adlercontest_users int(11) unsigned DEFAULT '0' NOT NULL,
+    id_fe_users int(11) unsigned DEFAULT '0' NOT NULL,
     
     #
     # Database options
