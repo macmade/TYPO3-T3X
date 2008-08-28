@@ -32,9 +32,6 @@
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
-// Includes the TYPO3 FE plugin class
-require_once( PATH_tslib . 'class.tslib_pibase.php' );
-
 // Includes the frontend plugin base class
 require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_pibase.php' );
 
