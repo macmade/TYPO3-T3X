@@ -474,6 +474,54 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Returns the pictures
         return implode( self::$_NL, $values );
     }
+    
+    /**
+     * 
+     */
+    protected function _insertVote()
+    {
+        // Gets the related project
+        $project = $this->pi_getRecord( $this->piVars[ 'project' ] );
+        
+        // Increments the number of votes
+        self::$_db->exec_UPDATEquery(
+            self::$_dbTables[ 'profiles' ],
+            $project[ 'uid' ],
+            array(
+                'votes' => $project[ 'votes' ] + 1
+            )
+        );
+        
+        // Storage for the database
+        $vote                               = array();
+        
+        // Current time
+        $time                               = time();
+        
+        // Average note
+        $note                               = ( $this->piVars[ 'criteria_1' ]
+                                              + $this->piVars[ 'criteria_2' ]
+                                              + $this->piVars[ 'criteria_3' ]
+                                              + $this->piVars[ 'criteria_4' ]
+                                              + $this->piVars[ 'criteria_5' ]
+                                              ) / 5;
+        
+        // Sets the vote fields
+        $vote[ 'pid' ]                      = $this->_conf[ 'pid' ];
+        $vote[ 'crdate' ]                   = $time;
+        $vote[ 'tstamp' ]                   = $time;
+        $vote[ 'criteria_1' ]               = ( int )$this->piVars[ 'criteria_1' ];
+        $vote[ 'criteria_2' ]               = ( int )$this->piVars[ 'criteria_2' ];
+        $vote[ 'criteria_3' ]               = ( int )$this->piVars[ 'criteria_3' ];
+        $vote[ 'criteria_4' ]               = ( int )$this->piVars[ 'criteria_4' ];
+        $vote[ 'criteria_5' ]               = ( int )$this->piVars[ 'criteria_5' ];
+        $vote[ 'note' ]                     = $note;
+        $vote[ 'id_fe_users' ]              = $this->_user[ 'uid' ];
+        $vote[ 'id_tx_adlercontest_users' ] = $project[ 'uid' ];
+        
+        // Inserts the vote
+        self::$_db->exec_INSERTquery( self::$_db[ 'votes' ], $vote );
+    }
 }
 
 // XClass inclusion
