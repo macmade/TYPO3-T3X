@@ -229,7 +229,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
      */
     private static function _setStaticVars()
     {
-        // Gets the current path
+        // Gets the path
         $extPathInfo          = explode( DIRECTORY_SEPARATOR, dirname( __FILE__ ) );
         
         // Removes the 'classes' directory
@@ -237,6 +237,9 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         
         // Sets the extension key
         self::$_extKey        = array_pop( $extPathInfo );
+        
+        // Sets the extension directory
+        self::$_extDir        = t3lib_extMgm::extPath( self::$_extKey );
         
         // Creates a reference to the backend user object
         self::$_beUser        =  $GLOBALS[ 'BE_USER' ];
@@ -387,8 +390,28 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
      */
     protected function _skinImg( $name )
     {
-        // Checks if the requested file exists
+        // Gets the file absolute path
+        $fileAbsPath = self::$_extDir . 'res/img/' . $name;
         
+        // Checks if the requested file exists
+        if( file_exists( $fileAbsPath ) && is_readable( $fileAbsPath ) ) {
+            
+            // Gets the image size
+            $size   = getimagesize( $fileAbsPath );
+            
+            // Creates the image tag
+            $imgTag = '<img src="../res/img/'
+                    . $name
+                    . '" '
+                    . $size[ 3 ]
+                    . ' alt="" hspace="0" vspace="0" border="0" align="middle" />';
+            
+            // Returns the image tag
+            return $imgTag;
+        }
+        
+        // File not found
+        return '';
     }
     
     /**
