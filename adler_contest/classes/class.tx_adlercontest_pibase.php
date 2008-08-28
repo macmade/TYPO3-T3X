@@ -98,6 +98,11 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     protected $_errors              = array(); 
     
     /**
+     * Configuration mapping array (between TS and Flex)
+     */
+    protected $_configMap           = array(); 
+    
+    /**
      * The upload directory
      */
     protected $_uploadDirectory     = '';
