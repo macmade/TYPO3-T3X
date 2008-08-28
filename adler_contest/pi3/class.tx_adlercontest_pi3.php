@@ -56,6 +56,25 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
     protected $_project              = array();
     
     /**
+     * Configuration mapping array (between TS and Flex)
+     */
+    protected $_configMap            = array(
+        'pid'        => 'sDEF:pages',
+        'group'      => 'sDEF:group',
+        'criterias.' => array(
+            '1' => 'sCRITERIAS:criteria_1',
+            '2' => 'sCRITERIAS:criteria_2',
+            '3' => 'sCRITERIAS:criteria_3',
+            '4' => 'sCRITERIAS:criteria_4',
+            '5' => 'sCRITERIAS:criteria_5'
+        ),
+        'texts.'     => array(
+            'header'      => 'sTEXTS:header',
+            'description' => 'sTEXTS:description'
+        )
+    );
+    
+    /**
      * The flexform data
      */
     protected $_piFlexForm           = '';
@@ -96,41 +115,10 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
     public $pi_checkCHash            = true;
     
     /**
-     * Returns the content object of the plugin.
      * 
-     * This function initialises the plugin 'tx_tscobj_pi3', and
-     * launches the needed functions to correctly display the plugin.
-     * 
-     * @param   string  $content    The plugin content
-     * @param   array   $conf       The TS setup
-     * @return  string  The content of the plugin
-     * @see     _userProfile
-     * @see     _uploadDocuments
-     * @see     _registrationForm
      */
-    public function main( $content, array $conf )
+    protected function _getContent()
     {
-        // Stores the TypoScript configuration
-        $this->_conf = $conf;
-        
-        // Sets the default plugin variables
-        $this->pi_setPiVarDefaults();
-        
-        // Loads the LOCAL_LANG values
-        $this->pi_loadLL();
-        
-        // Initialize the flexform configuration of the plugin
-        $this->pi_initPIflexForm();
-        
-        // Stores the flexform informations
-        $this->_piFlexForm = $this->cObj->data[ 'pi_flexform' ];
-        
-        // Sets the final configuration (TS or FF)
-        $this->_setConfig();
-        
-        // Initialize the template object
-        $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
-        
         // Tries to get the user
         if( $this->_getUser() ) {
             
@@ -189,50 +177,11 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             );
             
             // Returns the vote view
-            return $this->pi_wrapInBaseClass( $this->_api->fe_renderTemplate( $markers, '###VOTE_MAIN###' ) );
+            return $this->_api->fe_renderTemplate( $markers, '###VOTE_MAIN###' );
         }
         
         // No content
         return '';
-    }
-    
-    /**
-     * Sets the configuration array
-     * 
-     * This function is used to set the final configuration array of the
-     * plugin, by providing a mapping array between the TS & the flexform
-     * configuration.
-     * 
-     * @return  NULL
-     */
-    protected function _setConfig()
-    {
-        // Mapping array for PI flexform
-        $flex2conf = array(
-            'pid'        => 'sDEF:pages',
-            'group'      => 'sDEF:group',
-            'criterias.' => array(
-                '1' => 'sCRITERIAS:criteria_1',
-                '2' => 'sCRITERIAS:criteria_2',
-                '3' => 'sCRITERIAS:criteria_3',
-                '4' => 'sCRITERIAS:criteria_4',
-                '5' => 'sCRITERIAS:criteria_5'
-            ),
-            'texts.'     => array(
-                'header'      => 'sTEXTS:header',
-                'description' => 'sTEXTS:description'
-            )
-        );
-        
-        // Ovverride TS setup with flexform
-        $this->_conf = $this->_api->fe_mergeTSconfFlex(
-            $flex2conf,
-            $this->_conf,
-            $this->_piFlexForm
-        );
-        
-        // DEBUG ONLY - Output configuration array
-        #$this->_api->debug( $this->_conf, $this->prefixId . ': configuration array' );
     }
     
     /**

@@ -44,6 +44,11 @@ require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php
 abstract class tx_adlercontest_piBase extends tslib_pibase
 {
     /**
+     * The method used to get the plugin content
+     */
+    abstract protected function _getContent();
+    
+    /**
      * Wether the plugin script has been included or not
      */
     private static $_scriptIncluded = false;
@@ -177,6 +182,32 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
                 $this
             )
         );
+    }
+    
+    /**
+     * Sets the configuration array
+     * 
+     * This function is used to set the final configuration array of the
+     * plugin, by providing a mapping array between the TS & the flexform
+     * configuration.
+     * 
+     * @return  NULL
+     */
+    private function _setConfig()
+    {
+        // Checks for configuration mapping infos
+        if( count( $this->_configMap ) ) {
+            
+            // Ovverride TS setup with flexform
+            $this->_conf = $this->_api->fe_mergeTSconfFlex(
+                $this->_configMap,
+                $this->_conf,
+                $this->_piFlexForm
+            );
+        }
+        
+        // DEBUG ONLY - Output configuration array
+        #$this->_api->debug( $this->_conf, $this->prefixId . ': configuration array' );
     }
     
     /**
@@ -564,6 +595,47 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         
         // Returns the processed path
         return $path;
+    }
+    
+    /**
+     * Returns the content object of the plugin.
+     * 
+     * This function initialises the plugin 'tx_tscobj_pi1', and
+     * launches the needed functions to correctly display the plugin.
+     * 
+     * @param   string  $content    The plugin content
+     * @param   array   $conf       The TS setup
+     * @return  string  The content of the plugin
+     */
+    public function main( $content, array $conf )
+    {
+        // Stores the TypoScript configuration
+        $this->_conf = $conf;
+        
+        // Sets the default plugin variables
+        $this->pi_setPiVarDefaults();
+        
+        // Loads the LOCAL_LANG values
+        $this->pi_loadLL();
+        
+        // Initialize the flexform configuration of the plugin
+        $this->pi_initPIflexForm();
+        
+        // Stores the flexform informations
+        $this->_piFlexForm = $this->cObj->data[ 'pi_flexform' ];
+        
+        // Sets the final configuration (TS or FF)
+        $this->_setConfig();
+        
+        // Checks for a template file
+        if( isset( $this->_conf[ 'templateFile' ] ) ) {
+            
+            // Initializes the template object
+            $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
+        }
+        
+        // Returns the plugin view
+        return $this->pi_wrapInBaseClass( $this->_getContent() );
     }
 }
 
