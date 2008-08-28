@@ -205,9 +205,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         $rowCount         = 0;
         
         // View icon
-        $viewIcon         = '<img '
-                          . t3lib_iconWorks::skinImg( self::$_backPath, 'gfx/zoom.gif', '' )
-                          . ' alt="" hspace="0" vspace="0" border="0" align="middle" />';
+        $viewIcon         = $this->_t3SkinImg( 'gfx/zoom.gif' );
         
         // Process each profile
         foreach( $this->_profiles as $uid => $profile ) {

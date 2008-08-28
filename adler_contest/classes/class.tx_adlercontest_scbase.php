@@ -46,6 +46,21 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     abstract protected function _getContent();
     
     /**
+     * Wether the static variables are set or not
+     */
+    private static $_hasStatic       = false;
+    
+    /**
+     * The extension key
+     */
+    private static $_extKey          = '';
+    
+    /**
+     * The extension directory
+     */
+    private static $_extDir          = '';
+    
+    /**
      * The backend user object
      */
     protected static $_beUser        = NULL;
@@ -155,64 +170,15 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
      */
     public function __construct()
     {
+        // Checks if the static variables are set
+        if( !self::$_hasStatic ) {
+            
+            // Sets the static variables
+            self::_setStaticVars();
+        }
+        
         // Sets the module name
         $this->_modName = get_class( $this );
-        
-        // Checks if the reference to the backend user object already exists
-        if( !is_object( self::$_beUser ) ) {
-            
-            // Creates a reference to the backend user object
-            self::$_beUser        =  $GLOBALS[ 'BE_USER' ];
-        }
-        
-        // Checks if the reference to lang object already exists
-        if( !is_object( self::$_lang ) ) {
-            
-            // Creates a reference to the lang object
-            self::$_lang          =  $GLOBALS[ 'LANG' ];
-        }
-        
-        // Checks if the reference to the TCA array already exists
-        if( !count( self::$_tca ) ) {
-            
-            // Creates a reference to the TCA array
-            self::$_tca           =& $GLOBALS[ 'TCA' ];
-        }
-        
-        // Checks if the reference to the TCA description array already exists
-        if( !count( self::$_tcaDescr ) ) {
-            
-            // Creates a reference to the TCA description array
-            self::$_tcaDescr      =& $GLOBALS[ 'TCA_DESCR' ];
-        }
-        
-        // Checks if the reference to the TYPO3 configuration array already exists
-        if( !count( self::$_typo3ConfVars ) ) {
-            
-            // Creates a reference to the TYPO3 configuration array
-            self::$_typo3ConfVars =& $GLOBALS[ 'TYPO3_CONF_VARS' ];
-        }
-        
-        // Checks if the reference to the TYPO3 client array already exists
-        if( !count( self::$_client ) ) {
-            
-            // Creates a reference to the TYPO3 client array
-            self::$_client        =& $GLOBALS[ 'CLIENT' ];
-        }
-        
-        // Checks if the back path already exists
-        if( !self::$_backPath ) {
-            
-            // Sets the back path
-            self::$_backPath      =  $GLOBALS[ 'BACK_PATH' ];
-        }
-        
-        // Checks if the new line character already exists
-        if( !self::$_NL ) {
-            
-            // Sets the new line character
-            self::$_NL            =  chr( 10 );
-        }
         
         // Checks for an active page
         if( $this->id ) {
@@ -256,6 +222,48 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         
         // Return the full page
         return $content;
+    }
+    
+    /**
+     * 
+     */
+    private static function _setStaticVars()
+    {
+        // Gets the current path
+        $extPathInfo          = explode( DIRECTORY_SEPARATOR, dirname( __FILE__ ) );
+        
+        // Removes the 'classes' directory
+        array_pop( $extPathInfo );
+        
+        // Sets the extension key
+        self::$_extKey        = array_pop( $extPathInfo );
+        
+        // Creates a reference to the backend user object
+        self::$_beUser        =  $GLOBALS[ 'BE_USER' ];
+        
+        // Creates a reference to the lang object
+        self::$_lang          =  $GLOBALS[ 'LANG' ];
+        
+        // Creates a reference to the TCA array
+        self::$_tca           =& $GLOBALS[ 'TCA' ];
+        
+        // Creates a reference to the TCA description array
+        self::$_tcaDescr      =& $GLOBALS[ 'TCA_DESCR' ];
+        
+        // Creates a reference to the TYPO3 configuration array
+        self::$_typo3ConfVars =& $GLOBALS[ 'TYPO3_CONF_VARS' ];
+        
+        // Creates a reference to the TYPO3 client array
+        self::$_client        =& $GLOBALS[ 'CLIENT' ];
+        
+        // Sets the back path
+        self::$_backPath      =  $GLOBALS[ 'BACK_PATH' ];
+        
+        // Sets the new line character
+        self::$_NL            =  chr( 10 );
+        
+        // Static variables are set
+        self::$_hasStatic     = true;
     }
     
     /**
@@ -372,6 +380,29 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         
         // Returns the label
         return self::$_lang->sL( self::$_tca[ $table ][ 'columns' ][ $field ][ 'label' ] );
+    }
+    
+    /**
+     * 
+     */
+    protected function _skinImg( $name )
+    {
+        // Checks if the requested file exists
+        
+    }
+    
+    /**
+     * 
+     */
+    protected function _t3SkinImg( $name )
+    {
+        // Creates the image tag
+        $imgTag = '<img '
+                . t3lib_iconWorks::skinImg( self::$_backPath, $name, '' )
+                . ' alt="" hspace="0" vspace="0" border="0" align="middle" />';
+        
+        // Returns the image tag
+        return $imgTag;
     }
     
     /**
