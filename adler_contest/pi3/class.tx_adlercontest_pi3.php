@@ -163,7 +163,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'texts.' ][ 'header' ] )
+                $this->_conf[ 'texts.' ][ 'header' ]
             );
             
             // Final description, with tags replaced
@@ -242,10 +242,10 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             // No access
             return false;
         }
-        
+        ;
         // Checks the storage page
         if( self::$_tsfe->fe_user->user[ 'pid' ]          != $this->_conf[ 'pid' ]
-            && self::$_tsfe->fe_user->user[ 'usergroup' ] != $this->_conf[ 'group' ]
+            || self::$_tsfe->fe_user->user[ 'usergroup' ] != $this->_conf[ 'group' ]
         ) {
             
             // No access

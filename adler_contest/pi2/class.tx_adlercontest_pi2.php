@@ -319,7 +319,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
             'h2',
             'header',
-            $this->pi_RTEcssText( $this->_conf[ 'home.' ][ 'header' ] )
+            $this->_conf[ 'home.' ][ 'header' ]
         );
         
         // Sets the description
@@ -387,7 +387,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
             'h2',
             'header',
-            $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
+            $this->_conf[ 'proof.' ][ 'header' ]
         );
         
         // Sets the description
@@ -483,7 +483,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
             'h2',
             'header',
-            $this->pi_RTEcssText( $this->_conf[ 'projectUpload.' ][ 'header' ] )
+            $this->_conf[ 'projectUpload.' ][ 'header' ]
         );
         
         // Sets the description
@@ -550,7 +550,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $markers[ '###HEADER###' ]      = $this->_api->fe_makeStyledContent(
             'h2',
             'header',
-            $this->pi_RTEcssText( $this->_conf[ 'projectView.' ][ 'header' ] )
+            $this->_conf[ 'projectView.' ][ 'header' ]
         );
         
         // Sets the description
