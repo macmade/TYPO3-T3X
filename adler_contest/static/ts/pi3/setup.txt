@@ -75,8 +75,8 @@ plugin.tx_adlercontest_pi3 {
         criteriaPicture {
         
             // Picture size
-            file.maxW = 16
-            file.maxH = 16
+            file.maxW = 20
+            file.maxH = 20
         }
         
         // Criteria pictures
