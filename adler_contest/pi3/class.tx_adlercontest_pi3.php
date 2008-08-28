@@ -56,16 +56,6 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
     protected $_project              = array();
     
     /**
-     * The number of available users
-     */
-    protected $_usersNum             = 0;
-    
-    /**
-     * The number of available projects
-     */
-    protected $_projectsNum          = 0;
-    
-    /**
      * The flexform data
      */
     protected $_piFlexForm           = '';
@@ -156,7 +146,11 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             } else {
                 
                 // No project available
-                $markers[ '###PROJECT###' ] = $this->pi_getLL( 'no-project' );
+                $markers[ '###PROJECT###' ] = $this->_api->fe_makeStyledContent(
+                    'div',
+                    'no-project',
+                    $this->pi_getLL( 'no-project' )
+                );
             }
             
             // Sets the header
@@ -264,49 +258,67 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
      */
     protected function _selectProject()
     {
-        // Selects the available users
-        $resUsers    = self::$_db->exec_SELECTquery(
-            'uid',
-            self::$_dbTables[ 'users' ],
+        // Checks for an incoming project
+        if( isset( $this->piVars[ 'project' ] ) ) {
+            
+            // Gets the specified project
+            $this->_project = $this->pi_getRecord(
+                self::$_dbTables[ 'profiles' ],
+                $this->piVars[ 'project' ]
+            );
+            
+            return true;
+        }
+        
+        // Storage for the projects that were already voted by this user
+        $voted    = array();
+        
+        // Selects the user votes
+        $resVotes = self::$_db->exec_SELECTquery(
+            'id_tx_adlercontest_users',
+            self::$_dbTables[ 'votes' ],
             'pid='
           . $this->_conf[ 'pid' ]
-          . ' AND usergroup IN ('
-          . $this->_conf[ 'group' ]
-          . ')'
+          . ' AND id_fe_users='
+          . $this->_user[ 'uid' ]
+          . $this->cObj->enableFields( self::$_dbTables[ 'votes' ] )
         );
+        
+        // Process all the votes
+        while( $vote = self::$_db->sql_fetch_assoc( $resVotes ) ) {
+            
+            // Adds the project ID to the list of disallowed projects
+            $voted[] = $vote[ 'id_tx_adlercontest_users' ];
+        }
+        
+        // Where clause to select the projects
+        $projectsWhere = 'pid='
+                       . $this->_conf[ 'pid' ]
+                       . ' AND validated AND project';
+        
+        // Checks if the user as already voted on some projects
+        if( count( $voted ) ) {
+            
+            // Disallow to projects already noted by the user
+            $projectsWhere .= ' AND uid NOT IN (' . implode( ',', $voted ) . ')';
+        }
         
         // Counts the available users
         $resProjects = self::$_db->exec_SELECTquery(
             '*',
             self::$_dbTables[ 'profiles' ],
-            'pid='
-          . $this->_conf[ 'pid' ]
-          . ' AND validated AND project',
-          'votes,rand()'
+            $projectsWhere . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] ),
+            'votes,rand()'
         );
         
         // Checks the results
-        if( $resUsers && $resProjects ) {
+        if( $resProjects && self::$_db->sql_num_rows( $resProjects ) ) {
             
-            // Counts the results
-            $this->_usersNum    = ( int )self::$_db->sql_num_rows( $resUsers );
-            $this->_projectsNum = ( int )self::$_db->sql_num_rows( $resProjects );
+            // Gets and stores a project
+            $this->_project = self::$_db->sql_fetch_assoc( $resProjects );
             
-            // Number of available projects for this user
-            $availableProjects  = ( int )( $this->_projectsNum / $this->_usersNum );
-            
-            // Checks for available projects
-            if( $availableProjects > 0 ) {
-                
-                // Gets and stores a project
-                $this->_project = self::$_db->sql_fetch_assoc( $resProjects );
-                
-                // Projects are available
-                return true;
-            }
-            
-            // No available project
-            return false;
+            // Projects are available
+            return true;
         }
         
         // No available project
@@ -336,6 +348,13 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         
         // Storage for hidden fields
         $hidden                      = array();
+        
+        // Adds the project ID
+        $hidden[]                    = '<input type="hidden" value="'
+                                     . $this->_project[ 'uid' ]
+                                     . '" name="'
+                                     . $this->prefixId
+                                     . '[project]">';
         
         // Creates the criteria picture
         $this->_criteriaPicture      = $this->_api->fe_createImageObjects(
