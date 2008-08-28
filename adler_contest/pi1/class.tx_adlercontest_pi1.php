@@ -151,7 +151,22 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         $this->_api->fe_initTemplate( $this->_conf[ 'templateFile' ] );
         
         // Checks the view type
-        if( isset( $this->piVars[ 'confirm' ] ) && $this->piVars[ 'confirm' ] ) {
+        if( isset( $this->piVars[ 'redirect' ] ) && $this->piVars[ 'redirect' ] ) {
+            
+            // Next step URL
+            // Double redirection to handle the frontend user login
+            $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                array(
+                    'parameter'        => $this->_conf[ 'infoPage' ],
+                    'useCacheHash'     => 1
+                )
+            );
+            
+            // Go to the next step
+            header( 'Location: ' . $nextLink );
+            exit();
+            
+        } elseif( isset( $this->piVars[ 'confirm' ] ) && $this->piVars[ 'confirm' ] ) {
             
             // Confirm user
             return $this->pi_wrapInBaseClass( $this->_userProfile() );
@@ -253,7 +268,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'registration.' ][ 'header' ] )
+                $this->_conf[ 'registration.' ][ 'header' ]
             );
             
             // Sets the confirmation
@@ -276,7 +291,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
             'h2',
             'header',
-            $this->pi_RTEcssText( $this->_conf[ 'registration.' ][ 'header' ] )
+            $this->_conf[ 'registration.' ][ 'header' ]
         );
         
         // Sets the description
@@ -597,7 +612,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'profile.' ][ 'header' ] )
+                $this->_conf[ 'profile.' ][ 'header' ]
             );
             
             // Sets the description
@@ -734,12 +749,19 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
                 
                 // Connects the user
                 self::$_mp->feLogin( $this->_user );
-            
+                
                 // Next step URL
                 $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
                     array(
-                        'parameter'        => $this->_conf[ 'infoPage' ],
-                        'useCacheHash'     => 1
+                        'parameter'        => self::$_tsfe->id,
+                        'useCacheHash'     => 0,
+                        'no_cache'         => 1,
+                        'additionalParams' => $this->_api->fe_typoLinkParams(
+                            array(
+                                'redirect' => 1,
+                            ),
+                            false
+                        )
                     )
                 );
                 
@@ -769,8 +791,15 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
                 // Next step URL
                 $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
                     array(
-                        'parameter'        => $this->_conf[ 'infoPage' ],
-                        'useCacheHash'     => 1
+                        'parameter'        => self::$_tsfe->id,
+                        'useCacheHash'     => 0,
+                        'no_cache'         => 1,
+                        'additionalParams' => $this->_api->fe_typoLinkParams(
+                            array(
+                                'redirect' => 1,
+                            ),
+                            false
+                        )
                     )
                 );
                 
@@ -786,7 +815,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
                 'h2',
                 'header',
-                $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'header' ] )
+                $this->_conf[ 'proof.' ][ 'header' ]
             );
             
             // Sets the description
