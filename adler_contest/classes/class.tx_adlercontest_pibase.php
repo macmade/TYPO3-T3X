@@ -242,7 +242,7 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         self::$_uploadDirectory = str_replace(
             PATH_site,
             '',
-            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', self::$_extKey ) )
+            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', self::$_extKey ) . '/' )
         );
         
         // Static variables are set
