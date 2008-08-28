@@ -75,11 +75,6 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
     );
     
     /**
-     * The TypoScript configuration array
-     */
-    protected $_conf                      = array();
-    
-    /**
      * The user row
      */
     protected $_user                      = array();
@@ -118,31 +113,6 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             'description'  => 'sPROOF:description'
         )
     );
-    
-    /**
-     * The flexform data
-     */
-    protected $_piFlexForm                = '';
-    
-    /**
-     * The class name
-     */
-    public $prefixId                      = 'tx_adlercontest_pi1';
-    
-    /**
-     * The path to this script relative to the extension directory
-     */
-    public $scriptRelPath                 = 'pi1/class.tx_adlercontest_pi1.php';
-    
-    /**
-     * The extension key
-     */
-    public $extKey                        = 'adler_contest';
-    
-    /**
-     * Wether to check plugin hash
-     */
-    public $pi_checkCHash                 = true;
     
     /**
      * 
@@ -257,7 +227,7 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             $this->cObj->typoLink(
                 $this->pi_getLL( 'conditions-link' ),
                 array(
-                    'parameter'    => $this->_uploadDirectory . '/' . $this->_conf[ 'registration.' ][ 'conditions' ],
+                    'parameter'    => self::$_uploadDirectory . $this->_conf[ 'registration.' ][ 'conditions' ],
                     'useCacheHash' => 0,
                     'title'        => $title
                 )

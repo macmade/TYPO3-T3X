@@ -54,11 +54,6 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     );
     
     /**
-     * The TypoScript configuration array
-     */
-    protected $_conf                 = array();
-    
-    /**
      * The user row
      */
     protected $_user                 = array();
@@ -90,31 +85,6 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             'description' => 'sVIEW:description'
         )
     );
-    
-    /**
-     * The flexform data
-     */
-    protected $_piFlexForm           = '';
-    
-    /**
-     * The class name
-     */
-    public $prefixId                 = 'tx_adlercontest_pi2';
-    
-    /**
-     * The path to this script relative to the extension directory
-     */
-    public $scriptRelPath            = 'pi2/class.tx_adlercontest_pi2.php';
-    
-    /**
-     * The extension key
-     */
-    public $extKey                   = 'adler_contest';
-    
-    /**
-     * Wether to check plugin hash
-     */
-    public $pi_checkCHash            = true;
     
     /**
      * 
@@ -510,12 +480,12 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $picture                        = $this->_api->fe_createImageObjects(
             $this->_profile[ 'project' ],
             $this->_conf[ 'projectView.' ][ 'picture.' ],
-            $this->_uploadDirectory . '/'
+            self::$_uploadDirectory
         );
         
         // Creates the lightbox link
         $pictureLink                    = '<a href="'
-                                        . $this->_uploadDirectory . '/' . $this->_profile[ 'project' ]
+                                        . self::$_uploadDirectory . $this->_profile[ 'project' ]
                                         . '" title="'
                                         . $this->pi_getLL( 'enlarge' )
                                         . '" rel="lightbox">'

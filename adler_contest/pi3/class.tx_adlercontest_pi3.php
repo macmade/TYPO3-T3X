@@ -38,11 +38,6 @@ require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adler
 class tx_adlercontest_pi3 extends tx_adlercontest_piBase
 {
     /**
-     * The TypoScript configuration array
-     */
-    protected $_conf                 = array();
-    
-    /**
      * The user row
      */
     protected $_user                 = array();
@@ -72,11 +67,6 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
     );
     
     /**
-     * The flexform data
-     */
-    protected $_piFlexForm           = '';
-    
-    /**
      * The picture for the criterias values
      */
     protected $_criteriaPicture      = '';
@@ -90,26 +80,6 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
      * The source for the 'off' criteria value picture
      */
     protected $_criteriaff           = '';
-    
-    /**
-     * The class name
-     */
-    public $prefixId                 = 'tx_adlercontest_pi3';
-    
-    /**
-     * The path to this script relative to the extension directory
-     */
-    public $scriptRelPath            = 'pi3/class.tx_adlercontest_pi3.php';
-    
-    /**
-     * The extension key
-     */
-    public $extKey                   = 'adler_contest';
-    
-    /**
-     * Wether to check plugin hash
-     */
-    public $pi_checkCHash            = true;
     
     /**
      * 
@@ -350,12 +320,12 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         $picture                    = $this->_api->fe_createImageObjects(
             $this->_project[ 'project' ],
             $this->_conf[ 'projectView.' ][ 'projectPicture.' ],
-            $this->_uploadDirectory . '/'
+            self::$_uploadDirectory
         );
         
         // Creates the lightbox link
         $pictureLink                = '<a href="'
-                                    . $this->_uploadDirectory . '/' . $this->_project[ 'project' ]
+                                    . self::$_uploadDirectory . $this->_project[ 'project' ]
                                     . '" title="'
                                     . $this->pi_getLL( 'enlarge' )
                                     . '" rel="lightbox">'
