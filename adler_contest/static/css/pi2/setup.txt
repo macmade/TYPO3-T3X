@@ -140,6 +140,8 @@ plugin.tx_adlercontest_pi2 {
             color: #FFFFFF;
         }
         .tx-adlercontest-pi2-menu LI.tx-adlercontest-pi2-menu-item-act {
+            background-image: url( "/typo3conf/ext/adler_contest/res/img/input-act.gif" );
+            background-color: #6E2C1F;
             font-weight: bold;
         }
         .tx-adlercontest-pi2-project {
