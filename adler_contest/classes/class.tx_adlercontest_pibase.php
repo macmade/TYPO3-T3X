@@ -474,7 +474,7 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         $fileName   = $_FILES[ $this->prefixId ][ 'name' ][ $fieldName ];
         
         // File extension
-        $fileExt    = substr( $fileName, strrpos( $fileName, '.' ) + 1 );
+        $fileExt    = strtolower( substr( $fileName, strrpos( $fileName, '.' ) + 1 ) );
         
         // Checks the file extension
         if( !in_array( $fileExt, $allowedExt ) ) {
