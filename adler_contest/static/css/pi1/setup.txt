@@ -35,18 +35,43 @@ plugin.tx_adlercontest_pi1 {
     
     // CSS styles
     _CSS_DEFAULT_STYLE (
+        .tx-adlercontest-pi1 {
+            padding: 20px;
+            color: #000000;
+            background-color: #C7A983;
+            font-size: 10px;
+            font-family: Helvetica, Verdana, Arial, Geneva, Swiss, SunSans-Regular, sans-serif;
+        }
+        .tx-adlercontest-pi1 * {
+            color: #000000;
+            font-size: 10px;
+            font-family: Helvetica, Verdana, Arial, Geneva, Swiss, SunSans-Regular, sans-serif;
+        }
+        .tx-adlercontest-pi1 H2 {
+            color: #000000;
+            font-size: 25px;
+            font-family: Helvetica, Verdana, Arial, Geneva, Swiss, SunSans-Regular, sans-serif;
+            padding: 0px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .tx-adlercontest-pi1 A, .tx-adlercontest-pi1 A:link {
+            color: #801300;
+        }
         .tx-adlercontest-pi1-label {
             float: left;
             font-weight: bold;
             width: 400px;
+            margin-top: 10px;
         }
         .tx-adlercontest-pi1-input {
             float: right;
+            margin-top: 10px;
         }
         .tx-adlercontest-pi1-field {
             overflow: hidden;
             height: 100%;
-            border-bottom: dotted 1px #666666;
+            border-bottom: solid 1px #E1D5BF;
             padding-bottom: 5px;
             margin-bottom: 5px;
         }
@@ -58,12 +83,12 @@ plugin.tx_adlercontest_pi1 {
         }
         .tx-adlercontest-pi1-form-error {
             font-weight: bold;
-            color: #FF0000;
+            color: #801300;
             text-align: right;
         }
         .tx-adlercontest-pi1-error {
             font-weight: bold;
-            color: #FF0000;
+            color: #801300;
         }
         .tx-adlercontest-pi1-user-fullname {
             font-weight: bold;
@@ -72,7 +97,42 @@ plugin.tx_adlercontest_pi1 {
             font-weight: bold;
         }
         .tx-adlercontest-pi1-field-infos {
+            margin-top: 20px;
             font-weight: bold;
+            color: #801300;
+        }
+        .tx-adlercontest-pi1-fields {
+            margin-top: 20px;
+            padding: 20px;
+            border: solid 1px #E1D5BF;
+            background-color: #D4C5B2;
+            overflow: hidden;
+            height: 100%;
+        }
+        .tx-adlercontest-pi1-submit INPUT {
+            padding-left: 30px;
+            padding-top: 5px;
+            padding-right: 5px;
+            padding-bottom: 5px;
+            border: solid 1px #E1D5BF;
+            background-color: #C7A983;
+            background-image: url( "/typo3conf/ext/adler_contest/res/img/submit.gif" );
+            background-repeat: no-repeat;
+            background-position: 5px 0px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tx-adlercontest-pi1-field INPUT {
+            border: solid 1px #E1D5BF;
+            color: #FFFFFF;
+            background-color: #52463C;
+            background-image: url( "/typo3conf/ext/adler_contest/res/img/input.gif" );
+            background-repeat: repeat-x;
+            font-size: 15px;
+        }
+        #tx_adlercontest_pi1_age_proof, #tx_adlercontest_pi1_school_proof {
+            font-size: 10px;
+            color: #000000;
         }
     )
 }
