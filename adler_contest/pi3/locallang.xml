@@ -9,6 +9,7 @@
             <label index="no-project">Sorry, there is currently no available project</label>
             <label index="enlarge">Click here to enlarge</label>
             <label index="submit">Submit</label>
+            <label index="error-no-value">Error: please select a value for each criteria</label>
         </languageKey>
     </data>
 </T3locallang>
