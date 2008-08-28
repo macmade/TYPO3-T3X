@@ -66,6 +66,13 @@ plugin.tx_adlercontest_pi3 {
             overflow: hidden;
             height: 100%;
         }
+        .tx-adlercontest-pi3-no-project {
+            margin-top: 20px;
+            padding: 20px;
+            border: solid 1px #E1D5BF;
+            background-color: #D4C5B2;
+            font-weight: bold;
+        }
         .tx-adlercontest-pi3-criteria {
             overflow: hidden;
             height: 100%;
