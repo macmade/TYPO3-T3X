@@ -51,32 +51,42 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     /**
      * Wether the static variables are set or not
      */
-    private static $_hasStatic      = false;
+    private static $_hasStatic         = false;
     
     /**
      * Wether the plugin script has been included or not
      */
-    private static $_scriptIncluded = false;
+    private static $_scriptIncluded    = false;
+    
+    /**
+     * The extension key
+     */
+    private static $_extKey            = '';
     
     /**
      * The database object
      */
-    protected static $_db           = NULL;
+    protected static $_db              = NULL;
     
     /**
      * The method provider object
      */
-    protected static $_mp           = NULL;
+    protected static $_mp              = NULL;
     
     /**
      * The TypoScript frontend object
      */
-    protected static $_tsfe         = NULL;
+    protected static $_tsfe            = NULL;
+    
+    /**
+     * The upload directory
+     */
+    protected static $_uploadDirectory = '';
     
     /**
      * Database tables
      */
-    protected static $_dbTables     = array(
+    protected static $_dbTables        = array(
         'users'     => 'fe_users',
         'profiles'  => 'tx_adlercontest_users',
         'votes'     => 'tx_adlercontest_votes'
@@ -85,47 +95,72 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     /**
      * The new line character
      */
-    protected static $_NL           = '';
+    protected static $_NL              = '';
     
     /**
      * The TYPO3 site URL
      */
-    protected static $_typo3Url     = '';
+    protected static $_typo3Url        = '';
     
     /**
-     * The instance of the Developer API
+     * The instance of the macmade.net API
      */
-    protected $_api                 = NULL;
+    protected $_api                    = NULL;
+    
+    /**
+     * The TypoScript configuration array
+     */
+    protected $_conf                   = array();
     
     /**
      * Storage for the form errors
      */
-    protected $_errors              = array(); 
+    protected $_errors                 = array(); 
     
     /**
      * Configuration mapping array (between TS and Flex)
      */
-    protected $_configMap           = array(); 
+    protected $_configMap              = array();
     
     /**
-     * The upload directory
+     * The flexform data
      */
-    protected $_uploadDirectory     = '';
+    protected $_piFlexForm             = '';
     
     /**
      * Current URL
      */
-    protected $_url                 = '';
+    protected $_url                    = '';
     
     /**
      * The current date
      */
-    protected $_currentDate         = '';
+    protected $_currentDate            = '';
     
     /**
      * The required version of the macmade.net API
      */
-    public $apimacmade_version      = 4.5;
+    public $apimacmade_version         = 4.5;
+    
+    /**
+     * The plugin class name
+     */
+    public $prefixId                   = '';
+    
+    /**
+     * The path to the plugin script relative to the extension directory
+     */
+    public $scriptRelPath              = '';
+    
+    /**
+     * The extension key
+     */
+    public $extKey                     = '';
+    
+    /**
+     * Wether to check plugin hash
+     */
+    public $pi_checkCHash              = true;
     
     /**
      * Class constructor
@@ -144,18 +179,26 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
             self::_setStaticVars();
         }
         
+        // Sets the plugin class name
+        $this->prefixId         = get_class( $this );
+        
+        // Sets the extension key
+        $this->extKey           = self::$_extKey;
+        
+        // Gets the plugin number
+        $piNum                  = substr( $this->prefixId, strrpos( $this->prefixId, '_' ) + 1 );
+        
+        // Sets the relative path
+        $this->scriptRelPath    = $piNum
+                                . '/class.'
+                                . $this->prefixId
+                                . '.php';
+        
         // Gets the current URL
         $this->_url             = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
         
         // Gets the current date
         $this->_currentDate     = time();
-        
-        // Sets the upload directory
-        $this->_uploadDirectory = str_replace(
-            PATH_site,
-            '',
-            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) )
-        );
         
         // Gets a new instance of the macmade.net API
         $this->_api             = tx_apimacmade::newInstance(
@@ -171,6 +214,15 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
      */
     private static function _setStaticVars()
     {
+        // Gets the path
+        $extPathInfo      = explode( DIRECTORY_SEPARATOR, dirname( __FILE__ ) );
+        
+        // Removes the 'pi#' directory
+        array_pop( $extPathInfo );
+        
+        // Sets the extension key
+        self::$_extKey    = array_pop( $extPathInfo );
+        
         // Sets the new line character
         self::$_NL        = chr( 10 );
         
@@ -185,6 +237,13 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
         
         // Gets a reference to the TypoScript frontend object
         self::$_tsfe      = $GLOBALS[ 'TSFE' ];
+        
+        // Sets the upload directory
+        self::$_uploadDirectory = str_replace(
+            PATH_site,
+            '',
+            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', self::$_extKey ) )
+        );
         
         // Static variables are set
         self::$_hasStatic = true;
