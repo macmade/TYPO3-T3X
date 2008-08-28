@@ -69,6 +69,7 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     protected static $_dbTables     = array(
         'users'     => 'fe_users',
         'profiles'  => 'tx_adlercontest_users',
+        'votes'     => 'tx_adlercontest_votes'
     );
     
     /**
