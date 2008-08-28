@@ -169,9 +169,6 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
      */
     public function __construct()
     {
-        // Calls the parent constructor
-        parent::__construct();
-        
         // Checks if the static variables are set
         if( !self::$_hasStatic ) {
             
@@ -207,6 +204,9 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
                 $this
             )
         );
+        
+        // Calls the parent constructor
+        parent::__construct();
     }
     
     /**
