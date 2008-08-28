@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => '',
 	'category' => 'plugin',
 	'shy' => 0,
-	'dependencies' => 'api_macmade',
+	'dependencies' => 'api_macmade,fpdf',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
@@ -37,6 +37,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'api_macmade' => '0.4.4-',
+			'fpdf' => '0.1.2-',
 			'php' => '5.2.0-0.0.0',
 		),
 		'conflicts' => array(
