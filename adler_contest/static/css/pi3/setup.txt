@@ -113,5 +113,11 @@ plugin.tx_adlercontest_pi3 {
             font-weight: bold;
             text-transform: uppercase;
         }
+        .tx-adlercontest-pi3-form-error {
+            font-weight: bold;
+            color: #801300;
+            margin-left: 270px;
+            margin-bottom: 20px;
+        }
     )
 }

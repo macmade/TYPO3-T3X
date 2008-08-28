@@ -137,6 +137,16 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             // Template markers
             $markers = array();
             
+            // Checks the submission
+            if( isset( $this->piVars[ 'submit' ] ) && $this->_checkSubmit() ) {
+                
+                // Inserts the vote
+                $this->_insertVote();
+                
+                // Removes the plugin variable, so another project can be selected
+                unset( $this->piVars[ 'project' ] );
+            }
+            
             // Try to select a project
             if( $this->_selectProject() ) {
                 
@@ -387,6 +397,9 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Adds the hidden fields
         $markers[ '###HIDDEN###' ]  = implode( self::$_NL, $hidden );
         
+        // Adds the error message, if applicable
+        $markers[ '###ERROR###' ]   = ( isset( $this->piVars[ 'project' ] ) ) ? $this->_api->fe_makeStyledContent( 'div', 'form-error', $this->pi_getLL( 'error-no-value' ) ) : '';
+        
         // Creates the project picture
         $picture                    = $this->_api->fe_createImageObjects(
             $this->_project[ 'project' ],
@@ -475,13 +488,41 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         return implode( self::$_NL, $values );
     }
     
+    protected function _checkSubmit()
+    {
+        // Checks the values from the form
+        if( isset( $this->piVars[ 'project' ] )
+            && isset( $this->piVars[ 'criteria_1' ] )
+            && isset( $this->piVars[ 'criteria_2' ] )
+            && isset( $this->piVars[ 'criteria_3' ] )
+            && isset( $this->piVars[ 'criteria_4' ] )
+            && isset( $this->piVars[ 'criteria_5' ] )
+            && $this->piVars[ 'project' ]
+            && $this->piVars[ 'criteria_1' ]
+            && $this->piVars[ 'criteria_2' ]
+            && $this->piVars[ 'criteria_3' ]
+            && $this->piVars[ 'criteria_4' ]
+            && $this->piVars[ 'criteria_5' ]
+        ) {
+            
+            // Values are OK
+            return true;
+        }
+        
+        // Missing value
+        return false;
+    }
+    
     /**
      * 
      */
     protected function _insertVote()
     {
         // Gets the related project
-        $project = $this->pi_getRecord( $this->piVars[ 'project' ] );
+        $project = $this->pi_getRecord(
+            self::$_dbTables[ 'profiles' ],
+            $this->piVars[ 'project' ]
+        );
         
         // Increments the number of votes
         self::$_db->exec_UPDATEquery(
@@ -520,7 +561,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         $vote[ 'id_tx_adlercontest_users' ] = $project[ 'uid' ];
         
         // Inserts the vote
-        self::$_db->exec_INSERTquery( self::$_db[ 'votes' ], $vote );
+        self::$_db->exec_INSERTquery( self::$_dbTables[ 'votes' ], $vote );
     }
 }
 
