@@ -358,6 +358,102 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     /**
      * 
      */
+    protected function _createSelect( $name, $label, array $items )
+    {
+        // Storage
+        $select   = array();
+        
+        // Starts the main container
+        $select[] = $this->_tag(
+            'div',
+            '',
+            array(),
+            array(
+                'overflow' => 'hidden',
+                'height'   => '100%'
+            ),
+            true
+        );
+        
+        // Adds the label
+        $select[] = $this->_tag(
+            'div',
+            $this->_tag(
+                'label',
+                $label,
+                array(
+                    'for' => $this->_modName . '-' . $name
+                )
+            ),
+            array(),
+            array(
+                'float'       => 'left',
+                'width'       => '150px',
+                'font-weight' => 'bold'
+            )
+        );
+        
+        // Starts the select container
+        $select[] = $this->_tag(
+            'div',
+            '',
+            array(),
+            array(
+                'float' => 'left',
+            ),
+            true
+        );
+        
+        // Starts the select
+        $select[] = $this->_tag(
+            'select',
+            '',
+            array(
+                'name' => $this->_modName . '[' . $name . ']',
+                'id'   => $this->_modName . '-' . $name
+            ),
+            array(),
+            true
+        );
+        
+        // Process the items
+        foreach( $items as $value => $label ) {
+            
+            // Options attributes
+            $attribs = array(
+                'value' => $value
+            );
+            
+            // Checks the module variables
+            if( $this->_modVars[ $name ] == $value ) {
+                
+                // The current item is selected
+                $attribs[ 'selected' ] = 'selected';
+            }
+            
+            // Adds the option tag
+            $select[] = $this->_tag(
+                'option',
+                $label,
+                $attribs
+            );
+        }
+        
+        // Ends the started tags
+        $select[] = $this->_endTag();
+        $select[] = $this->_endTag();
+        $select[] = $this->_endTag();
+        
+        // Adds a spacer
+        $select[] = $this->doc->spacer( 5 );
+        
+        // Returns the select
+        return implode( self::$_NL, $select );
+    }
+    
+    /**
+     * 
+     */
     protected function _getFieldLabel( $table, $field )
     {
         // Checks if the table exists in the TCA
