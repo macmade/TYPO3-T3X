@@ -345,6 +345,10 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.jpg' );
         move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.jpg' );
         
+        // Removes the old files
+        unlink ( $this->_profile[ 'age_proof' ] );
+        unlink ( $this->_profile[ 'school_proof' ] );
+        
         // Updates the profile
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'profiles' ],
@@ -440,12 +444,15 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         // Move the files to the upload directory
         move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'project' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-project.jpg' );
         
+        // Removes the old file
+        unlink( $this->_profile[ 'project' ] );
+        
         // Updates the profile
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'profiles' ],
             'uid=' . $this->_profile[ 'uid' ],
             array(
-                'project'    => $filePrefix . '-project.jpg',
+                'project' => $filePrefix . '-project.jpg',
             )
         );
     }
