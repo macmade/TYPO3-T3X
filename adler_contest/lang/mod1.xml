@@ -21,6 +21,24 @@
             <label index="headers.project">Project</label>
             <label index="no">No</label>
             <label index="yes">Yes</label>
+            <label index="options">View options</label>
+            <label index="options.submit">Set options</label>
+            <label index="options.confirmed">Confirmed:</label>
+            <label index="options.confirmed.all">Show all users</label>
+            <label index="options.confirmed.yes">Only show confirmed users</label>
+            <label index="options.confirmed.no">Only show unconfirmed users</label>
+            <label index="options.validated">Validated:</label>
+            <label index="options.validated.all">Show all users</label>
+            <label index="options.validated.yes">Only show validated users</label>
+            <label index="options.validated.no">Only show unvalidated users</label>
+            <label index="options.proof">Proof documents:</label>
+            <label index="options.proof.all">Show all users</label>
+            <label index="options.proof.yes">Only show users with proof documents</label>
+            <label index="options.proof.no">Only show users without proof documents</label>
+            <label index="options.project">Project:</label>
+            <label index="options.project.all">Show all users</label>
+            <label index="options.project.yes">Only show users with a project</label>
+            <label index="options.project.no">Only show users without a project</label>
         </languageKey>
     </data>
 </T3locallang>

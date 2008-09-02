@@ -73,7 +73,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             // Shows the registered users
             default:
                 
-                return $this->_showRegisteredUsers();
+                return $this->_showUsers();
                 break;
         }
     }
@@ -131,8 +131,101 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     /**
      * 
      */
-    protected function _showRegisteredUsers()
+    protected function _checkUserForDisplay( array $user )
     {
+        // Only show confirmed users
+        if( isset( $this->_modVars[ 'confirmed' ] )
+            && $this->_modVars[ 'confirmed' ] == 1
+            && $user[ 'confirm_token' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show unconfirmed users
+        if( isset( $this->_modVars[ 'confirmed' ] )
+            && $this->_modVars[ 'confirmed' ] == 2
+            && !$user[ 'confirm_token' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show validated users
+        if( isset( $this->_modVars[ 'validated' ] )
+            && $this->_modVars[ 'validated' ] == 1
+            && !$user[ 'validated' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show unvalidated users
+        if( isset( $this->_modVars[ 'validated' ] )
+            && $this->_modVars[ 'validated' ] == 2
+            && $user[ 'validated' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show users with proof documents
+        if( isset( $this->_modVars[ 'proof' ] )
+            && $this->_modVars[ 'proof' ] == 1
+            && ( !$user[ 'age_proof' ] || !$user[ 'school_proof' ] )
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show users without proof documents
+        if( isset( $this->_modVars[ 'proof' ] )
+            && $this->_modVars[ 'proof' ] == 2
+            && $user[ 'age_proof' ]
+            && $user[ 'school_proof' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show users with a project
+        if( isset( $this->_modVars[ 'project' ] )
+            && $this->_modVars[ 'project' ] == 1
+            && !$user[ 'project' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // Only show users without a project
+        if( isset( $this->_modVars[ 'project' ] )
+            && $this->_modVars[ 'project' ] == 2
+            && $user[ 'project' ]
+        ) {
+            
+            // User cannot be displayed
+            return false;
+        }
+        
+        // User can be displayed
+        return true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _showUsers()
+    {
+        // Adds the view options
+        $this->_viewOptions();
+        
         // Starts the table
         $this->_content[] = $this->_tag(
             'table',
@@ -191,6 +284,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Adds the table headers
         $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
+        $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'lastname' ),  $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'firstname' ), $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.confirmed' ),                           $trParams, $headerStyles );
@@ -204,26 +298,35 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Counter for rows
         $rowCount         = 0;
         
-        // View icon
+        // Icon
         $viewIcon         = $this->_skinImg( 'info.gif' );
+        $errorIcon        = $this->_skinImg( 'error.gif' );
+        $okIcon           = $this->_skinImg( 'ok.gif' );
         
         // Process each profile
         foreach( $this->_profiles as $uid => $profile ) {
             
+            // Checks if the user must be displayed
+            if( !$this->_checkUserForDisplay( $profile ) ) {
+                
+                // Process the next user
+                continue;
+            }
+            
             // Confirmation state
-            $confirmed        = ( $profile[ 'confirm_token' ] )                           ? self::$_lang->getLL( 'no' )  : self::$_lang->getLL( 'yes' );
+            $confirmed        = ( $profile[ 'confirm_token' ] )                           ? $errorIcon : $okIcon;
             
             // Validation state
-            $validated        = ( $profile[ 'validated' ] )                               ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
+            $validated        = ( $profile[ 'validated' ] )                               ? $okIcon    : $errorIcon;
             
             // Proof documents state
-            $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
+            $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $okIcon    : $errorIcon;
             
             // Project state
-            $project          = ( $profile[ 'project' ] )                                 ? self::$_lang->getLL( 'yes' ) : self::$_lang->getLL( 'no' );
+            $project          = ( $profile[ 'project' ] )                                 ? $okIcon    : $errorIcon;
             
             // Birthdate
-            $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''                           : date( self::$_dateFormat, $profile[ 'birthdate' ] );
+            $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''         : date( self::$_dateFormat, $profile[ 'birthdate' ] );
             
             // Checkbox
             $check            = $this->_tag(
@@ -237,6 +340,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             
             // Starts the row
             $this->_content[] = $this->_tag( 'tr', '', $alternateRows[ $rowCount ][ 'params' ], $alternateRows[ $rowCount ][ 'styles' ], true );
+            
+            // Adds the view link
+            $this->_content[] = $this->_tag( 'td', $viewIcon, $trParams );
             
             // Adds the checkbox
             $this->_content[] = $this->_tag( 'td', $check, $trParams );
@@ -266,8 +372,8 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             // Adds the user birth date
             $this->_content[] = $this->_tag( 'td', $birthDate, $trParams );
             
-            // Adds the view link
-            $this->_content[] = $this->_tag( 'td', $viewIcon, $trParams );
+            // Adds the edit icons
+            $this->_content[] = $this->_tag( 'td', $this->_api->be_buildRecordIcons( 'show,edit', self::$_dbTables[ 'profiles' ], $profile[ 'uid' ] ), $trParams );
             
             // Ends the row
             $this->_content[] = $this->_endTag();
@@ -281,6 +387,91 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         
         // Ends the table
         $this->_content[] = $this->_endTag();
+    }
+    
+    /**
+     * 
+     */
+    protected function _viewOptions()
+    {
+        // Starts the field set
+        $this->_content[] = $this->_tag(
+            'fieldset',
+            '',
+            array(),
+            array(),
+            true
+        );
+        
+        // Adds the fieldset title
+        $this->_content[] = $this->_tag(
+            'legend',
+            self::$_lang->getLL( 'options' )
+        );
+        
+        // Confirmed select
+        $this->_content[] = $this->_createSelect(
+            'confirmed',
+            self::$_lang->getLL( 'options.confirmed' ),
+            array(
+                self::$_lang->getLL( 'options.confirmed.all' ),
+                self::$_lang->getLL( 'options.confirmed.yes' ),
+                self::$_lang->getLL( 'options.confirmed.no' )
+            )
+        );
+        
+        // Validated select
+        $this->_content[] = $this->_createSelect(
+            'validated',
+            self::$_lang->getLL( 'options.validated' ),
+            array(
+                self::$_lang->getLL( 'options.validated.all' ),
+                self::$_lang->getLL( 'options.validated.yes' ),
+                self::$_lang->getLL( 'options.validated.no' )
+            )
+        );
+        // Proof select
+        $this->_content[] = $this->_createSelect(
+            'proof',
+            self::$_lang->getLL( 'options.proof' ),
+            array(
+                self::$_lang->getLL( 'options.proof.all' ),
+                self::$_lang->getLL( 'options.proof.yes' ),
+                self::$_lang->getLL( 'options.proof.no' )
+            )
+        );
+        
+        // Project select
+        $this->_content[] = $this->_createSelect(
+            'project',
+            self::$_lang->getLL( 'options.project' ),
+            array(
+                self::$_lang->getLL( 'options.project.all' ),
+                self::$_lang->getLL( 'options.project.yes' ),
+                self::$_lang->getLL( 'options.project.no' )
+            )
+        );
+        
+        // Adds the submit
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag(
+                'input',
+                '',
+                array(
+                    'type'  => 'submit',
+                    'value' => self::$_lang->getLL( 'options.submit' )
+                )
+            ),
+            array(),
+            array(
+                'margin-left' => '150px'
+            )
+        );
+        
+        // Closes the fieldset
+        $this->_content[] = $this->_endTag();
+        $this->_content[] = $this->doc->spacer( 20 );
     }
 }
 
