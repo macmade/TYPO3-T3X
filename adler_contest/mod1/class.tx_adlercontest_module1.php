@@ -299,9 +299,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         $rowCount         = 0;
         
         // Icon
-        $viewIcon         = $this->_skinImg( 'info.gif' );
-        $errorIcon        = $this->_skinImg( 'error.gif' );
-        $okIcon           = $this->_skinImg( 'ok.gif' );
+        $viewIcon         = $this->_skinImg( 'info.png' );
+        $errorIcon        = $this->_skinImg( 'error.png' );
+        $okIcon           = $this->_skinImg( 'ok.png' );
         
         // Process each profile
         foreach( $this->_profiles as $uid => $profile ) {

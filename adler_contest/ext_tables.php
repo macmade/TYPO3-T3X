@@ -205,7 +205,7 @@ foreach( $tempExtTables as $tempTableName => $tempTableOptions ) {
             'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca/' . $tempTableName . '.php',
             
             // Icon
-            'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/img/' . $tempTableName . '.gif',
+            'iconfile'          => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/img/' . $tempTableName . '.png',
             
             // Special fields
             'enablecolumns'   => array()
