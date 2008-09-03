@@ -71,6 +71,11 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     protected static $_lang          = NULL;
     
     /**
+     * The database object
+     */
+    protected static $_db            = NULL;
+    
+    /**
      * The TCA array
      */
     protected static $_tca           = array();
@@ -95,7 +100,8 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
      */
     protected static $_dbTables      = array(
         'users'    => 'fe_users',
-        'profiles' => 'tx_adlercontest_users'
+        'profiles' => 'tx_adlercontest_users',
+        'emails'   => 'tx_adlercontest_emails'
     );
     
     /**
@@ -247,6 +253,9 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         // Creates a reference to the lang object
         self::$_lang          =  $GLOBALS[ 'LANG' ];
         
+        // Creates a reference to the database object
+        self::$_db            =  $GLOBALS[ 'TYPO3_DB' ];
+        
         // Creates a reference to the TCA array
         self::$_tca           =& $GLOBALS[ 'TCA' ];
         
@@ -267,6 +276,43 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         
         // Static variables are set
         self::$_hasStatic     = true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _functionLink( $label, $function )
+    {
+        // Creates the URL
+        $url = t3lib_div::linkThisScript(
+            array(
+                'SET' => array(
+                    'function' => $function
+                )
+            )
+        );
+        
+        // Returns the link
+        return '<a href="' . $url . '">' . $label . '</a>';
+    }
+    
+    /**
+     * 
+     */
+    protected function _editLink( $table, $uid, $label )
+    {
+        // On click action
+        $onClick = t3lib_BEfunc::editOnClick( '&edit[' . $table . '][' . $uid . ']=edit', self::$_backPath );
+        
+        // Creates the full link
+        $link    = '<a href="#" onclick="javascript:'
+                 . htmlspecialchars( $onClick )
+                 . '">'
+                 . $label
+                 . '</a>';
+        
+        // Returns the link
+        return $link;
     }
     
     /**
