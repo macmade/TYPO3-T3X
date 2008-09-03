@@ -48,11 +48,17 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     protected $_profiles  = array();
     
     /**
+     * The emails stored on the current page
+     */
+    protected $_emails    = array();
+    
+    /**
      * The available menu items
      */
     protected $_menuItems = array(
         1 => 'menu.func.1',
-        2 => 'menu.func.2'
+        2 => 'menu.func.2',
+        3 => 'menu.func.3'
     );
     
     /**
@@ -70,9 +76,23 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Checks the selection for the menu
         switch( $this->MOD_SETTINGS[ 'function' ] ) {
             
+            // Manages the emails
+            case 3:
+                
+                return $this->_manageEmails();
+                break;
+            
             // Shows the registered users
             default:
                 
+                // Checks if emails have been created
+                if( count( $this->_emails ) != 2 ) {
+                    
+                    // Emails need to be created
+                    return $this->_functionLink( self::$_lang->getLL( 'error.no-email' ), 3 );
+                }
+                
+                // Users can be displayed
                 return $this->_showUsers();
                 break;
         }
@@ -86,6 +106,13 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Gets the frontend users
         $users    = t3lib_BEfunc::getRecordsByField(
             self::$_dbTables[ 'users' ],
+            'pid',
+            $this->id
+        );
+        
+        // Gets the emails
+        $emails   = t3lib_BEfunc::getRecordsByField(
+            self::$_dbTables[ 'emails' ],
             'pid',
             $this->id
         );
@@ -118,6 +145,17 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
                 
                 // Stores the current profile
                 $this->_profiles[ $profile[ 'uid' ] ] = $profile;
+            }
+            
+            // Checks for emails
+            if( is_array( $emails ) ) {
+                
+                // Process each email
+                foreach( $emails as $email ) {
+                    
+                    // Stores the current email
+                    $this->_emails[ $email[ 'type' ] ] = $email;
+                }
             }
             
             // Users and profiles were found
@@ -328,15 +366,23 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             // Birthdate
             $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''         : date( self::$_dateFormat, $profile[ 'birthdate' ] );
             
-            // Checkbox
-            $check            = $this->_tag(
-                'input',
-                '',
-                array(
-                    'type' => 'checkbox',
-                    'name' => __CLASS__ . '[users][' . $uid . ']'
-                )
-            );
+            // Checks if the user has been validated
+            if( $profile[ 'validated' ] ) {
+                
+                $check = '';
+                
+            } else {
+                
+                // Checkbox
+                $check = $this->_tag(
+                    'input',
+                    '',
+                    array(
+                        'type' => 'checkbox',
+                        'name' => __CLASS__ . '[users][' . $uid . ']'
+                    )
+                );
+            }
             
             // Starts the row
             $this->_content[] = $this->_tag( 'tr', '', $alternateRows[ $rowCount ][ 'params' ], $alternateRows[ $rowCount ][ 'styles' ], true );
@@ -472,6 +518,128 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Closes the fieldset
         $this->_content[] = $this->_endTag();
         $this->_content[] = $this->doc->spacer( 20 );
+    }
+    
+    /**
+     * 
+     */
+    protected function _manageEmails()
+    {
+        // Checks if the emails exists
+        if( count( $this->_emails ) != 2 ) {
+            
+            // Creates the emails
+            $this->_createEmails();
+        }
+        
+        // Adds the intro texts
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.intro' )
+        );
+        $this->_content[] = $this->doc->spacer( 10 );
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.validation' ) )
+        );
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.validation.text' )
+        );
+        $this->_content[] = $this->doc->spacer( 10 );
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.rejection' ) )
+        );
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.rejection.text' )
+        );
+        $this->_content[] = $this->doc->spacer( 10 );
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.markers' ) )
+        );
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.markers.text' )
+        );
+        $this->_content[] = $this->doc->spacer( 10 );
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.edit' )
+        );
+        
+        // Gets the emails subjects
+        $validSubject  = ( $this->_emails[ 0 ][ 'subject' ] ) ? $this->_emails[ 0 ][ 'subject' ] : self::$_lang->getLL( 'emails.no-subject' );
+        $rejectSubject = ( $this->_emails[ 1 ][ 'subject' ] ) ? $this->_emails[ 1 ][ 'subject' ] : self::$_lang->getLL( 'emails.no-subject' );
+        
+        // Creates the edit links
+        $validLink     = $this->_editLink( self::$_dbTables[ 'emails' ], $this->_emails[ 0 ][ 'uid' ], self::$_lang->getLL( 'emails.validation' ) . ' ' . $validSubject );
+        $rejectLink    = $this->_editLink( self::$_dbTables[ 'emails' ], $this->_emails[ 1 ][ 'uid' ], self::$_lang->getLL( 'emails.rejection' ) . ' ' . $rejectSubject );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 20 );
+        
+        // Validation edit
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_api->be_getRecordCSMIcon( self::$_dbTables[ 'emails' ], $this->_emails[ 0 ], self::$_backPath ) . ' ' . $validLink
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 20 );
+        
+        // Rejection edit
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_api->be_getRecordCSMIcon( self::$_dbTables[ 'emails' ], $this->_emails[ 1 ], self::$_backPath ) . ' ' . $rejectLink
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _createEmails()
+    {
+        // Current time
+        $time = time();
+        
+        // Validation fields
+        $validation = array(
+            'pid'       => $this->id,
+            'tstamp'    => $time,
+            'crdate'    => $time,
+            'cruser_id' => self::$_beUser->user[ 'uid' ],
+            'type'      => 0
+        );
+        
+        // Rejection fields
+        $rejection  = array(
+            'pid'       => $this->id,
+            'tstamp'    => $time,
+            'crdate'    => $time,
+            'cruser_id' => self::$_beUser->user[ 'uid' ],
+            'type'      => 1
+        );
+        
+        // Inserts the records
+        self::$_db->exec_INSERTquery( self::$_dbTables[ 'emails' ], $validation );
+        self::$_db->exec_INSERTquery( self::$_dbTables[ 'emails' ], $rejection );
+        
+        // Gets the emails
+        $emails   = t3lib_BEfunc::getRecordsByField(
+            self::$_dbTables[ 'emails' ],
+            'pid',
+            $this->id
+        );
+        
+        // Process each email
+        foreach( $emails as $email ) {
+            
+            // Stores the current email
+            $this->_emails[ $email[ 'type' ] ] = $email;
+        }
     }
 }
 
