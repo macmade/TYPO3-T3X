@@ -451,14 +451,18 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
             $this->_conf[ 'mailer.' ][ 'message' ]
         );
         
+        // Email headers
+        $headers = array(
+            'From: '     . $this->_conf[ 'mailer.' ][ 'fromName' ] . ' <' . $this->_conf[ 'mailer.' ][ 'from' ] . '>',
+            'Reply-To: ' . $this->_conf[ 'mailer.' ][ 'replyTo' ]
+        );
+        
         // Sends the confirmation email
-        $this->cObj->sendNotifyEmail(
-            $message,
+        t3lib_div::plainMailEncoded(
             $this->_user[ 'email' ],
-            '',
-            $this->_conf[ 'mailer.' ][ 'from' ],
-            $this->_conf[ 'mailer.' ][ 'fromMail' ],
-            $this->_conf[ 'mailer.' ][ 'replyTo' ]
+            $this->_conf[ 'mailer.' ][ 'subject' ],
+            $message,
+            implode( self::$_NL, $headers )
         );
         
         return true;
