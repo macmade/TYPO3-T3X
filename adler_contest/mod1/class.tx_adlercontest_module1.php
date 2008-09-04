@@ -35,6 +35,9 @@
 // Includes the backend module base class
 require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_scbase.php' );
 
+// Includes the PDF export class
+require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_pdfexport.php' );
+
 class tx_adlercontest_module1 extends tx_adlercontest_scBase
 {
     /**
@@ -261,6 +264,29 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
      */
     protected function _showUsers()
     {
+        // Checks if a user must be displayed
+        if( isset( $this->_modVars[ 'view' ] ) ) {
+            
+            // Shows the user
+            $this->_showUser( $this->_modVars[ 'view' ] );
+        }
+        
+        // Checks if a user must be exported
+        if( isset( $this->_modVars[ 'export' ] ) ) {
+            
+            // Creates a new instance of the PDF export class
+            $pdf = $this->_api->newInstance( 'tx_adlercontest_pdfExport' );
+            
+            // Sets the user
+            $pdf->setUser( $this->_profiles[ $this->_modVars[ 'export' ] ] );
+            
+            // Export the PDF
+            $pdf->outputFile();
+            
+            // Cleaning
+            unset( $pdf );
+        }
+        
         // Adds the view options
         $this->_viewOptions();
         
@@ -353,23 +379,26 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
                 continue;
             }
             
+            // Info link
+            $info             = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $this->_modLink( $viewIcon, array( 'view' => $uid ) ) : '';
+            
             // Confirmation state
-            $confirmed        = ( $profile[ 'confirm_token' ] )? $errorIcon : $okIcon;
+            $confirmed        = ( $profile[ 'confirm_token' ] ) ? $errorIcon : $okIcon;
             
             // Validation state
-            $validated        = ( $profile[ 'validated' ] )? $okIcon: $errorIcon;
+            $validated        = ( $profile[ 'validated' ] ) ? $okIcon: $errorIcon;
             
             // Proof documents state
             $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $okIcon: $errorIcon;
             
             // Project state
-            $project          = ( $profile[ 'project' ] )? $okIcon: $errorIcon;
+            $project          = ( $profile[ 'project' ] ) ? $okIcon: $errorIcon;
             
             // Birthdate
-            $birthDate        = ( $profile[ 'confirm_token' ] )? '': date( self::$_dateFormat, $profile[ 'birthdate' ] );
+            $birthDate        = ( $profile[ 'confirm_token' ] ) ? '': date( self::$_dateFormat, $profile[ 'birthdate' ] );
             
             // PDF link
-            $pdf              = ( $profile[ 'validated' ] && $profile[ 'project' ] )? $this->_modLink( $pdfIcon, array( 'export' => $uid ) ) : '';
+            $pdf              = ( $profile[ 'validated' ] && $profile[ 'project' ] ) ? $this->_modLink( $pdfIcon, array( 'export' => $uid ) ) : '';
             
             // Checks if the user has been validated
             if( $profile[ 'validated' ] ) {
@@ -392,14 +421,15 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             // Starts the row
             $this->_content[] = $this->_tag( 'tr', '', $alternateRows[ $rowCount ][ 'params' ], $alternateRows[ $rowCount ][ 'styles' ], true );
             
+            // Adds the checkbox
+            $this->_content[] = $this->_tag( 'td', $check, $trParams );
+            
+            
             // Adds the view link
-            $this->_content[] = $this->_tag( 'td', $this->_modLink( $viewIcon, array( 'view' => $uid ) ), $trParams );
+            $this->_content[] = $this->_tag( 'td', $info, $trParams );
             
             // Adds the pdf link
             $this->_content[] = $this->_tag( 'td', $pdf, $trParams );
-            
-            // Adds the checkbox
-            $this->_content[] = $this->_tag( 'td', $check, $trParams );
             
             // Adds the icons
             $this->_content[] = $this->_tag( 'td', $this->_api->be_getRecordCSMIcon( self::$_dbTables[ 'profiles' ], $profile, self::$_backPath ), $trParams );
@@ -711,6 +741,43 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             
             // Stores the current email
             $this->_emails[ $email[ 'type' ] ] = $email;
+        }
+    }
+    
+    /**
+     * 
+     */
+    protected function _showUser( $uid )
+    {
+        // Checks for the user
+        if( isset( $this->_profiles[ $uid ] ) ) {
+            
+            // Gets the user
+            $user             = $this->_profiles[ $uid ];
+            
+            // Full name of the user
+            $fullName         = $this->_tag(
+                'strong',
+                $user[ 'firstname' ] . ' ' . $user[ 'lastname' ]
+            );
+            
+            // CSM icon
+            $icon             = $this->_api->be_getRecordCSMIcon(
+                self::$_dbTables[ 'profiles' ],
+                $user,
+                self::$_backPath
+            );
+            
+            // Shows the user name
+            $this->_content[] = $this->_tag(
+                'div',
+                $icon . ' ' . $fullName
+            );
+            
+            $this->_content[] = $this->_createLightBoxThumb( $user[ 'age_proof' ] );
+            
+            // Spacer
+            $this->_content[] = $this->doc->divider( 20 );
         }
     }
 }
