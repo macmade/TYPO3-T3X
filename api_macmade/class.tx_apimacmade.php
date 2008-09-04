@@ -92,6 +92,7 @@
  *              function be_includePrototypeJs
  *              function be_includeMootoolsJs
  *              function be_includeScriptaculousJs
+ *              function be_includeLightBoxJs( $includeCss = true )
  *              function be_includeUfo
  *              function be_includeSwfObject
  *              function fe_includeWebToolKitJs( $file )
@@ -135,7 +136,7 @@
  *              function viewArray( $array, $indent = 0 )
  *              function debug( $variable, $header = 'DEBUG' )
  * 
- *              TOTAL FUNCTIONS: 79
+ *              TOTAL FUNCTIONS: 80
  */
 
 class tx_apimacmade
@@ -3136,7 +3137,7 @@ class tx_apimacmade
         if( !$this->lightbox ) {
             
             // Extension relative path
-            $extPath = t3lib_extMgm::siteRelPath( 'api_macmade' );
+            $extPath = $GLOBALS[ 'BACK_PATH' ] . t3lib_extMgm::extRelPath( 'api_macmade' );
             
             // Add script
             $this->pObj->doc->JScode .= '<script src="'
@@ -3155,27 +3156,27 @@ class tx_apimacmade
                                      .  '// ]]>'
                                      .  chr( 10 )
                                      .  '</script>';
-
+            
             // Checks if the CSS styles must be included
             if( $includeCss ) {
                 
                 // Adds the CSS styles
-                $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_apimacmade_lightbox_css' ] = '<link rel="stylesheet" href="'
-                                                                                         . $extPath
-                                                                                         . 'res/js/lightbox/css/lightbox.css'
-                                                                                         . '" type="text/css" media="screen" charset="utf-8" />'
-                                                                                         . chr( 10 )
-                                                                                         . '<style type="text/css" media="screen">'
-                                                                                         . chr( 10 )
-                                                                                         . '/* <![CDATA[ */'
-                                                                                         . chr( 10 )
-                                                                                         . '#prevLink:hover, #prevLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/prevlabel.gif" ) left 15% no-repeat; }'
-                                                                                         . chr( 10 )
-                                                                                         . '#nextLink:hover, #nextLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/nextlabel.gif" ) right 15% no-repeat; }'
-                                                                                         . chr( 10 )
-                                                                                         . '/* ]]> */'
-                                                                                         . chr( 10 )
-                                                                                         . '</style>';
+                $this->pObj->doc->JScode .= '<link rel="stylesheet" href="'
+                                         .  $extPath
+                                         .  'res/js/lightbox/css/lightbox.css'
+                                         .  '" type="text/css" media="screen" charset="utf-8" />'
+                                         .  chr( 10 )
+                                         .  '<style type="text/css" media="screen">'
+                                         .  chr( 10 )
+                                         .  '/* <![CDATA[ */'
+                                         .  chr( 10 )
+                                         .  '#prevLink:hover, #prevLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/prevlabel.gif" ) left 15% no-repeat; }'
+                                         .  chr( 10 )
+                                         .  '#nextLink:hover, #nextLink:visited:hover { background: url( "' . $extPath . 'res/js/lightbox/images/nextlabel.gif" ) right 15% no-repeat; }'
+                                         .  chr( 10 )
+                                         .  '/* ]]> */'
+                                         .  chr( 10 )
+                                         .  '</style>';
             }
             
             // Set included flag
