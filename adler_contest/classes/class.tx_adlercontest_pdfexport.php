@@ -38,23 +38,421 @@ require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php
 class tx_adlercontest_pdfExport extends PDF
 {
     /**
-     * The user array
+     * Wether the static variables are set or not
      */
-    protected $_user = array();
+    private static $_hasStatic         = false;
+    
+    /**
+     * The extension key
+     */
+    private static $_extKey            = '';
+    
+    /**
+     * The language object
+     */
+    protected static $_lang            = NULL;
+    
+    /**
+     * The database object
+     */
+    protected static $_db              = NULL;
+    
+    /**
+     * The upload directory
+     */
+    protected static $_uploadDirectory = '';
+    
+    /**
+     * The language file
+     */
+    protected static $_langFile        = 'LLL:EXT:adler_contest/lang/pdf.xml';
+    
+    /**
+     * The profile row
+     */
+    protected $_profile                = array();
+    
+    /**
+     * The user row
+     */
+    protected $_user                   = array();
     
     /**
      * 
      */
-    public function setUser( array $user )
+    public function __construct( array $profile, array $user )
     {
-        $this->_user = $user;
+        // Checks if the static variables are set
+        if( !self::$_hasStatic ) {
+            
+            // Sets the static variables
+            self::_setStaticVars();
+        }
+        
+        // Stores the database rows
+        $this->_profile = $profile;
+        $this->_user    = $user;
+        
+        // Calls the FPDF constructor
+        parent::__construct();
+    }
+    
+    /**
+     * 
+     */
+    private static function _setStaticVars()
+    {
+        // Gets the path
+        $extPathInfo            = explode( DIRECTORY_SEPARATOR, dirname( __FILE__ ) );
+        
+        // Removes the 'classes' directory
+        array_pop( $extPathInfo );
+        
+        // Sets the extension key
+        self::$_extKey          = array_pop( $extPathInfo );
+        
+        // Creates a reference to the lang object
+        self::$_lang            =  $GLOBALS[ 'LANG' ];
+        
+        // Creates a reference to the database object
+        self::$_db              =  $GLOBALS[ 'TYPO3_DB' ];
+        
+        // Sets the upload directory
+        self::$_uploadDirectory = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', self::$_extKey ) . '/' );
+        
+        // Static variables are set
+        self::$_hasStatic     = true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _getLabel( $label )
+    {
+        return self::$_lang->sL( self::$_langFile . ':' . $label );
+    }
+    
+    /**
+     * 
+     */
+    protected function _pageHeader( $label )
+    {
+        // Font configuration
+        $this->SetFont( 'Helvetica', 'B', 20 );
+        
+        // Writes the header
+        $this->SetXY( 20, 30 );
+        $this->Cell( 0, 0, $this->_getLabel( $label ) );
+    }
+    
+    /**
+     * 
+     */
+    protected function _getCountryName( $uid )
+    {
+        // Selects the country
+        $res = self::$_db->exec_SELECTquery(
+            'uid,cn_short_en',
+            'static_countries',
+            'uid=' . $uid
+        );
+        
+        // Checks the ressource
+        if( $res && $row = self::$_db->sql_fetch_assoc( $res ) ) {
+            
+            // Returns the country name
+            return $row[ 'cn_short_en' ];
+        }
+        
+        // Country not found
+        return $uid;
+    }
+    
+    /**
+     * 
+     */
+    protected function _addPicture( $file )
+    {
+        // Absolute path to the file
+        $fileAbsPath = self::$_uploadDirectory . $file;
+        
+        // Maximum dimensions
+        $maxWidth    = 170;
+        $maxHeight   = 230;
+        
+        // Gets the image size
+        $size        = getimagesize( $fileAbsPath );
+        
+        // Original dimensions
+        $origWidth   = $size[ 0 ];
+        $origHeight  = $size[ 1 ];
+        
+        // Checks the orientation
+        if( $origWidth < $origHeight ) {
+            
+            // Sets the final height
+            $height = $maxHeight;
+            
+            // Sets the final width
+            $width  = ( $origWidth * $height ) / $origHeight;
+            
+        } else {
+            
+            // Sets the final width
+            $width  = $maxWidth;
+            
+            // Sets the final height
+            $height = ( $origHeight * $width ) / $origWidth;
+        }
+        
+        // Adds the picture
+        $this->Image(
+            $fileAbsPath,
+            20,
+            40,
+            $width,
+            $height
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _dataPage()
+    {
+        // Adds a new page
+        $this->AddPage();
+        
+        // Adds the header
+        $this->_pageHeader( 'data.header' );
+        
+        // Font configuration
+        $this->SetFont( 'Helvetica', 'B', 10 );
+        
+        // Starting Y position
+        $y      = 50;
+        
+        // Fields to display
+        $fields = array(
+            'lastname',
+            'firstname',
+            'gender',
+            'email',
+            'address',
+            'address2',
+            'country',
+            'nationality',
+            'birthdate',
+            'school_name',
+            'school_address',
+            'school_country'
+        );
+        
+        // Process each field
+        foreach( $fields as $field ) {
+            
+            // Checks if the field is 'email'
+            if( $field == 'email' ) {
+                
+                // Gets the label
+                $label = self::$_lang->sL( 'LLL:EXT:lang/locallang_general.php:LGL.email' );
+                
+            } else {
+                
+                // Gets the label
+                $label = self::$_lang->sL( 'LLL:EXT:adler_contest/lang/tx_adlercontest_users.xml:' . $field ) . ':';
+            }
+            
+            // Writes the label
+            $this->SetXY( 20, $y );
+            $this->Cell( 0, 0, $label );
+            
+            // Checks the field
+            switch( $field ) {
+                
+                // Gender
+                case 'gender':
+                    
+                    $value = strtoupper( $this->_profile[ $field ] );
+                    break;
+                
+                // Email
+                case 'email':
+                    
+                    $value = $this->_user[ $field ];
+                    break;
+                
+                // Birth date
+                case 'birthdate':
+                    
+                    $value = date( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'ddmmyy' ], $this->_profile[ $field ] );
+                    break;
+                
+                // Country
+                case 'country':
+                    
+                    $value = $this->_getCountryName( $this->_profile[ $field ] );
+                    break;
+                
+                // Country
+                case 'school_country':
+                    
+                    $value = $this->_getCountryName( $this->_profile[ $field ] );
+                    break;
+                
+                // No processing
+                default:
+                    
+                    $value = $this->_profile[ $field ];
+                    break;
+            }
+            
+            // Adds the value
+            $this->SetXY( 75, $y );
+            $this->Cell( 0, 0, $value );
+            
+            
+            $y += 10;
+        }
+    }
+    
+    /**
+     * 
+     */
+    protected function _projectPage()
+    {
+        // Adds a new page
+        $this->AddPage();
+        
+        // Adds the header
+        $this->_pageHeader( 'project.header' );
+        
+        // Adds the picture
+        $this->_addPicture( $this->_profile[ 'project' ] );
+    }
+    
+    /**
+     * 
+     */
+    protected function _ageProofPage()
+    {
+        // Adds a new page
+        $this->AddPage();
+        
+        // Adds the header
+        $this->_pageHeader( 'age.header' );
+        
+        // Adds the picture
+        $this->_addPicture( $this->_profile[ 'age_proof' ] );
+    }
+    
+    /**
+     * 
+     */
+    protected function _schoolProofPage()
+    {
+        // Adds a new page
+        $this->AddPage();
+        
+        // Adds the header
+        $this->_pageHeader( 'school.header' );
+        
+        // Adds the picture
+        $this->_addPicture( $this->_profile[ 'school_proof' ] );
     }
     
     /**
      * 
      */
     public function outputFile()
-    {}
+    {
+        // Creates the PDF
+        $pdf = $this->Output();
+        
+        // Outputs the PDF
+        tx_apimacmade::div_output( $pdf, 'application/pdf', $this->_user[ 'username' ] . '.pdf' );
+        exit();
+    }
+    
+    /**
+     * 
+     */
+    public function createPages()
+    {
+        // Checks for a project
+        if( $this->_profile[ 'project' ] ) {
+            
+            // Creates the project page
+            $this->_projectPage();
+        }
+        
+        // Creates the personnal data page
+        $this->_dataPage();
+        
+        // Checks for a project
+        if( $this->_profile[ 'age_proof' ] ) {
+            
+            // Creates the age proof page
+            $this->_ageProofPage();
+        }
+        
+        // Checks for a project
+        if( $this->_profile[ 'school_proof' ] ) {
+            
+            // Creates the school proof page
+            $this->_schoolProofPage();
+        }
+    }
+    
+    /**
+     * 
+     */
+    public function Header()
+    {
+        // Font configuration
+        $this->SetFont( 'Helvetica', 'B', 10 );
+        
+        // Left header
+        $this->SetXY( 20, 20 );
+        $this->Cell( 0, 0, $this->_getLabel( 'header.fileNum' ) . ' ' . $this->_profile[ 'uid' ] );
+    }
+    
+    /**
+     * 
+     */
+    public function Footer()
+    {
+        // Number of pages
+        $pages = 1;
+        
+        // Checks for a project
+        if( $this->_profile[ 'project' ] ) {
+            
+            // Increases the number of pages
+            $pages++;
+        }
+        
+        // Checks for a project
+        if( $this->_profile[ 'age_proof' ] ) {
+            
+            // Increases the number of pages
+            $pages++;
+        }
+        
+        // Checks for a project
+        if( $this->_profile[ 'school_proof' ] ) {
+            
+            // Increases the number of pages
+            $pages++;
+        }
+        
+        // Font configuration
+        $this->SetFont( 'Helvetica', 'B', 10 );
+        
+        // Left header
+        $this->SetXY( 20, 280 );
+        $this->Cell( 0, 0, sprintf( $this->_getLabel( 'footer.pages' ), $this->page, $pages ) );
+    }
 }
 
 // XCLASS inclusion

@@ -388,10 +388,10 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         if( isset( $this->_modVars[ 'export' ] ) ) {
             
             // Creates a new instance of the PDF export class
-            $pdf = $this->_api->newInstance( 'tx_adlercontest_pdfExport' );
+            $pdf = $this->_api->newInstance( 'tx_adlercontest_pdfExport', array( $this->_profiles[ $this->_modVars[ 'export' ] ], $this->_users[ $this->_profiles[ $this->_modVars[ 'export' ] ][ 'id_fe_users' ] ] ) );
             
-            // Sets the user
-            $pdf->setUser( $this->_profiles[ $this->_modVars[ 'export' ] ] );
+            // Creates the PDF pages
+            $pdf->createPages();
             
             // Export the PDF
             $pdf->outputFile();
