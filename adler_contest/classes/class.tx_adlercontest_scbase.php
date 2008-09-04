@@ -281,7 +281,26 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     /**
      * 
      */
-    protected function _functionLink( $label, $function )
+    protected function _modLink( $text, array $params = array(), $keepModVars = false )
+    {
+        // Base url
+        $url = ( $keepModVars ) ? t3lib_div::linkThisScript( array( $this->_modName => $this->_modVars ) ) : t3lib_div::linkThisScript();
+        
+        // Process each parameter
+        foreach( $params as $key => $value ) {
+            
+            // Adds the current parameter
+            $url .= '&' . $this->_modName . '[' . $key . ']=' . $value;
+        }
+        
+        // Returns the link
+        return '<a href="' . $url . '">' . $text . '</a>';
+    }
+    
+    /**
+     * 
+     */
+    protected function _functionLink( $text, $function )
     {
         // Creates the URL
         $url = t3lib_div::linkThisScript(
@@ -293,13 +312,13 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         );
         
         // Returns the link
-        return '<a href="' . $url . '">' . $label . '</a>';
+        return '<a href="' . $url . '">' . $text . '</a>';
     }
     
     /**
      * 
      */
-    protected function _editLink( $table, $uid, $label )
+    protected function _editLink( $table, $uid, $text )
     {
         // On click action
         $onClick = t3lib_BEfunc::editOnClick( '&edit[' . $table . '][' . $uid . ']=edit', self::$_backPath );
@@ -308,7 +327,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         $link    = '<a href="#" onclick="javascript:'
                  . htmlspecialchars( $onClick )
                  . '">'
-                 . $label
+                 . $text
                  . '</a>';
         
         // Returns the link
