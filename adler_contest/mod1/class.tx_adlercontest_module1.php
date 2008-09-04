@@ -323,6 +323,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
+        $this->_content[] = $this->_tag( 'td', '',                                                                   $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'lastname' ),  $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'firstname' ), $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.confirmed' ),                           $trParams, $headerStyles );
@@ -340,6 +341,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         $viewIcon         = $this->_skinImg( 'info.png' );
         $errorIcon        = $this->_skinImg( 'error.png' );
         $okIcon           = $this->_skinImg( 'ok.png' );
+        $pdfIcon          = $this->_skinImg( 'pdf.png' );
         
         // Process each profile
         foreach( $this->_profiles as $uid => $profile ) {
@@ -352,19 +354,22 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             }
             
             // Confirmation state
-            $confirmed        = ( $profile[ 'confirm_token' ] )                           ? $errorIcon : $okIcon;
+            $confirmed        = ( $profile[ 'confirm_token' ] )? $errorIcon : $okIcon;
             
             // Validation state
-            $validated        = ( $profile[ 'validated' ] )                               ? $okIcon    : $errorIcon;
+            $validated        = ( $profile[ 'validated' ] )? $okIcon: $errorIcon;
             
             // Proof documents state
-            $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $okIcon    : $errorIcon;
+            $proof            = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $okIcon: $errorIcon;
             
             // Project state
-            $project          = ( $profile[ 'project' ] )                                 ? $okIcon    : $errorIcon;
+            $project          = ( $profile[ 'project' ] )? $okIcon: $errorIcon;
             
             // Birthdate
-            $birthDate        = ( $profile[ 'confirm_token' ] )                           ? ''         : date( self::$_dateFormat, $profile[ 'birthdate' ] );
+            $birthDate        = ( $profile[ 'confirm_token' ] )? '': date( self::$_dateFormat, $profile[ 'birthdate' ] );
+            
+            // PDF link
+            $pdf              = ( $profile[ 'validated' ] && $profile[ 'project' ] )? $this->_modLink( $pdfIcon, array( 'export' => $uid ) ) : '';
             
             // Checks if the user has been validated
             if( $profile[ 'validated' ] ) {
@@ -388,7 +393,10 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             $this->_content[] = $this->_tag( 'tr', '', $alternateRows[ $rowCount ][ 'params' ], $alternateRows[ $rowCount ][ 'styles' ], true );
             
             // Adds the view link
-            $this->_content[] = $this->_tag( 'td', $viewIcon, $trParams );
+            $this->_content[] = $this->_tag( 'td', $this->_modLink( $viewIcon, array( 'view' => $uid ) ), $trParams );
+            
+            // Adds the pdf link
+            $this->_content[] = $this->_tag( 'td', $pdf, $trParams );
             
             // Adds the checkbox
             $this->_content[] = $this->_tag( 'td', $check, $trParams );
