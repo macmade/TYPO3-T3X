@@ -532,54 +532,56 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             $this->_createEmails();
         }
         
-        // Adds the intro texts
+        // Adds the intro text
         $this->_content[] = $this->_tag(
             'div',
             self::$_lang->getLL( 'emails.intro' )
         );
+        
+        // Spacer
         $this->_content[] = $this->doc->spacer( 10 );
-        $this->_content[] = $this->_tag(
-            'div',
-            $this->_tag( 'strong', self::$_lang->getLL( 'emails.validation' ) )
-        );
-        $this->_content[] = $this->_tag(
-            'div',
-            self::$_lang->getLL( 'emails.validation.text' )
-        );
-        $this->_content[] = $this->doc->spacer( 10 );
-        $this->_content[] = $this->_tag(
-            'div',
-            $this->_tag( 'strong', self::$_lang->getLL( 'emails.rejection' ) )
-        );
-        $this->_content[] = $this->_tag(
-            'div',
-            self::$_lang->getLL( 'emails.rejection.text' )
-        );
-        $this->_content[] = $this->doc->spacer( 10 );
-        $this->_content[] = $this->_tag(
-            'div',
-            $this->_tag( 'strong', self::$_lang->getLL( 'emails.markers' ) )
-        );
-        $this->_content[] = $this->_tag(
-            'div',
-            self::$_lang->getLL( 'emails.markers.text' )
-        );
-        $this->_content[] = $this->doc->spacer( 10 );
+        
+        // Edit text
         $this->_content[] = $this->_tag(
             'div',
             self::$_lang->getLL( 'emails.edit' )
         );
         
+        // Divider
+        $this->_content[] = $this->doc->divider( 20 );
+        
         // Gets the emails subjects
         $validSubject  = ( $this->_emails[ 0 ][ 'subject' ] ) ? $this->_emails[ 0 ][ 'subject' ] : self::$_lang->getLL( 'emails.no-subject' );
         $rejectSubject = ( $this->_emails[ 1 ][ 'subject' ] ) ? $this->_emails[ 1 ][ 'subject' ] : self::$_lang->getLL( 'emails.no-subject' );
         
-        // Creates the edit links
-        $validLink     = $this->_editLink( self::$_dbTables[ 'emails' ], $this->_emails[ 0 ][ 'uid' ], self::$_lang->getLL( 'emails.validation' ) . ' ' . $validSubject );
-        $rejectLink    = $this->_editLink( self::$_dbTables[ 'emails' ], $this->_emails[ 1 ][ 'uid' ], self::$_lang->getLL( 'emails.rejection' ) . ' ' . $rejectSubject );
+        // Creates the edit link for the validation email
+        $validLink     = $this->_editLink(
+            self::$_dbTables[ 'emails' ],
+            $this->_emails[ 0 ][ 'uid' ],
+            $validSubject
+        );
+        
+        // Creates the edit link for the rejection email
+        $rejectLink    = $this->_editLink(
+            self::$_dbTables[ 'emails' ],
+            $this->_emails[ 1 ][ 'uid' ],
+            $rejectSubject
+        );
+        
+        // Validation email header
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.validation' ) )
+        );
+        
+        // Validation email text
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.validation.text' )
+        );
         
         // Spacer
-        $this->_content[] = $this->doc->spacer( 20 );
+        $this->_content[] = $this->doc->spacer( 10 );
         
         // Validation edit
         $this->_content[] = $this->_tag(
@@ -588,13 +590,75 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         );
         
         // Spacer
-        $this->_content[] = $this->doc->spacer( 20 );
+        $this->_content[] = $this->doc->spacer( 10 );
+        
+        // Rejection email header
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.rejection' ) )
+        );
+        
+        // Rejection email text
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.rejection.text' )
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 10 );
         
         // Rejection edit
         $this->_content[] = $this->_tag(
             'div',
             $this->_api->be_getRecordCSMIcon( self::$_dbTables[ 'emails' ], $this->_emails[ 1 ], self::$_backPath ) . ' ' . $rejectLink
         );
+        
+        // Divider
+        $this->_content[] = $this->doc->divider( 20 );
+        
+        // Markers header
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'strong', self::$_lang->getLL( 'emails.markers' ) )
+        );
+        
+        // Markers text
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.markers.text' )
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 10 );
+        
+        // First name marker
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'pre', '${firstname}' )
+        );
+        
+        // First name marker text
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.markers.firstname' )
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 10 );
+        
+        // Last name marker
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag( 'pre', '${lastname}' )
+        );
+        
+        // Last name marker text
+        $this->_content[] = $this->_tag(
+            'div',
+            self::$_lang->getLL( 'emails.markers.lastname' )
+        );
+        
+        
     }
     
     /**

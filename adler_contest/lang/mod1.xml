@@ -41,14 +41,16 @@
             <label index="options.project.all">Show all users</label>
             <label index="options.project.yes">Only show users with a project</label>
             <label index="options.project.no">Only show users without a project</label>
-            <label index="emails.intro">You can here manage the emails that will be sent to the registered users. There are two different types of emails:</label>
+            <label index="emails.intro">Here you can manage the emails that will be sent to the registered users, when they are validated or rejected.</label>
             <label index="emails.validation">Validation email:</label>
             <label index="emails.validation.text">This email will be sent when you validate an user, allowing him to participate to the contest.</label>
             <label index="emails.rejection">Rejection email:</label>
             <label index="emails.rejection.text">This email will be sent when you reject an user. Such an action will close it's account, and the user won't be allowed to participate to the contest.</label>
             <label index="emails.markers">Markers:</label>
-            <label index="emails.markers.text">You can use special markers on the email messages, that will be substituted with the user informations. ${firstname}, for the user first name, and ${lastname}, for the user last name.</label>
-            <label index="emails.edit">Please click on the link below to edit the different emails:</label>
+            <label index="emails.markers.text">You can use special markers on the email messages, that will be substituted with the user informations.</label>
+            <label index="emails.markers.firstname">The first name of the user.</label>
+            <label index="emails.markers.lastname">The last name of the user.</label>
+            <label index="emails.edit">Please click on the links below to edit the different emails:</label>
             <label index="emails.no-subject">[ No subject ]</label>
         </languageKey>
     </data>
