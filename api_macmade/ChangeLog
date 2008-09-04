@@ -1,3 +1,10 @@
+2008-09-04  Jean-David Gadina  <info@macmade.net>
+
+	* Increased API internal version number to 4.6.
+	* Fixed a bug in the be_includeLightBoxJs method.
+	* Updated the API documentation (doc/manual.sxw).
+	* Release of version 4.6 of the API.
+
 2008-02-27  Jean-David Gadina  <info@macmade.net>
 
 	* Updated the API documentation (doc/manual.sxw).
