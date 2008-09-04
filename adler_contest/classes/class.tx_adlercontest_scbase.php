@@ -48,126 +48,131 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     /**
      * Wether the static variables are set or not
      */
-    private static $_hasStatic       = false;
+    private static $_hasStatic         = false;
     
     /**
      * The extension key
      */
-    private static $_extKey          = '';
+    private static $_extKey            = '';
     
     /**
      * The extension directory
      */
-    private static $_extDir          = '';
+    private static $_extDir            = '';
     
     /**
      * The backend user object
      */
-    protected static $_beUser        = NULL;
+    protected static $_beUser          = NULL;
     
     /**
      * The language object
      */
-    protected static $_lang          = NULL;
+    protected static $_lang            = NULL;
     
     /**
      * The database object
      */
-    protected static $_db            = NULL;
+    protected static $_db              = NULL;
     
     /**
      * The TCA array
      */
-    protected static $_tca           = array();
+    protected static $_tca             = array();
     
     /**
      * The TCA description array
      */
-    protected static $_tcaDescr      = array();
+    protected static $_tcaDescr        = array();
     
     /**
      * The TYPO3 configuration array
      */
-    protected static $_typo3ConfVars = array();
+    protected static $_typo3ConfVars   = array();
     
     /**
      * The TYPO3 client attay
      */
-    protected static $_client        = array();
+    protected static $_client          = array();
     
     /**
      * The database tables used by this extension
      */
-    protected static $_dbTables      = array(
+    protected static $_dbTables        = array(
         'users'    => 'fe_users',
         'profiles' => 'tx_adlercontest_users',
         'emails'   => 'tx_adlercontest_emails'
     );
     
     /**
+     * The upload directory
+     */
+    protected static $_uploadDirectory = '';
+    
+    /**
      * The back path (to the TYPO3 directory)
      */
-    protected static $_backPath      = '';
+    protected static $_backPath        = '';
     
     /**
      * The new line character
      */
-    protected static $_NL            = '';
+    protected static $_NL              = '';
     
     /**
      * The date format
      */
-    protected static $_dateFormat    = 'd.m.Y';
+    protected static $_dateFormat      = 'd.m.Y';
     
     /**
      * The name of the module class
      */
-    private $_modClass               = '';
+    private $_modClass                 = '';
     
     /**
      * The hour format
      */
-    protected static $_hourFormat    = 'H:i';
+    protected static $_hourFormat      = 'H:i';
     
     /**
      * The instance of the Developer API
      */
-    protected $_api                  = NULL;
+    protected $_api                    = NULL;
     
     /**
      * The current page's row
      */
-    protected $_page                 = array();
+    protected $_page                   = array();
     
     /**
      * The page informations
      */
-    protected $_pageInfos            = array();
+    protected $_pageInfos              = array();
     
     /**
      * The module content
      */
-    protected $_content              = array();
+    protected $_content                = array();
     
     /**
      * Storage for the started HTML tags
      */
-    protected $_startedTags          = array();
+    protected $_startedTags            = array();
     
     /**
      * The GET/POST variables from this module
      */
-    protected $_modVars              = array();
+    protected $_modVars                = array();
     
     /**
      * The TYPO3 document object
      */
-    public $doc                      = NULL;
+    public $doc                        = NULL;
     
     /**
      * The required version of the macmade.net API
      */
-    public $apimacmade_version       = 4.5;
+    public $apimacmade_version         = 4.5;
     
     /**
      * Class constructor
@@ -274,8 +279,71 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         // Sets the new line character
         self::$_NL            =  chr( 10 );
         
+        // Sets the upload directory
+        self::$_uploadDirectory = str_replace(
+            PATH_site,
+            '',
+            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', self::$_extKey ) . '/' )
+        );
+        
         // Static variables are set
         self::$_hasStatic     = true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _createLightBoxThumb( $file, $width = 200, $height = 200 )
+    {
+        // Includes the lightbox script
+        $this->_api->be_includeLightBoxJs();
+        
+        // Gets the file absolute path
+        $fileAbsPath = PATH_site . self::$_uploadDirectory . $file;
+        
+        // Security check
+        $fileCheck   = basename( $fileAbsPath)
+                     . ':'
+                     . filemtime( $fileAbsPath )
+                     . ':'
+                     . self::$_typo3ConfVars[ 'SYS' ][ 'encryptionKey' ];
+
+        
+        // URL that will generate the thumbnail
+        $url         = self::$_backPath
+                     . 'thumbs.php?size='
+                     . $width
+                     . 'x'
+                     . $height
+                     . '&file='
+                     . rawurlencode( '../' . self::$_uploadDirectory . $file )
+                     . '&md5sum='
+                     . t3lib_div::shortMD5( $fileCheck );
+        
+        // Creates the image tag
+        $img         = '<img src="'
+                     . htmlspecialchars( $url )
+                     . '" alt="" width="'
+                     . $width
+                     . '" height="'
+                     . $height
+                     . '" />';
+        
+        // Relative path to the full size image
+        $fileRelPath = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' )
+                     . '/'
+                     . self::$_uploadDirectory
+                     . $file;
+        
+        // Creates the full thumbnail
+        $thumb       = '<a href="'
+                     . $fileRelPath
+                     . '" rel="lightbox">'
+                     . $img
+                     . '</a>';
+        
+        // Returns the thumbnail
+        return $thumb;
     }
     
     /**
