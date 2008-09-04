@@ -293,7 +293,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     /**
      * 
      */
-    protected function _createLightBoxThumb( $file, $width = 200, $height = 200 )
+    protected function _createLightBoxThumb( $file, $width = 100, $height = 100 )
     {
         // Includes the lightbox script
         $this->_api->be_includeLightBoxJs();
@@ -323,11 +323,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         // Creates the image tag
         $img         = '<img src="'
                      . htmlspecialchars( $url )
-                     . '" alt="" width="'
-                     . $width
-                     . '" height="'
-                     . $height
-                     . '" />';
+                     . '" alt="" />';
         
         // Relative path to the full size image
         $fileRelPath = t3lib_div::getIndpEnv( 'TYPO3_SITE_URL' )
