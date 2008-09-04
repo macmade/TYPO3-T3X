@@ -36,7 +36,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'_md5_values_when_last_written' => 'a:0:{}',
 	'constraints' => array(
 		'depends' => array(
-			'api_macmade' => '0.4.4-',
+			'api_macmade' => '0.4.6-',
 			'fpdf' => '0.1.2-',
 			'php' => '5.2.0-0.0.0',
 		),

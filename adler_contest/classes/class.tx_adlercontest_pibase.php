@@ -140,7 +140,7 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     /**
      * The required version of the macmade.net API
      */
-    public $apimacmade_version         = 4.5;
+    public $apimacmade_version         = 4.6;
     
     /**
      * The plugin class name

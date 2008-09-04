@@ -172,7 +172,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     /**
      * The required version of the macmade.net API
      */
-    public $apimacmade_version         = 4.5;
+    public $apimacmade_version         = 4.6;
     
     /**
      * Class constructor
@@ -307,7 +307,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
                      . filemtime( $fileAbsPath )
                      . ':'
                      . self::$_typo3ConfVars[ 'SYS' ][ 'encryptionKey' ];
-
+        
         
         // URL that will generate the thumbnail
         $url         = self::$_backPath
