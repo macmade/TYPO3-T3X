@@ -23,24 +23,28 @@
             <label index="headers.project">Project</label>
             <label index="no">No</label>
             <label index="yes">Yes</label>
-            <label index="options">View options</label>
-            <label index="options.submit">Set options</label>
-            <label index="options.confirmed">Confirmed:</label>
-            <label index="options.confirmed.all">Show all users</label>
-            <label index="options.confirmed.yes">Only show confirmed users</label>
-            <label index="options.confirmed.no">Only show unconfirmed users</label>
-            <label index="options.validated">Validated:</label>
-            <label index="options.validated.all">Show all users</label>
-            <label index="options.validated.yes">Only show validated users</label>
-            <label index="options.validated.no">Only show unvalidated users</label>
-            <label index="options.proof">Proof documents:</label>
-            <label index="options.proof.all">Show all users</label>
-            <label index="options.proof.yes">Only show users with proof documents</label>
-            <label index="options.proof.no">Only show users without proof documents</label>
-            <label index="options.project">Project:</label>
-            <label index="options.project.all">Show all users</label>
-            <label index="options.project.yes">Only show users with a project</label>
-            <label index="options.project.no">Only show users without a project</label>
+            <label index="options.view">View options</label>
+            <label index="options.view.submit">Set options</label>
+            <label index="options.view.confirmed">Confirmed:</label>
+            <label index="options.view.confirmed.all">Show all users</label>
+            <label index="options.view.confirmed.yes">Only show confirmed users</label>
+            <label index="options.view.confirmed.no">Only show unconfirmed users</label>
+            <label index="options.view.validated">Validated:</label>
+            <label index="options.view.validated.all">Show all users</label>
+            <label index="options.view.validated.yes">Only show validated users</label>
+            <label index="options.view.validated.no">Only show unvalidated users</label>
+            <label index="options.view.proof">Proof documents:</label>
+            <label index="options.view.proof.all">Show all users</label>
+            <label index="options.view.proof.yes">Only show users with proof documents</label>
+            <label index="options.view.proof.no">Only show users without proof documents</label>
+            <label index="options.view.project">Project:</label>
+            <label index="options.view.project.all">Show all users</label>
+            <label index="options.view.project.yes">Only show users with a project</label>
+            <label index="options.view.project.no">Only show users without a project</label>
+            <label index="options.valid">Validation options</label>
+            <label index="options.valid.valid">Validate the selected users.</label>
+            <label index="options.valid.reject">Reject the selected users. This will delete their accounts.</label>
+            <label index="options.valid.submit">Process the selected users</label>
             <label index="emails.intro">Here you can manage the emails that will be sent to the registered users, when they are validated or rejected.</label>
             <label index="emails.validation">Validation email:</label>
             <label index="emails.validation.text">This email will be sent when you validate an user, allowing him to participate to the contest.</label>
@@ -52,6 +56,9 @@
             <label index="emails.markers.lastname">The last name of the user.</label>
             <label index="emails.edit">Please click on the links below to edit the different emails:</label>
             <label index="emails.no-subject">[ No subject ]</label>
+            <label index="user.no-age_proof">User has not uploaded an age proof yet</label>
+            <label index="user.no-school_proof">User has not uploaded a school proof yet</label>
+            <label index="user.no-project">User has not uploaded a project yet</label>
         </languageKey>
     </data>
 </T3locallang>

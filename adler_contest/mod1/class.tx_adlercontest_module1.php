@@ -262,8 +262,121 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     /**
      * 
      */
+    protected function _processValidations()
+    {
+        // Checks for an action and for selected users
+        if( isset( $this->_modVars[ 'validation' ] )
+            && isset( $this->_modVars[ 'users' ] )
+            && count( $this->_modVars[ 'users' ] )
+        ) {
+            
+            // Process each user
+            foreach( $this->_modVars[ 'users' ] as $uid ) {
+                
+                // Checks the action type
+                if( $this->_modVars[ 'validation' ] == 'valid' ) {
+                    
+                    // Updates the stored user row
+                    $this->_profiles[ $uid ][ 'validated' ] = 1;
+                    
+                    // Updates the user in the database
+                    self::$_db->exec_UPDATEquery(
+                        self::$_dbTables[ 'profiles' ],
+                        'uid=' . $uid,
+                        array(
+                            'validated' => 1,
+                            'tstamp'    => time()
+                        )
+                    );
+                    
+                    // Final mail message, with tags replaced
+                    $message = preg_replace(
+                        array(
+                            '/\${firstname}/',
+                            '/\${lastname}/'
+                        ),
+                        array(
+                            $this->_profiles[ $uid ][ 'firstname' ],
+                            $this->_profiles[ $uid ][ 'lastname' ]
+                        ),
+                        $this->_emails[ 0 ][ 'message' ]
+                    );
+                    
+                    // Email headers
+                    $headers = array(
+                        'From: '     . $this->_emails[ 0 ][ 'from_name' ] . ' <' . $this->_emails[ 0 ][ 'from_email' ] . '>',
+                        'Reply-To: ' . $this->_emails[ 0 ][ 'reply_to' ]
+                    );
+                    
+                    // Sends the confirmation email
+                    t3lib_div::plainMailEncoded(
+                        $this->_users[ $this->_profiles[ $uid ][ 'id_fe_users' ] ][ 'email' ],
+                        $this->_emails[ 0 ][ 'subject' ],
+                        $message,
+                        implode( self::$_NL, $headers )
+                    );
+                    
+                } elseif( $this->_modVars[ 'validation' ] == 'reject' ) {
+                    
+                    // Deletes the user profile
+                    self::$_db->exec_DELETEquery(
+                        self::$_dbTables[ 'users' ],
+                        'uid=' . $this->_profiles[ $uid ][ 'id_fe_users' ]
+                    );
+                    
+                    // Deletes the associated frontend user
+                    self::$_db->exec_DELETEquery(
+                        self::$_dbTables[ 'profiles' ],
+                        'uid=' . $uid
+                    );
+                    
+                    // Removes the user from the stored users
+                    unset( $this->_users[ $this->_profiles[ $uid ][ 'id_fe_users' ] ] );
+                    unset( $this->_profiles[ $uid ] );
+                    
+                    // Final mail message, with tags replaced
+                    $message = preg_replace(
+                        array(
+                            '/\${firstname}/',
+                            '/\${lastname}/'
+                        ),
+                        array(
+                            $this->_profiles[ $uid ][ 'firstname' ],
+                            $this->_profiles[ $uid ][ 'lastname' ]
+                        ),
+                        $this->_emails[ 1 ][ 'message' ]
+                    );
+                    
+                    // Email headers
+                    $headers = array(
+                        'From: '     . $this->_emails[ 1 ][ 'from_name' ] . ' <' . $this->_emails[ 1 ][ 'from_email' ] . '>',
+                        'Reply-To: ' . $this->_emails[ 1 ][ 'reply_to' ]
+                    );
+                    
+                    // Sends the confirmation email
+                    t3lib_div::plainMailEncoded(
+                        $this->_users[ $this->_profiles[ $uid ][ 'id_fe_users' ] ][ 'email' ],
+                        $this->_emails[ 1 ][ 'subject' ],
+                        $message,
+                        implode( self::$_NL, $headers )
+                    );
+                }
+            }
+        }
+    }
+    
+    /**
+     * 
+     */
     protected function _showUsers()
     {
+        // Checks for a validation action
+        if( isset( $this->_modVars[ 'submit-valid' ] ) ) {
+            
+            // Process the validations
+            $this->_processValidations();
+        }
+        
         // Checks if a user must be displayed
         if( isset( $this->_modVars[ 'view' ] ) ) {
             
@@ -289,6 +402,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         
         // Adds the view options
         $this->_viewOptions();
+        
+        // Adds the validation options
+        $this->_validOptions();
         
         // Starts the table
         $this->_content[] = $this->_tag(
@@ -380,7 +496,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             }
             
             // Info link
-            $info             = ( $profile[ 'age_proof' ] && $profile[ 'school_proof' ] ) ? $this->_modLink( $viewIcon, array( 'view' => $uid ) ) : '';
+            $info             = ( $profile[ 'confirm_token' ] ) ? '' : $this->_modLink( $viewIcon, array( 'view' => $uid ) );
             
             // Confirmation state
             $confirmed        = ( $profile[ 'confirm_token' ] ) ? $errorIcon : $okIcon;
@@ -400,9 +516,10 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             // PDF link
             $pdf              = ( $profile[ 'validated' ] && $profile[ 'project' ] ) ? $this->_modLink( $pdfIcon, array( 'export' => $uid ) ) : '';
             
-            // Checks if the user has been validated
-            if( $profile[ 'validated' ] ) {
+            // Checks the validation and confirmation state
+            if( $profile[ 'validated' ] || $profile[ 'confirm_token' ] ) {
                 
+                // No validation possible
                 $check = '';
                 
             } else {
@@ -412,8 +529,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
                     'input',
                     '',
                     array(
-                        'type' => 'checkbox',
-                        'name' => __CLASS__ . '[users][' . $uid . ']'
+                        'type'  => 'checkbox',
+                        'name'  => __CLASS__ . '[users][]',
+                        'value' => $uid
                     )
                 );
             }
@@ -490,49 +608,49 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         // Adds the fieldset title
         $this->_content[] = $this->_tag(
             'legend',
-            self::$_lang->getLL( 'options' )
+            self::$_lang->getLL( 'options.view' )
         );
         
         // Confirmed select
         $this->_content[] = $this->_createSelect(
             'confirmed',
-            self::$_lang->getLL( 'options.confirmed' ),
+            self::$_lang->getLL( 'options.view.confirmed' ),
             array(
-                self::$_lang->getLL( 'options.confirmed.all' ),
-                self::$_lang->getLL( 'options.confirmed.yes' ),
-                self::$_lang->getLL( 'options.confirmed.no' )
+                self::$_lang->getLL( 'options.view.confirmed.all' ),
+                self::$_lang->getLL( 'options.view.confirmed.yes' ),
+                self::$_lang->getLL( 'options.view.confirmed.no' )
             )
         );
         
         // Validated select
         $this->_content[] = $this->_createSelect(
             'validated',
-            self::$_lang->getLL( 'options.validated' ),
+            self::$_lang->getLL( 'options.view.validated' ),
             array(
-                self::$_lang->getLL( 'options.validated.all' ),
-                self::$_lang->getLL( 'options.validated.yes' ),
-                self::$_lang->getLL( 'options.validated.no' )
+                self::$_lang->getLL( 'options.view.validated.all' ),
+                self::$_lang->getLL( 'options.view.validated.yes' ),
+                self::$_lang->getLL( 'options.view.validated.no' )
             )
         );
         // Proof select
         $this->_content[] = $this->_createSelect(
             'proof',
-            self::$_lang->getLL( 'options.proof' ),
+            self::$_lang->getLL( 'options.view.proof' ),
             array(
-                self::$_lang->getLL( 'options.proof.all' ),
-                self::$_lang->getLL( 'options.proof.yes' ),
-                self::$_lang->getLL( 'options.proof.no' )
+                self::$_lang->getLL( 'options.view.proof.all' ),
+                self::$_lang->getLL( 'options.view.proof.yes' ),
+                self::$_lang->getLL( 'options.view.proof.no' )
             )
         );
         
         // Project select
         $this->_content[] = $this->_createSelect(
             'project',
-            self::$_lang->getLL( 'options.project' ),
+            self::$_lang->getLL( 'options.view.project' ),
             array(
-                self::$_lang->getLL( 'options.project.all' ),
-                self::$_lang->getLL( 'options.project.yes' ),
-                self::$_lang->getLL( 'options.project.no' )
+                self::$_lang->getLL( 'options.view.project.all' ),
+                self::$_lang->getLL( 'options.view.project.yes' ),
+                self::$_lang->getLL( 'options.view.project.no' )
             )
         );
         
@@ -544,12 +662,86 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
                 '',
                 array(
                     'type'  => 'submit',
-                    'value' => self::$_lang->getLL( 'options.submit' )
+                    'name'  => $this->_modName . '[submit-view]',
+                    'value' => self::$_lang->getLL( 'options.view.submit' )
                 )
             ),
             array(),
             array(
                 'margin-left' => '150px'
+            )
+        );
+        
+        // Closes the fieldset
+        $this->_content[] = $this->_endTag();
+        $this->_content[] = $this->doc->spacer( 20 );
+    }
+    
+    /**
+     * 
+     */
+    protected function _validOptions()
+    {
+        // Starts the field set
+        $this->_content[] = $this->_tag(
+            'fieldset',
+            '',
+            array(),
+            array(),
+            true
+        );
+        
+        // Adds the fieldset title
+        $this->_content[] = $this->_tag(
+            'legend',
+            self::$_lang->getLL( 'options.valid' )
+        );
+        
+        // Adds the validation radio
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag(
+                'input',
+                '',
+                array(
+                    'type'  => 'radio',
+                    'name'  => $this->_modName . '[validation]',
+                    'value' => 'valid'
+                )
+            ) . ' ' . self::$_lang->getLL( 'options.valid.valid' )
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 5 );
+        
+        // Adds the rejection radio
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag(
+                'input',
+                '',
+                array(
+                    'type'  => 'radio',
+                    'name'  => $this->_modName . '[validation]',
+                    'value' => 'reject'
+                )
+            ) . ' ' . self::$_lang->getLL( 'options.valid.reject' )
+        );
+        
+        // Spacer
+        $this->_content[] = $this->doc->spacer( 5 );
+        
+        // Adds the submit
+        $this->_content[] = $this->_tag(
+            'div',
+            $this->_tag(
+                'input',
+                '',
+                array(
+                    'type'  => 'submit',
+                    'name'  => $this->_modName . '[submit-valid]',
+                    'value' => self::$_lang->getLL( 'options.valid.submit' )
+                )
             )
         );
         
@@ -774,10 +966,109 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
                 $icon . ' ' . $fullName
             );
             
-            $this->_content[] = $this->_createLightBoxThumb( $user[ 'age_proof' ] );
+            // Spacer
+            $this->_content[] = $this->doc->spacer( 10 );
+            
+            // Starts the table
+            $this->_content[] = $this->_tag(
+                'table',
+                '',
+                array(
+                    'border'      => '0',
+                    'width'       => '100%',
+                    'align'       => 'center',
+                    'cellpadding' => '5',
+                    'cellspacing' => '1'
+                ),
+                array(
+                    'background-color' => $this->doc->bgColor2
+                ),
+                true
+            );
+            
+            // Starts the table headers
+            $this->_content[] = $this->_tag( 'tr', '', array(), array(), true );
+            
+            // Adds the headers
+            $this->_content[] = $this->_tag(
+                'td',
+                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'age_proof' ),
+                array(),
+                array(
+                    'font-weight' => 'bold',
+                    'text-align'  => 'center'
+                )
+            );
+            $this->_content[] = $this->_tag(
+                'td',
+                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'school_proof' ),
+                array(),
+                array(
+                    'font-weight' => 'bold',
+                    'text-align'  => 'center'
+                )
+            );
+            $this->_content[] = $this->_tag(
+                'td',
+                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'project' ),
+                array(),
+                array(
+                    'font-weight' => 'bold',
+                    'text-align'  => 'center'
+                )
+            );
+            
+            // Ends the table headers
+            $this->_content[] = $this->_endTag();
+            
+            // Starts the picture row
+            $this->_content[] = $this->_tag( 'tr', '', array(), array(), true );
+            
+            // Shows the user pictures
+            $this->_showUserPicture( $user, 'age_proof' );
+            $this->_showUserPicture( $user, 'school_proof' );
+            $this->_showUserPicture( $user, 'project' );
+            
+            // Ends the table
+            $this->_content[] = $this->_endTag();
+            $this->_content[] = $this->_endTag();
             
             // Spacer
             $this->_content[] = $this->doc->divider( 20 );
+        }
+    }
+    
+    /**
+     * 
+     */
+    protected function _showUserPicture( array $user, $field )
+    {
+        // Checks the field
+        if( $user[ $field ] ) {
+            
+            // Adds the project
+            $this->_content[] = $this->_tag(
+                'td',
+                $this->_createLightBoxThumb( $user[ $field ] ),
+                array(),
+                array(
+                    'background-color' => $this->doc->bgColor4,
+                    'text-align'       => 'center'
+                )
+            );
+            
+        } else {
+            
+            // No project
+            $this->_content[] = $this->_tag(
+                'td',
+                self::$_lang->getLL( 'user.no-' . $field ),
+                array(),
+                array(
+                    'background-color' => $this->doc->bgColor4,
+                    'text-align'       => 'center'
+                )
+            );
         }
     }
 }
