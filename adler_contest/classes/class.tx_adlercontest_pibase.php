@@ -639,6 +639,8 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
             
             // Adds the plugin script
             $GLOBALS[ 'TSFE' ]->additionalHeaderData[ $this->prefixId . '-piScript' ] = '<script src="'
+                                                                                      . $scriptPath
+   	                                                                                  . '" type="text/javascript" charset="utf-8"></script>';
             
             // Script has been included
             self::$_scriptIncluded = true;
