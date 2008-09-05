@@ -22,13 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * Module 'Adler / Contest' for the 'adler_contest' extension.
- *
- * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.0
- */
-
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
@@ -38,6 +31,12 @@ require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adler
 // Includes the PDF export class
 require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_pdfexport.php' );
 
+/**
+ * Module 'Adler / Contest' for the 'adler_contest' extension.
+ *
+ * @author      Jean-David Gadina <info@macmade.net>
+ * @version     1.0
+ */
 class tx_adlercontest_module1 extends tx_adlercontest_scBase
 {
     /**
@@ -65,7 +64,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     );
     
     /**
+     * Gets the module content
      * 
+     * @return  string  The module content
      */
     protected function _getContent()
     {
@@ -102,7 +103,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Tries to get the records from the requested database tables
      * 
+     * @return  boolean True if the current page contains records to display
      */
     protected function _getTables()
     {
@@ -170,7 +173,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Checks if a user can be displayed, depending on the view options
      * 
+     * @return  boolean True if the user can be displayed, otherwise false
      */
     protected function _checkUserForDisplay( array $user )
     {
@@ -260,7 +265,12 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Process validation for selected users
      * 
+     * This option will process the selected users and validates them,
+     * if requested or deletes them, if requested.
+     * 
+     * @return  NULL
      */
     protected function _processValidations()
     {
@@ -366,7 +376,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays the list of users
      * 
+     * @return  NULL
      */
     protected function _showUsers()
     {
@@ -592,7 +604,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays the view options
      * 
+     * @return NULL
      */
     protected function _viewOptions()
     {
@@ -678,7 +692,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays the validation options
      * 
+     * @return NULL
      */
     protected function _validOptions()
     {
@@ -751,7 +767,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays the section for managing the emails stored on the current page
      * 
+     * @return NULL
      */
     protected function _manageEmails()
     {
@@ -892,7 +910,9 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Creates the emails records needed on the current page
      * 
+     * @return NULL
      */
     protected function _createEmails()
     {
@@ -937,7 +957,10 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays informations about an user
      * 
+     * @param   int $uid    The ID of the user
+     * @return  NULL
      */
     protected function _showUser( $uid )
     {
@@ -1039,7 +1062,10 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
     }
     
     /**
+     * Displays a picture from the user row
      * 
+     * @param   array   $user   The user row
+     * @param   string  $field  The field name
      */
     protected function _showUserPicture( array $user, $field )
     {
