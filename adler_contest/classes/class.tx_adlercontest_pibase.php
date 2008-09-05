@@ -22,13 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/** 
- * Frontend plugin base for the 'adler_contest' extension.
- *
- * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
- */
-
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
@@ -41,6 +34,12 @@ require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adler
 // Includes the macmade.net API class
 require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
+/** 
+ * Abstract class for the TYPO3 frontend plugins
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.0
+ */
 abstract class tx_adlercontest_piBase extends tslib_pibase
 {
     /**
@@ -166,6 +165,7 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
      * Class constructor
      * 
      * @return  NULL
+     * @see     _setStaticVars
      */
     public function __construct()
     {
@@ -210,7 +210,9 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     }
     
     /**
+     * Sets the needed static variables
      * 
+     * @return  NULL
      */
     private static function _setStaticVars()
     {
@@ -560,7 +562,11 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     }
     
     /**
+     * Checks the type of an upload
      * 
+     * @param   string  $fieldName      The name of the upload field
+     * @param   array   $fieldOptions   The option array for the field
+     * @return  mixed   The error message if the file type is wrong, otherwise false
      */
     protected function _checkUploadType( $fieldName, array $fieldOptions )
     {
@@ -591,10 +597,14 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
     }
     
     /**
+     * Creates a submit button
      * 
+     * @param   string  $label  The label index to use, from the locallang file
+     * @return  string  The submit button
      */
-    protected function _submitButton()
+    protected function _submitButton( $label = 'submit' )
     {
+        // Returns the submit button
         return $this->_api->fe_makeStyledContent(
             'div',
             'submit',
@@ -603,42 +613,45 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
           . '[submit]" id="'
           . $this->prefixId
           . '_submit" type="submit" value="'
-          . $this->pi_getLL( 'submit', 'submit' )
+          . $this->pi_getLL( $label, 'submit' )
           . '" />'
         );
     }
     
     /**
+     * Includes the JavaScript file for the current plugin
      * 
+     * @return  NULL
      */
     protected function _includePluginJs()
     {
         // Checks if the script has already been included
-        if( self::$_scriptIncluded ) {
+        if( !self::$_scriptIncluded ) {
             
-            // Script has already been included
-            return true;
+            // Extension path
+            $extPath    = t3lib_extMgm::siteRelPath( $this->extKey );
+            
+            // Plugin number
+            $piNum      = substr( $this->prefixId, strrpos( $this->prefixId, '_' ) + 1 );
+            
+            // Script path
+            $scriptPath = $extPath . 'res/js/' . $piNum . '.js';
+            
+            // Adds the plugin script
+            $GLOBALS[ 'TSFE' ]->additionalHeaderData[ $this->prefixId . '-piScript' ] = '<script src="'
+            
+            // Script has been included
+            self::$_scriptIncluded = true;
         }
-        
-        // Extension path
-        $extPath    = t3lib_extMgm::siteRelPath( $this->extKey );
-        
-        // Plugin number
-        $piNum      = substr( $this->prefixId, strrpos( $this->prefixId, '_' ) + 1 );
-        
-        // Script path
-        $scriptPath = $extPath . 'res/js/' . $piNum . '.js';
-        
-        // Adds the plugin script
-        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ $this->prefixId . '-piScript' ] = '<script src="'
-                                                                                  . $scriptPath
-                                                                                  . '" type="text/javascript" charset="utf-8"></script>';
-        
-        return true;
     }
     
     /**
+     * Process a TYPO3 path
      * 
+     * This method will process TYPO3 path prefixes, like 'EXT:'.
+     * 
+     * @param   string  $path   The path to process
+     * @return  string  The processed path
      */
     protected function _processPath( $path )
     {

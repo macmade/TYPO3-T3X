@@ -22,19 +22,18 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/** 
- * PDF export class for the 'adler_contest' extension.
- *
- * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.0
- */
-
 // Includes the FPDF class
 require_once( t3lib_extMgm::extPath( 'fpdf' ) . 'class.tx_fpdf.php' );
 
 // Includes the macmade.net API class
 require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
+/** 
+ * PDF export class for the 'adler_contest' extension.
+ *
+ * @author      Jean-David Gadina <info@macmade.net>
+ * @version     1.0
+ */
 class tx_adlercontest_pdfExport extends PDF
 {
     /**
@@ -78,7 +77,10 @@ class tx_adlercontest_pdfExport extends PDF
     protected $_user                   = array();
     
     /**
+     * Class constructor
      * 
+     * @return  NULL
+     * @see     _setStaticVars
      */
     public function __construct( array $profile, array $user )
     {
@@ -98,7 +100,9 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Sets the needed static variables
      * 
+     * @return  NULL
      */
     private static function _setStaticVars()
     {
@@ -125,7 +129,9 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Gets a locallang label
      * 
+     * @return  string  The locallang label
      */
     protected function _getLabel( $label )
     {
@@ -133,7 +139,9 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the header for a specific page
      * 
+     * @return  NULL
      */
     protected function _pageHeader( $label )
     {
@@ -146,7 +154,10 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Gets a country name from the 'static_countries' table
      * 
+     * @param   int $uid    The ID of the country
+     * @return  The country name
      */
     protected function _getCountryName( $uid )
     {
@@ -169,7 +180,9 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Adds a picture to the current page
      * 
+     * @return  NULL
      */
     protected function _addPicture( $file )
     {
@@ -216,7 +229,11 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the 'data' page
      * 
+     * @return  NULL
+     * @see     _pageHeader
+     * @see     _getCountryName
      */
     protected function _dataPage()
     {
@@ -311,13 +328,17 @@ class tx_adlercontest_pdfExport extends PDF
             $this->SetXY( 75, $y );
             $this->Cell( 0, 0, $value );
             
-            
+            // Increases the Y position
             $y += 10;
         }
     }
     
     /**
+     * Creates the 'project' page
      * 
+     * @return  NULL
+     * @see     _pageHeader
+     * @see     _addPicture
      */
     protected function _projectPage()
     {
@@ -332,7 +353,11 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the 'age proof' page
      * 
+     * @return  NULL
+     * @see     _pageHeader
+     * @see     _addPicture
      */
     protected function _ageProofPage()
     {
@@ -347,7 +372,11 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the 'school proof' page
      * 
+     * @return  NULL
+     * @see     _pageHeader
+     * @see     _addPicture
      */
     protected function _schoolProofPage()
     {
@@ -362,7 +391,12 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Outputs the PDF file
      * 
+     * This method will aborts the current script, and forces the browser to
+     * download the PDF file.
+     * 
+     * @return  NULL
      */
     public function outputFile()
     {
@@ -375,7 +409,13 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the PDF pages
      * 
+     * @return  NULL
+     * @see     _projectPage
+     * @see     _dataPage
+     * @see     _ageProofPage
+     * @see     _schoolProofPage
      */
     public function createPages()
     {
@@ -405,7 +445,10 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the PDF header
      * 
+     * @return  NULL
+     * @see     _getLabel
      */
     public function Header()
     {
@@ -418,7 +461,10 @@ class tx_adlercontest_pdfExport extends PDF
     }
     
     /**
+     * Creates the PDF footer
      * 
+     * @return  NULL
+     * @see     _getLabel
      */
     public function Footer()
     {

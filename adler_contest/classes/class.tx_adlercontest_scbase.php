@@ -22,13 +22,6 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * Module 'Adler / Contest' for the 'adler_contest' extension.
- *
- * @author      Jean-David Gadina <info@macmade.net>
- * @version     1.0
- */
-
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
@@ -38,6 +31,12 @@ require_once( PATH_t3lib . 'class.t3lib_scbase.php' );
 // Includes the macmade.net API class
 require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
 
+/**
+ * Abstract class for the TYPO3 backend modules
+ *
+ * @author      Jean-David Gadina <info@macmade.net>
+ * @version     1.0
+ */
 abstract class tx_adlercontest_scBase extends t3lib_SCbase
 {
     /**
@@ -178,6 +177,7 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
      * Class constructor
      * 
      * @return  NULL
+     * @see     _setStaticVars
      */
     public function __construct()
     {
@@ -188,20 +188,20 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
             self::_setStaticVars();
         }
         
-        // Sets the module name
-        $this->_modName = get_class( $this );
-        
         // Checks for an active page
         if( $this->id ) {
             
             // Gets the active page row
-            $this->_page          =  t3lib_BEfunc::getRecord(
+            $this->_page     =  t3lib_BEfunc::getRecord(
                 $this->id
             );
         }
         
+        // Sets the module name
+        $this->_modName      = get_class( $this );
+        
         // Gets a new instance of the macmade.net API
-        $this->_api               =  tx_apimacmade::newInstance(
+        $this->_api          =  tx_apimacmade::newInstance(
             'tx_apimacmade',
             array(
                 $this
@@ -209,17 +209,19 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
         );
         
         // Creates an instance of the TYPO3 document class
-        $this->doc                = t3lib_div::makeInstance( 'bigDoc' );
+        $this->doc           = t3lib_div::makeInstance( 'bigDoc' );
         
         // Sets the back path
-        $this->doc->backPath      = self::$_backPath;
+        $this->doc->backPath = self::$_backPath;
         
         // Gets the module variables
-        $this->_modVars           = t3lib_div::_GP( $this->_modName );
+        $this->_modVars      = t3lib_div::_GP( $this->_modName );
     }
     
     /**
+     * Returns the module content
      * 
+     * @return  string  The module content
      */
     public function __toString()
     {
@@ -236,7 +238,9 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Sets the needed static variables
      * 
+     * @return  NULL
      */
     private static function _setStaticVars()
     {
@@ -291,7 +295,12 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a thumbnail with a lightbox link
      * 
+     * @param   string  $file   The file path (relative to the upload directory)
+     * @param   int     $width  The thumbnail maximum width
+     * @param   int     $height The thumbnail maximum height
+     * @return  string  The thumbnail code
      */
     protected function _createLightBoxThumb( $file, $width = 100, $height = 100 )
     {
@@ -343,7 +352,12 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a link with module variables
      * 
+     * @param   string  $text           The link text
+     * @param   array   $params         The module variables to set, as key/value pairs
+     * @param   array   $keepModVars    The module variables to keep
+     * @return  string  The link
      */
     protected function _modLink( $text, array $params = array(), $keepModVars = false )
     {
@@ -362,7 +376,11 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a link to a function of the menu
      * 
+     * @param   string  $text       The link text
+     * @param   int     $function   The menu function ID
+     * @return  string  The link
      */
     protected function _functionLink( $text, $function )
     {
@@ -380,7 +398,12 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a link to the edit view of a record
      * 
+     * @param   string  $table  The table name
+     * @param   int     $uid    The ID of the record
+     * @param   string  $text   The link text
+     * @return  string  The link
      */
     protected function _editLink( $table, $uid, $text )
     {
@@ -399,7 +422,14 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates an HTML tag
      * 
+     * @param   string  $tag        The HTML tag
+     * @param   string  $content    The content of the HTML tag
+     * @param   array   $params     The attributes for the HTML tag, as key/value pairs
+     * @param   array   $styles     The inline CSS styles for the HTML tag, as key/value pairs
+     * @param   boolean $onlyStart  If set, only the start tag will be returned, without the content
+     * @return  string  The HTML tag
      */
     protected function _tag( $tag, $content = '', array $params = array(), array $styles = array(), $onlyStart = false )
     {
@@ -466,7 +496,9 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Ends a previously started HTML tag
      * 
+     * @return  The closed HTML tag
      */
     protected function _endTag()
     {
@@ -485,7 +517,14 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a select menu
      * 
+     * @param   string  $name   The name of the select
+     * @param   string  $label  The label for the select menu
+     * @param   array   $items  The items to place on the menu, as value/label pairs
+     * @return  string  The select menu
+     * @see     _tag
+     * @see     _endTag
      */
     protected function _createSelect( $name, $label, array $items )
     {
@@ -581,7 +620,11 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Gets the label for a database field
      * 
+     * @param   string  $table  The table name
+     * @param   string  $field  The field name
+     * @return  string  The label
      */
     protected function _getFieldLabel( $table, $field )
     {
@@ -611,7 +654,10 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Gets an icon from this extension
      * 
+     * @param   string  $name   The icon name
+     * @return  string  The HTML IMG tag
      */
     protected function _skinImg( $name )
     {
@@ -640,7 +686,10 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Gets an icon from TYPO3
      * 
+     * @param   string  $name   The icon name
+     * @return  string  The HTML IMG tag
      */
     protected function _t3SkinImg( $name )
     {
@@ -654,7 +703,10 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Backend module main method, that will create it's content
      * 
+     * @return  NULL
+     * @see     _tag
      */
     public function main()
     {
@@ -764,7 +816,9 @@ abstract class tx_adlercontest_scBase extends t3lib_SCbase
     }
     
     /**
+     * Creates the menu for the backend module
      * 
+     * @return  NULL
      */
     public function menuConfig()
     {

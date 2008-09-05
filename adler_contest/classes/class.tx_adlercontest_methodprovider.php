@@ -23,13 +23,12 @@
  ***************************************************************/
 
 /** 
- * Method provider for the 'adler_contest' extension.
+ * Method provider class for the 'adler_contest' extension.
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
  */
-
-class tx_adlercontest_methodProvider
+final class tx_adlercontest_methodProvider
 {
     /**
      * The unique instance of the class (singleton)
@@ -67,9 +66,14 @@ class tx_adlercontest_methodProvider
     protected $_yearsOptions     = '';
     
     /**
+     * Class constructor
      * 
+     * The class constructor is private to avoid multiple instances of the
+     * class (singleton).
+     * 
+     * @return NULL
      */
-    protected function __construct()
+    private function __construct()
     {
         // Sets the new line character
         $this->_NL = chr( 10 );
@@ -79,7 +83,13 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Clones an instance of the class
      * 
+     * A call to this method will produce an exception, as the class cannot
+     * be cloned (singleton).
+     * 
+     * @return  NULL
+     * @throws  Exception   Always, as the class cannot be cloned (singleton)
      */
     public function __clone()
     {
@@ -88,7 +98,12 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Gets the unique class instance
      * 
+     * This method is used to get the unique instance of the class
+     * (singleton). If no instance is available, it will create it.
+     * 
+     * @return  object  The unique instance of the class
      */
     public static function getInstance()
     {
@@ -104,7 +119,9 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates HTML OPTION tags for each country in the 'static_countries' table
      * 
+     * @return  string  The OPTION tags
      */
     protected function _getCountriesOptions()
     {
@@ -150,7 +167,9 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates HTML OPTION tags for each day in a month
      * 
+     * @return  string  The OPTION tags
      */
     protected function _getDaysOptions()
     {
@@ -180,7 +199,9 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates HTML OPTION tags for each month of the year
      * 
+     * @return  string  The OPTION tags
      */
     protected function _getMonthesOptions()
     {
@@ -213,7 +234,9 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates HTML OPTION tags for 100 year, starting from the current year
      * 
+     * @return  string  The OPTION tags
      */
     protected function _getYearsOptions()
     {
@@ -249,7 +272,11 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates a select menu with countries from the 'static_countries' table
      * 
+     * @param   string  $name   The name of the select
+     * @return  string  The select menu with the countries
+     * @see     _getCountriesOptions
      */
     public function countrySelect( $name )
     {
@@ -265,7 +292,13 @@ class tx_adlercontest_methodProvider
     }
     
     /**
+     * Creates a select menu to choose a date
      * 
+     * @param   string  $name   The name of the select
+     * @return  string  Three select menus (day, month and year)
+     * @see     _getDaysOptions
+     * @see     _getMonthesOptions
+     * @see     _getYearsOptions
      */
     public function dateSelect( $name )
     {
@@ -295,12 +328,7 @@ class tx_adlercontest_methodProvider
     }
     
     /**
-     * 
-     */
-    
-    
-    /**
-     * Establish a FE user session
+     * Establish a frontend user session
      * 
      * @param   array   $user   The FE user row from the database
      * @return  NULL

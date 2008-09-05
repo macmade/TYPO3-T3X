@@ -23,7 +23,7 @@
  ***************************************************************/
 
 /** 
- * Abstract class for the plugin wizard icon classes.
+ * Abstract class for the plugin wizard icon classes
  *
  * @author      Jean-David Gadina <info@macmade.net>
  * @version     3.0
