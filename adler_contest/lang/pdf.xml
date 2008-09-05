@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for module &quot;web_txtcatunerM1&quot;</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="header.fileNum">File number:</label>
+            <label index="footer.pages">Page %s of %s</label>
+            <label index="project.header">The project</label>
+            <label index="data.header">Personnal data</label>
+            <label index="age.header">Age proof</label>
+            <label index="school.header">School proof</label>
+        </languageKey>
+    </data>
+</T3locallang>
