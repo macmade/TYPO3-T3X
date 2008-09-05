@@ -22,111 +22,21 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+// Includes the wizard icon base class
+require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_wizardicon.php' );
+
 /** 
  * Class that adds the wizard icon.
  *
- * @author		Jean-David Gadina (info@macmade.net)
- * @version		3.0
+ * @author      Jean-David Gadina <info@macmade.net>
+ * @version     1.0
  */
-
-class tx_adlercontest_pi1_wizicon
+class tx_adlercontest_pi1_wizicon extends tx_adlercontest_wizardIcon
 {
     /**
-     * The extension key
+     * The wizard class file
      */
-    protected static $_extKey = '';
-    
-    /**
-     * The plugin name
-     */
-    protected static $_piName = '';
-    
-    /**
-     * The plugin number
-     */
-    protected static $_piNum  = '';
-    
-    /**
-     * The language object
-     */
-    protected static $_lang   = NULL;
-    
-    /**
-     * The language labels
-     */
-    protected static $_labels = array();
-    
-    /**
-     * Class constructor
-     * 
-     * @return  NULL
-     */
-    public function __construct()
-    {
-        // Checks for the language object
-        if( !is_object( self::$_lang ) ) {
-            
-            // Gets the current path
-            $extPathInfo   = explode( DIRECTORY_SEPARATOR, dirname( __FILE__ ) );
-            
-            // Sets the plugin number
-            self::$_piNum  = array_pop( $extPathInfo );
-            
-            // Sets the extension key
-            self::$_extKey = array_pop( $extPathInfo );
-            
-            // Sets the plugin name
-            self::$_piName = str_replace( '_', '', self::$_extKey );
-            
-            // Gets the language object
-            self::$_lang   = $GLOBALS[ 'LANG' ];
-            
-            // Gets the language labels
-            self::$_labels = self::$_lang->includeLLFile(
-                'EXT:' . self::$_extKey . '/lang/wiz_' . self::$_piNum . '.xml',
-                false
-            );
-        }
-    }
-    
-    /**
-     * Gets a locallang label
-     * 
-     * @param   string  $label  The name of the label to get
-     * @return  string  The locallang label
-     */
-    protected function _getLabel( $label )
-    {
-        return self::$_lang->getLLL( $label, self::$_labels );
-    }
-    
-    /**
-     * Process the wizard items array
-     *
-     * @param   array   $wizardItems    The wizard items
-     * @return  array   The modified array with the wizard items
-     */
-    public function proc( array $wizardItems )
-    {
-        // Wizard item
-        $wizardItems[ 'plugins_tx_' . self::$_piName . '_' . self::$_piNum ] = array(
-            
-            // Icon
-            'icon'        => t3lib_extMgm::extRelPath( self::$_extKey ) . 'res/wiz_' . self::$_piNum . '.gif',
-            
-            // Title
-            'title'       => $this->_getLabel( 'pi_title' ),
-            
-            // Description
-            'description' => $this->_getLabel( 'pi_plus_wiz_description' ),
-            
-            // Parameters
-            'params'      => '&defVals[tt_content][CType]=list&defVals[tt_content][list_type]=' . self::$_extKey . '_' . self::$_piNum
-        );
-        
-        // Returns the wizard items
-        return $wizardItems;
-    }
+    protected $_wizardClassFile = __FILE__;
 }
 
 /**
