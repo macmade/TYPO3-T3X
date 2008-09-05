@@ -26,7 +26,7 @@
 require_once( t3lib_extMgm::extPath( 'adler_contest' ) . 'classes/class.tx_adlercontest_wizardicon.php' );
 
 /** 
- * Class that adds the wizard icon.
+ * Class that adds the wizard icon
  *
  * @author      Jean-David Gadina <info@macmade.net>
  * @version     1.0
