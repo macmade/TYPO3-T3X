@@ -90,4 +90,13 @@ plugin.tx_eespwsmodules_pi1 {
         
         file.height = 16
     }
+    
+    collapsePictureRed {
+        
+        file        = EXT:eesp_ws_modules/res/information-red.png
+        
+        file.width  = 16
+        
+        file.height = 16
+    }
 }

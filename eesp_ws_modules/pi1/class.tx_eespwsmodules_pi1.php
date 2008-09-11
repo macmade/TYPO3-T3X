@@ -52,67 +52,70 @@ require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_ees
 class tx_eespwsmodules_pi1 extends tslib_pibase
 {
     // Configuration array
-    protected $_conf              = array();
+    protected $_conf               = array();
     
     // Instance of the Developer API
-    protected $_api               = NULL;
+    protected $_api                = NULL;
     
     // Instance of the module getter
-    protected $_modGetter         = NULL;
+    protected $_modGetter          = NULL;
     
     // Instance of the people getter
-    protected $_peopleGetter      = NULL;
+    protected $_peopleGetter       = NULL;
     
     // Storage for the modules
-    protected $_modules           = array();
+    protected $_modules            = array();
     
     // Storage for the module dates
-    protected $_dates             = array();
+    protected $_dates              = array();
     
     // Total number of modules
-    protected $_modCount          = array();
+    protected $_modCount           = array();
     
     // Modules informations
-    protected $_modInfos          = array();
+    protected $_modInfos           = array();
     
     // New line character
-    protected $_NL                = '';
+    protected $_NL                 = '';
     
     // Collapse picture
-    protected $_collapsePicture   = '';
+    protected $_collapsePicture    = '';
+    
+    // Collapse red picture
+    protected $_collapsePictureRed = '';
     
     // Classrooms picture
-    protected $_classRoomsPicture = '';
+    protected $_classRoomsPicture  = '';
     
     // Current URL
-    protected $_url               = '';
+    protected $_url                = '';
     
     // Current date
-    protected $_currentDate       = '';
+    protected $_currentDate        = '';
     
     // Remote address
-    protected $_remoteAddress     = '';
+    protected $_remoteAddress      = '';
     
     // Flexform data
-    protected $_piFlexForm        = '';
+    protected $_piFlexForm         = '';
     
     // Upload directory
-    protected $_uploadDirectory   = '';
+    protected $_uploadDirectory    = '';
     
     // Same as class name
-    public $prefixId              = 'tx_eespwsmodules_pi1';
+    public $prefixId               = 'tx_eespwsmodules_pi1';
     
     // Path to this script relative to the extension dir
-    public $scriptRelPath         = 'pi1/class.tx_eespwsmodules_pi1.php';
+    public $scriptRelPath          = 'pi1/class.tx_eespwsmodules_pi1.php';
     
     // The extension key
-    public $extKey                = 'eesp_ws_modules';
+    public $extKey                 = 'eesp_ws_modules';
     
     // Version of the Developer API required
-    public $apimacmade_version    = 4.5;
+    public $apimacmade_version     = 4.5;
     
     // Check plugin hash
-    public $pi_checkCHash         = true;
+    public $pi_checkCHash          = true;
     
     /***************************************************************
      * SECTION 1 - MAIN
@@ -989,6 +992,16 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                     $this->_collapsePicture = $this->cObj->IMAGE( $this->_conf[ 'collapsePicture.' ] );
                 }
                 
+                // Checks if the collapse red picture needs to be processed
+                if( !$this->_collapsePictureRed ) {
+                    
+                    // Builds the collapse picture
+                    $this->_collapsePictureRed = $this->cObj->IMAGE( $this->_conf[ 'collapsePictureRed.' ] );
+                }
+                
+                // Collapse picture to use
+                $collapsePicture = ( isset( $module[ 'comments' ] ) && $module[ 'comments' ] ) ? $this->_collapsePictureRed : $this->_collapsePicture;
+                
                 // ID for the info DIV
                 $infosDivId = uniqid( '', true );
                 
@@ -998,7 +1011,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                                                      . '\' );" title="'
                                                      . $this->pi_getLL( 'collapse-title' )
                                                      . '">'
-                                                     . $this->_collapsePicture
+                                                     . $collapsePicture
                                                      . '</a>';
                 
                 // Checks if we have to add the classrooms infos
