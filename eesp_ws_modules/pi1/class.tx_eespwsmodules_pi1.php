@@ -826,12 +826,18 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 $meridiemArray[ $id ][ 'common' ] =& $this->_modules[ $id ];
                 
                 // Increase all counters
-                $this->_modCount[ $id ] = true;
                 $this->_dates[ $year ][ 'count' ]++;
                 $this->_dates[ $year ][ 'entries' ][ $month ][ 'count' ]++;
                 $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'count' ]++;
                 $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'count' ]++;
                 $this->_dates[ $year ][ 'entries' ][ $month ][ 'entries' ][ $week ][ 'entries' ][ $day ][ 'entries' ][ $meridiem ][ 'count' ]++;
+                
+                // Checks the module code
+                if( $id != $this->_conf[ 'holidays' ] ) {
+                    
+                    // Only counts real modules, not holidays
+                    $this->_modCount[ $id ] = true;
+                }
             }
         }
         
@@ -1000,7 +1006,7 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 }
                 
                 // Collapse picture to use
-                $collapsePicture = ( isset( $module[ 'comments' ] ) && $module[ 'comments' ] ) ? $this->_collapsePictureRed : $this->_collapsePicture;
+                $collapsePicture = ( isset( $module[ 'comments' ] ) && $module[ 'comments' ] && !is_array( $module[ 'comments' ] ) ) ? $this->_collapsePictureRed : $this->_collapsePicture;
                 
                 // ID for the info DIV
                 $infosDivId = uniqid( '', true );
