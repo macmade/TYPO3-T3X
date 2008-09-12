@@ -865,8 +865,12 @@ class tx_eespwsmodules_pi1 extends tslib_pibase
                 'comments' => $this->_modGetter->comments
             );
             
-            // Counter for modules
-            $this->_modCount[ $id ] = true;
+            // Checks the module code
+            if( $id != $this->_conf[ 'holidays' ] ) {
+                
+                // Only counts real modules, not holidays
+                $this->_modCount[ $id ] = true;
+            }
         }
         
         return true;
