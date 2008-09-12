@@ -68,6 +68,9 @@
             <label index="label-ORG_TEMPORELLE">Temporal organisation:</label>
             <label index="label-CREDITS_ECTS">ECTS credits:</label>
             <label index="label-LANGUE">Language:</label>
+            <label index="label-VALIDE_NAME">Validated by:</label>
+            <label index="label-VALIDE_DATE">Validated on:</label>
+            <label index="label-LANGUE">Language:</label>
             <label index="label-title">Title:</label>
             <label index="label-subcode">Subcode:</label>
             <label index="label-number">Code:</label>
@@ -145,6 +148,8 @@
             <label index="label-CARACTERISTIQUE">Caractéristique:</label>
             <label index="label-ORG_TEMPORELLE">Organisation temporelle:</label>
             <label index="label-CREDITS_ECTS">Crédits ECTS:</label>
+            <label index="label-VALIDE_NAME">Validé par:</label>
+            <label index="label-VALIDE_DATE">Validé le:</label>
             <label index="label-LANGUE">Langue:</label><label index="label-title">Titre:</label>
             <label index="label-subcode">Sous-code:</label>
             <label index="label-number">Code:</label>
