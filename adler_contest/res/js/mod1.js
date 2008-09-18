@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+// $Id$
+
 /**
  * JavaScript code for the module 'Adler / Registration' of the
  * 'adler_contest' extension.

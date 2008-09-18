@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /** 
  * Plugin 'Vote' for the 'adler_contest' extension.
  *

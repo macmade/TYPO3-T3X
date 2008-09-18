@@ -1,5 +1,7 @@
 <!--
 
+// $Id$
+
 // Script state
 script_ended = 1;
 

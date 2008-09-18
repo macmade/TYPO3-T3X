@@ -1,5 +1,7 @@
 <?php
 
+# $Id$
+
 // Loads the module configuration
 unset( $MCONF );
 require( 'conf.php' );

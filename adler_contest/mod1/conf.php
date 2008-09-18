@@ -1,5 +1,7 @@
 <?php
 
+# $Id$
+
 define( 'TYPO3_MOD_PATH', '../typo3conf/ext/adler_contest/mod1/' );
 $BACK_PATH                                  = '../../../../typo3/';
 $MCONF['name']                              = 'web_txadlercontestM1';

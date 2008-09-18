@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /** 
  * Method provider class for the 'adler_contest' extension.
  *

@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 // Includes the FPDF class
 require_once( t3lib_extMgm::extPath( 'fpdf' ) . 'class.tx_fpdf.php' );
 

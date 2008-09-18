@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
