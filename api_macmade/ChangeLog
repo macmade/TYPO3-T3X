@@ -2,6 +2,13 @@ $Id$
 
 2008-09-04  Jean-David Gadina  <info@macmade.net>
 
+	* Increased API internal version number to 4.7.
+	* Fixed a bug with the FlexForm helper class on some PHP5 versions.
+	* Updated the API documentation (doc/manual.sxw).
+	* Release of version 4.7 of the API.
+
+2008-09-04  Jean-David Gadina  <info@macmade.net>
+
 	* Increased API internal version number to 4.6.
 	* Fixed a bug in the be_includeLightBoxJs method.
 	* Updated the API documentation (doc/manual.sxw).
