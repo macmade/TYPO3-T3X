@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /**
  * Flexform helper class
  *
@@ -31,34 +33,6 @@
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
  */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - PHP methods
- *              public function __construct( &$xmlData )
- *              public function __get( $fieldName )
- *              public function __toString
- * 
- * SECTION:     2 - SPL Iterator methods
- *              public function rewind
- *              public function current
- *              public function key
- *              public function next
- *              public function valid
- * 
- * SECTION:     3 - Private or protected class methods
- *              protected function _getFieldsShortcut
- * 
- * SECTION:     4 - Public class methods
- *              public function getFieldValue( $fieldName, $sheet = 'sDEF', $lang = 'lDEF', $value = 'vDEF' )
- *              public function setDefaultSheet( $name )
- *              public function setDefaultLang( $name )
- *              public function setDefaultValue( $name )
- * 
- *              TOTAL FUNCTIONS: 13
- */
-
 class tx_apimacmade_flexform implements Iterator
 {
     // SimpleXMLElement with the data from the flexform

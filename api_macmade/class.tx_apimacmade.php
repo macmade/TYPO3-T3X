@@ -22,6 +22,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /**
  * Contains the Developer API (api_macmade).
  * 
@@ -40,112 +42,8 @@
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     4.6
  */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - INTERNAL
- *              function tx_apimacmade( &$pObj )
- *              function versionError( $version = false )
- *              function errorMsg( $method, $message, $line )
- *              function getPhp5Class( $section, $args = array() )
- *              function &newInstance( $className, $args = array() )
- * 
- * SECTION:     2 - FE
- *              function fe_mergeTSconfFlex( $mapArray, $tsArray, $flexRes )
- *              function fe_initTemplate( $templateFile )
- *              function fe_renderTemplate( $templateMarkers, $templateSection )
- *              function fe_makeStyledContent( $element, $className, $content = false, $piClass = 1, $htmlSpecialChars = false, $startTagOnly = false, $params = array() )
- *              function fe_setInternalVars( $results_at_a_time = false, $maxPages = false, $searchFieldList = false, $orderByList = false )
- *              function fe_buildSwapClassesJSCode( $class1, $class2 )
- *              function fe_makeSwapClassesJSLink( $elementId, $content = false, $htmlSpecialChars = false, $startTagOnly = false, $params = array() )
- *              function fe_createImageObjects( $imgRefs, $conf, $imgPath = false )
- *              function fe_linkTP( $str, $urlParameters = array(), $cache = 0, $altPageId = 0, $conf = array() )
- *              function fe_linkTP_keepPIvars( $str, $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId=0 )
- *              function fe_linkTP_keepPIvars_url( $overrulePIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
- *              function fe_linkTP_unsetPIvars( $str, $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
- *              function fe_linkTP_unsetPIvars_url( $overrulePIvars = array(), $unsetPIvars = array(), $cache = 0, $clearAnyway = 0, $altPageId = 0 )
- *              function fe_typoLinkParams( $params, $keepPiVars = false )
- *              function fe_initFeAdmin( $conf, $table, $pid, $feAdminConf, $create = 1, $edit = 0, $delete = 0, $infomail = 0, $fe_userOwnSelf = 0, $fe_userEditSelf = 0, $debug = 0, $defaultCmd = 'create', $confKey = 'fe_adminLib' )
- *              function fe_createInput( $type, $name, $feAdminConf, $feAdminSection, $number = 1, $params = array(), $defaultValue = 0, $defaultChecked = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
- *              function fe_createTextArea( $name, $feAdminConf, $feAdminSection, $params = array(), $defaultValue = 0, $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
- *              function fe_createSelect( $name, $feAdminConf, $feAdminSection, $options, $htmlspecialchars = 1, $params = array(), $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
- *              function fe_createSelectFromTable( $name, $feAdminConf, $feAdminSection, $table, $pidList, $labelField, $valueField = 'uid', $htmlspecialchars = 1, $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $params = array(), $keepSentValues = 1, $langPrefix = 'pi_feadmin_', $headerSeparation = ':<br />' )
- *              function fe_buildFormElementHeader( $name, $langPrefix, $headerSeparation, $requiredFieldList = false, $evalValues = array() )
- *              function fe_buildLoginBox( $pid, $inputSize = '30', $method = 'post', $target = '_self', $wrap = false, $layout = false, $langPrefix = 'pi_loginbox_', $permaLogin = false )
- *              function fe_buildSearchBox( $method = 'post', $nocache = true, $sword = 'sword', $pointer = 'pointer' )
- *              function fe_buildBrowseBox( $pointer = 'pointer', $count = 'res_count', $maxResults = 'results_at_a_time', $maxPages = 'maxPages' )
- *              function fe_includePrototypeJs
- *              function fe_includeMootoolsJs
- *              function fe_includeScriptaculousJs
- *              function fe_includeLightBoxJs( $includeCss = true )
- *              function fe_includeUfo
- *              function fe_includeSwfObject
- *              function fe_includeWebToolKitJs( $file )
- * 
- * SECTION:     3 - BE
- *              function be_buildRecordIcons( $actions, $table, $uid )
- *              function be_buildPageTreeSelect( $name, $treeStartingPoint = 0, $size = '1', $multiple = false, $pageIcons = 1 )
- *              function be_getSelectStyleRecordIcon( $table, $rec, $backPath )
- *              function be_initCSM
- *              function be_getRecordCSMIcon( $table, $rec, $backPath, $align = 'top' )
- *              function be_includePrototypeJs
- *              function be_includeMootoolsJs
- *              function be_includeScriptaculousJs
- *              function be_includeLightBoxJs( $includeCss = true )
- *              function be_includeUfo
- *              function be_includeSwfObject
- *              function fe_includeWebToolKitJs( $file )
- * 
- * SECTION:     4 - DB
- *              function db_table2text( $table, $fieldList = '*', $addWhere = '', $groupBy = '', $orderBy = '', $limit = '', $sepField = chr(9), $sepRow = chr( 10  )
- *              function db_table2xml( $table, $fieldList = '*', $whereClause = '', $groupBy = '', $orderBy = '', $limit = '', $uppercase = 1, $xmlDeclaration = 1, $xmlVersion = '1.0', $xmlEncoding = 'iso-8859-1', $directOut = 0, $ns = '', $nsPrefix = 'ns' )
- * 
- * SECTION:     5 - DIV
- *              function div_utf8ToIso( $content )
- *              function div_getAge( $tstamp, $currentTime = false, $ageType = false )
- *              function div_writeTagParams( $params )
- *              function div_checkVarType( $vars, $type = 'array' )
- *              function div_cleanArray( $input, $keys, $inverse = 0 )
- *              function div_baseURL( $url, $http = 1, $trailingSlash = 1 )
- *              function div_vCardCreate( $user, $version = '3.0', $charset = false )
- *              function div_vCardFileParse( $file )
- *              function div_str2list( $string, $sep = ', ', $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
- *              function div_array2list( $array, $htmlspecialchars = 1, $listType = 'ul', $listParams = array(), $itemsParams = array() )
- *              function div_output( $out, $cType, $fName, $cDisp = 'attachment', $charset = 'utf-8' )
- *              function div_xml2array( $data, $keepAttribs = 1, $caseFolding = 0, $skipWhite = 0, $prefix = false, $numeric = 'n', $index = 'index', $type = 'type', $base64 = 'base64', $php5defCharset = 'iso-8859-1' )
- *              function div_array2xml( $input, $xmlRoot = 'phpArray', $prefix = '', $numeric = 'item', $numericAsAttribute = 'index', $addArrayAttribute = 'type', $xmlDeclaration = 1, $encoding = 'iso-8859-1', $version = '1.0', $standalone = 'yes', $doctype = false, $newLine = 10, $indent = 9, $level = 0 )
- *              function div_crop( $str, $chars, $endString = '...', $crop2space = 1, $stripTags = 1 )
- *              function div_week2date( $day, $week, $year )
- *              function div_numberInRange( $number, $min, $max, $int = false )
- *              function div_rgb2hsl( $R, $G, $B, $round = 1 )
- *              function div_hsl2rgb( $H, $S, $L, $round = 1 )
- *              function div_rgb2hsv( $R, $G, $B, $round = 1 )
- *              function div_hsv2rgb( $H, $S, $V, $round = 1 )
- *              function div_hsl2hsv( $H, $S, $L, $round = 1 )
- *              function div_hsv2hsl( $H, $S, $V, $round = 1 )
- *              function div_createHexColor( $v1, $v2, $v3, $method = 'RGB', $uppercase = 1 )
- *              function div_modifyHexColor( $color, $v1, $v2, $v3, $methid = 'RGB', $uppercase = 1 )
- *              function div_formatXHTML( $xhtml, $uppercase = 0, $newLine = 10, $indent = 9, $level = 0 )
- *              function div_convertLineBreaks( $text, $stripNull = 1 )
- *              function div_checkArrayKeys( $array, $keys, $allowEmpty = false, $checkType )
- *              function div_rmdir( $path, $relative = 0, $cleaned = false )
- *              function div_isType( $var, $type )
- * 
- * SECTION:     6 - DEBUG
- *              function viewArray( $array, $indent = 0 )
- *              function debug( $variable, $header = 'DEBUG' )
- * 
- *              TOTAL FUNCTIONS: 80
- */
-
 class tx_apimacmade
 {
-    
-    
-    
-    
-    
     /***************************************************************
      * SECTION 0 - VARIABLES
      *
@@ -192,10 +90,6 @@ class tx_apimacmade
     
     // Template object for frontend functions
     var $templateContent = NULL;
-    
-    
-    
-    
     
     /***************************************************************
      * SECTION 1 - INTERNAL
@@ -2753,10 +2647,6 @@ class tx_apimacmade
         return true;
     }
     
-    
-    
-    
-    
     /***************************************************************
      * SECTION 3 - BE
      *
@@ -3284,10 +3174,6 @@ class tx_apimacmade
         return true;
     }
     
-    
-    
-    
-    
     /***************************************************************
      * SECTION 4 - DB
      *
@@ -3532,10 +3418,6 @@ class tx_apimacmade
             return $content;
         }
     }
-    
-    
-    
-    
     
     /***************************************************************
      * SECTION 5 - DIV
@@ -6650,10 +6532,6 @@ class tx_apimacmade
             return $funcName( $var );
         }
     }
-    
-    
-    
-    
     
     /***************************************************************
      * SECTION 6 - DEBUG

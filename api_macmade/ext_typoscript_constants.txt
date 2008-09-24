@@ -21,6 +21,8 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /**
  * Default TS constants - Extension 'Developer API'
  *
