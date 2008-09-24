@@ -92,7 +92,7 @@ class tx_apimacmade_flexform implements Iterator
                 $this->_flexData = new SimpleXMLElement( $xmlData );
                 
                 // DEBUG ONLY - Shows the flexform structure
-                #t3lib_div::debug( $this->_flexData, 'Flex Structure' );
+                #print_r( $this->_flexData );
                 
                 // Gets the fields shortcuts
                 $this->_getFieldsShortcut();
@@ -274,7 +274,7 @@ class tx_apimacmade_flexform implements Iterator
         if( $this->_subObject ) {
             
             // XPath expression for the field value
-            $xPath = 'field[@index="' . $fieldName . '"]/value';
+            $xPath = '//field[@index="' . $fieldName . '"]/value';
             
             // Tries to get the value
             if( $value = $this->_flexData->xpath( $xPath ) ) {
@@ -357,6 +357,7 @@ class tx_apimacmade_flexform implements Iterator
         
         // Relink the fields shortcut
         $this->_getFieldsShortcut();
+        
         return true;
     }
     
