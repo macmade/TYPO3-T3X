@@ -40,7 +40,7 @@
  * Please take a look at the manual for a complete description of this API.
  *
  * @author      Jean-David Gadina (info@macmade.net)
- * @version     4.6
+ * @version     4.7
  */
 class tx_apimacmade
 {
@@ -54,7 +54,7 @@ class tx_apimacmade
      ***************************************************************/
     
     // Version of the API
-    var $version         = 4.6;
+    var $version         = 4.7;
     
     // Parent object (if applicable)
     var $pObj            = NULL;
