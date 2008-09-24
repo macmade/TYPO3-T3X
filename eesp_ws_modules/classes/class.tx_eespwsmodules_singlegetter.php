@@ -249,7 +249,7 @@ class tx_eespwsmodules_singleGetter implements Iterator
         $result    = $this->_soap->$operation( $this->_soapArgs );
         
         // Checks the result
-        if( !is_object( $result ) || !isset( $result->FourD_arg0 ) ) {
+        if( !is_object( $result ) || !isset( $result->FourD_arg0 ) || !$result->FourD_arg0 ) {
             
             // No response
             throw new Exception( 'No ressponse from the SOAP server' );
