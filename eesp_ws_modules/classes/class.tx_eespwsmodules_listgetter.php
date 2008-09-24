@@ -22,38 +22,14 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /**
- * Flexform helper class
- *
- * This class is part of the Developer API (api_macmade) extension, and is
- * only available for PHP5.
+ * EESP WS modules list getter class
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
  */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - PHP methods
- *              public function __construct( &$xmlData )
- *              public function __get( $fieldName )
- * 
- * SECTION:     2 - SPL Iterator methods
- *              public function rewind
- *              public function current
- *              public function key
- *              public function next
- *              public function valid
- * 
- * SECTION:     3 - Public class methods
- *              public function soapRequest
- *              public function setSoapArg( $name, $value )
- *              public function unsetSoapArg( $name )
- * 
- *              TOTAL FUNCTIONS: 10
- */
-
 class tx_eespwsmodules_listGetter implements Iterator
 {
     // Current position for the iterator methods

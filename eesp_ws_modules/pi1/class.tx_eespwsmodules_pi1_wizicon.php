@@ -22,24 +22,14 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /** 
  * Class that adds the wizard icon.
  *
  * @author		Jean-David Gadina (info@macmade.net)
  * @version		2.0
  */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- *   43:		class tx_eespwsmodules_pi1_wizicon
- *   62:		public function __construct
- *   84:		protected function _getLabel( $label )
- *   95:		public function proc( array $wizardItems )
- * 
- *				TOTAL FUNCTIONS: 3
- */
-
 class tx_eespwsmodules_pi1_wizicon
 {
     // Extension key

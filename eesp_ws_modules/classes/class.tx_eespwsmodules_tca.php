@@ -22,16 +22,17 @@
  * This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+# $Id$
+
+// Loads the Developer API
+require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
+
 /** 
  * TCA helper for extension eesp_ws_modules
  *
  * @author		Jean-David Gadina <info@macmade.net>
  * @version		1.0
  */
-
-// Loads the Developer API
-require_once( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php' );
-
 class tx_eespwsmodules_tca
 {
     // Storage for the SOAP operations

@@ -22,35 +22,14 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+# $Id$
+
 /**
  * EESP WS people getter class
  *
  * @author      Jean-David Gadina (info@macmade.net)
  * @version     1.0
  */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - PHP methods
- *              public function __construct( $wsdl, $operation )
- * 
- * SECTION:     2 - SPL Iterator methods
- *              public function rewind
- *              public function current
- *              public function key
- *              public function next
- *              public function valid
- * 
- * SECTION:     3 - Public class methods
- *              public function soapRequest
- *              public function setSoapArg( $name, $value )
- *              public function unsetSoapArg( $name )
- *              public function getResultType
- * 
- *              TOTAL FUNCTIONS: 10
- */
-
 class tx_eespwsmodules_peopleGetter implements Iterator
 {
     // Current position for the iterator methods

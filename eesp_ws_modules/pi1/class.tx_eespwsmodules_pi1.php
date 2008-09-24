@@ -22,21 +22,7 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-/**
- * Plugin 'Gallery / macmade.net' for the 'eesp_ws_modules' extension.
- *
- * @author      Jean-David Gadina (info@macmade.net)
- * @version     1.1
- */
-
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - MAIN
- *        :     function main( $content, $conf )
- * 
- *              TOTAL FUNCTIONS: 
- */
+# $Id$
 
 // Typo3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
@@ -49,6 +35,12 @@ require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_ees
 require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_eespwsmodules_singlegetter.php' );
 require_once( t3lib_extMgm::extPath( 'eesp_ws_modules' ) . 'classes/class.tx_eespwsmodules_peoplegetter.php' );
 
+/**
+ * Plugin 'Modules Calendar' for the 'eesp_ws_modules' extension.
+ *
+ * @author      Jean-David Gadina (info@macmade.net)
+ * @version     1.1
+ */
 class tx_eespwsmodules_pi1 extends tslib_pibase
 {
     // Configuration array
