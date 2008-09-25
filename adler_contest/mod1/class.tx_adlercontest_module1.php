@@ -484,7 +484,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'firstname' ), $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.confirmed' ),                           $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.validated' ),                           $trParams, $headerStyles );
-        $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.proof' ),                               $trParams, $headerStyles );
+        #$this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.proof' ),                               $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.project' ),                             $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', self::$_lang->getLL( 'headers.registration' ),                        $trParams, $headerStyles );
         $this->_content[] = $this->_tag( 'td', $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'birthdate' ), $trParams, $headerStyles );
@@ -577,7 +577,7 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             $this->_content[] = $this->_tag( 'td', $validated, $trParams );
             
             // Adds the proof documents state
-            $this->_content[] = $this->_tag( 'td', $proof, $trParams );
+            #$this->_content[] = $this->_tag( 'td', $proof, $trParams );
             
             // Adds the project state
             $this->_content[] = $this->_tag( 'td', $project, $trParams );
