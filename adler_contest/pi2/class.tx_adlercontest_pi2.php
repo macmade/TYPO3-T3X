@@ -111,24 +111,10 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
                 
             } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 2 ) {
                 
-                // Redirect to the info page
-                $infoLink = self::$_typo3Url . $this->cObj->typoLink_URL(
-                    array(
-                        'parameter'        => $this->_conf[ 'infoPage' ],
-                        'useCacheHash'     => 1
-                    )
-                );
-                
-                // Go to the next step
-                header( 'Location: ' . $infoLink );
-                exit();
-                
-            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
-                
                 // Project submission
                 $markers[ '###CONTENT###' ] = $this->_uploadProject();
                 
-            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 4 ) {
+            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
                 
                 // Review
                 $markers[ '###CONTENT###' ] = $this->_projectView();
@@ -136,7 +122,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             } else {
                 
                 // Default content
-                $markers[ '###CONTENT###' ] = $this->_home();
+                $markers[ '###CONTENT###' ] = $this->_uploadProject();
             }
             
             // Returns the plugin content
@@ -203,7 +189,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
         $itemsStart = 2;
         
         // Number of menu items (depends on the existence of the project)
-        $itemsNum   = ( $this->_profile[ 'project' ] ) ? 4 : 3;
+        $itemsNum   = ( $this->_profile[ 'project' ] ) ? 3 : 2;
         
         // Storage for the menu items
         $items      = array();
