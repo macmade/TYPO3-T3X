@@ -35,6 +35,8 @@ CREATE TABLE tx_adlercontest_users (
     school_name tinytext NOT NULL,
     school_address tinytext NOT NULL,
     school_country int(11) unsigned DEFAULT '0' NOT NULL,
+    employer tinytext NOT NULL,
+    employer_country int(11) unsigned DEFAULT '0' NOT NULL,
     age_proof blob NOT NULL,
     school_proof blob NOT NULL,
     project blob NOT NULL,

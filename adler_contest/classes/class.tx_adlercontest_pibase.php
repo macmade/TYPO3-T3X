@@ -385,11 +385,14 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
                 // Country select
                 case 'country':
                     
+                    // Adds an empty item or not
+                    $emptyAtStart = ( isset( $fieldOptions[ 'emptyAtStart' ] ) && $fieldOptions[ 'emptyAtStart' ] ) ? true : false;
+                    
                     // Input tag
-                    $input = $this->_api->fe_makeStyledContent(
+                    $input        = $this->_api->fe_makeStyledContent(
                         'div',
                         'input',
-                        self::$_mp->countrySelect( $this->prefixId . '[' . $fieldName . ']' )
+                        self::$_mp->countrySelect( $this->prefixId . '[' . $fieldName . ']', $emptyAtStart )
                     );
                     break;
                 

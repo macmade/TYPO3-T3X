@@ -46,6 +46,8 @@ Please refer to Article 12 of the Terms for more details.]]></label>
             <label index="label-school_name">Name of the school currently attended, OR school which granted diploma</label>
             <label index="label-school_address">Address of school</label>
             <label index="label-school_country">Country</label>
+            <label index="label-employer">If you are currently employed by a jewellery, please mention the name of your employer</label>
+            <label index="label-employer_country">If you are currently employed by a jewellery, please mention the country of your employer</label>
             <label index="label-age_proof">Official document showing proof of age</label>
             <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
             <label index="label-later">I will upload my documents later</label>

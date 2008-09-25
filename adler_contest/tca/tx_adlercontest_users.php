@@ -61,6 +61,8 @@ $TCA[ $tempTableName ] = array(
                        .  'school_name;;;;1-1-1,'
                        .  'school_address,'
                        .  'school_country,'
+                       .  'employer;;;;1-1-1,'
+                       .  'employer_country,'
                        .  '--div--;' . $tempLangPath . 'tab-relations,'
                        .  'id_fe_users;;;;1-1-1,'
                        .  'votes;;;;1-1-1,'
@@ -205,7 +207,7 @@ $TCA[ $tempTableName ] = array(
                 'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
             )
         ),
-    
+        
         'phone' => array(
             'config' => array(
                 'type' => 'input',
@@ -228,7 +230,7 @@ $TCA[ $tempTableName ] = array(
                 'eval' => 'date'
             )
         ),
-    
+        
         'school_name' => array(
             'config' => array(
                 'type' => 'input',
@@ -236,7 +238,7 @@ $TCA[ $tempTableName ] = array(
                 'eval' => 'required'
             )
         ),
-    
+        
         'school_address' => array(
             'config' => array(
                 'type' => 'input',
@@ -250,6 +252,26 @@ $TCA[ $tempTableName ] = array(
                 'type'                => 'select',
                 'foreign_table'       => 'static_countries',
                 'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
+            )
+        ),
+        
+        'employer' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+            )
+        ),
+        
+        'employer_country' => array(
+            'config' => array(
+                'type'                => 'select',
+                'foreign_table'       => 'static_countries',
+                'foreign_table_where' => 'ORDER BY static_countries.cn_short_en',
+                'items'               => array(
+                    array(
+                        '' => ''
+                    )
+                )
             )
         ),
         

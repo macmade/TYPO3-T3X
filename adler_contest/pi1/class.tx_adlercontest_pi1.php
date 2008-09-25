@@ -56,18 +56,20 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
      * Form fields for the profile
      */
     protected static $_profileFields      = array(
-        'gender'         => array( 'type' => 'radio', 'items' => array( 'f', 'm' ) ),
-        'address'        => array( 'type' => 'text' ),
-        'address2'       => array( 'type' => 'text', 'optionnal' => true ),
-        'city'           => array( 'type' => 'text' ),
-        'zip'            => array( 'type' => 'text' ),
-        'country'        => array( 'type' => 'country' ),
-        'phone'          => array( 'type' => 'text', 'optionnal' => true ),
-        'nationality'    => array( 'type' => 'text' ),
-        'birthdate'      => array( 'type' => 'date' ),
-        'school_name'    => array( 'type' => 'text' ),
-        'school_address' => array( 'type' => 'text' ),
-        'school_country' => array( 'type' => 'country' )
+        'gender'           => array( 'type' => 'radio', 'items' => array( 'f', 'm' ) ),
+        'address'          => array( 'type' => 'text' ),
+        'address2'         => array( 'type' => 'text', 'optionnal' => true ),
+        'city'             => array( 'type' => 'text' ),
+        'zip'              => array( 'type' => 'text' ),
+        'country'          => array( 'type' => 'country' ),
+        'phone'            => array( 'type' => 'text', 'optionnal' => true ),
+        'nationality'      => array( 'type' => 'text' ),
+        'birthdate'        => array( 'type' => 'date' ),
+        'school_name'      => array( 'type' => 'text' ),
+        'school_address'   => array( 'type' => 'text' ),
+        'school_country'   => array( 'type' => 'country' ),
+        'employer'         => array( 'type' => 'text', 'optionnal' => true ),
+        'employer_country' => array( 'type' => 'country', 'emptyAtStart' => true, 'optionnal' => true )
     );
     
     /**
@@ -618,19 +620,21 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         );
         
         // Sets the profile fields
-        $profile[ 'tstamp' ]         = $time;
-        $profile[ 'gender' ]         = $this->piVars[ 'gender' ];
-        $profile[ 'address' ]        = $this->piVars[ 'address' ];
-        $profile[ 'address2' ]       = $this->piVars[ 'address2' ];
-        $profile[ 'city' ]           = $this->piVars[ 'city' ];;
-        $profile[ 'zip' ]            = $this->piVars[ 'zip' ];;
-        $profile[ 'country' ]        = $this->piVars[ 'country' ];
-        $profile[ 'nationality' ]    = $this->piVars[ 'nationality' ];;
-        $profile[ 'phone' ]          = $this->piVars[ 'phone' ];
-        $profile[ 'birthdate' ]      = $birthdate;
-        $profile[ 'school_name' ]    = $this->piVars[ 'school_name' ];
-        $profile[ 'school_address' ] = $this->piVars[ 'school_address' ];
-        $profile[ 'school_country' ] = $this->piVars[ 'school_country' ];
+        $profile[ 'tstamp' ]           = $time;
+        $profile[ 'gender' ]           = $this->piVars[ 'gender' ];
+        $profile[ 'address' ]          = $this->piVars[ 'address' ];
+        $profile[ 'address2' ]         = $this->piVars[ 'address2' ];
+        $profile[ 'city' ]             = $this->piVars[ 'city' ];;
+        $profile[ 'zip' ]              = $this->piVars[ 'zip' ];;
+        $profile[ 'country' ]          = $this->piVars[ 'country' ];
+        $profile[ 'nationality' ]      = $this->piVars[ 'nationality' ];;
+        $profile[ 'phone' ]            = $this->piVars[ 'phone' ];
+        $profile[ 'birthdate' ]        = $birthdate;
+        $profile[ 'school_name' ]      = $this->piVars[ 'school_name' ];
+        $profile[ 'school_address' ]   = $this->piVars[ 'school_address' ];
+        $profile[ 'school_country' ]   = $this->piVars[ 'school_country' ];
+        $profile[ 'employer' ]         = $this->piVars[ 'employer' ];
+        $profile[ 'employer_country' ] = $this->piVars[ 'employer_country' ];
         
         // Inserts the user
         self::$_db->exec_UPDATEquery(

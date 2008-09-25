@@ -280,12 +280,22 @@ final class tx_adlercontest_methodProvider
      * @return  string  The select menu with the countries
      * @see     _getCountriesOptions
      */
-    public function countrySelect( $name )
+    public function countrySelect( $name, $emptyOptionAtStart = false )
     {
+        // Storage
+        $emptyOption = '';
+        
+        // Checks if we must add an empty option
+        if( $emptyOptionAtStart ) {
+            
+            $emptyOption = '<option value=""></option>';
+        }
+        
         // Select code
         $select = '<select name="'
                 . $name
                 . '" size="1">'
+                . $emptyOption
                 . $this->_getCountriesOptions()
                 . '</select>';
         
