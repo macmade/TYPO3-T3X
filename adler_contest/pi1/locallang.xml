@@ -18,7 +18,10 @@
             <label index="label-username">Login</label>
             <label index="label-password">Password</label>
             <label index="label-password2">Confirm password</label>
-            <label index="label-agree">I have read and I agree to the terms and conditions of the competition</label>
+            <label index="label-agree"><![CDATA[I have read and I agree to the terms and conditions of the competition<br /><br />
+Jurisdiction and applicable law:<br /><br />
+By accepting these Terms, you expressly acknowledge and agree on the exclusive jurisdiction of the Geneva courts (Switzerland) and the application of Swiss substantive law for all matters in relation to this competition.<br /><br />
+Please refer to Article 12 of the Terms for more details.]]></label>
             <label index="error-required">Error: this field is required</label>
             <label index="error-email">Error: please enter a valid email address</label>
             <label index="error-email-exists">Error: that email address already exists</label>
