@@ -60,7 +60,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             '2' => 'sCRITERIAS:criteria_2',
             '3' => 'sCRITERIAS:criteria_3',
             '4' => 'sCRITERIAS:criteria_4',
-            '5' => 'sCRITERIAS:criteria_5'
+            #'5' => 'sCRITERIAS:criteria_5'
         ),
         'texts.'     => array(
             'header'      => 'sTEXTS:header',
@@ -433,13 +433,13 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             && isset( $this->piVars[ 'criteria_2' ] )
             && isset( $this->piVars[ 'criteria_3' ] )
             && isset( $this->piVars[ 'criteria_4' ] )
-            && isset( $this->piVars[ 'criteria_5' ] )
+            #&& isset( $this->piVars[ 'criteria_5' ] )
             && $this->piVars[ 'project' ]
             && $this->piVars[ 'criteria_1' ]
             && $this->piVars[ 'criteria_2' ]
             && $this->piVars[ 'criteria_3' ]
             && $this->piVars[ 'criteria_4' ]
-            && $this->piVars[ 'criteria_5' ]
+            #&& $this->piVars[ 'criteria_5' ]
         ) {
             
             // Values are OK
@@ -492,7 +492,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         $vote[ 'criteria_2' ]               = ( int )$this->piVars[ 'criteria_2' ];
         $vote[ 'criteria_3' ]               = ( int )$this->piVars[ 'criteria_3' ];
         $vote[ 'criteria_4' ]               = ( int )$this->piVars[ 'criteria_4' ];
-        $vote[ 'criteria_5' ]               = ( int )$this->piVars[ 'criteria_5' ];
+        #$vote[ 'criteria_5' ]               = ( int )$this->piVars[ 'criteria_5' ];
         $vote[ 'note' ]                     = $note;
         $vote[ 'id_fe_users' ]              = $this->_user[ 'uid' ];
         $vote[ 'id_tx_adlercontest_users' ] = $project[ 'uid' ];
