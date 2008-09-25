@@ -70,6 +70,7 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
      */
     protected $_configMap            = array(
         'pid'            => 'sDEF:pages',
+        'infoPage'       => 'sDEF:info_page',
         'home.'          => array(
             'header'      => 'sHOME:header',
             'description' => 'sHOME:description'
@@ -106,14 +107,28 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
             if( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 1 ) {
                 
                 // Proof documents
-                $markers[ '###CONTENT###' ] = $this->_proofDocuments();
+                #$markers[ '###CONTENT###' ] = $this->_proofDocuments();
                 
             } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 2 ) {
+                
+                // Redirect to the info page
+                $infoLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+                    array(
+                        'parameter'        => $this->_conf[ 'infoPage' ],
+                        'useCacheHash'     => 1
+                    )
+                );
+                
+                // Go to the next step
+                header( 'Location: ' . $infoLink );
+                exit();
+                
+            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
                 
                 // Project submission
                 $markers[ '###CONTENT###' ] = $this->_uploadProject();
                 
-            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 3 ) {
+            } elseif( isset( $this->piVars[ 'menu' ] ) && $this->piVars[ 'menu' ] == 4 ) {
                 
                 // Review
                 $markers[ '###CONTENT###' ] = $this->_projectView();
@@ -184,10 +199,11 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
     protected function _createMenu()
     {
         // Start index for the menu items (depends on the existence of the proof documents)
-        $itemsStart = ( $this->_profile[ 'age_proof' ] && $this->_profile[ 'school_proof' ] ) ? 2 : 1;
+        #$itemsStart = ( $this->_profile[ 'age_proof' ] && $this->_profile[ 'school_proof' ] ) ? 2 : 1;
+        $itemsStart = 2;
         
         // Number of menu items (depends on the existence of the project)
-        $itemsNum   = ( $this->_profile[ 'project' ] ) ? 3 : 2;
+        $itemsNum   = ( $this->_profile[ 'project' ] ) ? 4 : 3;
         
         // Storage for the menu items
         $items      = array();

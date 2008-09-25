@@ -11,6 +11,7 @@
         <languageKey index="default" type="array">
             <label index="sDEF">Main</label>
             <label index="sDEF.pages">Storage page</label>
+            <label index="sDEF.info_page">Information page</label>
             <label index="sHOME">Home</label>
             <label index="sHOME.header">Header</label>
             <label index="sHOME.description">Description</label>

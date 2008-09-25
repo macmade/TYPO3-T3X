@@ -10,8 +10,9 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="menu-1">Documents upload</label>
-            <label index="menu-2">Project submission</label>
-            <label index="menu-3">Review of application</label>
+            <label index="menu-2">Infos</label>
+            <label index="menu-3">Project submission</label>
+            <label index="menu-4">Review of application</label>
             <label index="label-age_proof">Official document showing proof of age</label>
             <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
             <label index="label-later">I will upload my documents later</label>
