@@ -19,7 +19,10 @@
             <label index="gender.f">Female</label>
             <label index="address">Address</label>
             <label index="address2">Address 2</label>
+            <label index="city">City</label>
+            <label index="zip">Zip code</label>
             <label index="country">Country</label>
+            <label index="phone">Phone number</label>
             <label index="nationality">Nationality</label>
             <label index="birthdate">Birth date</label>
             <label index="school_name">School name</label>

@@ -52,7 +52,10 @@ $TCA[ $tempTableName ] = array(
                        .  'gender;;;;1-1-1,'
                        .  'address;;;;1-1-1,'
                        .  'address2,'
+                       .  'city,'
+                       .  'zip,'
                        .  'country,'
+                       .  'phone;;;;1-1-1,'
                        .  'nationality;;;;1-1-1,'
                        .  'birthdate;;;;1-1-1,'
                        .  'school_name;;;;1-1-1,'
@@ -175,6 +178,21 @@ $TCA[ $tempTableName ] = array(
             'config' => array(
                 'type' => 'input',
                 'size' => '20',
+            )
+        ),
+    
+        'city' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
+                'eval' => 'required'
+            )
+        ),
+    
+        'zip' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '5',
                 'eval' => 'required'
             )
         ),
@@ -184,6 +202,13 @@ $TCA[ $tempTableName ] = array(
                 'type'                => 'select',
                 'foreign_table'       => 'static_countries',
                 'foreign_table_where' => 'ORDER BY static_countries.cn_short_en'
+            )
+        ),
+    
+        'phone' => array(
+            'config' => array(
+                'type' => 'input',
+                'size' => '20',
             )
         ),
         
