@@ -198,65 +198,65 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
             return true;
         }
         
-#        // Storage for the projects that were already voted by this user
-#        $voted    = array();
-#        
-#        // Selects the user votes
-#        $resVotes = self::$_db->exec_SELECTquery(
-#            'id_tx_adlercontest_users',
-#            self::$_dbTables[ 'votes' ],
-#            'pid='
-#          . $this->_conf[ 'pid' ]
-#          . ' AND id_fe_users='
-#          . $this->_user[ 'uid' ]
-#          . $this->cObj->enableFields( self::$_dbTables[ 'votes' ] )
-#        );
-#        
-#        // Process all the votes
-#        while( $vote = self::$_db->sql_fetch_assoc( $resVotes ) ) {
-#            
-#            // Adds the project ID to the list of disallowed projects
-#            $voted[] = $vote[ 'id_tx_adlercontest_users' ];
-#        }
-#        
-#        // Where clause to select the projects
-#        $projectsWhere = 'pid='
-#                       . $this->_conf[ 'pid' ]
-#                       . ' AND validated AND project';
-#        
-#        // Checks if the user as already voted on some projects
-#        if( count( $voted ) ) {
-#            
-#            // Disallow to projects already noted by the user
-#            $projectsWhere .= ' AND uid NOT IN (' . implode( ',', $voted ) . ')';
-#        }
-#        
-#        // Counts the available users
-#        $resProjects = self::$_db->exec_SELECTquery(
-#            '*',
-#            self::$_dbTables[ 'profiles' ],
-#            $projectsWhere . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] ),
-#            'votes,rand()'
-#        );
+        // Storage for the projects that were already voted by this user
+        $voted    = array();
         
-        // Storage for the profile query parts
-        $queryParts   = array();
+        // Selects the user votes
+        $resVotes = self::$_db->exec_SELECTquery(
+            'id_tx_adlercontest_users',
+            self::$_dbTables[ 'votes' ],
+            'pid='
+          . $this->_conf[ 'pid' ]
+          . ' AND id_fe_users='
+          . $this->_user[ 'uid' ]
+          . $this->cObj->enableFields( self::$_dbTables[ 'votes' ] )
+        );
         
-        // Builds the query for the profiles
-        $queryParts[] = 'SELECT profile.*';
-        $queryParts[] = 'FROM ' . self::$_dbTables[ 'profiles' ] . ' as profile, ' . self::$_dbTables[ 'votes' ] . ' as vote';
-        $queryParts[] = 'WHERE vote.id_' . self::$_dbTables[ 'profiles' ] . ' = profile.uid';
-        $queryParts[] = 'AND profile.project';
-        $queryParts[] = 'AND profile.validated';
-        $queryParts[] = str_replace( self::$_dbTables[ 'profiles' ], 'profile', $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] ) );
-        $queryParts[] = 'AND profile.uid NOT IN (';
-        $queryParts[] = '   SELECT vote.id_' . self::$_dbTables[ 'profiles' ];
-        $queryParts[] = '   FROM ' . self::$_dbTables[ 'votes' ] . ' as vote';
-        $queryParts[] = '   WHERE vote.id_' . self::$_dbTables[ 'users' ] . ' = ' . $this->_user[ 'uid' ];
-        $queryParts[] = ');';
+        // Process all the votes
+        while( $vote = self::$_db->sql_fetch_assoc( $resVotes ) ) {
+            
+            // Adds the project ID to the list of disallowed projects
+            $voted[] = $vote[ 'id_tx_adlercontest_users' ];
+        }
         
-        // Executes the query
-        $resProjects = self::$_db->sql_query( implode( ' ', $queryParts ) );
+        // Where clause to select the projects
+        $projectsWhere = 'pid='
+                       . $this->_conf[ 'pid' ]
+                       . ' AND validated AND project';
+        
+        // Checks if the user as already voted on some projects
+        if( count( $voted ) ) {
+            
+            // Disallow to projects already noted by the user
+            $projectsWhere .= ' AND uid NOT IN (' . implode( ',', $voted ) . ')';
+        }
+        
+        // Counts the available users
+        $resProjects = self::$_db->exec_SELECTquery(
+            '*',
+            self::$_dbTables[ 'profiles' ],
+            $projectsWhere . $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] ),
+            'votes,rand()'
+        );
+        
+#        // Storage for the profile query parts
+#        $queryParts   = array();
+#        
+#        // Builds the query for the profiles
+#        $queryParts[] = 'SELECT profile.*';
+#        $queryParts[] = 'FROM ' . self::$_dbTables[ 'profiles' ] . ' as profile, ' . self::$_dbTables[ 'votes' ] . ' as vote';
+#        $queryParts[] = 'WHERE vote.id_' . self::$_dbTables[ 'profiles' ] . ' = profile.uid';
+#        $queryParts[] = 'AND profile.project';
+#        $queryParts[] = 'AND profile.validated';
+#        $queryParts[] = str_replace( self::$_dbTables[ 'profiles' ], 'profile', $this->cObj->enableFields( self::$_dbTables[ 'profiles' ] ) );
+#        $queryParts[] = 'AND profile.uid NOT IN (';
+#        $queryParts[] = '   SELECT vote.id_' . self::$_dbTables[ 'profiles' ];
+#        $queryParts[] = '   FROM ' . self::$_dbTables[ 'votes' ] . ' as vote';
+#        $queryParts[] = '   WHERE vote.id_' . self::$_dbTables[ 'users' ] . ' = ' . $this->_user[ 'uid' ];
+#        $queryParts[] = ');';
+#        
+#        // Executes the query
+#        $resProjects = self::$_db->sql_query( implode( ' ', $queryParts ) );
         
         // Checks the results
         if( $resProjects && self::$_db->sql_num_rows( $resProjects ) ) {
