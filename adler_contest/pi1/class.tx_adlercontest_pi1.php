@@ -58,8 +58,11 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
     protected static $_profileFields      = array(
         'gender'         => array( 'type' => 'radio', 'items' => array( 'f', 'm' ) ),
         'address'        => array( 'type' => 'text' ),
-        'address2'       => array( 'type' => 'text' ),
+        'address2'       => array( 'type' => 'text', 'optionnal' => true ),
+        'city'           => array( 'type' => 'text' ),
+        'zip'            => array( 'type' => 'text' ),
         'country'        => array( 'type' => 'country' ),
+        'phone'          => array( 'type' => 'text', 'optionnal' => true ),
         'nationality'    => array( 'type' => 'text' ),
         'birthdate'      => array( 'type' => 'date' ),
         'school_name'    => array( 'type' => 'text' ),
@@ -71,9 +74,10 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
      * Form fields for the proof documents
      */
     protected static $_proofFields       = array(
-        'age_proof'    => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
-        'school_proof' => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
-        'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
+        #'age_proof'    => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
+        #'school_proof' => array( 'type' => 'file', 'ext' => 'jpg,jpeg', 'size' => 2048 ),
+        #'later'        => array( 'type' => 'checkbox', 'optionnal' => true )
+        'sworn' => array( 'type' => 'checkbox' )
     );
     
     /**
@@ -618,8 +622,11 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         $profile[ 'gender' ]         = $this->piVars[ 'gender' ];
         $profile[ 'address' ]        = $this->piVars[ 'address' ];
         $profile[ 'address2' ]       = $this->piVars[ 'address2' ];
+        $profile[ 'city' ]           = $this->piVars[ 'city' ];;
+        $profile[ 'zip' ]            = $this->piVars[ 'zip' ];;
         $profile[ 'country' ]        = $this->piVars[ 'country' ];
-        $profile[ 'nationality' ]    = $this->piVars[ 'nationality' ];
+        $profile[ 'nationality' ]    = $this->piVars[ 'nationality' ];;
+        $profile[ 'phone' ]          = $this->piVars[ 'phone' ];
         $profile[ 'birthdate' ]      = $birthdate;
         $profile[ 'school_name' ]    = $this->piVars[ 'school_name' ];
         $profile[ 'school_address' ] = $this->piVars[ 'school_address' ];
@@ -666,34 +673,34 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
                 )
             );
             
-            // Checks if the documents will be uploaded later
-            if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
-                
-                // Activates the user
-                $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
-                
-                // Connects the user
-                self::$_mp->feLogin( $this->_user );
-                
-                // Next step URL
-                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
-                    array(
-                        'parameter'        => self::$_tsfe->id,
-                        'useCacheHash'     => 0,
-                        'no_cache'         => 1,
-                        'additionalParams' => $this->_api->fe_typoLinkParams(
-                            array(
-                                'redirect' => 1,
-                            ),
-                            false
-                        )
-                    )
-                );
-                
-                // Go to the next step
-                header( 'Location: ' . $nextLink );
-                exit();
-            }
+#            // Checks if the documents will be uploaded later
+#            if( isset( $this->piVars[ 'submit' ] ) && isset( $this->piVars[ 'later' ] ) && $this->piVars[ 'later' ] ) {
+#                
+#                // Activates the user
+#                $this->_activateUser( $this->_user['uid' ], $this->_profile['uid' ] );
+#                
+#                // Connects the user
+#                self::$_mp->feLogin( $this->_user );
+#                
+#                // Next step URL
+#                $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+#                    array(
+#                        'parameter'        => self::$_tsfe->id,
+#                        'useCacheHash'     => 0,
+#                        'no_cache'         => 1,
+#                        'additionalParams' => $this->_api->fe_typoLinkParams(
+#                            array(
+#                                'redirect' => 1,
+#                            ),
+#                            false
+#                        )
+#                    )
+#                );
+#                
+#                // Go to the next step
+#                header( 'Location: ' . $nextLink );
+#                exit();
+#            }
             
             // Validation callbacks
             $validCallbacks = array(
@@ -750,6 +757,13 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
                 $this->pi_RTEcssText( $this->_conf[ 'proof.' ][ 'description' ] )
             );
             
+            // Sets the field infos
+            $markers[ '###FIELDS_INFOS###' ] = $this->_api->fe_makeStyledContent(
+                'div',
+                'field-infos',
+                $this->pi_getLL( 'field-infos' )
+            );
+            
             // Creates the fields
             $markers[ '###FIELDS###' ] = $this->_api->fe_makeStyledContent(
                 'div',
@@ -781,22 +795,23 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
     protected function _processProofFiles()
     {
         // Absolute path to the upload directory
-        $uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
+        #$uploadDir  = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) );
         
         // Prefix for the files
-        $filePrefix = md5( uniqid( rand(), true) );
+        #$filePrefix = md5( uniqid( rand(), true) );
         
         // Move the files to the upload directory
-        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.jpg' );
-        move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.jpg' );
+        #move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'age_proof' ],    $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-age.jpg' );
+        #move_uploaded_file( $_FILES[ $this->prefixId ][ 'tmp_name' ][ 'school_proof' ], $uploadDir . DIRECTORY_SEPARATOR . $filePrefix . '-school.jpg' );
         
         // Updates the profile
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'profiles' ],
             'uid=' . $this->_profile[ 'uid' ],
             array(
-                'age_proof'    => $filePrefix . '-age.jpg',
-                'school_proof' => $filePrefix . '-school.jpg'
+                #'age_proof'    => $filePrefix . '-age.jpg',
+                #'school_proof' => $filePrefix . '-school.jpg'
+                'sworn' => ( boolean )$this->piVars[ 'sworn' ]
             )
         );
     }

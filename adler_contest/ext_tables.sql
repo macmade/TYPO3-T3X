@@ -38,6 +38,7 @@ CREATE TABLE tx_adlercontest_users (
     age_proof blob NOT NULL,
     school_proof blob NOT NULL,
     project blob NOT NULL,
+    sworn tinyint(1) unsigned DEFAULT '0' NOT NULL,
     validated tinyint(1) unsigned DEFAULT '0' NOT NULL,
     confirm_token tinytext NOT NULL,
     

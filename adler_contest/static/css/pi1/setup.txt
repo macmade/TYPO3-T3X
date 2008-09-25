@@ -92,6 +92,10 @@ plugin.tx_adlercontest_pi1 {
             font-weight: bold;
             color: #801300;
         }
+        .tx-adlercontest-pi1-required {
+            font-weight: bold;
+            color: #801300;
+        }
         .tx-adlercontest-pi1-user-fullname {
             font-weight: bold;
         }

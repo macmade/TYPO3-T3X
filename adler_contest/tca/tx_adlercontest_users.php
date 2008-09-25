@@ -70,6 +70,7 @@ $TCA[ $tempTableName ] = array(
                        .  'project;;;;1-1-1,'
                        .  '--div--;' . $tempLangPath . 'tab-misc,'
                        .  'hidden;;;;1-1-1,'
+                       .  'sworn;;;;1-1-1,'
                        .  'validated;;;;1-1-1,'
                        .  'confirm_token;;;;1-1-1'
         )
@@ -291,6 +292,12 @@ $TCA[ $tempTableName ] = array(
                 'size'          => 1,
                 'minitems'      => 0,
                 'maxitems'      => 1
+            )
+        ),
+        
+        'sworn' => array(
+            'config'  => array(
+                'type' => 'check',
             )
         ),
         

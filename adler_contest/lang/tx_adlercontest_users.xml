@@ -36,6 +36,7 @@
             <label index="tab-documents">Documents</label>
             <label index="tab-misc">Miscellaneous</label>
             <label index="hidden">Hidden</label>
+            <label index="sworn">Sworn statement</label>
             <label index="validated">Validated</label>
             <label index="confirm_token">Confirmation token</label>
         </languageKey>

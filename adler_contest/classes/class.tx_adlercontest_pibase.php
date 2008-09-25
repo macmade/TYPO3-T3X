@@ -369,11 +369,14 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
             // ID of the input
             $inputId            = $this->prefixId . '_' . $fieldName;
             
+            // Required state
+            $required           = ( isset( $fieldOptions[ 'optionnal' ] ) && $fieldOptions[ 'optionnal' ] ) ? '' : $this->_api->fe_makeStyledContent( 'span', 'required', ' *' );
+            
             // Field label
             $label              = $this->_api->fe_makeStyledContent(
                 'div',
                 'label',
-                '<label for="' . $inputId . '">' . $this->pi_getLL( 'label-' . $fieldName ) . '</label>'
+                '<label for="' . $inputId . '">' . $this->pi_getLL( 'label-' . $fieldName ) . $required . '</label>'
             );
             
             // Checks the input type

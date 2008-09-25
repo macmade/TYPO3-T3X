@@ -10,7 +10,7 @@
     <data type="array">
         <languageKey index="default" type="array">
             <label index="conditions-link">Download the terms of the competition</label>
-            <label index="field-infos">Please fill out the form (all fields are required)</label>
+            <label index="field-infos">Please fill out the form (fields with a * are required)</label>
             <label index="submit">Submit</label>
             <label index="label-lastname">Last name</label>
             <label index="label-firstname">First name</label>
@@ -34,7 +34,10 @@
             <label index="label-gender-m">Male</label>
             <label index="label-address">Address 1</label>
             <label index="label-address2">Address 2</label>
+            <label index="label-city">City</label>
+            <label index="label-zip">Zip code</label>
             <label index="label-country">Country of residence</label>
+            <label index="label-phone">Phone number</label>
             <label index="label-nationality">Nationality</label>
             <label index="label-birthdate">Date of birth</label>
             <label index="label-school_name">Name of the school currently attended, OR school which granted diploma</label>
@@ -43,6 +46,7 @@
             <label index="label-age_proof">Official document showing proof of age</label>
             <label index="label-school_proof">Official document showing enrolment in jewellery design school OR diploma earned after 1 January 2006</label>
             <label index="label-later">I will upload my documents later</label>
+            <label index="label-sworn">I swear that I am giving true and correct information to Adler Jewellers S.A. regarding my age and the school in which I am currently enrolled or from which I have graduated</label>
         </languageKey>
     </data>
 </T3locallang>
