@@ -310,7 +310,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         );
         
         // Process each criterias
-        for( $i = 1; $i < 6; $i++ ) {
+        for( $i = 1; $i < 5; $i++ ) {
             
             // Adds the notes for the current criteria
             $markers[ '###CRITERIA_' . $i . '###' ] = $this->_api->fe_makeStyledContent(
