@@ -1544,10 +1544,12 @@ class tx_cjf_module1 extends t3lib_SCbase
         $headers = array(
             $LANG->getLL( 'client.name_last' ),
             $LANG->getLL( 'client.name_first' ),
+            $LANG->getLL( 'client.email' ),
             $LANG->getLL( 'client.confirmed' ),
             $LANG->getLL( 'stats.type' ),
             $LANG->getLL( 'stats.quantity' ),
-            $LANG->getLL( 'stats.total' )
+            $LANG->getLL( 'stats.total' ),
+            $LANG->getLL( 'client.crdate' )
         );
         
         $csv[] = $event[ 'title' ] . ' - ' . date( $this->dateFormat, $event[ 'date' ] );
@@ -1561,10 +1563,12 @@ class tx_cjf_module1 extends t3lib_SCbase
             
             $data[] = $client[ 'name_first' ];
             $data[] = $client[ 'name_last' ];
+            $data[] = $client[ 'email' ];
             $data[] = ( $row[ 'confirmed' ] ) ? $LANG->getLL( 'yes' ) : $LANG->getLL( 'no' );
             $data[] = $LANG->getLL( 'stats.type.I.' . $row[ 'type' ] );
             $data[] = $this->numberFormat( $row[ 'quantity' ] );
             $data[] = $this->numberFormat( $row[ 'total' ], 2 );
+            $data[] = date( $this->dateFormat, $row[ 'crdate' ] );
             
             $csv[]  = implode( chr( 9 ), $data );
         }

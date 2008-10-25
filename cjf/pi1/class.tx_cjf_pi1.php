@@ -159,7 +159,7 @@ class tx_cjf_pi1 extends tslib_pibase
         
         // DEBUG - For macmade only - Rebuild PDF for a specific client
         if( isset( $this->piVars[ 'debugMacmade' ] ) ) {
-            $this->createOrderPDF( '2007-4602595c7cc3b' );
+            #$this->createOrderPDF( '2008-47b95ada1cccc' );
         }
         
         // Check returns from payement system

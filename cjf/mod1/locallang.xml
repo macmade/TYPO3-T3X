@@ -26,6 +26,7 @@
 			<label index="client.name_first">First name</label>
 			<label index="client.crdate">Order date</label>
 			<label index="client.total">Total</label>
+			<label index="client.email">Email</label>
 			<label index="client.orders">Orders</label>
 			<label index="client.confirmed">Confirmed</label>
 			<label index="client.type">Type</label>
@@ -132,6 +133,7 @@
 			<label index="client.name_first">Prénom</label>
 			<label index="client.crdate">Date de la commande</label>
 			<label index="client.total">Total</label>
+			<label index="client.email">Email</label>
 			<label index="client.orders">Commandes</label>
 			<label index="client.confirmed">Confirmé</label>
 			<label index="client.type">Type</label>
