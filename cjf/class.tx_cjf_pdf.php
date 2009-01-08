@@ -144,17 +144,20 @@ class tx_cjf_pdf extends PDF
         $this->Ln(5);
         
         // Note
-        $this->SetX( 20 );
-        $this->SetFont( 'Helvetica', 'B', 8 );
-        $this->MultiCell(
-            150,
-            3,
-            $this->pObj->pi_getLL( 'pdf-note' )
-          . chr( 10 )
-          . $this->pObj->conf[ 'pdfNote' ],
-            0,
-            'L'
-        );
+        if( $this->pObj->conf[ 'pdfNote' ] ) {
+            
+            $this->SetX( 20 );
+            $this->SetFont( 'Helvetica', 'B', 8 );
+            $this->MultiCell(
+                150,
+                3,
+                $this->pObj->pi_getLL( 'pdf-note' )
+              . chr( 10 )
+              . $this->pObj->conf[ 'pdfNote' ],
+                0,
+                'L'
+            );
+        }
     }
     
     /**
