@@ -209,6 +209,32 @@
                             </config>
                         </TCEforms>
                     </pdf_store>
+                    <pdf_help>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cjf/locallang_db.php:tx_cjf_pi1.pi_flexform.s_pdf.pdf_help</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                                <show_thumbs>1</show_thumbs>
+                            </config>
+                        </TCEforms>
+                    </pdf_help>
+                    <pdf_note>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:cjf/locallang_db.php:tx_cjf_pi1.pi_flexform.s_pdf.pdf_note</label>
+                            <config>
+                                <type>text</type>
+                                <cols>25</cols>
+                                <rows>5</rows>
+                            </config>
+                        </TCEforms>
+                    </pdf_note>
                 </el>
             </ROOT>
         </sPDF>

@@ -84,7 +84,7 @@
             <label index="pdf-disclaimer">(Valable qu'après validation du paiement
 par le CULLY JAZZ FESTIVAL.
 LE CJF prendra contact en cas de problème.)</label>
-            <label index="pdf-note">NOTE IMPORTANTE:
+            <label index="pdf-voucher-note">NOTE IMPORTANTE:
 Ce document a valeur de justificatif pour le retrait
 des billets listés ci-dessous.
 Le retrait s'effectue à la billetterie du festival
@@ -100,6 +100,8 @@ Le retrait s'effectue à la billetterie du festival
             <label index="pdf-paytaxes">Frais de vente:</label>
             <label index="pdf-postaltaxes">Frais de port:</label>
             <label index="pdf-total">Montant total de la commande:</label>
+            <label index="pdf-help">En cas de problème pour imprimer ce document:</label>
+            <label index="pdf-note">Note:</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="hour">Heure:</label>

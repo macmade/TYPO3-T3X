@@ -34,7 +34,6 @@ require_once( t3lib_extMgm::extPath( 'fpdf' ) . 'class.tx_fpdf.php' );
 
 class tx_cjf_pdf extends PDF
 {
-    
     // Header
     var $title       = '';
     
@@ -105,7 +104,7 @@ class tx_cjf_pdf extends PDF
             // Note
             $this->SetX( 20 );
             $this->SetTextColor( 255, 0, 0 );
-            $this->MultiCell( 70, 3, $this->pObj->pi_getLL( 'pdf-note' ), 0, 'L' );
+            $this->MultiCell( 70, 3, $this->pObj->pi_getLL( 'pdf-voucher-note' ), 0, 'L' );
             $this->SetTextColor( 0, 0, 0 );
             
             // Right header
@@ -124,6 +123,38 @@ class tx_cjf_pdf extends PDF
         $this->SetXY( 130, 40 );
         $this->MultiCell( 50, 4, $this->createClientData(), '', 'L', 0 );
         $this->Ln(20);
+        
+        // Help page
+        $this->SetX( 20 );
+        $this->SetFont( 'Helvetica', 'B', 8 );
+        $this->MultiCell(
+            150,
+            3,
+            $this->pObj->pi_getLL( 'pdf-help' )
+          . chr( 10 )
+          . t3lib_div::getIndpEnv( 'TYPO3_REQUEST_DIR' )
+          . $this->pObj->cObj->typoLink_URL(
+                array(
+                    'parameter' => $this->pObj->conf[ 'pdfHelp' ],    
+                )
+            ),
+            0,
+            'L'
+        );
+        $this->Ln(5);
+        
+        // Note
+        $this->SetX( 20 );
+        $this->SetFont( 'Helvetica', 'B', 8 );
+        $this->MultiCell(
+            150,
+            3,
+            $this->pObj->pi_getLL( 'pdf-note' )
+          . chr( 10 )
+          . $this->pObj->conf[ 'pdfNote' ],
+            0,
+            'L'
+        );
     }
     
     /**
@@ -163,7 +194,7 @@ class tx_cjf_pdf extends PDF
         $this->SetFont( 'Helvetica', '', 10 );
         $this->SetFillColor( 240, 240, 240 );
         $this->Cell( 10, 6, $this->pObj->pi_getLL( 'pdf-order-id' ), 1, 0, 'C', 1 );
-        $this->Cell( 20, 6, $this->pObj->pi_getLL( 'pdf-order-date' ), 1, 0, 'C', 1 );
+        $this->Cell( 30, 6, $this->pObj->pi_getLL( 'pdf-order-date' ), 1, 0, 'C', 1 );
         $this->Cell( 70, 6, $this->pObj->pi_getLL( 'pdf-order-event' ), 1, 0, 'L', 1 );
         $this->Cell( 20, 6, $this->pObj->pi_getLL( 'pdf-order-quantity' ), 1, 0, 'C', 1 );
         $this->Cell( 20, 6, $this->pObj->pi_getLL( 'pdf-order-price' ), 1, 0, 'R', 1 );
@@ -195,7 +226,7 @@ class tx_cjf_pdf extends PDF
             
             // Add details
             $ids[]        = $value[ 'id_event' ];
-            $dates[]      = date( 'd.m.Y', $eventRow[ 'date' ] );
+            $dates[]      = date( 'd.m.Y', $eventRow[ 'date' ] ) . ' - ' . date( 'H:i', $eventRow[ 'hour' ] );;
             $events[]     = $eventRow[ 'title' ];
             $quantities[] = $value[ 'quantity' ];
             $prices[]     = number_format( $value[ 'price' ], 2, '.', '\'' );
@@ -227,44 +258,44 @@ class tx_cjf_pdf extends PDF
         // Date
         $this->SetY( $tablePosY );
         $this->SetX( 30 );
-        $this->MultiCell( 20, 4, implode( chr( 10 ), $dates ), 'B', 'C' );
+        $this->MultiCell( 30, 4, implode( chr( 10 ), $dates ), 'B', 'C' );
         
         // Event
         $this->SetY( $tablePosY );
-        $this->SetX( 50 );
+        $this->SetX( 60 );
         $this->MultiCell( 70, 4, implode( chr( 10 ), $events ), 'B', 'L' );
         
         // Quantity
         $this->SetY( $tablePosY );
-        $this->SetX( 120 );
+        $this->SetX( 130 );
         $this->MultiCell( 20, 4, implode( chr( 10 ), $quantities ), 'B', 'C' );
         
         // Price
         $this->SetY( $tablePosY );
-        $this->SetX( 140 );
+        $this->SetX( 150 );
         $this->MultiCell( 20, 4, implode( chr( 10 ), $prices ), 'B', 'R' );
         
         // Total
         $this->SetY( $tablePosY );
-        $this->SetX( 160 );
+        $this->SetX( 170 );
         $this->MultiCell( 20, 4, implode( chr( 10 ), $totals ), 'B', 'R' );
         
         // Order total
         $this->SetFillColor( 240, 240, 240 );
-        $this->SetX( 120 );
+        $this->SetX( 130 );
         $this->Cell( 40, 6, $this->pObj->pi_getLL( 'pdf-subtotal' ) . ' ' . $this->currency, '', 0, 'R' , 0 );
         $this->Cell( 20, 6, number_format( $orderTotal, 2, '.', '\'' ), '', 1, 'R', 0 );
         
         // Pay taxes
         if( $ticketTaxes > 0 ) {
-            $this->SetX( 120 );
+            $this->SetX( 130 );
             $this->Cell( 40, 6, $this->pObj->pi_getLL( 'pdf-paytaxes' ) . ' ' . $this->currency, '', 0, 'R', 0 );
             $this->Cell( 20, 6, number_format( $ticketTaxes, 2, '.', '\''), 'T,B', 1, 'R', 0 );
         }
         
         // Postal taxes
         if( $this->orderType == 0 && $this->postalTaxes > 0 ) {
-            $this->SetX( 120 );
+            $this->SetX( 130 );
             $this->Cell( 40, 6, $this->pObj->pi_getLL( 'pdf-postaltaxes' ) . ' ' . $this->currency, '', 0, 'R', 0 );
             $this->Cell( 20, 6, number_format( $this->postalTaxes, 2, '.', '\''), 'T,B', 1, 'R', 0 );
         }
@@ -273,7 +304,7 @@ class tx_cjf_pdf extends PDF
         $finalTotal = ( $this->orderType == 1 ) ? $orderTotal + $ticketTaxes : $orderTotal + $ticketTaxes + $this->postalTaxes;
         
         // Final total
-        $this->SetX( 120 );
+        $this->SetX( 130 );
         $this->SetLineWidth( 0.5 );
         $this->Cell( 40, 6, $this->pObj->pi_getLL( 'pdf-total' ) . ' ' . $this->currency, '', 0, 'R', 0 );
         $this->Cell( 20, 6, number_format( $finalTotal, 2, '.', '\'' ), 'T,B', 1, 'R', 0 );
