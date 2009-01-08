@@ -17,6 +17,8 @@
             <label index="menuDates">Order by dates</label>
             <label index="menuPlaces">Order by places</label>
             <label index="menuStyles">Order by styles</label>
+            <label index="showPastEvents">Also show past events</label>
+            <label index="showFutureEvents">Only show future events</label>
             <label index="country">Country:</label>
             <label index="style">Style:</label>
             <label index="www">Website:</label>
@@ -111,6 +113,8 @@ Le retrait s'effectue à la billetterie du festival
             <label index="menuDates">Trier par dates</label>
             <label index="menuPlaces">Trier par lieux</label>
             <label index="menuStyles">Trier par styles</label>
+            <label index="showPastEvents">Afficher aussi les soirées passées</label>
+            <label index="showFutureEvents">Afficher uniquement les soirées à venir</label>
             <label index="country">Pays:</label>
             <label index="style">Style:</label>
             <label index="www">Site internet:</label>

@@ -245,10 +245,15 @@ class tx_cjf_pi1 extends tslib_pibase
     function getEvents()
     {
         // Where clase for selecting events
-        $where = 'pid='
-               . $this->conf[ 'pid' ]
-               . ' AND sys_language_uid=0'
-               . $this->cObj->enableFields( $this->extTables[ 'events' ] );
+        $where      = 'pid='
+                    . $this->conf[ 'pid' ]
+                    . ' AND sys_language_uid=0'
+                    . $this->cObj->enableFields( $this->extTables[ 'events' ] );
+        
+        if( !isset( $this->piVars[ 'showAllEvents' ] ) || $this->piVars[ 'showAllEvents' ] == 0 ) {
+            
+            $where .= ' AND date >= ' . strtotime( date( 'Y/m/d', time() ) );
+        }
         
         // Order by clause for events
         $orderBy = 'date ASC,hour ASC,title ASC';
@@ -317,6 +322,29 @@ class tx_cjf_pi1 extends tslib_pibase
             
             // Add anchors menu
             $htmlCode[] = $this->anchorsMenu( $anchorsMenu );
+            
+            if( !isset( $this->piVars[ 'showAllEvents' ] ) || $this->piVars[ 'showAllEvents' ] == 0 ) {
+                
+                $htmlCode[] = $this->api->fe_makeStyledContent(
+                    'div',
+                    'showPastEvents',
+                    $this->pi_linkTP_keepPIvars(
+                        $this->pi_getLL( 'showPastEvents' ),
+                        array( 'showAllEvents' => 1 )
+                    )
+                );
+                
+            } else {
+                
+                $htmlCode[] = $this->api->fe_makeStyledContent(
+                    'div',
+                    'showPastEvents',
+                    $this->pi_linkTP_keepPIvars(
+                        $this->pi_getLL( 'showFutureEvents' ),
+                        array( 'showAllEvents' => 0 )
+                    )
+                );
+            }
             
             // Process events group
             foreach( $events as $anchorIndex => $rowGroup ) {
@@ -426,7 +454,12 @@ class tx_cjf_pi1 extends tslib_pibase
                     $event[] = $this->api->fe_makeStyledContent( 'div', 'event-comments', $row[ 'comments' ] );
                     
                     // Check if tickets are available
-                    if( !empty( $row[ 'price' ] ) && $ticketsAvailable > 0 && $row[ 'soldout' ] != 1 && $this->conf[ 'disableCart' ] != 1 ) {
+                    if( !empty( $row[ 'price' ] )
+                        && $ticketsAvailable > 0
+                        && $row[ 'soldout' ] != 1
+                        && $this->conf[ 'disableCart' ] != 1
+                        && $row[ 'date' ] >= strtotime( date( 'Y/m/d', time() ) )
+                    ) {
                         
                         // Cart link
                         $cartLink = $this->pi_linkTP_keepPIvars( $this->pi_getLL( 'cartAdd' ), array( 'addToCart' => $eventId ) );
@@ -602,7 +635,7 @@ class tx_cjf_pi1 extends tslib_pibase
         
         // Select by places
         $htmlCode[] = $this->api->fe_makeStyledContent( 'div', $placesClass, $placesLink );
-        
+                
         // Return menu
         return $this->api->fe_makeStyledContent( 'div', 'event-menu', implode( chr( 10 ), $htmlCode ) );
     }
