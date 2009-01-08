@@ -66,7 +66,6 @@ require_once ( t3lib_div::getFileAbsFileName( $extConf[ 'pdfLabelClass' ] ) );
 
 class tx_cjf_module1 extends t3lib_SCbase
 {
-    
     // Page informations
     var $pageinfo;
     
@@ -115,16 +114,6 @@ class tx_cjf_module1 extends t3lib_SCbase
     
     // Show only stats
     var $onlyStats = 0;
-    
-    
-    
-    
-    
-    /***************************************************************
-     * SECTION 1 - INIT
-     *
-     * Base module functions.
-     ***************************************************************/
     
     /**
      * Initialization of the class.
@@ -258,16 +247,6 @@ class tx_cjf_module1 extends t3lib_SCbase
             $this->content      .= $this->doc->spacer( 10 );
         }
     }
-    
-    
-    
-    
-    
-    /***************************************************************
-     * SECTION 2 - MAIN
-     *
-     * Main module functions.
-     ***************************************************************/
     
     /**
      * Creates the module's menu.
@@ -2718,4 +2697,3 @@ foreach( $SOBE->include_once as $INC_FILE ) {
 // Output module
 $SOBE->main();
 $SOBE->printContent();
-?>

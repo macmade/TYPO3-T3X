@@ -29,15 +29,6 @@
  * @version     1.0
  */
 
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - MAIN
- *        :     function main( $content, $conf )
- * 
- *              TOTAL FUNCTIONS: 
- */
-
 // FPDF class
 require_once( t3lib_extMgm::extPath( 'fpdf' ) . 'class.tx_fpdf.php' );
 
@@ -82,8 +73,6 @@ class tx_cjf_pdf extends PDF
      */
     function Header()
     {
-        global $LANG;
-        
         // Font configuration
         $this->SetFont( 'Helvetica', 'B', 10 );
         

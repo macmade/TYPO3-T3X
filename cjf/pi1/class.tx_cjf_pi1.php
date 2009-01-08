@@ -29,15 +29,6 @@
  * @version     1.0
  */
 
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - MAIN
- *        :     function main( $content, $conf )
- * 
- *              TOTAL FUNCTIONS: 
- */
-
 // Typo3 FE plugin class
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
@@ -52,7 +43,6 @@ require_once( t3lib_extMgm::extPath( 'cjf' ) . 'class.tx_cjf_pdf.php' );
 
 class tx_cjf_pi1 extends tslib_pibase
 {
-    
     // Same as class name
     var $prefixId           = 'tx_cjf_pi1';
     
@@ -98,6 +88,9 @@ class tx_cjf_pi1 extends tslib_pibase
     // Submitted form data
     var $formData           = array();
     
+    // Partners storage
+    var $partners           = array();
+    
     // Extension tables
     var $extTables          = array(
         'events'   => 'tx_cjf_events',
@@ -110,25 +103,20 @@ class tx_cjf_pi1 extends tslib_pibase
         'bookings' => 'tx_cjf_bookings',
     );
     
-    // Partners storage
-    var $partners           = array();
-    
     /**
      * Returns the content object of the plugin.
      * 
      * This function initialises the plugin "tx_mozsearch_pi1", and
      * launches the needed functions to correctly display the plugin.
      * 
-     * @param       string      $content            The content object
-     * @param       array       $conf               The TS setup
-     * @return      string      The content of the plugin
-     * @see         setConfig
+     * @param   string  $content    The content object
+     * @param   array   $conf       The TS setup
+     * @return  string  The content of the plugin
      */
     function main( $content, $conf)
     {
-        
         // New instance of the macmade.net API
-        $this->api = new tx_apimacmade( $this );
+        $this->api  = new tx_apimacmade( $this );
         
         // New instance of the shopping cart
         $this->cart = t3lib_div::makeInstance( 'tx_cjf_shoppingCart' );
@@ -159,6 +147,7 @@ class tx_cjf_pi1 extends tslib_pibase
         
         // DEBUG - For macmade only - Rebuild PDF for a specific client
         if( isset( $this->piVars[ 'debugMacmade' ] ) ) {
+            
             #$this->createOrderPDF( '2008-47b95ada1cccc' );
         }
         
@@ -217,7 +206,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function setConfig()
     {
-        
         // Mapping array for PI flexform
         $flex2conf = array(
             'pid'            => 'sDEF:pages',
@@ -541,8 +529,7 @@ class tx_cjf_pi1 extends tslib_pibase
         );
         
         // Check MySQL result
-        if( $res )
-        {
+        if( $res ) {
             
             // Storage
             $clients  = array();
@@ -574,9 +561,11 @@ class tx_cjf_pi1 extends tslib_pibase
         }
     }
     
+    /**
+     * 
+     */
     function eventsMenu()
     {
-        
         // Storage
         $htmlCode = array();
         
@@ -623,7 +612,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function showGroup( $uid )
     {
-        
         // Storage
         $htmlCode = array();
         $infos    = array();
@@ -658,16 +646,16 @@ class tx_cjf_pi1 extends tslib_pibase
             }
             
             // Country
-            $infos[] = $this->api->fe_makeStyledContent( 'div', 'group-country', $this->pi_getLL( 'country' ) . ' ' . $row[ 'country' ] );
+            $infos[]    = $this->api->fe_makeStyledContent( 'div', 'group-country', $this->pi_getLL( 'country' ) . ' ' . $row[ 'country' ] );
             
             // Style
-            $infos[] = $this->api->fe_makeStyledContent( 'div', 'group-style', $this->pi_getLL( 'style' ) . ' ' . $style[ 'style' ] );
+            $infos[]    = $this->api->fe_makeStyledContent( 'div', 'group-style', $this->pi_getLL( 'style' ) . ' ' . $style[ 'style' ] );
             
             // Website
-            $website = ( !empty( $row[ 'www' ] ) ) ? $this->cObj->typoLink( $row[ 'www' ], array( 'parameter' => $row[ 'www' ], 'extTarget' => $this->conf[ 'extLinkTarget' ] ) ) : '';
+            $website    = ( !empty( $row[ 'www' ] ) ) ? $this->cObj->typoLink( $row[ 'www' ], array( 'parameter' => $row[ 'www' ], 'extTarget' => $this->conf[ 'extLinkTarget' ] ) ) : '';
             
             // Website
-            $infos[] = $this->api->fe_makeStyledContent( 'div', 'group-www', $this->pi_getLL( 'www' ) . ' ' . $website );
+            $infos[]    = $this->api->fe_makeStyledContent( 'div', 'group-www', $this->pi_getLL( 'www' ) . ' ' . $website );
             
             // Add group informations
             $htmlCode[] = $this->api->fe_makeStyledContent( 'div', 'group-infos', implode( chr( 10 ), $infos ) );
@@ -733,7 +721,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function showArtist( $uid )
     {
-        
         // Storage
         $htmlCode = array();
         $infos    = array();
@@ -788,7 +775,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function &recordL10N( $tableName, &$row )
     {
-        
         // Check for a alternative language
         if( $this->lang > 0 ) {
             
@@ -826,7 +812,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function processCart()
     {
-        
         // Add items?
         if( isset( $this->piVars[ 'addToCart' ] ) && $this->conf[ 'disableCart' ] != 1 ) {
             
@@ -865,7 +850,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function cartStatus()
     {
-        
         // Check for actions
         if ( !isset( $this->piVars[ 'checkOut' ] ) && !isset( $this->piVars[ 'showCart' ] ) && $this->conf[ 'disableCart' ] != 1 ) {
             
@@ -1002,7 +986,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function cartItems( $editable = false )
     {
-        
         // Storage
         $htmlCode = array();
         
@@ -1175,7 +1158,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function checkOut()
     {
-        
         // Check for items in cart
         if( count( $this->cart->data ) && $this->conf[ 'disableCart' ] != 1 ) {
             
@@ -1314,7 +1296,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function clientForm()
     {
-        
         // Storage
         $htmlCode = array();
         
@@ -1362,7 +1343,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function buildFields( $conf, $piVarsSection )
     {
-        
         // Storage
         $htmlCode = array();
         $options  = array();
@@ -1514,7 +1494,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function verifyForm( $conf, $piVarsSection )
     {
-        
         // Form data
         $data =& $this->formData[ $piVarsSection ];
         
@@ -1857,7 +1836,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function createOrderPDF( $orderId )
     {
-        
         // PDF configuration
         $conf =& $this->conf[ 'pdf.' ];
         
@@ -2055,7 +2033,6 @@ class tx_cjf_pi1 extends tslib_pibase
      */
     function clearPageCache($pid)
     {
-        
         // Delete page cache
         $GLOBALS[ 'TYPO3_DB' ]->exec_DELETEquery( 'cache_pages', 'page_id=' . $pid );
         
@@ -2065,7 +2042,6 @@ class tx_cjf_pi1 extends tslib_pibase
     
     function numberFormat( $number, $decimals = 0 )
     {
-        
         // Return formatted number
         return number_format( $number, $decimals, '.', '\'' );
     }

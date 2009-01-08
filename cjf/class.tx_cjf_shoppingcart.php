@@ -29,18 +29,8 @@
  * @version     1.0
  */
 
-/**
- * [CLASS/FUNCTION INDEX OF SCRIPT]
- * 
- * SECTION:     1 - MAIN
- *        :     function main( $content, $conf )
- * 
- *              TOTAL FUNCTIONS: 
- */
-
 class tx_cjf_shoppingCart
 {
-    
     // Session key identifier
     var $sesKey = 'tx_cjf_shoppingcart';
     
@@ -55,7 +45,6 @@ class tx_cjf_shoppingCart
      */
     function tx_cjf_shoppingCart()
     {
-        
         // Reference to the FE user object
         $this->user =& $GLOBALS[ 'TSFE' ]->fe_user;
         
@@ -75,7 +64,6 @@ class tx_cjf_shoppingCart
      */
     function updateSessionData()
     {
-        
         // Update session
         $this->user->setKey( 'ses', $this->sesKey, $this->data );
         return true;
@@ -86,7 +74,6 @@ class tx_cjf_shoppingCart
      */
     function addItem( $table, $id, $price, $quantity = 1 )
     {
-        
         // Check if item is already in the cart
         if( isset( $this->data[ $id ] ) ) {
             
@@ -115,7 +102,6 @@ class tx_cjf_shoppingCart
      */
     function updateItemQuantity( $id, $quantity )
     {
-        
         // Check if item exists
         if( isset( $this->data[ $id ] ) && is_numeric( $quantity ) ) {
             
@@ -139,7 +125,6 @@ class tx_cjf_shoppingCart
      */
     function getItem( $id )
     {
-        
         if( isset( $this->data[ $id ] ) ) {
             
             // Return item
@@ -157,7 +142,6 @@ class tx_cjf_shoppingCart
      */
     function removeItem( $id )
     {
-        
         // Remove item
         unset( $this->data[ $id ] );
         
@@ -170,7 +154,6 @@ class tx_cjf_shoppingCart
      */
     function countItems()
     {
-        
         // Number of items
         $count = 0;
         
@@ -189,7 +172,6 @@ class tx_cjf_shoppingCart
      */
     function getTotal()
     {
-        
         // Price
         $total = 0;
         
@@ -208,7 +190,6 @@ class tx_cjf_shoppingCart
      */
     function emptyCart()
     {
-        
         // Empty data array
         $this->data = array();
         
@@ -221,4 +202,3 @@ class tx_cjf_shoppingCart
 if ( defined( 'TYPO3_MODE' ) && $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/cjf/class.tx_cjf_shoppingcart.php' ] ) {
     include_once( $TYPO3_CONF_VARS[ TYPO3_MODE ][ 'XCLASS' ][ 'ext/cjf/class.tx_cjf_shoppingcart.php' ] );
 }
-
