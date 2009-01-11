@@ -1,0 +1,460 @@
+/* <![CDATA[ */
+
+.tx-eespwsmodules-pi1 * {
+    font-size: 10px;
+}
+
+.tx-eespwsmodules-pi1-calendar-table {
+    border: solid 1px #515151;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.tx-eespwsmodules-pi1-calendar-table TH {
+    border-right: solid 1px #FFFFFF;
+    border-top: solid 1px #FFFFFF;
+    border-bottom: solid 1px #FFFFFF;
+    background-color: #67A6BC;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    margin: 1px;
+    background-image: url( "/typo3conf/ext/eesp_ws_modules/res/headers-bg.gif" );
+}
+
+.tx-eespwsmodules-pi1-calendar-table TH.tx-eespwsmodules-pi1-month {
+    border-left: solid 1px #FFFFFF;
+}
+
+.tx-eespwsmodules-pi1-calendar-table TD {
+    border-right: solid 1px #FFFFFF;
+    border-bottom: solid 1px #FFFFFF;
+    padding: 5px;
+    background-color: #D4D9D9;
+    color: inherit;
+    margin: 1px;
+}
+
+TD.tx-eespwsmodules-pi1-year-separation {
+    border-left: solid 1px #FFFFFF;
+    background-color: #515151;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-align: center;
+}
+
+TD.tx-eespwsmodules-pi1-month, TD.tx-eespwsmodules-pi1-week, TD.tx-eespwsmodules-pi1-day, TD.tx-eespwsmodules-pi1-meridiem-am, TD.tx-eespwsmodules-pi1-meridiem-pm {
+    text-align: center;
+    vertical-align: middle;
+}
+
+TD.tx-eespwsmodules-pi1-month {
+    border-left: solid 1px #FFFFFF;
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+TD.tx-eespwsmodules-pi1-week {
+    background-color: #8C8C8C;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+TD.tx-eespwsmodules-pi1-day {
+    background-color: #A1CAD6;
+    color: #FFFFFF;
+}
+
+TD.tx-eespwsmodules-pi1-meridiem-am {
+    background-color: #EEEEEE;
+    color: inherit;
+}
+
+TD.tx-eespwsmodules-pi1-meridiem-pm {
+    background-color: #DDDDDD;
+    color: inherit;
+}
+
+.tx-eespwsmodules-pi1-options {
+    background-color: #67A6BC;
+    background-image: url( "/typo3conf/ext/eesp_ws_modules/res/headers-bg.gif" );
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    border: solid 1px #FFFFFF;
+    padding: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.tx-eespwsmodules-pi1 INPUT {
+    border: solid 1px #FFFFFF;
+    background-image: url( "/typo3conf/ext/eesp_ws_modules/res/input-bg.gif" );
+    background-repeat: repeat-x;
+}
+
+.tx-eespwsmodules-pi1-options LABEL {
+    font-weight: bold;
+}
+
+.tx-eespwsmodules-pi1-options DIV {
+    float: left;
+    margin: 5px;
+    width: 250px;
+}
+
+.tx-eespwsmodules-pi1-section, .tx-eespwsmodules-pi1-startDate, .tx-eespwsmodules-pi1-submit {
+    clear: left;
+}
+
+.tx-eespwsmodules-pi1-modCount, .tx-eespwsmodules-pi1-noResult {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+TD.tx-eespwsmodules-pi1-holiday {
+    background-color: #8C8C8C;
+    color: #FFFFFF;
+}
+
+TD.tx-eespwsmodules-pi1-domain-A01 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-A02 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-B03 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-B06 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-C04 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-C05 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-D02 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-D06 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-E07 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-G11 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-I {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-I01 {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-II {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-III {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-IV {
+    background-color: #D4D9D9;
+}
+
+TD.tx-eespwsmodules-pi1-domain-VII {
+    background-color: #D4D9D9;
+}
+
+.tx-eespwsmodules-pi1-module-infoDiv {
+    margin-top: 5px;
+    margin-left: 15px;
+    padding: 5px;
+    border: solid 1px #FFFFFF;
+    background-image: url( "/typo3conf/ext/eesp_ws_modules/res/modinfos-bg.gif" );
+    background-repeat: repeat-x;
+    background-color: #FFFFFF;
+    color: inherit;
+}
+
+.tx-eespwsmodules-pi1-exception {
+    border: solid 1px #FF0000;
+    padding: 5px;
+    background-color: #FFFFFF;
+    color: #FF0000;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.tx-eespwsmodules-pi1-module-details {
+    margin-top: 10px;
+}
+
+.tx-eespwsmodules-pi1-module-details H2 {
+    margin-top: 20px !important;
+    padding: 5px !important;
+    background-image: url( "/typo3conf/ext/eesp_ws_modules/res/headers-bg.gif" ) !important;
+    background-repeat: repeat-x !important;
+    background-color: #67A6BC !important;
+    color: #FFFFFF !important;
+    font-size: 12px !important;
+}
+
+.tx-eespwsmodules-pi1-spacer {
+    margin-top: 20px;
+}
+
+.tx-eespwsmodules-pi1-floatContainer {
+    overflow: hidden;
+    height: 100%;
+}
+
+.tx-eespwsmodules-pi1-left {
+    float: left;
+}
+
+tx-eespwsmodules-pi1-right {
+    float: left;
+}
+
+.tx-eespwsmodules-pi1-module-details .tx-eespwsmodules-pi1-left {
+    width: 220px;
+}
+
+.tx-eespwsmodules-pi1-module-infos .tx-eespwsmodules-pi1-left {
+    width: 120px;
+}
+
+.tx-eespwsmodules-pi1-module-infos .tx-eespwsmodules-pi1-right {
+    font-weight: bold;
+    margin-left: 120px;
+}
+
+.tx-eespwsmodules-pi1-module-infos TH {
+    border: solid 1px #FFFFFF;
+}
+
+DIV.tx-eespwsmodules-pi1-modules {
+    margin-top: 10px;
+    border: solid 1px #515151;
+}
+DIV.tx-eespwsmodules-pi1-modules .tx-eespwsmodules-pi1-module-infos {
+    border-left: solid 1px #FFFFFF;
+    border-top: solid 1px #FFFFFF;
+    border-right: solid 1px #FFFFFF;
+    padding: 5px;
+    background-color: #D4D9D9;
+    color: inherit;
+}
+
+.calendar * {
+    font-size: 10px;
+}
+
+.calendar {
+    position: relative;
+    display: none;
+    font-size: 10px;
+    cursor: default;
+    background-color: #EFEFEF;
+    color: #333333;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #333333;
+    font-family: Verdana, Helvetica, Arial, Geneva, Swiss, SunSans-Regular, sans-serif;
+}
+.calendar TABLE {
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+    width: 200px;
+}
+.calendar .button {
+    text-align: center;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+    font-weight: bold;
+}
+.calendar thead .title {
+    text-align: center;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+    font-weight: bold;
+}
+.calendar thead .name {
+    text-align: center;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+}
+.calendar thead .weekend {
+    color: #60A9BD;
+}
+.calendar thead .hilite {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar thead .active {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar tbody .day {
+    text-align: center;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+}
+.calendar tbody td.weekend {
+    color: #60A9BD;
+}
+.calendar tbody td.today {
+    font-weight: bold;
+    color: #60A9BD;
+}
+.calendar tbody .rowhilite td {
+    background-color: #DDDDDD;
+}
+.calendar tbody td.hilite {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar tbody td.active {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar tbody td.selected {
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    font-weight: bold;
+    text-decoration: blink;
+}
+.calendar tbody .emptycell {
+    visibility: hidden;
+}
+.calendar tbody .emptyrow {
+    display: none;
+}
+.calendar tfoot .ttip {
+    text-align: center;
+    padding: 2px;
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+    font-weight: bold;
+}
+.calendar tfoot .hilite {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar tfoot .active {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar .combo {
+    position: absolute;
+    display: none;
+    width: 4em;
+    top: 0px;
+    left: 0px;
+    cursor: default;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #333333;
+    z-index: 100;
+    background-color: #EFEFEF;
+}
+.calendar .combo .label, .calendar .combo .label-IEfix {
+    border-style: solid;
+    border-width: 1px;
+    border-left-color: #FFFFFF;
+    border-top-color: #FFFFFF;
+    border-right-color: #CCCCCC;
+    border-bottom-color: #CCCCCC;
+}
+.calendar .combo .active {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.calendar .combo .hilite {
+    background-color: #60A9BD;
+    color: #FFFFFF;
+    border-left-color: #CCCCCC;
+    border-top-color: #CCCCCC;
+    border-right-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+
+/* ]]> */
