@@ -211,6 +211,7 @@ class tx_cjf_pi1 extends tslib_pibase
             'pid'            => 'sDEF:pages',
             'disableCart'    => 'sDEF:disable_cart',
             'hideInfos'      => 'sDEF:hide_infos',
+            'hideShowAll'    => 'sDEF:hide_showall_link',
             'edition'        => 'sDEF:edition',
             'postalDelivery' => 'sDEF:postal_delivery',
             'currency'       => 'sPAY:currency',
@@ -325,27 +326,30 @@ class tx_cjf_pi1 extends tslib_pibase
             // Add anchors menu
             $htmlCode[] = $this->anchorsMenu( $anchorsMenu );
             
-            if( !isset( $this->piVars[ 'showAllEvents' ] ) || $this->piVars[ 'showAllEvents' ] == 0 ) {
+            if( !$this->conf[ 'hideShowAll' ] ) {
                 
-                $htmlCode[] = $this->api->fe_makeStyledContent(
-                    'div',
-                    'showPastEvents',
-                    $this->pi_linkTP_keepPIvars(
-                        $this->pi_getLL( 'showPastEvents' ),
-                        array( 'showAllEvents' => 1 )
-                    )
-                );
-                
-            } else {
-                
-                $htmlCode[] = $this->api->fe_makeStyledContent(
-                    'div',
-                    'showPastEvents',
-                    $this->pi_linkTP_keepPIvars(
-                        $this->pi_getLL( 'showFutureEvents' ),
-                        array( 'showAllEvents' => 0 )
-                    )
-                );
+                if( !isset( $this->piVars[ 'showAllEvents' ] ) || $this->piVars[ 'showAllEvents' ] == 0 ) {
+                    
+                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                        'div',
+                        'showPastEvents',
+                        $this->pi_linkTP_keepPIvars(
+                            $this->pi_getLL( 'showPastEvents' ),
+                            array( 'showAllEvents' => 1 )
+                        )
+                    );
+                    
+                } else {
+                    
+                    $htmlCode[] = $this->api->fe_makeStyledContent(
+                        'div',
+                        'showPastEvents',
+                        $this->pi_linkTP_keepPIvars(
+                            $this->pi_getLL( 'showFutureEvents' ),
+                            array( 'showAllEvents' => 0 )
+                        )
+                    );
+                }
             }
             
             // Process events group
