@@ -11,10 +11,11 @@
             <label index="menu.func.1">Show clients (by date)</label>
             <label index="menu.func.2">Show clients (by name)</label>
             <label index="menu.func.3">Manage partners</label>
-            <label index="menu.func.4">Stats</label>
-            <label index="menu.func.5">Find an order</label>
-            <label index="menu.func.6">Print labels</label>
-            <label index="menu.func.7">Export email addresses</label>
+            <label index="menu.func.4">Manage invitations</label>
+            <label index="menu.func.5">Stats</label>
+            <label index="menu.func.6">Find an order</label>
+            <label index="menu.func.7">Print labels</label>
+            <label index="menu.func.8">Export email addresses</label>
             <label index="norecord">No record found in the current page.</label>
             <label index="section.clients">Clients display</label>
             <label index="section.partners">Partners display</label>
@@ -111,6 +112,8 @@
             <label index="export.link">Click here to export email addresses as a file</label>
             <label index="showProcessed">Show processed orders</label>
             <label index="showUnprocessed">Show non processed orders</label>
+            <label index="bookings_sales.sale_date">Sale date</label>
+            <label index="bookings_sales.tickets_sold">Number of tickets sold</label>
         </languageKey>
         <languageKey index="fr" type="array">
             <label index="title">Cullly Jazz Festival - Billeterie</label>
@@ -118,10 +121,11 @@
             <label index="menu.func.1">Voir les clients (par date)</label>
             <label index="menu.func.2">Voir les clients (par nom)</label>
             <label index="menu.func.3">Gérer les partenaires</label>
-            <label index="menu.func.4">Statistiques</label>
-            <label index="menu.func.5">Trouver une commande</label>
-            <label index="menu.func.6">Impression d'étiquettes</label>
-            <label index="menu.func.7">Exporter les adresses e-mail</label>
+            <label index="menu.func.4">Gérer les invitations</label>
+            <label index="menu.func.5">Statistiques</label>
+            <label index="menu.func.6">Trouver une commande</label>
+            <label index="menu.func.7">Impression d'étiquettes</label>
+            <label index="menu.func.8">Exporter les adresses e-mail</label>
             <label index="norecord">Aucun enregistrement trouvé dans la page actuelle.</label>
             <label index="section.clients">Affichage des clients</label>
             <label index="section.partners">Affichage des partenaires</label>
@@ -218,6 +222,8 @@
             <label index="export.link">Cliquez ici pour exporter les adresses email dans un fichier</label>
             <label index="showProcessed">Voir les commandes traitées</label>
             <label index="showUnprocessed">Voir les commandes non traitées</label>
+            <label index="bookings_sales.sale_date">Date de vente</label>
+            <label index="bookings_sales.tickets_sold">Nombre de tickets vendus</label>
         </languageKey>
     </data>
 </T3locallang>

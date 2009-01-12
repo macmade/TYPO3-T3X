@@ -74,10 +74,11 @@ class tx_cjf_module1 extends t3lib_SCbase
     
     // Extension tables
     var $extTables          = array(
-        'events'   => 'tx_cjf_events',
-        'clients'  => 'tx_cjf_clients',
-        'orders'   => 'tx_cjf_orders',
-        'bookings' => 'tx_cjf_bookings'
+        'events'         => 'tx_cjf_events',
+        'clients'        => 'tx_cjf_clients',
+        'orders'         => 'tx_cjf_orders',
+        'bookings'       => 'tx_cjf_bookings',
+        'bookings_sales' => 'tx_cjf_bookings_sales'
     );
     
     // Index of tables
@@ -178,6 +179,11 @@ class tx_cjf_module1 extends t3lib_SCbase
                     //-->
                 </script>
                 <script src="scripts.js" type="text/javascript" language="Javascript" charset="iso-8859-1"></script>
+                <script src="scripts.js" type="text/javascript" language="Javascript" charset="iso-8859-1"></script>
+                <script src="../res/calendar/calendar.js" type="text/javascript" language="Javascript" charset="iso-8859-1"></script>
+                <script src="../res/calendar/calendar-en.js" type="text/javascript" language="Javascript" charset="iso-8859-1"></script>
+                <script src="../res/calendar/calendar-setup.js" type="text/javascript" language="Javascript" charset="iso-8859-1"></script>
+                <link rel="stylesheet" href="../res/calendar/calendar.css" type="text/css" media="all" charset="utf-8" />
             ';
             $this->doc->postCode = '
                 <script type="text/javascript" language="Javascript" charset="iso-8859-1">
@@ -284,6 +290,7 @@ class tx_cjf_module1 extends t3lib_SCbase
                     '5' => $LANG->getLL( 'menu.func.5' ),
                     '6' => $LANG->getLL( 'menu.func.6' ),
                     '7' => $LANG->getLL( 'menu.func.7' ),
+                    '8' => $LANG->getLL( 'menu.func.8' ),
                 )
             );
         }
@@ -346,7 +353,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         $section = $this->MOD_SETTINGS[ 'function' ];
         
         // Check menu section
-        if( $section == 7 ) {
+        if( $section == 8 ) {
             
             // Get clients by name
             $this->selectRecords( 'clients', 'type=1' );
@@ -354,7 +361,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             // Get events
             $this->selectRecords( 'events', 'sys_language_uid=0' );
             
-        } elseif( $section == 6 ) {
+        } elseif( $section == 7 ) {
             
             // Get clients by name
             $this->selectRecords( 'clients' );
@@ -365,7 +372,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             // Get events
             $this->selectRecords( 'events', 'sys_language_uid=0 AND price AND tickets' );
             
-        } elseif( $section == 5 ) {
+        } elseif( $section == 6 ) {
             
             // Get clients by name
             $this->selectRecords( 'clients' );
@@ -376,7 +383,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             // Get events
             $this->selectRecords( 'events', 'sys_language_uid=0 AND price AND tickets' );
             
-        } elseif( $section == 4 ) {
+        } elseif( $section == 5 ) {
             
             // Get clients by name
             $this->selectRecords( 'clients' );
@@ -448,25 +455,32 @@ class tx_cjf_module1 extends t3lib_SCbase
                 case '4':
                     
                     // Show clients
-                    $htmlCode[] = $this->showStats();
+                    $htmlCode[] = 'Coming very soon... : )';
                     break;
                 
                 // Show partners
                 case '5':
                     
                     // Show clients
+                    $htmlCode[] = $this->showStats();
+                    break;
+                
+                // Show partners
+                case '6':
+                    
+                    // Show clients
                     $htmlCode[] = $this->findOrders();
                     break;
                 
                 // Print labels
-                case '6':
+                case '7':
                     
                     // Print labels
                     $htmlCode[] = $this->printLabels();
                     break;
                 
                 // Export emails
-                case '7':
+                case '8':
                     
                     // Print labels
                     $htmlCode[] = $this->exportEmails();
@@ -1002,6 +1016,13 @@ class tx_cjf_module1 extends t3lib_SCbase
             $htmlCode[] = $this->editBooking( $GET[ 'editBooking' ] );
         }
         
+        // Check post data
+        if( isset( $GET[ 'showBookingSales' ] ) && $GET[ 'showBookingSales' ] > 0 ) {
+            
+            // Edit booking
+            $htmlCode[] = $this->showBookingSales( $GET[ 'showBookingSales' ] );
+        }
+        
         // Counters
         $colorcount = 0;
         $rowcount   = 0;
@@ -1030,7 +1051,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $color      = ( $colorcount == 1 ) ? $this->doc->bgColor4 : $this->doc->bgColor5;
             
             // TR parameters
-            $tr_params = ' onmouseover="setRowColor(this,\'' . $rowcount . '\',\'list_db\',\'over\',\'' . $this->doc->bgColor3 . '\');" onmouseout="setRowColor(this,\'' . $rowcount . '\',\'list_db\',\'out\',\'' . $color . '\');" onclick="setRowColor(this,\'' . $rowcount . '\',\'list_db\',\'click\',\'' . $this->doc->bgColor6 . '\',\'' . $color . '\');" bgcolor="' . $color . '"';
+            $tr_params = ' bgcolor="' . $color . '"';
             
             // Partner name
             $client[] = $this->writeHTML( $row[ 'name_last' ], 'td' );
@@ -1042,10 +1063,10 @@ class tx_cjf_module1 extends t3lib_SCbase
             $addTicketsIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/options.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
             
             // Tickets link
-            $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => 0 ) );
+            $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => 0 ) );
             
             // Actions
-            $client[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'show,edit', $this->extTables[ 'clients' ], $row[ 'uid' ] ) . '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'td' );
+            $client[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'edit', $this->extTables[ 'clients' ], $row[ 'uid' ] ) . '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'td' );
             
             // Add row
             $htmlCode[] = '<tr ' . $tr_params . '>' . implode ( chr( 10 ), $client ) . '</tr>';
@@ -1204,21 +1225,67 @@ class tx_cjf_module1 extends t3lib_SCbase
         // Input IDs
         $idSold = uniqid( 'INPUT' );
         $idAdd  = uniqid( 'INPUT' );
+        $idDate = uniqid( 'INPUT' );
+        $idCal  = uniqid( 'INPUT' );
         
-        // Icon
-        $icon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/goback.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="top">';
+        // Add icon
+        $iconAdd  = '<img '
+                  . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/goback.gif', '' )
+                  . ' alt="" hspace="0" vspace="0" border="0" align="top">';
+        
+        // Calendar icon size
+        $calSize  = getimagesize( t3lib_extMgm::extPath( 'cjf' ) . '/res/date.png' );
+        
+        // Calendar icon
+        $iconCal  = '<img src="../res/date.png" '
+                    . $calSize[ 3 ]
+                    . ' alt="" hspace="0" vspace="0" border="0" align="top" id="' . $idCal . '" />';
         
         // Tickets sold
-        $inputs[] = '<input name="' . $GLOBALS[ 'MCONF' ][ 'name' ] . '[ticketsBooked]" id="' . $idSold . '" type="text" value="' . $booking[ 'tickets_booked' ] . '" size="10" />';
+        #$inputs[] = '<input name="' . $GLOBALS[ 'MCONF' ][ 'name' ] . '[ticketsBooked]" readonly="readonly" id="' . $idSold . '" type="text" value="' . $booking[ 'tickets_booked' ] . '" size="10" />';
         
         // Image
-        $inputs[] = '<a href="#" onclick="javascript:addNumberToInput(\'' . $idSold . '\',\'' . $idAdd . '\');">' . $icon . '</a>';
+        #$inputs[] = '<a href="#" onclick="javascript:addNumberToInput(\'' . $idSold . '\',\'' . $idAdd . '\');">' . $iconAdd . '</a>';
         
         // Add tickets
         $inputs[] = '<input name="' . $GLOBALS[ 'MCONF' ][ 'name' ] . '[addTickets]" id="' . $idAdd . '" type="text" value="0" size="10" />';
         
+        // Date
+        $inputs[] = '<input name="' . $GLOBALS[ 'MCONF' ][ 'name' ] . '[date]" readonly="readonly" id="' . $idDate . '" type="text" value="' . date( 'm/d/y' ) . '" size="10" />' . $iconCal;
+        
+        // Calendar setup
+        $inputs[] = '<script type="text/javascript" charset="utf-8">'
+	              . chr( 10 )
+	              . '// <![CDATA['
+	              . chr( 10 )
+	              . 'Calendar.setup('
+	              . chr( 10 )
+	              . '{'
+	              . chr( 10 )
+	              . 'inputField  : "'
+	              . $idDate
+	              . '",'
+	              . chr( 10 )
+	              . 'ifFormat    : "%m/%e/%y",'
+	              . chr( 10 )
+	              . 'button      : "'
+	              . $idCal
+	              . '",'
+	              . chr( 10 )
+	              . 'align       : "Br",'
+	              . chr( 10 )
+	              . 'singleClick : true'
+	              . chr( 10 )
+	              . '}'
+	              . chr( 10 )
+	              . ');'
+	              . chr( 10 )
+	              . '// ]]>'
+	              . chr( 10 )
+	              . '</script>';
+        
         // Add inputs
-        $htmlCode[] = $this->writeHTML( implode( ' ', $inputs ) );
+        $htmlCode[] = $this->writeHTML( implode( chr( 10 ), $inputs ) );
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 5 );
@@ -1234,6 +1301,9 @@ class tx_cjf_module1 extends t3lib_SCbase
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 10 );
+        
+        // Show booking sales
+        $htmlCode[] = $this->showBookingSales( $uid );
         
         // Return content
         return implode( chr( 10 ), $htmlCode );
@@ -1254,7 +1324,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $GET  = t3lib_div::_GET( $GLOBALS[ 'MCONF' ][ 'name' ] );
             
             // Check quantity
-            if( is_numeric( $POST[ 'ticketsBooked' ] ) && $POST[ 'ticketsBooked' ] >= 0) {
+            if( is_numeric( $POST[ 'addTickets' ] ) && $POST[ 'addTickets' ] > 0) {
                 
                 // Get booking
                 #$booking = t3lib_BEfunc::getRecord( $this->extTables[ 'bookings' ], $GET[ 'editBooking' ] );
@@ -1265,23 +1335,35 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $event =& $this->records[ 'events' ][ $booking[ 'id_event' ] ];
                 
                 // Tickets that can be unbooked
-                $freeTickets = $booking[ 'tickets_booked' ] - $booking[ 'tickets_sold' ];
+                #$freeTickets = $booking[ 'tickets_booked' ] - $booking[ 'tickets_sold' ];
                 
                 // Fields to update in event
                 $eventFields = array(
                     'tstamp'         => $time,
-                    'tickets_booked' => $event[ 'tickets_booked' ] + ( $POST[ 'ticketsBooked' ] - $booking[ 'tickets_booked' ] )
+                    'tickets_booked' => $event[ 'tickets_booked' ] + $POST[ 'addTickets' ]
                 );
                 
                 // Fields to update in booking
                 $bookingFields = array(
                     'tstamp'         => $time,
-                    'tickets_booked' => $POST[ 'ticketsBooked' ]
+                    'tickets_booked' => $booking[ 'tickets_booked' ] + $POST[ 'addTickets' ]
+                );
+                
+                // Fields to insert in bookings sales
+                $bookingsSalesFields = array(
+                    'pid'          => $this->id,
+                    'crdate'       => $time,
+                    'tstamp'       => $time,
+                    'cruser_id'    => $GLOBALS[ 'BE_USER' ]->user[ 'uid' ],
+                    'id_booking'   => $booking[ 'uid' ],
+                    'sale_date'    => strtotime( $POST[ 'date' ] ),
+                    'tickets_sold' => $POST[ 'addTickets' ]
                 );
                 
                 // Update records
                 $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery( $this->extTables[ 'events' ], 'uid=' . $event[ 'uid' ], $eventFields );
                 $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery( $this->extTables[ 'bookings' ], 'uid=' . $booking[ 'uid' ], $bookingFields );
+                $GLOBALS[ 'TYPO3_DB' ]->exec_INSERTquery( $this->extTables[ 'bookings_sales' ], $bookingsSalesFields );
                 $this->records[ 'events' ][ $event[ 'uid' ] ][ 'tickets_booked' ] = $eventsFields[ 'tickets_booked' ];
                 $this->records[ 'bookings' ][ $booking[ 'uid' ] ][ 'tickets_booked' ] = $bookingFields[ 'tickets_booked' ];
                 
@@ -1389,8 +1471,14 @@ class tx_cjf_module1 extends t3lib_SCbase
                 // Get associated event
                 $event = $this->records[ 'events' ][ $row[ 'id_event' ] ];
                 
+                $showBookingSalesIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/zoom2.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
+                
+                $showBookingSalesLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => 0 ) );
+                
+                $book[] = $this->writeHTML( '<a href="' . $showBookingSalesLink . '">' . $showBookingSalesIcon . '</a>', 'span' );
+                
                 // Add edit icons
-                $book[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'show', $this->extTables[ 'events' ], $event[ 'uid' ] ), 'span' );
+                #$book[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'show', $this->extTables[ 'events' ], $event[ 'uid' ] ), 'span' );
                 
                 // Add event tile
                 $book[] = $this->writeHTML( date( 'd.m.Y', $event[ 'date' ] ) . ' - ' . $event[ 'title' ], 'span' );
@@ -1402,7 +1490,7 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $addTicketsIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/options.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
                 
                 // Tickets link
-                $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => 0 ) );
+                $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => 0 ) );
                 
                 // Actions
                 $book[] = $this->writeHTML( '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'span' );
@@ -1418,6 +1506,88 @@ class tx_cjf_module1 extends t3lib_SCbase
             ksort( $htmlCode );
             
             // Return code
+            return implode( chr( 10 ), $htmlCode );
+        }
+    }
+    
+    /**
+     * 
+     */
+    function showBookingSales( $bookingId )
+    {
+        global $LANG;
+        
+        // Get booking sales
+        $sales = t3lib_BEfunc::getRecordsByField(
+            $this->extTables[ 'bookings_sales' ],
+            'id_booking',
+            $bookingId,
+            '',
+            '',
+            'sale_date DESC'
+        );
+        
+        // Check for events
+        if( is_array( $sales ) ) {
+        
+            // Storage
+            $htmlCode = array();
+            
+            // Counters
+            $colorcount = 0;
+            $rowcount   = 0;
+            
+            // Start table
+            $htmlCode[] = '<table border="0" width="100%" cellspacing="1" cellpadding="5" align="center" bgcolor="' . $this->doc->bgColor2 . '">';
+            
+            // Headers style
+            $headerStyle = array( 'font-weight: bold' );
+            
+            // Table headers
+            $htmlCode[] = '<tr>';
+            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'bookings_sales.sale_date' ), 'td', false, $headerStyle );
+            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'bookings_sales.tickets_sold' ), 'td', false, $headerStyle );
+            $htmlCode[] = '</tr>';
+            
+            // Process records
+            foreach( $sales as $sale ) {
+                
+                // Storage
+                $row = array();
+                
+                // Color
+                $colorcount = ( $colorcount == 1 ) ? 0 : 1;
+                $color      = ( $colorcount == 1 ) ? $this->doc->bgColor4 : $this->doc->bgColor5;
+                
+                // TR parameters
+                $tr_params = ' bgcolor="' . $color . '"';
+                
+                // Partner name
+                $row[] = $this->writeHTML( date( 'd.m.Y', $sale[ 'sale_date' ] ), 'td' );
+                
+                // Bookings
+                $row[] = $this->writeHTML( $sale[ 'tickets_sold' ], 'td' );
+                
+                // Add row
+                $htmlCode[] = '<tr ' . $tr_params . '>' . implode ( chr( 10 ), $row ) . '</tr>';
+                
+                // Increase row count
+                $rowcount++;
+            }
+            
+            // End table
+            $htmlCode[] = '</table>';
+            
+            // Spacer
+            $htmlCode[] = $this->doc->spacer( 10 );
+            
+            // Divider
+            $htmlCode[] = $this->doc->divider( 5 );
+            
+            // Spacer
+            $htmlCode[] = $this->doc->spacer( 10 );
+            
+            // Return content
             return implode( chr( 10 ), $htmlCode );
         }
     }
@@ -1838,7 +2008,9 @@ class tx_cjf_module1 extends t3lib_SCbase
             $htmlCode[] = $this->writeHTML( $orders, 'td', false, false, array( 'colspan' => $colspan, 'valign' => 'top' ) );
         }
         
-        // Empty row
+        // Empty rows
+        $htmlCode[] = $this->writeHTML( '', 'td' );
+        $htmlCode[] = $this->writeHTML( '', 'td' );
         $htmlCode[] = $this->writeHTML( '', 'td' );
         
         // Return details

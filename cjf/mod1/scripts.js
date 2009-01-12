@@ -140,28 +140,28 @@ function checkBoxList( field )
 /**
  * 
  */
-function addNumberToInput( dest, src )
-{
-    // Inputs
-    inputDest = document.getElementById( dest );
-    inputSrc  = document.getElementById( src );
-    
-    // Base number
-    baseNum   = Number( inputDest.value );
-    
-    // Add number
-    addNum    = Number( inputSrc.value );
-    
-    // Check numbers
-    if( addNum > 0 ) {
-        
-        // Add value
-        inputDest.value = baseNum + addNum;
-        
-    } else {
-        
-        // Error
-        alert( 'Error!' );
-    }
-}
+// function addNumberToInput( dest, src )
+// {
+//     // Inputs
+//     inputDest = document.getElementById( dest );
+//     inputSrc  = document.getElementById( src );
+//     
+//     // Base number
+//     baseNum   = Number( inputDest.value );
+//     
+//     // Add number
+//     addNum    = Number( inputSrc.value );
+//     
+//     // Check numbers
+//     if( addNum > 0 ) {
+//         
+//         // Add value
+//         inputDest.value = baseNum + addNum;
+//         
+//     } else {
+//         
+//         // Error
+//         alert( 'Error!' );
+//     }
+// }
 //-->
