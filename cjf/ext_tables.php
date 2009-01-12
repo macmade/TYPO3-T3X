@@ -476,4 +476,53 @@ $TCA[ 'tx_cjf_bookings' ] = array(
         'fe_admin_fieldList' => 'hidden, id_client, id_event, tickets_booked',
     )
 );
+
+// Orders TCA
+$TCA[ 'tx_cjf_bookings_sales' ] = array(
+    
+    // Control section
+    'ctrl' => array(
+        
+        // Table title
+        'title' => 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_bookings_sales',
+        
+        // Label field
+        'label' => 'uid',
+        
+        // Modification date
+        'tstamp' => 'tstamp',
+        
+        // Creation date
+        'crdate' => 'crdate',
+        
+        // Creation user
+        'cruser_id' => 'cruser_id',
+        
+        // Sorty by
+        'default_sortby' => 'ORDER BY uid',
+        
+        // Delete flag
+        'delete' => 'deleted',
+        
+        // Special fields
+        'enablecolumns' => array(
+            
+            // Hide flag
+            'disabled' => 'hidden',
+        ),
+        
+        // External configuration file
+        'dynamicConfigFile' => t3lib_extMgm::extPath( $_EXTKEY ) . 'tca.php',
+        
+        // Icon
+        'iconfile' => t3lib_extMgm::extRelPath( $_EXTKEY ) . 'res/icon_tx_cjf_bookings_sales.gif',
+    ),
+    
+    // FE settings
+    'feInterface' => array(
+        
+        // Available fields
+        'fe_admin_fieldList' => 'hidden, id_booking, sale_date, tickets_sold',
+    )
+);
 ?>

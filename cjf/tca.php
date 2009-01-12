@@ -1003,4 +1003,64 @@ $TCA[ 'tx_cjf_bookings' ] = array(
         '1' => array( 'showitem' => '' )
     )
 );
+
+// Orders TCA
+$TCA[ 'tx_cjf_bookings_sales' ] = array(
+    
+    // Control section
+    'ctrl' => $TCA[ 'tx_cjf_bookings_sales' ][ 'ctrl' ],
+    
+    // BE settings
+    'interface' => array(
+        
+        // Available fields
+        'showRecordFieldList' => 'hidden, id_booking, sale_date, tickets_sold'
+    ),
+    
+    // FE settings
+    'feInterface' => $TCA[ 'tx_cjf_bookings_sales' ][ 'feInterface' ],
+    
+    // Fields configuration
+    'columns' => array(
+        'hidden' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.hidden',
+            'config' => array(
+                'type' => 'check',
+                'default' => '0'
+            ),
+        ),
+        'id_booking' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_bookings_sales.id_booking',
+            'config' => array(
+                'type' => 'none',
+            ),
+        ),
+        'sale_date' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_bookings_sales.sale_date',
+            'config' => array(
+                'type' => 'none',
+            ),
+        ),
+        'tickets_sold' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_bookings_sales.tickets_sold',
+            'config' => array(
+                'type' => 'none',
+            ),
+        ),
+    ),
+    
+    // Types configuration
+    'types' => array(
+        '0' => array( 'showitem' => 'id_booking;;;;1-1-1, sale_date;;;;1-1-1, tickets_sold;;;;1-1-1, hidden;;;;1-1-1' )
+    ),
+    
+    // Palettes configuration
+    'palettes' => array(
+        '1' => array( 'showitem' => '' )
+    )
+);
 ?>

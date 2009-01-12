@@ -78,6 +78,10 @@
             <label index="tx_cjf_bookings.id_client">Client</label>
             <label index="tx_cjf_bookings.id_event">Event</label>
             <label index="tx_cjf_bookings.tickets_booked">Number of tickets sold</label>
+            <label index="tx_cjf_bookings_sales">CJF - Booking / Sales</label>
+            <label index="tx_cjf_bookings_sales.id_booking">Booking</label>
+            <label index="tx_cjf_bookings_sales.sale_date">Sale date</label>
+            <label index="tx_cjf_bookings_sales.tickets_sold">Number of tickets sold</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def">Main</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def.disable_cart">Disable cart</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def.hide_infos">Hide infos</label>
@@ -179,6 +183,10 @@
             <label index="tx_cjf_bookings.id_client">Client</label>
             <label index="tx_cjf_bookings.id_event">Soirée</label>
             <label index="tx_cjf_bookings.tickets_booked">Nombre de tickets vendus</label>
+            <label index="tx_cjf_bookings_sales">CJF - Réservation / Ventes</label>
+            <label index="tx_cjf_bookings_sales.id_booking">Réservation</label>
+            <label index="tx_cjf_bookings_sales.sale_date">Date de vente</label>
+            <label index="tx_cjf_bookings_sales.tickets_sold">Nombre de tickets vendus</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def">Général</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def.disable_cart">Désactiver le caddie</label>
             <label index="tx_cjf_pi1.pi_flexform.s_def.hide_infos">Masquer les infos</label>
