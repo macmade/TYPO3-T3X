@@ -47,8 +47,9 @@
             <label index="tx_cjf_places.place">Place</label>
             <label index="tx_cjf_clients">CFJ - Client</label>
             <label index="tx_cjf_clients.type">Type</label>
-            <label index="tx_cjf_clients.type.I.0">Partner</label>
+            <label index="tx_cjf_clients.type.I.0">Reseller</label>
             <label index="tx_cjf_clients.type.I.1">Website</label>
+            <label index="tx_cjf_clients.type.I.2">Partner</label>
             <label index="tx_cjf_clients.name_last">Name</label>
             <label index="tx_cjf_clients.name_first">First name</label>
             <label index="tx_cjf_clients.address">Address</label>
@@ -153,8 +154,9 @@
             <label index="tx_cjf_places.place">Lieu</label>
             <label index="tx_cjf_clients">CFJ - Client</label>
             <label index="tx_cjf_clients.type">Type</label>
-            <label index="tx_cjf_clients.type.I.0">Partenaire</label>
+            <label index="tx_cjf_clients.type.I.0">Distributeur</label>
             <label index="tx_cjf_clients.type.I.1">Website</label>
+            <label index="tx_cjf_clients.type.I.2">Partenaire</label>
             <label index="tx_cjf_clients.name_last">Nom</label>
             <label index="tx_cjf_clients.name_first">Prénom</label>
             <label index="tx_cjf_clients.address">Adresse</label>

@@ -692,6 +692,7 @@ $TCA[ 'tx_cjf_clients' ] = array(
                 'items' => Array (
                     array( 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_clients.type.I.0', '0' ),
                     array( 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_clients.type.I.1', '1' ),
+                    array( 'LLL:EXT:cjf/locallang_db.xml:tx_cjf_clients.type.I.2', '2' ),
                 ),
                 'size' => 1,
                 'maxitems' => 1,
@@ -803,7 +804,8 @@ $TCA[ 'tx_cjf_clients' ] = array(
     // Types configuration
     'types' => array(
         '0' => array( 'showitem' => 'type;;;;1-1-1, name_last;;;;1-1-1, hidden;;;;1-1-1' ),
-        '1' => array( 'showitem' => 'type;;;;1-1-1, name_last;;;;1-1-1, name_first, address;;;;1-1-1, zip;;;;1-1-1, city, country, email;;;;1-1-1, phone_professionnal;;;;1-1-1, phone_personnal, fax, newsletter;;;;1-1-1, ip;;;;1-1-1, hidden;;;;1-1-1' )
+        '1' => array( 'showitem' => 'type;;;;1-1-1, name_last;;;;1-1-1, name_first, address;;;;1-1-1, zip;;;;1-1-1, city, country, email;;;;1-1-1, phone_professionnal;;;;1-1-1, phone_personnal, fax, newsletter;;;;1-1-1, ip;;;;1-1-1, hidden;;;;1-1-1' ),
+        '2' => array( 'showitem' => 'type;;;;1-1-1, name_last;;;;1-1-1, hidden;;;;1-1-1' ),
     ),
     
     // Palettes configuration
