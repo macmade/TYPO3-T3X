@@ -271,7 +271,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             // Only statistics
             $this->MOD_MENU = array (
                 'function' => array (
-                    '4' => $LANG->getLL( 'menu.func.4' ),
+                    '5' => $LANG->getLL( 'menu.func.5' ),
                 )
             );
             
@@ -392,7 +392,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $this->selectRecords( 'bookings' );
             
             // Get events
-            $this->selectRecords( 'events', 'sys_language_uid=0 AND price AND tickets' );
+            $this->selectRecords( 'events', 'sys_language_uid=0 AND price AND tickets', 'date,title' );
             
             // Get orders
             $this->selectRecords( 'orders' );
@@ -444,28 +444,28 @@ class tx_cjf_module1 extends t3lib_SCbase
             // Check display mode
             switch( $section ) {
                 
-                // Show partners
+                // Show distributors
                 case '3':
                     
                     // Show clients
-                    $htmlCode[] = $this->showPartners();
+                    $htmlCode[] = $this->showDistributors();
                     break;
                 
-                // Show partners
+                // Show distributors
                 case '4':
                     
                     // Show clients
                     $htmlCode[] = 'Coming very soon... : )';
                     break;
                 
-                // Show partners
+                // Show distributors
                 case '5':
                     
                     // Show clients
                     $htmlCode[] = $this->showStats();
                     break;
                 
-                // Show partners
+                // Show distributors
                 case '6':
                     
                     // Show clients
@@ -509,7 +509,6 @@ class tx_cjf_module1 extends t3lib_SCbase
      */
     function processActions( $action )
     {
-        
         // Check action
         switch( $action ) {
             
@@ -686,7 +685,6 @@ class tx_cjf_module1 extends t3lib_SCbase
      */
     function selectRecords( $table, $addWhere = false, $orderBy = false )
     {
-        
         // Where clause
         $where = 'pid=' . $this->id . t3lib_BEfunc::deleteClause( $this->extTables[ $table ] );
         
@@ -984,7 +982,7 @@ class tx_cjf_module1 extends t3lib_SCbase
     /**
      * 
      */
-    function showPartners() {
+    function showDistributors() {
         global $LANG;
         
         // Storage
@@ -994,7 +992,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         $htmlCode[] = $this->doc->sectionBegin();
         
         // Title
-        $htmlCode[] = $this->doc->sectionHeader( $LANG->getLL( 'section.partners' ) );
+        $htmlCode[] = $this->doc->sectionHeader( $LANG->getLL( 'section.distributors' ) );
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 10 );
@@ -1003,10 +1001,10 @@ class tx_cjf_module1 extends t3lib_SCbase
         $GET = t3lib_div::_GET( $GLOBALS[ 'MCONF' ][ 'name' ] );
         
         // Check post data
-        if( isset( $GET[ 'editPartner' ] ) && $GET[ 'editPartner' ] > 0 ) {
+        if( isset( $GET[ 'editDistributor' ] ) && $GET[ 'editDistributor' ] > 0 ) {
             
-            // Edit partner
-            $htmlCode[] = $this->editPartner( $GET[ 'editPartner' ] );
+            // Edit distributor
+            $htmlCode[] = $this->editDistributor( $GET[ 'editDistributor' ] );
         }
         
         // Check post data
@@ -1035,8 +1033,8 @@ class tx_cjf_module1 extends t3lib_SCbase
         
         // Table headers
         $htmlCode[] = '<tr>';
-        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'partner.name_last' ), 'td', false, $headerStyle );
-        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'partner.tickets' ), 'td', false, $headerStyle );
+        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'distributor.name_last' ), 'td', false, $headerStyle );
+        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'distributor.tickets' ), 'td', false, $headerStyle );
         $htmlCode[] = $this->writeHTML( '', 'td', false, $headerStyle );
         $htmlCode[] = '</tr>';
         
@@ -1053,7 +1051,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             // TR parameters
             $tr_params = ' bgcolor="' . $color . '"';
             
-            // Partner name
+            // Distributor name
             $client[] = $this->writeHTML( $row[ 'name_last' ], 'td' );
             
             // Bookings
@@ -1063,7 +1061,14 @@ class tx_cjf_module1 extends t3lib_SCbase
             $addTicketsIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/options.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
             
             // Tickets link
-            $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => 0 ) );
+            $addTicketsLink = t3lib_div::linkThisScript(
+                array(
+                    $GLOBALS[ 'MCONF' ][ 'name' ] . '[editDistributor]'   => $row[ 'uid' ],
+                    $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]'       => 0,
+                    $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]'  => 0,
+                    $GLOBALS[ 'MCONF' ][ 'name' ] . '[deleteBookingSale]' => 0
+                )
+            );
             
             // Actions
             $client[] = $this->writeHTML( $this->api->be_buildRecordIcons( 'edit', $this->extTables[ 'clients' ], $row[ 'uid' ] ) . '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'td' );
@@ -1091,7 +1096,7 @@ class tx_cjf_module1 extends t3lib_SCbase
     /**
      * 
      */
-    function editPartner( $uid )
+    function editDistributor( $uid )
     {
         global $LANG;
         
@@ -1102,8 +1107,8 @@ class tx_cjf_module1 extends t3lib_SCbase
         #$events = t3lib_BEfunc::getRecordsByField( $this->extTables[ 'events' ], 'pid', $this->id, ' AND sys_language_uid=0', '', 'title' );
         $events =& $this->records[ 'events' ];
         
-        // Partner row
-        $partner =& $this->records[ 'clients' ][ $uid ];
+        // Distributor row
+        $distributor =& $this->records[ 'clients' ][ $uid ];
         
         // Check for events
         if( is_array( $events ) ) {
@@ -1113,7 +1118,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $eventsSelect  = array();
             
             // Title
-            $htmlCode[] = $this->writeHTML( '<strong>' . $partner[ 'name_last' ] . '</strong>', $eventsSelect );
+            $htmlCode[] = $this->writeHTML( '<strong>' . $distributor[ 'name_last' ] . '</strong>', $eventsSelect );
             
             // Spacer
             $htmlCode[] = $this->doc->spacer( 10 );
@@ -1189,10 +1194,10 @@ class tx_cjf_module1 extends t3lib_SCbase
         
         // Get records
         #$booking = t3lib_BEfunc::getRecord( $this->extTables[ 'bookings' ], $uid );
-        #$partner = t3lib_BEfunc::getRecord( $this->extTables[ 'clients' ], $booking[ 'id_client' ] );
+        #$distributor = t3lib_BEfunc::getRecord( $this->extTables[ 'clients' ], $booking[ 'id_client' ] );
         #$event   = t3lib_BEfunc::getRecord( $this->extTables[ 'events' ], $booking[ 'id_event' ] );
         $booking =& $this->records[ 'bookings' ][ $uid ];
-        $partner =& $this->records[ 'clients' ][ $booking[ 'id_client' ] ];
+        $distributor =& $this->records[ 'clients' ][ $booking[ 'id_client' ] ];
         $event   =& $this->records[ 'events' ][ $booking[ 'id_event' ] ];
         
         // Storage
@@ -1202,7 +1207,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         #$freeTickets = $booking[ 'tickets_booked' ] - $booking[ 'tickets_sold' ];
         
         // Title
-        $htmlCode[] = $this->writeHTML( '<strong>' . $partner[ 'name_last' ] . ': ' . $event[ 'title' ] .'</strong>' );
+        $htmlCode[] = $this->writeHTML( '<strong>' . $distributor[ 'name_last' ] . ': ' . $event[ 'title' ] .'</strong>' );
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 10 );
@@ -1214,7 +1219,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         $htmlCode[] = $action;
         
         // Add label
-        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'partner.ticketsSold' ) );
+        $htmlCode[] = $this->writeHTML( $LANG->getLL( 'distributor.ticketsSold' ) );
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 5 );
@@ -1325,6 +1330,8 @@ class tx_cjf_module1 extends t3lib_SCbase
             
             // Check quantity
             if( is_numeric( $POST[ 'addTickets' ] ) && $POST[ 'addTickets' ] > 0) {
+            
+                $time = time();
                 
                 // Get booking
                 #$booking = t3lib_BEfunc::getRecord( $this->extTables[ 'bookings' ], $GET[ 'editBooking' ] );
@@ -1378,7 +1385,7 @@ class tx_cjf_module1 extends t3lib_SCbase
     /**
      * 
      */
-    function bookTickets( $partnerId )
+    function bookTickets( $distributorId )
     {
         global $LANG;
         
@@ -1406,7 +1413,7 @@ class tx_cjf_module1 extends t3lib_SCbase
                     'hidden'         => 0,
                     'deleted'        => 0,
                     'pid'            => $this->id,
-                    'id_client'      => $partnerId,
+                    'id_client'      => $distributorId,
                     'id_event'       => $event[ 'uid' ],
                     'tickets_booked' => 0,
                 );
@@ -1421,22 +1428,22 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $this->records[ 'bookings' ][ $newBookId ] = t3lib_BEfunc::getRecord( $this->extTables[ 'bookings' ], $newBookId );
                 
                 // Check bookings index
-                if( !isset( $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ] ) ) {
+                if( !isset( $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ] ) ) {
                     
-                    // Create index for partner
-                    $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ] = array();
+                    // Create index for distributor
+                    $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ] = array();
                 }
                 
                 // Check bookings index
-                if( !isset( $this->indexes[ 'bookings' ][ 'clients-events' ][ $partnerId ] ) ) {
+                if( !isset( $this->indexes[ 'bookings' ][ 'clients-events' ][ $distributorId ] ) ) {
                     
-                    // Create index for partner
-                    $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ] = array();
+                    // Create index for distributor
+                    $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ] = array();
                 }
                 
                 // Add index
-                $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ][]        = $newBookId;
-                $this->indexes[ 'bookings' ][ 'clients-events' ][ $partnerId ][] = $event[ 'uid' ];
+                $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ][]        = $newBookId;
+                $this->indexes[ 'bookings' ][ 'clients-events' ][ $distributorId ][] = $event[ 'uid' ];
                 
                 // Clear plugins pages
                 $this->clearPi1Pages();
@@ -1447,14 +1454,13 @@ class tx_cjf_module1 extends t3lib_SCbase
     /**
      * 
      */
-    function showBookings( $partnerId )
+    function showBookings( $distributorId )
     {
-        
         // Check bookings
-        if( isset( $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ] ) ) {
+        if( isset( $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ] ) ) {
             
             // Reference to booking index
-            $bookings =& $this->indexes[ 'bookings' ][ 'clients' ][ $partnerId ];
+            $bookings =& $this->indexes[ 'bookings' ][ 'clients' ][ $distributorId ];
             
             // Storage
             $htmlCode = array();
@@ -1473,7 +1479,14 @@ class tx_cjf_module1 extends t3lib_SCbase
                 
                 $showBookingSalesIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/zoom2.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
                 
-                $showBookingSalesLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => 0 ) );
+                $showBookingSalesLink = t3lib_div::linkThisScript(
+                    array(
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]'  => $row[ 'uid' ],
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[editDistributor]'   => 0,
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]'       => 0,
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[deleteBookingSale]' => 0
+                    )
+                );
                 
                 $book[] = $this->writeHTML( '<a href="' . $showBookingSalesLink . '">' . $showBookingSalesIcon . '</a>', 'span' );
                 
@@ -1490,7 +1503,7 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $addTicketsIcon = '<img ' . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/options.gif', '' ) . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
                 
                 // Tickets link
-                $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editPartner]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => 0 ) );
+                $addTicketsLink = t3lib_div::linkThisScript( array( $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]' => $row[ 'uid' ], $GLOBALS[ 'MCONF' ][ 'name' ] . '[editDistributor]' => 0, $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]' => 0 ) );
                 
                 // Actions
                 $book[] = $this->writeHTML( '<a href="' . $addTicketsLink . '">' . $addTicketsIcon . '</a>', 'span' );
@@ -1516,6 +1529,54 @@ class tx_cjf_module1 extends t3lib_SCbase
     function showBookingSales( $bookingId )
     {
         global $LANG;
+        
+        $GET = t3lib_div::_GET( $GLOBALS[ 'MCONF' ][ 'name' ] );
+        
+        if( $GET[ 'deleteBookingSale' ] ) {
+            
+            $deleteRow = t3lib_BEfunc::getRecord(
+                $this->extTables[ 'bookings_sales' ],
+                $GET[ 'deleteBookingSale' ]
+            );
+            
+            if( is_array( $deleteRow ) ) {
+                
+                $time = time();
+                
+                $GLOBALS[ 'TYPO3_DB' ]->exec_DELETEquery(
+                    $this->extTables[ 'bookings_sales' ],
+                    'uid=' . $GET[ 'deleteBookingSale' ]
+                );
+
+                $booking = $this->records[ 'bookings' ][ $bookingId ];
+                $event   = $this->records[ 'events' ][ $booking[ 'id_event' ] ];
+                
+                $eventFields = array(
+                    'tstamp'         => $time,
+                    'tickets_booked' => $event[ 'tickets_booked' ] - $deleteRow[ 'tickets_sold' ]
+                );
+                
+                // Fields to update in booking
+                $bookingFields = array(
+                    'tstamp'         => $time,
+                    'tickets_booked' => $booking[ 'tickets_booked' ] - $deleteRow[ 'tickets_sold' ]
+                );
+                
+                $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery(
+                    $this->extTables[ 'events' ],
+                    'uid=' . $event[ 'uid' ],
+                    $eventFields
+                );
+                $GLOBALS[ 'TYPO3_DB' ]->exec_UPDATEquery(
+                    $this->extTables[ 'bookings' ],
+                    'uid=' . $booking[ 'uid' ],
+                    $bookingFields
+                );
+                
+                $this->records[ 'events' ][ $event[ 'uid' ] ][ 'tickets_booked' ] = $eventsFields[ 'tickets_booked' ];
+                $this->records[ 'bookings' ][ $booking[ 'uid' ] ][ 'tickets_booked' ] = $bookingFields[ 'tickets_booked' ];
+            }
+        }
         
         // Get booking sales
         $sales = t3lib_BEfunc::getRecordsByField(
@@ -1547,6 +1608,7 @@ class tx_cjf_module1 extends t3lib_SCbase
             $htmlCode[] = '<tr>';
             $htmlCode[] = $this->writeHTML( $LANG->getLL( 'bookings_sales.sale_date' ), 'td', false, $headerStyle );
             $htmlCode[] = $this->writeHTML( $LANG->getLL( 'bookings_sales.tickets_sold' ), 'td', false, $headerStyle );
+            $htmlCode[] = $this->writeHTML( '', 'td', false, $headerStyle );
             $htmlCode[] = '</tr>';
             
             // Process records
@@ -1562,11 +1624,27 @@ class tx_cjf_module1 extends t3lib_SCbase
                 // TR parameters
                 $tr_params = ' bgcolor="' . $color . '"';
                 
-                // Partner name
+                $iconTrash = '<img '
+                           . t3lib_iconWorks::skinImg( $GLOBALS[ 'BACK_PATH' ], 'gfx/delete_record.gif', '' )
+                           . ' alt="" hspace="0" vspace="0" border="0" align="middle">';
+                
+                $trashLink = t3lib_div::linkThisScript(
+                    array(
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[editBooking]'       => $GET[ 'editBooking' ],
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[editDistributor]'   => 0,
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[showBookingSales]'  => $GET[ 'showBookingSales' ],
+                        $GLOBALS[ 'MCONF' ][ 'name' ] . '[deleteBookingSale]' => $sale[ 'uid' ]
+                    )
+                );
+                
+                // Distributor name
                 $row[] = $this->writeHTML( date( 'd.m.Y', $sale[ 'sale_date' ] ), 'td' );
                 
                 // Bookings
                 $row[] = $this->writeHTML( $sale[ 'tickets_sold' ], 'td' );
+                
+                // Delete
+                $row[] = $this->writeHTML( $this->writeHTML( '<a href="' . $trashLink . '">' . $iconTrash . '</a>', 'span' ), 'td' );
                 
                 // Add row
                 $htmlCode[] = '<tr ' . $tr_params . '>' . implode ( chr( 10 ), $row ) . '</tr>';
@@ -1597,7 +1675,6 @@ class tx_cjf_module1 extends t3lib_SCbase
      */
     function compileClientsInfos( $uid )
     {
-        
         // Storage
         $infos = array();
         
@@ -1770,7 +1847,7 @@ class tx_cjf_module1 extends t3lib_SCbase
         
         // Counters
         $reallySold = array(
-            'partners' => 0,
+            'distributors' => 0,
             'online'   => 0,
             'total'    => 0
         );
@@ -1787,16 +1864,16 @@ class tx_cjf_module1 extends t3lib_SCbase
             }
         }
         
-        // Get number of tickets really sold by partners
+        // Get number of tickets really sold by distributors
         foreach( $this->records[ 'bookings' ] as $key => $value ) {
             
             // Add order
-            $reallySold[ 'partners' ] += $value[ 'tickets_booked' ];
+            $reallySold[ 'distributors' ] += $value[ 'tickets_booked' ];
             $reallySold[ 'total' ]    += $value[ 'tickets_booked' ];
         }
         
         // Total number of tickets sold (really)
-        $htmlCode[] = $this->writeHTML( $this->writeHTML( sprintf( $LANG->getLL( 'stats.reallySold' ), $reallySold[ 'total' ], $reallySold[ 'online' ], $reallySold[ 'partners' ] ), 'strong' ), 'div', 'typo3-red' );
+        $htmlCode[] = $this->writeHTML( $this->writeHTML( sprintf( $LANG->getLL( 'stats.reallySold' ), $reallySold[ 'total' ], $reallySold[ 'online' ], $reallySold[ 'distributors' ] ), 'strong' ), 'div', 'typo3-red' );
         
         // Spacer
         $htmlCode[] = $this->doc->spacer( 10 );
@@ -2053,9 +2130,9 @@ class tx_cjf_module1 extends t3lib_SCbase
             
             // Table headers
             $htmlCode[] = '<tr>';
-            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'stats.partner' ), 'td', false, $headerStyle );
+            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'stats.distributor' ), 'td', false, $headerStyle );
 
-            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'stats.partner.sold' ), 'td', false, $headerStyle );
+            $htmlCode[] = $this->writeHTML( $LANG->getLL( 'stats.distributor.sold' ), 'td', false, $headerStyle );
             $htmlCode[] = $this->writeHTML( $LANG->getLL( 'stats.totalSold' ), 'td', false, $headerStyle );
             $htmlCode[] = $this->writeHTML( '', 'td', false, $headerStyle );
             $htmlCode[] = '</tr>';
@@ -2545,7 +2622,6 @@ class tx_cjf_module1 extends t3lib_SCbase
      */
     function writeHTML( $text, $tag = 'div', $class = false, $style = false, $params = array() )
     {
-        
         // Create style tag
         if ( is_array( $style ) ) {
             $styleTag = ' style="' . implode( '; ', $style ) . '"';
@@ -2567,7 +2643,6 @@ class tx_cjf_module1 extends t3lib_SCbase
     
     function numberFormat( $number, $decimals = 0 )
     {
-        
         // Return formatted number
         return number_format( $number, $decimals, '.', '\'' );
     }

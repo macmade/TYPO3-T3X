@@ -17,7 +17,7 @@
             <label index="tx_cjf_events.tickets">Number of tickets</label>
             <label index="tx_cjf_events.soldout">Sold out</label>
             <label index="tx_cjf_events.tickets_sold">Number of tickets sold (online)</label>
-            <label index="tx_cjf_events.tickets_booked">Number of tickets sold (partners)</label>
+            <label index="tx_cjf_events.tickets_booked">Number of tickets sold (distributors)</label>
             <label index="tx_cjf_events.comments">Comments</label>
             <label index="tx_cjf_events.no_seats">Standing</label>
             <label index="tx_cjf_events.seats">Seats</label>
@@ -124,7 +124,7 @@
             <label index="tx_cjf_events.tickets">Nombre de tickets</label>
             <label index="tx_cjf_events.soldout">Sold out</label>
             <label index="tx_cjf_events.tickets_sold">Nombre de tickets vendus (online)</label>
-            <label index="tx_cjf_events.tickets_booked">Nombre de tickets vendus (partenaires)</label>
+            <label index="tx_cjf_events.tickets_booked">Nombre de tickets vendus (distributeurs)</label>
             <label index="tx_cjf_events.comments">Commentaires</label>
             <label index="tx_cjf_events.no_seats">Places debout</label>
             <label index="tx_cjf_events.seats">Places assises</label>
