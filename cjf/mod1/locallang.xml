@@ -17,6 +17,7 @@
             <label index="menu.func.7">Print labels</label>
             <label index="menu.func.8">Export email addresses</label>
             <label index="norecord">No record found in the current page.</label>
+            <label index="norecord.list">No record found in the current page. Below is the list of the available pages:</label>
             <label index="section.clients">Clients display</label>
             <label index="section.distributors">Distributors display</label>
             <label index="section.stats">Stats display</label>
@@ -127,6 +128,7 @@
             <label index="menu.func.7">Impression d'étiquettes</label>
             <label index="menu.func.8">Exporter les adresses e-mail</label>
             <label index="norecord">Aucun enregistrement trouvé dans la page actuelle.</label>
+            <label index="norecord.list">Aucun enregistrement trouvé dans la page actuelle. Voici la liste des pages disponibles:</label>
             <label index="section.clients">Affichage des clients</label>
             <label index="section.distributors">Affichage des distributeurs</label>
             <label index="section.stats">Affichage des statistiques</label>

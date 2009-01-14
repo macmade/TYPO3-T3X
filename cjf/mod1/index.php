@@ -496,8 +496,34 @@ class tx_cjf_module1 extends t3lib_SCbase
             
         } else {
             
-            // No record found in page
-            $htmlCode[] .= $LANG->getLL( 'norecord' );
+            $res = $GLOBALS[ 'TYPO3_DB' ]->sql_query(
+                'SELECT DISTINCT pid FROM ' . $this->extTables[ 'events' ]
+            );
+            
+            if( $res && $GLOBALS[ 'TYPO3_DB' ]->sql_num_rows( $res ) ) {
+                
+                $htmlCode[] .= $LANG->getLL( 'norecord.list' );
+                $htmlCode[] .= '<ol>';
+                
+                while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                    
+                    $page = t3lib_BEfunc::getRecord( 'pages', $row[ 'pid' ] );
+                    
+                    $htmlCode[] .= '<li>';
+                    $htmlCode[] .= $this->api->be_getRecordCSMIcon( 'pages', $page, $GLOBALS[ 'BACK_PATH' ] );
+                    $htmlCode[] .= '<a href="' . t3lib_div::linkThisScript( array( 'id' => $page[ 'uid' ] ) ) . '" title="' . $page[ 'uid' ] . '">';
+                    $htmlCode[] .= $page[ 'title' ];
+                    $htmlCode[] .= '</a>';
+                    $htmlCode[] .= '</li>';
+                }
+                
+                $htmlCode[] .= '</ol>';
+                
+            } else {
+                
+                // No record found in page
+                $htmlCode[] .= $LANG->getLL( 'norecord' );
+            }
         }
         
         // Add content
