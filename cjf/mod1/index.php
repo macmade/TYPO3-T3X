@@ -505,9 +505,16 @@ class tx_cjf_module1 extends t3lib_SCbase
                 $htmlCode[] .= $LANG->getLL( 'norecord.list' );
                 $htmlCode[] .= '<ol>';
                 
+                $pidList = array();
+                
                 while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
                     
-                    $page = t3lib_BEfunc::getRecord( 'pages', $row[ 'pid' ] );
+                    $pidList[] = $row[ 'pid' ];
+                }
+                
+                $pages = t3lib_BEfunc::getRecordsByField( 'pages', 'doktype', '254', 'AND uid IN (' . implode( ',', $pidList ) . ')', '', 'title' );
+                
+                foreach( $pages as $page ) {
                     
                     $htmlCode[] .= '<li>';
                     $htmlCode[] .= $this->api->be_getRecordCSMIcon( 'pages', $page, $GLOBALS[ 'BACK_PATH' ] );
