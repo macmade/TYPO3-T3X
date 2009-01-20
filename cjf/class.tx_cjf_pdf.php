@@ -225,11 +225,14 @@ class tx_cjf_pdf extends PDF
         foreach( $this->orders as $key => $value ) {
             
             // Event row
-            $eventRow = $this->events[ $value[ 'id_event' ] ];
+            $eventRow     = $this->events[ $value[ 'id_event' ] ];
+            
+            // Timestanp for the event
+            $ts           = $eventRow[ 'date' ] + $eventRow[ 'hour' ];
             
             // Add details
             $ids[]        = $value[ 'id_event' ];
-            $dates[]      = date( 'd.m.Y', $eventRow[ 'date' ] ) . ' - ' . date( 'H:i', $eventRow[ 'hour' ] );;
+            $dates[]      = date( 'd.m.Y', $ts ) . ' - ' . date( 'H:i', $ts );
             $events[]     = $eventRow[ 'title' ];
             $quantities[] = $value[ 'quantity' ];
             $prices[]     = number_format( $value[ 'price' ], 2, '.', '\'' );
