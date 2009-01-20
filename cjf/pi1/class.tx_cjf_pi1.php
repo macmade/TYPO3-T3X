@@ -148,7 +148,23 @@ class tx_cjf_pi1 extends tslib_pibase
         // DEBUG - For macmade only - Rebuild PDF for a specific client
         if( isset( $this->piVars[ 'debugMacmade' ] ) ) {
             
-            #$this->createOrderPDF( '2009-496634dfa8178' );
+            $this->createOrderPDF( '2009-49736aff8c09c' );
+        }
+        
+        // DEBUG - For macmade only - Rebuild PDF for all client
+        if( isset( $this->piVars[ 'debugMacmadeAll' ] ) ) {
+            
+            $res = $GLOBALS[ 'TYPO3_DB' ]->sql_query(
+                'SELECT DISTINCT orderid from tx_cjf_orders WHERE pid=' . $this->conf[ 'pid' ]
+            );
+            
+            if( $res ) {
+                
+                while( $row = $GLOBALS[ 'TYPO3_DB' ]->sql_fetch_assoc( $res ) ) {
+                    
+                    $this->createOrderPDF( $row[ 'orderid' ] );
+                }
+            }
         }
         
         // Check returns from payement system
