@@ -1,0 +1,179 @@
+# cat=basic//00; type=string; label=Verbose name
+verbose = TYPO3 MySQL Server
+
+# cat=basic//01; type=string; label=PMA DB
+pmadb = phpmyadmin
+
+# cat=basic//02; type=string; label=Designer coords
+designer_coords = pma_designer_coords
+
+# cat=basic//03; type=string; label=Blowfish secret
+blowfish_secret = 47895e7b980ce4.47020893
+
+# cat=basic//04; type=boolean; label=Left frame light
+LeftFrameLight = 1
+
+# cat=basic//05; type=boolean; label=Left frame DB tree
+LeftFrameDBTree = 1
+
+# cat=basic//06; type=string; label=Left frame DB separator
+LeftFrameDBSeparator = -
+
+# cat=basic//07; type=string; label=Left frame table separator
+LeftFrameTableSeparator = __
+
+# cat=basic//08; type=int+; label=Left frame table level
+LeftFrameTableLevel = 1
+
+# cat=basic//09; type=boolean; label=Left display logo
+LeftDisplayLogo = 1
+
+# cat=basic//10; type=boolean; label=Left display servers
+LeftDisplayServers = 1
+
+# cat=basic//11; type=boolean; label=Display servers list
+DisplayServersList = 0
+
+# cat=basic//12; type=string; label=Display databases list
+DisplayDatabasesList = auto
+
+# cat=basic//13; type=boolean; label=Left pointer enable
+LeftPointerEnable = 1
+
+# cat=basic//14; type=string; label=Default tab server
+DefaultTabServer = main.php
+
+# cat=basic//15; type=string; label=Default tab database
+DefaultTabDatabase = db_structure.php
+
+# cat=basic//16; type=string; label=Default tab table
+DefaultTabTable = sql.php
+
+# cat=basic//17; type=boolean; label=Light tabs
+LightTabs = 0
+
+# cat=basic//18; type=boolean; label=Error iconic
+ErrorIconic = 1
+
+# cat=basic//19; type=boolean; label=Main page iconic
+MainPageIconic = 1
+
+# cat=basic//20; type=boolean; label=Replace help image
+ReplaceHelpImg = 1
+
+# cat=basic//21; type=string; label=Navigation bar iconic
+NavigationBarIconic = both
+
+# cat=basic//22; type=string; label=Properties iconic
+PropertiesIconic = both
+
+# cat=basic//23; type=boolean; label=Browser pointer enable
+BrowsePointerEnable = 1
+
+# cat=basic//24; type=boolean; label=Browse marker enable
+BrowseMarkerEnable = 1
+
+# cat=basic//25; type=boolean; label=Modify delete at right
+ModifyDeleteAtRight = 1
+
+# cat=basic//26; type=int+; label=Repeat cells
+RepeatCells = 100
+
+# cat=basic//27; type=string; label=Default display
+DefaultDisplay = horizontal
+
+# cat=basic//28; type=int+; label=Textarea cols
+TextareaCols = 40
+
+# cat=basic//29; type=int+; label=Textarea rows
+TextareaRows = 7
+
+# cat=basic//30; type=boolean; label=Longtext double textarea
+LongtextDoubleTextarea = 1
+
+# cat=basic//31; type=boolean; label=Textarea auto select
+TextareaAutoSelect = 0
+
+# cat=basic//32; type=string; label=Char editing
+CharEditing = input
+
+# cat=basic//33; type=int+; label=Char textarea cols
+CharTextareaCols = 40
+
+# cat=basic//34; type=int+; label=Char textarea rows
+CharTextareaRows = 2
+
+# cat=basic//35; type=boolean; label=Ctrl arrows moving
+CtrlArrowsMoving = 1
+
+# cat=basic//36; type=string; label=Default prop display
+DefaultPropDisplay = horizontal
+
+# cat=basic//37; type=int+; label=Insert rows
+InsertRows = 2
+
+# cat=basic//38; type=boolean; label=Edit in window
+EditInWindow = 1
+
+# cat=basic//39; type=int+; label=Query window height
+QueryWindowHeight = 310
+
+# cat=basic//40; type=int+; label=Query window width
+QueryWindowWidth = 550
+
+# cat=basic//41; type=string; label=Query window default tab
+QueryWindowDefTab = sql
+
+# cat=basic//42; type=boolean; label=Force SSL
+ForceSSL = 0
+
+# cat=basic//43; type=boolean; label=Show PHP info
+ShowPhpInfo = 1
+
+# cat=basic//44; type=boolean; label=Show change password
+ShowChgPassword = 1
+
+# cat=basic//45; type=boolean; label=Allow arbitrary server
+AllowArbitraryServer = 0
+
+# cat=basic//46; type=string; label=Login cookie recall
+LoginCookieRecall = something
+
+# cat=basic//47; type=int+; label=Login cookie validity
+LoginCookieValidity = 1800
+
+# cat=basic//48; type=string; label=MySQL manual base
+MySQLManualBase = http://dev.mysql.com/doc/refman
+
+# cat=basic//49; type=string; label=MySQL manual type
+MySQLManualType = viewable
+
+# cat=basic//50; type=boolean; label=Allow anywhere recording
+AllowAnywhereRecoding = 1
+
+# cat=basic//51; type=string; label=Default charset
+DefaultCharset = utf-8
+
+# cat=basic//52; type=string; label=Recoding engine
+RecodingEngine = iconv
+
+# cat=basic//53; type=string; label=Iconv extra parameters
+IconvExtraParams = //TRANSLIT
+
+# cat=basic//54; type=options[Yes=yes,No=no]; label=GD2 available
+GD2Available = yes
+
+# cat=basic//55; type=boolean; label=Query history DB
+QueryHistoryDB = false
+
+# cat=basic//56; type=int+; label=Query history max
+QueryHistoryMax = 25
+
+# cat=basic//57; type=boolean; label=Browse MIME
+BrowseMIME = 1
+
+# cat=basic//58; type=string; label=PDF default page size
+PDFDefaultPageSize = A4
+
+# cat=basic//59; type=options[Darkblue Orange=darkblue_orange,Original=original,Silk=silk,Silkline=silkline,XAMPP=xampp]; label=Default theme
+ThemeDefault = xampp
