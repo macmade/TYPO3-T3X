@@ -25,8 +25,8 @@
 /**
  * Plugin 'Flash header' for the 'img_pageheader' extension.
  *
- * @author		Jean-David Gadina (macmade@gadlab.net)
- * @version		1.0
+ * @author      Jean-David Gadina (macmade@gadlab.net)
+ * @version     1.0
  */
 
 // Typo3 FE plugin class
@@ -36,38 +36,38 @@ class tx_imgpageheader_pi1 extends tslib_pibase
 {
     // Same as class name
     var $prefixId      = 'tx_imgpageheader_pi1';
-
+    
     // Path to this script relative to the extension dir
     var $scriptRelPath = 'pi1/class.tx_imgpageheader_pi1.php';
-
+    
     // The extension key
     var $extKey        = 'img_pageheader';
-
+    
     // Upload directory
     var $uploadDir     = 'uploads/tx_imgpageheader/';
-
+    
     /**
      * Returns the content object of the plugin.
      *
      * This function initialises the plugin "tx_flashpageheader_pi1", and
      * launches the needed functions to correctly display the plugin.
      *
-     * @param		$content			The content object
-     * @param		$conf				The TS setup
-     * @return		The content of the plugin.
-     * @see			buildHeaderCode
+     * @param       $content            The content object
+     * @param       $conf               The TS setup
+     * @return      The content of the plugin.
+     * @see         buildHeaderCode
      */
     function main( $content, $conf )
     {
         // Set class confArray TS from the function
         $this->conf = $conf;
-
+        
         // Load LOCAL_LANG values
         $this->pi_loadLL();
-
+        
         // Build content
         $content = $this->buildHeaderCode();
-
+        
         // Return content
         return $this->pi_wrapInBaseClass( $content );
     }
@@ -77,31 +77,44 @@ class tx_imgpageheader_pi1 extends tslib_pibase
      *
      * This function creates the header picture.
      *
-     * @return		An IMG tag.
-     * @see			getHeaderFile
-     * @see			createImgFromTS
+     * @return  An IMG tag.
+     * @see     getHeaderFile
+     * @see     createImgFromTS
      */
     function buildHeaderCode()
     {
         // Get header file
         $picture     = $this->getHeaderFile( 'tx_imgpageheader_picture' );
-
+        
         // Creating valid pathe
         $picturePath = str_replace(
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName( $picture )
         );
-
+        
         // Storage
         $htmlCode    = array();
-
-        // Replacement image
-        $imgTSConfig = $this->createImgFromTS( $picturePath );
-
-        // Flash code
-        $htmlCode[]  = $this->cObj->IMAGE( $imgTSConfig );
-
+        
+        if( $this->conf[ 'processImg' ] ) {
+            
+            // Replacement image
+            $imgTSConfig = $this->createImgFromTS( $picturePath );
+            
+            // Flash code
+            $htmlCode[]  = $this->cObj->IMAGE( $imgTSConfig );
+            
+        } else {
+            
+            $htmlCode[] = '<img src="'
+                        . $picturePath
+                        . '" alt="" width="'
+                        . $this->conf[ 'width' ]
+                        . '" height="'
+                        . $this->conf[ 'height' ]
+                        . '" />';
+        }
+        
         // Return content
         return implode( chr( 10 ), $htmlCode );
     }
@@ -113,33 +126,33 @@ class tx_imgpageheader_pi1 extends tslib_pibase
      * depending of the plugin settings, it checks for a recursive header in the top
      * pages, or returns the default header file.
      *
-     * @return		The header file path
+     * @return      The header file path
      */
     function getHeaderFile( $field )
     {
         if( empty( $GLOBALS[ 'TSFE' ]->page[ $field ] ) ) {
-
+            
             // Default header
             $headerFile = $this->conf[ 'defaultPicture' ];
-
+            
             // Checking for a recursive header
             if( $this->conf[ 'recursive' ] == 1 ) {
-
+                
                 foreach( $GLOBALS[ 'TSFE' ]->config[ 'rootLine' ] as $topPage ) {
-
+                    
                     // Recursive header found
                     if ( !empty( $topPage[ $field ] ) ) {
-
+                        
                         $headerFile = $this->uploadDir . $topPage[ $field ];
                     }
                 }
             }
         } else {
-
+        
             // Page specific header
             $headerFile = $this->uploadDir . $GLOBALS[ 'TSFE' ]->page[ $field ];
         }
-
+        
         // Return header file
         return $headerFile;
     }
@@ -151,23 +164,23 @@ class tx_imgpageheader_pi1 extends tslib_pibase
      * takes values from the constants and setup fields, and adds the specified
      * picture field to the array.
      *
-     * @param		$picturePath			The path of the picture to create
-     * @return		The image ressource array
+     * @param       $picturePath			The path of the picture to create
+     * @return      The image ressource array
      */
     function createImgFromTS( $picturePath )
     {
         // Get image CObject form TS
         $imgTSConfig = $this->conf[ 'picture.' ];
-
+        
         // Adding XY parameters
         $imgTSConfig[ 'file.' ][ 'XY' ]            = $this->conf[ 'width' ] . ',' . $this->conf[ 'height' ];
-
+        
         // Add IMAGE object
         $imgTSConfig[ 'file.' ][ '10' ]            = 'IMAGE';
-
+        
         // Add IMAGE file
         $imgTSConfig[ 'file.' ][ '10.' ][ 'file' ] = $picturePath;
-
+        
         // Return IMAGE CObject
         return $imgTSConfig;
     }
