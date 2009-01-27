@@ -1,0 +1,249 @@
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2004 macmade.net
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+/**
+ * Default TS setup - Extension 'Ergotheca'
+ *
+ * @author		Jean-David Gadina (info@macmade.net) / macmade.net
+ * @version		1.0
+ */
+
+/**
+ * PI1 object - Tools library
+ */
+plugin.tx_ergotheca_pi1 {
+
+	// Template file
+	templateFile = {$plugin.tx_ergotheca_pi1.templateFile}
+	
+	// Label for empty fields
+	emptyField = {$plugin.tx_ergotheca_pi1.emptyField}
+	
+	// Date format (see PHP date() function)
+	dateFormat = {$plugin.tx_ergotheca_pi1.dateFormat}
+	
+	// Directory for icon ressources
+	iconsDir = {$plugin.tx_ergotheca_pi1.iconsDir}
+	
+	// Field list to display icons
+	iconsFields = {$plugin.tx_ergotheca_pi1.iconsFields}
+	
+	// Document name max length
+	docMaxLength = {$plugin.tx_ergotheca_pi1.docMaxLength}
+	
+	// Thumbnails CObject
+	thumbCObject = IMAGE
+	thumbCObject {
+		
+		// Max width
+		file.maxW = {$plugin.tx_ergotheca_pi1.thumbWidth}
+	}
+	
+	/**
+	 * Listview parameters
+	 */
+	listView {
+	
+		// Default display mode
+		defaultMode = {$plugin.tx_ergotheca_pi1.defaultMode}
+		
+		// MySQL SORTBY command
+		sortBy = {$plugin.tx_ergotheca_pi1.sortBy}
+		
+		// Maximum number of records to display at a time
+		maxRecords = {$plugin.tx_ergotheca_pi1.maxRecords}
+		
+		// Maximum number of pages to display at a time
+		maxPages = {$plugin.tx_ergotheca_pi1.maxPages}
+		
+		// Fields to display (3 fields)
+		displayFields = {$plugin.tx_ergotheca_pi1.displayFields}
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-ergotheca-pi1 TD {
+			background-color: #CCCCCC;
+			background-position: center left;
+			padding: 5px;
+			border: solid 1px #666666;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	)
+}
+
+/**
+ * PI2 object - Tools sharing
+ */
+plugin.tx_ergotheca_pi2 { {
+	
+	// Template file
+	templateFile = EXT:ergotheca/pi2/template/template.html
+	
+	// Text input size
+	textInputSize = {$plugin.tx_ergotheca_pi2.textInputSize}
+	
+	// Text area rows
+	textAreaRows = {$plugin.tx_ergotheca_pi2.textAreaRows}
+	
+	// Text area cols
+	textAreaCols = {$plugin.tx_ergotheca_pi2.textAreaCols}
+	
+	/**
+	 * FEAdminLib configuration
+	 */
+	fe_adminLib = USER_INT
+	fe_adminLib {
+		
+		// General setup
+		userFunc = user_feAdmin->init
+		includeLibs = media/scripts/fe_adminLib.inc
+		
+		// Global wraps (disabled)
+		//wrap1.wrap = 
+		//wrap2.wrap = 
+		//color1.wrap = 
+		//color2.wrap = 
+		//color3.wrap = 
+	
+		// Database table to use
+		table = tx_ergotheca_tools
+		
+		// Default command
+		defaultCmd = create
+		
+		// Output debug infos
+		//debug = 1
+		
+		// Validation
+		setfixed = 0
+		
+		// Deletion capabilities
+		delete = 0
+	
+		// Infomail setup
+		infomail = 0
+	
+		// Creation capabilities
+		create = 1
+		create.preview = 0
+		create.fields = fe_cruser_id,hidden,name,authors,testyear,evalfield,formalization,evalobject,practicemodel,targetpublic_age,targetpublic_alt,passation_method,passation_description,passation_procedure,passation_material,passation_setpos,passation_quotint,comments,sources,links,language,language_alt,traduction,traduction_alt,traduction_standard,traduction_standard_alt,usecond,remarks,cost,pictures,files
+		create.overrideValues.hidden = 1
+		create.noSpecialLoginForm = 1
+		create.required = name,authors,testyear,evalfield,targetpublic_age
+		
+		// Email
+		email.from = loppizzi@eesp.ch
+		email.fromName =Webmaster
+		email.admin = loppizzi@eesp.ch
+		
+		// Edition capabilities
+		edit = 0
+	
+		// Field parsing
+		parseValues {
+			pictures = files [jpg;jpeg;gif;png;][500]
+			files = files [pdf;txt;doc;xls;ppt;sxw;sxc;sxi;][1000]
+		}
+		
+		// Storage PID
+		pid = {$plugin.tx_ergotheca_pi2.pid}
+		
+		// Own capabilities
+		fe_userOwnSelf = 0
+		fe_userEditSelf = 0
+		
+		// Process special fields
+		evalFunc = tx_ergotheca_pi2->updateArray
+		
+		// Default CSS styling
+		_CSS_DEFAULT_STYLE (
+			.tx-ergotheca-pi1 TD {
+				background-color: #CCCCCC;
+				background-position: center left;
+				padding: 5px;
+				border: solid 1px #666666;
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+		)
+	}
+}
+
+/**
+ * PI3 object - Research library
+ */
+plugin.tx_ergotheca_pi3 {
+	
+	// Template file
+	templateFile = EXT:ergotheca/pi3/template/template.html
+	
+	// Label for empty fields
+	emptyField = N/A
+	
+	// Date format (see PHP date() function)
+	dateFormat = d.m.Y
+	
+	// Tools storage PID
+	toolsPID =
+	
+	// Tools library PID
+	toolsLibPID =
+	
+	/**
+	 * Listview parameters
+	 */
+	listView {
+	
+		// Default display mode
+		defaultMode = 0
+		
+		// Default display mode
+		defaultMode = 0
+		
+		// MySQL SORTBY command
+		sortBy = name
+		
+		// Maximum number of records to display at a time
+		maxRecords = 10
+		
+		// Maximum number of pages to display at a time
+		maxPages = 20
+		
+		// Fields to display (3 fields)
+		displayFields = title,date_start,tool
+	}
+	
+	// Default CSS styling
+	_CSS_DEFAULT_STYLE (
+		.tx-ergotheca-pi3 TD {
+			background-color: #CCCCCC;
+			background-position: center left;
+			padding: 5px;
+			border: solid 1px #666666;
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	)
+}
