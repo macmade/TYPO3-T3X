@@ -539,10 +539,12 @@ abstract class tx_adlercontest_piBase extends tslib_pibase
             } else {
                 
                 // Checks if the field is empty
-                if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) ) {
+                if( !isset( $this->piVars[ $fieldName ] ) || empty( $this->piVars[ $fieldName ] ) 
+                    || ( $fieldOptions[ 'type' ] === 'date' && ( empty( $this->piVars[ $fieldName ][ 'day' ] ) || empty( $this->piVars[ $fieldName ][ 'month' ] ) || empty( $this->piVars[ $fieldName ][ 'year' ] ) ) ) ) {
                     
                     // Stores the error message
                     $this->_errors[ $fieldName ] = $error;
+                    
                 }
             }
                 
