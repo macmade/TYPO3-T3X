@@ -148,7 +148,7 @@ class tx_loginboxmacmade_pi2 extends tslib_pibase
         // Overwriting template markers
         $templateMarkers[ '###FORM_URL###' ]     = $formUrl;
         $templateMarkers[ '###FORM_ENCTYPE###' ] = $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'form_enctype' ];
-        $templateMarkers[ '###EXT_PATH###' ]     = t3lib_extMgm::extRelPath( 'loginbox_macmade' );
+        $templateMarkers[ '###EXT_PATH###' ]     = t3lib_extMgm::siteRelPath( 'loginbox_macmade' );
         
         if( $GLOBALS[ 'TSFE' ]->loginUser ) {
             
