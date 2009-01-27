@@ -102,4 +102,14 @@ plugin.tx_adlercontest_pi1 {
         // Description text
         description  =
     }
+    
+    // Redirection infos
+    redirect {
+        
+        // Title text
+        header       =
+        
+        // Description text
+        description  =
+    }
 }
