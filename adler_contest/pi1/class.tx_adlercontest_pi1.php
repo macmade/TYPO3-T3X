@@ -119,6 +119,10 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         'proof.' => array(
             'header'       => 'sPROOF:header',
             'description'  => 'sPROOF:description'
+        ),
+        'redirect.' => array(
+            'header'       => 'sREDIRECT:header',
+            'description'  => 'sREDIRECT:description'
         )
     );
     
@@ -130,18 +134,8 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         // Checks the view type
         if( isset( $this->piVars[ 'redirect' ] ) && $this->piVars[ 'redirect' ] ) {
             
-            // Next step URL
-            // Double redirection to handle the frontend user login
-            $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
-                array(
-                    'parameter'        => $this->_conf[ 'infoPage' ],
-                    'useCacheHash'     => 1
-                )
-            );
-            
-            // Go to the next step
-            header( 'Location: ' . $nextLink );
-            exit();
+            // Infos about the redirection
+            return $this->_redirectInfos();
             
         } elseif( isset( $this->piVars[ 'confirm' ] ) && $this->piVars[ 'confirm' ] ) {
             
@@ -264,6 +258,56 @@ class tx_adlercontest_pi1 extends tx_adlercontest_piBase
         
         // Returns the form
         return $form;
+    }
+    
+    /**
+     * Creates the registration form
+     * 
+     * @return  string  The registration form
+     */
+    protected function _redirectInfos()
+    {
+        // Template markers
+        $markers                         = array();
+        
+        // Sets the header
+        $markers[ '###HEADER###' ]       = $this->_api->fe_makeStyledContent(
+            'h2',
+            'header',
+            $this->_conf[ 'redirect.' ][ 'header' ]
+        );
+        
+        // Next step URL
+        $nextLink = self::$_typo3Url . $this->cObj->typoLink_URL(
+            array(
+                'parameter'        => $this->_conf[ 'infoPage' ],
+                'useCacheHash'     => 1
+            )
+        );
+        
+        // Final description, with tags replaced
+        $description = preg_replace(
+            array(
+                '/\${linkStart}/',
+                '/\${linkStop}/'
+            ),
+            array(
+                '<a href="' . $nextLink . '">',
+                '</a>',
+                $confirmLink
+            ),
+            $this->_conf[ 'redirect.' ][ 'description' ]
+        );
+        
+        // Sets the description
+        $markers[ '###DESCRIPTION###' ]  = $this->_api->fe_makeStyledContent(
+            'div',
+            'description',
+            $this->pi_RTEcssText( $description )
+        );
+        
+        // Returns the content
+        return $this->_api->fe_renderTemplate( $markers, '###REDIRECT_MAIN###' );
     }
     
     /**
