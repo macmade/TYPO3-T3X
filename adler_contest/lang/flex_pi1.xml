@@ -30,6 +30,9 @@
             <label index="sPROOF">Proof documents</label>
             <label index="sPROOF.header">Header</label>
             <label index="sPROOF.description">Description</label>
+            <label index="sREDIRECT">Profile redirection</label>
+            <label index="sREDIRECT.header">Header</label>
+            <label index="sREDIRECT.description">Description</label>
         </languageKey>
     </data>
 </T3locallang>
