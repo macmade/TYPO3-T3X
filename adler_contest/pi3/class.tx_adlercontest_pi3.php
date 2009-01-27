@@ -222,7 +222,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Where clause to select the projects
         $projectsWhere = 'pid='
                        . $this->_conf[ 'pid' ]
-                       . ' AND validated AND project';
+                       . ' AND validated AND project != ""';
         
         // Checks if the user as already voted on some projects
         if( count( $voted ) ) {
@@ -464,7 +464,7 @@ class tx_adlercontest_pi3 extends tx_adlercontest_piBase
         // Increments the number of votes
         self::$_db->exec_UPDATEquery(
             self::$_dbTables[ 'profiles' ],
-            $project[ 'uid' ],
+            'uid=' . $project[ 'uid' ],
             array(
                 'votes' => $project[ 'votes' ] + 1
             )
