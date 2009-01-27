@@ -1015,24 +1015,24 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             $this->_content[] = $this->_tag( 'tr', '', array(), array(), true );
             
             // Adds the headers
-            $this->_content[] = $this->_tag(
-                'td',
-                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'age_proof' ),
-                array(),
-                array(
-                    'font-weight' => 'bold',
-                    'text-align'  => 'center'
-                )
-            );
-            $this->_content[] = $this->_tag(
-                'td',
-                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'school_proof' ),
-                array(),
-                array(
-                    'font-weight' => 'bold',
-                    'text-align'  => 'center'
-                )
-            );
+#            $this->_content[] = $this->_tag(
+#                'td',
+#                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'age_proof' ),
+#                array(),
+#                array(
+#                    'font-weight' => 'bold',
+#                    'text-align'  => 'center'
+#                )
+#            );
+#            $this->_content[] = $this->_tag(
+#                'td',
+#                $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'school_proof' ),
+#                array(),
+#                array(
+#                    'font-weight' => 'bold',
+#                    'text-align'  => 'center'
+#                )
+#            );
             $this->_content[] = $this->_tag(
                 'td',
                 $this->_getFieldLabel( self::$_dbTables[ 'profiles' ], 'project' ),
@@ -1050,8 +1050,8 @@ class tx_adlercontest_module1 extends tx_adlercontest_scBase
             $this->_content[] = $this->_tag( 'tr', '', array(), array(), true );
             
             // Shows the user pictures
-            $this->_showUserPicture( $user, 'age_proof' );
-            $this->_showUserPicture( $user, 'school_proof' );
+#            $this->_showUserPicture( $user, 'age_proof' );
+#            $this->_showUserPicture( $user, 'school_proof' );
             $this->_showUserPicture( $user, 'project' );
             
             // Ends the table
