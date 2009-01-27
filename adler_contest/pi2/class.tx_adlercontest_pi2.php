@@ -70,7 +70,6 @@ class tx_adlercontest_pi2 extends tx_adlercontest_piBase
      */
     protected $_configMap            = array(
         'pid'            => 'sDEF:pages',
-        'infoPage'       => 'sDEF:info_page',
         'home.'          => array(
             'header'      => 'sHOME:header',
             'description' => 'sHOME:description'
