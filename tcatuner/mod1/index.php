@@ -83,7 +83,7 @@ require_once ( t3lib_extMgm::extPath( 'api_macmade' ) . 'class.tx_apimacmade.php
 
 // DEBUG ONLY - Sets the error level to the highest possible value (PHP5)
 // Unfortunately, TYPO3 won't work with those settings, but at least I'll try to make sure this module won't generate any error, even E_STRICT ones
-#error_reporting( E_ALL | E_STRICT );
+error_reporting( E_ALL | E_STRICT );
 
 class tx_tcatuner_module1 extends t3lib_SCbase
 {
@@ -1218,16 +1218,16 @@ if( defined( 'TYPO3_MODE' ) && isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ TYPO3_MODE 
 
 // Creates an instance of the module
 // This will generate en E_STRICT error under PHP5... Sorry about this...
-$GLOBALS[ 't3Mod' ] = tx_apimacmade::newInstance( 'tx_tcatuner_module1' );
+$GLOBALS[ 'SOBE' ] = tx_apimacmade::newInstance( 'tx_tcatuner_module1' );
 
 // Initializes the module
-$GLOBALS[ 't3Mod' ]->init();
+$GLOBALS[ 'SOBE' ]->init();
 
 // Checks for include files
-if( is_array( $GLOBALS[ 't3Mod' ]->include_once ) ) {
+if( is_array( $GLOBALS[ 'SOBE' ]->include_once ) ) {
     
     // Process includes
-    foreach( $GLOBALS[ 't3Mod' ]->include_once as $includeFile ) {
+    foreach( $GLOBALS[ 'SOBE' ]->include_once as $includeFile ) {
         
         // Checks the file
         if( file_exists( $includeFile ) ) {
@@ -1247,11 +1247,12 @@ if( is_array( $GLOBALS[ 't3Mod' ]->include_once ) ) {
 }
 
 // Creates the module's view
-$GLOBALS[ 't3Mod' ]->main();
+$GLOBALS[ 'SOBE' ]->main();
 
 // Prints the module's content
-print $GLOBALS[ 't3Mod' ]->getContent();
+print $GLOBALS[ 'SOBE' ]->getContent();
 
 // Cleanup
 unset( $GLOBALS[ 'MCONF' ] );
-unset( $GLOBALS[ 't3Mod' ] );
+unset( $GLOBALS[ 'SOBE' ] );
+
