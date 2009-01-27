@@ -267,7 +267,9 @@ class tx_adlercontest_pdfExport extends PDF
             'birthdate',
             'school_name',
             'school_address',
-            'school_country'
+            'school_country',
+            'employer',
+            'employer_country'
         );
         
         // Process each field
@@ -318,6 +320,12 @@ class tx_adlercontest_pdfExport extends PDF
                 
                 // Country
                 case 'school_country':
+                    
+                    $value = $this->_getCountryName( $this->_profile[ $field ] );
+                    break;
+                
+                // Country
+                case 'employer_country':
                     
                     $value = $this->_getCountryName( $this->_profile[ $field ] );
                     break;
