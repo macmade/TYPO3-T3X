@@ -181,6 +181,9 @@ final class tx_adlercontest_methodProvider
             // Storage
             $options = array();
             
+            // Empty option
+            $options[] = '<option value="" selected="selected"></option>';
+            
             // Process each day
             for( $i = 1; $i < 32; $i++ ) {
                 
@@ -212,6 +215,9 @@ final class tx_adlercontest_methodProvider
             
             // Storage
             $options = array();
+            
+            // Empty option
+            $options[] = '<option value="" selected="selected"></option>';
             
             // Process each month
             for( $i = 1; $i < 13; $i++ ) {
@@ -253,6 +259,9 @@ final class tx_adlercontest_methodProvider
             
             // Lowest year
             $lowYear     = $currentYear - 101;
+            
+            // Empty option
+            $options[] = '<option value="" selected="selected"></option>';
             
             // Process each year
             for( $i = $currentYear; $i > $lowYear; $i-- ) {
