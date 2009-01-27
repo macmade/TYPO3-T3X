@@ -8,4 +8,4 @@ soapOperation = communes
 soapParams = 22
 
 # cat=basic//3; type=string+; label=XML nodes: The XML node hierarchy required to find the municipalities nodes (comma list - maximum 5 items).
-xmlNodes = string,xmlsql,canton
+xmlNodes = xmlsql,canton

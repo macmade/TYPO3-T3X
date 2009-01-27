@@ -22,7 +22,7 @@
 			<label index="municipality.idex2000">Idex2000</label>
 			<label index="import.submit">Import municipalities</label>
 			<label index="import.error.title">Error</label>
-			<label index="import.error.http">The file cannot be fetched! ( %d, %s )</label>
+			<label index="import.error.soap">SOAP error! ( %d, %s )</label>
 			<label index="import.error.xml">XML error! ( %d, %s )</label>
 			<label index="import.success">Municipalities have been imported</label>
 		</languageKey>
@@ -43,7 +43,7 @@
 			<label index="municipality.idex2000">Idex2000</label>
 			<label index="import.submit">Importer les communes</label>
 			<label index="import.error.title">Erreur</label>
-			<label index="import.error.http">Le fichier ne peut pas être atteint! ( %d, %s )</label>
+			<label index="import.error.soap">Erreur SOAP ( %d, %s )</label>
 			<label index="import.error.xml">Erreur XML! ( %d, %s )</label>
 			<label index="import.success">Les communes ont été importées</label>
 		</languageKey>

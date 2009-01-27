@@ -338,12 +338,12 @@ class  tx_vdmunicipalities_module1 extends t3lib_SCbase
         } else {
             
             // Get HTTP error infos
-            $httpStatus = ( int )$this->import->getResponseStatus();
-            $httpMsg    = $this->import->getResponseMsg();
+            $soapErrorCode = ( int )$this->import->getSoapExceptionCode();
+            $soapErrorMsg  = $this->import->getSoapExceptionMsg();
             
             // Error message
             $error = $this->writeHtml( $this->writeHtml( $LANG->getLL( 'import.error.title' ), 'strong', 'typo3-red' ) )
-                   . $this->writeHtml( sprintf( $LANG->getLL( 'import.error.http' ), $httpStatus, $httpMsg ), 'div', 'typo3-red' );
+                   . $this->writeHtml( sprintf( $LANG->getLL( 'import.error.soap' ), $soapErrorCode, $soapErrorMsg ), 'div', 'typo3-red' );
             
             return $error;
         }
