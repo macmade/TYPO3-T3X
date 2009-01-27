@@ -95,7 +95,7 @@ $TCA[ $tempTableName ] = array(
             )
         ),
         
-        'from_mail' => array(
+        'from_name' => array(
             'config'  => array(
                 'type' => 'input',
                 'size' => '20',
