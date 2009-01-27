@@ -12,21 +12,21 @@ t3lib_extMgm::addPItoST43(
     'pi1/class.tx_adlercontest_pi1.php',
     '_pi1',
     'list_type',
-    1
+    0
 );
 t3lib_extMgm::addPItoST43(
     $_EXTKEY,
     'pi2/class.tx_adlercontest_pi2.php',
     '_pi2',
     'list_type',
-    1
+    0
 );
 t3lib_extMgm::addPItoST43(
     $_EXTKEY,
     'pi3/class.tx_adlercontest_pi3.php',
     '_pi3',
     'list_type',
-    1
+    0
 );
 
 ?>
