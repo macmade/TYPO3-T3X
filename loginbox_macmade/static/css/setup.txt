@@ -35,24 +35,6 @@ plugin.tx_loginboxmacmade_pi1 {
     
     // Default CSS styling
     _CSS_DEFAULT_STYLE (
-        .tx-loginboxmacmade-pi1 .tx-loginboxmacmade-pi1-error {
-            color: #FF0000;
-        }
-        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            border: solid 1px #DFE2E3;
-            border-collapse: collapse;
-        }
-        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD {
-            border: solid 1px #DFE2E3;
-            background-color: #FAFBFB;
-            padding: 5px;
-        }
-        .tx-loginboxmacmade-pi1 TABLE.tx-loginboxmacmade-pi1-loginTable TD.tx-loginboxmacmade-pi1-labelCell {
-            border: solid 1px #E5D9B1;
-            background-color: #F0E9D2;
-            font-weight: bold;
-        }
+        
     )
 }
