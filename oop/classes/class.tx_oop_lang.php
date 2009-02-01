@@ -136,16 +136,15 @@ final class tx_oop_lang
             self::_setCurrentLanguage();
         }
         
-        if( isset( self::$_instances[ $langFile ] ) ) {
-            
-            return self::$_instances[ $langFile ];
-            
-        } else {
+        if( !isset( self::$_instances[ $langFile ] ) ) {
             
             self::$_instances[ $langFile ] = new self( $langFile );
             
             self::$_nbInstances++;
+            
         }
+        
+        return self::$_instances[ $langFile ];
     }
     
     /**
