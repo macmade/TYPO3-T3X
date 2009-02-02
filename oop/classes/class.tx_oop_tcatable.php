@@ -35,6 +35,11 @@
 # - typeicons
 # - l10n
 # - ws
+# - delete
+# - manual ordering
+# - allowed on pages
+# - save and new
+# - reserved: uid, pid, endtime, starttime, sorting, fe_group, hidden, deleted, cruser_id, crdate, tstamp, data, table, field, key, desc, all, and, asensitive, bigint, both, cascade, char, character, collate, column, connection, convert, current_date, current_user, databases, day_minute, decimal, default, delayed, describe, distinctrow, drop, else, escaped, explain, float, for, from, group, hour_microsecond, if, index, inout, int, int3, integer, is, leading, like, load, lock, longtext, match, mediumtext, minute_second, natural, null, optimize, or, outer, primary, raid0, real, release, replace, return, rlike, second_microsecond, separator, smallint, specific, sqlstate, sql_cal_found_rows, starting, terminated, tinyint, trailing, undo, unlock, usage, utc_date, values, varcharacter, where, write, year_month, call, condition, continue, cursor, declare, deterministic, each, elseif, exit, fetch, goto, insensitive, iterate, label, leave, loop, modifies, out, reads, repeat, schema, schemas, sensitive, sql, sqlexception, sqlwarning, trigger, upgrade, while
 ################################################################################
 
 /**
@@ -377,7 +382,7 @@ final class tx_oop_tcaTable
         $field          = $this->addField( ( string )$name, 'check' );
         
         // Sets the default value
-        $field->default = ( boolean )$checked;
+        $field->default = ( int )$checked;
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
@@ -406,11 +411,14 @@ final class tx_oop_tcaTable
         // Creates the field
         $field           = $this->addField( ( string )$name, 'input' );
         
-        // Adds a checkbox
-        $field->checkbox = true;
-        
         // Add the eval rule
-        $field->addEval( 'datetime' );
+        $field->addEval( 'date' );
+        
+        // Configures the field options
+        $field->size     = 8;
+        $field->max      = 20;
+        $field->checkbox = '0';
+        $field->default  = '0';
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
@@ -443,7 +451,19 @@ final class tx_oop_tcaTable
         $field->checkbox = true;
         
         // Add the eval rule
-        $field->addEval( 'datetime' );
+        $field->addEval( 'date' );
+        
+        // Configures the field options
+        $field->size     = 8;
+        $field->max      = 20;
+        $field->checkbox = '0';
+        $field->default  = '0';
+        
+        // Sets the range
+        $field->setRange(
+            mktime( 3, 14, 7, 1, 19, 2038 ),
+            mktime( 0, 0, 0, date( 'm' ) - 1, date( 'd' ), date( 'Y' ) )
+        );
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
@@ -471,6 +491,15 @@ final class tx_oop_tcaTable
     {
         // Creates the field
         $field = $this->addField( ( string )$name, 'select' );
+        
+        // Sets the foreign table
+        $field->foreign_table = 'fe_groups';
+        
+        // Adds the select items
+        $field->addItem( '', 0 );
+        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1 );
+        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2 );
+        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--' );
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
