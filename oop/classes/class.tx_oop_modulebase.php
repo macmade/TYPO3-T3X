@@ -346,13 +346,13 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     protected function _link( $text, array $params = array(), $keepModVars = false )
     {
         // Base url
-        $url = ( $keepModVars ) ? t3lib_div::linkThisScript( array( $this->_modName => $this->_modVars ) ) : t3lib_div::linkThisScript();
+        $url = ( $keepModVars ) ? t3lib_div::linkThisScript( array( $this->_moduleName => $this->_modVars ) ) : t3lib_div::linkThisScript();
         
         // Process each parameter
         foreach( $params as $key => $value ) {
             
             // Adds the current parameter
-            $url .= '&' . $this->_modName . '[' . $key . ']=' . $value;
+            $url .= '&' . $this->_moduleName . '[' . $key . ']=' . $value;
         }
         
         // Creates the full link
@@ -503,6 +503,36 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     /**
      * 
      */
+    protected function _addButton( $name, $file, $fromSkin = true )
+    {
+        // Creates the button image
+        $img = ( $fromSkin ) ? $this->_t3SkinImg( $file ) : $this->_skinImg( $file );
+        
+        // URL
+        $url = t3lib_div::linkThisScript( array( $this->_moduleName => array( 'actions' => array( $name => true ) ) ) );
+        
+        // Creates the full link
+        $link              = new tx_oop_xhtmlTag( 'a' );
+        $link[ 'href' ]    = $url;
+        
+        // Adds the button image
+        $link->addTextData( $img );
+        
+        // Adds the button
+        $this->_buttons[ $name ] = $link;
+    }
+    
+    /**
+     * 
+     */
+    protected function _checkAction( $name )
+    {
+        return isset( $this->_modVars[ 'actions' ][ $name ] );
+    }
+    
+    /**
+     * 
+     */
     public function menuConfig()
     {
         $this->MOD_MENU = array(
@@ -538,17 +568,7 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
             $this->_backPath
         );
         
-        $saveImgInfos                         = getimagesize( $GLOBALS[ 'TBE_STYLES' ][ 'skinImgAutoCfg' ][ 'absDir' ] . 'gfx/savedok.gif' );
-        
-        $this->_buttons[ 'save' ]             = new tx_oop_xhtmlTag( 'input' );
-        $this->_buttons[ 'save' ][ 'type' ]   = 'image';
-        $this->_buttons[ 'save' ][ 'src' ]    = t3lib_iconWorks::skinImg( $this->_backPath, 'gfx/savedok.gif', '', 1 );
-        $this->_buttons[ 'save' ][ 'width' ]  = $saveImgInfos[ 0 ];
-        $this->_buttons[ 'save' ][ 'height' ] = $saveImgInfos[ 1 ];
-        $this->_buttons[ 'save' ][ 'class' ]  = 'c-inputButton';
-        $this->_buttons[ 'save' ][ 'name' ]   = 'submit';
-        $this->_buttons[ 'save' ][ 'value' ]  = 'Update';
-        $this->_buttons[ 'save' ][ 'title' ]  = self::$_t3Lang->sL( 'LLL:EXT:lang/locallang_core.php:rm.saveDoc', 1 );
+        $this->_addButton( 'save', 'gfx/savedok.gif' );
         
         if( self::$_beUser->mayMakeShortcut() ) {
             
