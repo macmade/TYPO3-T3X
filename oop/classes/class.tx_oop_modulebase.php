@@ -51,67 +51,67 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     /**
      * A flag to know wether the needed static variables are set
      */
-    private static $_hasStatic  = false;
+    private static $_hasStatic   = false;
     
     /**
      * A reference to the t3lib_DB object
      */
-    protected static $_db       = NULL;
+    protected static $_db        = NULL;
     
     /**
      * 
      */
-    protected static $_t3Lang     = NULL;
+    protected static $_t3Lang    = NULL;
     
     /**
      * A reference to the t3lib_beUserAuth object
      */
-    protected static $_beUser   = NULL;
+    protected static $_beUser    = NULL;
     
     /**
      * A reference to the TCA description array
      */
-    protected static $_tcaDescr = array();
+    protected static $_tcaDescr  = array();
     
     /**
      * A reference to the TCA array
      */
-    protected static $_tca      = array();
+    protected static $_tca       = array();
     
     /**
      * A reference to the client informations array
      */
-    protected static $client    = array();
+    protected static $client     = array();
     
     /**
      * A reference to the TYPO3 configuration variables array
      */
-    protected static $_t3Conf   = array();
+    protected static $_t3Conf    = array();
     
     /**
      * The ASCII new line character
      */
-    protected static $_NL       = '';
+    protected static $_NL        = '';
     
     /**
      * The ASCII tabulation character
      */
-    protected static $_TAB      = '';
+    protected static $_TAB       = '';
     
     /**
      * A reflection object for the backend module
      */
-    private $_reflection        = NULL;
+    private $_reflection         = NULL;
     
     /**
      * 
      */
-    private $_content           = NULL;
+    private $_content            = NULL;
     
     /**
      * The buttons for the TYPO3 backend module
      */
-    private $_buttons           = array(
+    private $_buttons            = array(
         'csh'      => '',
         'save'     => '',
         'shortcut' => ''
@@ -120,72 +120,87 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     /**
      * The module number
      */
-    private $_moduleNumber      = 0;
+    private $_moduleNumber       = 0;
     
     /**
      * The name of the module (child) class
      */
-    private $_moduleClass       = '';
+    private $_moduleClass        = '';
     
     /**
      * The name of the module
      */
-    private $_moduleName        = '';
+    private $_moduleName         = '';
     
     /**
      * The section of the module
      */
-    private $_moduleSection     = '';
+    private $_moduleSection      = '';
     
     /**
      * 
      */
-    private $_extKey            = '';
+    private $_modulePath         = '';
     
     /**
      * 
      */
-    private $_extDir            = '';
+    private $_moduleRelativePath = '';
     
     /**
      * 
      */
-    private $_uploadDirectory   = '';
+    private $_extKey             = '';
     
     /**
      * 
      */
-    private $_pageStart         = '';
+    private $_extPath            = '';
     
     /**
      * 
      */
-    private $_pageEnd           = '';
+    private $_extRelativePath    = '';
     
     /**
      * 
      */
-    protected $_lang            = NULL;
+    private $_uploadDirectory    = '';
     
     /**
      * 
      */
-    protected $_pageInfos       = array();
+    private $_pageStart          = '';
     
     /**
      * 
      */
-    protected $_modVars         = array();
+    private $_pageEnd            = '';
     
     /**
      * 
      */
-    protected $_backPath        = '';
+    protected $_lang             = NULL;
     
     /**
      * 
      */
-    public $doc                 = NULL;
+    protected $_pageInfos        = array();
+    
+    /**
+     * 
+     */
+    protected $_modVars          = array();
+    
+    /**
+     * 
+     */
+    protected $_backPath         = '';
+    
+    /**
+     * 
+     */
+    public $doc                  = NULL;
     
     /**
      * 
@@ -219,19 +234,25 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
         array_pop( $extPathInfo );
         array_pop( $extPathInfo );
         
-        $this->_extKey = array_pop( $extPathInfo );
+        $this->_extKey             = array_pop( $extPathInfo );
         
-        $this->_extDir = t3lib_extMgm::extPath( $this->_extKey );
+        $this->_extPath            = t3lib_extMgm::extPath( $this->_extKey );
         
-        $this->_uploadDirectory = str_replace(
+        $this->_extRelativePath    = t3lib_extMgm::extRelPath( $this->_extKey );
+        
+        $this->_modulePath         = $this->_extPath . 'mod' . $this->_moduleNumber;
+        
+        $this->_moduleRelativePath = $this->_extRelativePath . 'mod1/';
+        
+        $this->_uploadDirectory    = str_replace(
             PATH_site,
             '',
             t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->_extKey ) . '/' )
         );
         
-        $this->_lang = tx_oop_lang::getInstance( 'EXT:' . $this->_extKey . '/lang/mod' . $this->_moduleNumber . '.xml' );
+        $this->_lang               = tx_oop_lang::getInstance( 'EXT:' . $this->_extKey . '/lang/mod' . $this->_moduleNumber . '.xml' );
         
-        $this->_content = new tx_oop_xhtmlTag( 'div' );
+        $this->_content            = new tx_oop_xhtmlTag( 'div' );
     }
     
     /**
@@ -403,6 +424,83 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     }
     
     /**
+     * Gets an icon from the extension
+     * 
+     * @param   string  $name   The icon name
+     * @return  tx_oop_xhtmlTag The image tag
+     */
+    protected function _skinImg( $name )
+    {
+        // Gets the file absolute path
+        $fileAbsPath = $this->_extPath
+                     . 'res/img/'
+                     . $name;
+        
+        // Checks if the requested file exists
+        if( file_exists( $fileAbsPath ) && is_readable( $fileAbsPath ) ) {
+            
+            // Gets the image size
+            $size   = getimagesize( $fileAbsPath );
+            
+            // Creates the image tag
+            $img             = new tx_oop_xhtmlTag( 'img' );
+            $img[ 'src' ]    =  $this->_backPath . $this->_extRelativePath . 'res/img/' . $name;
+            $img[ 'width' ]  = $size[ 0 ];
+            $img[ 'height' ] = $size[ 1 ];
+            $img[ 'alt' ]    = $name;
+            $img[ 'hspace' ] = '0';
+            $img[ 'vspace' ] = '0';
+            $img[ 'border' ] = '0';
+            $img[ 'align' ]  = 'middle';
+            
+            // Returns the image tag
+            return $img;
+        }
+        
+        // File not found
+        return '';
+    }
+    
+    /**
+     * Gets an icon from TYPO3
+     * 
+     * @param   string  $name   The icon name
+     * @return  tx_oop_xhtmlTag The image tag
+     */
+    protected function _t3SkinImg( $name )
+    {
+        // Gets the image source
+        $imgSrc = t3lib_iconWorks::skinImg( $this->_backPath, $name, '', 1 );
+        
+        // Gets the file absolute path
+        $fileAbsPath = $GLOBALS[ 'TBE_STYLES' ][ 'skinImgAutoCfg' ][ 'absDir' ] . $name;
+        
+        // Checks if the requested file exists
+        if( file_exists( $fileAbsPath ) && is_readable( $fileAbsPath ) ) {
+            
+            // Gets the image size
+            $size   = getimagesize( $fileAbsPath );
+            
+            // Creates the image tag
+            $img             = new tx_oop_xhtmlTag( 'img' );
+            $img[ 'src' ]    = $imgSrc;
+            $img[ 'width' ]  = $size[ 0 ];
+            $img[ 'height' ] = $size[ 1 ];
+            $img[ 'alt' ]    = $name;
+            $img[ 'hspace' ] = '0';
+            $img[ 'vspace' ] = '0';
+            $img[ 'border' ] = '0';
+            $img[ 'align' ]  = 'middle';
+            
+            // Returns the image tag
+            return $img;
+        }
+        
+        // File not found
+        return '';
+    }
+    
+    /**
      * 
      */
     public function menuConfig()
@@ -430,7 +528,7 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
         
         $this->doc = t3lib_div::makeInstance( 'template' );
         
-        $this->doc->setModuleTemplate( $this->_extDir . 'res/html/mod' . $this->_moduleNumber . '.html' );
+        $this->doc->setModuleTemplate( $this->_extPath . 'res/html/mod' . $this->_moduleNumber . '.html' );
         
         $this->doc->backPath = $this->_backPath;
         
