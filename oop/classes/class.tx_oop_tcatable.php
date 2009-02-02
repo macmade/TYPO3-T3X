@@ -496,10 +496,10 @@ final class tx_oop_tcaTable
         $field->foreign_table = 'fe_groups';
         
         // Adds the select items
-        $field->addItem( '', 0 );
+        $field->addItem( '',                                                      0 );
         $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.hide_at_login', -1 );
-        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.any_login', -2 );
-        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.usergroups', '--div--' );
+        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.any_login',     -2 );
+        $field->addItem( 'LLL:EXT:lang/locallang_general.xml:LGL.usergroups',    '--div--' );
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
