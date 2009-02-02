@@ -223,7 +223,7 @@ final class tx_oop_tcaTable
                                            . $name;
             
             // Creates a new instance for the requested table
-            self::$_instance[ $tableName ] = new self( ( string )$extKey, $tableName );
+            self::$_instances[ $tableName ] = new self( ( string )$extKey, $tableName );
             self::$_nbInstances++;
         }
         
