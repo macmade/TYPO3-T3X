@@ -222,7 +222,7 @@ class tx_oop_xhtmlTag implements ArrayAccess, Iterator
     /**
      * Returns the current tag (SPL Iterator method)
      * 
-     * @return  Oop_Xhtml_Tag   The current HTML tag object
+     * @return  tx_oop_xhtmlTag   The current HTML tag object
      */
     public function current()
     {
@@ -436,7 +436,7 @@ class tx_oop_xhtmlTag implements ArrayAccess, Iterator
     /**
      * 
      */
-    public function addChildNode( Oop_Xhtml_Tag $child )
+    public function addChildNode( tx_oop_xhtmlTag $child )
     {
         if( !isset( self::$_emptyTags[ $this->_tagName ] ) ) {
             
@@ -469,8 +469,15 @@ class tx_oop_xhtmlTag implements ArrayAccess, Iterator
     {
         if( !isset( self::$_emptyTags[ $this->_tagName ] ) ) {
             
-            $this->_children[] = ( string )$data;
-            $this->_childrenCount++;
+            if( $data instanceof self ) {
+                
+                $this->addChildNode( $data );
+                
+            } else {
+                
+                $this->_children[] = ( string )$data;
+                $this->_childrenCount++;
+            }
         }
     }
     
