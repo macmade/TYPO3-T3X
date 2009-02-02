@@ -230,7 +230,7 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
         );
         
         $this->_lang = tx_oop_lang::getInstance( 'EXT:' . $this->_extKey . '/lang/mod' . $this->_moduleNumber . '.xml' );
-         
+        
         $this->_content = new tx_oop_xhtmlTag( 'div' );
     }
     
@@ -337,6 +337,10 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
             || ( self::$_beUser->user[ 'admin' ] && !$this->id )
         ) {
             
+            $contextMenuParts = $this->doc->getContextMenuCode();
+            
+            $this->doc->bodyTagAdditions = $contextMenuParts[ 1 ];
+            
             // Creates the module's form tag
             $form                  = new tx_oop_xhtmlTag( 'form' );
             $form[ 'action' ]      = '';
@@ -364,7 +368,7 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
             
             $jsCode->addTextData( $jsCodeData );
             
-            $this->doc->JScode     = ( string )$jsCode;
+            $this->doc->JScode     = ( string )$jsCode . self::$_NL . $contextMenuParts[ 0 ];
             
             $postCode              = new tx_oop_xhtmlTag( 'script' );
             $postCode[ 'type' ]    = 'text/javascript';
@@ -386,13 +390,9 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
             
             $postCode->addTextData( $jsCodeData );
             
-            $this->doc->postCode   = ( string )$postCode;
+            $this->doc->postCode   = ( string )$postCode . self::$_NL . $contextMenuParts[ 2 ];
             
             $this->_getModuleContent( $this->_content );
-            
-        } else {
-            
-            $this->_buttons[ 'save' ] = '';
         }
     }
 }
