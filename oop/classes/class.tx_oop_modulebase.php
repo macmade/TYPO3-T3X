@@ -315,6 +315,94 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a link with module variables
+     * 
+     * @param   string  $text           The link text
+     * @param   array   $params         The module variables to set, as key/value pairs
+     * @param   array   $keepModVars    The module variables to keep
+     * @return  tx_oop_xhtmlTag         The link
+     */
+    protected function _link( $text, array $params = array(), $keepModVars = false )
+    {
+        // Base url
+        $url = ( $keepModVars ) ? t3lib_div::linkThisScript( array( $this->_modName => $this->_modVars ) ) : t3lib_div::linkThisScript();
+        
+        // Process each parameter
+        foreach( $params as $key => $value ) {
+            
+            // Adds the current parameter
+            $url .= '&' . $this->_modName . '[' . $key . ']=' . $value;
+        }
+        
+        // Creates the full link
+        $link              = new tx_oop_xhtmlTag( 'a' );
+        $link[ 'href' ]    = $url;
+        
+        // Adds the linked text
+        $link->addTextData( $text );
+        
+        // Returns the link
+        return $link;
+    }
+    
+    /**
+     * Creates a link to a function of the menu
+     * 
+     * @param   string  $text       The link text
+     * @param   int     $function   The menu function ID
+     * @return  tx_oop_xhtmlTag     The link
+     */
+    protected function _functionLink( $text, $function )
+    {
+        // Creates the URL
+        $url = t3lib_div::linkThisScript(
+            array(
+                'SET' => array(
+                    'function' => $function
+                )
+            )
+        );
+        
+        // Creates the full link
+        $link              = new tx_oop_xhtmlTag( 'a' );
+        $link[ 'href' ]    = $url;
+        
+        // Adds the linked text
+        $link->addTextData( $text );
+        
+        // Returns the link
+        return $link;
+    }
+    
+    /**
+     * Creates a link to the edit view of a record
+     * 
+     * @param   string  $table  The table name
+     * @param   int     $uid    The ID of the record
+     * @param   string  $text   The link text
+     * @return  tx_oop_xhtmlTag The link
+     */
+    protected function _editLink( $table, $uid, $text )
+    {
+        // On click action
+        $onClick = t3lib_BEfunc::editOnClick(
+            '&edit[' . $table . '][' . $uid . ']=edit',
+            $this->_backPath
+        );
+        
+        // Creates the full link
+        $link              = new tx_oop_xhtmlTag( 'a' );
+        $link[ 'href' ]    = '#';
+        $link[ 'onclick' ] = htmlspecialchars( $onClick );
+        
+        // Adds the linked text
+        $link->addTextData( $text );
+        
+        // Returns the link
+        return $link;
+    }
+    
+    /**
      * 
      */
     public function menuConfig()
