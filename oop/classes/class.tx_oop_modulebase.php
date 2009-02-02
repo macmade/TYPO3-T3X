@@ -274,6 +274,47 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
     }
     
     /**
+     * Creates a thumbnail
+     * 
+     * @param   string  $file   The file path (relative to the upload directory)
+     * @param   int     $width  The thumbnail maximum width
+     * @param   int     $height The thumbnail maximum height
+     * @return  tx_oop_xhtmlTag The thumbnail picture
+     */
+    protected function _createThumbnail( $file, $width = 100, $height = 100 )
+    {
+        // Gets the file absolute path
+        $fileAbsPath  = PATH_site . $this->_uploadDirectory . $file;
+        
+        // Security check
+        $fileCheck    = basename( $fileAbsPath)
+                      . ':'
+                      . filemtime( $fileAbsPath )
+                      . ':'
+                      . self::$_typo3ConfVars[ 'SYS' ][ 'encryptionKey' ];
+        
+        
+        // URL that will generate the thumbnail
+        $url          = self::$_backPath
+                      . 'thumbs.php?size='
+                      . $width
+                      . 'x'
+                      . $height
+                      . '&file='
+                      . rawurlencode( '../' . self::$_uploadDirectory . $file )
+                      . '&md5sum='
+                      . t3lib_div::shortMD5( $fileCheck );
+        
+        // Creates the image tag
+        $img          = tx_oop_xhtmlTag( 'img' );
+        $img[ 'src' ] = htmlspecialchars( $url );
+        $img[ 'alt' ] = $file;
+        
+        // Returns the thumbnail
+        return $img;
+    }
+    
+    /**
      * 
      */
     public function menuConfig()
