@@ -264,7 +264,7 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
         $markers                = array();
         $markers[ 'CONTENT' ]   = ( string )$this->_content;
         $markers[ 'FUNC_MENU' ] = t3lib_BEfunc::getFuncMenu(
-            0,
+            $this->id,
             'SET[function]',
             $this->MOD_SETTINGS[ 'function' ],
             $this->MOD_MENU[ 'function' ]
