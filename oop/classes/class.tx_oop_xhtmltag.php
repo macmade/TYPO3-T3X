@@ -309,7 +309,7 @@ class tx_oop_xhtmlTag implements ArrayAccess, Iterator
             $this->_childrenCountByName[ $name ] = 0;
         }
         
-        $comment             = new Oop_Xhtml_Comment( $text );
+        $comment             = new tx_oop_xhtmlComment( $text );
         $comment->_parents[] = $this;
         
         $this->_children[]                = $comment;

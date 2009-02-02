@@ -639,7 +639,11 @@ abstract class tx_oop_moduleBase extends t3lib_SCbase
             
             $this->doc->postCode   = ( string )$postCode . self::$_NL . $contextMenuParts[ 2 ];
             
-            $this->_getModuleContent( $this->_content );
+            $this->_content->comment( 'Start of module content' );
+            
+            $this->_getModuleContent( $this->_content->div );
+            
+            $this->_content->comment( 'End of module content' );
         }
     }
 }

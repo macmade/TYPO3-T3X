@@ -35,7 +35,7 @@
  * @package     TYPO3
  * @subpackage  oop
  */
-class tx_oop_xhtmlComment extends Oop_Xhtml_Tag implements ArrayAccess
+class tx_oop_xhtmlComment extends tx_oop_xhtmlTag implements ArrayAccess
 {
     /**
      * The text of the comment
@@ -45,8 +45,8 @@ class tx_oop_xhtmlComment extends Oop_Xhtml_Tag implements ArrayAccess
     /**
      * Class constructor
      * 
-     * @return NULL
-     * @see     Oop_Xhtml_Tag::__construct
+     * @return  NULL
+     * @see     tx_oop_xhtmlTag::__construct
      */
     public function __construct( $text )
     {
