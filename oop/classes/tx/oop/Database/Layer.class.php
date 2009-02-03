@@ -517,10 +517,7 @@ final class tx_oop_Database_Layer
         if( $deleteFromTable ) {
             
             // Primary key
-            $pKey   = '' . $table;
-            
-            // Table name to support prefixes
-            $table  = '{' . $table . '}';
+            $pKey   = 'uid';
             
             // Parameters for the PDO query
             $params = array(
@@ -535,12 +532,23 @@ final class tx_oop_Database_Layer
             
             // Executes the PDO query
             return $this->execute( $params );
-            
-        } else {
-            
-            // Just sets the delete flag
-            return $this->updateRecord( $table, $id, array( 'deleted' => 1 ) );
         }
+        
+        // Checks if we have a delete flag in the specified table
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ] ) ) {
+            
+            // No, delete the record
+            return $this->deleteRecord( $table, $id, true );
+        }
+        
+        // Just sets the delete flag
+        return $this->updateRecord(
+            $table,
+            $id,
+            array(
+                $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ] => 1
+            )
+        );
     }
     
     /**
