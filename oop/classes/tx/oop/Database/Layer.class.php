@@ -104,13 +104,17 @@ final class tx_oop_Database_Layer
                 );
             }
             
+            // Gets the DBAL configuration
             $dbalConf = $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'dbal' ][ 'handlerCfg' ][ '_DEFAULT' ];
             
+            // Checks if the DBAL is configured to use MySQL
             if( $dbalConf[ 'type' ] === 'native' ) {
                 
+                // No need for a particular setup
                 break;
             }
             
+            // Checks the DBAL configuration
             if( !isset( $dbalConf[ 'config' ][ 'driver' ] )
                 || !isset( $dbalConf[ 'config' ][ 'username' ] )
                 || !isset( $dbalConf[ 'config' ][ 'password' ] )
