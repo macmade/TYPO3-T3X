@@ -1,0 +1,544 @@
+<?php
+/***************************************************************
+ * Copyright notice
+ * 
+ * (c) 2009 Jean-David Gadina (macmade@eosgarden.com)
+ * All rights reserved
+ * 
+ * This script is part of the TYPO3 project. The TYPO3 project is 
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ * 
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+# $Id$
+
+// DEBUG ONLY - Sets the error reporting level to the highest possible value
+#error_reporting( E_ALL | E_STRICT );
+
+/**
+ * TYPO3 database layer class
+ * 
+ * The goal of the class is to provide TYPO3 with the functionnalities of
+ * PDO (PHP Data Object).
+ *
+ * @author      Jean-David Gadina <macmade@eosgarden.com>
+ * @version     1.0
+ * @package     TYPO3
+ * @subpackage  oop
+ */
+final class tx_oop_Database_Layer
+{
+    /**
+     * The unique instance of the class (singleton)
+     */
+    private static $_instance = NULL;
+    
+    /**
+     * The PDO object for the TYPO3 database
+     */
+    private $_pdo             = NULL;
+    
+    /**
+     * The available PDO drivers
+     */
+    private $_drivers         = array();
+    
+    /**
+     * The distinguised server name for the TYPO3 database
+     */
+    private $_dsn             = '';
+    
+    /**
+     * Class constructor
+     * 
+     * The class constructor is private to avoid multiple instances of the
+     * class (singleton).
+     * 
+     * @return  NULL
+     * @throws  tx_oop_Database_Layer_Exception If the PDO class is not available
+     * @throws  tx_oop_Database_Layer_Exception If the PDO object cannot be created
+     */
+    private function __construct()
+    {
+        // Checks if PDO is available
+        if( !class_exists( 'PDO' ) ) {
+            
+            // PDO is not available
+            throw new tx_oop_Database_Layer_Exception(
+                'PDO is not available',
+                tx_oop_Database_Layer_Exception::EXCEPTION_NO_CONNECTION
+            );
+        }
+        
+        // Gets the available PDO drivers
+        $this->_drivers = array_flip( PDO::getAvailableDrivers() );
+        
+        // Sets the default connection infos
+        $driver = 'mysql';
+        $user   = TYPO3_db_username;
+        $pass   = TYPO3_db_password;
+        $host   = TYPO3_db_host;
+        $db     = TYPO3_db;
+        
+        // Checks if we are using the DBAL extension (meaning we are not using MySQL)
+        if( t3lib_extMgm::isLoaded( 'dbal' ) ) {
+            
+            if( !isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'dbal' ][ 'handlerCfg' ][ '_DEFAULT' ][ 'type' ] ) ) {
+                
+                // Error - Bad DBAL configuration
+                throw new tx_oop_Database_Layer_Exception(
+                    'Invalid configuration of the \'dbal\' extension.',
+                    tx_oop_Database_Layer_Exception::EXCEPTION_DBAL_INVALID_CONF
+                );
+            }
+            
+            $dbalConf = $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXTCONF' ][ 'dbal' ][ 'handlerCfg' ][ '_DEFAULT' ];
+            
+            if( $dbalConf[ 'type' ] === 'native' ) {
+                
+                break;
+            }
+            
+            if( !isset( $dbalConf[ 'config' ][ 'driver' ] )
+                || !isset( $dbalConf[ 'config' ][ 'username' ] )
+                || !isset( $dbalConf[ 'config' ][ 'password' ] )
+                || !isset( $dbalConf[ 'config' ][ 'host' ] )
+                || !isset( $dbalConf[ 'config' ][ 'database' ] )
+            ) {
+                
+                // Error - Bad DBAL configuration
+                throw new tx_oop_Database_Layer_Exception(
+                    'Invalid configuration of the \'dbal\' extension.',
+                    tx_oop_Database_Layer_Exception::EXCEPTION_DBAL_INVALID_CONF
+                );
+            }
+            
+            // Sets the connection infos from the DBAL configuration
+            $driver = $dbalConf[ 'config' ][ 'driver' ];
+            $user   = $dbalConf[ 'config' ][ 'username' ];
+            $pass   = $dbalConf[ 'config' ][ 'password' ];
+            $host   = $dbalConf[ 'config' ][ 'host' ];
+            $db     = $dbalConf[ 'config' ][ 'database' ];
+        }
+        
+        // Checks if PDO supports the Drupal database driver
+        if( !isset( $this->_drivers[ $driver ] ) ) {
+            
+            // Error - Driver not available
+            throw new tx_oop_Database_Layer_Exception(
+                'Driver ' . $driver . ' is not available in PDO',
+                tx_oop_Database_Layer_Exception::EXCEPTION_NO_PDO_DRIVER
+            );
+        }
+        
+        // Stores the full DSN
+        $this->_dsn = $driver . ':host=' . $host . ';dbname=' . $db;
+        
+        // Checks for a connection port
+        if( isset( $dbalConf[ 'config' ][ 'port' ] ) ) {
+            
+            // Adds the port number to the DSN
+            $this->_dsn .= ';port=' . $dbalConf[ 'config' ][ 'port' ];
+        }
+        
+        try {
+            
+            // Creates the PDO object
+            $this->_pdo = new PDO( $this->_dsn, $user, $pass );
+            
+        } catch( Exception $e ) {
+            
+            // The PDO object cannot be created - Reroute the exception
+            throw new tx_oop_Database_Layer_Exception(
+                $e->getMessage(),
+                tx_oop_Database_Layer_Exception::EXCEPTION_NO_CONNECTION
+            );
+        }
+    }
+    
+    /**
+     * Class destructor
+     * 
+     * This method will close the PDO connection to the TYPO3 database.
+     * 
+     * @return  NULL
+     */
+    public function __destruct()
+    {
+        $this->_pdo = NULL;
+    }
+    
+    /**
+     * PHP method calls overloading
+     * 
+     * This method will reroute all the call on this object to the PDO object.
+     * 
+     * @param   string                          The name of the called method
+     * @param   array                           The arguments for the called method
+     * @return  mixed                           The result of the PDO method called
+     * @throws  tx_oop_Database_Layer_Exception If the called method does not exist
+     */
+    public function __call( $name, array $args = array() )
+    {
+        // Checks if the method can be called
+        if( !is_callable( array( $this->_pdo, $name ) ) ) {
+            
+            // Called method does not exist
+            throw new tx_oop_Database_Layer_Exception(
+                'The method \'' . $name . '\' cannot be called on the PDO object',
+                tx_oop_Database_Layer_Exception::EXCEPTION_BAD_METHOD
+            );
+        }
+        
+        // Checks the method
+        if( $name === 'exec' || $name === 'prepare' || $name === 'query' ) {
+            
+            // We need to replace the table name with their real values
+            $args[ 0 ] = db_prefix_tables( $args[ 0 ] );
+        }
+        
+        // Gets the number of arguments
+        $argCount = count( $args );
+        
+        // We won't use call_user_func_array, as it cannot return references
+        switch( $argCount ) {
+            
+            case 1:
+                
+                return $this->_pdo->$name( $args[ 0 ] );
+                break;
+            
+            case 2:
+                
+                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ] );
+                break;
+            
+            case 3:
+                
+                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ], $args[ 2 ] );
+                break;
+            
+            case 4:
+                
+                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ] );
+                break;
+                break;
+            
+            case 5:
+                
+                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ] , $args[ 4 ] );
+                break;
+            
+            default:
+                
+                return $this->_pdo->$name();
+                break;
+        }
+    }
+    
+    /**
+     * Clones an instance of the class
+     * 
+     * A call to this method will produce an exception, as the class cannot
+     * be cloned (singleton).
+     * 
+     * @return  NULL
+     * @throws  tx_oop_Core_Singleton_Exception Always, as the class cannot be cloned (singleton)
+     */
+    public function __clone()
+    {
+        throw new tx_oop_Core_Singleton_Exception(
+            'Class ' . __CLASS__ . ' cannot be cloned',
+            tx_oop_Core_Singleton_Exception::EXCEPTION_CLONE
+        );
+    }
+    
+    /**
+     * Gets the unique class instance
+     * 
+     * This method is used to get the unique instance of the class
+     * (singleton). If no instance is available, it will create it.
+     * 
+     * @return  tx_oop_Database_Layer   The unique instance of the class
+     */
+    public static function getInstance()
+    {
+        // Checks if the unique instance already exists
+        if( !is_object( self::$_instance ) ) {
+            
+            // Creates the unique instance
+            self::$_instance = new self();
+        }
+        
+        // Returns the unique instance
+        return self::$_instance;
+    }
+    
+    /**
+     * 
+     */
+    public function getRecord( $table, $id, $getHidden = false )
+    {
+        // Primary key
+        $pKey   = 'id_' . $table;
+        
+        // Table name, to support prefixes
+        $table  = '{' . $table . '}';
+        
+        // Parameters for the PDO query
+        $params = array(
+            ':id'      => $id,
+            ':deleted' => 0
+        );
+        
+        // Checks if the hidden records must be selected or not
+        if( $getHidden === false ) {
+            
+            // Do not select hidden records
+            $params[ ':hidden' ] = 0;
+        
+            // Prepares the PDO query
+            $query = $this->prepare(
+                'SELECT * FROM ' . $table . '
+                 WHERE ' . $pKey . ' = :id
+                    AND hidden = :hidden
+                 LIMIT 1'
+            );
+            
+        } else {
+            
+            // Prepares the PDO query
+            $query = $this->prepare(
+                'SELECT * FROM ' . $table . '
+                 WHERE ' . $pKey . ' = :id
+                 LIMIT 1'
+            );
+        }
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Returns the record
+        return $query->fetchObject();
+    }
+    
+    /**
+     * 
+     */
+    public function getRecordsByFields( $table, array $fieldsValues, $getHidden = false  )
+    {
+        // Primary key
+        $pKey   = 'id_' . $table;
+        
+        // Table name, to support prefixes
+        $table  = '{' . $table . '}';
+        
+        // Starts the query
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ';
+        
+        // Parameters for the PDO query
+        $params = array();
+        
+        // Process each field to check
+        foreach( $fieldsValues as $fieldName => $fieldValue ) {
+            
+            // Adds the parameter
+            $params[ ':' . $fieldName ] = $fieldValue;
+            
+            // Adds the statement
+            $sql .= $fieldName . ' = :' . $fieldName . ' AND ';
+        }
+        
+        // Checks if the hidden records must be selected or not
+        if( $getHidden === false ) {
+            
+            // Do not select hidden records
+            $params[ ':hidden' ] = 0;
+            
+            // Adds the statement
+            $sql .= ' hidden = :hidden';
+            
+        } else {
+            
+            // Removes the last 'AND' from the sql query
+            $sql = substr( $sql, 0, -5 );
+        }
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Storage
+        $rows = array();
+        
+        // Process each row
+        while( $row = $query->fetchObject() ) {
+            
+            // Stores the current row
+            $rows[ $row->$pKey ] = $row;
+        }
+        
+        // Returns the rows
+        return $rows;
+    }
+    
+    /**
+     * 
+     */
+    public function insertRecord( $table, array $values )
+    {
+        // Table name to support prefixes
+        $table  = '{' . $table . '}';
+        
+        // Gets the current time
+        $time   = time();
+        
+        // Parameters for the PDO query
+        $params = array(
+            ':ctime' => $time,
+            ':mtime' => $time
+        );
+        
+        // SQL for the insert statement
+        $sql    = 'INSERT INTO ' . $table . ' SET ctime = :ctime, mtime = :mtime,';
+        
+        // Checks for a connected used
+        if( isset( $GLOBALS[ 'user' ] ) && $GLOBALS[ 'user' ] instanceof stdClass ) {
+            
+            // Adds the user ID
+            $params[ ':id_users' ] = $GLOBALS[ 'user' ]->uid;
+            $sql                  .= ' id_users = :id_users,';
+        }
+        
+        // Process each value
+        foreach( $values as $fieldName => $value ) {
+            
+            // Adds the PDO parameter for the current value
+            $params[ ':' . $fieldName ] = $value;
+            
+            // Adds the update statement for the current value
+            $sql .= ' ' . $fieldName . ' = :' . $fieldName . ',';
+        }
+        
+        // Removes the last comma
+        $sql  = substr( $sql, 0, -1 );
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Returns the insert ID
+        return $this->lastInsertId();
+    }
+    
+    /**
+     * 
+     */
+    public function updateRecord( $table, $id, array $values )
+    {
+        // Primary key
+        $pKey   = 'id_' . $table;
+        
+        // Table name to support prefixes
+        $table  = '{' . $table . '}';
+        
+        // Parameters for the PDO query
+        $params = array(
+            ':' . $pKey => $id,
+            ':mtime'    => time()
+        );
+        
+        // SQL for the update statement
+        $sql    = 'UPDATE ' . $table . ' SET mtime = :mtime,';
+        
+        // Process each value
+        foreach( $values as $fieldName => $value ) {
+            
+            // Adds the PDO parameter for the current value
+            $params[ ':' . $fieldName ] = $value;
+            
+            // Adds the update statement for the current value
+            $sql .= ' ' . $fieldName . ' = :' . $fieldName . ',';
+        }
+        
+        // Removes the last comma
+        $sql  = substr( $sql, 0, -1 );
+        
+        // Adds the where clause
+        $sql .= ' WHERE ' . $pKey . ' = :' . $pKey;
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        return $query->execute( $params );
+    }
+    
+    /**
+     * 
+     */
+    public function deleteRecord( $table, $id, $deleteFromTable = false )
+    {
+        // Checks if we should really delete the record, or just set the delete flag
+        if( $deleteFromTable ) {
+            
+            // Primary key
+            $pKey   = '' . $table;
+            
+            // Table name to support prefixes
+            $table  = '{' . $table . '}';
+            
+            // Parameters for the PDO query
+            $params = array(
+                ':id' => $id
+            );
+            
+            // SQL for the update statement
+            $sql = 'DELETE FROM ' . $table . ' WHERE ' . $pKey . ' = :id';
+            
+            // Prepares the PDO query
+            $query = $this->prepare( $sql );
+            
+            // Executes the PDO query
+            return $this->execute( $params );
+            
+        } else {
+            
+            // Just sets the delete flag
+            return $this->updateRecord( $table, $id, array( 'deleted' => 1 ) );
+        }
+    }
+    
+    /**
+     * 
+     */
+    public function removeDeletedRecords( $table )
+    {
+        // Table name to support prefixes
+        $table  = '{' . $table . '}';
+        
+        // Prepares the PDO query
+        $query = $this->prepare(
+            'DELETE FROM ' . $table . ' WHERE deleted = 1'
+        );
+        
+        // Executes the PDO query
+        return $this->execute( $params );
+    }
+}
