@@ -284,16 +284,21 @@ final class tx_oop_Database_Layer
      */
     public function getRecord( $table, $id, $enableFields = true )
     {
+        // WHERE clause for the enable fields
         $enableFieldsAddWhere = '';
         
+        // Checks the TYPO3 mode and if we have to care about the enable fields
         if( $enableFields && TYPO3_MODE === 'BE' ) {
             
+            // Gets the enable fields WHERE clause
             $enableFieldsAddWhere = t3lib_BEfunc::BEenableFields( $table );
             
         } elseif( $enableFields && TYPO3_MODE === 'BE' ) {
             
+            // Should we show the hidden records (meaning we have a BE session running)
             $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
             
+            // Gets the enable fields WHERE clause
             $enableFieldsAddWhere = $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
                 $table,
                 $showHidden
@@ -326,13 +331,43 @@ final class tx_oop_Database_Layer
     /**
      * 
      */
-    public function getRecordsByFields( $table, array $fieldsValues, $getHidden = false  )
+    public function getRecordsByFields( $table, array $fieldsValues, $orderBy = '', $enableFields = true  )
     {
-        // Primary key
-        $pKey   = 'id_' . $table;
+        // If $orderBy is not specified, checks if we have a default ORDER BY clause for the table
+        if( !$orderBy && isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ] ) ) {
+            
+            // Default ORDER BY clause, as in the TCA
+            $orderBy = ' ' . $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ];
+            
+        } elseif( $orderBy ) {
+            
+            // Specified ORDER BY clause
+            $orderBy = ' ORDER BY ' . $orderBy;
+        }
         
-        // Table name, to support prefixes
-        $table  = '{' . $table . '}';
+        // WHERE clause for the enable fields
+        $enableFieldsAddWhere = '';
+        
+        // Checks the TYPO3 mode and if we have to care about the enable fields
+        if( $enableFields && TYPO3_MODE === 'BE' ) {
+            
+            // Gets the enable fields WHERE clause
+            $enableFieldsAddWhere = t3lib_BEfunc::BEenableFields( $table );
+            
+        } elseif( $enableFields && TYPO3_MODE === 'BE' ) {
+            
+            // Should we show the hidden records (meaning we have a BE session running)
+            $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
+            
+            // Gets the enable fields WHERE clause
+            $enableFieldsAddWhere = $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
+                $table,
+                $showHidden
+            );
+        }
+        
+        // Primary key
+        $pKey   = 'uid';
         
         // Starts the query
         $sql = 'SELECT * FROM ' . $table . ' WHERE ';
@@ -350,20 +385,14 @@ final class tx_oop_Database_Layer
             $sql .= $fieldName . ' = :' . $fieldName . ' AND ';
         }
         
-        // Checks if the hidden records must be selected or not
-        if( $getHidden === false ) {
-            
-            // Do not select hidden records
-            $params[ ':hidden' ] = 0;
-            
-            // Adds the statement
-            $sql .= ' hidden = :hidden';
-            
-        } else {
-            
-            // Removes the last 'AND' from the sql query
-            $sql = substr( $sql, 0, -5 );
-        }
+        // Removes the last 'AND'
+        $sql = substr( $sql, 0, -5 );
+        
+        // Adds the WHERE clause for the enable fields
+        $sql .= $enableFieldsAddWhere;
+        
+        // Adds the ORDER BY clause
+        $sql .= $orderBy;
         
         // Prepares the PDO query
         $query = $this->prepare( $sql );
