@@ -52,14 +52,19 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private static $_hasStatic  = false;
     
     /**
-     * A reference to the t3lib_DB object
+     * The instance of the database object (tx_oop_Database_Layer)
      */
     protected static $_db       = NULL;
     
     /**
+     * A reference to the t3lib_DB object
+     */
+    protected static $_t3Db     = NULL;
+    
+    /**
      * 
      */
-    protected static $_t3Lang     = NULL;
+    protected static $_t3Lang   = NULL;
     
     /**
      * A reference to the TCA description array
@@ -90,6 +95,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      * The ASCII tabulation character
      */
     protected static $_TAB      = '';
+    
+    /**
+     * 
+     */
+    protected $_lang            = NULL;
     
     /**
      * A reflection object for the backend module
@@ -125,11 +135,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      * 
      */
     private $_uploadDirectory   = '';
-    
-    /**
-     * 
-     */
-    protected $_lang            = NULL;
     
     /**
      * 
@@ -172,7 +177,8 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     private static function _setStaticVars()
     {
-        self::$_db        =  $GLOBALS[ 'TYPO3_DB' ];
+        self::$_db        =  tx_oop_Database_Layer::getInstance();
+        self::$_t3Db      =  $GLOBALS[ 'TYPO3_DB' ];
         self::$_t3Lang    =  $GLOBALS[ 'LANG' ];
         self::$_tcaDescr  =& $GLOBALS[ 'TCA_DESCR' ];
         self::$_tca       =& $GLOBALS[ 'TCA' ];
