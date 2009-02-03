@@ -36,4 +36,9 @@
  * @subpackage  oop
  */
 class tx_oop_tcaFieldPassthrough extends tx_oop_tcaField
-{}
+{
+    /**
+     * The type of the field
+     */
+    protected $_fieldType = 'passthrough';
+}

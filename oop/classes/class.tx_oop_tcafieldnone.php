@@ -36,4 +36,9 @@
  * @subpackage  oop
  */
 class tx_oop_tcaFieldNone extends tx_oop_tcaField
-{}
+{
+    /**
+     * The type of the field
+     */
+    protected $_fieldType = 'none';
+}
