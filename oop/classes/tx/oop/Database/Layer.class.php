@@ -419,27 +419,52 @@ final class tx_oop_Database_Layer
      */
     public function insertRecord( $table, array $values )
     {
-        // Table name to support prefixes
-        $table  = '{' . $table . '}';
+        // Parameters for the PDO query
+        $params = array();
         
         // Gets the current time
         $time   = time();
         
-        // Parameters for the PDO query
-        $params = array(
-            ':ctime' => $time,
-            ':mtime' => $time
-        );
-        
         // SQL for the insert statement
-        $sql    = 'INSERT INTO ' . $table . ' SET ctime = :ctime, mtime = :mtime,';
+        $sql    = 'INSERT INTO ' . $table . ' SET';
         
-        // Checks for a connected used
-        if( isset( $GLOBALS[ 'user' ] ) && $GLOBALS[ 'user' ] instanceof stdClass ) {
+        // Checks if we have a creation date field in the specified table
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'crdate' ] ) ) {
             
-            // Adds the user ID
-            $params[ ':id_users' ] = $GLOBALS[ 'user' ]->uid;
-            $sql                  .= ' id_users = :id_users,';
+            // Modification date field name
+            $crdate = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'crdate' ];
+            
+            // Adds the current time to the parameters
+            $params[ 'crdate' ] = $time;
+            
+            // Adds the modification date in the SQL query
+            $sql .= ' ' . $crdate . ' = :crdate,';
+        }
+        
+        // Checks if we have a modification date field in the specified table
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
+            
+            // Modification date field name
+            $tstamp = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ];
+            
+            // Adds the current time to the parameters
+            $params[ 'tstamp' ] = $time;
+            
+            // Adds the modification date in the SQL query
+            $sql .= ' ' . $tstamp . ' = :tstamp,';
+        }
+        
+        // Checks if we have a creation user field in the specified table and if we are in a BE environment
+        if( TYPO3_MODE === 'BE' && !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'cruser_id' ] ) ) {
+            
+            // Modification date field name
+            $crUserId = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'cruser_id' ];
+            
+            // Adds the current time to the parameters
+            $params[ 'cruser_id' ] = $GLOBALS[ 'BE_USER' ]->user[ 'uid' ];
+            
+            // Adds the modification date in the SQL query
+            $sql .= ' ' . $crUserId . ' = :cruser_id,';
         }
         
         // Process each value
@@ -491,7 +516,7 @@ final class tx_oop_Database_Layer
             $params[ 'tstamp' ] = time();
             
             // Adds the modification date in the SQL query
-            $sql .= ' ' . $tstamp . ' = :tstamp,'
+            $sql .= ' ' . $tstamp . ' = :tstamp,';
         }
         
         // Process each value
