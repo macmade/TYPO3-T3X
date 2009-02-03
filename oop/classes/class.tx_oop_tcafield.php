@@ -27,6 +27,13 @@
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
+################################################################################
+# TO DO:
+# 
+# - displayCond
+# - defaultExtra
+################################################################################
+
 /**
  * Abstract class for the TCA field object classes
  *
@@ -38,6 +45,11 @@
 abstract class tx_oop_tcaField
 {
     /**
+     * The type of the field
+     */
+    protected $_fieldType  = '';
+    
+    /**
      * The TCA table object in which the current field is registered
      */
     protected $_table      = NULL;
@@ -46,6 +58,16 @@ abstract class tx_oop_tcaField
      * The name of the field
      */
     protected $_name       = '';
+    
+    /**
+     * The instance (table) name
+     */
+    private $_tableName    = '';
+    
+    /**
+     * The extension key
+     */
+    private $_extKey       = '';
     
     /**
      * The properties of the field
@@ -66,10 +88,25 @@ abstract class tx_oop_tcaField
     public function __construct( tx_oop_tcaTable $table, $name )
     {
         // Stores the TCA table object
-        $this->_table = $table;
+        $this->_table                   = $table;
         
         // Stores the field name
-        $this->_name  = ( string )$name;
+        $this->_name                    = ( string )$name;
+        
+        $this->_extKey                  = $this->_table->getExtensionKey();
+        
+        $this->_tableName               = $this->_table->getTableName();
+        
+        // Field can be excluded by default
+        $this->_properties[ 'exclude' ] = true;
+        
+        // Field label
+        $this->_properties[ 'label' ]   = 'LLL:EXT:'
+                                        . $this->_extKey
+                                        . '/lang/'
+                                        . $this->_tableName
+                                        . '.xml:'
+                                        . $this->_name;
     }
     
     /**
@@ -84,6 +121,8 @@ abstract class tx_oop_tcaField
             case 'l10n_mode':
             case 'l10n_display':
             case 'l10n_cat':
+            case 'displayCond':
+            case 'defaultExtras':
                 
                 return ( isset( $this->_properties[ $name ] ) ) ? $this->_properties[ $name ] : false;
                 break;
@@ -107,6 +146,8 @@ abstract class tx_oop_tcaField
             case 'l10n_mode':
             case 'l10n_display':
             case 'l10n_cat':
+            case 'displayCond':
+            case 'defaultExtras':
                 
                 $this->_properties[ $name ] = ( string )$value;
                 break;
@@ -130,6 +171,8 @@ abstract class tx_oop_tcaField
             case 'l10n_mode':
             case 'l10n_display':
             case 'l10n_cat':
+            case 'displayCond':
+            case 'defaultExtras':
                 
                 return isset( $this->_properties[ $name ] );
                 
@@ -152,6 +195,8 @@ abstract class tx_oop_tcaField
             case 'l10n_mode':
             case 'l10n_display':
             case 'l10n_cat':
+            case 'displayCond':
+            case 'defaultExtras':
                 
                 unset( $this->_properties[ $name ] );
                 
@@ -160,5 +205,29 @@ abstract class tx_oop_tcaField
                 unset( $this->_config[ $name ] );
                 break;
         }
+    }
+    
+    /**
+     * 
+     */
+    public function toArray()
+    {
+        $field = array();
+        
+        foreach( $this->_properties as $propName => $propValue ) {
+            
+            $field[ $propName ] = $propValue;
+        } 
+        
+        $field[ 'config' ] = array();
+        
+        foreach( $this->_config as $propName => $propValue ) {
+            
+            $field[ 'config' ][ $propName ] = $propValue;
+        }
+        
+        $field[ 'config' ][ 'type' ] = $this->_fieldType;
+        
+        return $field;
     }
 }
