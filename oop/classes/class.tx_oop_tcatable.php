@@ -39,7 +39,7 @@
 # - manual ordering
 # - allowed on pages
 # - save and new
-# - reserved: uid, pid, endtime, starttime, sorting, fe_group, hidden, deleted, cruser_id, crdate, tstamp, data, table, field, key, desc, all, and, asensitive, bigint, both, cascade, char, character, collate, column, connection, convert, current_date, current_user, databases, day_minute, decimal, default, delayed, describe, distinctrow, drop, else, escaped, explain, float, for, from, group, hour_microsecond, if, index, inout, int, int3, integer, is, leading, like, load, lock, longtext, match, mediumtext, minute_second, natural, null, optimize, or, outer, primary, raid0, real, release, replace, return, rlike, second_microsecond, separator, smallint, specific, sqlstate, sql_cal_found_rows, starting, terminated, tinyint, trailing, undo, unlock, usage, utc_date, values, varcharacter, where, write, year_month, call, condition, continue, cursor, declare, deterministic, each, elseif, exit, fetch, goto, insensitive, iterate, label, leave, loop, modifies, out, reads, repeat, schema, schemas, sensitive, sql, sqlexception, sqlwarning, trigger, upgrade, while
+# - showRecordFieldList
 ################################################################################
 
 /**
@@ -61,6 +61,133 @@ final class tx_oop_tcaTable
      * The number of instances
      */
     private static $_nbInstances = 0;
+    
+    /**
+     * Reserved field names
+     */
+    private static $_reserved    = array(
+        'all'                => true,
+        'and'                => true,
+        'asensitive'         => true,
+        'bigint'             => true,
+        'both'               => true,
+        'call'               => true,
+        'cascade'            => true,
+        'char'               => true,
+        'character'          => true,
+        'collate'            => true,
+        'column'             => true,
+        'condition'          => true,
+        'connection'         => true,
+        'continue'           => true,
+        'convert'            => true,
+        'crdate'             => true,
+        'cruser_id'          => true,
+        'current_date'       => true,
+        'current_user'       => true,
+        'cursor'             => true,
+        'data'               => true,
+        'databases'          => true,
+        'day_minute'         => true,
+        'decimal'            => true,
+        'declare'            => true,
+        'default'            => true,
+        'delayed'            => true,
+        'deleted'            => true,
+        'desc'               => true,
+        'describe'           => true,
+        'deterministic'      => true,
+        'distinctrow'        => true,
+        'drop'               => true,
+        'each'               => true,
+        'else'               => true,
+        'elseif'             => true,
+        'endtime'            => true,
+        'escaped'            => true,
+        'exit'               => true,
+        'explain'            => true,
+        'fe_group'           => true,
+        'fetch'              => true,
+        'field'              => true,
+        'float'              => true,
+        'for'                => true,
+        'from'               => true,
+        'goto'               => true, 
+        'group'              => true,
+        'hidden'             => true,
+        'hour_microsecond'   => true,
+        'if'                 => true,
+        'index'              => true,
+        'inout'              => true,
+        'insensitive'        => true,
+        'int'                => true,
+        'int3'               => true,
+        'integer'            => true,
+        'is'                 => true,
+        'iterate'            => true,
+        'key'                => true,
+        'label'              => true,
+        'leading'            => true,
+        'leave'              => true,
+        'like'               => true,
+        'load'               => true,
+        'lock'               => true,
+        'longtext'           => true,
+        'loop'               => true,
+        'match'              => true,
+        'mediumtext'         => true,
+        'minute_second'      => true,
+        'modifies'           => true,
+        'natural'            => true,
+        'null'               => true,
+        'optimize'           => true,
+        'or'                 => true,
+        'out'                => true,
+        'outer'              => true,
+        'pid'                => true,
+        'primary'            => true,
+        'raid0'              => true,
+        'reads'              => true,
+        'real'               => true,
+        'release'            => true,
+        'repeat'             => true,
+        'replace'            => true,
+        'return'             => true,
+        'rlike'              => true,
+        'schema'             => true,
+        'schemas'            => true,
+        'second_microsecond' => true,
+        'sensitive'          => true,
+        'separator'          => true,
+        'smallint'           => true,
+        'sorting'            => true,
+        'specific'           => true,
+        'sql_cal_found_rows' => true,
+        'sql'                => true,
+        'sqlexception'       => true,
+        'sqlstate'           => true,
+        'sqlwarning'         => true,
+        'starting'           => true,
+        'starttime'          => true,
+        'table'              => true,
+        'terminated'         => true,
+        'tinyint'            => true,
+        'trailing'           => true,
+        'trigger'            => true,
+        'tstamp'             => true,
+        'undo'               => true,
+        'unlock'             => true,
+        'upgrade'            => true,
+        'usage'              => true,
+        'utc_date'           => true,
+        'values'             => true,
+        'varcharacter'       => true,
+        'where'              => true,
+        'while'              => true,
+        'write'              => true,
+        'year_month'         => true,
+        'uid'                => true
+    );
     
     /**
      * The instance (table) name
@@ -91,6 +218,11 @@ final class tx_oop_tcaTable
      * The TCA fields (tx_oop_tcaField)
      */
     private $_fields             = array();
+    
+    /**
+     * The name of the user fields (not TYPO3 control fields)
+     */
+    private $_userFields         = array();
     
     /**
      * Class constructor
@@ -232,13 +364,75 @@ final class tx_oop_tcaTable
     }
     
     /**
+     * Adds a field for the current instance (table)
+     * 
+     * @param   string                      The name of the field
+     * @param   string                      The type of the field (see TYPO3 Core API, TCA section)
+     * @return  tx_oop_tcaField             The TCA field instance
+     * @throws  tx_oop_tcaTableException    If the field type is invalid
+     */
+    private function _addField( $name, $type )
+    {
+        // Checks the field type to get the field object class
+        switch( $type ) {
+            
+            // Valid TYPO3 field types
+            case 'input':
+            case 'text':
+            case 'check':
+            case 'radio':
+            case 'select':
+            case 'group':
+            case 'none':
+            case 'passthrough':
+            case 'user':
+            case 'flex':
+            case 'inline':
+                
+                // Field class
+                $fieldClass = 'tx_oop_tcaField' . ucfirst( $type );
+                break;
+            
+            // Invalid field type
+            default:
+                
+                // Exception, as the field type is not recognized
+                throw new tx_oop_tcaTableException(
+                    'The requested field type (' . $type . ') for field \'' . $name . '\' is not a valid TYPO3 TCA field.',
+                    tx_oop_tcaTableException::EXCEPTION_INVALID_FIELD_TYPE
+                );
+        }
+        
+        // Create the field object and stores it to the fields array
+        $this->_fields[ $name ] = new $fieldClass( $this, $name );
+        
+        // Returns the field object
+        return $this->_fields[ $name ];
+    }
+    
+    /**
      * Converts the current TCA object to an array, for use with TYPO3
      * 
      * @return  array   The TCA array for the current instance
      */
     public function toArray()
     {
-        $tca = array();
+        $tca = array(
+            'ctrl'      => $this->_ctrl,
+            'interface' => array(
+                'showRecordFieldList' => implode( ',', $this->_userFields )
+            ),
+            'columns'   => array(),
+            'types'     => array(),
+            'palettes'  => array()
+        );
+        
+        // Process each field
+        foreach( $this->_fields as $fieldName => $fieldObject ) {
+            
+            // Converts the field object to a PHP array
+            $tca[ 'columns' ][ $fieldName ] = $fieldObject->toArray();
+        }
         
         return $tca;
     }
@@ -283,7 +477,8 @@ final class tx_oop_tcaTable
      * @param   string                      The name of the field
      * @param   string                      The type of the field (see TYPO3 Core API, TCA section)
      * @return  tx_oop_tcaField             The TCA field instance
-     * @throws  tx_oop_tcaTableException    If the field type is invalid
+     * @throws  tx_oop_tcaTableException    If the field name is reserved is invalid
+     * @throws  tx_oop_tcaTableException    If the field name is reserved is reserved
      */
     public function addField( $name, $type )
     {
@@ -298,41 +493,21 @@ final class tx_oop_tcaTable
             return $this->_fields[ $name ];
         }
         
-        // Checks the field type to get the field object class
-        switch( $type ) {
+        // Checks the field name
+        if( isset( self::$_reserved[ $name ] ) ) {
             
-            // Valid TYPO3 field types
-            case 'input':
-            case 'text':
-            case 'check':
-            case 'radio':
-            case 'select':
-            case 'group':
-            case 'none':
-            case 'passthrough':
-            case 'user':
-            case 'flex':
-            case 'inline':
-                
-                // Field class
-                $fieldClass = 'tx_oop_tcaField' . ucfirst( $type );
-                break;
-            
-            // Invalid field type
-            default:
-                
-                // Exception, as the field type is not recognized
-                throw new tx_oop_tcaTableException(
-                    'The requested field type (' . $type . ') for field \'' . $name . '\' is not a valid TYPO3 TCA field.',
-                    tx_oop_tcaTableException::EXCEPTION_INVALID_FIELD_TYPE
-                );
+            // Reserved field name
+            throw new tx_oop_tcaTableException(
+                'The field name \'' . $name . '\' is reserved.',
+                tx_oop_tcaTableException::EXCEPTION_RESERVED_FIELD_NAME
+            );
         }
         
-        // Create the field object and stores it to the fields array
-        $this->_fields[ $name ] = new $fieldClass( $this, $name );
+        // Registers the field name
+        $this->_userFields[] = $name;
         
-        // Returns the field object
-        return $this->_fields[ $name ];
+        // Creates and returns the field
+        return $this->_addField( $name, $type );
     }
     
     /**
@@ -378,11 +553,21 @@ final class tx_oop_tcaTable
      */
     public function addHiddenField( $checked = false, $name = 'hidden' )
     {
+        // Checks if a field is already registered
+        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'disabled' ] ) ) {
+            
+            // Removes the previous field
+            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'disabled' ] ] );
+        }
+        
         // Creates the field
-        $field          = $this->addField( ( string )$name, 'check' );
+        $field          = $this->_addField( ( string )$name, 'check' );
         
         // Sets the default value
         $field->default = ( int )$checked;
+        
+        // Sets the field label
+        $field->label   = 'LLL:EXT:lang/locallang_general.xml:LGL.hidden';
         
         // Checks for the 'enablecolumns' property
         if( !isset( $this->_ctrl[ 'enablecolumns' ] )
@@ -408,8 +593,18 @@ final class tx_oop_tcaTable
      */
     public function addStartTimeField( $name = 'startime' )
     {
+        // Checks if a field is already registered
+        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'startime' ] ) ) {
+            
+            // Removes the previous field
+            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'startime' ] ] );
+        }
+        
         // Creates the field
-        $field           = $this->addField( ( string )$name, 'input' );
+        $field        = $this->_addField( ( string )$name, 'input' );
+        
+        // Sets the field label
+        $field->label = 'LLL:EXT:lang/locallang_general.xml:LGL.startime';
         
         // Add the eval rule
         $field->addEval( 'date' );
@@ -444,11 +639,21 @@ final class tx_oop_tcaTable
      */
     public function addEndTimeField( $name = 'endtime' )
     {
+        // Checks if a field is already registered
+        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'endtime' ] ) ) {
+            
+            // Removes the previous field
+            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'endtime' ] ] );
+        }
+        
         // Creates the field
-        $field           = $this->addField( ( string )$name, 'input' );
+        $field           = $this->_addField( ( string )$name, 'input' );
         
         // Adds a checkbox
         $field->checkbox = true;
+        
+        // Sets the field label
+        $field->label    = 'LLL:EXT:lang/locallang_general.xml:LGL.endtime';
         
         // Add the eval rule
         $field->addEval( 'date' );
@@ -489,11 +694,21 @@ final class tx_oop_tcaTable
      */
     public function addFeUserGroupField( $name = 'fe_group' )
     {
+        // Checks if a field is already registered
+        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'fe_group' ] ) ) {
+            
+            // Removes the previous field
+            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'fe_group' ] ] );
+        }
+        
         // Creates the field
-        $field = $this->addField( ( string )$name, 'select' );
+        $field = $this->_addField( ( string )$name, 'select' );
         
         // Sets the foreign table
         $field->foreign_table = 'fe_groups';
+        
+        // Sets the field label
+        $field->label         = 'LLL:EXT:lang/locallang_general.xml:LGL.fe_groups';
         
         // Adds the select items
         $field->addItem(  0,        '' );
