@@ -85,13 +85,7 @@ class tx_oop_Flexform_Iterator implements Iterator
      */
     public function __construct( &$xmlData, $itemType = '' )
     {
-        // Checks if the SimpleXMLElement class is available
-        if( !class_exists( 'SimpleXMLElement' ) ) {
-            
-            // SimpleXMLElement not available
-            throw new Exception( 'The SimpleXMLElement class is not available in your PHP installation.' );
-        }
-        
+        // Checks if the passed data is already a SimpleXML object
         if( is_object( $xmlData ) ) {
             
             $this->_flexData  =& $xmlData;
@@ -116,7 +110,10 @@ class tx_oop_Flexform_Iterator implements Iterator
             } catch( Exception $e ) {
                 
                 // Cannot parse the flexform
-                throw $e;
+                throw new tx_oop_Flexform_Iterator_Exception(
+                    $e->getMessage(),
+                    tx_oop_Flexform_Iterator_Exception::EXCEPTION_BAD_XML
+                );
             }
         }
     }
