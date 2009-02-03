@@ -175,7 +175,7 @@ final class tx_oop_Core_ClassManager
         if( substr( $className, 0, 7 ) === 'tx_oop_' ) {
             
             // Gets the class root package
-            $rootPkg = substr( $className, 3, strpos( $className, '_', 3 ) - 3 );
+            $rootPkg = substr( $className, 7, strpos( $className, '_', 7 ) - 7 );
             
             // Checks if the requested class belongs to this project
             if( isset( $instance->_packages[ $rootPkg ] )
@@ -202,7 +202,7 @@ final class tx_oop_Core_ClassManager
     {
         // Gets the class path
         $classPath = $this->_classDir
-                   . str_replace( '_', DIRECTORY_SEPARATOR, substr( $className, 3 ) )
+                   . str_replace( '_', DIRECTORY_SEPARATOR, substr( $className, 7 ) )
                    . '.class.php';
         
         // Checks if the class file exists
