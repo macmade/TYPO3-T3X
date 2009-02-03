@@ -202,13 +202,6 @@ final class tx_oop_Database_Layer
             );
         }
         
-        // Checks the method
-        if( $name === 'exec' || $name === 'prepare' || $name === 'query' ) {
-            
-            // We need to replace the table name with their real values
-            $args[ 0 ] = db_prefix_tables( $args[ 0 ] );
-        }
-        
         // Gets the number of arguments
         $argCount = count( $args );
         
@@ -289,43 +282,39 @@ final class tx_oop_Database_Layer
     /**
      * 
      */
-    public function getRecord( $table, $id, $getHidden = false )
+    public function getRecord( $table, $id, $enableFields = true )
     {
-        // Primary key
-        $pKey   = 'id_' . $table;
+        $enableFieldsAddWhere = '';
         
-        // Table name, to support prefixes
-        $table  = '{' . $table . '}';
+        if( $enableFields && TYPO3_MODE === 'BE' ) {
+            
+            $enableFieldsAddWhere = t3lib_BEfunc::BEenableFields( $table );
+            
+        } elseif( $enableFields && TYPO3_MODE === 'BE' ) {
+            
+            $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
+            
+            $enableFieldsAddWhere = $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
+                $table,
+                $showHidden
+            );
+        }
+        
+        // Primary key
+        $pKey   = 'uid';
         
         // Parameters for the PDO query
         $params = array(
-            ':id'      => $id,
-            ':deleted' => 0
+            ':id'      => $id
         );
         
-        // Checks if the hidden records must be selected or not
-        if( $getHidden === false ) {
-            
-            // Do not select hidden records
-            $params[ ':hidden' ] = 0;
-        
-            // Prepares the PDO query
-            $query = $this->prepare(
-                'SELECT * FROM ' . $table . '
-                 WHERE ' . $pKey . ' = :id
-                    AND hidden = :hidden
-                 LIMIT 1'
-            );
-            
-        } else {
-            
-            // Prepares the PDO query
-            $query = $this->prepare(
-                'SELECT * FROM ' . $table . '
-                 WHERE ' . $pKey . ' = :id
-                 LIMIT 1'
-            );
-        }
+        // Prepares the PDO query
+        $query = $this->prepare(
+            'SELECT * FROM ' . $table . '
+             WHERE ' . $pKey . ' = :id'
+           . $enableFieldsAddWhere . '
+             LIMIT 1'
+        );
         
         // Executes the PDO query
         $query->execute( $params );
