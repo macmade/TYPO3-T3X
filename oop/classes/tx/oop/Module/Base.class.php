@@ -54,6 +54,45 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     private static $_hasStatic   = false;
     
     /**
+     * Whether the jQuery UI framework has been included
+     */
+    private static $_hasJQueryUi             = false;
+    
+    /**
+     * Whether the Mootools JS framework has been included
+     */
+    private static $_hasMootools             = false;
+    
+    /**
+     * Whether the Prototype JS framework has been included
+     */
+    private static $_hasPrototype            = false;
+    
+    /**
+     * Whether the Scriptaculous JS framework has been included
+     */
+    private static $_hasScriptaculous        = false;
+    
+    /**
+     * The webtoolkit scripts that have been included
+     */
+    private static $_webtoolkitLoadedScripts = array();
+    
+    /**
+     * The jQuery plugins that have been included
+     */
+    private static $_jQueryLoadedPlugins     = array();
+    
+    /**
+     * The dependancies for the jQuery plugins
+     */
+    private static $_jQueryPluginsDeps       = array(
+        'accordion' => array(
+            'dimensions'
+        )
+    );
+    
+    /**
      * The instance of the database object (tx_oop_Database_Layer)
      */
     protected static $_db        = NULL;
@@ -301,6 +340,19 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     }
     
     /**
+     * 
+     */
+    private function _addJs( $path )
+    {
+        $js                 = new tx_oop_Xhtml_Tag( 'script' );
+        $js[ 'type' ]       = 'text/javascript';
+        $js[ 'charset' ]    = 'utf-8';
+        $js[ 'src' ]        = $this->_backPath . $this->_extRelativePath . '/' . $path;
+        
+        $this->doc->JScode .= self::$_NL . $js;
+    }
+    
+    /**
      * Creates a thumbnail
      * 
      * @param   string  $file       The file path (relative to the upload directory)
@@ -450,7 +502,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             
             // Creates the image tag
             $img             = new tx_oop_Xhtml_Tag( 'img' );
-            $img[ 'src' ]    =  $this->_backPath . $this->_extRelativePath . 'res/img/' . $name;
+            $img[ 'src' ]    = $this->_backPath . $this->_extRelativePath . 'res/img/' . $name;
             $img[ 'width' ]  = $size[ 0 ];
             $img[ 'height' ] = $size[ 1 ];
             $img[ 'alt' ]    = $name;
@@ -537,6 +589,144 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     }
     
     /**
+     * Includes the jQuery UI JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeJQueryUi()
+    {
+        // Only includes the script once
+        if( self::$_hasJQueryUi === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery-ui/jquery-ui.js' );
+            
+            // Script has been included
+            self::$_hasJQueryUi = true;
+        }
+    }
+    
+    /**
+     * Includes the Mootools JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeMootools()
+    {
+        // Only includes the script once
+        if( self::$_hasMootools === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'mootools/mootools.js' );
+            
+            // Script has been included
+            self::$_hasMootools = true;
+        }
+    }
+    
+    /**
+     * Includes the Prototype JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includePrototype()
+    {
+        // Only includes the script once
+        if( self::$_hasPrototype === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'prototype/prototype.js' );
+            
+            // Script has been included
+            self::$_hasPrototype = true;
+        }
+    }
+    
+    /**
+     * Includes the Scriptaculous JS framework
+     * 
+     * @return  NULL
+     * @see     _includePrototype
+     */
+    protected function _includeScriptaculous()
+    {
+        // Only includes the script once
+        if( self::$_hasScriptaculous === false ) {
+            
+            // Includes the Prototype JS framework
+            $this->_includePrototype();
+            
+            // Adds the JS script
+            $this->_addJs( 'scriptaculous/scriptaculous.js' );
+            
+            // Script has been included
+            self::$_hasScriptaculous = true;
+        }
+    }
+    
+    /**
+     * Includes a Webtoolkit script
+     * 
+     * Available scripts are:
+     * - base64
+     * - crc32
+     * - md5
+     * - sha1
+     * - sha256
+     * - url
+     * - utf8
+     * 
+     * @param   string  The name of the script to include
+     * @return  NULL
+     */
+    protected function _includeWebtoolkitScript( $script )
+    {
+        // Only includes the script once
+        if( !isset( self::$_webtoolkitLoadedScripts[ $script ] ) ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'webtoolkit/' . $script . '.js' );
+            
+            // Script has been included
+            self::$_webtoolkitLoadedScripts[ $script ] = true;
+        }
+    }
+    
+    /**
+     * Includes a jQuery plugin
+     * 
+     * Available plugins are:
+     * - accordion
+     * - dimensions
+     * 
+     * @param   string  The name of the plugin to include
+     * @return  NULL
+     */
+    protected function _includeJQueryPlugin( $plugin )
+    {
+        // Only includes the script once
+        if( !isset( self::$_jQueryLoadedPlugins[ $plugin ] ) ) {
+            
+            // Checks for dependancies
+            if( isset( self::$_jQueryPluginsDeps[ $plugin ] ) ) {
+                
+                // Process each dependancy
+                foreach( self::$_jQueryPluginsDeps[ $plugin ] as $deps ) {
+                    
+                    // Includes the plugin
+                    $this->_includeJQueryPlugin( $deps );
+                }
+            }
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery/jquery' . $plugin . '.js' );
+            
+            // Script has been included
+            self::$_jQueryLoadedPlugins[ $plugin ] = true;
+        }
+    }
+    
+    /**
      * 
      */
     public function menuConfig()
@@ -607,7 +797,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             $jsCode                = new tx_oop_Xhtml_Tag( 'script' );
             $jsCode[ 'type' ]      = 'text/javascript';
             $jsCode[ 'charset' ]   = 'utf-8';
-            $jsCodeData                       = '// <![CDATA['
+            $jsCodeData            = '// <![CDATA['
                                    . self::$_NL
                                    . 'var script_ended = 0;'
                                    . self::$_NL
@@ -626,7 +816,6 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             $postCode              = new tx_oop_Xhtml_Tag( 'script' );
             $postCode[ 'type' ]    = 'text/javascript';
             $postCode[ 'charset' ] = 'utf-8';
-            $postCode[ 'src' ]     = '';
             
             // Adds some JavaScript code
             $postCodeData          = '// <![CDATA['
