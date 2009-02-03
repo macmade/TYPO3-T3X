@@ -54,6 +54,11 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     private static $_hasStatic   = false;
     
     /**
+     * Whether the jQuery JS framework has been included
+     */
+    private static $_hasJQuery               = false;
+    
+    /**
      * Whether the jQuery UI framework has been included
      */
     private static $_hasJQueryUi             = false;
@@ -347,7 +352,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $js                 = new tx_oop_Xhtml_Tag( 'script' );
         $js[ 'type' ]       = 'text/javascript';
         $js[ 'charset' ]    = 'utf-8';
-        $js[ 'src' ]        = $this->_backPath . $this->_extRelativePath . '/' . $path;
+        $js[ 'src' ]        = $this->_backPath . $this->_extRelativePath . $path;
         
         $this->doc->JScode .= self::$_NL . $js;
     }
@@ -586,6 +591,24 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     protected function _checkAction( $name )
     {
         return isset( $this->_modVars[ 'actions' ][ $name ] );
+    }
+    
+    /**
+     * Includes the jQuery JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeJQuery()
+    {
+        // Only includes the script once
+        if( self::$_hasJQuery === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery/jquery.js' );
+            
+            // Script has been included
+            self::$_hasJQuery = true;
+        }
     }
     
     /**
