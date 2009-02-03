@@ -471,19 +471,28 @@ final class tx_oop_Database_Layer
     public function updateRecord( $table, $id, array $values )
     {
         // Primary key
-        $pKey   = 'id_' . $table;
-        
-        // Table name to support prefixes
-        $table  = '{' . $table . '}';
+        $pKey   = 'uid';
         
         // Parameters for the PDO query
         $params = array(
-            ':' . $pKey => $id,
-            ':mtime'    => time()
+            ':' . $pKey => $id
         );
         
         // SQL for the update statement
-        $sql    = 'UPDATE ' . $table . ' SET mtime = :mtime,';
+        $sql    = 'UPDATE ' . $table . ' SET';
+        
+        // Checks if we have a modification date field in the specified table
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
+            
+            // Modification date field name
+            $tstamp = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ];
+            
+            // Adds the current time to the parameters
+            $params[ 'tstamp' ] = time();
+            
+            // Adds the modification date in the SQL query
+            $sql .= ' ' . $tstamp . ' = :tstamp,'
+        }
         
         // Process each value
         foreach( $values as $fieldName => $value ) {
