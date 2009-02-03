@@ -45,8 +45,14 @@ require_once(
   . DIRECTORY_SEPARATOR
   . 'classes'
   . DIRECTORY_SEPARATOR
-  . 'class.tx_oop_classmanager.php'
+  . 'tx'
+  . DIRECTORY_SEPARATOR
+  . 'oop'
+  . DIRECTORY_SEPARATOR
+  . 'Core'
+  . DIRECTORY_SEPARATOR
+  . 'ClassManager.class.php'
 );
 
 // Registers an SPL autoload method to use to load the classes form this package
-spl_autoload_register( array( 'tx_oop_classManager', 'autoLoad' ) );
+spl_autoload_register( array( 'tx_oop_Core_ClassManager', 'autoLoad' ) );
