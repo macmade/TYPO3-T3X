@@ -548,12 +548,19 @@ final class tx_oop_Database_Layer
      */
     public function removeDeletedRecords( $table )
     {
-        // Table name to support prefixes
-        $table  = '{' . $table . '}';
+        // Checks if we have a delete flag in the specified table
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ] ) ) {
+            
+            // No, exits the methods
+            return NULL;
+        }
+        
+        // Gets the field name for the delete flag
+        $deleteField = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ];
         
         // Prepares the PDO query
         $query = $this->prepare(
-            'DELETE FROM ' . $table . ' WHERE deleted = 1'
+            'DELETE FROM ' . $table . ' WHERE ' . $deleteField . ' = 1'
         );
         
         // Executes the PDO query
