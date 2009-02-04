@@ -334,6 +334,16 @@ final class tx_oop_Tca_Table
     }
     
     /**
+     * Converts the TCA table object to a serialized array
+     * 
+     * @return  string  The serialized array
+     */
+    public function __toString()
+    {
+        return serialize( $this->toArray() );
+    }
+    
+    /**
      * Gets an instance of a TCA table
      * 
      * If the specified instance does not exist, this method will create it,
