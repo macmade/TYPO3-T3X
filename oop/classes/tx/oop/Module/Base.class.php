@@ -674,6 +674,40 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     }
     
     /**
+     * Gets the label for a database field
+     * 
+     * @param   string  The table name
+     * @param   string  The field name
+     * @return  string  The label
+     */
+    protected function _getFieldLabel( $table, $field )
+    {
+        // Checks if the table exists in the TCA
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ] ) ) {
+            
+            // The table does not exist
+            return '';
+        }
+        
+        // Checks if the TCA is loaded
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'columns' ] ) ) {
+            
+            // Loads the TCA
+            t3lib_div::loadTCA( $table );
+        }
+        
+        // Checks if the field exists in the TCA
+        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'columns' ][ $field ] ) ) {
+            
+            // The field does not exist
+            return '';
+        }
+        
+        // Returns the label
+        return self::$_t3Lang->sL( $GLOBALS[ 'TCA' ][ $table ][ 'columns' ][ $field ][ 'label' ] );
+    }
+    
+    /**
      * 
      */
     protected function _checkAction( $name )
