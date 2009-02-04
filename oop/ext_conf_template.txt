@@ -1,0 +1,2 @@
+# cat=basic/enable/01; type=boolean; label=Doxygen: Adds a toolbar menu item in the TYPO3 backend with the Doxygen documentation of the OOP framework.
+doxygen = 1

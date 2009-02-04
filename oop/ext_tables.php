@@ -18,6 +18,20 @@ if( !defined( 'TYPO3_MODE' ) ) {
 // Backend specific options
 if( TYPO3_MODE === 'BE' ) {
     
-    // Adds the top menu item for the OOP documentation
-    $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'typo3/backend.php' ][ 'additionalBackendItems' ][] = t3lib_extMgm::extPath( $_EXTKEY ) . 'docmenu/doxygenMenuItem.inc.php';
+    // Checks for the extension configuration
+    if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] ) ) {
+        
+        // Gets the extension configuration
+        $OOP_EXT_CONF = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] );
+        
+        // Checks if the Doxygen link must be added
+        if( isset( $OOP_EXT_CONF[ 'doxygen' ] ) && $OOP_EXT_CONF[ 'doxygen' ] ) {
+            
+            // Adds the top menu item for the OOP documentation
+            $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'typo3/backend.php' ][ 'additionalBackendItems' ][] = t3lib_extMgm::extPath( $_EXTKEY ) . 'docmenu/doxygenMenuItem.inc.php';
+        }
+        
+        // Cleans up global variables
+        unset( $OOP_EXT_CONF );
+    }
 }
