@@ -47,37 +47,42 @@ abstract class tx_oop_Tca_Field
     /**
      * The type of the field
      */
-    protected $_fieldType  = '';
+    protected $_fieldType     = '';
     
     /**
      * The TCA table object in which the current field is registered
      */
-    protected $_table      = NULL;
+    protected $_table         = NULL;
     
     /**
      * The name of the field
      */
-    protected $_name       = '';
+    protected $_name          = '';
     
     /**
      * The instance (table) name
      */
-    private $_tableName    = '';
+    private $_tableName       = '';
     
     /**
      * The extension key
      */
-    private $_extKey       = '';
+    private $_extKey          = '';
+    
+    /**
+     * The upload directory
+     */
+    private $_uploadDirectory = '';
     
     /**
      * The properties of the field
      */
-    protected $_properties = array();
+    protected $_properties    = array();
     
     /**
      * The properties of config section of the field
      */
-    protected $_config     = array();
+    protected $_config        = array();
     
     /**
      * Class constructor
@@ -96,6 +101,8 @@ abstract class tx_oop_Tca_Field
         $this->_extKey                  = $this->_table->getExtensionKey();
         
         $this->_tableName               = $this->_table->getTableName();
+        
+        $this->_uploadDirectory         = t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->_extKey ) );
         
         // Field can be excluded by default
         $this->_properties[ 'exclude' ] = true;
