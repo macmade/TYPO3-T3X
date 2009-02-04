@@ -140,6 +140,21 @@ final class tx_oop_Lang_Getter
     /**
      * 
      */
+    private static function _setCurrentLanguage()
+    {
+        if( defined( 'TYPO3_MODE' ) && TYPO3_MODE === 'BE' ) {
+            
+            self::$_currentLang = $GLOBALS[ 'LANG' ]->lang;
+            
+        } elseif( defined( 'TYPO3_MODE' ) && TYPO3_MODE === 'FE' ) {
+            
+            self::$_currentLang = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'language' ];
+        }
+    }
+    
+    /**
+     * 
+     */
     public static function getInstance( $langFile )
     {
         if( self::$_nbInstances === 0 ) {
@@ -160,20 +175,5 @@ final class tx_oop_Lang_Getter
         }
         
         return self::$_instances[ $langFile ];
-    }
-    
-    /**
-     * 
-     */
-    public static function _setCurrentLanguage()
-    {
-        if( defined( 'TYPO3_MODE' ) && TYPO3_MODE === 'BE' ) {
-            
-            self::$_currentLang = $GLOBALS[ 'LANG' ]->lang;
-            
-        } elseif( defined( 'TYPO3_MODE' ) && TYPO3_MODE === 'FE' ) {
-            
-            self::$_currentLang = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'language' ];
-        }
     }
 }
