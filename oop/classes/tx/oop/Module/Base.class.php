@@ -724,10 +724,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $container[ 'style' ] = 'overflow: hidden; height: 100%;';
         
         // Creates the label and it's container DIV
-        $labelDiv            = $container->div;
-        $labelDiv[ 'style' ] = 'float: left; width: 150px; font-weight: bold;';
-        $label               = $labelDiv->label;
-        $label[ 'for' ]      = $this->_moduleName . '-' . $name;
+        $labelDiv             = $container->div;
+        $labelDiv[ 'style' ]  = 'float: left; width: 150px; font-weight: bold;';
+        $label                = $labelDiv->label;
+        $label[ 'for' ]       = $this->_moduleName . '-' . $name;
         
         // Creates the select and it's container DIV
         $selectDiv            = $container->div;
