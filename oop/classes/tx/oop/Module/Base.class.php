@@ -256,27 +256,26 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     public function __construct()
     {
-        $this->_moduleClass = get_class( $this );
-        
-        $this->_reflection = new ReflectionObject( $this );
         
         if( !self::$_hasStatic ) {
             
             self::_setStaticVars();
         }
         
+        $this->_moduleClass   = get_class( $this );
+        $this->_reflection    = new ReflectionObject( $this );
+        $this->_moduleName    = $GLOBALS[ 'MCONF' ][ 'name' ];
+        $this->_moduleNumber  = substr( $this->_moduleName, -1 );
+        $this->_moduleSection = substr( $this->_moduleName, 0, strpos( $this->_moduleName, '_' ) );
+        
         $this->_backPath = $GLOBALS[ 'BACK_PATH' ];
         
-        $this->_modVars = t3lib_div::_GP( $this->_moduleClass );
+        $this->_modVars = t3lib_div::_GP( $this->_moduleName );
         
         foreach( $this->include_once as $includeFile ) {
             
             require_once( $includeFile );
         }
-        
-        $this->_moduleName    = $GLOBALS[ 'MCONF' ][ 'name' ];
-        $this->_moduleNumber  = substr( $this->_moduleName, -1 );
-        $this->_moduleSection = substr( $this->_moduleName, 0, strpos( $this->_moduleName, '_' ) );
         
         $extPathInfo = explode( DIRECTORY_SEPARATOR, $this->_reflection->getFileName() );
         
@@ -787,6 +786,14 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     protected function _checkAction( $name )
     {
         return isset( $this->_modVars[ 'actions' ][ $name ] );
+    }
+    
+    /**
+     * 
+     */
+    protected function _getActiveMenuItem()
+    {
+        return $this->MOD_SETTINGS[ 'function' ];
     }
     
     /**
