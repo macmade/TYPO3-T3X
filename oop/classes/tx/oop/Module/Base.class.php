@@ -707,6 +707,54 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         return self::$_t3Lang->sL( $GLOBALS[ 'TCA' ][ $table ][ 'columns' ][ $field ][ 'label' ] );
     }
     
+    
+    
+    /**
+     * Creates a select menu
+     * 
+     * @param   string              The name of the select
+     * @param   string              The label for the select menu
+     * @param   array               The items to place on the menu, as value/label pairs
+     * @return  tx_oop_Xhtml_Tag    The select menu
+     */
+    protected function _createSelect( $name, $label, array $items )
+    {
+        // Creates the container DIV
+        $container            = new tx_oop_Xhtml_Tag( 'div' );
+        $container[ 'style' ] = 'overflow: hidden; height: 100%;';
+        
+        // Creates the label and it's container DIV
+        $labelDiv            = $container->div;
+        $labelDiv[ 'style' ] = 'float: left; width: 150px; font-weight: bold;';
+        $label               = $labelDiv->label;
+        $label[ 'for' ]      = $this->_moduleName . '-' . $name;
+        
+        // Creates the select and it's container DIV
+        $selectDiv            = $container->div;
+        $selectDiv[ 'style' ] = 'float: left;';
+        $select               = $selectDiv->select;
+        $select[ 'name' ]     = $this->_moduleName . '[' . $name . ']';
+        $select[ 'id' ]       = $this->_moduleName . '-' . $name;
+        
+        // Process the items
+        foreach( $items as $value => $label ) {
+            
+            // Creates the option tag
+            $option            = $select->option;
+            $option[ 'value' ] = $value;
+            
+            // Checks the module variables
+            if( $this->_modVars[ $name ] == $value ) {
+                
+                // The current item is selected
+                $option[ 'selected' ] = 'selected';
+            }
+        }
+        
+        // Returns the full select
+        return $container;
+    }
+    
     /**
      * 
      */
