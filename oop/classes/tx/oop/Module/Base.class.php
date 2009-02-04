@@ -490,9 +490,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      * Gets an icon from the extension
      * 
      * @param   string  $name       The icon name
+     * @param   array               The align parameter of the IMG tag
      * @return  tx_oop_Xhtml_Tag    The image tag
      */
-    protected function _skinImg( $name )
+    protected function _skinImg( $name, $align = 'bottom' )
     {
         // Gets the file absolute path
         $fileAbsPath = $this->_extPath
@@ -514,7 +515,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             $img[ 'hspace' ] = '0';
             $img[ 'vspace' ] = '0';
             $img[ 'border' ] = '0';
-            $img[ 'align' ]  = 'middle';
+            $img[ 'align' ]  = $align;
             
             // Returns the image tag
             return $img;
@@ -528,9 +529,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      * Gets an icon from TYPO3
      * 
      * @param   string  $name       The icon name
+     * @param   array               The align parameter of the IMG tag
      * @return  tx_oop_Xhtml_Tag    The image tag
      */
-    protected function _t3SkinImg( $name )
+    protected function _t3SkinImg( $name, $align = 'bottom' )
     {
         // Gets the image source
         $imgSrc = t3lib_iconWorks::skinImg( $this->_backPath, $name, '', 1 );
@@ -553,7 +555,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             $img[ 'hspace' ] = '0';
             $img[ 'vspace' ] = '0';
             $img[ 'border' ] = '0';
-            $img[ 'align' ]  = 'middle';
+            $img[ 'align' ]  = $align;
             
             // Returns the image tag
             return $img;
@@ -591,11 +593,12 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      * This method creates an icon of the requested record with a
      * Context Sensitive Menu (CSM).
      * 
-     * @param   string  The table of the record
-     * @param   array   The record's row
-     * @return  string  The icon with a CSM menu link
+     * @param   string              The table of the record
+     * @param   array               The record's row
+     * @param   array               The align parameter of the IMG tag
+     * @return  tx_oop_Xhtml_Tag    The icon with a CSM menu link
      */
-    protected function _recordIcon( $table, $row )
+    protected function _recordIcon( $table, $row, $align = 'bottom' )
     {
         // Ensures the record's row is an array (may be an stdClass object)
         $row = ( array )$row;
@@ -604,21 +607,44 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $icon = t3lib_iconWorks::getIconImage(
             $table,
             $row,
-            $this->_backPath
+            $this->_backPath,
+            'align="' . $bottom . '"'
         );
         
-        // Returns the icon with the CSM link
-        return $this->doc->wrapClickMenuOnIcon(
+        // On click action
+        $onClick = $this->doc->wrapClickMenuOnIcon(
             $icon,
             $table,
             $row[ 'uid' ],
-            1
+            1,
+            '',
+            '',
+            true
         );
+
+        // Creates the link
+        $link              = new tx_oop_Xhtml_Tag( 'a' );
+        $link[ 'onclick' ] = htmlspecialchars( $onClick );
+        
+        // Checks if we have to add the context menu event
+        if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'BE' ][ 'useOnContextMenuHandler' ] )
+            && $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'BE' ][ 'useOnContextMenuHandler' ]
+        ) {
+            
+            // Adds the context menu event
+            $link[ 'oncontextmenu' ] = htmlspecialchars( $onClick );
+        }
+        
+        // Adds the icon to the link
+        $link->addTextData( $icon );
+        
+        // Returns the link
+        return $link;
     }
     
-    protected function _editIcon( $table, $id )
+    protected function _editIcon( $table, $id, $align = 'bottom' )
     {
-        $icon              = $this->_t3SkinImg( 'gfx/edit2.gif' );
+        $icon              = $this->_t3SkinImg( 'gfx/edit2.gif', $align );
         $link              = new tx_oop_Xhtml_Tag( 'a' );
         $link[ 'href' ]    = '#';
         $link[ 'onclick' ] = htmlspecialchars(
@@ -633,9 +659,9 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         return $link;
     }
     
-    protected function _infoIcon( $table, $id )
+    protected function _infoIcon( $table, $id, $align = 'bottom' )
     {
-        $icon              = $this->_t3SkinImg( 'gfx/zoom2.gif' );
+        $icon              = $this->_t3SkinImg( 'gfx/zoom2.gif', $align );
         $link              = new tx_oop_Xhtml_Tag( 'a' );
         $link[ 'href' ]    = '#';
         $link[ 'onclick' ] = 'top.launchView( \''
@@ -649,9 +675,9 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         return $link;
     }
     
-    protected function _deleteIcon( $table, $id, $confirmDialog = true )
+    protected function _deleteIcon( $table, $id, $confirmDialog = true, $align = 'bottom' )
     {
-        $icon              = $this->_t3SkinImg( 'gfx/garbage.gif' );
+        $icon              = $this->_t3SkinImg( 'gfx/garbage.gif', $align );
         $link              = new tx_oop_Xhtml_Tag( 'a' );
         $link[ 'href' ]    = htmlspecialchars(
             $this->doc->issueCommand(
