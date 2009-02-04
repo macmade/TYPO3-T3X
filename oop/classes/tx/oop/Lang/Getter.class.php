@@ -40,32 +40,37 @@ final class tx_oop_Lang_Getter
     /**
      * 
      */
-    private static $_instances   = array();
+    private static $_instances           = array();
     
     /**
      * 
      */
-    private static $_nbInstances = 0;
+    private static $_nbInstances         = 0;
+    
+    /**
+     * The name of the default instance
+     */
+    private static $_defaultInstanceName = 'EXT:oop/lang/lgl.xml';
     
     /**
      * 
      */
-    private static $_currentLang = '';
+    private static $_currentLang         = '';
     
     /**
      * 
      */
-    private $_labels             = array();
+    private $_labels                     = array();
     
     /**
      * 
      */
-    private $_instanceName       = '';
+    private $_instanceName               = '';
     
     /**
      * 
      */
-    private $_langFilePath       = '';
+    private $_langFilePath               = '';
     
     /**
      * 
@@ -120,6 +125,12 @@ final class tx_oop_Lang_Getter
             
             return $this->_labels[ 'default' ][ $name ];
             
+        } elseif( $this->_instanceName != self::$_defaultInstanceName
+                  && $label = self::$_instances[ self::$_defaultInstanceName ]->$name
+        ) {
+            
+            return $label;
+            
         } else {
             
             return '[LABEL: ' . $name . ']';
@@ -134,6 +145,10 @@ final class tx_oop_Lang_Getter
         if( self::$_nbInstances === 0 ) {
             
             self::_setCurrentLanguage();
+            
+            self::$_instances[ self::$_defaultInstanceName ] = new self( self::$_defaultInstanceName );
+            
+            self::$_nbInstances++;
         }
         
         if( !isset( self::$_instances[ $langFile ] ) ) {
