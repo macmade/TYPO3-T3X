@@ -73,19 +73,11 @@ class tx_oop_doxygenMenuItem implements backend_toolbarItem
     {
         // Creates the icon
         $icon             = new tx_oop_Xhtml_Tag( 'img' );
-        $icon[ 'src' ]    = t3lib_extMgm::extRelPath( 'oop' ) . 'res/img/book.png';
+        $icon[ 'src' ]    = t3lib_extMgm::extRelPath( 'oop' ) . 'res/img/oop.gif';
         $icon[ 'width' ]  = 16;
         $icon[ 'height' ] = 16;
         $icon[ 'alt' ]    = 'OOP Doxygen';
         $icon[ 'style' ]  = 'margin-left: 5px; margin-right: 5px;';
-        $icon[ 'align' ]  = 'left';
-        
-        // Creates the text span
-        $text             = new tx_oop_Xhtml_Tag( 'span' );
-        $text[ 'style' ]  = 'margin-right: 5px;';
-        
-        // Adds the text
-        $text->addTextData( 'TYPO3 OOP' );
         
         // Creates the link
         $link             = new tx_oop_Xhtml_Tag( 'a' );
