@@ -267,7 +267,7 @@ final class tx_oop_Tca_Table
         // Sets the field used to store the ID of the BE user who created the record
         $this->_ctrl[ 'cruser_id' ]         = 'cruser_id';
         
-        // Special fields configuration array (for hidden, startime, endtime and fe_group)
+        // Special fields configuration array (for hidden, starttime, endtime and fe_group)
         $this->_ctrl[ 'enablecolumns' ]     = array();
         
         // String to prepend when a record is copied
@@ -586,25 +586,25 @@ final class tx_oop_Tca_Table
     }
     
     /**
-     * Adds the 'startime' field
+     * Adds the 'starttime' field
      * 
-     * @param   string                  The name of the field (default is 'startime')
-     * @return  tx_oop_Tca_Field_Input  The 'startime' field object
+     * @param   string                  The name of the field (default is 'starttime')
+     * @return  tx_oop_Tca_Field_Input  The 'starttime' field object
      */
-    public function addStartTimeField( $name = 'startime' )
+    public function addStartTimeField( $name = 'starttime' )
     {
         // Checks if a field is already registered
-        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'startime' ] ) ) {
+        if( isset( $this->_ctrl[ 'enablecolumns' ][ 'starttime' ] ) ) {
             
             // Removes the previous field
-            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'startime' ] ] );
+            unset( $this->_fields[ $this->_ctrl[ 'enablecolumns' ][ 'starttime' ] ] );
         }
         
         // Creates the field
         $field        = $this->_addField( ( string )$name, 'input' );
         
         // Sets the field label
-        $field->label = 'LLL:EXT:lang/locallang_general.xml:LGL.startime';
+        $field->label = 'LLL:EXT:lang/locallang_general.xml:LGL.starttime';
         
         // Add the eval rule
         $field->addEval( 'date' );
@@ -625,7 +625,7 @@ final class tx_oop_Tca_Table
         }
         
         // Enables the field
-        $this->_ctrl[ 'enablecolumns' ][ 'startime' ] = ( string )$name;
+        $this->_ctrl[ 'enablecolumns' ][ 'starttime' ] = ( string )$name;
         
         // Returns the field
         return $field;
@@ -735,12 +735,45 @@ final class tx_oop_Tca_Table
     /**
      * 
      */
-    public function enableVersionning()
-    {}
+    public function enableVersionning( $origUid = 't3_origuid' )
+    {
+        $this->_ctrl[ 'versioningWS' ] = true;
+        $this->_ctrl[ 'origUid' ]      = $origUid;
+        
+        $label        = $this->_addField( 't3ver_label', 'input' );
+        $label->label = 'LLL:EXT:lang/locallang_general.xml:LGL.versionLabel';
+        $label->size  = 30;
+        $label->max   = 30;
+    }
     
     /**
      * 
      */
-    public function enableLocalization()
-    {}
+    public function enableLocalization( $languageField = 'sys_language_uid', $origPointerField = 'l10n_parent', $diffSourceField = 'l10n_diffsource' )
+    {
+        $this->_ctrl[ 'languageField' ]            = $languageField;
+        $this->_ctrl[ 'transOrigPointerField' ]    = $origPointerField;
+        $this->_ctrl[ 'transOrigDiffSourceField' ] = $diffSourceField;
+        
+        $language                      = $this->_addField( $languageField, 'select' );
+        $language->label               = 'LLL:EXT:lang/locallang_general.xml:LGL.language';
+        $language->foreign_table       = 'sys_language';
+        $language->foreign_table_where = 'ORDER BY sys_language.title';
+        $language->addItem( -1, 'LLL:EXT:lang/locallang_general.xml:LGL.allLanguages' );
+        $language->addItem(  0, 'LLL:EXT:lang/locallang_general.xml:LGL.default_value' );
+        
+        $origPointer                      = $this->_addField( $origPointerField, 'select' );
+        $origPointer->label               = 'LLL:EXT:lang/locallang_general.xml:LGL.l18n_parent';
+        $origPointer->displayCond         = 'FIELD:' . $languageField . ':>:0';
+        $origPointer->foreign_table       = $this->_instanceName;
+        $origPointer->foreign_table_where = 'AND '
+                                          . $this->_instanceName
+                                          . '.pid=###CURRENT_PID### AND '
+                                          . $this->_instanceName
+                                          . '.' . $languageField
+                                          . ' IN (-1,0)';
+        $origPointer->addItem( 0, '' );
+        
+        $diffSource  = $this->_addField( $diffSourceField, 'passthrough' );
+    }
 }
