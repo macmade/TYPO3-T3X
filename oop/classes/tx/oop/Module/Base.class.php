@@ -616,6 +616,63 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         );
     }
     
+    protected function _editIcon( $table, $id )
+    {
+        $icon              = $this->_t3SkinImg( 'gfx/edit2.gif' );
+        $link              = new tx_oop_Xhtml_Tag( 'a' );
+        $link[ 'href' ]    = '#';
+        $link[ 'onclick' ] = htmlspecialchars(
+            t3lib_BEfunc::editOnClick(
+                '&edit[' . $table . '][' . $id . ']=edit',
+                $this->_backPath
+            )
+        );
+        
+        $link->addTextData( $icon );
+        
+        return $link;
+    }
+    
+    protected function _infoIcon( $table, $id )
+    {
+        $icon              = $this->_t3SkinImg( 'gfx/zoom2.gif' );
+        $link              = new tx_oop_Xhtml_Tag( 'a' );
+        $link[ 'href' ]    = '#';
+        $link[ 'onclick' ] = 'top.launchView( \''
+                           .  $table
+                           .  '\', \''
+                           .  $id
+                           .  '\' ); return false;';
+        
+        $link->addTextData( $icon );
+        
+        return $link;
+    }
+    
+    protected function _deleteIcon( $table, $id, $confirmDialog = true )
+    {
+        $icon              = $this->_t3SkinImg( 'gfx/garbage.gif' );
+        $link              = new tx_oop_Xhtml_Tag( 'a' );
+        $link[ 'href' ]    = htmlspecialchars(
+            $this->doc->issueCommand(
+                '&cmd[' . $table . ']['. $id .'][delete]=1'
+            )
+        );
+        
+        if( $confirmDialog ) {
+            
+            $link[ 'onclick' ] = htmlspecialchars(
+                'return confirm( \''
+              . self::$_t3Lang->sL( 'LLL:EXT:lang/locallang_alt_doc.xml:deleteWarning' )
+              . '\' );'
+            );
+        }
+        
+        $link->addTextData( $icon );
+        
+        return $link;
+    }
+    
     /**
      * 
      */
