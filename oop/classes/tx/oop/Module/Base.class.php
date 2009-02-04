@@ -46,7 +46,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     abstract protected function _getModuleContent( tx_oop_Xhtml_Tag $content );
     
-    abstract protected function _getMenuItems();
+    abstract protected function _setMenuItems( array &$items );
     
     /**
      * A flag to know wether the needed static variables are set
@@ -925,8 +925,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     public function menuConfig()
     {
         $this->MOD_MENU = array(
-            'function' => $this->_getMenuItems()
+            'function' => array()
         );
+        
+        $this->_setMenuItems( $this->MOD_MENU[ 'function' ] );
         
         parent::menuConfig();
     }
