@@ -28,7 +28,7 @@
 #error_reporting( E_ALL | E_STRICT );
 
 /**
- * Flexform helper class
+ * Flexform iterator class
  *
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
