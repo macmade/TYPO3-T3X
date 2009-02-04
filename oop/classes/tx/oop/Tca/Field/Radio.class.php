@@ -41,4 +41,19 @@ class tx_oop_Tca_Field_Radio extends tx_oop_Tca_Field
      * The type of the field
      */
     protected $_fieldType = 'radio';
+    
+    /**
+     * 
+     */
+    public function addItem( $value, $label = '' )
+    {
+        if( !isset( $this->_config[ 'items' ] ) || !is_array( $this->_config[ 'items' ] ) ) {
+            
+            $this->_config[ 'items' ] = array();
+        }
+        
+        $label = ( $label ) ? $label : $this->_name . '.I.' . $value;
+        
+        $this->_config[ 'items' ] = array( $label, $value );
+    }
 }

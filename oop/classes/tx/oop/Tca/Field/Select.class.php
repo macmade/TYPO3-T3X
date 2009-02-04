@@ -42,6 +42,18 @@ class tx_oop_Tca_Field_Select extends tx_oop_Tca_Field
      */
     protected $_fieldType = 'select';
     
-    public function addItem()
-    {}
+    /**
+     * 
+     */
+    public function addItem( $value, $label = '' )
+    {
+        if( !isset( $this->_config[ 'items' ] ) || !is_array( $this->_config[ 'items' ] ) ) {
+            
+            $this->_config[ 'items' ] = array();
+        }
+        
+        $label = ( $label ) ? $label : $this->_name . '.I.' . $value;
+        
+        $this->_config[ 'items' ] = array( $label, $value );
+    }
 }

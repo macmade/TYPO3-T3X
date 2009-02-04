@@ -41,4 +41,26 @@ class tx_oop_Tca_Field_Check extends tx_oop_Tca_Field
      * The type of the field
      */
     protected $_fieldType = 'check';
+    
+    /**
+     * 
+     */
+    protected $_itemsNum  = 0;
+    
+    /**
+     * 
+     */
+    public function addItem( $label = '' )
+    {
+        if( !isset( $this->_config[ 'items' ] ) || !is_array( $this->_config[ 'items' ] ) ) {
+            
+            $this->_config[ 'items' ] = array();
+        }
+        
+        $label = ( $label ) ? $label : $this->_name . '.I.' . $this->_itemsNum;
+        
+        $this->_config[ 'items' ] = array( $label, '' );
+        
+        $this->_itemsNum++;
+    }
 }
