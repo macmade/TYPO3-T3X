@@ -41,7 +41,7 @@ if( !class_exists( 'SimpleXmlElement' ) ) {
 
 // Includes the class manager
 require_once(
-    t3lib_extMgm::extPath( 'oop' )
+    t3lib_extMgm::extPath( $_EXTKEY )
   . DIRECTORY_SEPARATOR
   . 'classes'
   . DIRECTORY_SEPARATOR
