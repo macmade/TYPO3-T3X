@@ -19,10 +19,10 @@ if( !defined( 'TYPO3_MODE' ) ) {
 if( TYPO3_MODE === 'BE' ) {
     
     // Checks for the extension configuration
-    if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] ) ) {
+    if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
         
         // Gets the extension configuration
-        $OOP_EXT_CONF = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] );
+        $OOP_EXT_CONF = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] );
         
         // Checks if the Doxygen link must be added
         if( isset( $OOP_EXT_CONF[ 'doxygen' ] ) && $OOP_EXT_CONF[ 'doxygen' ] ) {
