@@ -586,6 +586,37 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     }
     
     /**
+     * Gets the CSM menu for a record
+     * 
+     * This method creates an icon of the requested record with a
+     * Context Sensitive Menu (CSM).
+     * 
+     * @param   string  The table of the record
+     * @param   array   The record's row
+     * @return  string  The icon with a CSM menu link
+     */
+    protected function _recordIcon( $table, $row )
+    {
+        // Ensures the record's row is an array (may be an stdClass object)
+        $row = ( array )$row;
+        
+        // Gets the record icon
+        $icon = t3lib_iconWorks::getIconImage(
+            $table,
+            $row,
+            $this->_backPath
+        );
+        
+        // Returns the icon with the CSM link
+        return $this->doc->wrapClickMenuOnIcon(
+            $icon,
+            $table,
+            $row[ 'uid' ],
+            1
+        );
+    }
+    
+    /**
      * 
      */
     protected function _checkAction( $name )
