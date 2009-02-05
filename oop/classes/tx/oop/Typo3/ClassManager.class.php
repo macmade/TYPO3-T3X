@@ -30,8 +30,8 @@
 /**
  * TYPO3 class manager
  * 
- * This class will handle every request to a class from t3lib or tslib, if
- * enabled, by automatically loading the class file (thanx to the SPL).
+ * This class will handle every request to a class that belongs to a registered
+ * prefix, by automatically loading the class file (thanx to the SPL).
  *
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
