@@ -54,6 +54,6 @@ class tx_oop_Tca_Field_Select extends tx_oop_Tca_Field
         
         $label = ( $label ) ? $label : $this->_name . '.I.' . $value;
         
-        $this->_config[ 'items' ] = array( $label, $value );
+        $this->_config[ 'items' ][] = array( $label, $value );
     }
 }
