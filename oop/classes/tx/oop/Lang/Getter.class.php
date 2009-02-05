@@ -117,24 +117,7 @@ final class tx_oop_Lang_Getter
      */
     public function __get( $name )
     {
-        if( $this->_labels[ $this->_currentLang ][ $name ] ) {
-            
-            return $this->_labels[ $this->_currentLang ][ $name ];
-            
-        } elseif( isset( $this->_labels[ 'default' ][ $name ] ) ) {
-            
-            return $this->_labels[ 'default' ][ $name ];
-            
-        } elseif( $this->_instanceName != self::$_defaultInstanceName
-                  && $label = self::$_instances[ self::$_defaultInstanceName ]->$name
-        ) {
-            
-            return $label;
-            
-        } else {
-            
-            return '[LABEL: ' . $name . ']';
-        }
+        return $this->getLabel( $name );
     }
     
     /**
@@ -175,5 +158,30 @@ final class tx_oop_Lang_Getter
         }
         
         return self::$_instances[ $langFile ];
+    }
+    
+    /**
+     * 
+     */
+    public function getLabel( $name )
+    {
+        if( $this->_labels[ $this->_currentLang ][ $name ] ) {
+            
+            return $this->_labels[ $this->_currentLang ][ $name ];
+            
+        } elseif( isset( $this->_labels[ 'default' ][ $name ] ) ) {
+            
+            return $this->_labels[ 'default' ][ $name ];
+            
+        } elseif( $this->_instanceName != self::$_defaultInstanceName
+                  && $label = self::$_instances[ self::$_defaultInstanceName ]->$name
+        ) {
+            
+            return $label;
+            
+        } else {
+            
+            return '[LABEL: ' . $name . ']';
+        }
     }
 }
