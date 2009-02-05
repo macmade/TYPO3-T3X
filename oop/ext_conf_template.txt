@@ -1,3 +1,9 @@
+# cat=basic/enable/00; type=boolean; label=T3Lib auto-load: If set, the OOP framework will try to load any 't3lib_' class, when requested, and if not previously included.
+t3libAutoLoad = 1
+
+# cat=basic/enable/01; type=boolean; label=TSLib auto-load: If set, the OOP framework will try to load any 'tslib_' class, when requested, and if not previously included.
+tslibAutoLoad = 1
+
 # cat=basic/enable/02; type=boolean; label=HTML formatting: If set, the output of the XHTML classes from the OOP framework will be correctly indented.
 htmlFormat = 1
 

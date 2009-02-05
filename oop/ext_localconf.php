@@ -73,6 +73,20 @@ if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
         tx_oop_Xhtml_Tag::useFormattedOutput( ( boolean )$OOP_EXT_CONF[ 'htmlFormat' ] );
     }
     
+    // Checks if the T3Lib classes must be auto-loaded
+    if( isset( $OOP_EXT_CONF[ 't3libAutoLoad' ] ) ) {
+        
+        // Auto-loads the T3Lib classes
+        tx_oop_Typo3_AutoLoad::setAutoLoad( 't3lib_', true );
+    }
+    
+    // Checks if the TSLib classes must be auto-loaded
+    if( isset( $OOP_EXT_CONF[ 'tslibAutoLoad' ] ) ) {
+        
+        // Auto-loads the TSLib classes
+        tx_oop_Typo3_AutoLoad::setAutoLoad( 'tslib_', true );
+    }
+    
     // Cleans up global variables
     unset( $OOP_EXT_CONF );
 }
