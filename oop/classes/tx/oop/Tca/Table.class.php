@@ -499,7 +499,7 @@ final class tx_oop_Tca_Table
         // Checks if the field already exists
         if( isset( $this->_fields[ $name ] ) ) {
             
-            // Returns the existing field
+            // The field already exist
             throw new tx_oop_Tca_Table_Exception(
                 'The field \'' . $name . '\' already exists. Please use the ' . __CLASS__ . '::getField() method instead.',
                 tx_oop_Tca_Table_Exception::EXCEPTION_FIELD_ALREADY_EXISTS
