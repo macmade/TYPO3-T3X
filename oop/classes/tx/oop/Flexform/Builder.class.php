@@ -104,7 +104,7 @@ class tx_oop_Flexform_Builder
         foreach( $this->_sheets as $key => $value ) {
             
             // Creates the sheet XML object
-            $value->createXmlObject( $xml );
+            $value->addSheetXmlObject( $xml );
         }
         
         // Returns the XML object
@@ -131,7 +131,7 @@ class tx_oop_Flexform_Builder
         }
         
         // Creates the sheet
-        $this->_sheets[ $name ] = new tx_oop_Flexform_Sheet( $name );
+        $this->_sheets[ $name ] = new tx_oop_Flexform_Sheet( $name, $this->_langFile );
         
         // Returns the sheet
         return $this->_sheets[ $name ];
