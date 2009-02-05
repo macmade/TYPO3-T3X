@@ -487,8 +487,8 @@ final class tx_oop_Tca_Table
      * @param   string                      The name of the field
      * @param   string                      The type of the field (see TYPO3 Core API, TCA section)
      * @return  tx_oop_Tca_Field            The TCA field instance
-     * @throws  tx_oop_Tca_Table_Exception  If the field name is reserved is invalid
-     * @throws  tx_oop_Tca_Table_Exception  If the field name is reserved is reserved
+     * @throws  tx_oop_Tca_Table_Exception  If the field name is reserved
+     * @throws  tx_oop_Tca_Table_Exception  If the field already exists
      */
     public function addField( $name, $type )
     {
@@ -500,7 +500,10 @@ final class tx_oop_Tca_Table
         if( isset( $this->_fields[ $name ] ) ) {
             
             // Returns the existing field
-            return $this->_fields[ $name ];
+            throw new tx_oop_Tca_Table_Exception(
+                'The field \'' . $name . '\' already exists. Please use the ' . __CLASS__ . '::getField() method instead.',
+                tx_oop_Tca_Table_Exception::EXCEPTION_FIELD_ALREADY_EXISTS
+            );
         }
         
         // Checks the field name

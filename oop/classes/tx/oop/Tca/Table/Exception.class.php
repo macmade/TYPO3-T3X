@@ -40,7 +40,8 @@ final class tx_oop_Tca_Table_Exception extends tx_oop_Core_Exception_Base
     /**
      * Error codes for the exceptions
      */
-    const EXCEPTION_INVALID_FIELD_TYPE  = 0x01;
-    const EXCEPTION_NO_FIELD            = 0x02;
-    const EXCEPTION_RESERVED_FIELD_NAME = 0x03;
+    const EXCEPTION_INVALID_FIELD_TYPE   = 0x01;
+    const EXCEPTION_NO_FIELD             = 0x02;
+    const EXCEPTION_RESERVED_FIELD_NAME  = 0x03;
+    const EXCEPTION_FIELD_ALREADY_EXISTS = 0x04;
 }
