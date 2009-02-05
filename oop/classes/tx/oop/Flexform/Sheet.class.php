@@ -129,6 +129,7 @@ class tx_oop_Flexform_Sheet
             case 'passthrough':
             case 'user':
             case 'inline':
+            case 'section':
                 
                 // Field class
                 $fieldClass = 'tx_oop_Flexform_Field_' . ucfirst( $type );
