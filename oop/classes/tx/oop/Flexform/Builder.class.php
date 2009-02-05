@@ -60,6 +60,7 @@ class tx_oop_Flexform_Builder
     /**
      * Class constructor
      * 
+     * @param   string  The reference of the file with the labels for the flexform (typically: EXT:extkey/path/to/lang/file)
      * @param   boolean Wheter to disable the handling of localizations
      * @param   boolean Wheter the localizations are bound to the defaut values
      * @return  NULL
