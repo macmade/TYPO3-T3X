@@ -210,9 +210,28 @@ final class tx_oop_Core_ClassManager
             
             // Includes the class file
             require_once( $classPath );
-        
-            // Checks if the class is defined
-            if( !class_exists( $className ) ) {
+            
+            // Checks if the requested class is an interface
+            if( substr( $className, -9 ) === 'Interface' ) {
+                
+                // Checks if the interface is defined
+                if( !interface_exists( $className ) ) {
+                    
+                    // Error message
+                    $errorMsg = 'The interface '
+                              . $className
+                              . ' is not defined in file '
+                              . $classPath;
+                    
+                    // The class is not defined
+                    trigger_error( $errorMsg, E_USER_ERROR );
+                    
+                    // Prints the error message and exits the script, as Drupal will intercept the error message
+                    print $errorMsg;
+                    exit();
+                }
+                
+            } elseif( !class_exists( $className ) ) {
                 
                 // Error message
                 $errorMsg = 'The class '
