@@ -85,7 +85,7 @@ abstract class tx_oop_Flexform_Field
         $this->_properties[ 'exclude' ] = true;
         
         // Field label
-        $this->_properties[ 'label' ]   = 'LLL'
+        $this->_properties[ 'label' ]   = 'LLL:'
                                         . $this->_langFile
                                         . ':'
                                         . $this->_sheetName
@@ -200,14 +200,31 @@ abstract class tx_oop_Flexform_Field
             
             if( is_array( $value ) ) {
                 
-                $child           = $xml->addChild( $key );
+                if( is_int( $key ) ) {
+                    
+                    $child            = $xml->addChild( 'numIndex' );
+                    $child[ 'index' ] = $key;
+                    
+                } else {
+                    
+                    $child = $xml->addChild( $key );
+                }
+                
                 $child[ 'type' ] = 'array';
                 
                 $this->_writeConfigObject( $value, $child );
                 
             } else {
                 
-                $xml->$key = $value;
+                if( is_int( $key ) ) {
+                    
+                    $xml->numIndex[ $key ]            = $value;
+                    $xml->numIndex[ $key ][ 'index' ] = $key;
+                    
+                } else {
+                    
+                    $xml->$key = $value;
+                }
             }
         }
     }

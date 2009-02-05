@@ -52,8 +52,9 @@ class tx_oop_Flexform_Field_Select extends tx_oop_Flexform_Field
             $this->_config[ 'items' ] = array();
         }
         
-        $label = ( $label ) ? $label : $this->_name . '.I.' . $value;
+        $labelPrefix = 'LLL:' . $this->_langFile . ':' . $this->_sheetName . '.';
+        $label = ( $label ) ? $labelPrefix . $label : $labelPrefix . $this->_name . '.I.' . $value;
         
-        $this->_config[ 'items' ] = array( $label, $value );
+        $this->_config[ 'items' ][] = array( $label, $value );
     }
 }
