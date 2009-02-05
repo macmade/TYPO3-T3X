@@ -40,7 +40,12 @@ class tx_oop_Flexform_Field_Section extends tx_oop_Flexform_Field
     /**
      * The type of the field
      */
-    protected $_fieldType = 'section';
+    protected $_fieldType = 'array';
+    
+    /**
+     * The elements (types) of the section
+     */
+    protected $_elements  = array();
     
     /**
      * 
@@ -48,7 +53,7 @@ class tx_oop_Flexform_Field_Section extends tx_oop_Flexform_Field
     public function addFieldXmlObject( SimpleXMLElement $el )
     {
         $name                             = $this->_name;
-        $el->$name->type                  = 'array';
+        $el->$name->type                  = $this->_fieldType;
         $el->$name->section               = 1;
         $el->$name->tx_templavoila->title = 'LLL:'
                                           . $this->_langFile
@@ -56,5 +61,60 @@ class tx_oop_Flexform_Field_Section extends tx_oop_Flexform_Field
                                           . $this->_sheetName
                                           . '.'
                                           . $this->_name;
+        $subEl                            = $el->$name->addChild( 'el' );
+        
+        foreach( $this->_elements as $key => $value ) {
+            
+            $value->addElementXmlObject( $subEl );
+        }
+    }
+    
+    /**
+     * Adds an element to the section
+     * 
+     * @param   string                                  The name of the element
+     * @return  tx_oop_Flexform_Field_Section_Element   The flexform section element object
+     * @throws  tx_oop_Flexform_Field_Section_Exception If the element already exists
+     */
+    public function addElement( $name )
+    {
+        // Checks if the field already exists
+        if( isset( $this->_elements[ $name ] ) ) {
+            
+            // The field already exists
+            throw new tx_oop_Flexform_Field_Section_Exception(
+                'The element \'' . $name . '\' already exists. Please use the ' . __CLASS__ . '::getElement() method instead.',
+                tx_oop_Flexform_Field_Section_Exception::EXCEPTION_ELEMENT_ALREADY_EXISTS
+            );
+        }
+        
+        // Creates the field object
+        $this->_elements[ $name ] = new tx_oop_Flexform_Field_Section_Element( $name, $this->_name, $this->_sheetName, $this->_langFile );
+        
+        // Returns the field
+        return $this->_elements[ $name ];
+    }
+    
+    /**
+     * Gets a element from the section
+     * 
+     * @param   string                                  The name of the element
+     * @return  tx_oop_Flexform_Field_Section_Element   The flexform section element object
+     * @throws  tx_oop_Flexform_Field_Section_Exception If the element does not exists
+     */
+    public function getElement( $name )
+    {
+        // Checks if the field exists
+        if( isset( $this->_elements[ $name ] ) ) {
+            
+            // Returns the field
+            return $this->_elements[ $name ];
+        }
+        
+        // No such field
+        throw new tx_oop_Flexform_Field_Section_Exception(
+            'The requested element does not exist (' . $name . '). You should first add it with the ' . __CLASS__ . '::addElement() method.',
+            tx_oop_Flexform_Field_Section_Exception::EXCEPTION_NO_ELEMENT
+        );
     }
 }
