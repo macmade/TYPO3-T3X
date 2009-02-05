@@ -225,10 +225,6 @@ final class tx_oop_Core_ClassManager
                     
                     // The class is not defined
                     trigger_error( $errorMsg, E_USER_ERROR );
-                    
-                    // Prints the error message and exits the script, as Drupal will intercept the error message
-                    print $errorMsg;
-                    exit();
                 }
                 
             } elseif( !class_exists( $className ) ) {
@@ -241,10 +237,6 @@ final class tx_oop_Core_ClassManager
                 
                 // The class is not defined
                 trigger_error( $errorMsg, E_USER_ERROR );
-                
-                // Prints the error message and exits the script, as Drupal will intercept the error message
-                print $errorMsg;
-                exit();
             }
             
             // Adds the class to the loaded classes array

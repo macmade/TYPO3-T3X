@@ -58,7 +58,7 @@ require_once(
 spl_autoload_register( array( 'tx_oop_Core_ClassManager', 'autoLoad' ) );
 
 // Registers an SPL autoload method to use to load the classes form TYPO3 (t3lib or tslib)
-spl_autoload_register( array( 'tx_oop_Typo3_AutoLoad', 'autoLoad' ) );
+spl_autoload_register( array( 'tx_oop_Typo3_ClassManager', 'autoLoad' ) );
 
 // Checks for the extension configuration
 if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
@@ -77,14 +77,14 @@ if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
     if( isset( $OOP_EXT_CONF[ 't3libAutoLoad' ] ) ) {
         
         // Auto-loads the T3Lib classes
-        tx_oop_Typo3_AutoLoad::setAutoLoad( 't3lib_', true );
+        tx_oop_Typo3_ClassManager::setAutoLoad( 't3lib_', true );
     }
     
     // Checks if the TSLib classes must be auto-loaded
     if( isset( $OOP_EXT_CONF[ 'tslibAutoLoad' ] ) ) {
         
         // Auto-loads the TSLib classes
-        tx_oop_Typo3_AutoLoad::setAutoLoad( 'tslib_', true );
+        tx_oop_Typo3_ClassManager::setAutoLoad( 'tslib_', true );
     }
     
     // Cleans up global variables
