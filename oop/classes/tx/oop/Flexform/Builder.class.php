@@ -153,7 +153,7 @@ class tx_oop_Flexform_Builder
             return $this->_sheets[ $name ];
         }
         
-        // No such field
+        // No such sheet
         throw new tx_oop_Flexform_Builder_Exception(
             'The requested sheet does not exist (' . $name . '). You should first add it with the ' . __CLASS__ . '::addSheet() method.',
             tx_oop_Flexform_Builder_Exception::EXCEPTION_NO_SHEET
