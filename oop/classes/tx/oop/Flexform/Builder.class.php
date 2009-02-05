@@ -53,16 +53,22 @@ class tx_oop_Flexform_Builder
     protected $_langChildren = false;
     
     /**
+     * The file with the language labels
+     */
+    protected $_langFile     = '';
+    
+    /**
      * Class constructor
      * 
      * @param   boolean Wheter to disable the handling of localizations
      * @param   boolean Wheter the localizations are bound to the defaut values
      * @return  NULL
      */
-    public function __construct( $langDisable = true, $langChildren = false )
+    public function __construct( $langFile, $langDisable = true, $langChildren = false )
     {
-        $this->_langDisable  = $langDisable;
-        $this->_langChildren = $langChildren;
+        $this->_langFile     = ( string )$langFile;
+        $this->_langDisable  = ( boolean )$langDisable;
+        $this->_langChildren = ( boolean )$langChildren;
     }
     
     /**
