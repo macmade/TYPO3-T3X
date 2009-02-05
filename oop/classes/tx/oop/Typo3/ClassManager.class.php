@@ -139,7 +139,7 @@ final class tx_oop_Typo3_ClassManager
             }
         }
         
-        // The requested class does not belong to this project
+        // The requested class does not belong to a registered prefix
         return false;
     }
     
@@ -210,13 +210,13 @@ final class tx_oop_Typo3_ClassManager
     }
     
     /**
-     * Gets the loaded classes from this project
+     * Gets the loaded classes
      * 
      * @return  array   An array with the loaded classes
      */
     public function getLoadedClasses()
     {
-        // Returns the loaded classes from this project
+        // Returns the loaded classes
         return $this->_loadedClasses;
     }
 }
