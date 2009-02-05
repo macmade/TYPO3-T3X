@@ -77,14 +77,20 @@ if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
     if( isset( $OOP_EXT_CONF[ 't3libAutoLoad' ] ) ) {
         
         // Auto-loads the T3Lib classes
-        tx_oop_Typo3_ClassManager::setAutoLoad( 't3lib_', true );
+        tx_oop_Typo3_ClassManager::getInstance()->registerClassDir(
+            't3lib_',
+            PATH_t3lib
+        );
     }
     
     // Checks if the TSLib classes must be auto-loaded
     if( isset( $OOP_EXT_CONF[ 'tslibAutoLoad' ] ) ) {
         
         // Auto-loads the TSLib classes
-        tx_oop_Typo3_ClassManager::setAutoLoad( 'tslib_', true );
+        tx_oop_Typo3_ClassManager::getInstance()->registerClassDir(
+            'tslib_',
+            t3lib_extMgm::extPath( 'cms' ) . 'tslib' . DIRECTORY_SEPARATOR
+        );
     }
     
     // Cleans up global variables
