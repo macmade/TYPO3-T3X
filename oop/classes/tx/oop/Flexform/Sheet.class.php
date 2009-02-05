@@ -68,29 +68,29 @@ class tx_oop_Flexform_Sheet
     /**
      * Adds the flexform sheet to a flexform XML object
      * 
-     * @param   SimpleXMLElement    The container flexform XML object
+     * @param   SimpleXMLElement    The sheets flexform XML object
      * @return  NULL
      */
-    public function addSheetXmlObject( SimpleXMLElement $flex )
+    public function addSheetXmlObject( SimpleXMLElement $sheets )
     {
         // Sheet name
         $name  = $this->_name;
         
         // Creates the sheet structure
-        $flex->sheets->$name->ROOT->type                 = 'array';
-        $flex->sheets->$name->ROOT->TCEforms->sheetTitle = 'LLL:'
-                                                         . $this->_langFile
-                                                         . ':'
-                                                         . $this->_name;
+        $sheets->$name->ROOT->type                 = 'array';
+        $sheets->$name->ROOT->TCEforms->sheetTitle = 'LLL:'
+                                                   . $this->_langFile
+                                                   . ':'
+                                                   . $this->_name;
         
-        // A reference of the ROOT object
-        $sheetRoot = $flex->sheets->$name->ROOT;
+        // A reference of the 'el' object
+        $el = $sheets->$name->ROOT->addChild( 'el' );
         
         // Process each field
         foreach( $this->_fields as $key => $value ) {
             
-            // Creates the sheet XML object
-            $value->addFieldXmlObject( $sheetRoot );
+            // Creates the field XML object
+            $value->addFieldXmlObject( $el );
         }
     }
     

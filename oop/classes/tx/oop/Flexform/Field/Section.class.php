@@ -45,16 +45,16 @@ class tx_oop_Flexform_Field_Section extends tx_oop_Flexform_Field
     /**
      * 
      */
-    public function addFieldXmlObject( SimpleXMLElement $sheetRoot )
+    public function addFieldXmlObject( SimpleXMLElement $el )
     {
-        $name                                        = $this->_name;
-        $sheetRoot->el->$name->type                  = 'array';
-        $sheetRoot->el->$name->section               = 1;
-        $sheetRoot->el->$name->tx_templavoila->title = 'LLL:'
-                                                     . $this->_langFile
-                                                     . ':'
-                                                     . $this->_sheetName
-                                                     . '.'
-                                                     . $this->_name;
+        $name                             = $this->_name;
+        $el->$name->type                  = 'array';
+        $el->$name->section               = 1;
+        $el->$name->tx_templavoila->title = 'LLL:'
+                                          . $this->_langFile
+                                          . ':'
+                                          . $this->_sheetName
+                                          . '.'
+                                          . $this->_name;
     }
 }

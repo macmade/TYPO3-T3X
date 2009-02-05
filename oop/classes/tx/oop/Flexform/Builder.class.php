@@ -100,11 +100,14 @@ class tx_oop_Flexform_Builder
         $xml->meta->langDisable  = ( int )$this->_langDisable;
         $xml->meta->langChildren = ( int )$this->_langChildren;
         
+        // Creates the sheets object
+        $sheets = $xml->addChild( 'sheets' );
+        
         // Process each sheet
         foreach( $this->_sheets as $key => $value ) {
             
             // Creates the sheet XML object
-            $value->addSheetXmlObject( $xml );
+            $value->addSheetXmlObject( $sheets );
         }
         
         // Returns the XML object

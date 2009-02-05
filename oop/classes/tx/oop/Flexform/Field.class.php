@@ -232,20 +232,20 @@ abstract class tx_oop_Flexform_Field
     /**
      * 
      */
-    public function addFieldXmlObject( SimpleXMLElement $sheetRoot )
+    public function addFieldXmlObject( SimpleXMLElement $el )
     {
         $name  = $this->_name;
         
         foreach( $this->_properties as $key => $value ) {
             
-            $sheetRoot->el->$name->TCEforms->$key = $value;
+            $el->$name->TCEforms->$key = $value;
         }
         
-        $sheetRoot->el->$name->TCEforms->config->type = $this->_fieldType;
+        $el->$name->TCEforms->config->type = $this->_fieldType;
         
         $this->_writeConfigObject(
             $this->_config,
-            $sheetRoot->el->$name->TCEforms->config
+            $el->$name->TCEforms->config
         );
     }
 }
