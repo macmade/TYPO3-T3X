@@ -128,13 +128,15 @@ final class tx_oop_Typo3_ClassManager
             $instance = self::getInstance();
         }
         
-        // Gets the class prefix
-        $prefix = substr( $className, 0, strpos( $className, '_' ) + 1 );
+        // Process each registered prefix
+        foreach( $instance->_classDirs as $prefix => $path ) {
         
-        // Checks if the class prefix is registered
-        if( isset( $instance->_classDirs[ $prefix ] ) ) {
-            
-            $instance->_loadClass( $className, $instance->_classDirs[ $prefix ] );
+            // Checks if the requested class belongs to a registered prefix
+            if( strpos( $className, $prefix ) === 0 ) {
+                
+                // Tries to load the requested class
+                $instance->_loadClass( $className, $instance->_classDirs[ $prefix ] );
+            }
         }
         
         // The requested class does not belong to this project
