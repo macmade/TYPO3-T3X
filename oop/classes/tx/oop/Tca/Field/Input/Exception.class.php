@@ -28,76 +28,17 @@
 #error_reporting( E_ALL | E_STRICT );
 
 /**
- * Class for the TCA 'input' field
+ * Exception class for the tx_oop_Tca_Field_Input class
  *
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
  * @subpackage  oop
  */
-class tx_oop_Tca_Field_Input extends tx_oop_Tca_Field
+final class tx_oop_Tca_Field_Input_Exception extends tx_oop_Core_Exception_Base
 {
     /**
-     * The type of the field
+     * Error codes for the exceptions
      */
-    protected $_fieldType = 'input';
-    
-    /**
-     * Adds an eval rule to the field
-     * 
-     * @param   string  The rule type (required , trim, date, datetime, time, timesec, year, int, upper, lower, alpha, num, alphanum, alphanum_x, nospace, md5, is_in, password, double2, unique, uniqueInPid, tx_*)
-     */
-    public function addEval( $rule )
-    {
-        if( !isset( $this->_config[ 'eval' ] ) ) {
-            
-            $this->_config[ 'eval' ] = '';
-            
-        }
-        
-        if(    $rule === 'required'
-            || $rule === 'trim'
-            || $rule === 'date'
-            || $rule === 'datetime'
-            || $rule === 'time'
-            || $rule === 'timesec'
-            || $rule === 'year'
-            || $rule === 'int'
-            || $rule === 'upper'
-            || $rule === 'lower'
-            || $rule === 'alpha'
-            || $rule === 'num'
-            || $rule === 'alphanum'
-            || $rule === 'alphanum_x'
-            || $rule === 'nospace'
-            || $rule === 'md5'
-            || $rule === 'is_in'
-            || $rule === 'password'
-            || $rule === 'double2'
-            || $rule === 'unique'
-            || $rule === 'uniqueInPid'
-            || substr( $rule, 0, 3 ) === 'tx_'
-        ) {
-            
-            $this->_config[ 'eval' ] = ( strlen( $this->_config[ 'eval' ] ) ) ? ',' . $rule : $rule;
-            
-        } else {
-            
-            throw new tx_oop_Tca_Field_Input_Exception(
-                'The \'\' eval rule is not a valid eval rule',
-                tx_oop_Tca_Field_Input_Exception::EXCEPTION_INVALID_EVAL
-            );
-        }
-    }
-    
-    /**
-     * 
-     */
-    public function setRange( $lower, $upper )
-    {
-        $this->_config[ 'range' ] = array(
-            'upper' => $upper,
-            'lower' => $lower
-        );
-    }
+    const EXCEPTION_INVALID_EVAL = 0x01;
 }
