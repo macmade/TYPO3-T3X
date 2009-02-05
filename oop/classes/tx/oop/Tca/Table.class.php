@@ -549,7 +549,7 @@ final class tx_oop_Tca_Table
         
         // No such field
         throw new tx_oop_Tca_Table_Exception(
-            'The requested field does not exist (' . $ame . '). You should first add it with the ' . __CLASS__ . '::addField() method.',
+            'The requested field does not exist (' . $name . '). You should first add it with the ' . __CLASS__ . '::addField() method.',
             tx_oop_Tca_Table_Exception::EXCEPTION_NO_FIELD
         );
     }

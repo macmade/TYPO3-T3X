@@ -50,10 +50,10 @@ class tx_oop_Tca_Field_Group extends tx_oop_Tca_Field
         $this->_config[ 'internal_type' ] = 'file';
         $this->_config[ 'allowed' ]       = $allowed;
         $this->_config[ 'uploadfolder' ]  = $this->_uploadDirectory;
-        $this->_config[ 'show_thumbs ' ]  = true;
-        $this->_config[ 'maxitems ' ]     = $maxItems;
-        $this->_config[ 'minitems ' ]     = $minItems;
-        $this->_config[ 'size ' ]         = ( $maxItems > 1 ) ? 5 : 1;
+        $this->_config[ 'show_thumbs' ]  = true;
+        $this->_config[ 'maxitems' ]     = $maxItems;
+        $this->_config[ 'minitems' ]     = $minItems;
+        $this->_config[ 'size' ]         = ( $maxItems > 1 ) ? 5 : 1;
     }
     
     /**
@@ -63,9 +63,9 @@ class tx_oop_Tca_Field_Group extends tx_oop_Tca_Field
     {
         $this->_config[ 'internal_type' ] = 'db';
         $this->_config[ 'allowed' ]       = $allowed;
-        $this->_config[ 'maxitems ' ]     = $maxItems;
-        $this->_config[ 'minitems ' ]     = $minItems;
-        $this->_config[ 'size ' ]         = ( $maxItems > 1 ) ? 5 : 1;
+        $this->_config[ 'maxitems' ]     = $maxItems;
+        $this->_config[ 'minitems' ]     = $minItems;
+        $this->_config[ 'size' ]         = ( $maxItems > 1 ) ? 5 : 1;
     }
     
     /**
@@ -75,8 +75,8 @@ class tx_oop_Tca_Field_Group extends tx_oop_Tca_Field
     {
         $this->_config[ 'internal_type' ] = 'folder';
         $this->_config[ 'allowed' ]       = $allowed;
-        $this->_config[ 'maxitems ' ]     = $maxItems;
-        $this->_config[ 'minitems ' ]     = $minItems;
-        $this->_config[ 'size ' ]         = ( $maxItems > 1 ) ? 5 : 1;
+        $this->_config[ 'maxitems' ]     = $maxItems;
+        $this->_config[ 'minitems' ]     = $minItems;
+        $this->_config[ 'size' ]         = ( $maxItems > 1 ) ? 5 : 1;
     }
 }
