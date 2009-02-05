@@ -56,3 +56,23 @@ require_once(
 
 // Registers an SPL autoload method to use to load the classes form this package
 spl_autoload_register( array( 'tx_oop_Core_ClassManager', 'autoLoad' ) );
+
+// Registers an SPL autoload method to use to load the classes form TYPO3 (t3lib or tslib)
+spl_autoload_register( array( 'tx_oop_Typo3_AutoLoad', 'autoLoad' ) );
+
+// Checks for the extension configuration
+if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
+    
+    // Gets the extension configuration
+    $OOP_EXT_CONF = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] );
+    
+    // Checks if the ouput from the XHTML classes must be formatted
+    if( isset( $OOP_EXT_CONF[ 'htmlFormat' ] ) ) {
+        
+        // Sets the HTML formatting option
+        tx_oop_Xhtml_Tag::useFormattedOutput( ( boolean )$OOP_EXT_CONF[ 'htmlFormat' ] );
+    }
+    
+    // Cleans up global variables
+    unset( $OOP_EXT_CONF );
+}

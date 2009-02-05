@@ -1,2 +1,5 @@
-# cat=basic/enable/01; type=boolean; label=Doxygen: Adds a toolbar menu item in the TYPO3 backend with the Doxygen documentation of the OOP framework.
+# cat=basic/enable/02; type=boolean; label=HTML formatting: If set, the output of the XHTML classes from the OOP framework will be correctly indented.
+htmlFormat = 1
+
+# cat=basic/enable/03; type=boolean; label=Doxygen: If set, adds a toolbar menu item in the TYPO3 backend with the Doxygen documentation of the OOP framework.
 doxygen = 1
