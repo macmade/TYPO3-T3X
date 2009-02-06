@@ -84,12 +84,17 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * A reference to the client informations array
      */
-    protected static $client    = array();
+    protected static $_client   = array();
     
     /**
      * A reference to the TYPO3 configuration variables array
      */
     protected static $_t3Conf   = array();
+    
+    /**
+     * 
+     */
+    private $_templateContent   = NULL;
     
     /**
      * 
@@ -122,6 +127,16 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private $_uploadDirectory   = '';
     
     /**
+     * 
+     */
+    protected $_time            = 0;
+    
+    /**
+     * 
+     */
+    protected $_url             = '';
+    
+    /**
      * The class name (needed by tslib_piBase)
      */
     public $prefixId            = '';
@@ -136,6 +151,9 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     public $extKey              = '';
     
+    /**
+     * 
+     */
     public $conf                = array();
     
     /**
@@ -171,6 +189,10 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) . '/' )
         );
         
+        $this->_url = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
+        
+        $this->_time = time();
+        
         $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_pluginNumber . '.xml' );
         
         $this->_content = new tx_oop_Xhtml_Tag( 'div' );
@@ -187,9 +209,63 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         self::$_t3Lang    = $GLOBALS[ 'LANG' ];
         self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
         self::$_tca       = $GLOBALS[ 'TCA' ];
-        self::$client     = $GLOBALS[ 'CLIENT' ];
+        self::$_client    = $GLOBALS[ 'CLIENT' ];
         self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
         self::$_hasStatic = true;
+    }
+    
+    /**
+     * Loads a template file.
+     * 
+     * This function reads a template file and store it as a
+     * C-Object.
+     * 
+     * @param   string  The path of the template file to load
+     * @return  NULL
+     */
+    protected function _initTemplate( $templateFilePath )
+    {
+        // Loads and stores the template file
+        $this->_templateContent = $this->cObj->fileResource( $templateFilePath );
+    }
+    
+    /**
+     * Renders a template section.
+     * 
+     * This function analyzes the template C-Object, previously set by
+     * the _initTemplate() method and substitute the specified section with
+     * the specified subsections.
+     * 
+     * @param   array                           The markers array
+     * @param   string                          The name of the section to substitute
+     * @return  string                          The processed template section
+     * @throws  tx_oop_Plugin_Base_Exception    If the template is not loaded
+     */
+    protected function _renderTemplate( array $templateMarkers, $templateSection )
+    {
+        // Checks if the template is loaded
+        if( !$this->_templateContent ) {
+            
+            // The template object is not loaded
+            throw new tx_oop_Plugin_Base_Exception(
+                'The template object does not seem to be loaded. Please load it with the ' . __CLASS__ . '::_initTemplate() method first.',
+                tx_oop_Plugin_Base_Exception::EXCEPTION_TEMPLATE_NOT_LOADED
+            );
+        }
+            
+        // Gets the template subparts
+        $subpart = $this->cObj->getSubpart(
+            $this->_templateContent,
+            $templateSection
+        );
+        
+        // Returns the substituted section
+        return $this->cObj->substituteMarkerArrayCached(
+            $subpart,
+            array(),
+            $templateMarkers,
+            array()
+        );
     }
     
     /**
@@ -197,8 +273,19 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     public function main( $content, $conf )
     {
+        // Stores the TypoScript configuration
         $this->conf = $conf;
+        
+        // Sets the default plugin variables
+        $this->pi_setPiVarDefaults();
+        
+        // Initialize the flexform configuration of the plugin
+        $this->pi_initPIflexForm();
+        
+        // Creates the plugin content (from the child class)
         $this->_getPluginContent( $this->_content );
+        
+        // Returns the plugin content
         return ( string )$this->_content;
     }
 }
