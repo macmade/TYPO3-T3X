@@ -233,6 +233,102 @@ final class tx_oop_Typo3_Core_Engine
     /**
      * 
      */
+    public function copy( $table, $id, $value )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'move' => $value
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
+    public function move( $table, $id, $value )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'move' => $value
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
+    public function delete( $table, $id )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'delete' => 1
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
+    public function unDelete( $table, $id )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'undelete' => 1
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
+    public function localize( $table, $id, $value )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'localize' => $value
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
+    public function version( $table, $id, array $value )
+    {
+        $cmd = array(
+            $table => array(
+                $id => array(
+                    'version' => $value
+                )
+            )
+        );
+        
+        $this->processCommand( $cmd );
+    }
+    
+    /**
+     * 
+     */
     public function processData( array $data )
     {
         $this->_tce->start( $data, array() );
