@@ -141,6 +141,8 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     public $extKey              = '';
     
+    public $conf                = array();
+    
     /**
      * 
      */
@@ -199,8 +201,10 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * 
      */
-    public function main()
+    public function main( $content, $conf )
     {
+        $this->conf = $conf;
+        $this->_getPluginContent( $this->_content );
         return ( string )$this->_content;
     }
 }
