@@ -379,7 +379,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $js                 = new tx_oop_Xhtml_Tag( 'script' );
         $js[ 'type' ]       = 'text/javascript';
         $js[ 'charset' ]    = 'utf-8';
-        $js[ 'src' ]        = $this->_backPath . $this->_oopRelativePath . $path;
+        $js[ 'src' ]        = $this->_backPath . self::$_oopRelativePath . $path;
         
         $this->doc->JScode .= self::$_str->NL . $js;
     }
