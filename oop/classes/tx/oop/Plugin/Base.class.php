@@ -27,7 +27,7 @@
 // DEBUG ONLY - Sets the error reporting level to the highest possible value
 #error_reporting( E_ALL | E_STRICT );
 
-// Includes the TYPO3 module classe
+// Includes the TYPO3 plugin base classe
 require_once( PATH_tslib . 'class.tslib_pibase.php' );
 
 /**
@@ -102,7 +102,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     protected $_lang            = NULL;
     
     /**
-     * A reflection object for the backend module
+     * A reflection object for the frontend plugin
      */
     private $_reflection        = NULL;
     
@@ -112,7 +112,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private $_content           = NULL;
     
     /**
-     * The module number
+     * The plugin number
      */
     private $_pluginNumber      = 0;
     
