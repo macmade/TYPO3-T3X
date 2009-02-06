@@ -35,7 +35,7 @@
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_Module_Data
+final class tx_oop_Module_Data implements ArrayAccess, Iterator
 {
     /**
      * 
@@ -65,6 +65,11 @@ final class tx_oop_Module_Data
     /**
      * 
      */
+    private $_iteratorIndex      = 0;
+    
+    /**
+     * 
+     */
     private function __construct( $modName )
     {
         $this->_instanceName = $modName;
@@ -82,6 +87,14 @@ final class tx_oop_Module_Data
     public function __destruct()
     {
         self::$_beUser->pushModuleData( $this->_instanceName, $this->_data );
+    }
+    
+    /**
+     * 
+     */
+    public function __toString()
+    {
+        return serialize( $this->_data );
     }
     
     /**
@@ -114,6 +127,79 @@ final class tx_oop_Module_Data
     public function __unset( $name )
     {
         unset( $this->_data[ $name ] );
+    }
+    
+    /**
+     * 
+     */
+    public function offsetGet( $name )
+    {
+        return ( isset( $this->_data[ $name ] ) ) ? $this->_data[ $name ] : false;
+    }
+    
+    /**
+     * 
+     */
+    public function offsetSet( $name, $value )
+    {
+        $this->_data[ $name ] = $value;
+    }
+    
+    /**
+     * 
+     */
+    public function offsetExists( $name )
+    {
+        return isset( $this->_data[ $name ] );
+    }
+    
+    /**
+     * 
+     */
+    public function offsetUnset( $name )
+    {
+        unset( $this->_data[ $name ] );
+    }
+    
+    /**
+     * 
+     */
+    public function key()
+    {
+        return key( $this->_data );
+    }
+    
+    /**
+     * 
+     */
+    public function current()
+    {
+        return current( $this->_data );
+    }
+    
+    /**
+     * 
+     */
+    public function next()
+    {
+        next( $this->_data );
+        $this->_iteratorIndex++;
+    }
+    
+    /**
+     * 
+     */
+    public function valid()
+    {
+        return ( $this->_iteratorIndex < count( $this->_data ) ) ? true : false;
+    }
+    
+    /**
+     * 
+     */
+    public function rewind()
+    {
+        reset( $this->_data );
     }
     
     /**
