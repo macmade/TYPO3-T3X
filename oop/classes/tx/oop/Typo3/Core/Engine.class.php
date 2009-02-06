@@ -229,5 +229,23 @@ final class tx_oop_Typo3_Core_Engine
         // Returns the unique instance
         return self::$_instance;
     }
+    
+    /**
+     * 
+     */
+    public function processData( array $data )
+    {
+        $this->_tce->start( $data, array() );
+        $this->_tce->process_datamap();
+    }
+    
+    /**
+     * 
+     */
+    public function processCommand( array $cmd )
+    {
+        $this->_tce->start( array(), $cmd );
+        $this->_tce->process_cmdmap();
+    }
 }
 
