@@ -52,114 +52,173 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private static $_hasStatic  = false;
     
     /**
+     * 
+     */
+    private static $_oopPath                 = '';
+    
+    /**
+     * 
+     */
+    private static $_oopRelativePath         = '';
+    
+    /**
+     * 
+     */
+    private static $_oopSiteRelativePath     = '';
+    
+    /**
+     * Whether the jQuery JS framework has been included
+     */
+    private static $_hasJQuery               = false;
+    
+    /**
+     * Whether the jQuery UI framework has been included
+     */
+    private static $_hasJQueryUi             = false;
+    
+    /**
+     * Whether the Mootools JS framework has been included
+     */
+    private static $_hasMootools             = false;
+    
+    /**
+     * Whether the Prototype JS framework has been included
+     */
+    private static $_hasPrototype            = false;
+    
+    /**
+     * Whether the Scriptaculous JS framework has been included
+     */
+    private static $_hasScriptaculous        = false;
+    
+    /**
+     * The webtoolkit scripts that have been included
+     */
+    private static $_webtoolkitLoadedScripts = array();
+    
+    /**
+     * The jQuery plugins that have been included
+     */
+    private static $_jQueryLoadedPlugins     = array();
+    
+    /**
+     * The dependancies for the jQuery plugins
+     */
+    private static $_jQueryPluginsDeps       = array(
+        'accordion' => array(
+            'dimensions'
+        )
+    );
+    
+    /**
      * The instance of the database object (tx_oop_Database_Layer)
      */
-    protected static $_db       = NULL;
+    protected static $_db                    = NULL;
     
     /**
      * The instance of the string utilities class (tx_oop_String_Utils)
      */
-    protected static $_str      = NULL;
+    protected static $_str                   = NULL;
     
     /**
      * A reference to the t3lib_DB object
      */
-    protected static $_t3Db     = NULL;
+    protected static $_t3Db                  = NULL;
     
     /**
      * 
      */
-    protected static $_t3Lang   = NULL;
+    protected static $_t3Lang                = NULL;
     
     /**
      * A reference to the TCA description array
      */
-    protected static $_tcaDescr = array();
+    protected static $_tcaDescr              = array();
     
     /**
      * A reference to the TCA array
      */
-    protected static $_tca      = array();
+    protected static $_tca                   = array();
     
     /**
      * A reference to the client informations array
      */
-    protected static $_client   = array();
+    protected static $_client                = array();
     
     /**
      * A reference to the TYPO3 configuration variables array
      */
-    protected static $_t3Conf   = array();
+    protected static $_t3Conf                = array();
     
     /**
      * 
      */
-    private $_templateContent   = NULL;
+    private $_templateContent                = NULL;
     
     /**
      * 
      */
-    private $_cssPrefix         = '';
+    private $_cssPrefix                      = '';
     
     /**
      * 
      */
-    protected $_lang            = NULL;
+    protected $_lang                         = NULL;
     
     /**
      * A reflection object for the frontend plugin
      */
-    private $_reflection        = NULL;
+    private $_reflection                     = NULL;
     
     /**
      * 
      */
-    private $_content           = NULL;
+    private $_content                        = NULL;
     
     /**
      * The plugin number
      */
-    private $_pluginNumber      = 0;
+    private $_pluginNumber                   = 0;
     
     /**
      * 
      */
-    private $_extDir            = '';
+    private $_extDir                         = '';
     
     /**
      * 
      */
-    private $_uploadDirectory   = '';
+    private $_uploadDirectory                = '';
     
     /**
      * 
      */
-    protected $_time            = 0;
+    protected $_time                         = 0;
     
     /**
      * 
      */
-    protected $_url             = '';
+    protected $_url                          = '';
     
     /**
      * The class name (needed by tslib_piBase)
      */
-    public $prefixId            = '';
+    public $prefixId                         = '';
     
     /**
      * The script path, relative to the extension(needed by tslib_piBase)
      */
-    public $scriptRelPath       = '';
+    public $scriptRelPath                    = '';
     
     /**
      * The extension key (needed by tslib_piBase)
      */
-    public $extKey              = '';
+    public $extKey                           = '';
     
     /**
      * 
      */
-    public $conf                = array();
+    public $conf                             = array();
     
     /**
      * 
@@ -211,15 +270,31 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     private static function _setStaticVars()
     {
-        self::$_db        = tx_oop_Database_Layer::getInstance();
-        self::$_str       = tx_oop_String_Utils::getInstance();
-        self::$_t3Db      = $GLOBALS[ 'TYPO3_DB' ];
-        self::$_t3Lang    = $GLOBALS[ 'LANG' ];
-        self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
-        self::$_tca       = $GLOBALS[ 'TCA' ];
-        self::$_client    = $GLOBALS[ 'CLIENT' ];
-        self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
-        self::$_hasStatic = true;
+        self::$_db                  = tx_oop_Database_Layer::getInstance();
+        self::$_str                 = tx_oop_String_Utils::getInstance();
+        self::$_t3Db                = $GLOBALS[ 'TYPO3_DB' ];
+        self::$_t3Lang              = $GLOBALS[ 'LANG' ];
+        self::$_tcaDescr            = $GLOBALS[ 'TCA_DESCR' ];
+        self::$_tca                 = $GLOBALS[ 'TCA' ];
+        self::$_client              = $GLOBALS[ 'CLIENT' ];
+        self::$_t3Conf              = $GLOBALS[ 'TYPO3_CONF_VARS' ];
+        self::$_oopPath             = t3lib_extMgm::extPath( 'oop' );
+        self::$_oopRelativePath     = t3lib_extMgm::extRelPath( 'oop' );
+        self::$_oopSiteRelativePath = t3lib_extMgm::siteRelPath( 'oop' );
+        self::$_hasStatic           = true;
+    }
+    
+    /**
+     * 
+     */
+    private function _addJs( $path )
+    {
+        $js                 = new tx_oop_Xhtml_Tag( 'script' );
+        $js[ 'type' ]       = 'text/javascript';
+        $js[ 'charset' ]    = 'utf-8';
+        $js[ 'src' ]        = self::$_oopSiteRelativePath . $path;
+        
+        $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_oop_' . $path ] = ( string )$js;
     }
     
     /**
@@ -400,6 +475,162 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         }
         
         return $content;
+    }
+    
+    /**
+     * Includes the jQuery JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeJQuery()
+    {
+        // Only includes the script once
+        if( self::$_hasJQuery === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery/jquery.js' );
+            
+            // Script has been included
+            self::$_hasJQuery = true;
+        }
+    }
+    
+    /**
+     * Includes the jQuery UI JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeJQueryUi()
+    {
+        // Only includes the script once
+        if( self::$_hasJQueryUi === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery-ui/jquery-ui.js' );
+            
+            // Script has been included
+            self::$_hasJQueryUi = true;
+        }
+    }
+    
+    /**
+     * Includes the Mootools JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includeMootools()
+    {
+        // Only includes the script once
+        if( self::$_hasMootools === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'mootools/mootools.js' );
+            
+            // Script has been included
+            self::$_hasMootools = true;
+        }
+    }
+    
+    /**
+     * Includes the Prototype JS framework
+     * 
+     * @return  NULL
+     */
+    protected function _includePrototype()
+    {
+        // Only includes the script once
+        if( self::$_hasPrototype === false ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'prototype/prototype.js' );
+            
+            // Script has been included
+            self::$_hasPrototype = true;
+        }
+    }
+    
+    /**
+     * Includes the Scriptaculous JS framework
+     * 
+     * @return  NULL
+     * @see     _includePrototype
+     */
+    protected function _includeScriptaculous()
+    {
+        // Only includes the script once
+        if( self::$_hasScriptaculous === false ) {
+            
+            // Includes the Prototype JS framework
+            $this->_includePrototype();
+            
+            // Adds the JS script
+            $this->_addJs( 'scriptaculous/scriptaculous.js' );
+            
+            // Script has been included
+            self::$_hasScriptaculous = true;
+        }
+    }
+    
+    /**
+     * Includes a Webtoolkit script
+     * 
+     * Available scripts are:
+     * - base64
+     * - crc32
+     * - md5
+     * - sha1
+     * - sha256
+     * - url
+     * - utf8
+     * 
+     * @param   string  The name of the script to include
+     * @return  NULL
+     */
+    protected function _includeWebtoolkitScript( $script )
+    {
+        // Only includes the script once
+        if( !isset( self::$_webtoolkitLoadedScripts[ $script ] ) ) {
+            
+            // Adds the JS script
+            $this->_addJs( 'webtoolkit/' . $script . '.js' );
+            
+            // Script has been included
+            self::$_webtoolkitLoadedScripts[ $script ] = true;
+        }
+    }
+    
+    /**
+     * Includes a jQuery plugin
+     * 
+     * Available plugins are:
+     * - accordion
+     * - dimensions
+     * 
+     * @param   string  The name of the plugin to include
+     * @return  NULL
+     */
+    protected function _includeJQueryPlugin( $plugin )
+    {
+        // Only includes the script once
+        if( !isset( self::$_jQueryLoadedPlugins[ $plugin ] ) ) {
+            
+            // Checks for dependancies
+            if( isset( self::$_jQueryPluginsDeps[ $plugin ] ) ) {
+                
+                // Process each dependancy
+                foreach( self::$_jQueryPluginsDeps[ $plugin ] as $deps ) {
+                    
+                    // Includes the plugin
+                    $this->_includeJQueryPlugin( $deps );
+                }
+            }
+            
+            // Adds the JS script
+            $this->_addJs( 'jquery/jquery' . $plugin . '.js' );
+            
+            // Script has been included
+            self::$_jQueryLoadedPlugins[ $plugin ] = true;
+        }
     }
     
     /**
