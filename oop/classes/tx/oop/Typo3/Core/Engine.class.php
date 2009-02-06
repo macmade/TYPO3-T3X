@@ -329,6 +329,36 @@ final class tx_oop_Typo3_Core_Engine
     /**
      * 
      */
+    public function new( $table, array $fields )
+    {
+        $id = 'NEW' . uniqid();
+        
+        $data = array(
+            $table => array(
+                $id => $fields
+            )
+        );
+        
+        $this->processData( $data );
+    }
+    
+    /**
+     * 
+     */
+    public function update( $table, $id, array $fields )
+    {
+        $data = array(
+            $table => array(
+                $id => $fields
+            )
+        );
+        
+        $this->processData( $data );
+    }
+    
+    /**
+     * 
+     */
     public function processData( array $data )
     {
         $this->_tce->start( $data, array() );
