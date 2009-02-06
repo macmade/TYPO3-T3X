@@ -286,28 +286,34 @@ final class tx_oop_Database_Layer
     /**
      * 
      */
-    public function getRecord( $table, $id, $enableFields = true )
+    public function enableFields( $table )
     {
-        // WHERE clause for the enable fields
-        $enableFieldsAddWhere = '';
-        
         // Checks the TYPO3 mode and if we have to care about the enable fields
-        if( $enableFields && TYPO3_MODE === 'BE' ) {
+        if( TYPO3_MODE === 'BE' ) {
             
             // Gets the enable fields WHERE clause
-            $enableFieldsAddWhere = t3lib_BEfunc::BEenableFields( $table );
+            return t3lib_BEfunc::BEenableFields( $table );
             
-        } elseif( $enableFields && TYPO3_MODE === 'BE' ) {
+        } elseif( TYPO3_MODE === 'FE' ) {
             
             // Should we show the hidden records (meaning we have a BE session running)
             $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
             
             // Gets the enable fields WHERE clause
-            $enableFieldsAddWhere = $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
+            return $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
                 $table,
                 $showHidden
             );
         }
+    }
+    
+    /**
+     * 
+     */
+    public function getRecord( $table, $id, $enableFields = true )
+    {
+        // WHERE clause for the enable fields
+        $enableFieldsAddWhere = ( $enableFields ) ? $this->enableFields( $table ) : '';
         
         // Primary key
         $pKey   = 'uid';
@@ -350,25 +356,7 @@ final class tx_oop_Database_Layer
         }
         
         // WHERE clause for the enable fields
-        $enableFieldsAddWhere = '';
-        
-        // Checks the TYPO3 mode and if we have to care about the enable fields
-        if( $enableFields && TYPO3_MODE === 'BE' ) {
-            
-            // Gets the enable fields WHERE clause
-            $enableFieldsAddWhere = t3lib_BEfunc::BEenableFields( $table );
-            
-        } elseif( $enableFields && TYPO3_MODE === 'BE' ) {
-            
-            // Should we show the hidden records (meaning we have a BE session running)
-            $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
-            
-            // Gets the enable fields WHERE clause
-            $enableFieldsAddWhere = $GLOBALS[ 'TSFE' ]->sys_page->enableFields(
-                $table,
-                $showHidden
-            );
-        }
+        $enableFieldsAddWhere = ( $enableFields ) ? $this->enableFields( $table ) : '';
         
         // Primary key
         $pKey   = 'uid';
@@ -612,4 +600,10 @@ final class tx_oop_Database_Layer
         // Executes the PDO query
         return $this->execute( $params );
     }
+    
+    /**
+     * 
+     */
+    public function getRelatedRecords()
+    {}
 }
