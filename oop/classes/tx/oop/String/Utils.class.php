@@ -50,12 +50,32 @@ final class tx_oop_String_Utils
     /**
      * 
      */
+    private $_asciiName       = array(
+        'NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS',  'TAB',
+        'LF',  'VT',  'FF',  'CR',  'SO',  'SI',  'DLE', 'DC1', 'DC2', 'DC3',
+        'DC4', 'NAK', 'SYN', 'ETB', 'CAN', 'EM',  'SUB', 'ESC', 'FS',  'GS',
+        'RS',  'US',  'SPC'
+    );
+    
+    /**
+     * 
+     */
     private function __construct()
     {
         for( $i = 0; $i < 33; $i++ ) {
             
-            $this->_asciiTable = chr( $i );
+            $this->_asciiTable[ $this->_asciiName[ $i ] ] = chr( $i );
         }
+        
+        $this->_asciiTable[ 'NL' ] = $this->_asciiTable[ 'LF' ];
+    }
+    
+    /**
+     * 
+     */
+    public function __get( $name )
+    {
+        return ( $this->_asciiTable[ $name ] ) ? $this->_asciiTable[ $name ] : '';
     }
     
     /**
