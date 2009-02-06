@@ -329,7 +329,7 @@ final class tx_oop_Typo3_Core_Engine
     /**
      * 
      */
-    public function new( $table, array $fields )
+    public function newRecord( $table, array $fields )
     {
         $id = 'NEW' . uniqid();
         
@@ -345,7 +345,7 @@ final class tx_oop_Typo3_Core_Engine
     /**
      * 
      */
-    public function update( $table, $id, array $fields )
+    public function updateRecord( $table, $id, array $fields )
     {
         $data = array(
             $table => array(
@@ -354,6 +354,38 @@ final class tx_oop_Typo3_Core_Engine
         );
         
         $this->processData( $data );
+    }
+    
+    /**
+     * 
+     */
+    public function clearCache( $id )
+    {
+        $this->_tce->clear_cacheCmd( $id );
+    }
+    
+    /**
+     * 
+     */
+    public function clearAllCache()
+    {
+        $this->_tce->clear_cacheCmd( 'all' );
+    }
+    
+    /**
+     * 
+     */
+    public function clearPagesCache()
+    {
+        $this->_tce->clear_cacheCmd( 'pages' );
+    }
+    
+    /**
+     * 
+     */
+    public function clearTempCache()
+    {
+        $this->_tce->clear_cacheCmd( 'temp_CACHED' );
     }
     
     /**
