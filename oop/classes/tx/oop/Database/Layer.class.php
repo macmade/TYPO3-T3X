@@ -235,7 +235,7 @@ final class tx_oop_Database_Layer
             
             case 5:
                 
-                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ] , $args[ 4 ] );
+                return $this->_pdo->$name( $args[ 0 ], $args[ 1 ], $args[ 2 ], $args[ 3 ], $args[ 4 ] );
                 break;
             
             default:
