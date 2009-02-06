@@ -461,7 +461,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             $tsConf[ 'imageLinkWrap.' ][ 'wrap' ]                  = '<a href="javascript:self.close();">|</a>';
             $tsConf[ 'imageLinkWrap.' ][ 'width' ]                 = $newWindowWidth . 'm';
             $tsConf[ 'imageLinkWrap.' ][ 'JSwindow' ]              = 1;
-            $tsConf[ 'imageLinkWrap.' ][ 'JSwindow.' ]             = array;
+            $tsConf[ 'imageLinkWrap.' ][ 'JSwindow.' ]             = array();
             $tsConf[ 'imageLinkWrap.' ][ 'JSwindow.' ][ 'expand' ] = '20,20';
         }
         
