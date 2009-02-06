@@ -209,6 +209,9 @@ final class tx_oop_Typo3_Utils
         );
     }
     
+    /**
+     * 
+     */
     public static function viewArray( array $array, $return = false )
     {
         $commonStyle          = 'font-family: Verdana, sans-serif; font-size: 10px; color: #898989; ';
