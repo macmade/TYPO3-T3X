@@ -43,4 +43,4 @@ t3lib_extMgm::addStaticFile(
 );
 
 // Cleans up global variables
-unset( $TMP_TCA )
+unset( $TMP_TCA );
