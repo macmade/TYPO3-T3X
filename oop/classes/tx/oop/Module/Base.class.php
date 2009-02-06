@@ -112,6 +112,11 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     protected static $_str       = NULL;
     
     /**
+     * The instance of the TCE helper class (tx_oop_Typo3_Core_Engine)
+     */
+    protected static $_tce       = NULL;
+    
+    /**
      * A reference to the t3lib_DB object
      */
     protected static $_t3Db      = NULL;
@@ -343,6 +348,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     {
         self::$_db        = tx_oop_Database_Layer::getInstance();
         self::$_str       = tx_oop_String_Utils::getInstance();
+        self::$_tce       = tx_oop_Typo3_Core_Engine::getInstance();
         self::$_t3Db      = $GLOBALS[ 'TYPO3_DB' ];
         self::$_t3Lang    = $GLOBALS[ 'LANG' ];
         self::$_beUser    = $GLOBALS[ 'BE_USER' ];
