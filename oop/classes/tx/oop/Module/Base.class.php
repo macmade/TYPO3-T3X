@@ -46,6 +46,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     abstract protected function _getModuleContent( tx_oop_Xhtml_Tag $content );
     
+    /**
+     * The method used to get the module menu items, which has to be declared
+     * in the child classes
+     */
     abstract protected function _setMenuItems( array &$items );
     
     /**
@@ -98,9 +102,14 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     );
     
     /**
-     * The instance of the database object (tx_oop_Database_Layer)
+     * The instance of the database class (tx_oop_Database_Layer)
      */
     protected static $_db        = NULL;
+    
+    /**
+     * The instance of the string utilities class (tx_oop_String_Utils)
+     */
+    protected static $_str       = NULL;
     
     /**
      * A reference to the t3lib_DB object
@@ -136,16 +145,6 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      * A reference to the TYPO3 configuration variables array
      */
     protected static $_t3Conf    = array();
-    
-    /**
-     * The ASCII new line character
-     */
-    protected static $_NL        = '';
-    
-    /**
-     * The ASCII tabulation character
-     */
-    protected static $_TAB       = '';
     
     /**
      * 
@@ -261,7 +260,6 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     public function __construct()
     {
-        
         if( !self::$_hasStatic ) {
             
             self::_setStaticVars();
@@ -316,12 +314,20 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $content                = '';
         $markers                = array();
         $markers[ 'CONTENT' ]   = ( string )$this->_content;
-        $markers[ 'FUNC_MENU' ] = t3lib_BEfunc::getFuncMenu(
-            $this->id,
-            'SET[function]',
-            $this->MOD_SETTINGS[ 'function' ],
-            $this->MOD_MENU[ 'function' ]
-        );
+        
+        if( count( $this->MOD_MENU[ 'function' ] ) ) {
+            
+            $markers[ 'FUNC_MENU' ] = t3lib_BEfunc::getFuncMenu(
+                $this->id,
+                'SET[function]',
+                $this->MOD_SETTINGS[ 'function' ],
+                $this->MOD_MENU[ 'function' ]
+            );
+            
+        } else {
+            
+            $markers[ 'FUNC_MENU' ] = '';
+        }
         
         $content                = $this->doc->startPage( $this->_lang->title )
                                 . $this->doc->moduleBody( $this->_pageInfos, $this->_buttons, $markers )
@@ -335,17 +341,16 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     private static function _setStaticVars()
     {
-        self::$_db        =  tx_oop_Database_Layer::getInstance();
-        self::$_t3Db      =  $GLOBALS[ 'TYPO3_DB' ];
-        self::$_t3Lang    =  $GLOBALS[ 'LANG' ];
-        self::$_beUser    =  $GLOBALS[ 'BE_USER' ];
-        self::$_tcaDescr  =& $GLOBALS[ 'TCA_DESCR' ];
-        self::$_tca       =& $GLOBALS[ 'TCA' ];
-        self::$client     =& $GLOBALS[ 'CLIENT' ];
-        self::$_t3Conf    =& $GLOBALS[ 'TYPO3_CONF_VARS' ];
-        self::$_NL        =  chr( 10 );
-        self::$_TAB       =  chr( 9 );
-        self::$_hasStatic =  true;
+        self::$_db        = tx_oop_Database_Layer::getInstance();
+        self::$_str       = tx_oop_String_Utils::getInstance();
+        self::$_t3Db      = $GLOBALS[ 'TYPO3_DB' ];
+        self::$_t3Lang    = $GLOBALS[ 'LANG' ];
+        self::$_beUser    = $GLOBALS[ 'BE_USER' ];
+        self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
+        self::$_tca       = $GLOBALS[ 'TCA' ];
+        self::$client     = $GLOBALS[ 'CLIENT' ];
+        self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
+        self::$_hasStatic = true;
     }
     
     /**
@@ -358,7 +363,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $js[ 'charset' ]    = 'utf-8';
         $js[ 'src' ]        = $this->_backPath . $this->_extRelativePath . $path;
         
-        $this->doc->JScode .= self::$_NL . $js;
+        $this->doc->JScode .= self::$_str->NL . $js;
     }
     
     /**
@@ -1031,20 +1036,20 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             $jsCode[ 'type' ]      = 'text/javascript';
             $jsCode[ 'charset' ]   = 'utf-8';
             $jsCodeData            = '// <![CDATA['
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . 'var script_ended = 0;'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . 'function jumpToUrl( URL ) {'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '    document.location = URL;'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '}'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '// ]]>';
             
             $jsCode->addTextData( $jsCodeData );
             
-            $this->doc->JScode     = ( string )$jsCode . self::$_NL . $contextMenuParts[ 0 ];
+            $this->doc->JScode     = ( string )$jsCode . self::$_str->NL . $contextMenuParts[ 0 ];
             
             $postCode              = new tx_oop_Xhtml_Tag( 'script' );
             $postCode[ 'type' ]    = 'text/javascript';
@@ -1052,20 +1057,20 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
             
             // Adds some JavaScript code
             $postCodeData          = '// <![CDATA['
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . 'script_ended = 1;'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . 'if( top.fsMod ) {'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '    top.fsMod.recentIds[ \'' . $this->_moduleSection . '\' ] = 0;'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '}'
-                                   . self::$_NL
+                                   . self::$_str->NL
                                    . '// ]]>';
             
             $postCode->addTextData( $jsCodeData );
             
-            $this->doc->postCode   = ( string )$postCode . self::$_NL . $contextMenuParts[ 2 ];
+            $this->doc->postCode   = ( string )$postCode . self::$_str->NL . $contextMenuParts[ 2 ];
             
             $this->_content->comment( 'Start of module content' );
             

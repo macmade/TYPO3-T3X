@@ -57,6 +57,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     protected static $_db       = NULL;
     
     /**
+     * The instance of the string utilities class (tx_oop_String_Utils)
+     */
+    protected static $_str       = NULL;
+    
+    /**
      * A reference to the t3lib_DB object
      */
     protected static $_t3Db     = NULL;
@@ -85,16 +90,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      * A reference to the TYPO3 configuration variables array
      */
     protected static $_t3Conf   = array();
-    
-    /**
-     * The ASCII new line character
-     */
-    protected static $_NL       = '';
-    
-    /**
-     * The ASCII tabulation character
-     */
-    protected static $_TAB      = '';
     
     /**
      * 
@@ -186,16 +181,15 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     private static function _setStaticVars()
     {
-        self::$_db        =  tx_oop_Database_Layer::getInstance();
-        self::$_t3Db      =  $GLOBALS[ 'TYPO3_DB' ];
-        self::$_t3Lang    =  $GLOBALS[ 'LANG' ];
-        self::$_tcaDescr  =& $GLOBALS[ 'TCA_DESCR' ];
-        self::$_tca       =& $GLOBALS[ 'TCA' ];
-        self::$client     =& $GLOBALS[ 'CLIENT' ];
-        self::$_t3Conf    =& $GLOBALS[ 'TYPO3_CONF_VARS' ];
-        self::$_NL        =  chr( 10 );
-        self::$_TAB       =  chr( 9 );
-        self::$_hasStatic =  true;
+        self::$_db        = tx_oop_Database_Layer::getInstance();
+        self::$_str       = tx_oop_String_Utils::getInstance();
+        self::$_t3Db      = $GLOBALS[ 'TYPO3_DB' ];
+        self::$_t3Lang    = $GLOBALS[ 'LANG' ];
+        self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
+        self::$_tca       = $GLOBALS[ 'TCA' ];
+        self::$client     = $GLOBALS[ 'CLIENT' ];
+        self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
+        self::$_hasStatic = true;
     }
     
     /**
