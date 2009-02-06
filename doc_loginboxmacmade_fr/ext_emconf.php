@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "doc_loginboxmacmade_fr"
 #
-# Auto generated 10-10-2006 13:26
+# Auto generated 06-02-2009 16:26
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -33,7 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'CGLcompliance' => '',
 	'CGLcompliance_note' => '',
 	'version' => '0.3.4',
-	'_md5_values_when_last_written' => 'a:3:{s:12:"ext_icon.gif";s:4:"2eda";s:13:"doc/.DS_Store";s:4:"0474";s:14:"doc/manual.sxw";s:4:"e724";}',
+	'_md5_values_when_last_written' => 'a:12:{s:12:"ext_icon.gif";s:4:"2eda";s:12:".svn/entries";s:4:"dd52";s:11:".svn/format";s:4:"7c5a";s:38:".svn/prop-base/ext_emconf.php.svn-base";s:4:"ff5c";s:36:".svn/prop-base/ext_icon.gif.svn-base";s:4:"b683";s:38:".svn/text-base/ext_emconf.php.svn-base";s:4:"999b";s:36:".svn/text-base/ext_icon.gif.svn-base";s:4:"2eda";s:14:"doc/manual.sxw";s:4:"e724";s:16:"doc/.svn/entries";s:4:"394f";s:15:"doc/.svn/format";s:4:"7c5a";s:38:"doc/.svn/prop-base/manual.sxw.svn-base";s:4:"b683";s:38:"doc/.svn/text-base/manual.sxw.svn-base";s:4:"e724";}',
 	'constraints' => array(
 		'depends' => array(
 			'php' => '3.0.0-',
