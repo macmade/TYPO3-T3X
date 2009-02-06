@@ -360,6 +360,49 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     }
     
     /**
+     * Creates a thumbnail
+     * 
+     * @param   string  The file path (relative to the upload directory). May be a comma list of path
+     * @param   int     The thumbnail maximum width
+     * @param   int     The thumbnail maximum height
+     * @param   boolean Wheter to add a link to display the original image in a new window
+     * @param   int     The maximum width of the new window, if the $newWindow is set
+     * @return  string  The thumbnail picture(s)
+     */
+    protected function _createThumbnail( $file, $width = 100, $height = 100, $newWindow = false, $newWindowWidth = 800 )
+    {
+        $tsConf = array(
+            'file.' => array(
+                'maxW' => $width,
+                'maxH' => $height
+            )
+        );
+        
+        if( $newWindow ) {
+            
+            $tsConf[ 'imageLinkWrap' ]                             = 1;
+            $tsConf[ 'imageLinkWrap.' ]                            = array();
+            $tsConf[ 'imageLinkWrap.' ][ 'enable' ]                = 1;
+            $tsConf[ 'imageLinkWrap.' ][ 'wrap' ]                  = '<a href="javascript:self.close();">|</a>';
+            $tsConf[ 'imageLinkWrap.' ][ 'width' ]                 = $newWindowWidth . 'm';
+            $tsConf[ 'imageLinkWrap.' ][ 'JSwindow' ]              = 1;
+            $tsConf[ 'imageLinkWrap.' ][ 'JSwindow.' ]             = array;
+            $tsConf[ 'imageLinkWrap.' ][ 'JSwindow.' ][ 'expand' ] = '20,20';
+        }
+        
+        $paths   = explode( ',', $file );
+        $content = '';
+        
+        foreach( $paths as $path ) {
+            
+            $tsConf[ 'file' ] = $this->_uploadDirectory . $path;
+            $content         .= $this->cObj->IMAGE( $tsConf );
+        }
+        
+        return $content;
+    }
+    
+    /**
      * 
      */
     public function main( $content, $conf )
