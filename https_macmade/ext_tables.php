@@ -38,7 +38,7 @@ t3lib_extMgm::addToAllTCAtypes( 'pages', 'tx_httpsmacmade_enforcemode;;;;1-1-1' 
 // Adds the static TS template
 t3lib_extMgm::addStaticFile(
     $_EXTKEY,
-    'static/pi1/',
+    'pi1/static/',
     'HTTPS Enforcer / macmade.net'
 );
 

@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "https_macmade"
 #
-# Auto generated 14-08-2007 16:50
+# Auto generated 06-02-2009 16:08
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -33,14 +33,14 @@ $EM_CONF[$_EXTKEY] = array(
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '4.2.0-0.0.0',
-			'php' => '5.2.0-0.0.0'
+			'php' => '5.2.0-0.0.0',
 		),
 		'conflicts' => array(
 		),
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:9:{s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"91eb";s:14:"ext_tables.php";s:4:"a081";s:14:"ext_tables.sql";s:4:"27b2";s:16:"locallang_db.xml";s:4:"99ff";s:14:"doc/manual.sxw";s:4:"289e";s:33:"pi1/class.tx_httpsmacmade_pi1.php";s:4:"7ea0";s:24:"pi1/static/constants.txt";s:4:"189a";s:20:"pi1/static/setup.txt";s:4:"03ff";}',
+	'_md5_values_when_last_written' => 'a:9:{s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"ee70";s:14:"ext_tables.php";s:4:"4dc3";s:14:"ext_tables.sql";s:4:"3b48";s:16:"locallang_db.xml";s:4:"e68f";s:14:"doc/manual.sxw";s:4:"0bff";s:33:"pi1/class.tx_httpsmacmade_pi1.php";s:4:"82b8";s:24:"pi1/static/constants.txt";s:4:"f7ff";s:20:"pi1/static/setup.txt";s:4:"ea99";}',
 	'suggests' => array(
 	),
 );
