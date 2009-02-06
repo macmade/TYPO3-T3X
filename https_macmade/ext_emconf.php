@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "https_macmade"
 #
-# Auto generated 06-02-2009 16:09
+# Auto generated 06-02-2009 16:11
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -29,7 +29,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'clearCacheOnLoad' => 1,
 	'lockType' => '',
 	'author_company' => 'macmade.net',
-	'version' => '0.1.0',
+	'version' => '0.2.0',
 	'constraints' => array(
 		'depends' => array(
 			'typo3' => '4.2.0-0.0.0',
