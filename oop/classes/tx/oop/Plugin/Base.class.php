@@ -269,6 +269,74 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     }
     
     /**
+     * Creates a select menu with countries from the 'static_countries' table
+     * 
+     * @param   string              The name of the select
+     * @param   boolean             Wheter to add an empty option at start
+     * @return  tx_oop_Xhtml_Tag    The select menu with the countries
+     */
+    protected function _countrySelect( $name, $emptyOptionAtStart = true )
+    {
+        $select = new tx_oop_Xhtml_Tag( 'select' );
+        $select[ 'name' ] = $this->prefixId . '[' . $name . ']';
+        $select[ 'size' ] = 1;
+        
+        if( $emptyOptionAtStart ) {
+            
+            $empty            = $select->option;
+            $empty[ 'value' ] = '';
+        }
+        
+        // SQL instruction to select the countries
+        $sql = 'SELECT uid,cn_short_en FROM static_countries WHERE uid ORDER BY cn_short_en';
+        
+        // Prepares the PDO query
+        $query = self::$_db->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( array() );
+        
+        // Process each row
+        while( $row = $query->fetchObject() ) {
+            
+            // Adds an option tag
+            $option            = $select->option;
+            $option[ 'value' ] = $row->uid;
+            $option->addTextData( $row->cn_short_en );
+        }
+        
+        // Returns the select box
+        return $select;
+    }
+    
+    /**
+     * Establish a frontend user session
+     * 
+     * @param   array   The FE user row from the database
+     * @return  NULL
+     */
+    protected function _feLogin( $user )
+    {
+        // Ensures the user variable is an array (may be an object with PDO)
+        $user = ( array )$user;
+        
+        // Fills POST variables with login infos
+        $_POST[ 'logintype' ] = 'login';
+        $_POST[ 'user' ]      = $user[ 'username' ];
+        $_POST[ 'pass' ]      = $user[ 'password' ];
+        $_POST[ 'pid' ]       = $user[ 'pid' ];
+        
+        // Initializes the FE user
+        $GLOBALS[ 'TSFE' ]->initFEuser();
+        
+        // Cleans up the POST variables
+        unset( $_POST[ 'logintype' ] );
+        unset( $_POST[ 'user' ] );
+        unset( $_POST[ 'pass' ] );
+        unset( $_POST[ 'pid' ] );
+    }
+    
+    /**
      * 
      */
     public function main( $content, $conf )
