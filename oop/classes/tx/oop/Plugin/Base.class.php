@@ -117,16 +117,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private $_pluginNumber      = 0;
     
     /**
-     * The name of the module (child) class
-     */
-    private $_pluginClass       = '';
-    
-    /**
-     * 
-     */
-    private $_extKey            = '';
-    
-    /**
      * 
      */
     private $_extDir            = '';
@@ -137,11 +127,26 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     private $_uploadDirectory   = '';
     
     /**
+     * The class name (needed by tslib_piBase)
+     */
+    public $prefixId            = '';
+    
+    /**
+     * The script path, relative to the extension(needed by tslib_piBase)
+     */
+    public $scriptRelPath       = '';
+    
+    /**
+     * The extension key (needed by tslib_piBase)
+     */
+    public $extKey              = '';
+    
+    /**
      * 
      */
     public function __construct()
     {
-        $this->_pluginClass = get_class( $this );
+        $this->prefixId = get_class( $this );
         
         $this->_reflection = new ReflectionObject( $this );
         
@@ -150,24 +155,26 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             self::_setStaticVars();
         }
         
-        $this->_pluginNumber  = substr( $this->_pluginClass, -1 );
+        $this->_pluginNumber  = substr( $this->prefixId, -1 );
         
         $extPathInfo = explode( DIRECTORY_SEPARATOR, $this->_reflection->getFileName() );
         
-        array_pop( $extPathInfo );
-        array_pop( $extPathInfo );
+        $pluginFile = array_pop( $extPathInfo );
+        $pluginDir  = array_pop( $extPathInfo );
         
-        $this->_extKey = array_pop( $extPathInfo );
+        $this->scriptRelPath = $pluginDir . '/' . $pluginFile;
         
-        $this->_extDir = t3lib_extMgm::extPath( $this->_extKey );
+        $this->extKey  = array_pop( $extPathInfo );
+        
+        $this->_extDir = t3lib_extMgm::extPath( $this->extKey );
         
         $this->_uploadDirectory = str_replace(
             PATH_site,
             '',
-            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->_extKey ) . '/' )
+            t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) . '/' )
         );
         
-        $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->_extKey . '/lang/pi' . $this->_moduleNumber . '.xml' );
+        $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_moduleNumber . '.xml' );
         
         $this->_content = new tx_oop_Xhtml_Tag( 'div' );
     }
