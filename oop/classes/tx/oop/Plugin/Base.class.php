@@ -99,6 +99,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * 
      */
+    private $_cssPrefix         = '';
+    
+    /**
+     * 
+     */
     protected $_lang            = NULL;
     
     /**
@@ -163,6 +168,8 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     {
         $this->prefixId = get_class( $this );
         
+        $this->_cssPrefix = str_replace( '_', '-', $this->prefixId );
+        
         $this->_reflection = new ReflectionObject( $this );
         
         if( !self::$_hasStatic ) {
@@ -212,6 +219,21 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         self::$_client    = $GLOBALS[ 'CLIENT' ];
         self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
         self::$_hasStatic = true;
+    }
+    
+    /**
+     * 
+     */
+    protected function _cssClass( $name, tx_oop_Xhtml_Tag $tag = NULL )
+    {
+        if( $tag ) {
+            
+            $tag[ 'class' ] = $this->_cssPrefix . '-' . $name;
+            
+        } else {
+            
+            return $this->_cssPrefix . '-' . $name;
+        }
     }
     
     /**
