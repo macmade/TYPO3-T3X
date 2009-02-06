@@ -59,7 +59,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * The instance of the string utilities class (tx_oop_String_Utils)
      */
-    protected static $_str       = NULL;
+    protected static $_str      = NULL;
     
     /**
      * A reference to the t3lib_DB object

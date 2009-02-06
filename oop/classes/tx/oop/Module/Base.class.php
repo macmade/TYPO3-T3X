@@ -375,9 +375,9 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * Creates a thumbnail
      * 
-     * @param   string  $file       The file path (relative to the upload directory)
-     * @param   int     $width      The thumbnail maximum width
-     * @param   int     $height     The thumbnail maximum height
+     * @param   string              The file path (relative to the upload directory)
+     * @param   int                 The thumbnail maximum width
+     * @param   int                 The thumbnail maximum height
      * @return  tx_oop_Xhtml_Tag    The thumbnail picture
      */
     protected function _createThumbnail( $file, $width = 100, $height = 100 )
@@ -416,10 +416,10 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * Creates a link with module variables
      * 
-     * @param   string  $text           The link text
-     * @param   array   $params         The module variables to set, as key/value pairs
-     * @param   array   $keepModVars    The module variables to keep
-     * @return  tx_oop_Xhtml_Tag        The link
+     * @param   string              The link text
+     * @param   array               The module variables to set, as key/value pairs
+     * @param   array               The module variables to keep
+     * @return  tx_oop_Xhtml_Tag    The link
      */
     protected function _link( $text, array $params = array(), $keepModVars = false )
     {
