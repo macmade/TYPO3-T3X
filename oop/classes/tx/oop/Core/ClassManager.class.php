@@ -77,6 +77,9 @@ final class tx_oop_Core_ClassManager
         // Creates a directory iterator in the directory containing this file
         $dirIterator     = new DirectoryIterator( $this->_classDir );
         
+        // Adds this class to the loaded classes array
+        $this->_loadedClasses[ __CLASS__ ] = __FILE__;
+        
         // Process each directory
         foreach( $dirIterator as $file ) {
             
