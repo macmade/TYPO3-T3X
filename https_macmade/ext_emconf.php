@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Jean-David Gadina',
 	'author_email' => 'info@macmade.net',
 	'shy' => 0,
-	'dependencies' => 'cms,lang',
+	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -32,10 +32,8 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.1.0',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '4.0-0.0.0',
-			'php' => '4.1.0-0.0.0',
-			'cms' => '',
-			'lang' => '',
+			'typo3' => '4.2.0-0.0.0',
+			'php' => '5.2.0-0.0.0'
 		),
 		'conflicts' => array(
 		),
