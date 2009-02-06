@@ -55,7 +55,17 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * A flag to know wether the needed static variables are set
      */
-    private static $_hasStatic   = false;
+    private static $_hasStatic               = false;
+    
+    /**
+     * 
+     */
+    private static $_oopPath                 = '';
+    
+    /**
+     * 
+     */
+    private static $_oopRelativePath         = '';
     
     /**
      * Whether the jQuery JS framework has been included
@@ -104,72 +114,72 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * The instance of the database class (tx_oop_Database_Layer)
      */
-    protected static $_db        = NULL;
+    protected static $_db                    = NULL;
     
     /**
      * The instance of the string utilities class (tx_oop_String_Utils)
      */
-    protected static $_str       = NULL;
+    protected static $_str                   = NULL;
     
     /**
      * The instance of the TCE helper class (tx_oop_Typo3_Core_Engine)
      */
-    protected static $_tce       = NULL;
+    protected static $_tce                   = NULL;
     
     /**
      * A reference to the t3lib_DB object
      */
-    protected static $_t3Db      = NULL;
+    protected static $_t3Db                  = NULL;
     
     /**
      * 
      */
-    protected static $_t3Lang    = NULL;
+    protected static $_t3Lang                = NULL;
     
     /**
      * A reference to the t3lib_beUserAuth object
      */
-    protected static $_beUser    = NULL;
+    protected static $_beUser                = NULL;
     
     /**
      * A reference to the TCA description array
      */
-    protected static $_tcaDescr  = array();
+    protected static $_tcaDescr              = array();
     
     /**
      * A reference to the TCA array
      */
-    protected static $_tca       = array();
+    protected static $_tca                   = array();
     
     /**
      * A reference to the client informations array
      */
-    protected static $_client    = array();
+    protected static $_client                = array();
     
     /**
      * A reference to the TYPO3 configuration variables array
      */
-    protected static $_t3Conf    = array();
+    protected static $_t3Conf                = array();
     
     /**
      * 
      */
-    protected $_lang             = NULL;
+    protected $_lang                         = NULL;
     
     /**
      * A reflection object for the backend module
      */
-    private $_reflection         = NULL;
+    private $_reflection                     = NULL;
     
     /**
      * 
      */
-    private $_content            = NULL;
+    private $_content                        = NULL;
     
     /**
      * The buttons for the TYPO3 backend module
      */
-    private $_buttons            = array(
+    private $_buttons                        = array(
         'csh'      => '',
         'save'     => '',
         'shortcut' => ''
@@ -178,87 +188,87 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * The module number
      */
-    private $_moduleNumber       = 0;
+    private $_moduleNumber                   = 0;
     
     /**
      * The name of the module (child) class
      */
-    private $_moduleClass        = '';
+    private $_moduleClass                    = '';
     
     /**
      * The name of the module
      */
-    private $_moduleName         = '';
+    private $_moduleName                     = '';
     
     /**
      * The section of the module
      */
-    private $_moduleSection      = '';
+    private $_moduleSection                  = '';
     
     /**
      * 
      */
-    private $_modulePath         = '';
+    private $_modulePath                     = '';
     
     /**
      * 
      */
-    private $_moduleRelativePath = '';
+    private $_moduleRelativePath             = '';
     
     /**
      * 
      */
-    private $_extKey             = '';
+    private $_extKey                         = '';
     
     /**
      * 
      */
-    private $_extPath            = '';
+    private $_extPath                        = '';
     
     /**
      * 
      */
-    private $_extRelativePath    = '';
+    private $_extRelativePath                = '';
     
     /**
      * 
      */
-    private $_uploadDirectory    = '';
+    private $_uploadDirectory                = '';
     
     /**
      * 
      */
-    private $_pageStart          = '';
+    private $_pageStart                      = '';
     
     /**
      * 
      */
-    private $_pageEnd            = '';
+    private $_pageEnd                        = '';
     
     /**
      * 
      */
-    protected $_pageInfos        = array();
+    protected $_pageInfos                    = array();
     
     /**
      * 
      */
-    protected $_modVars          = array();
+    protected $_modVars                      = array();
     
     /**
      * 
      */
-    protected $_modData          = NULL;
+    protected $_modData                      = NULL;
     
     /**
      * 
      */
-    protected $_backPath         = '';
+    protected $_backPath                     = '';
     
     /**
      * 
      */
-    public $doc                  = NULL;
+    public $doc                              = NULL;
     
     /**
      * 
@@ -346,17 +356,19 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     private static function _setStaticVars()
     {
-        self::$_db        = tx_oop_Database_Layer::getInstance();
-        self::$_str       = tx_oop_String_Utils::getInstance();
-        self::$_tce       = tx_oop_Typo3_Core_Engine::getInstance();
-        self::$_t3Db      = $GLOBALS[ 'TYPO3_DB' ];
-        self::$_t3Lang    = $GLOBALS[ 'LANG' ];
-        self::$_beUser    = $GLOBALS[ 'BE_USER' ];
-        self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
-        self::$_tca       = $GLOBALS[ 'TCA' ];
-        self::$_client    = $GLOBALS[ 'CLIENT' ];
-        self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
-        self::$_hasStatic = true;
+        self::$_db              = tx_oop_Database_Layer::getInstance();
+        self::$_str             = tx_oop_String_Utils::getInstance();
+        self::$_tce             = tx_oop_Typo3_Core_Engine::getInstance();
+        self::$_t3Db            = $GLOBALS[ 'TYPO3_DB' ];
+        self::$_t3Lang          = $GLOBALS[ 'LANG' ];
+        self::$_beUser          = $GLOBALS[ 'BE_USER' ];
+        self::$_tcaDescr        = $GLOBALS[ 'TCA_DESCR' ];
+        self::$_tca             = $GLOBALS[ 'TCA' ];
+        self::$_client          = $GLOBALS[ 'CLIENT' ];
+        self::$_t3Conf          = $GLOBALS[ 'TYPO3_CONF_VARS' ];
+        self::$_oopPath         = t3lib_extMgm::extPath( 'oop' );
+        self::$_oopRelativePath = t3lib_extMgm::extRelPath( 'oop' );
+        self::$_hasStatic       = true;
     }
     
     /**
@@ -367,7 +379,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         $js                 = new tx_oop_Xhtml_Tag( 'script' );
         $js[ 'type' ]       = 'text/javascript';
         $js[ 'charset' ]    = 'utf-8';
-        $js[ 'src' ]        = $this->_backPath . $this->_extRelativePath . $path;
+        $js[ 'src' ]        = $this->_backPath . $this->_oopRelativePath . $path;
         
         $this->doc->JScode .= self::$_str->NL . $js;
     }
