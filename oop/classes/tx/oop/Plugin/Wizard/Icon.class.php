@@ -104,7 +104,7 @@ abstract class tx_oop_Plugin_Wizard_Icon
         $wizardItems[ 'plugins_tx_' . $this->_piName . '_' . $this->_piNum ] = array(
             
             // Icon
-            'icon'        => t3lib_extMgm::extRelPath( $this->_extKey ) . 'res/img/' . $this->_piNum . '.gif',
+            'icon'        => t3lib_extMgm::extRelPath( $this->_extKey ) . 'res/img/wiz-' . $this->_piNum . '.gif',
             
             // Title
             'title'       => $this->_lang->title,

@@ -101,7 +101,7 @@ final class tx_oop_Typo3_Utils
             $wizClass = 'tx_' . str_replace( '_', '', $extKey ) . '_pi' . $piNum . '_wizicon';
             
             // Adds the wozard icon
-            $TBE_MODULES_EXT[ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ $wizClass ] = t3lib_extMgm::extPath( $extKey ) . 'classes/class.' . $wizClass . '.php';
+            $GLOBALS[ 'TBE_MODULES_EXT' ][ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ $wizClass ] = t3lib_extMgm::extPath( $extKey ) . 'classes/class.' . $wizClass . '.php';
          }
     }
     
@@ -135,10 +135,10 @@ final class tx_oop_Typo3_Utils
         if( $flex ) {
         
             // Plugin options
-            $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $extKey . '_pi' . $piNum ] = 'layout,select_key,pages,recursive';
+            $GLOBALS[ 'TCA' ][ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $extKey . '_pi' . $piNum ] = 'layout,select_key,pages,recursive';
             
             // Add flexform field to plugin options
-            $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $extKey . '_pi' . $piNum ]     = 'pi_flexform';
+            $GLOBALS[ 'TCA' ][ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_addlist' ][ $extKey . '_pi' . $piNum ]     = 'pi_flexform';
             
             // Adds the flexform data structure
             t3lib_extMgm::addPiFlexFormValue(
@@ -149,7 +149,7 @@ final class tx_oop_Typo3_Utils
         } else {
             
             // Plugin options
-            $TCA[ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $extKey . '_pi' . $piNum ] = 'layout,select_key';
+            $GLOBALS[ 'TCA' ][ 'tt_content' ][ 'types' ][ 'list' ][ 'subtypes_excludelist' ][ $extKey . '_pi' . $piNum ] = 'layout,select_key';
         }
         
         // Adds the frontend plugin
