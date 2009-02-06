@@ -174,9 +174,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             t3lib_div::getFileAbsFileName( 'uploads/tx_' . str_replace( '_', '', $this->extKey ) . '/' )
         );
         
-        $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_moduleNumber . '.xml' );
+        $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_pluginNumber . '.xml' );
         
         $this->_content = new tx_oop_Xhtml_Tag( 'div' );
+        
+        print_r( $this );
     }
     
     /**

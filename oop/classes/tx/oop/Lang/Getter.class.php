@@ -81,7 +81,7 @@ final class tx_oop_Lang_Getter
         
         $this->_langFilePath = t3lib_div::getFileAbsFileName( $langFile );
         
-        if( $this->_langFilePath === '' ) {
+        if( !file_exists( $this->_langFilePath ) ) {
             
             throw new tx_oop_Lang_Getter_Exception(
                 'Language file not found (' . $langFile . ')',
