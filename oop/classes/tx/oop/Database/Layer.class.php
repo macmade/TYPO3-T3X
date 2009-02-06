@@ -600,10 +600,4 @@ final class tx_oop_Database_Layer
         // Executes the PDO query
         return $this->execute( $params );
     }
-    
-    /**
-     * 
-     */
-    public function getRelatedRecords()
-    {}
 }
