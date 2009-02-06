@@ -177,8 +177,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_pluginNumber . '.xml' );
         
         $this->_content = new tx_oop_Xhtml_Tag( 'div' );
-        
-        print_r( $this );
     }
     
     /**
