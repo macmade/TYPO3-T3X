@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext: "https_macmade"
 #
-# Auto generated 06-02-2009 16:08
+# Auto generated 06-02-2009 16:09
 #
 # Manual updates:
 # Only the data in the array - anything else is removed by next write.
@@ -40,7 +40,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:9:{s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"ee70";s:14:"ext_tables.php";s:4:"4dc3";s:14:"ext_tables.sql";s:4:"3b48";s:16:"locallang_db.xml";s:4:"e68f";s:14:"doc/manual.sxw";s:4:"0bff";s:33:"pi1/class.tx_httpsmacmade_pi1.php";s:4:"82b8";s:24:"pi1/static/constants.txt";s:4:"f7ff";s:20:"pi1/static/setup.txt";s:4:"ea99";}',
+	'_md5_values_when_last_written' => 'a:9:{s:12:"ext_icon.gif";s:4:"c839";s:17:"ext_localconf.php";s:4:"ee70";s:14:"ext_tables.php";s:4:"cf50";s:14:"ext_tables.sql";s:4:"3b48";s:16:"locallang_db.xml";s:4:"e68f";s:14:"doc/manual.sxw";s:4:"0bff";s:33:"pi1/class.tx_httpsmacmade_pi1.php";s:4:"82b8";s:24:"pi1/static/constants.txt";s:4:"8c33";s:20:"pi1/static/setup.txt";s:4:"a52d";}',
 	'suggests' => array(
 	),
 );
