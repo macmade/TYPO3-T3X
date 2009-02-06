@@ -300,6 +300,22 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * 
      */
+    protected function _registerHook( $name, array $params = array() )
+    {
+        if( isset( self::$_t3Conf[ 'EXTCONF' ][ $this->extKey ][ $name ] )
+            && is_array( self::$_t3Conf[ 'EXTCONF' ][ $this->extKey ][ $name ] )
+        ) {
+            
+            foreach( self::$_t3Conf[ 'EXTCONF' ][ $this->extKey ][ $name ] as $callBack ) {
+                
+                t3lib_div::callUserFunction( $callBack, $params, $this ); 
+            }
+        }
+    }
+    
+    /**
+     * 
+     */
     protected function _cssClass( $name, tx_oop_Xhtml_Tag $tag = NULL )
     {
         if( $tag ) {

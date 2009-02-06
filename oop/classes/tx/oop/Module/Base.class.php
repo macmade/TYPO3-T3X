@@ -385,6 +385,22 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     }
     
     /**
+     * 
+     */
+    protected function _registerHook( $name, array $params = array() )
+    {
+        if( isset( self::$_t3Conf[ 'EXTCONF' ][ $this->_extKey ][ $name ] )
+            && is_array( self::$_t3Conf[ 'EXTCONF' ][ $this->_extKey ][ $name ] )
+        ) {
+            
+            foreach( self::$_t3Conf[ 'EXTCONF' ][ $this->_extKey ][ $name ] as $callBack ) {
+                
+                t3lib_div::callUserFunction( $callBack, $params, $this ); 
+            }
+        }
+    }
+    
+    /**
      * Creates a thumbnail
      * 
      * @param   string              The file path (relative to the upload directory)
