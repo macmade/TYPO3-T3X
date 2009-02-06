@@ -139,7 +139,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     /**
      * A reference to the client informations array
      */
-    protected static $client     = array();
+    protected static $_client    = array();
     
     /**
      * A reference to the TYPO3 configuration variables array
@@ -348,7 +348,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         self::$_beUser    = $GLOBALS[ 'BE_USER' ];
         self::$_tcaDescr  = $GLOBALS[ 'TCA_DESCR' ];
         self::$_tca       = $GLOBALS[ 'TCA' ];
-        self::$client     = $GLOBALS[ 'CLIENT' ];
+        self::$_client    = $GLOBALS[ 'CLIENT' ];
         self::$_t3Conf    = $GLOBALS[ 'TYPO3_CONF_VARS' ];
         self::$_hasStatic = true;
     }
