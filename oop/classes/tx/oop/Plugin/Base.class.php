@@ -292,7 +292,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         $js                 = new tx_oop_Xhtml_Tag( 'script' );
         $js[ 'type' ]       = 'text/javascript';
         $js[ 'charset' ]    = 'utf-8';
-        $js[ 'src' ]        = self::$_oopSiteRelativePath . $path;
+        $js[ 'src' ]        = self::$_oopSiteRelativePath . 'res/javascript/' . $path;
         
         $GLOBALS[ 'TSFE' ]->additionalHeaderData[ 'tx_oop_' . $path ] = ( string )$js;
     }
