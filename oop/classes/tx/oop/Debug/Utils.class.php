@@ -28,14 +28,14 @@
 #error_reporting( E_ALL | E_STRICT );
 
 /**
- * Debug tools
+ * Debug utilities
  *
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_Debug_Tools
+final class tx_oop_Debug_Utils
 {
     /**
      * 
