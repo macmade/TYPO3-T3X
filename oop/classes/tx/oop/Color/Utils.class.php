@@ -37,7 +37,9 @@
  */
 class tx_oop_Color_Utils
 {
-    // Color method to use (RGB, HSL or HSV)
+    /**
+     * The color method to use (RGB, HSL or HSV)
+     */
     protected $_colorMethod = 'RGB';
     
     /**
