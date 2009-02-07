@@ -35,7 +35,7 @@
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_String_Utils
+final class tx_oop_Array_Utils
 {
     /**
      * Class constructor
