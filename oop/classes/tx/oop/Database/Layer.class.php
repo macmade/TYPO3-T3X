@@ -320,7 +320,7 @@ final class tx_oop_Database_Layer
         
         // Parameters for the PDO query
         $params = array(
-            ':id'      => $id
+            ':id' => $id
         );
         
         // Prepares the PDO query
@@ -385,6 +385,67 @@ final class tx_oop_Database_Layer
         
         // Adds the ORDER BY clause
         $sql .= $orderBy;
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Storage
+        $rows = array();
+        
+        // Process each row
+        while( $row = $query->fetchObject() ) {
+            
+            // Stores the current row
+            $rows[ $row->$pKey ] = $row;
+        }
+        
+        // Returns the rows
+        return $rows;
+    }
+    
+    /**
+     * 
+     */
+    public function getRelatedRecords( $id, $localTable, $foreignTable, $relationTable, $orderBy = '', $enableFields = true )
+    {
+        // WHERE clause for the enable fields
+        $enableFieldsAddWhere = ( $enableFields ) ? $this->enableFields( $foreignTable ) : '';
+        
+        // Primary key
+        $pKey   = 'uid';
+        
+        // Starts the query
+        $sql = 'SELECT DISTINCT '
+             . $foreignTable
+             . '.* FROM '
+             . $localTable
+             . ', '
+             . $foreignTable
+             . ', '
+             . $relationTable
+             . ' WHERE '
+             . $localTable
+             . '.uid = '
+             . $relationTable
+             . '.uid_local AND '
+             . $foreignTable
+             . '.uid = '
+             . $relationTable
+             . '.uid_foreign AND '
+             . $relationTable
+             . '.uid_local = '
+             . $id
+             . $enableFieldsAddWhere;
+        
+        // Checks for an ORDER BY clause
+        if( $orderBy ) {
+            
+            // Adds the order by clause
+            $sql .= ' ORDER BY ' . $orderBy;
+        }
         
         // Prepares the PDO query
         $query = $this->prepare( $sql );
