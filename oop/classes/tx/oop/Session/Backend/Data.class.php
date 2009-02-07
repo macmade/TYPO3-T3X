@@ -40,7 +40,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     /**
      * 
      */
-    private static $_beUser      = NULL;
+    private static $_user        = NULL;
     
     /**
      * 
@@ -70,10 +70,10 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     /**
      * 
      */
-    private function __construct( $modName )
+    private function __construct( $name )
     {
-        $this->_instanceName = $modName;
-        $this->_data         = self::$_beUser->getModuleData( $this->_instanceName );
+        $this->_instanceName = $name;
+        $this->_data         = self::$_user->getModuleData( $this->_instanceName );
         
         if( !is_array( $this->_data ) ) {
             
@@ -86,7 +86,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
      */
     private function _updateSessionData()
     {
-        self::$_beUser->pushModuleData( $this->_instanceName, $this->_data );
+        self::$_user->pushModuleData( $this->_instanceName, $this->_data );
     }
     
     /**
@@ -209,21 +209,21 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     /**
      * 
      */
-    public static function getInstance( $modName )
+    public static function getInstance( $name )
     {
         if( self::$_nbInstances === 0 ) {
             
-            self::$_beUser = $GLOBALS[ 'BE_USER' ];
+            self::$_user = $GLOBALS[ 'BE_USER' ];
         }
         
-        if( !isset( self::$_instances[ $modName ] ) ) {
+        if( !isset( self::$_instances[ $name ] ) ) {
             
-            self::$_instances[ $modName ] = new self( $modName );
+            self::$_instances[ $name ] = new self( $name );
             
             self::$_nbInstances++;
             
         }
         
-        return self::$_instances[ $modName ];
+        return self::$_instances[ $name ];
     }
 }
