@@ -84,7 +84,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     /**
      * 
      */
-    public function __destruct()
+    private function _updateSessionData()
     {
         self::$_beUser->pushModuleData( $this->_instanceName, $this->_data );
     }
@@ -111,6 +111,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     public function __set( $name, $value )
     {
         $this->_data[ $name ] = $value;
+        $this->_updateSessionData();
     }
     
     /**
@@ -127,6 +128,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     public function __unset( $name )
     {
         unset( $this->_data[ $name ] );
+        $this->_updateSessionData();
     }
     
     /**
@@ -143,6 +145,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     public function offsetSet( $name, $value )
     {
         $this->_data[ $name ] = $value;
+        $this->_updateSessionData();
     }
     
     /**
@@ -159,6 +162,7 @@ final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
     public function offsetUnset( $name )
     {
         unset( $this->_data[ $name ] );
+        $this->_updateSessionData();
     }
     
     /**
