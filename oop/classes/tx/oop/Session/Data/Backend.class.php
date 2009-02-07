@@ -35,7 +35,7 @@
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
+final class tx_oop_Session_Data_Backend implements ArrayAccess, Iterator
 {
     /**
      * 

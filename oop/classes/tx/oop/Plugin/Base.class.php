@@ -274,7 +274,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         
         $this->_time = time();
         
-        $this->_piData = tx_oop_Session_Backend_Data::getInstance( $this->prefixId );
+        $this->_piData = tx_oop_Session_Data_Frontend::getInstance( $this->prefixId );
         
         $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_pluginNumber . '.xml' );
         
