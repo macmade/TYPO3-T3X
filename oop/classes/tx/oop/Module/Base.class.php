@@ -317,7 +317,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
         );
         
         $this->_lang               = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->_extKey . '/lang/mod' . $this->_moduleNumber . '.xml' );
-        $this->_modData            = tx_oop_Module_Data::getInstance( $this->_moduleName );
+        $this->_modData            = tx_oop_Session_Backend_Data::getInstance( $this->_moduleName );
         $this->_content            = new tx_oop_Xhtml_Tag( 'div' );
     }
     

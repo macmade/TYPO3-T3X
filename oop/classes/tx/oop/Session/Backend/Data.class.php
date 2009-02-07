@@ -28,14 +28,14 @@
 #error_reporting( E_ALL | E_STRICT );
 
 /**
- * TYPO3 backend module data class
+ * TYPO3 backend session data class
  *
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_Module_Data implements ArrayAccess, Iterator
+final class tx_oop_Session_Backend_Data implements ArrayAccess, Iterator
 {
     /**
      * 
