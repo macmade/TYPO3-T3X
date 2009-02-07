@@ -166,38 +166,6 @@ final class tx_oop_String_Utils
     }
     
     /**
-     * Gets an HTML list from a array
-     * 
-     * @param   string              The array to process
-     * @param   string              The list tag (ul or ol)
-     * @return  tx_oop_Xhtml_Tag    The HTML list
-     */
-    public function arrayToList( array $array, $listType = 'ul' )
-    {
-        // Creates the list tag
-        $list = new tx_oop_Xhtml_Tag( $listType );
-        
-        // Process each list item
-        foreach( $array as $item ) {
-            
-            // Checks if the current item is an array
-            if( is_array( $item ) ) {
-                
-                // Creates a sub-list
-                $list->li->addChild( $this->arrayToList( $item, $listType ) );
-                
-            } else {
-                
-                // Adds the list item to the list tag
-                $list->li = trim( $item );
-            }
-        }
-        
-        // Returns the list tag
-        return $list;
-    }
-    
-    /**
      * Crops a string.
      * 
      * This function is used to crop a string to a specified number of
