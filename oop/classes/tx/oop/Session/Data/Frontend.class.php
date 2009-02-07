@@ -35,195 +35,40 @@
  * @package     TYPO3
  * @subpackage  oop
  */
-final class tx_oop_Session_Data_Frontend implements ArrayAccess, Iterator
+final class tx_oop_Session_Data_Frontend extends tx_oop_Session_Data_Base implements ArrayAccess, Iterator
 {
-    /**
-     * 
-     */
-    private static $_user        = NULL;
-    
-    /**
-     * 
-     */
-    private static $_instances   = array();
-    
-    /**
-     * 
-     */
-    private static $_nbInstances = 0;
-    
-    /**
-     * 
-     */
-    private $_instanceName       = '';
-    
-    /**
-     * 
-     */
-    private $_data               = array();
-    
-    /**
-     * 
-     */
-    private $_iteratorIndex      = 0;
-    
-    /**
-     * 
-     */
-    private function __construct( $name )
-    {
-        $this->_instanceName = $name;
-        $this->_data         = unserialize( self::$_user->getKey( 'ses', $this->_instanceName ) );
-        
-        if( !is_array( $this->_data ) ) {
-            
-            $this->_data = array();
-        }
-    }
-    
-    /**
-     * 
-     */
-    private function _updateSessionData()
-    {
-        self::$_user->setKey( 'ses', $this->_instanceName, serialize( $this->_data ) );
-    }
-    
-    /**
-     * 
-     */
-    public function __toString()
-    {
-        return serialize( $this->_data );
-    }
-    
-    /**
-     * 
-     */
-    public function __get( $name )
-    {
-        return ( isset( $this->_data[ $name ] ) ) ? $this->_data[ $name ] : false;
-    }
-    
-    /**
-     * 
-     */
-    public function __set( $name, $value )
-    {
-        $this->_data[ $name ] = $value;
-        $this->_updateSessionData();
-    }
-    
-    /**
-     * 
-     */
-    public function __isset( $name )
-    {
-        return isset( $this->_data[ $name ] );
-    }
-    
-    /**
-     * 
-     */
-    public function __unset( $name )
-    {
-        unset( $this->_data[ $name ] );
-        $this->_updateSessionData();
-    }
-    
-    /**
-     * 
-     */
-    public function offsetGet( $name )
-    {
-        return ( isset( $this->_data[ $name ] ) ) ? $this->_data[ $name ] : false;
-    }
-    
-    /**
-     * 
-     */
-    public function offsetSet( $name, $value )
-    {
-        $this->_data[ $name ] = $value;
-        $this->_updateSessionData();
-    }
-    
-    /**
-     * 
-     */
-    public function offsetExists( $name )
-    {
-        return isset( $this->_data[ $name ] );
-    }
-    
-    /**
-     * 
-     */
-    public function offsetUnset( $name )
-    {
-        unset( $this->_data[ $name ] );
-        $this->_updateSessionData();
-    }
-    
-    /**
-     * 
-     */
-    public function key()
-    {
-        return key( $this->_data );
-    }
-    
-    /**
-     * 
-     */
-    public function current()
-    {
-        return current( $this->_data );
-    }
-    
-    /**
-     * 
-     */
-    public function next()
-    {
-        next( $this->_data );
-        $this->_iteratorIndex++;
-    }
-    
-    /**
-     * 
-     */
-    public function valid()
-    {
-        return ( $this->_iteratorIndex < count( $this->_data ) ) ? true : false;
-    }
-    
-    /**
-     * 
-     */
-    public function rewind()
-    {
-        reset( $this->_data );
-    }
-    
     /**
      * 
      */
     public static function getInstance( $name )
     {
-        if( self::$_nbInstances === 0 ) {
-            
-            self::$_user = $GLOBALS[ 'TSFE' ]->fe_user;
-        }
-        
-        if( !isset( self::$_instances[ $name ] ) ) {
-            
-            self::$_instances[ $name ] = new self( $name );
-            
-            self::$_nbInstances++;
-            
-        }
-        
-        return self::$_instances[ $name ];
+        return self::_getInstance(
+            __CLASS__,
+            $name
+        );
+    }
+    
+    /**
+     * 
+     */
+    protected function _getUser()
+    {
+        return $GLOBALS[ 'TSFE' ]->fe_user;
+    }
+    
+    /**
+     * 
+     */
+    protected function _getSessionData()
+    {
+        return unserialize( $this->_user->getKey( 'ses', $this->_instanceName ) );
+    }
+    
+    /**
+     * 
+     */
+    protected function _updateSessionData()
+    {
+        $this->_user->setKey( 'ses', $this->_instanceName, serialize( $this->_data ) );
     }
 }
