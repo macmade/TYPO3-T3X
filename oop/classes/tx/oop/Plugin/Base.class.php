@@ -121,6 +121,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     protected static $_str                   = NULL;
     
     /**
+     * A reference to the TSFE (tslib_fe) object
+     */
+    protected static $_tsfe                  = NULL;
+    
+    /**
      * A reference to the t3lib_DB object
      */
     protected static $_t3Db                  = NULL;
@@ -272,6 +277,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     {
         self::$_db                  = tx_oop_Database_Layer::getInstance();
         self::$_str                 = tx_oop_String_Utils::getInstance();
+        self::$_tsfe                = $GLOBALS[ 'TSFE' ];
         self::$_t3Db                = $GLOBALS[ 'TYPO3_DB' ];
         self::$_t3Lang              = $GLOBALS[ 'LANG' ];
         self::$_tcaDescr            = $GLOBALS[ 'TCA_DESCR' ];
