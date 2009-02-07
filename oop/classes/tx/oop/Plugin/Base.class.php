@@ -206,6 +206,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     protected $_url                          = '';
     
     /**
+     * 
+     */
+    protected $_piData                       = NULL;
+    
+    /**
      * The class name (needed by tslib_piBase)
      */
     public $prefixId                         = '';
@@ -224,6 +229,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      * 
      */
     public $conf                             = array();
+    
+    /**
+     * 
+     */
+    public $piVars                           = array();
     
     /**
      * 
@@ -263,6 +273,8 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         $this->_url = t3lib_div::getIndpEnv( 'TYPO3_REQUEST_URL' );
         
         $this->_time = time();
+        
+        $this->_piData = tx_oop_Session_Backend_Data::getInstance( $this->prefixId );
         
         $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->extKey . '/lang/pi' . $this->_pluginNumber . '.xml' );
         
