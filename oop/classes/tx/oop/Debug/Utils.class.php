@@ -133,7 +133,7 @@ final class tx_oop_Debug_Utils
                 
                 $dataCol->div->pre = print_r( $value, true );
                 
-            } elseif( is_bool( $value ) ) {
+            } elseif( is_bool( $var ) ) {
                 
                 $value = ( $value ) ? 'true' : 'false';
                 $dataCol->addTextData( $value );
