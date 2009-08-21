@@ -158,11 +158,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     /**
      * 
      */
-    private $_templateContent                = NULL;
-    
-    /**
-     * 
-     */
     private $_cssPrefix                      = '';
     
     /**
@@ -344,60 +339,6 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             
             return $this->_cssPrefix . '-' . $name;
         }
-    }
-    
-    /**
-     * Loads a template file.
-     * 
-     * This function reads a template file and store it as a
-     * C-Object.
-     * 
-     * @param   string  The path of the template file to load
-     * @return  NULL
-     */
-    protected function _initTemplate( $templateFilePath )
-    {
-        // Loads and stores the template file
-        $this->_templateContent = $this->cObj->fileResource( $templateFilePath );
-    }
-    
-    /**
-     * Renders a template section.
-     * 
-     * This function analyzes the template C-Object, previously set by
-     * the _initTemplate() method and substitute the specified section with
-     * the specified subsections.
-     * 
-     * @param   array                           The markers array
-     * @param   string                          The name of the section to substitute
-     * @return  string                          The processed template section
-     * @throws  tx_oop_Plugin_Base_Exception    If the template is not loaded
-     */
-    protected function _renderTemplate( array $templateMarkers, $templateSection )
-    {
-        // Checks if the template is loaded
-        if( !$this->_templateContent ) {
-            
-            // The template object is not loaded
-            throw new tx_oop_Plugin_Base_Exception(
-                'The template object does not seem to be loaded. Please load it with the ' . __CLASS__ . '::_initTemplate() method first.',
-                tx_oop_Plugin_Base_Exception::EXCEPTION_TEMPLATE_NOT_LOADED
-            );
-        }
-            
-        // Gets the template subparts
-        $subpart = $this->cObj->getSubpart(
-            $this->_templateContent,
-            $templateSection
-        );
-        
-        // Returns the substituted section
-        return $this->cObj->substituteMarkerArrayCached(
-            $subpart,
-            array(),
-            $templateMarkers,
-            array()
-        );
     }
     
     /**
@@ -665,6 +606,17 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
             // Script has been included
             self::$_jQueryLoadedPlugins[ $plugin ] = true;
         }
+    }
+    
+    /**
+     * 
+     */
+    protected function _getFrontendTemplate( $path )
+    {
+        return new tx_oop_Frontend_Template(
+            $this->cObj,
+            $path
+        );
     }
     
     /**
