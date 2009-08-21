@@ -542,7 +542,7 @@ class tx_oop_Color_Converter
      * @param   boolean Round final values
      * @return  array   An array with HSV color values
      */
-    public function hslToHsv( $H, $S, $L, $round = true )
+    public static function hslToHsv( $H, $S, $L, $round = true )
     {
         // Convert HSL to RGB
         $rgbColors = self::hslToRgb( $H, $S, $L, $round );
@@ -569,7 +569,7 @@ class tx_oop_Color_Converter
      * @param   boolean Round final values
      * @return  array   An array with HSL color values
      */
-    public function hsvToHsl( $H, $S, $V, $round = true )
+    public static function hsvToHsl( $H, $S, $V, $round = true )
     {
         // Convert HSV to RGB
         $rgbColors = self::hsvToRgb( $H, $S, $V, $round );
