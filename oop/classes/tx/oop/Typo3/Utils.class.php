@@ -161,4 +161,42 @@ final class tx_oop_Typo3_Utils
             $type
         );
     }
+    
+    /**
+     * Process a TYPO3 path
+     * 
+     * This method will process TYPO3 path prefixes, like 'EXT:'.
+     * 
+     * @param   string  The path to process
+     * @return  string  The processed path
+     */
+    public static function getWebPath( $path )
+    {
+        // Matches array for the preg_match function
+        $matches = array();
+        
+        // Checks if the path is relative to an extension
+        preg_match( '/^EXT:([^\/]+)/', $path, $matches );
+        
+        // Checks if an extension was found
+        if( isset( $matches[ 1 ] ) ) {
+            
+            // Gets the extension path
+            $extPath = t3lib_extMgm::siteRelPath( $matches[ 1 ] );
+            
+            // Replaces the extension path
+            $path    = str_replace( 'EXT:' . $matches[ 1 ] . '/', $extPath, $path );
+        }
+        
+        // Returns the processed path
+        return $path;
+    }
+    
+    /**
+     * 
+     */
+    public static function getSystemPath( $path )
+    {
+        return str_replace( '/', DIRECTORY_SEPARATOR, t3lib_div::getIndpEnv( 'TYPO3_DOCUMENT_ROOT' ) . DIRECTORY_SEPARATOR . self::getWebPath( $path ) );
+    }
 }
