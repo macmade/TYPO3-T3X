@@ -1,0 +1,7 @@
+<area shape="rect" href="$classtx__oop__Plugin__Base.html#fc59cf49608ff06aa8cc8cd028bb0e1f" title="tx_oop_Plugin_Base::_setStaticVars" alt="" coords="323,56,579,83">
+<area shape="rect" href="$classtx__oop__Lang__Getter.html#c9f76717cf42b0b8098a5d14416d84d8" title="tx_oop_Lang_Getter::getInstance" alt="" coords="329,107,572,133">
+<area shape="rect" href="$classtx__oop__Session__Data__Frontend.html#bbb4984f4f3e72516b016fe25c87e077" title="tx_oop_Session_Data_Frontend::getInstance" alt="" coords="293,157,608,184">
+<area shape="rect" href="$classtx__oop__String__Utils.html#1c121bf3f5871882ecd961b6dc1e236c" title="tx_oop_String_Utils::getInstance" alt="" coords="692,5,929,32">
+<area shape="rect" href="$classtx__oop__Database__Layer.html#152af239d793c736235ce2dded8f8591" title="Gets the unique class instance." alt="" coords="677,56,944,83">
+<area shape="rect" href="$classtx__oop__Lang__Getter.html#ce27e4e816efb32a130a8472fb500609" title="tx_oop_Lang_Getter::_setCurrentLanguage" alt="" coords="657,107,964,133">
+<area shape="rect" href="$classtx__oop__Session__Data__Base.html#4231869f4ca376d40ab648d16ebafb73" title="tx_oop_Session_Data_Base::_getInstance" alt="" coords="664,157,957,184">

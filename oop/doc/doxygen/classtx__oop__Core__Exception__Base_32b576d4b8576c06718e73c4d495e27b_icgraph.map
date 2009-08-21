@@ -1,0 +1,3 @@
+<area shape="rect" href="$classtx__oop__Core__Exception__Base.html#3c3fc7138794d5ebb24fa588ca9260ec" title="Gets the trace history." alt="" coords="345,5,657,32">
+<area shape="rect" href="$classtx__oop__Core__Exception__Base.html#ad6ba91fdce15ad8bffb453a14ef5361" title="Gets the informations about the exception." alt="" coords="708,31,985,57">
+<area shape="rect" href="$classtx__oop__Core__Exception__Base.html#1051fb5da88e6a5f75863c7ebcd01e5a" title="Returns the exception message with the backtrace if required." alt="" coords="1036,31,1327,57">
