@@ -90,7 +90,7 @@ abstract class tx_oop_Session_Data_Base implements ArrayAccess, Iterator
     /**
      * 
      */
-    private function __construct( $name )
+    protected function __construct( $name )
     {
         $this->_instanceName = $name;
         $this->_user         = $this->_getUser();

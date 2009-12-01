@@ -42,7 +42,7 @@ final class tx_oop_Session_Data_Frontend extends tx_oop_Session_Data_Base implem
      */
     public static function getInstance( $name )
     {
-        return self::_getInstance(
+        return parent::_getInstance(
             __CLASS__,
             $name
         );
