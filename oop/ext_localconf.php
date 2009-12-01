@@ -16,11 +16,11 @@ if( !defined( 'TYPO3_MODE' ) ) {
 }
 
 // Checks the PHP version
-if( ( double )PHP_VERSION < 5 ) {
+if( ( double )PHP_VERSION < 5.2 ) {
     
-    // We are running PHP4
+    // PHP version too low
     trigger_error(
-        'PHP version 5 is required to use this script (actual version is ' . PHP_VERSION . ')',
+        'PHP version 5.2 is required to use this script (actual version is ' . PHP_VERSION . ')',
         E_USER_ERROR
     );
 }
@@ -96,3 +96,5 @@ if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ $_EXTKEY ] ) ) {
     // Cleans up global variables
     unset( $OOP_EXT_CONF );
 }
+
+?>
