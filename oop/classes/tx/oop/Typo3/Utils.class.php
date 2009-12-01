@@ -97,12 +97,21 @@ final class tx_oop_Typo3_Utils
         // Backend options
         if( TYPO3_MODE === 'BE' ) {
             
-            // Wizard icon class name
-            $wizClass = 'tx_' . str_replace( '_', '', $extKey ) . '_pi' . $piNum . '_wizicon';
+            // Wizard icon possible class names
+            $wizClassExpanded = 'tx_' . str_replace( '_', '', $extKey ) . '_Plugin_Wizard_Icon_' . $piNum;
+            $wizClassFlat     = 'tx_' . str_replace( '_', '', $extKey ) . '_pi' . $piNum . '_wizicon';
             
-            // Adds the wozard icon
-            $GLOBALS[ 'TBE_MODULES_EXT' ][ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ $wizClass ] = t3lib_extMgm::extPath( $extKey ) . 'classes/class.' . $wizClass . '.php';
-         }
+            if( class_exists( $wizClassExpanded ) ) {
+                
+                $ref = new ReflectionClass( $wizClassExpanded );
+                $GLOBALS[ 'TBE_MODULES_EXT' ][ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ $wizClassExpanded ] = $ref->getFileName();
+                
+            } elseif( class_exists( $wizClassFlat ) ) { 
+                
+                $ref = new ReflectionClass( $wizClassFlat );
+                $GLOBALS[ 'TBE_MODULES_EXT' ][ 'xMOD_db_new_content_el' ][ 'addElClasses' ][ $wizClassFlat ] = $ref->getFileName();
+            }
+        }
     }
     
     /**
