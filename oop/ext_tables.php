@@ -35,3 +35,5 @@ if( TYPO3_MODE === 'BE' ) {
         unset( $OOP_EXT_CONF );
     }
 }
+
+?>
