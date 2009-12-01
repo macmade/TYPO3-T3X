@@ -129,13 +129,13 @@ final class tx_oop_Typo3_ClassManager
         }
         
         // Process each registered prefix
-        foreach( $instance->_classDirs as $prefix => $path ) {
+        foreach( $instance->_classDirs as $prefix => $infos ) {
         
             // Checks if the requested class belongs to a registered prefix
             if( strpos( $className, $prefix ) === 0 ) {
                 
                 // Tries to load the requested class
-                $instance->_loadClass( $className, $instance->_classDirs[ $prefix ] );
+                $instance->_loadClass( $className, $prefix, $instance->_classDirs[ $prefix ] );
             }
         }
         
@@ -147,10 +147,58 @@ final class tx_oop_Typo3_ClassManager
      * Loads a class from a TYPO3 directory
      * 
      * @param   string  The name of the class to load
+     * @param   string  The class prefix
+     * @param   array   The load informations
+     * @return  boolean
+     */
+    private function _loadClass( $className, $prefix, array $infos )
+    {
+        if( $infos[ 1 ] === false ) {
+            
+            return $this->_loadFlatClass( $className, $infos[ 0 ] );
+        }
+        
+        $relPath   = str_replace( '_', DIRECTORY_SEPARATOR, substr( $className, strlen( $prefix ) ) ) . '.class.php';
+        $classPath = $infos[ 0 ] . $relPath;
+        
+        // Checks if the class file exists
+        if( file_exists( $classPath ) ) {
+            
+            // Includes the class file
+            require_once( $classPath );
+            
+            // Checks if the requested class is defined in the included file
+            if( !class_exists( $className ) ) {
+                
+                // Error message
+                $errorMsg = 'The class '
+                          . $className
+                          . ' is not defined in file '
+                          . $classPath;
+                
+                // The class is not defined
+                trigger_error( $errorMsg, E_USER_ERROR );
+            }
+            
+            // Adds the class to the loaded classes array
+            $this->_loadedClasses[ $className ] = $classPath;
+            
+            // Class was successfully loaded
+            return true;
+        }
+        
+        // Class file was not found
+        return false;
+    }
+    
+    /**
+     * Loads a class from a TYPO3 directory
+     * 
+     * @param   string  The name of the class to load
      * @param   string  The directory in which the class is supposed to be
      * @return  boolean
      */
-    private function _loadClass( $className, $directory )
+    private function _loadFlatClass( $className, $directory )
     {
         // Gets the class path
         $classPath = $directory . 'class.' . strtolower( $className ) . '.php';
@@ -188,7 +236,7 @@ final class tx_oop_Typo3_ClassManager
     /**
      * 
      */
-    public function registerClassDir( $prefix, $path )
+    public function registerClassDir( $prefix, $path, $expandedHierarchy = false )
     {
         if( isset( $this->_classDirs[ $prefix ] ) ) {
             
@@ -206,7 +254,7 @@ final class tx_oop_Typo3_ClassManager
             );
         }
         
-        $this->_classDirs[ $prefix ] = $path;
+        $this->_classDirs[ $prefix ] = array( $path, ( bool )$expandedHierarchy );
     }
     
     /**
