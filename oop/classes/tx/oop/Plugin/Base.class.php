@@ -111,6 +111,11 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
     );
     
     /**
+     * The instance of the environment object (tx_oop_Typo3_Environment)
+     */
+    protected static $_env                   = NULL;
+    
+    /**
      * The instance of the database object (tx_oop_Database_Layer)
      */
     protected static $_db                    = NULL;
@@ -275,6 +280,8 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
         
         $this->_content            = new tx_oop_Xhtml_Tag( 'div' );
         $this->_content[ 'class' ] = $this->_cssPrefix;
+        
+        parent::__construct();
     }
     
     /**
@@ -282,6 +289,7 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     private static function _setStaticVars()
     {
+        self::$_env                 = tx_oop_Typo3_Environment::getInstance();
         self::$_db                  = tx_oop_Database_Layer::getInstance();
         self::$_str                 = tx_oop_String_Utils::getInstance();
         self::$_tsfe                = $GLOBALS[ 'TSFE' ];
@@ -390,14 +398,27 @@ abstract class tx_oop_Plugin_Base extends tslib_pibase
      */
     protected function _feLogin( $user )
     {
-        // Ensures the user variable is an array (may be an object with PDO)
-        $user = ( array )$user;
+        if( is_object( $user ) && $user instanceof tx_oop_Database_Object ) {
+            
+            $username = $user->username;
+            $password = $user->password;
+            $pid      = $user->pid;
+            
+        } else {
+            
+            // Ensures the user variable is an array (may be an object with PDO)
+            $user = ( array )$user;
+            
+            $username = $user[ 'username' ];
+            $password = $user[ 'password' ];
+            $pid      = $user[ 'pid' ];
+        }
         
         // Fills POST variables with login infos
         $_POST[ 'logintype' ] = 'login';
-        $_POST[ 'user' ]      = $user[ 'username' ];
-        $_POST[ 'pass' ]      = $user[ 'password' ];
-        $_POST[ 'pid' ]       = $user[ 'pid' ];
+        $_POST[ 'user' ]      = $username;
+        $_POST[ 'pass' ]      = $password;
+        $_POST[ 'pid' ]       = $pid;
         
         // Initializes the FE user
         $GLOBALS[ 'TSFE' ]->initFEuser();
