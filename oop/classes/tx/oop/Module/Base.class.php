@@ -112,6 +112,11 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
     );
     
     /**
+     * The instance of the environment object (tx_oop_Typo3_Environment)
+     */
+    protected static $_env                   = NULL;
+    
+    /**
      * The instance of the database class (tx_oop_Database_Layer)
      */
     protected static $_db                    = NULL;
@@ -356,6 +361,7 @@ abstract class tx_oop_Module_Base extends t3lib_SCbase
      */
     private static function _setStaticVars()
     {
+        self::$_env             = tx_oop_Typo3_Environment::getInstance();
         self::$_db              = tx_oop_Database_Layer::getInstance();
         self::$_str             = tx_oop_String_Utils::getInstance();
         self::$_tce             = tx_oop_Typo3_Core_Engine::getInstance();
