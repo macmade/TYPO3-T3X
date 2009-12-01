@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Database.Layer
  */
 final class tx_oop_Database_Layer_Exception extends tx_oop_Core_Exception_Base
 {

@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Core.Exception
  */
 abstract class tx_oop_Core_Exception_Base extends Exception
 {

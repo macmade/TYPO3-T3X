@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Frontend
  */
 class tx_oop_Frontend_Template implements ArrayAccess
 {

@@ -33,12 +33,14 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Core.Singleton
  */
 final class tx_oop_Core_Singleton_Exception extends tx_oop_Core_Exception_Base
 {
     /**
      * Error codes for the exceptions
      */
-    const EXCEPTION_CLONE = 0x01;
+    const EXCEPTION_CLONE  = 0x01;
+    const EXCEPTION_SLEEP  = 0x02;
+    const EXCEPTION_WAKEUP = 0x03;
 }

@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Flexform.Field.Section.Element.Field
  */
 class tx_oop_Flexform_Field_Section_Element_Field_Select extends tx_oop_Flexform_Field_Select
 {

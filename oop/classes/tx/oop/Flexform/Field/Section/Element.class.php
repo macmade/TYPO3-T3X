@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Flexform.Field.Section
  */
 class tx_oop_Flexform_Field_Section_Element extends tx_oop_Flexform_Field_Section implements tx_oop_Flexform_Field_Section_Element_Interface
 {

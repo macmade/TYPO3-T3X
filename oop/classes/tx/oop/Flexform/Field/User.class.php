@@ -33,7 +33,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Flexform.Field
  */
 class tx_oop_Flexform_Field_User extends tx_oop_Flexform_Field
 {
