@@ -240,6 +240,11 @@ final class tx_oop_Typo3_ClassManager
     {
         if( isset( $this->_classDirs[ $prefix ] ) ) {
             
+            if( $this->_classDirs[ $prefix ][ 0 ] == $path ) {
+                
+                return;
+            }
+            
             throw new tx_oop_Typo3_ClassManager_Exception(
                 'The requested prefix (' . $prefix . ') is already registered.',
                 tx_oop_Typo3_ClassManager_Exception::EXCEPTION_PREFIX_EXISTS
