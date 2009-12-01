@@ -75,18 +75,34 @@ abstract class tx_oop_Plugin_Wizard_Icon
         // Gets the current path
         $extPathInfo = explode( DIRECTORY_SEPARATOR, $this->_reflection->getFileName() );
         
-        // Removes the file name and the 'classes' directory
-        array_pop( $extPathInfo );
+        // Removes the file name
         array_pop( $extPathInfo );
         
-        // Sets the extension key
-        $this->_extKey = array_pop( $extPathInfo );
+        for( $i = 0; $i < count( $extPathInfo ); $i++ ) {
+            
+            if(    ( $extPathInfo[ $i ] === 'typo3conf' && $extPathInfo[ $i + 1 ] === 'ext' )
+                || ( $extPathInfo[ $i ] === 'typo3'     && $extPathInfo[ $i + 1 ] === 'ext' )
+                || ( $extPathInfo[ $i ] === 'typo3'     && $extPathInfo[ $i + 1 ] === 'sysext' )
+            ) {
+                
+                $this->_extKey = $extPathInfo[ $i + 2 ];
+                break;
+            }
+        }
         
         // Sets the plugin name
         $this->_piName = str_replace( '_', '', $this->_extKey );
         
-        // Sets the plugin number
-        $this->_piNum  = substr( str_replace( 'tx_' . $this->_piName . '_', '', get_class( $this ) ), 0, -8 );
+        $className = get_class( $this );
+        
+        if( substr( $className, -8 ) === '_wizicon' ) {
+            
+            $this->_piNum  = substr( str_replace( 'tx_' . $this->_piName . '_', '', get_class( $this ) ), 0, -8 );
+            
+        } else {
+            
+            $this->_piNum  = 'pi' . substr( $className, -1 );
+        }
         
         // Creates the language object
         $this->_lang = tx_oop_Lang_Getter::getInstance( 'EXT:' . $this->_extKey . '/lang/wiz-' . $this->_piNum . '.xml' );
