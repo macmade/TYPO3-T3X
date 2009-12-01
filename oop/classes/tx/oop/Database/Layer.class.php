@@ -36,7 +36,7 @@
  * @author      Jean-David Gadina <macmade@eosgarden.com>
  * @version     1.0
  * @package     TYPO3
- * @subpackage  oop
+ * @subpackage  tx.oop.Database
  */
 final class tx_oop_Database_Layer
 {
@@ -294,7 +294,7 @@ final class tx_oop_Database_Layer
             // Gets the enable fields WHERE clause
             return t3lib_BEfunc::BEenableFields( $table );
             
-        } elseif( TYPO3_MODE === 'FE' ) {
+        } elseif( TYPO3_MODE === 'FE' && is_object( $GLOBALS[ 'TSFE' ]->sys_page ) ) {
             
             // Should we show the hidden records (meaning we have a BE session running)
             $showHidden = ( $table === 'pages' ) ? $GLOBALS[ 'TSFE' ]->showHiddenPage : $GLOBALS[ 'TSFE' ]->showHiddenRecords;
@@ -305,6 +305,8 @@ final class tx_oop_Database_Layer
                 $showHidden
             );
         }
+        
+        return '';
     }
     
     /**
@@ -341,7 +343,71 @@ final class tx_oop_Database_Layer
     /**
      * 
      */
-    public function getRecordsByFields( $table, array $fieldsValues, $orderBy = '', $enableFields = true  )
+    public function getRecords( $table, array $keys, $orderBy = '', $enableFields = true )
+    {
+        // If $orderBy is not specified, checks if we have a default ORDER BY clause for the table
+        if( !$orderBy && isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ] ) ) {
+            
+            // Default ORDER BY clause, as in the TCA
+            $orderBy = ' ' . $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ];
+            
+        } elseif( $orderBy ) {
+            
+            // Specified ORDER BY clause
+            $orderBy = ' ORDER BY ' . $orderBy;
+        }
+        
+        // WHERE clause for the enable fields
+        $enableFieldsAddWhere = ( $enableFields ) ? $this->enableFields( $table ) : '';
+        
+        // Primary key
+        $pKey   = 'uid';
+        
+        // Starts the query
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ';
+        
+        // Parameters for the PDO query
+        $params = array();
+        
+        // Process each field to check
+        foreach( $keys as $key => $value ) {
+            
+            $keys[ $key ] = ( int )$value;
+        }
+        
+        // Adds the statement
+        $sql .= $pKey . ' IN( ' . implode( ',', $keys ) . ' )';
+        
+        // Adds the WHERE clause for the enable fields
+        $sql .= $enableFieldsAddWhere;
+        
+        // Adds the ORDER BY clause
+        $sql .= $orderBy;
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Storage
+        $rows = array();
+        
+        // Process each row
+        while( $row = $query->fetchObject() ) {
+            
+            // Stores the current row
+            $rows[ $row->$pKey ] = $row;
+        }
+        
+        // Returns the rows
+        return $rows;
+    }
+    
+    /**
+     * 
+     */
+    public function getRecordsByFields( $table, array $fieldsValues, $orderBy = '', $enableFields = true )
     {
         // If $orderBy is not specified, checks if we have a default ORDER BY clause for the table
         if( !$orderBy && isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ] ) ) {
@@ -379,6 +445,55 @@ final class tx_oop_Database_Layer
         
         // Removes the last 'AND'
         $sql = substr( $sql, 0, -5 );
+        
+        // Adds the WHERE clause for the enable fields
+        $sql .= $enableFieldsAddWhere;
+        
+        // Adds the ORDER BY clause
+        $sql .= $orderBy;
+        
+        // Prepares the PDO query
+        $query = $this->prepare( $sql );
+        
+        // Executes the PDO query
+        $query->execute( $params );
+        
+        // Storage
+        $rows = array();
+        
+        // Process each row
+        while( $row = $query->fetchObject() ) {
+            
+            // Stores the current row
+            $rows[ $row->$pKey ] = $row;
+        }
+        
+        // Returns the rows
+        return $rows;
+    }
+    
+    /**
+     * 
+     */
+    public function getRecordsWhere( $table, $where, $orderBy = '' )
+    {
+        // If $orderBy is not specified, checks if we have a default ORDER BY clause for the table
+        if( !$orderBy && isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ] ) ) {
+            
+            // Default ORDER BY clause, as in the TCA
+            $orderBy = ' ' . $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'default_sortby' ];
+            
+        } elseif( $orderBy ) {
+            
+            // Specified ORDER BY clause
+            $orderBy = ' ORDER BY ' . $orderBy;
+        }
+        
+        // Primary key
+        $pKey = 'uid';
+        
+        // Starts the query
+        $sql = 'SELECT * FROM ' . $table . ' WHERE ' . $where;
         
         // Adds the WHERE clause for the enable fields
         $sql .= $enableFieldsAddWhere;
@@ -482,7 +597,7 @@ final class tx_oop_Database_Layer
         $sql    = 'INSERT INTO ' . $table . ' SET';
         
         // Checks if we have a creation date field in the specified table
-        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'crdate' ] ) ) {
+        if( isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'crdate' ] ) ) {
             
             // Modification date field name
             $crdate = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'crdate' ];
@@ -495,7 +610,7 @@ final class tx_oop_Database_Layer
         }
         
         // Checks if we have a modification date field in the specified table
-        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
+        if( isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
             
             // Modification date field name
             $tstamp = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ];
@@ -560,7 +675,7 @@ final class tx_oop_Database_Layer
         $sql    = 'UPDATE ' . $table . ' SET';
         
         // Checks if we have a modification date field in the specified table
-        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
+        if( isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ] ) ) {
             
             // Modification date field name
             $tstamp = $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'tstamp' ];
@@ -622,7 +737,7 @@ final class tx_oop_Database_Layer
         }
         
         // Checks if we have a delete flag in the specified table
-        if( !isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ] ) ) {
+        if( isset( $GLOBALS[ 'TCA' ][ $table ][ 'ctrl' ][ 'delete' ] ) ) {
             
             // No, delete the record
             return $this->deleteRecord( $table, $id, true );
