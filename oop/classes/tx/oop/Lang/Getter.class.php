@@ -97,9 +97,39 @@ final class tx_oop_Lang_Getter
                 
                 $this->_labels[ ( string )$langSection[ 'index' ] ] = array();
                 
-                foreach( $langSection as $label ) {
+                if( !isset( $langSection->label ) ) {
                     
-                    $this->_labels[ ( string )$langSection[ 'index' ] ][ ( string )$label[ 'index' ] ] = ( string )$label;
+                    $externalPath = t3lib_div::getFileAbsFileName( ( string )$langSection );
+                    
+                    if( !externalPath || !file_exists( $externalPath ) ) {
+                        
+                        throw new tx_oop_Lang_Getter_Exception(
+                            'Language file not found (' . $externalPath . ')',
+                            tx_oop_Lang_Getter_Exception::EXCEPTION_NO_LANG_FILE
+                        );
+                    }
+                    
+                    $externalXml = simplexml_load_file( $externalPath );
+                    
+                    foreach( $externalXml->data->languageKey as $externalLangSection ) {
+                        
+                        if( ( string )$externalLangSection[ 'index' ] != ( string )$langSection[ 'index' ] ) {
+                            
+                            continue;
+                        }
+                        
+                        foreach( $externalLangSection as $label ) {
+                            
+                            $this->_labels[ ( string )$langSection[ 'index' ] ][ ( string )$label[ 'index' ] ] = ( string )$label;
+                        }
+                    }
+                    
+                } else {
+                    
+                    foreach( $langSection as $label ) {
+                        
+                        $this->_labels[ ( string )$langSection[ 'index' ] ][ ( string )$label[ 'index' ] ] = ( string )$label;
+                    }
                 }
             }
             
@@ -165,9 +195,9 @@ final class tx_oop_Lang_Getter
      */
     public function getLabel( $name )
     {
-        if( $this->_labels[ $this->_currentLang ][ $name ] ) {
+        if( $this->_labels[ self::$_currentLang ][ $name ] ) {
             
-            return $this->_labels[ $this->_currentLang ][ $name ];
+            return $this->_labels[ self::$_currentLang ][ $name ];
             
         } elseif( isset( $this->_labels[ 'default' ][ $name ] ) ) {
             
