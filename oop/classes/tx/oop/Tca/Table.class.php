@@ -789,4 +789,12 @@ final class tx_oop_Tca_Table
         
         $diffSource  = $this->_addField( $diffSourceField, 'passthrough' );
     }
+    
+    /**
+     * 
+     */
+    public function allowOnStandardPages()
+    {
+        t3lib_extMgm::allowTableOnStandardPages( $this->_instanceName );
+    }
 }
