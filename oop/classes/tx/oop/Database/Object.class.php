@@ -103,6 +103,11 @@ final class tx_oop_Database_Object implements ArrayAccess, Iterator
     protected $_updatedRecord   = array();
     
     /**
+     * The database record (localized version)
+     */
+    protected $_localizedRecord = array();
+    
+    /**
      * Class constructor
      * 
      * @return  NULL
@@ -179,6 +184,10 @@ final class tx_oop_Database_Object implements ArrayAccess, Iterator
             
             return $this->_updatedRecord[ $name ];
             
+        } elseif( isset( $this->_localizedRecord[ $name ] ) ) {
+            
+            return $this->_localizedRecord[ $name ];
+            
         } elseif( isset( $this->_record[ $name ] ) ) {
             
             return $this->_record[ $name ];
@@ -219,6 +228,7 @@ final class tx_oop_Database_Object implements ArrayAccess, Iterator
     {
         unset( $this->_record[ $name ] );
         unset( $this->_updatedRecord[ $name ] );
+        unset( $this->_localizedRecord[ $name ] );
     }
     
     public function offsetGet( $name )
@@ -400,6 +410,75 @@ final class tx_oop_Database_Object implements ArrayAccess, Iterator
         }
         
         return $records;
+    }
+    
+    public function localize()
+    {
+        if( TYPO3_MODE !== 'FE' ) {
+            
+            return;
+        }
+        
+        if( $this->_id === 0 ) {
+            
+            return;
+        }
+        
+        if( !isset( $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'ctrl' ][ 'languageField' ] ) ) {
+            
+            return;
+        }
+        
+        if( !isset( $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'ctrl' ][ 'transOrigPointerField' ] ) ) {
+            
+            return;
+        }
+        
+        if( $GLOBALS[ 'TSFE' ]->sys_language_uid == 0 ) {
+            
+            return;
+        }
+        
+        $langField   = $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'ctrl' ][ 'languageField' ];
+        $parentField = $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'ctrl' ][ 'transOrigPointerField' ];
+        $lang        = $GLOBALS[ 'TSFE' ]->sys_language_uid;
+        
+        $records     = self::$_db->getRecordsByFields(
+            $this->_tableName,
+            array(
+                $langField => $lang,
+                $parentField => $this->_id
+            )
+        );
+        
+        if( !count( $records ) ) {
+            
+            return;
+        }
+        
+        $record = array_shift( $records );
+        
+        t3lib_div::loadTCA( $this->_tableName );
+        
+        foreach( $record as $key => $value ) {
+            
+            if( !isset( $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'columns' ][ $key ] ) ) {
+                
+                continue;
+            }
+            
+            if( isset( $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'columns' ][ $key ][ 'l10n_mode' ] ) ) {
+                
+                $mode = $GLOBALS[ 'TCA' ][ $this->_tableName ][ 'columns' ][ $key ][ 'l10n_mode' ];
+                
+                if( $mode === 'exclude' ) {
+                    
+                    continue;
+                }
+            }
+            
+            $this->_localizedRecord[ $key ] = $value;
+        }
     }
     
     public function commit()
