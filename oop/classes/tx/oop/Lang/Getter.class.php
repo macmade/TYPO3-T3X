@@ -161,7 +161,14 @@ final class tx_oop_Lang_Getter
             
         } elseif( defined( 'TYPO3_MODE' ) && TYPO3_MODE === 'FE' ) {
             
-            self::$_currentLang = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'language' ];
+            if( isset( $GLOBALS[ 'TSFE' ]->config ) && is_object( $GLOBALS[ 'TSFE' ]->config ) ) {
+                
+                self::$_currentLang = $GLOBALS[ 'TSFE' ]->config[ 'config' ][ 'language' ];
+                
+            } else {
+                
+                self::$_currentLang = ( int )t3lib_div::_GP( 'L' );
+            }
         }
     }
     
