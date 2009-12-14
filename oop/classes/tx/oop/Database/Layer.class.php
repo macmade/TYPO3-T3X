@@ -150,6 +150,17 @@ final class tx_oop_Database_Layer
         // Stores the full DSN
         $this->_dsn = $driver . ':host=' . $host . ';dbname=' . $db;
         
+        if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] ) ) {
+            
+            $extConf = unserialize( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'EXT' ][ 'extConf' ][ 'oop' ] );
+            
+            if( $host === 'localhost' && isset( $extConf[ 'db_socket' ] ) && $extConf[ 'db_socket' ] ) {
+                
+                // Stores the full DSN
+                $this->_dsn = $driver . ':unix_socket=' . $extConf[ 'db_socket' ] . ';dbname=' . $db;
+            }
+        }
+        
         // Checks for a connection port
         if( isset( $dbalConf[ 'config' ][ 'port' ] ) ) {
             
@@ -161,6 +172,16 @@ final class tx_oop_Database_Layer
             
             // Creates the PDO object
             $this->_pdo = new PDO( $this->_dsn, $user, $pass );
+            
+            if( isset( $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'setDBinit' ] ) ) {
+                
+                $init = t3lib_div::trimExplode( chr( 10 ), $GLOBALS[ 'TYPO3_CONF_VARS' ][ 'SYS' ][ 'setDBinit' ], true );
+                
+                foreach( $init as $key => $value ) {
+                    
+                    $this->_pdo->query( $value );
+                }
+            }
             
         } catch( Exception $e ) {
             

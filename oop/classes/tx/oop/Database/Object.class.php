@@ -446,8 +446,9 @@ final class tx_oop_Database_Object implements ArrayAccess, Iterator
         $records     = self::$_db->getRecordsByFields(
             $this->_tableName,
             array(
-                $langField => $lang,
-                $parentField => $this->_id
+                $langField   => $lang,
+                $parentField => $this->_id,
+                'deleted'    => 0
             )
         );
         

@@ -9,3 +9,6 @@ htmlFormat = 1
 
 # cat=basic/enable/03; type=boolean; label=Doxygen: If set, adds a toolbar menu item in the TYPO3 backend with the Doxygen documentation of the OOP framework.
 doxygen = 1
+
+# cat=basic/enable/04; type=string; label=DB socket: The path to the DB socket. Only set this if you have problems connecting with PDO on the TYPO3 database.
+db_socket =
