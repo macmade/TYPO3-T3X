@@ -1,0 +1,31 @@
+<!-- $Id$ -->
+{namespace cp=Tx_CpGuide_ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
+<div class="tx-cpguide-article-showAll">
+	<f:for each="{articles}" as="article">
+		<f:if condition="{article.articleType}==0">
+			<f:then>
+				<div class="tx-cpguide-article">
+					<h1 class="tx-cpguide-article-title">
+						{article.title}
+					</h1>
+					<div class="tx-cpguide-article-content">
+						<f:format.html><cp:article.content search="{searchWord}">{article.content}</cp:article.content></f:format.html>
+					</div>
+				</div>
+			</f:then>
+			<f:else>
+				<div class="tx-cpguide-menu-articles-separator">
+					<h1 class="tx-cpguide-article-title">
+						{article.title}
+					</h1>
+				</div>
+			</f:else>
+		</f:if>
+	</f:for>
+</div>
+</f:section>
+<f:section name="contentSub">
+	<f:render partial="notes" arguments="{article: article, l10n: l10n}" />
+</f:section>

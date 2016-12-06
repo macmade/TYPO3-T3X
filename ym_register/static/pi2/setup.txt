@@ -1,0 +1,111 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence - Jean-David Gadina (macmade@netinfluence.com)         #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+plugin.tx_ymregister_pi2 {
+    
+    templateFile = {$plugin.tx_ymregister_pi2.templateFile}
+    
+    _CSS_DEFAULT_STYLE (
+        
+        .tx-ymregister-pi2 {
+            margin-top:         20px;
+            margin-bottom:      20px;
+            font-size:          15px;
+        }
+        
+        .tx-ymregister-pi2 INPUT {
+            border:             dashed 1px #F5A593;
+            background-color:   #FFFFFF;
+            padding:            5px;
+        }
+        
+        .tx-ymregister-pi2 TEXTAREA {
+            border:             dashed 1px #F5A593;
+            background-color:   #FFFFFF;
+            padding:            5px;
+            width:              200px;
+            font-size:          15px;
+        }
+        
+        .tx-ymregister-pi2 SELECT {
+            border:             dashed 1px #F5A593;
+            background-color:   #FFFFFF;
+            padding:            5px;
+            width:              200px;
+            margin-bottom:      2px;
+            font-size:          15px;
+        }
+        
+        .tx-ymregister-pi2-form-item {
+            margin-bottom:      10px;
+        }
+        
+        .tx-ymregister-pi2-form-item INPUT {
+            width:              200px;
+            font-size:          15px;
+        }
+        
+        #tx-ymregister-pi2-field-terms {
+            width:              20px;
+        }
+        
+        .tx-ymregister-pi2-form-submit {
+            text-align:         center;
+        }
+        
+        .tx-ymregister-pi2-form-submit INPUT {
+            background-color:   transparent;
+            border:             none;
+        }
+        
+        .tx-ymregister-pi2-form-block {
+            overflow:           hidden;
+            height:             100%;
+        }
+        
+        .tx-ymregister-pi2-form-block .tx-ymregister-pi2-form-item {
+            float:              left;
+            width:              50%;
+        }
+        
+        .tx-ymregister-pi2 LABEL {
+            text-transform:     uppercase;
+            font-family:        Impact, Lucida, Verdana, sans-serif;
+        }
+        
+        .tx-ymregister-pi2-error {
+            font-weight:            bold;
+            padding-left:           20px;
+            padding-top:            0px;
+            padding-right:          5px;
+            padding-bottom:         5px;
+            color:                  #FF6C00;
+            margin-top:             10px;
+            background-image:       url( "/typo3conf/ext/ym_register/res/img/error.png" );
+            background-repeat:      no-repeat;
+            background-position:    left 0px;
+            font-size:              12px;
+            width:                  200px;
+        }
+    )
+}

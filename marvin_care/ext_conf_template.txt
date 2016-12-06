@@ -1,0 +1,2 @@
+# cat=basic//00; type=boolean; label=RealURL: Automatically configures the extension for RealURL
+realurl_autoconf = 1

@@ -1,0 +1,15 @@
+<!-- $Id: onlinePaySuccess.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<f:section name="content">
+	<div class="tx-cpguide-register-box">
+		<h2>{user.firstname} {user.lastname} ({user.email})</h2>
+		<div>
+			{l10n.registerOnlinePayConfirm}
+		</div>
+		<div>
+			<f:link.action action="login" controller="Guide" pageUid="{guidePid}">
+				{l10n.connect}
+			</f:link.action>
+		</div>
+	</div>
+</f:section>

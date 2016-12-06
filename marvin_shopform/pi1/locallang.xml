@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: locallang.xml 184 2010-01-05 08:12:05Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'marvin_shopform'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Get notified when the shop is online</label>
+            <label index="message">I would like to be informed as soon as the Marvin Online store opens:</label>
+            <label index="name">Name:</label>
+            <label index="email">Email:</label>
+            <label index="submit">Submit</label>
+            <label index="errorRequired">Error: this field is required</label>
+            <label index="errorInvalidEmail">Error: invalid email</label>
+            <label index="confirm">Thank you for your registration. You will receive an invitation to the store as soon as it opens.</label>
+        </languageKey>
+    </data>
+</T3locallang>

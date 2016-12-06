@@ -1,0 +1,226 @@
+/* $Id: styles.css 24 2010-06-21 07:53:48Z macmade $ */
+
+/* <![CDATA[ */
+
+.tx-alcoopedia {
+    overflow:               hidden;
+    height:                 100%;
+}
+
+.tx-alcoopedia UL {
+    margin:                 0px;
+    margin-left:            20px;
+    padding:                10px;
+    list-style-image:       url( 'pictures/dash.gif' );
+}
+
+.tx-alcoopedia A,
+.tx-alcoopedia A:link,
+.tx-alcoopedia A:visited {
+    color:                  #000000;
+}
+
+.tx-alcoopedia A:hover,
+.tx-alcoopedia A:active {
+    color:                  #009EE0;
+}
+
+.tx-alcoopedia-act A,
+.tx-alcoopedia-act A:link,
+.tx-alcoopedia-act A:visited {
+    color:                  #009EE0;
+}
+
+.tx-alcoopedia-article-content {
+    font-size:              16px;
+}
+
+.tx-alcoopedia-article-content P.bodytext {
+    font-size:              16px;
+}
+
+.tx-alcoopedia-article-content P A,
+.tx-alcoopedia-article-content P A:link,
+.tx-alcoopedia-article-content P A:visited {
+    color:                  #009EE0;
+}
+
+.tx-alcoopedia-left {
+    float:                  left;
+    width:                  655px;
+}
+
+.tx-alcoopedia-right {
+    float:                  right;
+    width:                  250px;
+    margin-top:             10px;
+}
+
+.tx-alcoopedia-searchbox,
+.tx-alcoopedia-mostviewed,
+.tx-alcoopedia-tagcloud {
+    background-color:       #F2F2F2;
+    padding:                20px;
+    margin-bottom:          30px;
+    -moz-border-radius:     10px;
+    -webkit-border-radius:  10px;
+    border-radius:          10px;
+    -o-box-shadow:          0px 0px 5px #AAAAAA;
+    -icab-box-shadow:       0px 0px 5px #AAAAAA;
+    -khtml-box-shadow:      0px 0px 5px #AAAAAA;
+    -moz-box-shadow:        0px 0px 5px #AAAAAA;
+    -webkit-box-shadow:     0px 0px 5px #AAAAAA;
+    box-shadow:             0px 0px 5px #AAAAAA;
+}
+
+.tx-alcoopedia-searchbox H3,
+.tx-alcoopedia-mostviewed H3,
+.tx-alcoopedia-tagcloud H3 {
+    font-size:              18px;
+    border-bottom:          dashed 1px #000000;
+    margin:                 0px;
+    padding:                0px;
+    padding-bottom:         10px;
+    text-align:             center;
+}
+
+.tx-alcoopedia-mostviewed UL {
+    margin-left:            0px;
+}
+
+.tx-alcoopedia-searchbox LI,
+.tx-alcoopedia-mostviewed LI,
+.tx-alcoopedia-tagcloud LI {
+    margin:                 0px;
+    margin-bottom:          5px;
+    padding:                0px;
+    font-size:              17px;
+}
+
+.tx-alcoopedia-menu {
+    margin-top:             20px;
+}
+
+.tx-alcoopedia-menu-category A,
+.tx-alcoopedia-menu-category A:link,
+.tx-alcoopedia-menu-category A:visited {
+    color:                  #000000;
+}
+
+UL.tx-alcoopedia-menu-articles LI {
+    margin:                 0px;
+    margin-bottom:          5px;
+    padding:                0px;
+    font-size:              16px;
+}
+
+.tx-alcoopedia-menu-category H2 {
+    font-size:              16px;
+    margin:                 0px;
+    padding:                0px;
+}
+
+UL.tx-alcoopedia-menu-articles H3 {
+    font-size:              16px;
+    margin:                 0px;
+    padding:                0px;
+    font-family:            Museo300, Arial, Helvetica, Verdana, Geneva, Swiss, SunSans-Regular, sans-serif;
+    font-weight:            normal;
+}
+
+.tx-alcoopedia-back {
+    border-top:             solid 1px #DDDDDD;
+    border-bottom:          solid 1px #DDDDDD;
+    padding-left:           25px;
+    padding-top:            10px;
+    padding-bottom:         10px;
+    margin-left:            10px;
+    margin-top:             10px;
+    font-size:              14px;
+    background-image:       url( 'pictures/back.png' );
+    background-repeat:      no-repeat;
+    background-position:    0px 12px;
+}
+
+.tx-alcoopedia-article H1 {
+    font-size:              24px;
+}
+
+.tx-alcoopedia-footer {
+    border-top:             solid 1px #DDDDDD;
+    border-bottom:          solid 1px #DDDDDD;
+    padding-top:            10px;
+    padding-bottom:         10px;
+}
+
+.tx-alcoopedia-footer H2 {
+    font-size:              16px;
+    margin:                 0px;
+    margin-top:             10px;
+    padding:                0px;
+}
+
+.tx-alcoopedia-footer H3 {
+    font-size:              16px;
+    margin:                 0px;
+    padding:                0px;
+    font-family:            Museo300, Arial, Helvetica, Verdana, Geneva, Swiss, SunSans-Regular, sans-serif;
+    font-weight:            normal;
+}
+
+.tx-alcoopedia-search-results-article {
+    font-size:              14px;
+    margin-bottom:          20px;
+}
+
+.tx-alcoopedia-search-no-results {
+    margin-left:            10px;
+    margin-top:             20px;
+}
+
+.tx-alcoopedia-search-results-article DIV {
+    margin-left:            10px;
+}
+
+.tx-alcoopedia-search-results-article H2 {
+    margin:                 0px;
+    padding:                0px;
+}
+
+.tx-alcoopedia-search-results-article H3 {
+    color:                  #009EE0;
+    margin:                 0px;
+    padding:                0px;
+    font-size:              16px;
+    font-family:            Museo300, Arial, Helvetica, Verdana, Geneva, Swiss, SunSans-Regular, sans-serif;
+    font-weight:            normal;
+}
+
+.tx-alcoopedia-tags {
+    margin-top:             10px;
+    text-align:             center;
+    font-size:              10px;
+    line-height:            25px;
+}
+
+.tx-alcoopedia-searchbox-input INPUT {
+    width:                  180px;
+}
+
+.tx-alcoopedia-searchbox-submit {
+    margin-top:             10px;
+}
+
+.tx-alcoopedia-searchbox-submit INPUT {
+    width:                  128px;
+    height:                 49px;
+    border:                 none;
+    background-image:       url( 'pictures/search.png' );
+    background-repeat:      no-repeat;
+}
+
+.tx-alcoopedia-searchbox {
+    text-align:             center;
+}
+
+/* ]]> */

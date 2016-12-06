@@ -1,0 +1,240 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: setup.txt 194 2010-01-27 08:55:55Z macmade $
+
+/**
+ * Default TS setup - PI1
+ *
+ * @author      Jean-David Gadina (macmade@netinfluence.ch)
+ * @version     1.0
+ */
+plugin.tx_marvincatalog_pi1 {
+    
+    // Additionnal title text
+    titleAddText = - Fine Swiss Watches Since 1850 - Luxury Swiss technology watch manufacturer
+    
+    // The ID of the page with the mood generator
+    moodGeneratorPid =
+    
+    // The text to place as the Twitter status
+    twitterStatus            = I really like that watch: %s #marvinwatch
+    
+    // The GIFBUILDER object key for the watch image (list views - see imgConf)
+    imgConfImageNumber       = 20
+    
+    // The GIFBUILDER object key for the watch name (list views - see imgConf)
+    imgConfTextNumber        = 40
+    
+    // The number of watch and categories to display per page, in the list views
+    numberOfWatchesPerPage   = 6
+    
+    // The speed of the JS slider (higher values are slower)
+    sliderSpeed              = 800
+    
+    // Configuration for the rootline
+    rootlineItemWrap         =  |*| |<span class="tx-marvincatalog-pi1-rootline-separator">&nbsp;></span> |*| |
+    
+    // The image type from magento to use as the image in the watch list (not on the details page)
+    // Possible values are: image, thumbnail, smallImage, catalogImage, detailsImage
+    watchListImageKey        = catalogImage
+    
+    // The image type from magento to use as the image in the details view
+    // Possible values are: image, thumbnail, smallImage, catalogImage, detailsImage
+    watchDetailsImageKey     = detailsImage
+    
+    // Campaign monitor settings
+    campaignMonitor.apiKey = 2fe3d3109665dc8fa5be2f3330e7c240
+    campaignMonitor.listId = b9c3927df98ba1ef5806b8417391d4de
+    
+    // The image configuration for the pictures in the category and watch list views
+    imgConf {
+        
+        file = GIFBUILDER
+        file {
+            
+            XY        = 240,180
+            backColor = #000000
+            format    = png
+            
+            10 = IMAGE
+            10 {
+                
+                file   = EXT:marvin_catalog/res/img/bg-noise.png
+                offset = 0,0
+            }
+            
+            20 = IMAGE
+            20 {
+                
+                offset    = 0,0
+                file.maxW = 240
+                file.maxH = 180
+            }
+            
+            30 = BOX
+            30 {
+                
+                dimensions = 60,18,160,1
+                color      = #2E2E2E
+            }
+            
+            40 = TEXT
+            40 {
+                
+                fontColor = #A7A7A7
+                fontSize  = 13
+                offset    = -25,15
+                fontFile  = EXT:marvin_catalog/res/fonts/Helvetica-Bold.ttf
+                align     = right
+            }
+            
+            50       = EFFECT
+            #50.value = gamma=1.1
+        }
+    }
+    
+    // The settings for the detail image
+    detailImage {
+        
+        // Maximum dimensions
+        maxWidth  = 
+        maxHeight = 
+    }
+    
+    // The buttons configurations
+    buttons {
+        
+        // Facebook share
+        facebook {
+            
+            class = tx-marvincatalog-pi1-btn-facebook
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-facebook.gif
+                file.maxW = 18
+                file.maxH = 15
+            }
+        }
+        
+        // Twitter share
+        twitter {
+            
+            class = tx-marvincatalog-pi1-btn-twitter
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-twitter.gif
+                file.maxW = 18
+                file.maxH = 15
+            }
+        }
+        
+        // Email share
+        send {
+            
+            class = tx-marvincatalog-pi1-btn-send
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-send.gif
+                file.maxW = 18
+                file.maxH = 15
+            }
+        }
+        
+        // Shop
+        shop {
+            
+            class = tx-marvincatalog-pi1-btn-shop
+            text  = shop
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-shop.gif
+                file.maxW = 19
+                file.maxH = 15
+            }
+        }
+        
+        // Previous - Active
+        previous {
+            
+            class = tx-marvincatalog-pi1-btn-previous
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-previous.gif
+                file.maxW = 16
+                file.maxH = 24
+            }
+        }
+        
+        // Next - Active
+        next {
+            
+            class = tx-marvincatalog-pi1-btn-next
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-next.gif
+                file.maxW = 16
+                file.maxH = 24
+            }
+        }
+        
+        // Previous - Off
+        previousOff {
+            
+            class = tx-marvincatalog-pi1-btn-previous
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-previous-off.gif
+                file.maxW = 16
+                file.maxH = 24
+            }
+        }
+        
+        // Next - Off
+        nextOff {
+            
+            class = tx-marvincatalog-pi1-btn-next
+            text  =
+            
+            image {
+                
+                file      = EXT:marvin_catalog/res/img/btn-next-off.gif
+                file.maxW = 16
+                file.maxH = 24
+            }
+        }
+    }
+}

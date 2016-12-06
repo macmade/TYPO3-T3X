@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="fr" type="array">
+            <label index="tx_ymregister_users">yourmove.ch - Utilisateur</label>
+            <label index="id_fe_users">Utilisateur frontend</label>
+            <label index="lastname">Nom</label>
+            <label index="firstname">Prénom</label>
+            <label index="nickname">Pseudo</label>
+            <label index="age">Age</label>
+            <label index="zip">NPA</label>
+            <label index="id_tx_netdata_states">Canton</label>
+            <label index="id_tx_netdata_cities">Ville</label>
+            <label index="confirm_hash">Hash de confirmation</label>
+            <label index="phone">Téléphone</label>
+            <label index="address">Adresse</label>
+        </languageKey>
+    </data>
+</T3locallangExt>

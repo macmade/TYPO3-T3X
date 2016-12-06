@@ -1,0 +1,20 @@
+<!-- $Id: form-comment.html 2 2010-06-21 07:43:04Z macmade $ -->
+<div class="tx-cpguide-article-comments-form">
+	<h2>{l10n.addComment}</h2>
+	<f:form name="newComment" method="post" controller="Comment" action="create" object="{newComment}" arguments="{articleId: article.uid}">
+		<f:form.errors for="newComment">
+			<div class="error">
+				<strong>{error.propertyName}</strong>:
+				<f:for each="{error.errors}" as="errorDetail">
+					{errorDetail.message}
+				</f:for>
+			</div>
+		</f:form.errors>
+		<div>
+			<f:form.textarea id="content" property="content" rows="5" cols="75"/>
+		</div>
+		<div class="tx-cpguide-article-comments-form-submit">
+			<f:form.submit class="submit" value="{l10n.submit}"/>
+		</div>
+	</f:form>
+</div>

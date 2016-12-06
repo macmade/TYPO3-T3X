@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: wiz-pi2.xml 103 2009-12-01 13:54:50Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'marvin_catalog'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Marvin Mood Generator</label>
+            <label index="description">Adds the Marvin mood generator plugin to the page.</label>
+        </languageKey>
+    </data>
+</T3locallang>

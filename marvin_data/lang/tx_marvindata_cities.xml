@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvindata_cities.xml 144 2009-12-09 13:18:27Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_data'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvindata_cities">Marvin / City</label>
+            <label index="fullname">Name</label>
+            <label index="id_country">Country</label>
+            <label index="coord_x">X</label>
+            <label index="coord_y">Y</label>
+            <label index="map_help">Coordinates help</label>
+            <label index="tabs.general">General</label>
+            <label index="tabs.coords">Coordinates</label>
+        </languageKey>
+    </data>
+</T3locallang>

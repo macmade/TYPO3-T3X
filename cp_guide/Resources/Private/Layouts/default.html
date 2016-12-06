@@ -1,0 +1,23 @@
+<!-- $Id: default.html 7 2010-10-18 13:46:27Z jean $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<div class="tx-cpguide-top">
+	<f:render partial="menu-category" arguments="{category: category, categories: categories, l10n: l10n}" />
+</div>
+<f:render partial="searchbox" arguments="{searchWord: searchWord, autoCompleteUrl: autoCompleteUrl, user: user, category: category, subCategory: subCategory, article: article, l10n: l10n}" />
+<div class="tx-cpguide-content">
+	<div class="tx-cpguide-content-left">
+		<f:render partial="menu-subcategory" arguments="{category: category, subCategory: subCategory, article: article, l10n: l10n}" />
+		<f:render section="contentSub" />
+	</div>
+	<div class="tx-cpguide-content-right">
+		<f:if condition="{showAll}">
+			<f:then>
+			</f:then>
+			<f:else>
+				<f:render partial="menu-article" arguments="{category: category, subCategory: subCategory, article: article, l10n: l10n}" />
+			</f:else>
+		</f:if>
+		<f:render section="content" />
+	</div>
+</div>
+

@@ -1,0 +1,17 @@
+# cat=basic/enable/00; type=boolean; label=Authentication service: Adds a TYPO3 authentication service allowing Twitter users to log-in with standard TYPO3 login boxes through the Twitter API.
+service = 0
+
+# cat=basic/enable/00; type=boolean; label=OAuth: Adds a TYPO3 plugin allowing Twitter users to log-in by authenticating through Twitter OAuth service.
+oauth = 0
+
+# cat=basic//00; type=options[fsockopen,curl]; label=Connection method: The PHP function used to connect to the Twitter API.
+connection = fsockopen
+
+# cat=basic//01; type=int+; label=Service - Priority: The priority of the service. A service of higher priority will be selected first. Use a value from 0 to 100. The default value is 50 which means that the service is well implemented and gives normal (good) results.
+priority = 50
+
+# cat=basic//02; type=int+; label=Service - Quality: Among services with the same priority, the service with the highest quality by the same priority will be preferred. The default range is 0-100 and the default value for a normal (good) quality service is 50.
+quality = 50
+
+# cat=basic//03; type=boolean; label=Service - Stop authentication: Stops the authentication process if the user cannot be authenticated through Twitter. Note that this will prevent authentication services with a lower priority to be executed. 
+stopAuth = 0

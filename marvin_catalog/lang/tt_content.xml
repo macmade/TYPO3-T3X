@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tt_content.xml 194 2010-01-27 08:55:55Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_catalog'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="list_type.pi1">Marvin Catalog</label>
+            <label index="list_type.pi2">Marvin Mood Generator</label>
+            <label index="list_type.pi3">Marvin Catalog - iPhone</label>
+        </languageKey>
+    </data>
+</T3locallang>

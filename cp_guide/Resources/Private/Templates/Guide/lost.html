@@ -1,0 +1,26 @@
+<!-- $Id: login.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+
+<div class="tx-cpguide-content">
+	<f:section name="content">
+		<div class="tx-cpguide-login">
+			<h2>{l10n.lostPasswordText}</h2>
+			<f:flashMessages class="flashMessages" />
+			<ni:form name="login" method="post" controller="Guide" action="lost"  object="{login}" noCache="1" noCHash="1">
+				<div class="tx-cpguide-login-form-fields">
+					<div class="tx-cpguide-login-form-field">
+						<div class="tx-cpguide-login-form-field-label">
+							<label for="username">{l10n.loginUsername}</label>
+						</div>
+						<div class="tx-cpguide-login-form-field-input">
+							<f:form.textbox id="username" property="username" />
+						</div>
+					</div>
+				</div>
+				<div class="tx-cpguide-login-form-submit">
+					<f:form.submit class="submit" value="{l10n.retrieve}" />
+				</div>
+			</ni:form>
+		</div>
+	</f:section>
+</div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: locallang_db.xml 36 2010-05-20 13:28:41Z macmade $ -->
+
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cache_control_header'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="pages.tx_cachecontrolheader_directive">Cache-Control Header</label>
+			<label index="pages.tx_cachecontrolheader_directive_feuser">Cache-Control Header (Frontend User Login)</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.0">Default (set from the TS setup)</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.1">None</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.2">Public</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.3">Private</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.4">No cache</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.5">No store</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.6">No transform</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.7">Must revalidate</label>
+			<label index="pages.tx_cachecontrolheader_directive.I.8">Proxy revalidate</label>
+		</languageKey>
+	</data>
+</T3locallang>

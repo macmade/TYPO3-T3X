@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tt_content.xml 23 2009-12-18 11:09:55Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'netmailing'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="list_type.pi1">Campaign Monitor / Newsletter Subscription</label>
+        </languageKey>
+    </data>
+</T3locallang>

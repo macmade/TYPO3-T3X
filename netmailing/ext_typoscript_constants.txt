@@ -1,0 +1,60 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: ext_typoscript_constants.txt 32 2010-01-07 16:12:06Z macmade $
+
+/**
+ * Default TS cosntants - Extension 'netmailing' - PI1
+ *
+ * @author      Jean-David Gadina (macmade@gadlab.net)
+ * @version     1.0
+ */
+plugin.tx_netmailing_pi1 {
+    
+    # cat=netmailing//0; type=string; label=HTTP version: The HTTP version to use when connecting to the Campaign Monitor API.
+    api.httpVersion = 1.1
+    
+    # cat=netmailing//1; type=string; label=API host: The HTTP host name to use when connecting to the Campaign Monitor API.
+    api.host = api.createsend.com
+    
+    # cat=netmailing//2; type=int+; label=API port: The HTTP port number to use when connecting to the Campaign Monitor API.
+    api.port = 80
+    
+    # cat=netmailing//3; type=string; label=Subscribe URL: The API URL to use to add subscribers.
+    api.subscriberAddUrl =/api/api.asmx/Subscriber.AddAndResubscribe
+    
+    # cat=netmailing//4; type=string; label=SOAP action: The name of the SOAP action to add a subscriber with custom fields.
+    soap.subscriberAddCustomAction = Subscriber.AddWithCustomFields
+    
+    # cat=netmailing//5; type=string; label=SOAP URL: The URL of the SOAP action to add a subscriber with custom fields.
+    soap.subscriberAddCustomUrl = /api/Subscriber.AddWithCustomFields
+    
+    # cat=netmailing//6; type=string; label=SOAP API: The SOAP API URL.
+    soap.apiUrl = /api/api.asmx
+    
+    # cat=netmailing//7; type=string; label=SOAP XMLNS: The SOAP API XML namespace.
+    soap.xmlns = http://api.createsend.com/api/
+    
+    # cat=netmailing//8; type=int+; label=Input size: The size of the email text input.
+    inputSize = 30
+}

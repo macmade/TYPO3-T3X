@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: csh_tx_cpguide_domain_model_comment.xml 2 2010-06-21 07:43:04Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<description>Ontext Sensitive Help (CSH) for table tx_cpguide_domain_model_comment</description>
+		<type>CSH</type>
+		<csh_table>tx_cpguide_domain_model_comment</csh_table>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+		</languageKey>
+	</data>
+</T3locallang>

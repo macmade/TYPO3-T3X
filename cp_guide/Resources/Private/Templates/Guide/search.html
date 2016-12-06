@@ -1,0 +1,34 @@
+<!-- $Id: search.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace cp=Tx_CpGuide_ViewHelpers}
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<div class="tx-cpguide-top">
+	<f:render partial="menu-category" arguments="{category: category, categories: categories, l10n: l10n}" />
+</div>
+<f:render partial="searchbox" arguments="{searchWord: searchWord, autoCompleteUrl: autoCompleteUrl, user: user, category: category, subCategory: subCategory, article: article, l10n: l10n}" />
+<div class="tx-cpguide-content">
+	<f:section name="content">
+		<f:flashMessages class="flashMessages" />
+		<f:if condition="{articles}">
+			<ul class="tx-cpguide-search-results">
+				<f:for each="{articles}" as="list_article">
+					<ni:element.alternateClass tag="li" even="tx-cpguide-search-results-even" odd="tx-cpguide-search-results-odd" >
+						<div>
+							<f:link.action controller="Guide" action="category" arguments="{category: list_article.subCategory.category.uid}">
+								{list_article.subCategory.category.title}
+							</f:link.action>
+							&gt;
+							<f:link.action controller="Guide" action="subCategory" arguments="{subCategory: list_article.subCategory.uid}">
+								{list_article.subCategory.title}
+							</f:link.action>
+						</div>
+						<h2>
+							<f:link.action controller="Guide" action="article" arguments="{searchWord: searchWord, article: list_article.uid}" section="tx-cpguide-article-content">
+								{list_article.menuTitle}
+							</f:link.action>
+						</h2>
+					</ni:element.alternateClass>
+				</f:for>
+			</ul>
+		</f:if>
+	</f:section>
+</div>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: wiz-pi3.xml 195 2010-01-27 08:57:11Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'marvin_catalog'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Marvin Catalog - iPhone</label>
+            <label index="description">Adds the iPhone version of the Marvin catalog of watches plugin to the page.</label>
+        </languageKey>
+    </data>
+</T3locallang>

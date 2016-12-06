@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'twitter_login'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="sDEF">General</label>
+            <label index="sDEF.storagePage">Storage page (required)</label>
+            <label index="sDEF.userGroup">FE user group (required)</label>
+            <label index="sDEF.loginText">Login text (optional)</label>
+            <label index="sOAUTH">OAuth</label>
+            <label index="sOAUTH.consumerKey">Consumer key (required)</label>
+            <label index="sOAUTH.consumerSecret">Consumer secret (required)</label>
+            <label index="sOAUTH.callback">Callback URL (required)</label>
+            <label index="sOAUTH.afterLoginRedirect">After login redirect (required)</label>
+        </languageKey>
+    </data>
+</T3locallang>

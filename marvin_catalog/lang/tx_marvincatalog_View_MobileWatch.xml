@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincatalog_View_MobileWatch.xml 195 2010-01-27 08:57:11Z macmade $ -->
+
+
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for class 'tx_marvincatalog_View_Collection'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+            <label index="story">Story</label>
+            <label index="technical">Technical</label>
+            <label index="movement">Movement</label>
+            <label index="features">Features</label>
+            <label index="case">Case</label>
+            <label index="glass">Glass</label>
+            <label index="atm">Water-resistance</label>
+            <label index="bracelet">Bracelet</label>
+            <label index="dial">Dial</label>
+			<label index="collections">Collections</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: locallang.xml 7 2010-10-18 13:46:27Z jean $ -->
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the CP / Guide extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="prefix">Salutations</label>
+			<label index="address1">Adresse 1</label>
+			<label index="address2">Adresse 2</label>
+			<label index="company">Société</label>
+			<label index="accountType">Type de compte</label>
+			<label index="loginError">Erreur de connexion. Veuillez vérifier votre nom d'utilisateur et votre mot de passe.</label>
+			<label index="menuArticleShowAll">Voir tout le contenu du chiffre de la fiche</label>
+			<label index="search">Search</label>
+			<label index="searchSubmit">Search</label>
+			<label index="notes">Notes</label>
+			<label index="title">Title</label>
+			<label index="text">Text</label>
+			<label index="required">(required)</label>
+			<label index="submit">Submit</label>
+			<label index="comment">Comment</label>
+			<label index="comments">Comments</label>
+			<label index="addComment">Merci de signaler un lien manquant ou brisé</label>
+			<label index="removeNote">Remove</label>
+			<label index="searchNoResult">No articles were found</label>
+			<label index="searchResult">Found %s article(s)</label>
+			<label index="searchNoWord">Error: you did not enter a search word</label>
+			<label index="firstname">First name</label>
+			<label index="lastname">Last name</label>
+			<label index="email">E-mail</label>
+			<label index="password">Password</label>
+			<label index="password2">Password verification</label>
+			<label index="address">Address</label>
+			<label index="city">City</label>
+			<label index="zip">ZIP</label>
+			<label index="country">Country</label>
+			<label index="telephone">Phone</label>
+			<label index="fax">Fax</label>
+			<label index="mobile">Mobile</label>
+			<label index="registerSubmit">Register</label>
+			<label index="registerPasswordSubmit">Set password</label>
+			<label index="addFavorite">Add to favorite</label>
+			<label index="removeFavorite">Remove from favorites</label>
+			<label index="login">Login</label>
+			<label index="loginTitle">User login</label>
+			<label index="loginText">You need to login in order to view the articles.</label>
+			<label index="loginUsername">E-mail</label>
+			<label index="loginPassword">Password</label>
+			<label index="registerText">If you don't have an account yet, please register.</label>
+			<label index="logout">Logout</label>
+			<label index="homeMostViewed">Most viewed articles</label>
+			<label index="homeLastModified">Last updates</label>
+			<label index="homeFavorites">My favorites</label>
+			<label index="homeNotes">My notes</label>
+			<label index="remove">Remove</label>
+			<label index="searchTitle">Rechercher dans l’ensemble du Guide de l'Employeur, tapez vos mots-clés ici</label>
+			<label index="registerStep1">Coordonnées</label>
+			<label index="registerStep2">Password</label>
+			<label index="registerStep3">Vérification</label>
+			<label index="registerStep4">Paiement</label>
+			<label index="registerStep5">Activation</label>
+			<label index="registerEmailValidTitle">E-mail validation</label>
+			<label index="registerEmailValid">Thank you for registering. A confirmation email was sent to your address. Please activate your account to continue the registration process.</label>
+			<label index="confirmEmailMessage"><![CDATA[Merci de vous être inscrit à la version en ligne du Guide de l'Employeur.
+
+Veuillez cliquer sur le lien ci-dessous pour finaliser votre inscription:
+
+<%s>
+
+Meilleures salutations,
+
+--
+CENTRE PATRONAL
+Route du Lac 2
+1094 Paudex
+Tél: 021 796 33 00
+Fax: 021 796 33 11
+info@centrepatronal.ch
+			]]>
+			</label>
+			<label index="registerEmailConfirm">Votre addresse e-mail a été validée. Vous pouvez maintenant accéder au Guide de l'Employeur.</label>
+			<label index="confirmEmailSubject">Employer Guide: e-mail confirmation</label>
+			<label index="registerOnlinePayConfirm">Votre paiement a été accepté. Vous pouvez maintenant accéder au Guide de l'Employeur.</label>
+			<label index="registerOnlinePayCancel">Vous avez annulé le processus de paiement.</label>
+			<label index="registerOnlinePayError">Une erreur est survenue lors du processus de paiement:</label>
+			<label index="connect">Connect now</label>
+			<label index="registerError-1221565786">The given subject was not a valid text.</label>
+			<label index="registerError-1238108067">The length of the given string is invalid.</label>
+			<label index="registerError-1238108068">The length of the given string is too small.</label>
+			<label index="registerError-1238108069">The length of the given string is too big.</label>
+			<label index="registerError-1221565130">The given subject did not match the pattern.</label>
+			<label index="registerError-1221565132">The regular expression was empty.</label>
+			<label index="registerError-1221565131">The regular expression contained an error.</label>
+			<label index="registerError-1221563685">The given subject was not a valid number.</label>
+			<label index="registerError-1221561046">The given subject was not in the valid range.</label>
+			<label index="registerError-1221563685">The given subject was not a valid number.</label>
+			<label index="registerError-1221560910">The given subject was NULL.</label>
+			<label index="registerError-1221560718">The given subject was empty.</label>
+			<label index="registerError-1221560494">The given subject was not a valid integer.</label>
+			<label index="registerError-1241099148">Value is no object.</label>
+			<label index="registerError-1221560288">The given subject was not a valid float.</label>
+			<label index="registerError-1221559976">The given subject was not a valid email address.</label>
+			<label index="registerError-1238087674">The given subject was not a valid DateTime.</label>
+			<label index="registerError-1221551320">The given subject was not a valid alphanumeric string.</label>
+		</languageKey>
+		<languageKey index="fr">EXT:cp_guide/Resources/Private/Language/locallang.fr.xml</languageKey>
+		<languageKey index="de">EXT:cp_guide/Resources/Private/Language/locallang.de.xml</languageKey>
+	</data>
+</T3locallang>

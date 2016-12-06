@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'twitter_login'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="sDEF">General</label>
+            <label index="sDEF.storagePage">Storage page (required)</label>
+            <label index="sDEF.userGroup">FE user group (required)</label>
+            <label index="sDEF.terms">Terms &amp; Conditions (required)</label>
+            <label index="sMAILER">Mailer</label>
+            <label index="sMAILER.subject">Subject</label>
+            <label index="sMAILER.fromName">From (name)</label>
+            <label index="sMAILER.from">From</label>
+            <label index="sMAILER.replyTo">Reply-to</label>
+            <label index="sMAILER.message">Message</label>
+        </languageKey>
+        <languageKey index="fr">EXT:ym_register/lang/fr/flex_pi1.xml</languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'facebook_connect'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="section">Works</label>
+            <label index="sectionTitle">Work</label>
+            <label index="location_city">City</label>
+            <label index="location_state">State</label>
+            <label index="location_country">Country</label>
+            <label index="company_name">Company name</label>
+            <label index="description">Description</label>
+            <label index="position">Position</label>
+            <label index="start_date">Start date</label>
+            <label index="end_date">End date</label>
+        </languageKey>
+    </data>
+</T3locallang>

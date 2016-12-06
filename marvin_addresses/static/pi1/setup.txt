@@ -1,0 +1,101 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: setup.txt 165 2009-12-15 13:44:10Z macmade $
+
+/**
+ * Default TS setup - PI1
+ *
+ * @author      Jean-David Gadina (macmade@netinfluence.ch)
+ * @version     1.0
+ */
+plugin.tx_marvinaddresses_pi1 {
+    
+    dotSize  = 5
+    dotColor = #FFFFFF
+    mapImg   = EXT:marvin_addresses/res/img/mapworld.gif
+    
+    map {
+        
+        file           = GIFBUILDER
+        file.XY        = 498,309
+        file.backColor = #000000
+        file.format    = png
+    }
+    
+    // The buttons configurations
+    buttons {
+        
+        // Previous - Active
+        previous {
+            
+            class = tx-marvincatalog-pi1-btn-previous
+            
+            image {
+                
+                file      = EXT:marvin_addresses/res/img/btn-previous.gif
+                file.maxW = 12
+                file.maxH = 15
+            }
+        }
+        
+        // Next - Active
+        next {
+            
+            class = tx-marvincatalog-pi1-btn-next
+            
+            image {
+                
+                file      = EXT:marvin_addresses/res/img/btn-next.gif
+                file.maxW = 12
+                file.maxH = 15
+            }
+        }
+        
+        // Previous - Off
+        previousOff {
+            
+            class = tx-marvincatalog-pi1-btn-previous
+            
+            image {
+                
+                file      = EXT:marvin_addresses/res/img/btn-previous-off.gif
+                file.maxW = 12
+                file.maxH = 15
+            }
+        }
+        
+        // Next - Off
+        nextOff {
+            
+            class = tx-marvincatalog-pi1-btn-next
+            
+            image {
+                
+                file      = EXT:marvin_addresses/res/img/btn-next-off.gif
+                file.maxW = 12
+                file.maxH = 15
+            }
+        }
+    }
+}

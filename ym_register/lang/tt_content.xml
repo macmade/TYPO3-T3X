@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'ym_register'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="list_type.pi1">yourmove.ch - User registration</label>
+            <label index="list_type.pi2">yourmove.ch - User profile</label>
+            <label index="list_type.pi3">yourmove.ch - Video publish confirmation</label>
+            <label index="list_type.pi4">yourmove.ch - Image publish confirmation</label>
+        </languageKey>
+        <languageKey index="fr">EXT:ym_register/lang/fr/tt_content.xml</languageKey>
+    </data>
+</T3locallang>

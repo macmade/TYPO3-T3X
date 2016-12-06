@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincare_movements.xml 150 2009-12-10 10:29:12Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_care'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvincare_movements">Marvin / Movement</label>
+            <label index="fullname">Name</label>
+            <label index="movement_type">Type</label>
+            <label index="movement_type.0">Automatic</label>
+            <label index="movement_type.1">Quartz</label>
+        </languageKey>
+    </data>
+</T3locallang>

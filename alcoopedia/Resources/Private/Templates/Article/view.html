@@ -1,0 +1,40 @@
+<!-- $Id: view.html 24 2010-06-21 07:53:48Z macmade $ -->
+<f:layout name="default" />
+<f:section name="content">
+	<f:render partial="back" arguments="{l10n: l10n}"/>
+	<div class="tx-alcoopedia-article">
+		<h1>{article.title}</h1>
+		<div class="tx-alcoopedia-article-content">
+			<f:format.html>{article.content}</f:format.html>
+		</div>
+	</div>
+	<div class="tx-alcoopedia-footer">
+		<h2>{category.title}</h2>
+		<f:if condition="{category.articles}">
+			<ul class="tx-alcoopedia-footer-articles">
+				<f:for each="{category.articles}" as="list_article">
+					<f:if condition="{list_article.uid}=={article.uid}">
+						<f:then>
+							<li class="tx-alcoopedia-act">
+								<h3>
+									<f:link.action action="view" controller="Article" arguments="{category: category, article:list_article}">
+										{list_article.title}
+									</f:link.action>
+								</h3>
+							</li>
+						</f:then>
+						<f:else>
+							<li>
+								<h3>
+									<f:link.action action="view" controller="Article" arguments="{category: category, article:list_article}">
+										{list_article.title}
+									</f:link.action>
+								</h3>
+							</li>
+						</f:else>
+					</f:if>
+				</f:for>
+			</ul>
+		</f:if>
+	</div>
+</f:section>

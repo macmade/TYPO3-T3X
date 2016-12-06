@@ -1,0 +1,50 @@
+<!-- $Id: login.html 3 2010-10-18 09:56:00Z jean $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<div class="tx-cpguide-top">
+	<f:render partial="menu-category" arguments="{category: category, categories: categories, l10n: l10n}" />
+</div>
+<div class="tx-cpguide-content">
+	<f:section name="content">
+		<div class="tx-cpguide-login">
+			<h2>{l10n.loginTitle}</h2>
+			<div>{l10n.loginText}</div>
+			<div>
+				<f:link.page pageUid="{registerPid}">
+					{l10n.registerText}
+				</f:link.page>
+			</div>
+			<f:flashMessages class="flashMessages" />
+			<ni:form name="login" method="post" controller="Guide" action="login" arguments="{article: article.uid}" object="{login}" noCache="1" noCHash="1">
+				<div class="tx-cpguide-login-form-fields">
+					<div class="tx-cpguide-login-form-field">
+						<div class="tx-cpguide-login-form-field-label">
+							<label for="username">{l10n.loginUsername}</label>
+						</div>
+						<div class="tx-cpguide-login-form-field-input">
+							<f:form.textbox id="username" property="username" />
+						</div>
+					</div>
+					<div class="tx-cpguide-login-form-field">
+						<div class="tx-cpguide-login-form-field-label">
+							<label for="password">{l10n.loginPassword}</label>
+						</div>
+						<div class="tx-cpguide-login-form-field-input">
+							<f:form.password id="password" property="password" />
+						</div>
+					</div>
+				</div>
+				<div class="tx-cpguide-login-form-submit">
+					<f:form.submit class="submit" value="{l10n.login}" />
+				</div>
+			</ni:form>
+			<!-- 
+			<div>{l10n.lostPasswordText}</div>
+			<div>
+				<f:link.action controller="Guide" action="lost"> 
+					{l10n.lostPasswordLink}
+				</f:link.action>
+			</div>
+			 -->
+		</div>
+	</f:section>
+</div>

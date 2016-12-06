@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="fr" type="array">
+            <label index="errorTmplNotDefined">Erreur: aucun template n'est défini. Veuillez vérifier vos paramètres TypoScript.</label>
+            <label index="errorTmplNotFound">Erreur: le fichier de template n'existe pas (chemin: %s).</label>
+            <label index="errorNoStoragePage">Erreur: aucune page de stockage n'est définie dans le flexform du plugin.</label>
+            <label index="errorNoTermsPage">Erreur: aucune page de conditions n'est définie dans le flexform du plugin.</label>
+            <label index="errorNoUserGroup">Erreur: aucun groupe d'utilisateur n'est défini dans le flexform du plugin.</label>
+            <label index="errorNoEmailSubject">Erreur: aucun email subject n'est défini dans le flexform du plugin.</label>
+            <label index="errorNoEmailFrom">Erreur: aucune adresse email d'envoi n'est défini dans le flexform du plugin.</label>
+            <label index="errorNoEmailFromName">Erreur: aucun nom d'envoi n'est défini dans le flexform du plugin.</label>
+            <label index="errorNoEmailReplyTo">Erreur: aucune adresse email de réponse n'est défini dans le flexform du plugin.</label>
+            <label index="errorNoEmailMessage">Erreur: aucun message d'email n'est défini dans le flexform du plugin.</label>
+            <label index="labelFirstName">Prénom:</label>
+            <label index="labelLastName">Nom:</label>
+            <label index="labelEmail">Email:</label>
+            <label index="labelAge">Age:</label>
+            <label index="labelNickname">Pseudo:</label>
+            <label index="labelAddress">Adresse:</label>
+            <label index="labelPhone">Téléphone:</label>
+            <label index="labelPassword1">Mot de passe:</label>
+            <label index="labelPassword2">Mot de passe (confirmation):</label>
+            <label index="labelState">NPA/Canton/Ville:</label>
+            <label index="labelTerms">J'accepte les Conditions Générales</label>
+            <label index="labelSubmit">Inscription</label>
+            <label index="errorFieldRequired">Erreur: ce champ est obligatoire</label>
+            <label index="errorInvalidEmail">Erreur: veuillez entrer une adresse email valide</label>
+            <label index="errorEmailExist">Erreur: cette adresse email correspond déjà à un utilisateur</label>
+            <label index="errorAgeNotNumeric">Erreur: veuillez entrer une valeur numérique</label>
+            <label index="errorNicknameExist">Erreur: ce pseudo correspond déjà à un utilisateur</label>
+            <label index="errorPasswordNoMatch">Erreur: les mots de passe ne correspondent pas</label>
+            <label index="formConfirmTitle">Merci pour votre inscription</label>
+            <label index="formConfirmText">Un email de confirmation a été envoyé à votre adresse. Veuillez suivre les instructions contenues dans cet email pour activer votre compte utilisateur.</label>
+            <label index="confirmTitle">Confirmation du compte utilisateur</label>
+            <label index="confirmText">Votre compte utilisateur a été activé. Vous êtes maintenant connecté en tant que '%s'.</label>
+            <label index="confirmError">Erreur: aucun compte utilisateur trouvé</label>
+        </languageKey>
+    </data>
+</T3locallangExt>

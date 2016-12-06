@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvindata_languages.xml 104 2009-12-01 13:55:17Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_data'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvindata_languages">Marvin / Language</label>
+            <label index="fullname">Name</label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: tx_cpguide_domain_model_word.xml 2 2010-06-21 07:43:04Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cpguide'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_cpguide_domain_model_word">Word</label>
+			<label index="tx_cpguide_domain_model_word.word">Word</label>
+			<label index="tx_cpguide_domain_model_word.articles">Articles</label>
+		</languageKey>
+	</data>
+</T3locallang>

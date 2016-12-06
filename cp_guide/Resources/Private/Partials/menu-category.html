@@ -1,0 +1,26 @@
+<!-- $Id: menu-category.html 2 2010-06-21 07:43:04Z macmade $ -->
+<f:if condition="{categories}">
+	<div class="tx-cpguide-menu-categories">
+		<ul>
+			<f:for each="{categories}" as="list_category">
+				<f:if condition="{category.uid}=={list_category.uid}">
+					<f:then>
+						<li class="tx-cpguide-menu-categories-act">
+					</f:then>
+					<f:else>
+						<li>
+					</f:else>
+				</f:if>
+					<div class="tx-cpguide-menu-categories-number">
+						{list_category.menuNumber}
+					</div>
+					<div class="tx-cpguide-menu-categories-title">
+						<f:link.action controller="Guide" action="category" arguments="{category: list_category}">
+							{list_category.menuTitle}
+						</f:link.action>
+					</div>
+				</li>
+			</f:for>
+		</ul>
+	</div>
+</f:if>

@@ -1,0 +1,13 @@
+<!-- $Id: mostviewed.html 24 2010-06-21 07:53:48Z macmade $ -->
+<div class="tx-alcoopedia-mostviewed">
+	<h3>{l10n.mostViewed}</h3>
+	<ul>
+		<f:for each="{articles}" as="list_article">
+			<li>
+				<f:link.action action="view" controller="Article" arguments="{category: list_article.category, article: list_article}">
+					{list_article.title}
+				</f:link.action>
+			</li>
+		</f:for>
+	</ul>
+</div>

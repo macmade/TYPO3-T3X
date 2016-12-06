@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvindata_countries.xml 181 2010-01-04 12:33:58Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_data'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvindata_countries">Marvin / Country</label>
+            <label index="fullname">Name</label>
+            <label index="region">Region</label>
+            <label index="region.0">Europe</label>
+            <label index="region.1">America</label>
+            <label index="region.2">Asia</label>
+            <label index="region.3">Middle East</label>
+        </languageKey>
+    </data>
+</T3locallang>

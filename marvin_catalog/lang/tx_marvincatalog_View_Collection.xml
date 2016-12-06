@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincatalog_View_Collection.xml 106 2009-12-01 15:31:33Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for class 'tx_marvincatalog_View_Collection'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="previousPage">Previous page</label>
+            <label index="nextPage">Next page</label>
+            <label index="collection">Collection</label>
+            <label index="errorNoRecord">Sorry, there is no category to display in the current collection</label>
+        </languageKey>
+    </data>
+</T3locallang>

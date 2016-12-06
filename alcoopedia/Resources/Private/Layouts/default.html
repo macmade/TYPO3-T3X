@@ -1,0 +1,11 @@
+<!-- $Id: default.html 24 2010-06-21 07:53:48Z macmade $ -->
+<div class="tx-alcoopedia">
+	<div class="tx-alcoopedia-left">
+		<f:render section="content" />
+	</div>
+	<div class="tx-alcoopedia-right">
+		<f:render partial="searchbox" arguments="{searchWord: searchWord, l10n: l10n}" />
+		<f:render partial="mostviewed" arguments="{articles: mostViewed, l10n: l10n}" />
+		<f:render partial="tagcloud" arguments="{scores: scores, tags: tags, l10n: l10n}" />
+	</div>
+</div>

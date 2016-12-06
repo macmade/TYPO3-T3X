@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: pi1.xml 183 2010-01-04 12:36:28Z macmade $ -->
+
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+        <langChildren>0</langChildren>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:marvin_care/lang/flex-pi1.xml:sDEF</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <storage>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:marvin_care/lang/flex-pi1.xml:sDEF.storage</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                                <size>1</size>
+                            </config>
+                        </TCEforms>
+                    </storage>
+                </el>
+            </ROOT>
+        </sDEF>
+        <sTEXT>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:marvin_care/lang/flex-pi1.xml:sTEXT</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <intro>
+                        <TCEforms>
+                            <exclude>1</exclude>
+                            <label>LLL:EXT:marvin_care/lang/flex-pi1.xml:sTEXT.intro</label>
+                            <config>
+                                <type>text</type>
+                                <cols>30</cols>
+                                <rows>5</rows>
+                            </config>
+                        </TCEforms>
+                    </intro>
+                </el>
+            </ROOT>
+        </sTEXT>
+    </sheets>
+</T3DataStructure>

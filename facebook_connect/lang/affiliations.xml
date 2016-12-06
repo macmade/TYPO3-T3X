@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'facebook_connect'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="section">Affiliations</label>
+            <label index="sectionTitle">Affiliation</label>
+            <label index="type">Type</label>
+            <label index="type.college">College</label>
+            <label index="type.highschool">High school</label>
+            <label index="type.work">Work</label>
+            <label index="type.region">Region</label>
+            <label index="year">Year</label>
+            <label index="name">Name</label>
+            <label index="nid">NID</label>
+            <label index="status">Status</label>
+        </languageKey>
+    </data>
+</T3locallang>

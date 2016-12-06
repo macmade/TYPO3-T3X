@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincatalog_View_Category.xml 106 2009-12-01 15:31:33Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for class 'tx_marvincatalog_View_Category'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="previousPage">Previous page</label>
+            <label index="nextPage">Next page</label>
+            <label index="collection">Collection</label>
+            <label index="errorNoRecord">Sorry, there is no watch to display in the current category</label>
+        </languageKey>
+    </data>
+</T3locallang>

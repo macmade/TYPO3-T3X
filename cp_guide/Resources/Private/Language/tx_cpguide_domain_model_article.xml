@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: tx_cpguide_domain_model_article.xml 7 2010-10-18 13:46:27Z jean $ -->
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cpguide'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_cpguide_domain_model_article">Article</label>
+			<label index="tx_cpguide_domain_model_article.title">Title</label>
+			<label index="tx_cpguide_domain_model_article.pagenum">Page number</label>
+			<label index="tx_cpguide_domain_model_article.change_date">Modification / Date</label>
+			<label index="tx_cpguide_domain_model_article.change_description">Modification / Description</label>
+			<label index="tx_cpguide_domain_model_article.article_type">Type</label>
+			<label index="tx_cpguide_domain_model_article.article_type.I.0">Normal</label>
+			<label index="tx_cpguide_domain_model_article.article_type.I.1">Menu separator</label>
+			<label index="tx_cpguide_domain_model_article.article_type.I.2">Menu note</label>
+			<label index="tx_cpguide_domain_model_article.content">Content</label>
+			<label index="tx_cpguide_domain_model_article.comments">Comments</label>
+			<label index="tx_cpguide_domain_model_article.tags">Tags</label>
+			<label index="tx_cpguide_domain_model_article.notes">Notes</label>
+			<label index="tx_cpguide_domain_model_article.views">Views</label>
+			<label index="tx_cpguide_domain_model_article.favorites">Favorites</label>
+			<label index="tx_cpguide_domain_model_article.tab.relations">Relations</label>
+		</languageKey>
+	</data>
+</T3locallang>

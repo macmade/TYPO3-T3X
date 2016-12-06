@@ -1,0 +1,33 @@
+<!-- $Id: search.html 24 2010-06-21 07:53:48Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
+	<h1>{l10n.searchResults}</h1>
+	<div class="tx-alcoopedia-search-results">
+		<f:if condition="{articles}">
+			<f:then>
+				<f:for each="{articles}" as="list_article">
+					<div class="tx-alcoopedia-search-results-article">
+						<h2>
+							<f:link.action action="view" controller="Article" arguments="{category: list_article.category, article:list_article}">
+								{list_article.title}
+							</f:link.action>
+						</h2>
+						<div>
+							<f:format.crop append="..." maxCharacters="175">
+								<ni:format.strip>
+									<f:format.html>{list_article.content}</f:format.html>
+								</ni:format.strip>
+							</f:format.crop>
+						</div>
+					</div>
+				</f:for>
+			</f:then>
+			<f:else>
+				<div class="tx-alcoopedia-search-no-results">
+					{l10n.searchNoResult}
+				</div>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>

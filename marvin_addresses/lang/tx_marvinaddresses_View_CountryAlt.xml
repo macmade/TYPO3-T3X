@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvinaddresses_View_CountryAlt.xml 182 2010-01-04 12:35:37Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_addresses'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="europe">Europe</label>
+            <label index="america">Americas</label>
+            <label index="asia">Asia</label>
+            <label index="middleEast">Middle East</label>
+        </languageKey>
+    </data>
+</T3locallang>

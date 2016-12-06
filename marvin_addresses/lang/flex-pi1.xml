@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: flex-pi1.xml 182 2010-01-04 12:35:37Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_addresses'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="sDEF">General</label>
+            <label index="sDEF.storage">Storage page</label>
+            <label index="sDEF.addressType">Address type</label>
+            <label index="sDEF.addressType.0">Distributors</label>
+            <label index="sDEF.addressType.1">Retailers</label>
+            <label index="sDEF.addressType.2">SAV</label>
+            <label index="sDEF.altLayout">Alternative layout</label>
+            <label index="sTEXT">Texts</label>
+            <label index="sTEXT.intro">Introduction</label>
+        </languageKey>
+    </data>
+</T3locallang>

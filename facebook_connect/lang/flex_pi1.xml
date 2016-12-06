@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'facebook_connect'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="sDEF">General</label>
+            <label index="sDEF.pages">Storage page</label>
+            <label index="sDEF.userGroup">Frontend user group</label>
+            <label index="sDEF.appKey">Application key</label>
+            <label index="sDEF.noNewUserMessage">No 'New user' message</label>
+            <label index="sDEF.appSecret">Application secret</label>
+            <label index="sREDIRECT">Redirections</label>
+            <label index="sREDIRECT.onLogin">On login</label>
+            <label index="sREDIRECT.afterLogin">After login</label>
+        </languageKey>
+    </data>
+</T3locallang>

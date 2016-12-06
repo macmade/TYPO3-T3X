@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'netdata'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_netdata_cities">City</label>
+            <label index="id_tx_netdata_states">State</label>
+            <label index="fullname">Name (full)</label>
+            <label index="shortname">Name (short)</label>
+            <label index="district_name">District name</label>
+            <label index="district_number">District number</label>
+        </languageKey>
+    </data>
+</T3locallang>

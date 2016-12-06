@@ -1,0 +1,105 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence - Jean-David Gadina (macmade@netinfluence.com)         #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+plugin.tx_facebookconnect_pi1 {
+    
+    crossDomainCommunicationChannelFile = {$plugin.tx_facebookconnect_pi1.crossDomainCommunicationChannelFile}
+    connectButton                       = {$plugin.tx_facebookconnect_pi1.connectButton}
+    facebookJs                          = {$plugin.tx_facebookconnect_pi1.facebookJs}
+    templateFile                        = {$plugin.tx_facebookconnect_pi1.templateFile}
+    btn                                 = {$plugin.tx_facebookconnect_pi1.btn}
+    
+    _CSS_DEFAULT_STYLE (
+        
+        .tx-facebookconnect-pi1 {
+            margin-top:         20px;
+            margin-bottom:      20px;
+            font-size:          15px;
+        }
+        
+        .tx-facebookconnect-pi1 INPUT {
+            border:             solid 1px #000000;
+            background-color:   #FFFFFF;
+            padding:            5px;
+            font-size:          15px;
+        }
+        
+        .tx-facebookconnect-pi1 TEXTAREA {
+            border:             solid 1px #000000;
+            background-color:   #FFFFFF;
+            padding:            5px;
+            font-size:          15px;
+        }
+        
+        .tx-facebookconnect-pi1 SELECT {
+            border:             solid 1px #000000;
+            background-color:   #FFFFFF;
+            padding:            5px;
+            font-size:          15px;
+        }
+        
+        .tx-facebookconnect-pi1-form-item {
+            margin-top:         10px;
+        }
+        
+        .tx-facebookconnect-pi1-form-submit {
+            margin-top:         20px;
+            text-align:         center;
+        }
+        
+        .tx-facebookconnect-pi1-form-submit INPUT {
+            text-transform:     uppercase;
+            font-family:        Impact, Lucida, Verdana, sans-serif;
+            font-size:          15px;
+        }
+        
+        .tx-facebookconnect-pi1-form-block {
+            overflow:           hidden;
+            height:             100%;
+        }
+        
+        .tx-facebookconnect-pi1-form-block .tx-facebookconnect-pi1-form-item {
+            float:              left;
+            width:              50%;
+        }
+        
+        .tx-facebookconnect-pi1 LABEL {
+            text-transform:     uppercase;
+            font-family:        Impact, Lucida, Verdana, sans-serif;
+        }
+        
+        .tx-facebookconnect-pi1-error {
+            font-weight:            bold;
+            padding-left:           25px;
+            padding-top:            5px;
+            padding-right:          5px;
+            padding-bottom:         5px;
+            color:                  #F04B23;
+            margin-top:             10px;
+            background-image:       url( "/typo3conf/ext/facebook_connect/res/img/error.png" );
+            background-repeat:      no-repeat;
+            background-position:    left 2px;
+            font-size:              0.75em;
+        }
+    )
+}

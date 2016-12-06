@@ -1,0 +1,66 @@
+<!-- $Id: searchbox.html 17 2010-11-05 22:49:44Z jean $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<ni:script ext="cp_guide" script="jquery.js" />
+<ni:script ext="cp_guide" script="jquery.bgiframe.js" />
+<ni:script ext="cp_guide" script="jquery.ajaxQueue.js" />
+<ni:script ext="cp_guide" script="jquery.thickbox.js" />
+<ni:script ext="cp_guide" script="jquery.autocomplete.js" />
+<div class="tx-cpguide-menu-searchbox">
+	<f:if condition="{user}">
+		<div class="tx-cpguide-search">
+			<ni:form id="searchForm" name="search" method="post" controller="Guide" action="search" object="{search}" noCache="1" noCHash="1">
+				<div>
+				<f:if condition="{searchWord}">
+					<f:then>
+						<f:form.textbox id="word" property="word" value="{searchWord}" />
+					</f:then>
+					<f:else>
+						<f:form.textbox id="word" property="word" value="{l10n.searchTitle}" />
+					</f:else>
+				</f:if>
+					<script type="text/javascript">
+						$( document ).ready
+						(
+							function()
+							{
+								$( '#word' ).autocomplete( '{autoCompleteUrl}' );
+								$( '#word' ).result
+								(
+									function( event, data, formatted )
+									{
+										$( '#searchForm' ).submit();
+									}
+								);
+								$( '#word' ).focus
+								(
+									function()
+									{
+										if( $( '#word' ).val() == "{l10n.searchTitle}" )
+										{
+											$( '#word' ).val( '' );
+											$( '#word' ).addClass( 'focusField' );
+										}
+									}
+								);
+								$( '#word' ).blur
+								(
+									function()
+									{
+										if( $( '#word' ).val() == '' )
+										{
+											$( '#word' ).val( "{l10n.searchTitle}" );
+											$( '#word' ).removeClass( 'focusField' );
+										}
+									}
+								);
+							}
+						);
+					</script>
+				</div>
+				<div class="tx-cpguide-search-submit">
+					<f:form.submit class="submit" value=""/>
+				</div>
+			</ni:form>
+		</div>
+	</f:if>
+</div>

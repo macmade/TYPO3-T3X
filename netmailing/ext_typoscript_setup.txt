@@ -1,0 +1,109 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: ext_typoscript_setup.txt 32 2010-01-07 16:12:06Z macmade $
+
+/**
+ * Default TS setup - Extension 'netmailing' - PI1
+ *
+ * @author      Jean-David Gadina (macmade@gadlab.net)
+ * @version     1.0
+ */
+plugin.tx_netmailing_pi1 {
+    
+    // API settings
+    api {
+        
+        // The HTTP version to use
+        httpVersion      = {$plugin.tx_netmailing_pi1.api.httpVersion}
+        
+        // The API host
+        host             = {$plugin.tx_netmailing_pi1.api.host}
+        
+        // The API port number
+        port             = {$plugin.tx_netmailing_pi1.api.port}
+        
+        // The URL to the subscriber add method
+        subscriberAddUrl = {$plugin.tx_netmailing_pi1.api.subscriberAddUrl}
+    }
+    
+    // SOAP settings
+    soap {
+        
+        // The name of the SOAP action to add a subscriber with custom fields
+        subscriberAddCustomAction = {$plugin.tx_netmailing_pi1.soap.subscriberAddCustomAction}
+        
+        // The URL of the SOAP action to add a subscriber with custom fields
+        subscriberAddCustomUrl    = {$plugin.tx_netmailing_pi1.soap.subscriberAddCustomUrl}
+        
+        // The SOAP API URL
+        apiUrl                    = {$plugin.tx_netmailing_pi1.soap.apiUrl}
+        
+        // The SOAP API XML namespace
+        xmlns                     = {$plugin.tx_netmailing_pi1.soap.xmlns}
+    }
+    
+    // Size of the input
+    inputSize = {$plugin.tx_netmailing_pi1.inputSize}
+    
+    // Default CSS styling
+    _CSS_DEFAULT_STYLE (
+        .tx-netmailing-pi1 {
+            margin-top:     10px;
+            margin-bottom:  10px;
+        }
+        .tx-netmailing-pi1 FORM .tx-netmailing-pi1-simple {
+           overflow:        hidden;
+        }
+        .tx-netmailing-pi1 FORM .tx-netmailing-pi1-simple DIV {
+            float:          left;
+        }
+        .tx-netmailing-pi1 FORM .tx-netmailing-pi1-simple .tx-netmailing-pi1-label {
+            margin-right:   10px;
+            padding-top:    4px;
+        }
+        .tx-netmailing-pi1 FORM .tx-netmailing-pi1-simple .tx-netmailing-pi1-email {
+            margin-right:   10px;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-fields .tx-netmailing-pi1-field {
+            overflow:       hidden;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-fields .tx-netmailing-pi1-field .tx-netmailing-pi1-field-label {
+            float:          left;
+            width:          150px;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-fields .tx-netmailing-pi1-field .tx-netmailing-pi1-field-input {
+            float:          left;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-submit {
+            margin-left:    150px;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-simple .tx-netmailing-pi1-submit {
+            margin-left:    0px;
+        }
+        .tx-netmailing-pi1 .tx-netmailing-pi1-fields .tx-netmailing-pi1-field .tx-netmailing-pi1-field-error {
+            margin-left:    150px;
+            color:          #FF0000;
+        }
+    )
+}

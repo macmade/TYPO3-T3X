@@ -1,0 +1,18 @@
+<!-- $Id: notes.html 7 2010-10-18 13:46:27Z jean $ -->
+<div class="tx-cpguide-article-notes">
+	<h2>{l10n.notes}</h2>
+	<f:for each="{article.userNotes}" as="list_note">
+		<div class="tx-cpguide-note-container">
+			<div class="tx-cpguide-note">
+				<h3>{list_note.title}</h3>
+				<div>
+					{list_note.content}
+				</div>
+				<div class="tx-cpguide-note-remove">
+					<f:link.action controller="Note" action="delete" arguments="{articleId: article.uid, noteId: list_note.uid}">{l10n.removeNote}</f:link.action>
+				</div>
+			</div>
+		</div>
+	</f:for>
+	<f:render partial="form-note" arguments="{article: article, l10n: l10n}" />
+</div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'ym_register'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="errorTmplNotDefined">Error: no template file is defined. Please check your TypoScript settings.</label>
+            <label index="errorTmplNotFound">Error: the template file does not exist (path: %s).</label>
+            <label index="errorNoStoragePage">Error: no storage page is defined in the plugin's flexform.</label>
+            <label index="errorNoTermsPage">Error: no terms page is defined in the plugin's flexform.</label>
+            <label index="errorNoUserGroup">Error: no user group is defined in the plugin's flexform.</label>
+            <label index="errorNoEmailSubject">Error: no email subject is defined in the plugin's flexform.</label>
+            <label index="errorNoEmailFrom">Error: no from email address is defined in the plugin's flexform.</label>
+            <label index="errorNoEmailFromName">Error: no from email name is defined in the plugin's flexform.</label>
+            <label index="errorNoEmailReplyTo">Error: no reply-to email address is defined in the plugin's flexform.</label>
+            <label index="errorNoEmailMessage">Error: no email message is defined in the plugin's flexform.</label>
+            <label index="labelFirstName">First name:</label>
+            <label index="labelLastName">Last name:</label>
+            <label index="labelEmail">Email:</label>
+            <label index="labelAge">Age:</label>
+            <label index="labelNickname">Nickname:</label>
+            <label index="labelAddress">Address:</label>
+            <label index="labelPhone">Phone:</label>
+            <label index="labelPassword1">Password:</label>
+            <label index="labelPassword2">Password (confirm):</label>
+            <label index="labelState">State &amp; city:</label>
+            <label index="labelTerms">I agree to the terms &amp; conditions</label>
+            <label index="labelSubmit">Register</label>
+            <label index="errorFieldRequired">Error: this field is required</label>
+            <label index="errorInvalidEmail">Error: please enter a valid email address</label>
+            <label index="errorEmailExist">Error: this email address already exists</label>
+            <label index="errorNicknameExist">Error: this nickname already exists</label>
+            <label index="errorAgeNotNumeric">Error: please enter a numeric value</label>
+            <label index="errorPasswordNoMatch">Error: the passwords do not match</label>
+            <label index="formConfirmTitle">Thank you for registering</label>
+            <label index="formConfirmText">A confirmation email has been sent to your address. Please follow the instructions in the confirmation email to activate your account.</label>
+            <label index="confirmTitle">Account confirmation</label>
+            <label index="confirmText">Your account has been activated. You are now logged as '%s'.</label>
+            <label index="confirmError">Error: no such account</label>
+        </languageKey>
+        <languageKey index="fr">EXT:ym_register/lang/fr/pi1.xml</languageKey>
+    </data>
+</T3locallang>

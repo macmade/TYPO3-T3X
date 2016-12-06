@@ -1,0 +1,11 @@
+<!-- $Id: tagcloud.html 24 2010-06-21 07:53:48Z macmade $ -->
+<div class="tx-alcoopedia-tagcloud">
+	<h3>{l10n.tagCloud}</h3>
+	<div class="tx-alcoopedia-tags">
+		<f:for each="{tags}" as="list_tag" key="list_key">
+			<f:link.action action="tag" controller="Article" arguments="{tag: list_tag.word}">
+				<span style="font-size: {list_tag.fontSize}">{list_tag.word}</span>
+			</f:link.action>
+		</f:for>
+	</div>
+</div>

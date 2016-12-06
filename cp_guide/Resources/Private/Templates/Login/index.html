@@ -1,0 +1,27 @@
+<!-- $Id: index.html 17 2010-11-05 22:49:44Z jean $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<f:section name="content">
+	<div class="tx-cpguide-pi1-loginBox">
+		<f:if condition="{user}">
+			<f:then>
+				<div class="tx-cpguide-pi1-loginBox-username">
+					{user.username}
+				</div>
+				<div class="tx-cpguide-pi1-loginBox-logoutLink">
+					<f:link.action action="logout" controller="Login">
+						{l10n.logout}
+					</f:link.action>
+				</div>
+			</f:then>
+			<f:else>
+				<ni:form name="login" method="post" controller="Guide" action="login" object="{login}" noCache="1" noCHash="1" pageUid="5">
+					<label>Email</label><br>
+					<f:form.textbox id="username" property="username" /><br>
+					<label>Mot de passe</label><br>
+					<f:form.password id="password" property="password" />
+					<span class="tx-cpguide-pi1-loginBox-submit"><f:form.submit class="submit" value="" /></span>
+				</ni:form>
+			</f:else>
+		</f:if>
+	</div>
+</f:section>

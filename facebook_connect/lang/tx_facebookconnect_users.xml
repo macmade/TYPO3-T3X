@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'facebook_connect'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_facebookconnect_users">Facebook profile</label>
+            <label index="tab.user">User</label>
+            <label index="tab.location">Location</label>
+            <label index="tab.about">About</label>
+            <label index="tab.infos">Infos</label>
+            <label index="tab.media">Media</label>
+            <label index="tab.affiliations">Affiliations</label>
+            <label index="tab.work">Work</label>
+            <label index="tab.education">Education</label>
+            <label index="tx_facebookconnect_users">Related frontend user</label>
+            <label index="facebook_uid">Facebook UID</label>
+            <label index="about_me">About me</label>
+            <label index="activities">Activities</label>
+            <label index="affiliations">Affiliations</label>
+            <label index="birthday_date">Birthday date</label>
+            <label index="books">Books</label>
+            <label index="current_location_city">City</label>
+            <label index="current_location_state">State</label>
+            <label index="current_location_country">Country</label>
+            <label index="current_location_zip">ZIP</label>
+            <label index="education_history">Education history</label>
+            <label index="email_hashes">Email hashes</label>
+            <label index="first_name">First name</label>
+            <label index="fullname">Full name</label>
+            <label index="hometown_location_city">Hometown - City</label>
+            <label index="hometown_location_state">Hometown - State</label>
+            <label index="hometown_location_country">Hometown - Country</label>
+            <label index="hs_info_hs1_name">High-School 1 name</label>
+            <label index="hs_info_hs2_name">High-School 2 name</label>
+            <label index="hs_info_grad_year">High-School graduation year</label>
+            <label index="hs_info_hs1_id">High-School 1 ID</label>
+            <label index="hs_info_hs2_id">High-School 2 ID</label>
+            <label index="interests">Interests</label>
+            <label index="is_app_user">Is application user</label>
+            <label index="is_blocked">Is blocked</label>
+            <label index="last_name">Last name</label>
+            <label index="locale">Locale</label>
+            <label index="meeting_for">Meeting for</label>
+            <label index="meeting_for.friendship">Friendship</label>
+            <label index="meeting_for.relationship">A relationship</label>
+            <label index="meeting_for.dating">Dating</label>
+            <label index="meeting_for.random">Random play</label>
+            <label index="meeting_for.whatever">Whatever I can get</label>
+            <label index="meeting_sex">Meeting sex</label>
+            <label index="meeting_sex.male">Male</label>
+            <label index="meeting_sex.female">Female</label>
+            <label index="movies">Movies</label>
+            <label index="music">Music</label>
+            <label index="notes_count">Notes count</label>
+            <label index="pic">Picture</label>
+            <label index="pic_with_logo">Picture with logo</label>
+            <label index="pic_big">Big picture</label>
+            <label index="pic_big_with_logo">Big picture with logo</label>
+            <label index="pic_small">Small picture</label>
+            <label index="pic_small_with_logo">Small picture with logo</label>
+            <label index="pic_square">Square picture</label>
+            <label index="pic_square_with_logo">Square picture with logo</label>
+            <label index="political">Political views</label>
+            <label index="profile_blurb">Profile blurb</label>
+            <label index="profile_update_time">Profile update time</label>
+            <label index="profile_url">Profile URL</label>
+            <label index="proxied_email">Proxied email</label>
+            <label index="quotes">Quotes</label>
+            <label index="relationship_status">Relationship status</label>
+            <label index="relationship_status.single">Single</label>
+            <label index="relationship_status.relationship">In a relationship</label>
+            <label index="relationship_status.open">In an open relationship</label>
+            <label index="relationship_status.engaged">Engaged</label>
+            <label index="relationship_status.married">Married</label>
+            <label index="relationship_status.complicated">It's complicated</label>
+            <label index="religion">Religion</label>
+            <label index="sex">Sex</label>
+            <label index="sex.male">Male</label>
+            <label index="sex.female">Female</label>
+            <label index="significant_other_id">Significant ID</label>
+            <label index="status_message">Status message</label>
+            <label index="status_time">Status time</label>
+            <label index="timezone">Timezone</label>
+            <label index="tv">TV</label>
+            <label index="username">Username</label>
+            <label index="wall_count">Wall count</label>
+            <label index="website">Website</label>
+            <label index="work_history">Work history</label>
+        </languageKey>
+    </data>
+</T3locallang>

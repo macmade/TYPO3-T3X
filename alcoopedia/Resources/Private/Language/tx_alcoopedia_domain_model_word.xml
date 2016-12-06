@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: tx_alcoopedia_domain_model_word.xml 24 2010-06-21 07:53:48Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'alcoopedia'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_alcoopedia_domain_model_word">Word</label>
+			<label index="tx_alcoopedia_domain_model_word.word">Word</label>
+			<label index="tx_alcoopedia_domain_model_word.count">Count</label>
+		</languageKey>
+	</data>
+</T3locallang>

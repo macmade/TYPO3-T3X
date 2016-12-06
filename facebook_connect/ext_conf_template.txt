@@ -1,0 +1,2 @@
+# cat=basic//0; type=options[fsockopen,curl]; label=Connection method: The PHP function used to connect to the Facebook API.
+connection = fsockopen

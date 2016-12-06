@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: flex-pi1.xml 190 2010-01-06 11:16:55Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_catalog'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="sDEF">General</label>
+            <label index="sDEF.rootCategory">Default catalog category</label>
+            <label index="sDEF.disableZoom">Disable zoom on the details page</label>
+            <label index="sBITLY">bit.ly</label>
+            <label index="sBITLY.login">Login</label>
+            <label index="sBITLY.apiKey">API key</label>
+            <label index="sMAIL">Mailer</label>
+            <label index="sMAIL.subject">Subject</label>
+            <label index="sMAIL.message">Message</label>
+        </languageKey>
+    </data>
+</T3locallang>

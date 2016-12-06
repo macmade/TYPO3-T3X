@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvinaddresses_addresses.xml 126 2009-12-03 14:30:24Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_addresses'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvinaddresses_addresses">Marvin / Address</label>
+            <label index="address_type">Type</label>
+            <label index="address_type.0">Undefined / Other</label>
+            <label index="address_type.1">Distributor</label>
+            <label index="address_type.2">Retailer</label>
+            <label index="sav">SAV</label>
+            <label index="fullname">Name</label>
+            <label index="fullname">Name</label>
+            <label index="id_city">City</label>
+            <label index="zip">ZIP</label>
+            <label index="address">Address</label>
+            <label index="address_number">Address number</label>
+            <label index="phone">Phone</label>
+            <label index="phone2">Phone 2</label>
+            <label index="fax">Fax</label>
+            <label index="email">Email</label>
+            <label index="email2">Email 2</label>
+            <label index="url">URL</label>
+            <label index="infos">Informations</label>
+            <label index="remarks">Remarks</label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: locallang.xml 30 2010-01-07 09:00:16Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'netmailing'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="submit">Submit</label>
+            <label index="email">Email:</label>
+            <label index="subscribe">Newsletter subscription</label>
+            <label index="inputValue">email@domain.com</label>
+            <label index="confirm">Your email was sucessfully subscribed.</label>
+            <label index="connectionError">Sorry, a connection error occured.</label>
+            <label index="badHttpStatus">Sorry, a connection error occured.</label>
+            <label index="badXmlResponse">Sorry, a connection error occured.</label>
+            <label index="errorRequired">Error: the field is required</label>
+            <label index="errorEmail">Error: invalid email address</label>
+        </languageKey>
+    </data>
+</T3locallang>

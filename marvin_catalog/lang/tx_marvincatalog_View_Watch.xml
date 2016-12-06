@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincatalog_View_Watch.xml 190 2010-01-06 11:16:55Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for class 'tx_marvincatalog_View_Watch'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="collection">Collection</label>
+            <label index="moodGenerator">Mood Generator</label>
+            <label index="story">Story</label>
+            <label index="technical">Technical</label>
+            <label index="errorNoRecord">Sorry, there is no such watch in the catalog</label>
+            <label index="movement">Movement</label>
+            <label index="features">Features</label>
+            <label index="case">Case</label>
+            <label index="glass">Glass</label>
+            <label index="atm">Water-resistance</label>
+            <label index="bracelet">Bracelet</label>
+            <label index="dial">Dial</label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: locallang.de.xml 2 2010-06-21 07:43:04Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the CP / Guide extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="de" type="array">
+			<label index="search">Suche</label>
+			<label index="searchSubmit">Suche</label>
+			<label index="notes">Persönliche Anmerkungen</label>
+			<label index="title">Titel</label>
+			<label index="text">Text</label>
+			<label index="required">(erforderlich)</label>
+			<label index="submit">OK</label>
+			<label index="comment">Kommentar</label>
+			<label index="comments">Kommentare</label>
+			<label index="addComment">Kommentar hinzufügen</label>
+			<label index="removeNote">Löschen</label>
+			<label index="searchLengthWarning">Hinweis: Sie können auf Worte von mehr als zwei Buchstaben suchen</label>
+			<label index="searchNoResult">Es wurden keine Artikel gefunden</label>
+			<label index="searchResult">%s Artikel(s) gefunden</label>
+			<label index="searchNoWord">Fehler: Sie müssen nicht angeben, eine Suche</label>
+			<label index="firstname">Vorname</label>
+			<label index="lastname">Name</label>
+			<label index="email">E-mail</label>
+			<label index="password">Passwort</label>
+			<label index="password2">Passwort verifizieren</label>
+			<label index="address">Adresse</label>
+			<label index="city">Stadt</label>
+			<label index="zip">NPA</label>
+			<label index="country">Land</label>
+			<label index="telephone">Telefon</label>
+			<label index="fax">Fax</label>
+			<label index="mobile">Mobile</label>
+			<label index="registerSubmit">Registrieren</label>
+			<label index="registerPasswordSubmit">Kennwort festlegen</label>
+			<label index="addFavorite">Zu den Favoriten hinzufügen</label>
+			<label index="removeFavorite">Aus Favoriten entfernen</label>
+			<label index="login">Login</label>
+			<label index="loginTitle">Benutzer Login</label>
+			<label index="loginText">Sie müssen sich anmelden, um Artikel zu sehen. </label>
+			<label index="loginUsername">E-mail</label>
+			<label index="loginPassword">Passwort</label>
+			<label index="registerText">Wenn Sie noch keinen Account besitzen, können Sie sich registrieren.</label>
+			<label index="logout">Abmelden</label>
+			<label index="homeMostViewed">Beliebteste Artikel</label>
+			<label index="homeLastModified">Aktuelle Updates</label>
+			<label index="homeFavorites">Lesezeichen</label>
+			<label index="homeNotes">Meine persönlichen Anmerkungen</label>
+			<label index="remove">Löschen</label>
+			<label index="searchTitle">Suche den Leitfaden für die Arbeitgeber, geben Sie Ihren Suchbegriff hier:</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,25 @@
+<!-- $Id: index.html 24 2010-06-21 07:53:48Z macmade $ -->
+<f:layout name="default" />
+<f:section name="content">
+	<h1>{l10n.title}</h1>
+	<div class="tx-alcoopedia-menu">
+		<f:for each="{categories}" as="list_category">
+			<div class="tx-alcoopedia-menu-category">
+				<h2>{list_category.title}</h2>
+				<f:if condition="{list_category.articles}">
+					<ul class="tx-alcoopedia-menu-articles">
+						<f:for each="{list_category.articles}" as="list_article">
+							<li>
+								<h3>
+									<f:link.action action="view" controller="Article" arguments="{category: list_category, article:list_article}">
+										{list_article.title}
+									</f:link.action>
+								</h3>
+							</li>
+						</f:for>
+					</ul>
+				</f:if>
+			</div>
+		</f:for>
+	</div>
+</f:section>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: scheduler.xml 24 2010-06-21 07:53:48Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the CP / Guide extension</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="Indexing.title">Indexing</label>
+			<label index="Indexing.description">Indexes the words from the articles.</label>
+			<label index="Indexing.fields.pid">Storage PID</label>
+		</languageKey>
+	</data>
+</T3locallang>

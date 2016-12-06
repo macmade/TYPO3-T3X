@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tt_content.xml 184 2010-01-05 08:12:05Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'marvin_shopform'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="list_type.pi1">Marvin / Shop Form</label>
+        </languageKey>
+    </data>
+</T3locallang>

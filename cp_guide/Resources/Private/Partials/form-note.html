@@ -1,0 +1,26 @@
+<!-- $Id: form-note.html 2 2010-06-21 07:43:04Z macmade $ -->
+<div class="tx-cpguide-notes-form">
+	<f:form name="newNote" method="post" controller="Note" action="create" object="{newNote}" arguments="{articleId: article.uid}">
+		<f:form.errors for="newComment">
+			<div class="error">
+				<strong>{error.propertyName}</strong>:
+				<f:for each="{error.errors}" as="errorDetail">
+					{errorDetail.message}
+				</f:for>
+			</div>
+		</f:form.errors>
+		<div class="tx-cpguide-note-container">
+			<div class="tx-cpguide-note">
+				<div>
+					<f:form.textbox id="title" property="title" />
+				</div>
+				<div>
+					<f:form.textarea id="content" property="content" rows="10" cols="25" />
+				</div>
+			</div>
+		</div>
+		<div class="tx-cpguide-notes-form-submit">
+			<f:form.submit class="submit" value="{l10n.submit}" />
+		</div>
+	</f:form>
+</div>

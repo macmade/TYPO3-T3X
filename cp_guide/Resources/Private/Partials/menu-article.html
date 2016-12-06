@@ -1,0 +1,52 @@
+<!-- $Id: menu-article.html 7 2010-10-18 13:46:27Z jean $ -->
+<f:if condition="{subCategory}">
+	<div class="tx-cpguide-menu-articles">
+		<ul>
+			<f:for each="{subCategory.articles}" as="list_article">
+				<f:if condition="{article.uid}=={list_article.uid}">
+					<f:then>
+						<li class="tx-cpguide-menu-articles-act">
+					</f:then>
+					<f:else>
+						<li>
+					</f:else>
+				</f:if>
+				<f:if condition="{list_article.articleType}==0">
+					<f:then>
+						<div class="tx-cpguide-menu-articles-number">
+							{list_article.menuNumber}
+						</div>
+						<div class="tx-cpguide-menu-articles-title">
+							<f:link.action controller="Guide" action="article" arguments="{article: list_article.uid}" section="tx-cpguide-article-content">
+								{list_article.menuTitle}
+							</f:link.action>
+						</div>
+						<div class="tx-cpguide-menu-articles-pagenum">
+							{list_article.pagenum}
+						</div>
+					</f:then>
+					<f:else>
+						<f:if condition="{list_article.articleType}==1">
+							<f:then>
+								<div class="tx-cpguide-menu-articles-separator">
+									{list_article.title}
+								</div>
+							</f:then>
+							<f:else>
+								<div class="tx-cpguide-menu-articles-note">
+									{list_article.content}
+								</div>
+							</f:else>
+						</f:if>
+					</f:else>
+				</f:if>
+				</li>
+			</f:for>
+		</ul>
+		<div class="tx-cpguide-menu-articles-showAll">
+			<f:link.action controller="Guide" action="showAll" arguments="{subCategory: subCategory.uid}">
+				{l10n.menuArticleShowAll}
+			</f:link.action>
+		</div>
+	</div>
+</f:if>

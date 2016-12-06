@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for module &quot;web_txalcoquizzM1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="title">AlcooQuizz</label>
+			<label index="exportQuizz">Export quizz data (CSV)</label>
+			<label index="exportSurvey">Export survey data (CSV)</label>
+			<label index="noData">No data to export</label>
+			<label index="label-uid">ID</label>
+			<label index="label-crdate">Date</label>
+			<label index="label-I1">I.1</label>
+			<label index="label-I2">I.2</label>
+			<label index="label-I3">I.3</label>
+			<label index="label-I4">I.4</label>
+			<label index="label-II1">II.1</label>
+			<label index="label-II2">II.2</label>
+			<label index="label-II3">II.3</label>
+			<label index="label-II4">II.4</label>
+			<label index="label-II53">II.5.3</label>
+			<label index="label-II54">II.5.4</label>
+			<label index="label-II55">II.5.5</label>
+			<label index="label-II56">II.5.6</label>
+			<label index="label-II57">II.5.7</label>
+			<label index="label-II58">II.5.8</label>
+			<label index="label-II59">II.5.9</label>
+			<label index="label-II510">II.5.10</label>
+			<label index="label-III11">III.1.1</label>
+			<label index="label-III12">III.1.2</label>
+			<label index="label-III13">III.1.3</label>
+			<label index="label-III16">III.1.6</label>
+			<label index="label-III17">III.1.7</label>
+			<label index="label-III18">III.1.8</label>
+			<label index="label-III19">III.1.9</label>
+			<label index="label-III110">III.1.10</label>
+			<label index="label-III111">III.1.11</label>
+			<label index="label-III112">III.1.12</label>
+			<label index="label-III21">III.2.1</label>
+			<label index="label-III22">III.2.2</label>
+			<label index="label-feed_1">Feedback 1</label>
+			<label index="label-feed_2">Feedback 2</label>
+			<label index="label-feed_3">Feedback 3</label>
+			<label index="label-id_result">Quizz ID</label>
+			<label index="label-q1">Question 1</label>
+			<label index="label-q2">Question 2</label>
+			<label index="label-q3">Question 3</label>
+			<label index="label-q4">Question 4</label>
+			<label index="label-q5">Question 5</label>
+			<label index="label-q6">Question 6</label>
+			<label index="label-q7">Question 7</label>
+			<label index="label-q8">Question 8</label>
+			<label index="label-comments">Comments</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,12 @@
+<!-- $Id: searchbox.html 24 2010-06-21 07:53:48Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<div class="tx-alcoopedia-searchbox">
+	<ni:form id="searchForm" name="search" method="post" controller="Article" action="search" object="{search}" noCache="1" noCHash="1">
+		<div class="tx-alcoopedia-searchbox-input">
+			<f:form.textbox id="word" property="word" value="{searchWord}" />
+		</div>
+		<div class="tx-alcoopedia-searchbox-submit">
+			<f:form.submit class="submit" value=""/>
+		</div>
+	</ni:form>
+</div>

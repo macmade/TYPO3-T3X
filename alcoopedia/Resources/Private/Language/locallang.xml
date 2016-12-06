@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: locallang.xml 24 2010-06-21 07:53:48Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the CHUV / Alcoopedia extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="mostViewed">Most viewed questions</label>
+			<label index="tagCloud">Tag cloud</label>
+			<label index="back">Back to the index</label>
+			<label index="title">Alcoopedia: Learn more about alcohol and its effects</label>
+			<label index="searchResults">Search results</label>
+			<label index="searchNoResult">Sorry, no page was found.</label>
+		</languageKey>
+		<languageKey index="fr">EXT:alcoopedia/Resources/Private/Language/locallang.fr.xml</languageKey>
+	</data>
+</T3locallang>

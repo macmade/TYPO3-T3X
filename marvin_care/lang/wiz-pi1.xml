@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: wiz-pi1.xml 132 2009-12-03 16:18:36Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'marvin_care'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="title">Marvin Service Manuals</label>
+            <label index="description">Adds the list of the Marvin service manuals to the page.</label>
+        </languageKey>
+    </data>
+</T3locallang>

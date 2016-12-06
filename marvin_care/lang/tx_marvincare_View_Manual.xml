@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincare_View_Manual.xml 152 2009-12-10 13:03:01Z macmade $ -->
+
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for database tables/fields belonging to extension 'marvin_addresses'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="automatic">Automatic</label>
+			<label index="quartz">Quartz</label>
+			<label index="select">Select a movement:</label>
+		</languageKey>
+	</data>
+</T3locallang>

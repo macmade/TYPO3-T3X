@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for extension 'facebook_connect'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="errorTs">Error: missing configuration values. Please check your TypoScript settings.</label>
+            <label index="errorFlex">Error: missing configuration values. Please check your flexform settings.</label>
+            <label index="errorXdReceiver">Error: the cross domain communication channel file does not exist. Please check your TypoScript settings.</label>
+            <label index="infosFormTitle">New user</label>
+            <label index="infosFormMessage">As you are connecting to this website from Facebook for the first time, we ask you to fill the form below before your account is activated.</label>
+            <label index="infosFormLabelEmail">Email:</label>
+            <label index="infosFormLabelAge">Age:</label>
+            <label index="infosFormLabelNickname">Nickname:</label>
+            <label index="infosFormLabelSubmit">Submit</label>
+            <label index="errorFieldRequired">Error: this field is required</label>
+            <label index="errorInvalidEmail">Error: please enter a valid email address</label>
+            <label index="errorNicknameExist">Error: this nickname already exists</label>
+            <label index="errorAgeNotNumeric">Error: please enter a numeric value</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="infosFormTitle">Nouvel utilisateur</label>
+            <label index="infosFormMessage">Comme tu te connectes depuis Facebook pour la première fois, remplis s'il te plait le formulaire suivant pour que ton compte soit activé.</label>
+            <label index="infosFormLabelEmail">Email:</label>
+            <label index="infosFormLabelAge">Age:</label>
+            <label index="infosFormLabelNickname">Pseudo:</label>
+            <label index="infosFormLabelSubmit">Connexion</label>
+            <label index="errorFieldRequired">Erreur: ce champ est obligatoire</label>
+            <label index="errorInvalidEmail">Erreur: adresse email invalide</label>
+            <label index="errorNicknameExist">Erreur: ce pseudo existe déjà</label>
+            <label index="errorAgeNotNumeric">Erreur: entre une valeur numérique</label>
+        </languageKey>
+    </data>
+</T3locallang>

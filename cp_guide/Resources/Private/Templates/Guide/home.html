@@ -1,0 +1,132 @@
+<!-- $Id: home.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<div class="tx-cpguide-top">
+	<f:render partial="menu-category" arguments="{category: category, categories: categories, l10n: l10n}" />
+</div>
+<div class="tx-cpguide-content">
+	<f:section name="content">
+		<div class="tx-cpguide-home">
+			<div class="tx-cpguide-home-lastModified">
+				<h2>{l10n.homeLastModified}</h2>
+				<ul>
+					<f:for each="{lastModified}" as="list_article">
+						<ni:element.alternateClass tag="li" even="tx-cpguide-home-lastModified-even" odd="tx-cpguide-home-lastModified-odd" >
+							<div>
+								<f:link.action action="category" controller="Guide" arguments="{category: list_article.subCategory.category.uid}">
+									{list_article.subCategory.category.title}
+								</f:link.action>
+								 &gt;
+								<f:link.action action="subCategory" controller="Guide" arguments="{subCategory: list_article.subCategory.uid}">
+									{list_article.subCategory.title}
+								</f:link.action>
+							</div>
+							<h3>
+								<f:link.action action="article" controller="Guide" arguments="{article: list_article.uid}">
+									{list_article.title}
+								</f:link.action>
+								( <f:format.date format="d.m.Y">{list_article.mTime}</f:format.date> )
+							</h3>
+						</ni:element.alternateClass>
+					</f:for>
+				</ul>
+			</div>
+			<div class="tx-cpguide-home-mostViewed">
+				<h2>{l10n.homeMostViewed}</h2>
+				<ul>
+					<f:for each="{mostViewed}" as="list_article">
+						<ni:element.alternateClass tag="li" even="tx-cpguide-home-mostViewed-even" odd="tx-cpguide-home-mostViewed-odd" >
+							<div>
+								<f:link.action action="category" controller="Guide" arguments="{category: list_article.subCategory.category.uid}">
+									{list_article.subCategory.category.title}
+								</f:link.action>
+								 &gt;
+								<f:link.action action="subCategory" controller="Guide" arguments="{subCategory: list_article.subCategory.uid}">
+									{list_article.subCategory.title}
+								</f:link.action>
+							</div>
+							<h3>
+								<f:link.action action="article" controller="Guide" arguments="{article: list_article.uid}">
+									{list_article.title}
+								</f:link.action>
+							</h3>
+						</ni:element.alternateClass>
+					</f:for>
+				</ul>
+			</div>
+			<div class="tx-cpguide-home-favorites">
+				<h2>{l10n.homeFavorites}</h2>
+				<ul>
+					<f:for each="{favorites}" as="list_article">
+						<ni:element.alternateClass tag="li" even="tx-cpguide-home-favorites-even" odd="tx-cpguide-home-favorites-odd" >
+							<div>
+								<f:link.action action="category" controller="Guide" arguments="{category: list_article.subCategory.category.uid}">
+									{list_article.subCategory.category.title}
+								</f:link.action>
+								 &gt;
+								<f:link.action action="subCategory" controller="Guide" arguments="{subCategory: list_article.subCategory.uid}">
+									{list_article.subCategory.title}
+								</f:link.action>
+							</div>
+							<h3>
+								<f:link.action action="article" controller="Guide" arguments="{article: list_article.uid}">
+									{list_article.title}
+								</f:link.action>
+							</h3>
+							<div class="tx-cpguide-home-remove">
+								<f:link.action action="remove" controller="Favorite" arguments="{articleId: list_article.uid, redirectHome: 1}">
+									{l10n.remove}
+								</f:link.action>
+							</div>
+						</ni:element.alternateClass>
+					</f:for>
+				</ul>
+			</div>
+			<div class="tx-cpguide-home-notes">
+				<h2>{l10n.homeNotes}</h2>
+				<ul>
+					<f:for each="{notes}" as="list_item">
+						<ni:element.alternateClass tag="li" even="tx-cpguide-home-notes-even" odd="tx-cpguide-home-notes-odd" >
+							<div>
+								<f:link.action action="category" controller="Guide" arguments="{category: list_item.article.subCategory.category.uid}">
+									{list_item.article.subCategory.category.title}
+								</f:link.action>
+								 &gt;
+								<f:link.action action="subCategory" controller="Guide" arguments="{subCategory: list_item.article.subCategory.uid}">
+									{list_item.article.subCategory.title}
+								</f:link.action>
+								&gt;
+								<f:link.action action="article" controller="Guide" arguments="{article: list_item.article.uid}">
+									{list_item.article.title}
+								</f:link.action>
+							</div>
+							<h3>
+								<f:link.action action="article" controller="Guide" arguments="{article: list_item.article.uid}">
+									{list_item.note.title}
+								</f:link.action>
+							</h3>
+							<div>
+								<f:link.action action="article" controller="Guide" arguments="{article: list_item.article.uid}">
+									<f:format.crop maxCharacters="200" append="...">{list_item.note.content}</f:format.crop>
+								</f:link.action>
+							</div>
+							<div class="tx-cpguide-home-remove">
+								<f:link.action action="delete" controller="Note" arguments="{articleId: list_item.article.uid, noteId: list_item.note.uid, redirectHome: 1}">
+									{l10n.remove}
+								</f:link.action>
+							</div>
+						</ni:element.alternateClass>
+					</f:for>
+				</ul>
+			</div>
+			<div class="tx-cpguide-home-account">
+				<h2>Mon compte</h2>
+				<div>
+					<a href="#">Modifier mes informations personelles</a>
+				</div>
+				<div>
+					<a href="#">Modifier mon mot de passe</a>
+				</div>
+			</div>
+		</div>
+	</f:section>
+</div>

@@ -1,0 +1,85 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: ext_typoscript_setup.txt 65 2010-06-21 08:57:48Z macmade $
+
+/**
+ * Default TS setup - Extension 'car_mainmenu' - PI1
+ *
+ * @author      Jean-David Gadina (macmade@netinfluence.ch)
+ * @version     1.0
+ */
+plugin.tx_carmainmenu_pi1 {
+    
+    left {
+        
+        pidList         = 
+        width           = 162
+        height          = 69
+        smallWidth      = 81
+        smallHeight     = 33
+        font            = EXT:car_mainmenu/fonts/naiv-bold-text.ttf
+        fontSize        = 15
+        smallFontSize   = 11
+        color           = #AC0CB2
+        colorAct        = #FFFFFF
+        leftOffset      = -3
+        smallLeftOffset = 0
+        actType         = CUR
+        niceText        = 1
+        maxBigItems     = 3
+    }
+    
+    right {
+        
+        pidList         = 
+        width           = 182
+        height          = 69
+        smallWidth      = 91
+        smallHeight     = 33
+        font            = EXT:car_mainmenu/fonts/naiv-bold-text.ttf
+        fontSize        = 15
+        smallFontSize   = 11
+        color           = #AC0CB2
+        colorAct        = #FFFFFF
+        leftOffset      = -10
+        smallLeftOffset = -3
+        actType         = CUR
+        niceText        = 1
+        maxBigItems     = 3
+    }
+    
+    _CSS_DEFAULT_STYLE (
+        
+        .tx-carmainmenu-pi1 {
+            overflow: hidden;
+            height: 100%;
+            line-height: 0px;
+        }
+        
+        .tx-carmainmenu-pi1 .left,
+        .tx-carmainmenu-pi1 .right {
+            float: left;
+        }
+    )
+}

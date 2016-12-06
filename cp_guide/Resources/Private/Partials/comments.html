@@ -1,0 +1,63 @@
+<!-- $Id: comments.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<f:render partial="form-comment" arguments="{article: article, l10n: l10n}" />
+<div class="tx-cpguide-article-comments">
+	<f:if condition="{article.comments}">
+		<h2>{l10n.comments}</h2>
+		<f:for each="{article.comments}" as="list_comment">
+			<f:if condition="{list_comment.author.uid} == {adminUserId}">
+				<f:then>
+					<div class="tx-cpguide-article-comment-admin">
+						<div class="tx-cpguide-article-comment-details">
+							<div class="tx-cpguide-article-comment-author">
+								{list_comment.author.firstname} {list_comment.author.lastname}
+							</div>
+							<div class="tx-cpguide-article-comment-date">
+								<f:format.date format="d.m.Y - H:i">{list_comment.cTime}</f:format.date>
+							</div>
+							<f:if condition="{user.uid} == {adminUserId}">
+								<div class="tx-cpguide-article-comment-remove">
+									<f:link.action action="delete" controller="Comment" arguments="{ article: article.uid, comment: list_comment.uid}">
+										{l10n.remove}
+									</f:link.action>
+								</div>
+							</f:if>
+						</div>
+						<div class="tx-cpguide-article-comment-text">
+							<div class="tx-cpguide-article-comment-text-content">
+								<f:format.nl2br><ni:url.detect>{list_comment.content}</ni:url.detect></f:format.nl2br>
+							</div>
+						</div>
+					</div>
+				</f:then>
+				<f:else>
+					<div class="tx-cpguide-article-comment">
+						<div class="tx-cpguide-article-comment-details">
+							<div class="tx-cpguide-article-comment-author">
+								{list_comment.author.firstname} {list_comment.author.lastname}
+							</div>
+							<div class="tx-cpguide-article-comment-date">
+								<f:format.date format="d.m.Y - H:i">{list_comment.cTime}</f:format.date>
+							</div>
+							<f:if condition="{user.uid} == {adminUserId}">
+								<div class="tx-cpguide-article-comment-remove">
+									<f:link.action action="delete" controller="Comment" arguments="{ article: article.uid, comment: list_comment.uid}">
+										{l10n.remove}
+									</f:link.action>
+								</div>
+							</f:if>
+						</div>
+						<div class="tx-cpguide-article-comment-text">
+							<div class="tx-cpguide-article-comment-text-content">
+								<f:format.nl2br><ni:url.detect>{list_comment.content}</ni:url.detect></f:format.nl2br>
+							</div>
+							<div class="tx-cpguide-article-comment-text-actions">
+								<a href="#">Signaler un abus</a> | <a href="#">Signaler un lien cassé</a>
+							</div>
+						</div>
+					</div>
+				</f:else>
+			</f:if>
+		</f:for>
+	</f:if>
+</div>

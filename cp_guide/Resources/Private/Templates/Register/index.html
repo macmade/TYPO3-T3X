@@ -1,0 +1,141 @@
+<!-- $Id: index.html 7 2010-10-18 13:46:27Z jean $ -->
+<f:layout name="register" />
+<f:section name="content">
+	<f:form name="newUser" method="post" controller="Register" action="create" object="{newUser}">
+		<ul class="tx-cpguide-register-form-errors">
+			<f:form.errors for="newUser">
+				<li>
+					<f:for each="{error.errors}" as="errorDetail">
+						<div>
+							<f:translate key="{error.propertyName}">{error.propertyName}</f:translate>:
+							<f:translate key="registerError-{errorDetail.code}">{errorDetail.message}</f:translate>
+						</div>
+					</f:for>
+				</li>
+			</f:form.errors>
+		</ul>
+		<div class="tx-cpguide-register-form">
+			<div class="tx-cpguide-register-form-group">
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.prefix}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.select id="prefix" property="prefix" options="{prefixOptions}" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.firstname} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="firstname" property="firstname" value="" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.lastname} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="lastname" property="lastname" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.email} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="email" property="email" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.accountType}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.select id="accountType" property="accountType" options="{accountTypeOptions}" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.company}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="company" property="company" />
+					</div>
+				</div>
+			</div>
+			<div class="tx-cpguide-register-form-group">
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.address1} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="address1" property="address1" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.address2}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="address2" property="address2" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.city} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="city" property="city" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.zip} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="zip" property="zip" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.country} <span class="required">{l10n.required}</span>:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="country" property="country" />
+					</div>
+				</div>
+			</div>
+			<div class="tx-cpguide-register-form-group">
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.telephone}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="telephone" property="telephone" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.fax}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="fax" property="fax" />
+					</div>
+				</div>
+				<div class="tx-cpguide-register-form-field">
+					<div class="tx-cpguide-register-form-field-label">
+						<label for="text">{l10n.mobile}:</label>
+					</div>
+					<div class="tx-cpguide-register-form-field-input">
+						<f:form.textbox id="mobile" property="mobile" />
+					</div>
+				</div>
+			</div>
+			<div class="tx-cpguide-register-form-submit">
+				<f:form.submit class="submit" value="{l10n.registerSubmit}"/>
+			</div>
+		</div>
+	</f:form>
+</f:section>

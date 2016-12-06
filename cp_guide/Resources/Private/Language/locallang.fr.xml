@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: locallang.fr.xml 16 2010-10-18 15:55:17Z jean $ -->
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the CP / Guide extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="fr" type="array">
+			<label index="menuArticleShowAll">Voir tout le contenu du chiffre de la fiche</label>
+			<label index="search">Rechercher</label>
+			<label index="searchSubmit">Rechercher</label>
+			<label index="notes">Annotations personnelles</label>
+			<label index="title">Titre</label>
+			<label index="text">Texte</label>
+			<label index="required">(obligatoire)</label>
+			<label index="submit">Valider</label>
+			<label index="comment">Commentaire</label>
+			<label index="comments">Commentaires</label>
+			<label index="addComment">Merci de signaler un lien manquant ou brisé</label>
+			<label index="removeNote">Effacer</label>
+			<label index="searchNoResult">Aucun article n'a été trouvé</label>
+			<label index="searchResult">%s article(s) trouvé(s)</label>
+			<label index="searchNoWord">Erreur: vous n'avez pas spécifié de recherche</label>
+			<label index="firstname">Prénom</label>
+			<label index="lastname">Nom</label>
+			<label index="email">E-mail</label>
+			<label index="password">Mot de passe</label>
+			<label index="password2">Vérification du mot de passe</label>
+			<label index="address">Adresse</label>
+			<label index="city">Ville</label>
+			<label index="zip">NPA</label>
+			<label index="country">Pays</label>
+			<label index="telephone">Téléphone</label>
+			<label index="fax">Fax</label>
+			<label index="mobile">Mobile</label>
+			<label index="registerSubmit">S'inscrire</label>
+			<label index="registerPasswordSubmit">Définir le mot de passe</label>
+			<label index="addFavorite">Ajouter aux favoris</label>
+			<label index="removeFavorite">Supprimer des favoris</label>
+			<label index="login">Connexion</label>
+			<label index="loginTitle">Connexion utilisateur</label>
+			<label index="loginText">Vous devez vous connecter pour voir les articles.</label>
+			<label index="loginUsername">E-mail</label>
+			<label index="loginPassword">Mot de passe</label>
+			<label index="registerText">Si vous n'avez pas encore de compte, vous pouvez vous inscrire.</label>
+			<label index="lostPasswordText">Vous avez perdu votre mot de passe.</label>
+			<label index="lostPasswordLink">Demander un nouveau mot de passe.</label>
+			<label index="logout">Déconnexion</label>
+			<label index="homeMostViewed">Articles les plus consultés</label>
+			<label index="homeLastModified">Dernières mises à jour</label>
+			<label index="homeFavorites">Mes favoris</label>
+			<label index="homeNotes">Mes annotations personnelles</label>
+			<label index="remove">Supprimer</label>
+			<label index="retrieve">Obtenir un nouveau mot de passe</label>
+			<label index="searchTitle">Rechercher dans le Guide de l'Employeur, tapez vos mots-clés ici:</label>
+			<label index="registerStep1">Coordonnées</label>
+			<label index="registerStep2">Mot de passe</label>
+			<label index="registerStep3">Vérification</label>
+			<label index="registerStep4">Paiement</label>
+			<label index="registerStep5">Activation</label>
+			<label index="registerEmailValidTitle">Validation de l'adresse e-mail</label>
+			<label index="registerEmailValid">Merci de vous être inscrit. Un e-mail de confirmation a été envoyé à votre adresse. Veuillez activer votre compte pour poursuivre le processus d'enregistrement.Si le lien ne vous mène pas automatiquement sur la page du Guide de l’Employeur, veuillez copier le lien et le coller dans la barre d’adresse de votre navigateur Internet »</label>
+			<label index="confirmEmailSubject">Guide de l'Employeur: confirmation d'e-mail</label>
+			<label index="confirmEmailMessage">Merci de vous être inscrit à la version en ligne du Guide de l'Employeur.
+
+Veuillez cliquez  sur le lien ci-dessous pour activer votre compte et poursuivre le processus d'enregistrement.
+
+%s
+
+Si le lien ne vous mène pas automatiquement sur la page du Guide de l’Employeur, veuillez copier le lien et le coller dans la barre d’adresse de votre navigateur Internet
+
+Meilleures salutations,
+
+
+			</label>
+			<label index="registerEmailConfirm">Votre compte a été activé; vous pouvez maintenant vous connectez au «Guide de l'Employeur en ligne» en remplissant les deux champs situés en haut à droite avec votre adresse e-mail et votre mot de passe.</label>
+			<label index="registerEmailConfirm2">Bonne consultation du Guide et cordiales salutations.</label>
+			<label index="registerPayOnline">Paiement en ligne</label>
+			<label index="registerPayBill">Paiement par facture</label>
+			<label index="registerOnlinePayConfirm">Votre paiement a été accepté. Vous pouvez maintenant accéder au Guide de l'Employeur.</label>
+			<label index="registerOnlinePayCancel">Vous avez annulé le processus de paiement.</label>
+			<label index="registerOnlinePayError">Une erreur est survenue lors du processus de paiement.</label>
+			<label index="connect">Se connecter maintenant</label>
+			<label index="registerError-1221565786">The given subject was not a valid text.</label>
+			<label index="registerError-1238108067">The length of the given string is invalid.</label>
+			<label index="registerError-1238108068">The length of the given string is too small</label>
+			<label index="registerError-1238108069">The length of the given string is too big.</label>
+			<label index="registerError-1221565130">The given subject did not match the pattern.</label>
+			<label index="registerError-1221565132">The regular expression was empty.</label>
+			<label index="registerError-1221565131">The regular expression contained an error.</label>
+			<label index="registerError-1221563685">The given subject was not a valid number.</label>
+			<label index="registerError-1221561046">The given subject was not in the valid range.</label>
+			<label index="registerError-1221563685">The given subject was not a valid number.</label>
+			<label index="registerError-1221560910">The given subject was NULL.</label>
+			<label index="registerError-1221560718">Le champ est obligatoire.</label>
+			<label index="registerError-1221560494">The given subject was not a valid integer.</label>
+			<label index="registerError-1241099148">Value is no object.</label>
+			<label index="registerError-1221560288">The given subject was not a valid float.</label>
+			<label index="registerError-1221559976">The given subject was not a valid email address.</label>
+			<label index="registerError-1238087674">The given subject was not a valid DateTime.</label>
+			<label index="registerError-1221551320">The given subject was not a valid alphanumeric string.</label>
+		</languageKey>
+	</data>
+</T3locallang>

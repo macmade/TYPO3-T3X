@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: flex_pi1.xml 2 2010-06-21 07:43:04Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cpguide'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="sDEF">General</label>
+			<label index="sDEF.availableControllers">Display</label>
+			<label index="sDEF.availableControllers.0">Guide</label>
+			<label index="sDEF.availableControllers.1">Registration</label>
+			<label index="sDEF.availableControllers.2">Home</label>
+		</languageKey>
+	</data>
+</T3locallang>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
+	<ROOT>
+		<type>Array</type>
+		<el>
+			<fields>
+				<type>array</type>
+				<section>1</section>
+				<tx_templavoila>
+					<title>LLL:EXT:marvin_care/lang/tx_marvincare_manuals.xml:files.section</title>
+				</tx_templavoila>
+				<el>
+					<field>
+						<type>array</type>
+						<tx_templavoila>
+							<title>LLL:EXT:marvin_care/lang/tx_marvincare_manuals.xml:files.document</title>
+						</tx_templavoila>
+						<el>
+							<lang>
+								<TCEforms>
+									<label>LLL:EXT:marvin_care/lang/tx_marvincare_manuals.xml:files.document.lang</label>
+									<config>
+										<type>select</type>
+										<foreign_table>tx_marvindata_languages</foreign_table>
+										<foreign_table_where>AND tx_marvindata_languages.pid=###CURRENT_PID### ORDER BY tx_marvindata_languages.fullname</foreign_table_where>
+										<size>1</size>
+										<maxitems>1</maxitems>
+									</config>
+								</TCEforms>
+							</lang>
+							<file>
+								<TCEforms>
+									<label>LLL:EXT:marvin_care/lang/tx_marvincare_manuals.xml:files.document.file</label>
+									<config>
+										<type>group</type>
+										<internal_type>file</internal_type>
+										<allowed>pdf</allowed>
+										<size>1</size>
+										<maxitems>1</maxitems>
+										<uploadfolder>uploads/tx_marvincare</uploadfolder>
+									</config>
+								</TCEforms>
+							</file>
+						</el>
+					</field>
+				</el>
+			</fields>
+		</el>
+	</ROOT>
+</T3DataStructure>

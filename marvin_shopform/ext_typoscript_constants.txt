@@ -1,0 +1,48 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence                                                        #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+# $Id: ext_typoscript_constants.txt 198 2010-02-11 10:30:06Z root $
+
+/**
+ * Default TS cosntants - Extension 'marvin_shopform' - PI1
+ *
+ * @author      Jean-David Gadina (macmade@netinfluence.ch)
+ * @version     1.0
+ */
+plugin.tx_marvinshopform_pi1 {
+    
+    # cat=marvin_shopform//0; type=string; label=HTTP version: The HTTP version to use when connecting to the Campaign Monitor API.
+    api.httpVersion = 1.1
+    
+    # cat=marvin_shopform//1; type=string; label=API host: The HTTP host name to use when connecting to the Campaign Monitor API.
+    api.host = api.createsend.com
+    
+    # cat=marvin_shopform//2; type=int+; label=API port: The HTTP port number to use when connecting to the Campaign Monitor API.
+    api.port = 80
+    
+    # cat=marvin_shopform//3; type=string; label=Subscribe URL: The API URL to use to add subscribers.
+    api.subscriberAddUrl =/api/api.asmx/Subscriber.AddAndResubscribe
+    
+    # cat=marvin_shopform//4; type=int+; label=Input size: The size of the email text input.
+    inputSize = 30
+}

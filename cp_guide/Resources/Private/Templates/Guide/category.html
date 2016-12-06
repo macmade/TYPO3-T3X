@@ -1,0 +1,65 @@
+<!-- $Id: category.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<ni:script ext="cp_guide" script="jquery.js" />
+<ni:script ext="cp_guide" script="jquery.bgiframe.js" />
+<ni:script ext="cp_guide" script="jquery.ajaxQueue.js" />
+<ni:script ext="cp_guide" script="jquery.thickbox.js" />
+<ni:script ext="cp_guide" script="jquery.autocomplete.js" />
+<div class="tx-cpguide-top">
+	<f:render partial="menu-category" arguments="{category: category, categories: categories, l10n: l10n}" />
+</div>
+<f:render partial="searchbox" arguments="{category: category, subCategory: subCategory, article: article, l10n: l10n}" />
+<div class="tx-cpguide-content">
+	<f:if condition="{user}">
+		<f:render partial="search" arguments="{l10n: l10n, autoCompleteUrl: autoCompleteUrl}" />
+	</f:if>
+	<f:section name="content">
+	<ul class="tx-cpguide-index">
+		<f:for each="{category.subCategories}" as="list_subCategory">
+			<li>
+				<h2>
+					<div class="tx-cpguide-index-number">
+						{list_subCategory.menuNumber}
+					</div>
+					<div class="tx-cpguide-index-title">
+						<f:link.action action="subCategory" controller="Guide" arguments="{subCategory: list_subCategory.uid}">
+							{list_subCategory.menuTitle}
+						</f:link.action>
+					</div>
+				</h2>
+				<f:if condition="list_subCategory.articles">
+					<ul>
+						<f:for each="{list_subCategory.articles}" as="list_article">
+							<f:if condition="{list_article.articleType} == 0">
+								<f:then>
+									<li>
+										<h3>
+											<div class="tx-cpguide-index-number">
+												{list_article.menuNumber}
+											</div>
+											<div class="tx-cpguide-index-title">
+												<f:link.action action="article" controller="Guide" arguments="{article: list_article.uid}">
+													{list_article.menuTitle}
+												</f:link.action>
+											</div>
+										</h3>
+									</li>
+								</f:then>
+								<f:else>
+									<f:if condition="{list_article.articleType} == 1">
+										<h3>
+											<div class="tx-cpguide-index-separator">
+												{list_article.title}
+											</div>
+										</h3>
+									</f:if>
+								</f:else>
+							</f:if>
+						</f:for>
+					</ul>
+				</f:if>
+			</li>
+		</f:for>
+	</ul>
+	</f:section>
+</div>

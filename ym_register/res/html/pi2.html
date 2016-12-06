@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Template File</title>
+    <meta name="generator" content="BBEdit 9.2" />
+</head>
+<body>
+    <!-- ###userForm### -->
+    <div class="tx-ymregister-pi1-form">
+        <form action="###formAction###" method="post">
+            ###hiddenFields###
+            <div class="tx-ymregister-pi1-form-block">
+                <div class="tx-ymregister-pi1-form-item">
+                    <div class="tx-ymregister-pi1-form-item-label">
+                        <label for="tx-ymregister-pi1-field-address">###labelAddress###</label>
+                    </div>
+                    <div class="tx-ymregister-pi1-form-item-field">
+                        <textarea cols="30" rows="2" name="###nameFieldAddress###" id="tx-ymregister-pi1-field-address">###valueAddress###</textarea>
+                    </div>
+                    ###errorAddress###
+                </div>
+                <div class="tx-ymregister-pi1-form-item">
+                    <div class="tx-ymregister-pi1-form-item-label">
+                        <label for="tx-ymregister-pi1-field-state">###labelState###</label>
+                    </div>
+                    <div class="tx-ymregister-pi1-form-item-field">
+                        <select id="tx-ymregister-pi1-field-state" name="###nameFieldState###" size="1" onchange="###onChangeState###">###states###</select>
+                        ###cities###
+                    </div>
+                    ###errorState###
+                </div>
+            </div>
+            <div class="tx-ymregister-pi1-form-block">
+                <div class="tx-ymregister-pi1-form-item">
+                    <div class="tx-ymregister-pi1-form-item-label">
+                        <label for="tx-ymregister-pi1-field-nickname">###labelNickname###</label>
+                    </div>
+                    <div class="tx-ymregister-pi1-form-item-field">
+                        <input type="text" size="30" name="###nameFieldNickname###" id="tx-ymregister-pi1-field-nickname" value="###valueNickname###" />
+                    </div>
+                    ###errorNickname###
+                </div>
+                <div class="tx-ymregister-pi1-form-item">
+                    <div class="tx-ymregister-pi1-form-item-label">
+                        <label for="tx-ymregister-pi1-field-phone">###labelPhone###</label>
+                    </div>
+                    <div class="tx-ymregister-pi1-form-item-field">
+                        <input type="text" size="30" name="###nameFieldPhone###" id="tx-ymregister-pi1-field-phone" value="###valuePhone###" />
+                    </div>
+                    ###errorPhone###
+                </div>
+            </div>
+            <div class="tx-ymregister-pi1-form-submit">
+                <input name="tx-ymregister-pi1-form-submit" value="###labelSubmit###" type="image" src="/typo3conf/ext/ym_register/res/img/submit.jpg" />
+            </div>
+        </form>
+    </div>
+    <!-- ###userForm### -->
+</body>
+</html>

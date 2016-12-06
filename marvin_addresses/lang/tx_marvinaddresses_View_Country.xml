@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvinaddresses_View_Country.xml 163 2009-12-14 16:24:31Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_addresses'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="selectCountry">Select a country:</label>
+        </languageKey>
+    </data>
+</T3locallang>

@@ -1,0 +1,40 @@
+################################################################################
+#                                                                              #
+#                               COPYRIGHT NOTICE                               #
+#                                                                              #
+# (c) 2009 netinfluence - Jean-David Gadina (macmade@netinfluence.com)         #
+# All rights reserved                                                          #
+#                                                                              #
+# This script is part of the TYPO3 project. The TYPO3 project is free          #
+# software. You can redistribute it and/or modify it under the terms of the    #
+# GNU General Public License as published by the Free Software Foundation,     #
+# either version 2 of the License, or (at your option) any later version.      #
+#                                                                              #
+# The GNU General Public License can be found at:                              #
+# http://www.gnu.org/copyleft/gpl.html.                                        #
+#                                                                              #
+# This script is distributed in the hope that it will be useful, but WITHOUT   #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for    #
+# more details.                                                                #
+#                                                                              #
+# This copyright notice MUST APPEAR in all copies of the script!               #
+################################################################################
+
+plugin.tx_facebookconnect_pi1 {
+    
+    # cat=facebookconnect_pi1//0; type=string; label=XD Receiver: The path of the cross-domain communication channel file.
+    crossDomainCommunicationChannelFile = EXT:facebook_connect/res/html/xd_receiver.html
+    
+    # cat=facebookconnect_pi1//1; type=string; label=Connect button: The code for the Facebook Connect button to display.
+    connectButton = <fb:login-button onlogin="window.location.reload()"></fb:login-button>
+    
+    # cat=facebookconnect_pi1//2; type=string; label=Facebook JS: The URL of the Facebook Connect JavaScript library.
+    facebookJs = http://static.ak.connect.facebook.com/js/api_lib/v0.4/FeatureLoader.js.php/en_US
+    
+    # cat=facebookconnect_pi1//3; type=string; label=Template file: The path to the HTML template file to use.
+    templateFile = EXT:facebook_connect/res/html/pi1.html
+    
+    # cat=facebookconnect_pi1//4; type=string; label=Button: The path to the image file file to use as the connect button.
+    btn = EXT:facebook_connect/res/img/connect.gif
+}

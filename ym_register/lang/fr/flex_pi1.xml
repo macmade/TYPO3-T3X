@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<T3locallangExt>
+    <data type="array">
+        <languageKey index="fr" type="array">
+            <label index="sDEF">Général</label>
+            <label index="sDEF.storagePage">Page de stockage (obligatoire)</label>
+            <label index="sDEF.userGroup">Groupe d'utilisateur FE (obligatoire)</label>
+            <label index="sDEF.terms">Conditions générales (obligatoire)</label>
+            <label index="sMAILER">E-Mail</label>
+            <label index="sMAILER.subject">Sujet</label>
+            <label index="sMAILER.fromName">De (nom)</label>
+            <label index="sMAILER.from">De</label>
+            <label index="sMAILER.replyTo">Réponse</label>
+            <label index="sMAILER.message">Message</label>
+        </languageKey>
+    </data>
+</T3locallangExt>

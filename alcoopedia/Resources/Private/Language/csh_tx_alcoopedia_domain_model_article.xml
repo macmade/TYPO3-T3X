@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: csh_tx_alcoopedia_domain_model_article.xml 24 2010-06-21 07:53:48Z macmade $ -->
+<T3locallang>
+	<meta type="array">
+		<description>Ontext Sensitive Help (CSH) for table tx_alcoopedia_domain_model_article</description>
+		<type>CSH</type>
+		<csh_table>tx_alcoopedia_domain_model_article</csh_table>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+		</languageKey>
+	</data>
+</T3locallang>

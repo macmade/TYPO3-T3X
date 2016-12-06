@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincare_manuals.xml 102 2009-12-01 13:52:48Z macmade $ -->
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'marvin_care'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_marvincare_manuals">Marvin / Manual</label>
+            <label index="fullname">Name</label>
+            <label index="id_movement">Movement</label>
+            <label index="files">Files</label>
+            <label index="files.section">Documents</label>
+            <label index="files.document">Document</label>
+            <label index="files.document.lang">Language</label>
+            <label index="files.document.file">File</label>
+        </languageKey>
+    </data>
+</T3locallang>

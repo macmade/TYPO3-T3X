@@ -1,0 +1,32 @@
+<!-- $Id: article.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace cp=Tx_CpGuide_ViewHelpers}
+<f:layout name="default" />
+<f:section name="content">
+<f:if condition="{article}">
+	<div class="tx-cpguide-article">
+		<a name="tx-cpguide-article-content"></a>
+		<h1 class="tx-cpguide-article-title">
+			{article.title}
+		</h1>
+		<div class="tx-cpguide-article-content">
+			<f:format.html><cp:article.content search="{searchWord}">{article.content}</cp:article.content></f:format.html>
+		</div>
+		<div class="tx-cpguide-article-actions">
+			<div class="tx-cpguide-article-actions-favorite">
+				<f:if condition="{article.favoriteStatus}">
+					<f:then>
+						<f:link.action action="remove" controller="Favorite" arguments="{articleId: article.uid}">{l10n.removeFavorite}</f:link.action>
+					</f:then>
+					<f:else>
+						<f:link.action controller="Favorite" action="create" arguments="{articleId: article.uid}">{l10n.addFavorite}</f:link.action>
+					</f:else>
+				</f:if>
+			</div>
+		</div>
+		<f:render partial="comments" arguments="{user: user, article: article, l10n: l10n, adminUserId: adminUserId}" />
+	</div>
+</f:if>
+</f:section>
+<f:section name="contentSub">
+	<f:render partial="notes" arguments="{article: article, l10n: l10n}" />
+</f:section>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for database tables/fields belonging to extension 'twitter_login'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tx_twitterlogin_users">Twitter user infos</label>
+            <label index="id_fe_users">Related frontend user</label>
+            <label index="twitter_id">Twitter ID</label>
+            <label index="access_token">OAuth access token</label>
+            <label index="fullname">Name</label>
+            <label index="screen_name">Screen name</label>
+            <label index="location">Location</label>
+            <label index="description">Description</label>
+            <label index="profile_image_url">Profile image URL</label>
+            <label index="url">URL</label>
+            <label index="protected">Protected</label>
+            <label index="followers_count">Followers count</label>
+            <label index="profile_background_color">Profile background color</label>
+            <label index="profile_text_color">Profile text color</label>
+            <label index="profile_link_color">Profile link color</label>
+            <label index="profile_sidebar_fill_color">Profile sidebar fill color</label>
+            <label index="profile_sidebar_border_color">Profile sidebar border color</label>
+            <label index="friends_count">Friends count</label>
+            <label index="created_at">Created at</label>
+            <label index="favourites_count">Favourites count</label>
+            <label index="utc_offset">UTC offset</label>
+            <label index="time_zone">Time zone</label>
+            <label index="profile_background_image_url">Profile background image URL</label>
+            <label index="profile_background_tile">Profile background tile</label>
+            <label index="statuses_count">Statuses count</label>
+            <label index="notifications">Notifications</label>
+            <label index="verified">Verified</label>
+            <label index="following">Following</label>
+            <label index="status_created_at">Status created at</label>
+            <label index="status_id">Status ID</label>
+            <label index="status_text">Status text</label>
+            <label index="status_source">Status source</label>
+            <label index="status_truncated">Status truncated</label>
+            <label index="status_in_reply_to_status_id">In reply to status ID</label>
+            <label index="status_in_reply_to_user_id">In reply to user ID</label>
+            <label index="status_favorited">Status favorited</label>
+            <label index="status_in_reply_to_screen_name">In reply to screen name</label>
+            <label index="tab.user">User</label>
+            <label index="tab.infos">Infos</label>
+            <label index="tab.profile">Profile</label>
+            <label index="tab.status">Status</label>
+        </languageKey>
+    </data>
+</T3locallang>

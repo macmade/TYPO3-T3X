@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: tx_marvincatalog_View_SendEmail.xml 194 2010-01-27 08:55:55Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for class 'tx_marvincatalog_View_SendEmail'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="collection">Collection</label>
+            <label index="moodGenerator">Mood Generator</label>
+            <label index="errorNoRecord">Sorry, there is no such watch in the catalog</label>
+            <label index="title">Send to a friend</label>
+            <label index="nameAndEmail">Your name / email:</label>
+            <label index="friendNameAndEmail">Your friend's name(s) / email(s):</label>
+            <label index="submit">Send email(s)</label>
+            <label index="errorNoName">You did not enter a name</label>
+            <label index="errorNoEmail">You did not enter an email</label>
+            <label index="errorInvalidEmail">You did not enter a valid email</label>
+            <label index="success">An email was sent to your friend(s)</label>
+        </languageKey>
+    </data>
+</T3locallang>

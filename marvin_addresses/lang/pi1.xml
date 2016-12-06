@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<!-- $Id: pi1.xml 123 2009-12-03 13:43:55Z macmade $ -->
+
+
+<T3locallang>
+    <meta type="array">
+        <type>module</type>
+        <description>Language labels for plugin 'tx_marvinaddresses_pi1'</description>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index=""></label>
+        </languageKey>
+    </data>
+</T3locallang>

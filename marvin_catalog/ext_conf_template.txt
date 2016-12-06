@@ -1,0 +1,29 @@
+# cat=basic//00; type=input; label=DB driver: The PDO database driver to use.
+db_driver = mysql
+
+# cat=basic//01; type=input; label=DB host: The database host.
+db_host = localhost
+
+# cat=basic//02; type=input; label=DB user: The database user.
+db_user = magento
+
+# cat=basic//03; type=input; label=DB password: The database user password.
+db_pass = magento
+
+# cat=basic//04; type=input; label=DB name: The name of the Magento database.
+db_name = magento
+
+# cat=basic//05; type=input; label=Table prefix: The prefix for the magento tables (if any).
+db_prefix =
+
+# cat=basic//06; type=int+; label=EID TTL: The time to live for the EID cache files (in seconds).
+eid_ttl = 86400
+
+# cat=basic//07; type=input; label=Magento directory: The (absolute) path to the Magento installation root directory.
+magento_dir = /var/www/magento/
+
+# cat=basic//08; type=input; label=Magento URL: The URL of the Magento website
+magento_url = http://www.example.org/
+
+# cat=basic//09; type=boolean; label=RealURL: Automatically configures the extension for RealURL
+realurl_autoconf = 1

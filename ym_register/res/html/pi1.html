@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Template File</title>
+    <meta name="generator" content="BBEdit 9.2" />
+</head>
+<body>
+    <!-- ###userForm### -->
+    <form action="###formAction###" method="post">
+        <div class="tx-ymregister-pi1-hr"></div>
+        <div class="tx-ymregister-pi1-form">
+            ###hiddenFields###
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-firstname"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelFirstName###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldFirstName###" id="tx-ymregister-pi1-field-firstname" value="###valueFirstName###" />
+                </div>
+                ###errorFirstName###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-lastname"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelLastName###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldLastName###" id="tx-ymregister-pi1-field-lastname" value="###valueLastName###"/>
+                </div>
+                ###errorLastName###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-email"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelEmail###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldEmail###" id="tx-ymregister-pi1-field-email" value="###valueEmail###" />
+                </div>
+                ###errorEmail###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-address"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelAddress###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <textarea cols="30" rows="2" name="###nameFieldAddress###" id="tx-ymregister-pi1-field-address">###valueAddress###</textarea>
+                </div>
+                ###errorAddress###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-state"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelState###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <div class="tx-ymregister-pi1-floatContainer">
+                        <div class="tx-ymregister-pi1-left">
+                            <input type="text" size="30" name="###nameFieldZip###" id="tx-ymregister-pi1-field-zip" value="###valueZip###" />
+                        </div>
+                        <div class="tx-ymregister-pi1-right">
+                            <select id="tx-ymregister-pi1-field-state" name="###nameFieldState###" size="1" onchange="###onChangeState###">###states###</select>
+                            ###cities###
+                        </div>
+                    </div>
+                </div>
+                ###errorState###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-phone">###labelPhone###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldPhone###" id="tx-ymregister-pi1-field-phone" value="###valuePhone###" />
+                </div>
+                ###errorPhone###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-age"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelAge###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldAge###" id="tx-ymregister-pi1-field-age" value="###valueAge###" />
+                </div>
+                ###errorAge###
+            </div>
+        </div>
+        <div class="tx-ymregister-pi1-hr"></div>
+        <div class="tx-ymregister-pi1-form">
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-nickname">###labelNickname###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="text" size="30" name="###nameFieldNickname###" id="tx-ymregister-pi1-field-nickname" value="###valueNickname###" />
+                </div>
+                ###errorNickname###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-password1"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelPassword1###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="password" size="30" name="###nameFieldPassword1###" id="tx-ymregister-pi1-field-password1" value="" />
+                </div>
+                ###errorPassword1###
+            </div>
+            <div class="tx-ymregister-pi1-form-item">
+                <div class="tx-ymregister-pi1-form-item-label">
+                    <label for="tx-ymregister-pi1-field-password2"><span class="tx-ymregister-pi1-red">*</span>&nbsp;###labelPassword2###</label>
+                </div>
+                <div class="tx-ymregister-pi1-form-item-field">
+                    <input type="password" size="30" name="###nameFieldPassword2###" id="tx-ymregister-pi1-field-password2" value="" />
+                </div>
+                ###errorPassword2###
+            </div>
+            <div class="tx-ymregister-pi1-floatContainer">
+                <div class="tx-ymregister-pi1-left">
+                    <div class="tx-ymregister-pi1-form-terms">
+                        <input type="checkbox" name="###nameFieldTerms###" id="tx-ymregister-pi1-field-terms" value="" />
+                        <label for="tx-ymregister-pi1-field-terms">###labelTerms### <span class="tx-ymregister-pi1-red">*</span></label>
+                        ###errorTerms###
+                    </div>
+                </div>
+                <div class="tx-ymregister-pi1-right">
+                    <div class="tx-ymregister-pi1-form-submit">
+                        <input name="tx-ymregister-pi1-form-submit" value="###labelSubmit###" type="image" src="/typo3conf/ext/ym_register/res/img/submit.jpg" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- ###userForm### -->
+    
+    <!-- ###userFormConfirm### -->
+    
+    <div class="tx-ymregister-pi1-confirm">
+        <h2>###confirmTitle###</h2>
+        <div>
+            ###confirmText###
+        </div>
+    </div>
+    
+    <!-- ###userFormConfirm### -->
+    
+    <!-- ###confirmation### -->
+    
+    <div class="tx-ymregister-pi1-confirm">
+        <h2>###confirmTitle###</h2>
+        <div>
+            ###confirmText###
+        </div>
+    </div>
+    
+    <!-- ###confirmation### -->
+</body>
+</html>

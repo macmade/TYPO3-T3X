@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<!-- $Id: tx_cpguide_domain_model_user.xml 7 2010-10-18 13:46:27Z jean $ -->
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'cpguide'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_cpguide_domain_model_user">User</label>
+			<label index="tx_cpguide_domain_model_user.account_type">Account type</label>
+			<label index="tx_cpguide_domain_model_user.account_type.I.0">Private</label>
+			<label index="tx_cpguide_domain_model_user.account_type.I.1">Company</label>
+			<label index="tx_cpguide_domain_model_user.company">Company</label>
+			<label index="tx_cpguide_domain_model_user.prefix">Prefix</label>
+			<label index="tx_cpguide_domain_model_user.prefix.I.0">Mr.</label>
+			<label index="tx_cpguide_domain_model_user.prefix.I.1">Ms.</label>
+			<label index="tx_cpguide_domain_model_user.prefix.I.2">Mrs.</label>
+			<label index="tx_cpguide_domain_model_user.firstname">First name</label>
+			<label index="tx_cpguide_domain_model_user.lastname">Last name</label>
+			<label index="tx_cpguide_domain_model_user.fe_user">FE user</label>
+			<label index="tx_cpguide_domain_model_user.email">E-mail</label>
+			<label index="tx_cpguide_domain_model_user.address1">Address 1</label>
+			<label index="tx_cpguide_domain_model_user.address2">Address 2</label>
+			<label index="tx_cpguide_domain_model_user.city">City</label>
+			<label index="tx_cpguide_domain_model_user.zip">ZIP</label>
+			<label index="tx_cpguide_domain_model_user.country">Country</label>
+			<label index="tx_cpguide_domain_model_user.telephone">Telephone</label>
+			<label index="tx_cpguide_domain_model_user.mobile">Mobile</label>
+			<label index="tx_cpguide_domain_model_user.fax">Fax</label>
+			<label index="tx_cpguide_domain_model_user.confirm_hash">Confirmation hash</label>
+			<label index="tx_cpguide_domain_model_user.comments">Comments</label>
+			<label index="tx_cpguide_domain_model_user.tags">Tags</label>
+			<label index="tx_cpguide_domain_model_user.notes">Notes</label>
+			<label index="tx_cpguide_domain_model_user.favorites">Favorites</label>
+			<label index="tx_cpguide_domain_model_user.tab.relations">Relations</label>
+		</languageKey>
+	</data>
+</T3locallang>

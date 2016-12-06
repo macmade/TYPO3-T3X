@@ -1,0 +1,32 @@
+<!-- $Id: onlinePayCancel.html 2 2010-06-21 07:43:04Z macmade $ -->
+{namespace ni=Tx_NetExtbase_ViewHelpers}
+<f:section name="content">
+	<ni:script ext="cp_guide" script="jquery.js" />
+	<div class="tx-cpguide-register-box">
+		<h2>{user.firstname} {user.lastname} ({user.email})</h2>
+		<div>
+			{l10n.registerOnlinePayCancel}
+		</div>
+		<div>
+			<ul>
+				<li>
+					<a href="javascript:$( '#datatrans' ).submit()">
+						{l10n.registerPayOnline}
+					</a>
+				</li>
+				<li>
+					{l10n.registerPayBill}
+				</li>
+			</ul>
+		</div>
+		<form action="{datatrans.url.pay}" method="post" id="datatrans" name="datatrans">
+			<input type="hidden" name="merchantId" value="{datatrans.merchantId}" />
+			<input type="hidden" name="currency" value="{datatrans.currency}" />
+			<input type="hidden" name="refno" value="1" />
+			<input type="hidden" name="successUrl" value="{datatrans.url.success}" />
+			<input type="hidden" name="errorUrl" value="{datatrans.url.error}" />
+			<input type="hidden" name="cancelUrl" value="{datatrans.url.cancel}" />
+			<input type="hidden" name="amount" value="{datatrans.amount}" />
+		</form>
+	</div>
+</f:section>
